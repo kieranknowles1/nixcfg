@@ -4,11 +4,22 @@
     // ======
     "telemetry.telemetryLevel": "off",
 
-    "files.insertFinalNewline": true,
+    "files.insertFinalNewline": true, // Makes some tools happier
+    "files.trimTrailingWhitespace": true, // Trailing whitespace is bad practice
 
-    "git.autofetch": true,
-    "git.confirmSync": false,
+    "git.autofetch": true, // Keep the repo up to date, but don't pull unless I say so
+    "git.confirmSync": false, // Don't tell me what pushing does, I know what I'm doing
+    
+    // Associate some files with the correct language to make them look nice
+    "files.associations": {
+        "flake.lock": "json",
+    },
 
+    "editor.showFoldingControls": "always", // Always show folding controls, so it's clear what's foldable
+
+    // =================
+    //  Core Extentions
+    // =================
     "todo-tree.tree.expanded": true,
     "todo-tree.tree.showCountsInTree": true,
 
@@ -17,12 +28,12 @@
         "*": true,
         "plaintext": true,
         "markdown": true,
-        "scminput": false
+        "scminput": false, // Copilot gives very poor quality suggestions for commit messages
     },
 
     // =====
     //  Nix
     // =====
     "nix.enableLanguageServer": true,
-    "nix.serverPath": "nil"
+    "nix.serverPath": "nil",
 }
