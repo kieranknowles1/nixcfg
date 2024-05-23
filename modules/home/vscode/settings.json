@@ -9,6 +9,9 @@
     "git.autofetch": true,
     "git.confirmSync": false,
 
+    "todo-tree.tree.expanded": true,
+    "todo-tree.tree.showCountsInTree": true,
+
     // Enable copilot everywhere
     "github.copilot.enable": {
         "*": true,
