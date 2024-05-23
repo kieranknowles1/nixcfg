@@ -2,6 +2,10 @@
     // ======
     //  Core
     // ======
+    "telemetry.telemetryLevel": "off",
+
+    "files.insertFinalNewline": true,
+
     "git.autofetch": true,
     "git.confirmSync": false,
 
