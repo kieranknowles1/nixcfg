@@ -1,0 +1,2 @@
+# Suppress startup and config change notifications
+show_notifications: false
