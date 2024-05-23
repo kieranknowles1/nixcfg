@@ -121,8 +121,9 @@
     git
     home-manager
     nil # Language server for Nix
-    steam
   ];
+
+  programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
