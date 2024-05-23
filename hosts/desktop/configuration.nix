@@ -88,7 +88,7 @@
     #media-session.enable = true;
   };
 
-  # Use proprietary drivers for NVIDIA
+  # Enable Nvidia drivers
   # This may not cover everything, but it gets Skyrim running and that's good enough for now.
   # https://nixos.wiki/wiki/Nvidia
   hardware.opengl = {
@@ -101,8 +101,7 @@
     modesetting.enable = true;
     powerManagement.enable = false;
     powerManagement.finegrained = false;
-    # Use the closed-source driver, as the open-source driver is not as good.
-    open = false;
+    open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
