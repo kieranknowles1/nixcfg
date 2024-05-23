@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Rebuilds the system from the current repository state and commits the changes
+# if successful. The commit message includes the generation number and the
+# provided description.
+
 set -e
 
 if [ "$#" -ne 1 ]; then
