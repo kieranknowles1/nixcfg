@@ -102,6 +102,7 @@
   };
 
   home-manager = {
+    useGlobalPkgs = true;
     # Pass all flake inputs to home manager configs
     extraSpecialArgs = { inherit inputs system; };
     backupFileExtension = "backup";

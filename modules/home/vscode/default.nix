@@ -1,14 +1,14 @@
 { config, pkgs, ... }:
 let
-  settings-root = "${config.xdg.configHome}/VSCodium/User";
+  settings-root = "${config.xdg.configHome}/Code/User";
 in
 {
   config = {
     # TODO: Use unstable for code extensions
     programs.vscode = {
       enable = true;
-      package = pkgs.vscodium;
       extensions = with pkgs.vscode-extensions; [
+        github.copilot
         gruntfuggly.todo-tree
         jnoortheen.nix-ide
       ];
