@@ -1,7 +1,4 @@
 { config, ... }:
-let
-  settings-root = "${config.xdg.configHome}/espanso";
-in
 {
   services.espanso = {
     enable = true;
