@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  SETTINGS_ROOT = "${config.xdg.configHome}/VSCodium/User";
+  settings-root = "${config.xdg.configHome}/VSCodium/User";
 in
 {
   config = {
@@ -16,7 +16,7 @@ in
 
     # TODO: Find a way that I can still edit and sync back
     # to the repo later
-    home.file."${SETTINGS_ROOT}/settings.json" = {
+    home.file."${settings-root}/settings.json" = {
       source = ./settings.json;
     };
   };
