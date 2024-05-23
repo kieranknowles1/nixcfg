@@ -2,7 +2,7 @@
 { pkgs, ... }:
 {
   stylix = {
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-black.yaml";
     image = ../../media/wallpaper.jpg;
   };
 
