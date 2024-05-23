@@ -43,6 +43,7 @@
         specialArgs = {
           # Pass the flake's inputs and platform settings to the NixOS module
           inherit inputs system;
+          hostName = "desktop";
           # Pass the unstable nixpkgs input to the NixOS module
           pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
         };
