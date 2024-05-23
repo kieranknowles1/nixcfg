@@ -152,6 +152,8 @@
     # Use bleeding-edge wine
     pkgs-unstable.wine
     pkgs-unstable.winetricks
+    python311Full
+    python311Packages.pip
   ];
 
   programs.steam.enable = true;
