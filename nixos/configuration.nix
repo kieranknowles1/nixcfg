@@ -101,6 +101,7 @@
 
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
+    backupFileExtension = "backup";
     users.kieran = import ./home.nix;
   };
 

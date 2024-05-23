@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ../modules/home/vscode
+  ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "kieran";
@@ -64,16 +68,6 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
-  };
-
-  # TODO: Move this to a module
-  # TODO: Sync settings
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscodium;
-    extensions = with pkgs.vscode-extensions; [
-      jnoortheen.nix-ide
-    ];
   };
 
   # Let Home Manager install and manage itself.

@@ -1,0 +1,11 @@
+{
+    // ======
+    //  Core
+    // ======
+
+    // =====
+    //  Nix
+    // =====
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nil"
+}
