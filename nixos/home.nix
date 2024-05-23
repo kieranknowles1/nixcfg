@@ -1,8 +1,9 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
     ../modules/home/firefox.nix
+    ../modules/home/gnome.nix
     ../modules/home/vscode
   ];
 

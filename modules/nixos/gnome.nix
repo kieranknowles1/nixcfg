@@ -1,4 +1,7 @@
-{ config, pkgs, ...}:
+# Global-user Gnome settings
+# See also: ../home/gnome.nix
+# TODO: Make the link clickable
+{ pkgs, ...}:
 {
   # TODO: Move rest of GNOME here
 
