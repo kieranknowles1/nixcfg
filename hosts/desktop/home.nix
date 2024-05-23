@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../modules/home/espanso
     ../../modules/home/firefox.nix
     ../../modules/home/gnome.nix
     ../../modules/home/vscode
