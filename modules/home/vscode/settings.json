@@ -9,6 +9,14 @@
     "git.autofetch": true,
     "git.confirmSync": false,
 
+    // Enable copilot everywhere
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": true,
+        "scminput": false
+    },
+
     // =====
     //  Nix
     // =====
