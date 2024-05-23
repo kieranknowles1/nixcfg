@@ -2,7 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, system, ... }:
+{
+  config,
+  inputs,
+  pkgs-unstable,
+  pkgs,
+  system,
+  ...
+}:
 
 {
   imports =
@@ -142,8 +149,9 @@
     nil # Language server for Nix
     p7zip
     protontricks # Proton itself is installed by Steam
-    wine
-    winetricks
+    # Use bleeding-edge wine
+    pkgs-unstable.wine
+    pkgs-unstable.winetricks
   ];
 
   programs.steam.enable = true;

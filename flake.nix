@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-23.11";
@@ -18,7 +19,13 @@
     stylix.url = "github:danth/stylix?ref=release-23.11";
   };
 
-  outputs = { self, nixpkgs, stylix, ... }@inputs:
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    stylix,
+    ...
+  }@inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -33,7 +40,12 @@
 
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; };
+        specialArgs = {
+          # Pass the flake's inputs and platform settings to the NixOS module
+          inherit inputs system;
+          # Pass the unstable nixpkgs input to the NixOS module
+          pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+        };
 
         modules = [
           stylix.nixosModules.stylix
