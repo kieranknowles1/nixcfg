@@ -89,6 +89,7 @@
   };
 
   # Enable Nvidia drivers
+  # TODO: Use a module for this
   # This may not cover everything, but it gets Skyrim running and that's good enough for now.
   # https://nixos.wiki/wiki/Nvidia
   hardware.opengl = {
@@ -135,7 +136,8 @@
   environment.systemPackages = with pkgs; [
     file
     git
-    git-sizer
+    git-sizer # Need this for MO2 installer
+    gnome.zenity
     home-manager
     nil # Language server for Nix
   ];
