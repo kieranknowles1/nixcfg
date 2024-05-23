@@ -104,7 +104,7 @@
     users.kieran = import ./home.nix;
   };
 
-  # Install firefox.
+  # Install firefox. TODO: Do with home manager and enable extensions
   programs.firefox.enable = true;
 
   # Allow unfree packages
@@ -117,6 +117,7 @@
   #  wget
     git
     home-manager
+    nil # Language server for Nix
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

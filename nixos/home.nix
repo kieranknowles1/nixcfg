@@ -67,9 +67,13 @@
   };
 
   # TODO: Move this to a module
+  # TODO: Sync settings
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
+    extensions = with pkgs.vscode-extensions; [
+      jnoortheen.nix-ide
+    ];
   };
 
   # Let Home Manager install and manage itself.
