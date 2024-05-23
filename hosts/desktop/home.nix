@@ -2,9 +2,9 @@
 
 {
   imports = [
-    ../modules/home/firefox.nix
-    ../modules/home/gnome.nix
-    ../modules/home/vscode
+    ../../modules/home/firefox.nix
+    ../../modules/home/gnome.nix
+    ../../modules/home/vscode
   ];
 
   # Home Manager needs a bit of information about you and the paths it should

@@ -8,9 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../modules/nixos/firefox.nix
-      ../modules/nixos/gnome.nix
-      ../modules/nixos/theme.nix
+      ../../modules/nixos/firefox.nix
+      ../../modules/nixos/gnome.nix
+      ../../modules/nixos/theme.nix
       inputs.home-manager.nixosModules.home-manager
     ];
 

@@ -37,7 +37,7 @@
 
         modules = [
           stylix.nixosModules.stylix
-          ./nixos/configuration.nix
+          ./hosts/desktop/configuration.nix
         ];
       };
     };
