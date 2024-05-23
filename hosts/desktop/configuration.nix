@@ -17,6 +17,7 @@
       ./hardware-configuration.nix
       ../../modules/nixos/firefox.nix
       ../../modules/nixos/gnome.nix
+      ../../modules/nixos/nvidia.nix
       ../../modules/nixos/theme.nix
       inputs.home-manager.nixosModules.home-manager
     ];
@@ -89,25 +90,6 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
-  };
-
-  # Enable Nvidia drivers
-  # TODO: Use a module for this
-  # This may not cover everything, but it gets Skyrim running and that's good enough for now.
-  # https://nixos.wiki/wiki/Nvidia
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = true;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
