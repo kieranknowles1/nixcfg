@@ -120,6 +120,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     file
+    fsearch
     git
     git-sizer # Need this for MO2 installer
     gnome.dconf-editor
