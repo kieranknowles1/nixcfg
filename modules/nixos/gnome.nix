@@ -7,20 +7,18 @@
     xterm
   ];
 
-  # TODO: Make sure this is sorted and explain why each is unneeded
+  # TODO: Explain why each is unneeded. Anything that has been replaced should be removed in the replacement
   environment.gnome.excludePackages = with pkgs; [
-    evince
-    gnome.cheese # TODO: Why isnt this removed
-    gnome.simple-scan
-    epiphany
     gnome-connections
-    gnome.gnome-calendar
-    gnome.file-roller
-    gnome.gnome-clocks
     gnome-tour
+    gnome.cheese # TODO: Why isnt this removed
+    gnome.file-roller
+    gnome.gnome-calendar
+    gnome.gnome-clocks
     gnome.gnome-contacts
     gnome.gnome-maps
-    gnome.yelp
     gnome.gnome-weather
+    gnome.simple-scan
+    gnome.yelp
   ];
 }

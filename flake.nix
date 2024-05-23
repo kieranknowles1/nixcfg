@@ -8,6 +8,12 @@
       url = "github:nix-community/home-manager?ref=release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    firefox-addons = {
+      # We want to be on the latest versions here
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

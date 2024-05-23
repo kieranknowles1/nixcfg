@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, system, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../modules/nixos/firefox.nix
       ../modules/nixos/gnome.nix
       inputs.home-manager.nixosModules.home-manager
     ];
@@ -100,13 +101,11 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    # Pass all flake inputs to home manager configs
+    extraSpecialArgs = { inherit inputs system; };
     backupFileExtension = "backup";
     users.kieran = import ./home.nix;
   };
-
-  # Install firefox. TODO: Do with home manager and enable extensions
-  programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
