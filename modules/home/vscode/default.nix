@@ -9,6 +9,7 @@ in
       enable = true;
       extensions = with pkgs.vscode-extensions; [
         github.copilot
+        github.copilot-chat
         gruntfuggly.todo-tree
         jnoortheen.nix-ide
         redhat.vscode-yaml
