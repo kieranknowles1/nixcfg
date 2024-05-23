@@ -118,6 +118,7 @@
     git
     home-manager
     nil # Language server for Nix
+    steam
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
