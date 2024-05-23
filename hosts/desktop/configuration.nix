@@ -134,12 +134,16 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    _7zz # 7zip
     file
     git
     git-sizer # Need this for MO2 installer
     gnome.zenity
     home-manager
     nil # Language server for Nix
+    protontricks # Proton itself is installed by Steam
+    wine
+    winetricks
   ];
 
   programs.steam.enable = true;
