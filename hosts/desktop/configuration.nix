@@ -122,6 +122,7 @@
     file
     git
     git-sizer # Need this for MO2 installer
+    gnome.dconf-editor
     gnome.zenity
     home-manager
     nil # Language server for Nix
