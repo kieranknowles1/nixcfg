@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ../modules/nixos/firefox.nix
       ../modules/nixos/gnome.nix
+      ../modules/nixos/theme.nix
       inputs.home-manager.nixosModules.home-manager
     ];
 
@@ -115,6 +116,7 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    file
     git
     home-manager
     nil # Language server for Nix

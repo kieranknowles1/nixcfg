@@ -14,9 +14,11 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix.url = "github:danth/stylix?ref=release-23.11";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, stylix, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -34,6 +36,7 @@
         specialArgs = { inherit inputs system; };
 
         modules = [
+          stylix.nixosModules.stylix
           ./nixos/configuration.nix
         ];
       };
