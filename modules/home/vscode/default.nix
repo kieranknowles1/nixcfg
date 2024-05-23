@@ -1,13 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs-unstable, ... }:
 let
   settings-root = "${config.xdg.configHome}/Code/User";
 in
 {
   config = {
-    # TODO: Use unstable for code extensions
     programs.vscode = {
       enable = true;
-      extensions = with pkgs.vscode-extensions; [
+      extensions = with pkgs-unstable.vscode-extensions; [
         github.copilot
         github.copilot-chat
         gruntfuggly.todo-tree

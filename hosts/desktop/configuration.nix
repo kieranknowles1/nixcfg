@@ -108,7 +108,7 @@
   home-manager = {
     useGlobalPkgs = true;
     # Pass all flake inputs to home manager configs
-    extraSpecialArgs = { inherit inputs system; };
+    extraSpecialArgs = { inherit inputs system pkgs-unstable; };
     backupFileExtension = "backup";
     users.kieran = import ./home.nix;
   };
