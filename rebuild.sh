@@ -18,7 +18,8 @@ fi
 
 commit_message="$1"
 
-sudo nixos-rebuild switch --flake .#desktop
+# Use the current directory and imply the config to use from the system's hostname
+sudo nixos-rebuild switch --flake .
 
 # Header and current generation
 generation_meta=$(nixos-rebuild list-generations | head -n 2)
