@@ -20,6 +20,7 @@
       ../../modules/nixos/gnome.nix
       ../../modules/nixos/nvidia.nix
       ../../modules/nixos/theme.nix
+      ../../modules/nixos/thunderbird.nix
       inputs.home-manager.nixosModules.home-manager
     ];
 
@@ -101,9 +102,6 @@
     isNormalUser = true;
     description = "Kieran";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
   };
 
   home-manager = {
