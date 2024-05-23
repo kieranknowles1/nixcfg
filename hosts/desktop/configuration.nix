@@ -89,6 +89,7 @@
   };
 
   # Use proprietary drivers for NVIDIA
+  # This may not cover everything, but it gets Skyrim running and that's good enough for now.
   # https://nixos.wiki/wiki/Nvidia
   hardware.opengl = {
     enable = true;

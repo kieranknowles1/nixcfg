@@ -11,6 +11,7 @@ in
         github.copilot
         gruntfuggly.todo-tree
         jnoortheen.nix-ide
+        redhat.vscode-yaml
       ];
     };
 
