@@ -4,6 +4,9 @@
 {
   programs.nushell = {
     enable = true;
+
+    # Append my custom config to the default
+    extraConfig = builtins.readFile ./nushell.nu;
   };
 
   # Use Carapace to generate completions
