@@ -116,6 +116,10 @@
     python311Packages.pip
   ];
 
+  fonts.packages = with pkgs; [
+    nerdfonts # Patched fonts with icons used by Starship in Unicode's Private Use Area
+  ];
+
   programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are

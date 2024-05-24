@@ -16,3 +16,5 @@ diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 modified = "Δ${count}"
 untracked = "U${count}"
 staged = "+${count}"
+# nf-cod-trash from nerd-fonts
+deleted = "\uea81${count}"
