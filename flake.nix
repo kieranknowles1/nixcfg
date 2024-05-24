@@ -33,7 +33,6 @@
       displayName, # Name shown in UIs
       isSudoer ? false, # Whether the user should be able to sudo
       shell, # Package for the user's shell
-      options, # Options for the user's home-manager configuration, should be your home.nix
     }: {
       users.users.${userName} = {
         # A regular user that can log in
@@ -55,7 +54,7 @@
         # manage.
         home.username = userName;
         home.homeDirectory = "/home/${userName}";
-      } // options;
+      } // (import ./users/${userName}.nix { });
     };
 
     # Function to create a host configuration
@@ -104,8 +103,6 @@
             displayName = "Kieran";
             isSudoer = true;
             shell = pkgs-linux64.nushell;
-            # TODO: Move to ./users/
-            options = import ./hosts/desktop/home.nix { };
           })
         ];
       };

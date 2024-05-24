@@ -2,12 +2,7 @@
 
 {
   imports = [
-    ../../modules/home/espanso
-    ../../modules/home/firefox.nix
-    ../../modules/home/gnome.nix
-    ../../modules/home/mime
-    ../../modules/home/nushell
-    ../../modules/home/vscode
+    ../modules/home
   ];
 
   # This value determines the Home Manager release that your configuration is
