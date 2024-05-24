@@ -21,11 +21,11 @@ matches:
     replace: "àgo-go"
     propagate_case: true
     word: true
-    
+
   - trigger: "aide-memoire"
     replace: "aide-mémoire"
     propagate_case: true
-    word: true    
+    word: true
 
   - trigger: "abbe"
     replace: "abbé"
@@ -146,22 +146,22 @@ matches:
     replace: "bric-à-brac"
     propagate_case: true
     word: true
-    
+
   - trigger: "brulee"
     replace: "brûlée"
     propagate_case: true
-    word: true    
+    word: true
 
   - trigger: "cafe" # "'" not needed
     replace: "café"
     propagate_case: true
     word: true
-    
+
   - trigger: "cafetiere"
     replace: "cafétiere"
     propagate_case: true
-    word: true    
-    
+    word: true
+
   - trigger: "canape"
     replace: "canapé"
     propagate_case: true
@@ -411,11 +411,11 @@ matches:
     replace: "divorcé"
     propagate_case: true
     word: true
-    
+
   - trigger: "divorcee"
     replace: "divorcée"
     propagate_case: true
-    word: true    
+    word: true
 
   - trigger: "Dona"
     replace: "Doña"
@@ -556,12 +556,12 @@ matches:
     replace: "fouetté"
     propagate_case: true
     word: true
-    
+
   - trigger: "francais"
     replace: "français"
     propagate_case: true
-    word: true    
-    
+    word: true
+
   - trigger: "Francois"
     replace: "François"
     propagate_case: true
@@ -591,11 +591,11 @@ matches:
     replace: "gâteau"
     propagate_case: true
     word: true
-    
+
   - trigger: "gateaux"
     replace: "gâteaux"
     propagate_case: true
-    word: true    
+    word: true
 
   - trigger: "gemutlichkeit"
     replace: "gemütlichkeit"
@@ -1097,10 +1097,12 @@ matches:
     propagate_case: true
     word: true
 
-  - trigger: "role"
-    replace: "rôle"
-    propagate_case: true
-    word: true
+  # https://en.wiktionary.org/wiki/r%C3%B4le
+  # Dated/French spelling of role
+  # - trigger: "role"
+  #   replace: "rôle"
+  #   propagate_case: true
+  #   word: true
 
   - trigger: "riviere"
     replace: "rivière"
