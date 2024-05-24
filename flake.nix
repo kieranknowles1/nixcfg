@@ -32,23 +32,39 @@
     mk-host = {
       name,
       system
-    }: nixpkgs.lib.nixosSystem {
+    }: let
+      pkgs = import nixpkgs { system = system; allowUnfree = true; };
+      pkgs-unstable = import nixpkgs-unstable { system = system; config.allowUnfree = true; };
+    in nixpkgs.lib.nixosSystem {
       specialArgs = {
         # Pass the flake's inputs and the system type to the module
-        inherit inputs system;
+        inherit inputs system pkgs-unstable;
         hostName = name;
-
-        # Pass the unstable nixpkgs for the host platform
-        pkgs-unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
       };
 
       # Include the host's configuration
       modules = [
         stylix.nixosModules.stylix
         ./hosts/${name}/configuration.nix
+        {
+            # Define a user account. Don't forget to set a password with ‘passwd’.
+            users.users.kieran = {
+              isNormalUser = true;
+              description = "Kieran";
+              extraGroups = [ "networkmanager" "wheel" ];
+
+              # Make Nu our default shell
+              shell = pkgs.nushell;
+            };
+
+            home-manager = {
+              useGlobalPkgs = true;
+              # Pass all flake inputs to home manager configs
+              extraSpecialArgs = { inherit inputs system pkgs-unstable; };
+              backupFileExtension = "backup";
+              users.kieran = import ./hosts/desktop/home.nix { userName = "kieran"; };
+            };
+        }
       ];
     };
   in {

@@ -75,24 +75,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kieran = {
-    isNormalUser = true;
-    description = "Kieran";
-    extraGroups = [ "networkmanager" "wheel" ];
-
-    # Make Nu our default shell
-    shell = pkgs.nushell;
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    # Pass all flake inputs to home manager configs
-    extraSpecialArgs = { inherit inputs system pkgs-unstable; };
-    backupFileExtension = "backup";
-    users.kieran = import ./home.nix { userName = "kieran"; };
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
