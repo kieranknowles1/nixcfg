@@ -14,6 +14,7 @@
 
   # TODO: Explain why each is unneeded. Anything that has been replaced should be removed in the replacement
   environment.gnome.excludePackages = with pkgs; [
+    gedit # Replaced by vscode, but that is managed by home-manager
     gnome-connections
     gnome-tour
     gnome.cheese # TODO: Why isnt this removed
