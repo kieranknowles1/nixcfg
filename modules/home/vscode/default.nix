@@ -10,9 +10,12 @@ in
         github.copilot
         github.copilot-chat
         gruntfuggly.todo-tree
+
+        # Language support
         jnoortheen.nix-ide
         redhat.vscode-yaml
         tamasfe.even-better-toml
+        thenuprojectcontributors.vscode-nushell-lang
       ];
     };
 
