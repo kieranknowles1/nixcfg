@@ -11,10 +11,10 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-if [ "$EUID" -eq 0 ]; then
-  echo "Do not run this script as root" >&2
-  exit 1
-fi
+#\if [ "$EUID" -eq 0 ]; then
+# echo "Do not run this script as root" >&2
+#  exit 1
+#fi
 
 commit_message="$1"
 

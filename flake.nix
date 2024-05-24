@@ -33,7 +33,8 @@
       userName, # Login name
       displayName, # Name shown in UIs
       isSudoer ? false, # Whether the user should be able to sudo
-      shell # Package for the user's shell
+      shell, # Package for the user's shell
+      ...
     }: {
       users.users.${userName} = {
         # A regular user that can log in
@@ -82,7 +83,7 @@
             backupFileExtension = "backup";
           };
         }
-      ];
+      ] ++ users;
     };
 
     pkgs-linux64 = import nixpkgs { system = "x86_64-linux"; allowUnfree = true; };
@@ -92,13 +93,13 @@
         name = "desktop";
         system = "x86_64-linux";
         users = [
-          mk-user {
+          (mk-user {
             hostName = "desktop";
             userName = "kieran";
             displayName = "Kieran";
             isSudoer = true;
             shell = pkgs-linux64.nushell;
-          }
+          })
         ];
       };
     };
