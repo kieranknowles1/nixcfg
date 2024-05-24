@@ -29,7 +29,10 @@
   let
     # Function to create a host configuration
     # Imports ./hosts/$host/configuration.nix
-    mk-host = { name, system }: nixpkgs.lib.nixosSystem {
+    mk-host = {
+      name,
+      system
+    }: nixpkgs.lib.nixosSystem {
       specialArgs = {
         # Pass the flake's inputs and the system type to the module
         inherit inputs system;
