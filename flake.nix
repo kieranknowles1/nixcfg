@@ -29,11 +29,11 @@
   let
     # Function to create a user for a host
     mk-user = {
-      hostName, # Host name # TODO: Make a "users" folder instead and remove home.nix from the hosts
       userName, # Login name
       displayName, # Name shown in UIs
       isSudoer ? false, # Whether the user should be able to sudo
       shell, # Package for the user's shell
+      options, # Options for the user's home-manager configuration, should be your home.nix
     }: {
       users.users.${userName} = {
         # A regular user that can log in
@@ -49,7 +49,13 @@
         shell = shell;
       };
 
-      home-manager.users.${userName} = import ./hosts/${hostName}/home.nix { userName = userName; };
+      # Combine the user's home-manager configuration with the base configuration
+      home-manager.users.${userName} = {
+        # Home Manager needs a bit of information about you and the paths it should
+        # manage.
+        home.username = userName;
+        home.homeDirectory = "/home/${userName}";
+      } // options;
     };
 
     # Function to create a host configuration
@@ -94,11 +100,12 @@
         system = "x86_64-linux";
         users = [
           (mk-user {
-            hostName = "desktop";
             userName = "kieran";
             displayName = "Kieran";
             isSudoer = true;
             shell = pkgs-linux64.nushell;
+            # TODO: Move to ./users/
+            options = import ./hosts/desktop/home.nix { };
           })
         ];
       };
