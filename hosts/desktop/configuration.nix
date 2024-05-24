@@ -97,6 +97,9 @@
     isNormalUser = true;
     description = "Kieran";
     extraGroups = [ "networkmanager" "wheel" ];
+
+    # Make Nu our default shell
+    shell = pkgs.nushell;
   };
 
   home-manager = {
