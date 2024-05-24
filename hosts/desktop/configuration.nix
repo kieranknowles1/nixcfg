@@ -16,12 +16,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../modules/nixos/firefox.nix
-      ../../modules/nixos/gnome.nix
-      ../../modules/nixos/locale.nix
-      ../../modules/nixos/nvidia.nix
-      ../../modules/nixos/theme.nix
-      ../../modules/nixos/thunderbird.nix
       inputs.home-manager.nixosModules.home-manager
     ];
 

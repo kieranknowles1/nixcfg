@@ -71,6 +71,7 @@
       # Include the host's configuration
       modules = [
         stylix.nixosModules.stylix
+        ./modules/nixos
         ./hosts/${name}/configuration.nix
         {
           # Base home-manager for all users

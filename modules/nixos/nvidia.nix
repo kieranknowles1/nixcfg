@@ -1,4 +1,5 @@
 # Module to install Nvidia drivers
+# TODO: Add an enable option to this module
 { config, ... }:
 {
   # This may not cover everything, but it gets Skyrim running and that's good enough for now.
