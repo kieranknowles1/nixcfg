@@ -39,15 +39,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "gb";
-    xkbVariant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "uk";
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -80,9 +71,9 @@
     file
     fsearch
     git
-    git-sizer # Need this for MO2 installer
+    git-sizer
     gnome.dconf-editor
-    gnome.zenity
+    gnome.zenity # Need this for MO2 installer
     home-manager
     nil # Language server for Nix
     p7zip
