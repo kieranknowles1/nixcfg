@@ -28,24 +28,49 @@
   }@inputs:
   let
     system = "x86_64-linux";
-  in
-    {
+
+    # Function to create a host configuration
+    # Imports ./hosts/$host/configuration.nix
+    mk-host = { name, system }: nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        # Pass the flake's inputs and the system type to the module
+        inherit inputs system;
+        hostName = name;
+
+        # Pass the unstable nixpkgs for the host platform
+        pkgs-unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      };
+
+      # Include the host's configuration
+      modules = [
+        stylix.nixosModules.stylix
+        ./hosts/${name}/configuration.nix
+      ];
+    };
+  in {
 
     nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          # Pass the flake's inputs and platform settings to the NixOS module
-          inherit inputs system;
-          hostName = "desktop";
-          # Pass the unstable nixpkgs input to the NixOS module
-          pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
-        };
-
-        modules = [
-          stylix.nixosModules.stylix
-          ./hosts/desktop/configuration.nix
-        ];
+      desktop = mk-host {
+        name = "desktop";
+        system = "x86_64-linux";
       };
+      # desktop = nixpkgs.lib.nixosSystem {
+      #   specialArgs = {
+      #     # Pass the flake's inputs and platform settings to the NixOS module
+      #     inherit inputs system;
+      #     hostName = "desktop";
+      #     # Pass the unstable nixpkgs input to the NixOS module
+      #     pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+      #   };
+
+      #   modules = [
+      #     stylix.nixosModules.stylix
+      #     ./hosts/desktop/configuration.nix
+      #   ];
+      # };
     };
   };
 }
