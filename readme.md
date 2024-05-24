@@ -25,6 +25,11 @@ is a per-package override for some packages to use master instead.
 
 Here are some mistakes I made and lessons learned while setting up this repository.
 
+### Don't Use Wayland Yet
+
+Wayland is still quite buggy for me. I've had issues with flickering and Proton games
+don't seem to work at all. Stick with X11 for now. Your choice will persist between reboots.
+
 ### Make Sure You Have a User
 
 It's completely valid syntax to have a system without any usable users. Make sure your config
