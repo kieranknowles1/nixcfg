@@ -34,7 +34,6 @@
       displayName, # Name shown in UIs
       isSudoer ? false, # Whether the user should be able to sudo
       shell, # Package for the user's shell
-      ...
     }: {
       users.users.${userName} = {
         # A regular user that can log in
