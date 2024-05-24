@@ -15,8 +15,6 @@
   # Use Starship as the prompt
   programs.starship = {
     enable = true;
-    settings = {
-
-    };
+    settings = builtins.fromTOML (builtins.readFile ./starship.toml);
   };
 }
