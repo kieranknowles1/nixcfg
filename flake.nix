@@ -92,18 +92,27 @@
     };
 
     pkgs-linux64 = import nixpkgs { system = "x86_64-linux"; allowUnfree = true; };
+
+    user-kk-linux64 = (mk-user {
+      userName = "kieran";
+      displayName = "Kieran";
+      isSudoer = true;
+      shell = pkgs-linux64.nushell;
+    });
   in {
     nixosConfigurations = {
       desktop = mk-host {
         name = "desktop";
         system = "x86_64-linux";
         users = [
-          (mk-user {
-            userName = "kieran";
-            displayName = "Kieran";
-            isSudoer = true;
-            shell = pkgs-linux64.nushell;
-          })
+          user-kk-linux64
+        ];
+      };
+      laptop = mk-host {
+        name = "laptop";
+        system = "x86_64-linux";
+        users = [
+          user-kk-linux64
         ];
       };
     };
