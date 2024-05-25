@@ -8,7 +8,6 @@
   pkgs-unstable,
   pkgs,
   system,
-  hostName,
   ...
 }:
 
@@ -22,8 +21,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = hostName;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;

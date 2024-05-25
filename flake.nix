@@ -70,7 +70,6 @@
       specialArgs = {
         # Pass the flake's inputs and the system type to the module
         inherit inputs system pkgs-unstable;
-        hostName = name;
       };
 
       # Include the host's configuration and all modules
@@ -82,6 +81,9 @@
         ./hosts/${name}/configuration.nix
         ./hosts/${name}/hardware-configuration.nix
         {
+          # Base nixos for all hosts
+          networking.hostName = name; # The hostname is used as the default target of nixos-rebuild switch
+
           # Base home-manager for all users
           # TODO: Move this to a module
           home-manager = {
