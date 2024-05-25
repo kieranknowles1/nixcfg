@@ -10,6 +10,13 @@ This will update and switch to the current changes, then commit them if it was s
 To update packages, run `nix flake update`. Most packages use the stable channel, but there
 is a per-package override for some packages to use master instead.
 
+## Options
+
+The following options can be set in the `configuration.nix` file, all under the `custom` key.
+
+- `games.enable` - Install game-related packages e.g., Steam. Should be `true` for any host used for gaming.
+- `nvidia.enable` - Install Nvidia drivers. Should be `true` for any host with an Nvidia GPU.
+
 ## Repository Structure
 
 - [hosts](hosts/) contains the configuration for each host.
@@ -18,6 +25,7 @@ is a per-package override for some packages to use master instead.
 - [modules](modules/) modules included by the hosts.
   - [home](modules/home/) modules used by home-manager.
   - [nixos](modules/nixos/) modules used by NixOS.
+- [users](users/) contains user configurations.
 - [flake.nix](flake.nix) is the entry point for the repository.
 - [rebuild.sh](rebuild.sh) script to update from the repository and commit changes.
 
