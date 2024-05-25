@@ -50,6 +50,7 @@
 
       home-manager.users.${userName} = {
         imports = [
+          ./modules/home
           ./users/${userName}.nix
         ];
 
