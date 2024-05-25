@@ -17,6 +17,16 @@ The following options can be set in the `configuration.nix` file, all under the 
 - `games.enable` - Install game-related packages e.g., Steam. Should be `true` for any host used for gaming.
 - `nvidia.enable` - Install Nvidia drivers. Should be `true` for any host with an Nvidia GPU.
 
+To enable them in a host, add the following to the host's configuration:
+
+```nix
+# All the options I added are under the custom key
+custom = {
+  nvidia.enable = true; # Enable Nvidia drivers. Will not work unless the host has an Nvidia GPU.
+  # Any other options go here
+};
+```
+
 ## Repository Structure
 
 - [hosts](hosts/) contains the configuration for each host.
