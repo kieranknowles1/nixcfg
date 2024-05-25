@@ -14,7 +14,7 @@ is a per-package override for some packages to use master instead.
 
 ### Library
 
-The following functions have been added to the `lib` attribute set.
+The following functions are available in the `self.lib` attribute set.
 
 - `host`
   - `mkHost` - Create a host configuration, imports the configuration and hardware-configurations from `hosts/${name}`.
