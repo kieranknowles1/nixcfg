@@ -1,5 +1,5 @@
 # Core configuration needed for any host
-{ ... }:
+{ pkgs, ... }:
 {
   # Enable flakes
   nix.settings.experimental-features = [
@@ -32,4 +32,8 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
+  ];
 }

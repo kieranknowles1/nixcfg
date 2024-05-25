@@ -4,6 +4,7 @@
 {
   imports = [
     ./core.nix
+    ./development.nix
     ./firefox.nix
     ./games.nix
     ./gnome.nix

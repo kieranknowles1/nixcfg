@@ -3,11 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  config,
-  inputs,
   pkgs-unstable,
   pkgs,
-  system,
   ...
 }:
 
@@ -33,17 +30,12 @@
   environment.systemPackages = with pkgs; [
     file
     fsearch
-    git
-    git-sizer
     gnome.zenity # Need this for MO2 installer
     home-manager
-    nil # Language server for Nix
     p7zip
     # Use bleeding-edge wine
     pkgs-unstable.wine
     pkgs-unstable.winetricks
-    python311Full
-    python311Packages.pip
   ];
 
   fonts.packages = with pkgs; [
