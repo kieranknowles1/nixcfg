@@ -10,7 +10,18 @@ This will update and switch to the current changes, then commit them if it was s
 To update packages, run `nix flake update`. Most packages use the stable channel, but there
 is a per-package override for some packages to use master instead.
 
-## Options
+## Documentation
+
+### Library
+
+The following functions have been added to the `lib` attribute set.
+
+- `host`
+  - `mkHost` - Create a host configuration, imports the configuration and hardware-configurations from `hosts/${name}`.
+- `user`
+  - `mkUser` - Create a user configuration, imports the configuration from `users/${name}.nix`.
+
+### Options
 
 The following options can be set in the `configuration.nix` file, all under the `custom` key.
 
