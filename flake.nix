@@ -94,28 +94,28 @@
       ] ++ users;
     };
 
-    pkgs-linux64 = import nixpkgs { system = "x86_64-linux"; allowUnfree = true; };
-
-    user-kk-linux64 = (mk-user {
+    mk-kk-user = system: let
+      pkgs = import nixpkgs { system = system; allowUnfree = true; };
+    in mk-user {
       userName = "kieran";
       displayName = "Kieran";
       isSudoer = true;
-      shell = pkgs-linux64.nushell;
-    });
+      shell = pkgs.nushell;
+    };
   in {
     nixosConfigurations = {
       desktop = mk-host {
         name = "desktop";
         system = "x86_64-linux";
         users = [
-          user-kk-linux64
+          (mk-kk-user "x86_64-linux")
         ];
       };
       laptop = mk-host {
         name = "laptop";
         system = "x86_64-linux";
         users = [
-          user-kk-linux64
+          (mk-kk-user "x86_64-linux")
         ];
       };
     };
