@@ -48,13 +48,16 @@
         shell = shell;
       };
 
-      # Combine the user's home-manager configuration with the base configuration
       home-manager.users.${userName} = {
+        imports = [
+          ./users/${userName}.nix
+        ];
+
         # Home Manager needs a bit of information about you and the paths it should
         # manage.
         home.username = userName;
         home.homeDirectory = "/home/${userName}";
-      } // (import ./users/${userName}.nix { });
+      };
     };
 
     # Function to create a host configuration
