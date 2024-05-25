@@ -16,6 +16,7 @@ The following options can be set in the `configuration.nix` file, all under the 
 
 - `games.enable` - Install game-related packages e.g., Steam. Should be `true` for any host used for gaming.
 - `nvidia.enable` - Install Nvidia drivers. Should be `true` for any host with an Nvidia GPU.
+- `office.enable` - Install LibreOffice.
 
 To enable them in a host, add the following to the host's configuration:
 

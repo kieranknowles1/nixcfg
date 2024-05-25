@@ -15,6 +15,7 @@
       # NOTE: Extensions here still have to be enabled manually
       extensions = with inputs.firefox-addons.packages."${system}"; [
         bitwarden
+        darkreader
         privacy-badger
         return-youtube-dislikes
         sponsorblock
