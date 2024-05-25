@@ -16,6 +16,7 @@
   # Enable everything needed for this configuration
   # TODO: Deduplicate configuration.nix. It should only contain config.custom
   custom = {
+    office.enable = true;
   };
 
   # Bootloader.

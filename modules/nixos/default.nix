@@ -9,6 +9,7 @@
     ./gnome.nix
     ./locale.nix
     ./nvidia.nix
+    ./office.nix
     ./theme.nix
     ./thunderbird.nix
   ];

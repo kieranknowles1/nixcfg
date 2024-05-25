@@ -47,6 +47,7 @@ I can do all my work in one place.
 - [ ] Automate updates of packages.
 - [ ] Build an ISO with the configuration. [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
 - [ ] Preview changes before applying them. [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
+- [ ] Generate documentation rather than doing it manually
 
 ## Lessons Learned
 
