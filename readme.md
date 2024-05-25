@@ -21,6 +21,15 @@ is a per-package override for some packages to use master instead.
 - [flake.nix](flake.nix) is the entry point for the repository.
 - [rebuild.sh](rebuild.sh) script to update from the repository and commit changes.
 
+## Todo List
+
+Tasks I want to complete in the future. I'm tracking these here rather than in issues so
+I can do all my work in one place.
+
+- [ ] Automate updates of packages.
+- [ ] Build an ISO with the configuration. [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
+- [ ] Preview changes before applying them. [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
+
 ## Lessons Learned
 
 Here are some mistakes I made and lessons learned while setting up this repository.
