@@ -13,7 +13,11 @@
 }:
 
 {
-  custom.nvidia.enable = true;
+  # Enable everything needed for this configuration
+  custom = {
+    games.enable = true;
+    nvidia.enable = true;
+  };
 
   imports =
     [ # Include the results of the hardware scan.
