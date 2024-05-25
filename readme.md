@@ -18,8 +18,12 @@ The following functions are available in the `self.lib` attribute set.
 
 - `host`
   - `mkHost` - Create a host configuration, imports the configuration and hardware-configurations from `hosts/${name}`.
+
+    The host will import all modules from `modules/nixos`, which can then be configured in the host's configuration.
 - `user`
   - `mkUser` - Create a user configuration, imports the configuration from `users/${name}.nix`.
+
+     The user will import all modules from `modules/home`, which can then be configured in the user's configuration.
 
 ### Options
 
