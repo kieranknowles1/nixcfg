@@ -64,13 +64,10 @@
       system, # System type. Usually x86_64-linux
       users, # A list of users to create, as returned by mk-user
     }: let
-      pkgs = import nixpkgs { system = system; allowUnfree = true; };
       pkgs-unstable = import nixpkgs-unstable { system = system; config.allowUnfree = true; };
     in nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        # Pass the flake's inputs and the system type to the module
-        inherit inputs system pkgs-unstable;
-      };
+      # Pass the flake's inputs and the system type to the module
+      specialArgs = { inherit inputs system pkgs-unstable; };
 
       # Include the host's configuration and all modules
       # The host configuration.nix can configure the modules
