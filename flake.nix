@@ -73,11 +73,14 @@
         hostName = name;
       };
 
-      # Include the host's configuration
+      # Include the host's configuration and all modules
+      # The host configuration.nix can configure the modules
       modules = [
         stylix.nixosModules.stylix
+        inputs.home-manager.nixosModules.home-manager
         ./modules/nixos
         ./hosts/${name}/configuration.nix
+        ./hosts/${name}/hardware-configuration.nix
         {
           # Base home-manager for all users
           # TODO: Move this to a module
