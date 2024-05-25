@@ -26,6 +26,7 @@ generation_meta=$(nixos-rebuild list-generations | head -n 2)
 
 # Generation number
 generation_number=$(echo "$generation_meta" | tail -n 1 | awk '{print $1}')
+host=$(hostname)
 
 git add .
-git commit -m "$generation_number: $commit_message" -m "$generation_meta"
+git commit -m "$host#$generation_number: $commit_message" -m "$generation_meta"
