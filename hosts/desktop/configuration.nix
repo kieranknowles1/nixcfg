@@ -72,12 +72,10 @@
     fsearch
     git
     git-sizer
-    gnome.dconf-editor
     gnome.zenity # Need this for MO2 installer
     home-manager
     nil # Language server for Nix
     p7zip
-    protontricks # Proton itself is installed by Steam
     # Use bleeding-edge wine
     pkgs-unstable.wine
     pkgs-unstable.winetricks
@@ -88,8 +86,6 @@
   fonts.packages = with pkgs; [
     nerdfonts # Patched fonts with icons used by Starship in Unicode's Private Use Area
   ];
-
-  programs.steam.enable = true;
 
   # Enable Java, using the default OpenJDK
   programs.java.enable = true;
