@@ -40,7 +40,7 @@
       shell = pkgs.nushell;
     };
   in {
-    inherit lib; # Extend the lib with our custom functions
+    inherit lib; # Expose the lib module to configurations
 
     nixosConfigurations = {
       desktop = lib.host.mkHost {
