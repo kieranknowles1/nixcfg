@@ -20,8 +20,18 @@ fi
 
 commit_message="$1"
 
-# Use the current directory and imply the config to use from the system's hostname
-nh os switch .
+# Build the system, but don't switch to it yet
+# Use the hostname as a key in nixosConfigurations
+# The build step doesn't apply anything, but gives us a diff to the current system
+nh os build .
+
+# Get a diff of the current configuration for in the commit message
+# Must be done between build and activation, otherwise we'll just be comparing current with current
+nixos-rebuild build --flake .
+diff=$(nvd diff /run/current-system result/)
+
+# Apply the new configuration
+sudo nixos-rebuild switch --flake .
 
 # Header and current generation
 generation_meta=$(nixos-rebuild list-generations | head -n 2)
@@ -31,4 +41,7 @@ generation_number=$(echo "$generation_meta" | tail -n 1 | awk '{print $1}')
 host=$(hostname)
 
 git add .
-git commit -m "$host#$generation_number: $commit_message" -m "$generation_meta"
+git commit \
+  -m "$host#$generation_number: $commit_message" \
+  -m "$generation_meta" \
+  -m "$diff"
