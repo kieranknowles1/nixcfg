@@ -2,6 +2,17 @@
 
 This repository contains the NixOS configuration for my desktop computer.
 
+- [Readme](#readme)
+  - [Usage](#usage)
+  - [Documentation](#documentation)
+    - [Library](#library)
+    - [Options](#options)
+  - [Repository Structure](#repository-structure)
+  - [Todo List](#todo-list)
+  - [Lessons Learned](#lessons-learned)
+    - [Don't Use Wayland Yet](#dont-use-wayland-yet)
+    - [Make Sure You Have a User](#make-sure-you-have-a-user)
+
 ## Usage
 
 To rebuild the system, run `./rebuild.sh <commit message>`.
