@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: Use writeShellScriptBin to generate this and remove nh/nvd from modules/nixos/core.nix
+
 # Rebuilds the system from the current repository state and commits the changes
 # if successful. The commit message includes the generation number and the
 # provided description.
@@ -19,7 +21,7 @@ fi
 commit_message="$1"
 
 # Use the current directory and imply the config to use from the system's hostname
-sudo nixos-rebuild switch --flake .
+nh os switch .
 
 # Header and current generation
 generation_meta=$(nixos-rebuild list-generations | head -n 2)

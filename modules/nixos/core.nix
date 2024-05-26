@@ -46,6 +46,7 @@
   environment.systemPackages = with pkgs; [
     git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
 
+    nvd
     pkgs-unstable.nh # Nix helper, not in stable yet but useful to generate diffs before applying changes
   ];
 }
