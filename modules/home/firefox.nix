@@ -24,4 +24,13 @@
       ];
     };
   };
+
+  # Open PDFs in Firefox
+  xdg.mimeApps = {
+    enable = true;
+
+    associations.added = {
+      "application/pdf" = "firefox.desktop";
+    };
+  };
 }

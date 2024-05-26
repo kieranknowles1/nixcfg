@@ -81,7 +81,7 @@ I can do all my work in one place.
 - [ ] Preview changes before applying them. [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
 - [ ] Generate documentation rather than doing it manually
 - [ ] Associate file types with programs
-  - [ ] PDFs with Firefox, overriding  LibreOffice
+  - [x] PDFs with Firefox, overriding  LibreOffice
   - [ ] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
 
 ## Lessons Learned
