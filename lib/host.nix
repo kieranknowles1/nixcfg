@@ -1,4 +1,4 @@
-{ nixpkgs, nixpkgs-unstable, self, inputs, ... }:
+{ nixpkgs, nixpkgs-unstable, self, inputs }:
 {
   # Function to create a host configuration
   # Imports ./hosts/$host/configuration.nix

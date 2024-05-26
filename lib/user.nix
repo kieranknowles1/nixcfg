@@ -1,6 +1,4 @@
-{
-  ...
-}:
+{ }:
 {
   # Function to create a user for a host
   mkUser = {
