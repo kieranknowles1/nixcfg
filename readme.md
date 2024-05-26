@@ -8,6 +8,7 @@ This repository contains the NixOS configuration for my desktop computer.
     - [Library](#library)
     - [Options](#options)
   - [Repository Structure](#repository-structure)
+  - [Essential Resources](#essential-resources)
   - [Todo List](#todo-list)
   - [Lessons Learned](#lessons-learned)
     - [Don't Use Wayland Yet](#dont-use-wayland-yet)
@@ -70,6 +71,13 @@ custom = {
 - [users](users/) contains user configurations.
 - [flake.nix](flake.nix) is the entry point for the repository.
 - [rebuild.sh](rebuild.sh) script to update from the repository and commit changes.
+
+## Essential Resources
+
+The following resources were essential in setting up this repository.
+
+- [Noogle](https://noogle.dev/) - A search engine for NixOS functions.
+- [IE's Blog on mkDerivation](https://blog.ielliott.io/nix-docs/mkDerivation.html) - A great explanation of `mkDerivation`.
 
 ## Todo List
 

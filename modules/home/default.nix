@@ -6,6 +6,7 @@
   imports = [
     ./espanso
     ./firefox.nix
+    ./games.nix
     ./gnome.nix
     ./mime
     ./nushell
