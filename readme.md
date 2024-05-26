@@ -33,6 +33,9 @@ The following functions are available in the `self.lib` attribute set.
     The host will import all modules from `modules/nixos`, which can then be configured in the host's configuration.
 - `image`
   - `fromHeif` - Convert a HEIF image to a PNG image losslessly. Returns the path to the PNG image.
+
+    When downloading a live photo taken on an iPhone from Immich, two `.heic` files are downloaded. The smaller one should
+    be the image, while the larger one is the video. This function only works with the image.
 - `user`
   - `mkUser` - Create a user configuration, imports the configuration from `users/${name}.nix`.
 
