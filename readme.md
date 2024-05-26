@@ -92,9 +92,9 @@ I can do all my work in one place.
   - [ ] `Ctrl+Shift+Escape` to open System Monitor
   - [ ] `Ctrl+Alt+E` to open FSearch
   - [ ] Some way to disable keyboard LEDs
-- [ ] Associate file types with programs
+- [x] Associate file types with programs
   - [x] PDFs with Firefox, overriding  LibreOffice
-  - [ ] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
+  - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
 
 ## Lessons Learned
 

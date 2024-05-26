@@ -4,7 +4,6 @@
   resaverDesktop = {
     fileName = "nixcfg-resaver.desktop";
     # TODO: Don't hardcode the path to the desktop file
-    # TODO: Use the nix style of getting the java executable
     contents = ''
       [Desktop Entry]
       Type=Application
@@ -13,7 +12,7 @@
       Comment=Skyrim and Fallout 4 savegame editor
       Path=/home/kieran/Games/modding-tools/resaver/target
       MimeType=application/x-skyrimsave;
-      Exec=java -jar /home/kieran/Games/modding-tools/resaver/target/ReSaver.jar %u
+      Exec=${pkgs.jdk21}/bin/java -jar /home/kieran/Games/modding-tools/resaver/target/ReSaver.jar %u
     '';
   };
 in {
