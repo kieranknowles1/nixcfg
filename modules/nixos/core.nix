@@ -1,5 +1,5 @@
 # Core configuration needed for any host
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   # Enable flakes
   nix.settings.experimental-features = [
@@ -45,5 +45,7 @@
 
   environment.systemPackages = with pkgs; [
     git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
+
+    pkgs-unstable.nh # Nix helper, not in stable yet but useful to generate diffs before applying changes
   ];
 }
