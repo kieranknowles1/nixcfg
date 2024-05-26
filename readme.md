@@ -80,6 +80,10 @@ I can do all my work in one place.
 - [ ] Build an ISO with the configuration. [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
 - [ ] Preview changes before applying them. [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
 - [ ] Generate documentation rather than doing it manually
+- [ ] Set keyboard shortcuts
+  - [ ] `Ctrl+Shift+Escape` to open System Monitor
+  - [ ] `Ctrl+Alt+E` to open FSearch
+  - [ ] Some way to disable keyboard LEDs
 - [ ] Associate file types with programs
   - [x] PDFs with Firefox, overriding  LibreOffice
   - [ ] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
