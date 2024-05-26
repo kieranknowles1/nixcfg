@@ -11,6 +11,9 @@ in {
     # It requires us to create a directory at $out, the path to which
     # is returned by the expression and can therefore be used to output
     # files.
+
+    # PNGs don't compress very well with photos, but I don't want a function
+    # doing anything lossy without being explicit about it.
     convert = pkgs.runCommand "heif-to-png" {} ''
       mkdir -p $out
       ${pkgs.libheif}/bin/heif-convert ${source} $out/output.png

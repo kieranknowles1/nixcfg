@@ -26,7 +26,10 @@
     ...
   }@inputs:
   let
-    lib = import ./lib { inherit nixpkgs nixpkgs-unstable self inputs; };
+    lib = import ./lib {
+      inherit nixpkgs nixpkgs-unstable inputs;
+      flake = self;
+    };
 
     mk-kk-user = system: let
       pkgs = import nixpkgs { system = system; allowUnfree = true; };

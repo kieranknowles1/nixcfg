@@ -1,4 +1,4 @@
-{ nixpkgs, nixpkgs-unstable, self, inputs }:
+{ nixpkgs, nixpkgs-unstable, flake, inputs }:
 {
   # Function to create a host configuration
   # Imports ./hosts/$host/configuration.nix
@@ -10,7 +10,7 @@
     pkgs-unstable = import nixpkgs-unstable { system = system; config.allowUnfree = true; };
   in nixpkgs.lib.nixosSystem {
     # Pass the flake's inputs and the system type to the module
-    specialArgs = { inherit self inputs system pkgs-unstable; };
+    specialArgs = { inherit flake inputs system pkgs-unstable; };
 
     # Include the host's configuration and all modules
     # The host configuration.nix can configure the modules
@@ -29,7 +29,7 @@
         home-manager = {
           useGlobalPkgs = true;
           # Pass all flake inputs to home manager configs
-          extraSpecialArgs = { inherit self inputs system pkgs-unstable; };
+          extraSpecialArgs = { inherit flake inputs system pkgs-unstable; };
           backupFileExtension = "backup";
         };
       }
