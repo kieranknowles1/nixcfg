@@ -3,13 +3,16 @@ let
   settings-root = "${config.xdg.configHome}/Code/User";
 in
 {
+  # TODO: Condition this based on host development option
   config = {
     programs.vscode = {
       enable = true;
       extensions = with pkgs-unstable.vscode-extensions; [
+        # Must-have extensions
         github.copilot
         github.copilot-chat
         gruntfuggly.todo-tree
+        ms-vscode-remote.remote-ssh
 
         # Language support
         jnoortheen.nix-ide
