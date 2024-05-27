@@ -84,9 +84,9 @@ The following resources were essential in setting up this repository.
 Tasks I want to complete in the future. I'm tracking these here rather than in issues so
 I can do all my work in one place.
 
-- [ ] Automate updates of packages.
-- [ ] Build an ISO with the configuration. [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
-- [ ] Preview changes before applying them. [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
+- ❎ Automate updates of packages. (Not planned)
+- ❎ Build an ISO with the configuration. [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE) (Not planned)
+- [x] Preview changes before applying them. [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
 - [ ] Generate documentation rather than doing it manually
 - [ ] Set keyboard shortcuts
   - [ ] `Ctrl+Shift+Escape` to open System Monitor
