@@ -18,5 +18,10 @@
     "org/gnome/desktop/wm/preferences" = {
       "button-layout" = "appmenu:minimize,maximize,close";
     };
+
+    # Enable tap to click on touchpads
+    "org/gnome/desktop/peripherals/touchpad" = {
+      "tap-to-click" = true;
+    };
   };
 }
