@@ -7,6 +7,10 @@ in
   config = {
     programs.vscode = {
       enable = true;
+
+      # Use the latest version of VSCode from the unstable channel
+      package = pkgs-unstable.vscode;
+
       extensions = with pkgs-unstable.vscode-extensions; [
         # Must-have extensions
         github.copilot
