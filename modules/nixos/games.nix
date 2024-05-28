@@ -17,8 +17,12 @@ in {
   config = lib.mkIf config.custom.games.enable {
     programs.steam.enable = true;
 
-    # Run proton on the bleeding edge as it is updated frequently
+    # Run proton and wine on the bleeding edge as they are updated frequently
     environment.systemPackages = with pkgs-unstable; [
+      pkgs.gnome.zenity # Need this for MO2 installer
+
+      wine
+      winetricks
       protontricks # Proton itself is installed by steam
     ];
   };

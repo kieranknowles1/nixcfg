@@ -8,9 +8,12 @@
     users, # A list of users to create, as returned by mk-user
   }: let
     pkgs-unstable = import nixpkgs-unstable { system = system; config.allowUnfree = true; };
+
+    # The "specialArgs" are available to all of a module's imports
+    moduleArgs = { inherit flake inputs system pkgs-unstable; };
   in nixpkgs.lib.nixosSystem {
     # Pass the flake's inputs and the system type to the module
-    specialArgs = { inherit flake inputs system pkgs-unstable; };
+    specialArgs = moduleArgs;
 
     # Include the host's configuration and all modules
     # The host configuration.nix can configure the modules
@@ -20,19 +23,22 @@
       ../modules/nixos
       ../hosts/${name}/configuration.nix
       ../hosts/${name}/hardware-configuration.nix
-      {
+      ({pkgs, ...}:{
         # Base nixos for all hosts
         networking.hostName = name; # The hostname is used as the default target of nixos-rebuild switch
 
+        environment.systemPackages = with pkgs; [
+          home-manager
+        ];
+
         # Base home-manager for all users
-        # TODO: Move this to a module
         home-manager = {
           useGlobalPkgs = true;
           # Pass all flake inputs to home manager configs
-          extraSpecialArgs = { inherit flake inputs system pkgs-unstable; };
+          extraSpecialArgs = moduleArgs;
           backupFileExtension = "backup";
         };
-      }
+      })
     ] ++ users;
   };
 }

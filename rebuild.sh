@@ -8,9 +8,18 @@
 
 set -e
 
+usage() {
+  echo "Usage: $0 <commit message>"
+}
+
 if [ "$#" -ne 1 ]; then
-  echo "Usage: $0 <commit message>" >&2
+  usage >&2
   exit 1
+fi
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+  usage
+  exit 0
 fi
 
 if [ "$EUID" -eq 0 ]; then
@@ -40,6 +49,7 @@ generation_meta=$(nixos-rebuild list-generations | head -n 2)
 generation_number=$(echo "$generation_meta" | tail -n 1 | awk '{print $1}')
 host=$(hostname)
 
+# Commit the changes. Multiple -m options will be concatenated, each as a separate paragraph
 git add .
 git commit \
   -m "$host#$generation_number: $commit_message" \

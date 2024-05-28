@@ -43,10 +43,27 @@
     #media-session.enable = true;
   };
 
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
     git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
 
-    nvd
+    nvd # Generate diffs between generations
     pkgs-unstable.nh # Nix helper, not in stable yet but useful to generate diffs before applying changes
+    file
+    fsearch
+    p7zip
   ];
+
+  fonts.packages = with pkgs; [
+    nerdfonts # Patched fonts with icons used by Starship in Unicode's Private Use Area
+  ];
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "23.11"; # Did you read the comment?
 }
