@@ -1,10 +1,9 @@
-{ config, pkgs-unstable, ... }:
+{ config, hostConfig, lib, pkgs-unstable, ... }:
 let
   settings-root = "${config.xdg.configHome}/Code/User";
 in
 {
-  # TODO: Condition this based on host development option
-  config = {
+  config = lib.mkIf hostConfig.custom.development.enable {
     programs.vscode = {
       enable = true;
 

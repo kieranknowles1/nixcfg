@@ -23,7 +23,7 @@
       ../modules/nixos
       ../hosts/${name}/configuration.nix
       ../hosts/${name}/hardware-configuration.nix
-      ({pkgs, ...}:{
+      ({ pkgs, config, ... }:{
         # Base nixos for all hosts
         networking.hostName = name; # The hostname is used as the default target of nixos-rebuild switch
 
@@ -35,7 +35,8 @@
         home-manager = {
           useGlobalPkgs = true;
           # Pass all flake inputs to home manager configs
-          extraSpecialArgs = moduleArgs;
+          # Also expose the host's configuration
+          extraSpecialArgs = moduleArgs // { hostConfig = config; };
           backupFileExtension = "backup";
         };
       })
