@@ -33,6 +33,10 @@ class Arguments:
 def called_as_root():
     return geteuid() == 0
 
+def update_flake_inputs():
+    """Update the flake inputs."""
+    run(["nix", "flake", "update"], check=True)
+
 def fance_build():
     """Build the system with fancy progress and diff output. Uses the hostname as the build target."""
     run(["nh", "os", "build", "."], check=True)
@@ -67,6 +71,9 @@ def main():
     if called_as_root():
         raise RuntimeError("Do not run this script as root.")
     arguments = Arguments.from_cli()
+
+    if arguments.update:
+        update_flake_inputs()
 
     fance_build()
 
