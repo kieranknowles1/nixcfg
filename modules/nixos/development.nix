@@ -1,6 +1,6 @@
 # Install tools needed for a development environment
 { config, lib, pkgs, flake, ... }: let
-  ifEnabled = flake.lib.package.ifEnabled;
+  optionalPackages = flake.lib.package.optionalPackages;
 in {
   options.custom = {
     development = {
@@ -13,7 +13,7 @@ in {
     environment.systemPackages = with pkgs; [
       # git # In core.nix for reasons explained there
       nil # Language server for Nix
-    ] ++ (ifEnabled config.custom.development.node.enable [
+    ] ++ (optionalPackages config.custom.development.node.enable [
       nodejs
     ]);
   };

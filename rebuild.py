@@ -5,10 +5,6 @@ from subprocess import run
 from os import geteuid
 
 class Arguments:
-    class NoCommit:
-        # More explicit to say "NoCommit means not committing" than "None means no message and not committing if no message"
-        pass
-
     @staticmethod
     def from_cli():
         parser = ArgumentParser(description="Rebuilds the system from the current repository state and commits the changes if successful.")
@@ -27,7 +23,7 @@ class Arguments:
         elif args.message is not None and args.no_commit:
             raise ValueError("A commit message cannot be provided when not committing changes.")
 
-        self.message: str|Arguments.NoCommit = args.message if not args.no_commit else Arguments.NoCommit()
+        self.message: str|None = args.message
         self.update: bool = args.update # TODO: Implement this
 
 def called_as_root():
@@ -82,7 +78,7 @@ def main():
 
     apply_configuration()
 
-    if arguments.message is not Arguments.NoCommit:
+    if arguments.message is not None:
         generation_meta = get_generation_meta()
 
         # Commit the changes. Multiple -m options will be concatenated, each as a separate paragraph
