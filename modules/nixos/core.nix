@@ -48,6 +48,8 @@
   environment.systemPackages = with pkgs; [
     git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
 
+    python3 # The rebuild script is written in Python and I use it for scripts in other repositories
+
     nvd # Generate diffs between generations
     pkgs-unstable.nh # Nix helper, not in stable yet but useful to generate diffs before applying changes
     file

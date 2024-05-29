@@ -37,6 +37,15 @@ The following functions are available in the `flake.lib` attribute set.
 
     When downloading a live photo taken on an iPhone from Immich, two `.heic` files are downloaded. The smaller one should
     be the image, while the larger one is the video. This function only works with the image.
+- `package`
+  - `ifEnabled` - Conditionally include a package in the configuration.
+
+    This function is useful for enabling packages based on the host's configuration. For example, enabling Nvidia drivers
+    only if the host has an Nvidia GPU.
+
+    ```nix
+    flake.lib.package.ifEnabled config.custom.node.enable [ pkgs.nodejs ]
+    ```
 - `user`
   - `mkUser` - Create a user configuration, imports the configuration from `users/${name}.nix`.
 

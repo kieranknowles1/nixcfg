@@ -22,6 +22,8 @@ in
         redhat.vscode-yaml
         tamasfe.even-better-toml
         thenuprojectcontributors.vscode-nushell-lang
+        ms-python.python
+        ms-python.vscode-pylance
 
         # Plain VSCode supports Markdown, but this extension
         # adds some nice features, namely table of contents

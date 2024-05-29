@@ -7,7 +7,10 @@
 {
   # Enable everything needed for this configuration
   config.custom = {
-    development.enable = true;
+    development = {
+      enable = true;
+      node.enable = true;
+    };
     games.enable = true;
     nvidia.enable = true;
   };
