@@ -12,6 +12,12 @@
       name = "Bibata-Modern-Ice";
       size = 16;
     };
+
+    targets = {
+      # Don't style boot messages, as I prefer the default
+      console.enable = false;
+      grub.enable = false;
+    };
   };
 
   home-manager.sharedModules = [{
