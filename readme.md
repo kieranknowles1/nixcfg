@@ -55,7 +55,9 @@ The following functions are available in the `flake.lib` attribute set.
 
 The following options can be set in the `configuration.nix` file, all under the `custom` key.
 
-- `development.enable` - Install development tools e.g., Visual Studio Code.
+- `development`
+  - `enable` - Install core development tools e.g., Visual Studio Code.
+  - `node.enable` - Install Node.js and npm.
 - `games.enable` - Install game-related packages e.g., Steam. Should be `true` for any host used for gaming.
 - `nvidia.enable` - Install Nvidia drivers. Should be `true` for any host with an Nvidia GPU.
 - `office.enable` - Install office-related packages e.g., LibreOffice.
