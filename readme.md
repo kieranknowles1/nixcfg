@@ -32,17 +32,6 @@ during the build process and can be found in [documentation.md](documentation.md
 This is generated with [nixdoc](https://github.com/nix-community/nixdoc) and uses the [CommonMark](https://commonmark.org/)
 flavour of Markdown.
 
-<!-- TODO: Convert the rest of these functions to the new format -->
-- `image`
-  - `fromHeif` - Convert a HEIF image to a PNG image losslessly. Returns the path to the PNG image.
-
-    When downloading a live photo taken on an iPhone from Immich, two `.heic` files are downloaded. The smaller one should
-    be the image, while the larger one is the video. This function only works with the image.
-- `user`
-  - `mkUser` - Create a user configuration, imports the configuration from `users/${name}.nix`.
-
-     The user will import all modules from `modules/home`, which can then be configured in the user's configuration.
-
 ### Options
 
 The following options can be set in the `configuration.nix` file, all under the `custom` key.

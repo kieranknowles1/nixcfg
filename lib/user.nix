@@ -1,15 +1,26 @@
 { }:
 {
-  # Function to create a user for a host
+  /**
+    Create a user with a home-manager configuration for use with [lib.host.mkHost](#function-library-lib.host.mkhost).
+
+    Configuration is sourced from `users/${userName}.nix` and the host's configuration is available
+    through the `hostConfig` argument to modules.
+
+    # Arguments
+   */
   mkUser = {
-    userName, # Login name
-    displayName, # Name shown in UIs
-    isSudoer ? false, # Whether the user should be able to sudo
-    shell, # Package for the user's shell
+    # Login name :: String
+    userName,
+    # Name shown in UIs :: String
+    displayName,
+    # Whether the user should be able to sudo :: Bool
+    isSudoer ? false,
+    # Package for the user's shell :: Package
+    shell,
   }: {
     users.users.${userName} = {
       # A regular user that can log in
-      isNormalUser = true; # A regular user that can log in
+      isNormalUser = true;
       # User's full name
       description = displayName;
 

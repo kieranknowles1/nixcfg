@@ -16,10 +16,10 @@
     optionalPackages :: Bool -> List -> List
 
     # Arguments
-    condition
+    condition :: Bool
     : The condition in which to include the packages.
 
-    packages
+    packages :: List
     : The packages to include if the condition is true.
     ])
    */

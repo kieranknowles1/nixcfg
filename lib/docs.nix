@@ -11,8 +11,11 @@ in {
     => ./result/index.md
     ```
 
+    # Type
+    mkDocs :: Path -> Path
+
     # Arguments
-    path
+    path :: Path
     : The directory containing the functions to document.
    */
   mkDocs = path: let
@@ -30,6 +33,7 @@ in {
         human_name="$lib_name"
 
         # TODO: Add 2 more hashes to any headers to compensate for the 2 used by the nixdoc command.
+        # TODO: Find a way to make links between functions.
         ${nixdoc} --category "$lib_name" --description "$human_name" --file "$file" >> $OUTPUT
       done
     '';

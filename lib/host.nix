@@ -10,11 +10,11 @@
     # Arguments
    */
   mkHost = {
-    # Host name. Should match the key in nixosConfigurations for rebuilds to detect it automatically
+    # Host name. Should match the key in nixosConfigurations for rebuilds to detect it automatically :: String
     name,
-    # System type. Usually x86_64-linux
+    # System type. Usually x86_64-linux :: String
     system,
-    # A list of users to create, as returned by [lib.mkUser](#function-library-lib.user.mkUser)
+    # A list of users to create, as returned by [lib.mkUser](#function-library-lib.user.mkUser) :: List
     users,
   }: let
     pkgs-unstable = import nixpkgs-unstable { system = system; config.allowUnfree = true; };
