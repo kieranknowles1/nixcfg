@@ -92,10 +92,5 @@ def main():
             "-m", generation_meta.meta,
             "-m", diff], check=True)
 
-# if [ "$EUID" -eq 0 ]; then
-# echo "Do not run this script as root" >&2
-#   exit 1
-# fi
-
 if __name__ == "__main__":
     main()
