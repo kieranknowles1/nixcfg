@@ -37,7 +37,7 @@ def update_flake_inputs():
     """Update the flake inputs."""
     run(["nix", "flake", "update"], check=True)
 
-def fance_build():
+def fancy_build():
     """Build the system with fancy progress and diff output. Uses the hostname as the build target."""
     run(["nh", "os", "build", "."], check=True)
 
@@ -75,7 +75,7 @@ def main():
     if arguments.update:
         update_flake_inputs()
 
-    fance_build()
+    fancy_build()
 
     # We need to do this before applying the configuration, or we're just comparing the current system to itself
     diff = get_diff()
