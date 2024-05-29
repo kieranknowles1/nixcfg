@@ -7,21 +7,21 @@ in {
 
     # Example
     ```nix
-    mkDocs ./lib
+    mkFunctionDocs ./lib
     => ./result/index.md
     ```
 
     # Type
-    mkDocs :: Path -> Path
+    mkFunctionDocs :: Path -> Path
 
     # Arguments
     path :: Path
     : The directory containing the functions to document.
    */
-  mkDocs = path: let
+  mkFunctionDocs = path: let
     nixdoc = "${pkgs.nixdoc}/bin/nixdoc";
 
-    docs = pkgs.runCommand "mkDocs" {} ''
+    docs = pkgs.runCommand "mkFunctionDocs" {} ''
       mkdir -p $out
       OUTPUT="$out/index.md"
 
@@ -39,4 +39,38 @@ in {
     '';
 
   in "${docs}/index.md";
+
+
+  /**
+    Generate documentation for the options in the given directory
+
+    # Example
+    ```nix
+    mkOptionDocs ./modules/nixos
+    => Markdown text
+    ```
+
+    # Type
+    mkOptionDocs :: Path -> Path
+
+    # Arguments
+    importer
+    : The file to import all modules containing options
+   */
+  mkOptionDocs = importer: let
+    modulesEval = nixpkgs.lib.evalModules {
+      modules = [
+        importer
+        # Don't eval flake inputs, we don't want to generate documentation for them.
+        # The checks this disables are already being done during build time.
+        { config._module.check = false; }
+      ];
+    };
+
+    optionsDoc = pkgs.nixosOptionsDoc {
+      options = modulesEval.options;
+    };
+    # TODO: Maybe use something more readable than the default markdown. Only got a few options to document so it's not a big deal.
+    # Could possibly use mkdocs or something similar.
+  in optionsDoc.optionsCommonMark;
 }

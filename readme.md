@@ -16,7 +16,7 @@ This repository contains the NixOS configuration for my desktop computer.
 
 ## Usage
 
-To rebuild the system, run `./rebuild.sh <commit message>`.
+To rebuild the system, run `./rebuild.py <commit message>`.
 This will update and switch to the current changes, then commit them if it was successful.
 
 To update packages, run `nix flake update`. Most packages use the stable channel, but there
@@ -27,34 +27,24 @@ is a per-package override for some packages to use master instead.
 ### Library
 
 An extension to the standard nixpkgs library is provided in the `flake.lib` attribute set. Documentation is generated
-during the build process and can be found in [documentation.md](documentation.md).
+during the build process and can be found in [docs/lib.md](docs/lib.md).
 
 This is generated with [nixdoc](https://github.com/nix-community/nixdoc) and uses the [CommonMark](https://commonmark.org/)
 flavour of Markdown.
 
 ### Options
 
-The following options can be set in the `configuration.nix` file, all under the `custom` key.
+Several options are available to customize the configuration on top of what the flake's inputs provide, although
+it is preferred to only use the newly provided options in the `configuration.nix` file. All newly provided options
+are under the `custom` key. This is generated during the build process and can be found in [docs/options.md](docs/options.md).
+They are configured the same as any other option in NixOS.
 
-- `development`
-  - `enable` - Install core development tools e.g., Visual Studio Code.
-  - `node.enable` - Install Node.js and npm.
-- `games.enable` - Install game-related packages e.g., Steam. Should be `true` for any host used for gaming.
-- `nvidia.enable` - Install Nvidia drivers. Should be `true` for any host with an Nvidia GPU.
-- `office.enable` - Install office-related packages e.g., LibreOffice.
-
-To enable them in a host, add the following to the host's configuration:
-
-```nix
-# All the options I added are under the custom key
-custom = {
-  nvidia.enable = true; # Enable Nvidia drivers. Will not work unless the host has an Nvidia GPU.
-  # Any other options go here
-};
-```
+This is generated with `nixosOptionsDoc` and I wouldn't have known about it or how to use it without Brian McGee's
+[blog post](https://bmcgee.ie/posts/2023/03/til-how-to-generate-nixos-module-docs/).
 
 ## Repository Structure
 
+- [docs (gitignored)](docs/) contains documentation generated during the build process.
 - [hosts](hosts/) contains the configuration for each host.
 - [media](media/) contains media used throughout the repository.
 - [modules](modules/) modules included by the hosts.
@@ -66,10 +56,12 @@ custom = {
 
 ## Essential Resources
 
-The following resources were essential in setting up this repository.
+The following resources were essential in setting up this repository and served as frequent references. Other resources
+used are linked as-and-when they were used.
 
+- [Isaac Elliott's Blog on mkDerivation](https://blog.ielliott.io/nix-docs/mkDerivation.html) - A great explanation of `mkDerivation`.
 - [Noogle](https://noogle.dev/) - A search engine for NixOS functions.
-- [IE's Blog on mkDerivation](https://blog.ielliott.io/nix-docs/mkDerivation.html) - A great explanation of `mkDerivation`.
+- [Vimjoyer](https://www.youtube.com/@vimjoyer) - A great resource for NixOS. Introduces many important concepts, tools, and all around was my go-to for learning NixOS.
 
 ## Todo List
 
@@ -79,7 +71,9 @@ I can do all my work in one place.
 - ❎ Automate updates of packages. (Not planned)
 - ❎ Build an ISO with the configuration. [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE) (Not planned)
 - [x] Preview changes before applying them. [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
-- [ ] Generate documentation rather than doing it manually
+- [x] Generate documentation rather than doing it manually
+  - [x] For functions
+  - [x] For options
 - [ ] Set keyboard shortcuts
   - [ ] `Alt+T` to open terminal
   - [ ] `Ctrl+Shift+Escape` to open System Monitor
