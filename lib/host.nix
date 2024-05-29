@@ -1,11 +1,19 @@
 { nixpkgs, nixpkgs-unstable, flake, inputs }:
 {
-  # Function to create a host configuration
-  # Imports ./hosts/$host/configuration.nix
+  /**
+    Create a host configuration. It imports the host's configuration.nix and hardware-configuration.nix files.
+    from the hosts/${host} directory, as well as the modules/nixos and modules/home-manager directories.
+
+    All configuration should be done in the host's configuration.nix file, which is available
+    to home-manager as `hostConfig`.
+   */
   mkHost = {
-    name, # Host name. Should match the key in nixosConfigurations for rebuilds to detect it automatically
-    system, # System type. Usually x86_64-linux
-    users, # A list of users to create, as returned by mk-user
+    # Host name. Should match the key in nixosConfigurations for rebuilds to detect it automatically
+    name,
+    # System type. Usually x86_64-linux
+    system,
+    # A list of users to create, as returned by [lib.mkUser](#function-library-lib.user.mkUser)
+    users,
   }: let
     pkgs-unstable = import nixpkgs-unstable { system = system; config.allowUnfree = true; };
 
