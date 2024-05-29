@@ -1,1 +1,0 @@
-/nix/store/cgg7gj37wv8incljf4nq0cxnwd6p1dp4-home-manager-files/Documents/src/nixcfg/documentation.nix

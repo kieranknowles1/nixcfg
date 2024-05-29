@@ -1,2 +1,4 @@
 # Output of any builds from Nix
 result
+# Generated during the build process
+documentation.md
