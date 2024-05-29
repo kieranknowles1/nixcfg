@@ -49,4 +49,11 @@
     // =====
     "nix.enableLanguageServer": true,
     "nix.serverPath": "nil",
+
+    // ========
+    //  Python
+    // ========
+    "python.analysis.diagnosticMode": "workspace", // Check the whole project, not just open files
+    "python.analysis.typeCheckingMode": "strict", // Be strict about type checking, good for catching bugs
+    "python.analysis.inlayHints.functionReturnTypes": true, // Show return types in function signatures, useful for understanding code
 }
