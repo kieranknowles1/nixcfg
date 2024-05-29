@@ -16,7 +16,7 @@ in {
     # doing anything lossy without being explicit about it.
     convert = pkgs.runCommand "heif-to-png" {} ''
       mkdir -p $out
-      ${pkgs.libheif}/bin/heif-convert ${source} $out/output.png
+      ${pkgs.libheif}/bin/heif-convert "${source}" "$out/output.png"
     '';
   # We only care about the image, not the directory it's in.
   in "${convert}/output.png";
