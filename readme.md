@@ -26,12 +26,13 @@ is a per-package override for some packages to use master instead.
 
 ### Library
 
-The following functions are available in the `flake.lib` attribute set.
+An extension to the standard nixpkgs library is provided in the `flake.lib` attribute set. Documentation is generated
+during the build process and can be found in [documentation.md](documentation.md).
 
-- `host`
-  - `mkHost` - Create a host configuration, imports the configuration and hardware-configurations from `hosts/${name}`.
+This is generated with [nixdoc](https://github.com/nix-community/nixdoc) and uses the [CommonMark](https://commonmark.org/)
+flavour of Markdown.
 
-    The host will import all modules from `modules/nixos`, which can then be configured in the host's configuration.
+<!-- TODO: Convert the rest of these functions to the new format -->
 - `image`
   - `fromHeif` - Convert a HEIF image to a PNG image losslessly. Returns the path to the PNG image.
 

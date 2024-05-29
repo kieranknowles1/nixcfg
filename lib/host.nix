@@ -6,6 +6,8 @@
 
     All configuration should be done in the host's configuration.nix file, which is available
     to home-manager as `hostConfig`.
+
+    # Arguments
    */
   mkHost = {
     # Host name. Should match the key in nixosConfigurations for rebuilds to detect it automatically

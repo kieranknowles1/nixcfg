@@ -23,9 +23,13 @@ in {
       OUTPUT="$out/index.md"
 
       for file in $(find "${path}" -type f -name '*.nix'); do
+        # TODO: Skip any default.nix files.
+
         lib_name=$(basename $file .nix)
+        # TODO: Capitalize the first letter of the name or have a way to specify the human name.
         human_name="$lib_name"
 
+        # TODO: Add 2 more hashes to any headers to compensate for the 2 used by the nixdoc command.
         ${nixdoc} --category "$lib_name" --description "$human_name" --file "$file" >> $OUTPUT
       done
     '';
