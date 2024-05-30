@@ -8,5 +8,10 @@
   # Enable everything needed for this configuration
   config.custom = {
     office.enable = true;
+
+    development = {
+      enable = true;
+      node.enable = true;
+    };
   };
 }
