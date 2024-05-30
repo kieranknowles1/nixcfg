@@ -11,6 +11,7 @@
     ./gnome.nix
     ./mime
     ./nushell
+    ./shortcuts
     ./vscode
   ];
 }
