@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: let
+{ pkgs, lib, config, hostConfig, ... }: let
   applicationsDir = "${config.xdg.dataHome}/applications";
 
   resaverDesktop = {
@@ -16,8 +16,7 @@
     '';
   };
 in {
-  # TODO: Condition this based on the host's configuration
-  config = {
+  config = lib.mkIf hostConfig.custom.games.enable {
     # Install the desktop file to ~/.local/share/applications
     home.file."${applicationsDir}/${resaverDesktop.fileName}".text = resaverDesktop.contents;
 
