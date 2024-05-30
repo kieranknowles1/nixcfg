@@ -3,6 +3,7 @@
     //  Core
     // ======
     "telemetry.telemetryLevel": "off",
+    "terminal.external.linuxExec": "kgx",
 
     // Extensions are managed by Nix, so don't let VSCode try to update them
     "extensions.autoCheckUpdates": false,
