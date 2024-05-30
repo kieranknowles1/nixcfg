@@ -74,10 +74,10 @@ I can do all my work in one place.
 - [x] Generate documentation rather than doing it manually
   - [x] For functions
   - [x] For options
-- [ ] Set keyboard shortcuts
-  - [ ] `Alt+T` to open terminal
-  - [ ] `Ctrl+Shift+Escape` to open System Monitor
-  - [ ] `Ctrl+Alt+E` to open FSearch
+- [x] Set keyboard shortcuts
+  - [x] `Alt+T` to open terminal
+  - [x] `Ctrl+Shift+Escape` to open System Monitor
+  - [x] `Ctrl+Alt+E` to open FSearch
   - [ ] Some way to disable keyboard LEDs
 - [x] Associate file types with programs
   - [x] PDFs with Firefox, overriding  LibreOffice
