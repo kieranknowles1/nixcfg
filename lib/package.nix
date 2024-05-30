@@ -21,7 +21,6 @@
 
     packages :: List
     : The packages to include if the condition is true.
-    ])
    */
   optionalPackages = condition: packages: if condition then packages else [];
 }
