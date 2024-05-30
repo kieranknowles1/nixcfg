@@ -26,8 +26,12 @@ in {
       OUTPUT="$out/index.md"
 
       for file in $(find "${path}" -type f -name '*.nix'); do
-        # TODO: Skip any default.nix files.
+        # Skip default.nix files, including those in subdirectories via wildcards.
+        if [[ $file == *default.nix ]]; then
+          continue
+        fi
 
+        # TODO: Replace slashes with dots in the category to represent submodules.
         lib_name=$(basename $file .nix)
         # TODO: Capitalize the first letter of the name or have a way to specify the human name.
         human_name="$lib_name"
