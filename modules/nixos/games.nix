@@ -15,6 +15,8 @@
       wine
       winetricks
       protontricks # Proton itself is installed by steam
+
+      openmw # TODO: Get my own version building. May be time to learn dev shells
     ];
   };
 }
