@@ -8,6 +8,5 @@
   docs = import ./docs.nix { inherit nixpkgs; };
   host = import ./host.nix { inherit nixpkgs nixpkgs-unstable flake inputs; };
   image = import ./image.nix { inherit nixpkgs; };
-  package = import ./package.nix {};
   user = import ./user.nix {};
 }
