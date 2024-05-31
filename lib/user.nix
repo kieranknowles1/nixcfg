@@ -7,15 +7,19 @@
     through the `hostConfig` argument to modules.
 
     # Arguments
+
+    userName :: String : The login name of the user.
+
+    displayName :: String : The name shown in UIs.
+
+    isSudoer :: Bool = false : Whether the user should be able to sudo.
+
+    shell :: Package : The package for the user's shell.
    */
   mkUser = {
-    # Login name :: String
     userName,
-    # Name shown in UIs :: String
     displayName,
-    # Whether the user should be able to sudo :: Bool
     isSudoer ? false,
-    # Package for the user's shell :: Package
     shell,
   }: {
     users.users.${userName} = {
