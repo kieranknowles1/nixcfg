@@ -24,7 +24,7 @@ class Arguments:
             raise ValueError("A commit message cannot be provided when not committing changes.")
 
         self.message: str|None = args.message
-        self.update: bool = args.update # TODO: Implement this
+        self.update: bool = args.update
 
 def called_as_root():
     return geteuid() == 0
