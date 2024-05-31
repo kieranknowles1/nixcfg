@@ -7,7 +7,7 @@ let
 in
 {
   # Set the keyboard layout for X11.
-  services.xserver.layout = keymap;
+  services.xserver.xkb.layout = keymap;
   # Inherit this for the console.
   console.useXkbConfig = true;
 
