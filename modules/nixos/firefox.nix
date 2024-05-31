@@ -10,7 +10,7 @@
     evince
   ];
 
-  # Install firefox. TODO: Do with home manager and enable extensions
+  # Install firefox. Extensions are managed by home manager
   programs.firefox = {
     enable = true;
 

@@ -1,15 +1,17 @@
 # Readme
 
-This repository contains the NixOS configuration for my desktop computer.
+This repository contains the NixOS configuration for my systems.
 
 - [Readme](#readme)
   - [Usage](#usage)
-  - [Documentation](#documentation)
+    - [System Usage](#system-usage)
+      - [Key Bindings](#key-bindings)
+  - [Documentation and Development Notes](#documentation-and-development-notes)
     - [Library](#library)
     - [Options](#options)
-  - [Repository Structure](#repository-structure)
-  - [Essential Resources](#essential-resources)
-  - [Todo List](#todo-list)
+    - [Repository Structure](#repository-structure)
+    - [Essential Resources](#essential-resources)
+    - [Todo List](#todo-list)
   - [Lessons Learned](#lessons-learned)
     - [Don't Use Wayland Yet](#dont-use-wayland-yet)
     - [Make Sure You Have a User](#make-sure-you-have-a-user)
@@ -18,11 +20,17 @@ This repository contains the NixOS configuration for my desktop computer.
 
 To rebuild the system, run `./rebuild.py <commit message>`.
 This will update and switch to the current changes, then commit them if it was successful.
+For more information, run `./rebuild.py --help`.
 
-To update packages, run `nix flake update`. Most packages use the stable channel, but there
-is a per-package override for some packages to use master instead.
+### System Usage
 
-## Documentation
+#### Key Bindings
+
+- `Alt+T` - Open terminal
+- `Ctrl+Shift+Escape` - Open System Monitor
+- `Ctrl+Alt+E` - Open FSearch
+
+## Documentation and Development Notes
 
 ### Library
 
@@ -42,7 +50,7 @@ They are configured the same as any other option in NixOS.
 This is generated with `nixosOptionsDoc` and I wouldn't have known about it or how to use it without Brian McGee's
 [blog post](https://bmcgee.ie/posts/2023/03/til-how-to-generate-nixos-module-docs/).
 
-## Repository Structure
+### Repository Structure
 
 - [docs (gitignored)](docs/) contains documentation generated during the build process.
 - [hosts](hosts/) contains the configuration for each host.
@@ -54,7 +62,7 @@ This is generated with `nixosOptionsDoc` and I wouldn't have known about it or h
 - [flake.nix](flake.nix) is the entry point for the repository.
 - [rebuild.sh](rebuild.sh) script to update from the repository and commit changes.
 
-## Essential Resources
+### Essential Resources
 
 The following resources were essential in setting up this repository and served as frequent references. Other resources
 used are linked as-and-when they were used.
@@ -63,7 +71,7 @@ used are linked as-and-when they were used.
 - [Noogle](https://noogle.dev/) - A search engine for NixOS functions.
 - [Vimjoyer](https://www.youtube.com/@vimjoyer) - A great resource for NixOS. Introduces many important concepts, tools, and all around was my go-to for learning NixOS.
 
-## Todo List
+### Todo List
 
 Tasks I want to complete in the future. I'm tracking these here rather than in issues so
 I can do all my work in one place.
