@@ -5,6 +5,7 @@
     enable = true;
     libraries = with pkgs; [
       libz
+      libgcc.lib
     ];
   };
 }
