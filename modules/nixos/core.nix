@@ -62,7 +62,8 @@
     nerdfonts # Patched fonts with icons used by Starship in Unicode's Private Use Area
   ];
 
-  # Enable NTFS support
+  # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
+  # a bad superblock, try mounting it in the terminal instead.
   boot.supportedFilesystems = [ "ntfs" ];
 
   # This value determines the NixOS release from which the default
