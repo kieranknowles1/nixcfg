@@ -55,6 +55,7 @@
     file
     fsearch
     p7zip
+    nix-index # Good for searching packages
   ];
 
   fonts.packages = with pkgs; [

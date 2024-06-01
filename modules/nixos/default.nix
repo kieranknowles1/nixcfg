@@ -8,6 +8,7 @@
     ./firefox.nix
     ./games.nix
     ./gnome.nix
+    ./libraries.nix
     ./locale.nix
     ./nvidia.nix
     ./office.nix
