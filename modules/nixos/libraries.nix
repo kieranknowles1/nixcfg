@@ -6,6 +6,7 @@
     libraries = with pkgs; [
       libz
       libgcc.lib
+      icu
     ];
   };
 }
