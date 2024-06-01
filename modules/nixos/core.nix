@@ -62,6 +62,9 @@
     nerdfonts # Patched fonts with icons used by Starship in Unicode's Private Use Area
   ];
 
+  # Enable NTFS support
+  boot.supportedFilesystems = [ "ntfs" ];
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
