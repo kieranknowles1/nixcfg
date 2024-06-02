@@ -13,6 +13,8 @@ class Arguments:
         parser.add_argument("message", help="The commit message.", nargs="?")
         parser.add_argument("-C", "--no-commit", action="store_true", help="Don't commit the changes.")
 
+        parser.add_argument("-D", "--no-diff", action="store_true", help="Don't include a diff in the commit message.")
+
         parser.add_argument("-u", "--update", action="store_true", help="Update flake inputs before rebuilding.")
 
         return Arguments(parser.parse_args())
@@ -24,6 +26,7 @@ class Arguments:
             raise ValueError("A commit message cannot be provided when not committing changes.")
 
         self.message: str|None = args.message
+        self.diff: bool = not args.no_diff
         self.update: bool = args.update
 
 def called_as_root():
@@ -81,12 +84,16 @@ def main():
     if arguments.message is not None:
         generation_meta = get_generation_meta()
 
-        # Commit the changes. Multiple -m options will be concatenated, each as a separate paragraph
+        commit_messages = [
+            f"{generation_meta.number}: {arguments.message}",
+            generation_meta.meta,
+        ] + ([diff] if arguments.diff else [])
+        combined_message = "\n\n".join(commit_messages)
+
+        # Commit the changes.
         run(["git", "add", "."], check=True)
         run(["git", "commit",
-            "-m", f"{generation_meta.number}: {arguments.message}",
-            "-m", generation_meta.meta,
-            "-m", diff], check=True)
+            "-m", combined_message], check=True)
 
 if __name__ == "__main__":
     main()
