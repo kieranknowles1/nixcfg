@@ -5,6 +5,7 @@
     development = {
       enable = lib.mkEnableOption "development tools";
       node.enable = lib.mkEnableOption "node.js";
+      cpp.enable = lib.mkEnableOption "C++";
     };
   };
 
@@ -14,6 +15,9 @@
       nil # Language server for Nix
     ] ++ (lib.optionals config.custom.development.node.enable [
       nodejs
-    ]);
+    ] ++ (lib.optionals config.custom.development.cpp.enable [
+      cmake
+      clang
+    ]));
   };
 }

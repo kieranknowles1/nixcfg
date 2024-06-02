@@ -9,7 +9,7 @@
   config.custom = {
     development = {
       enable = true;
-      node.enable = true;
+      cpp.enable = true;
     };
     games.enable = true;
     nvidia.enable = true;
