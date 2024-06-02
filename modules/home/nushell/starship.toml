@@ -1,5 +1,8 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# Config for the Starship prompt
+# Can include icons from nerd-fonts: https://www.nerdfonts.com/cheat-sheet
+
 [character]
 # Display a cross if the last command failed (non-zero exit code)
 error_symbol = "[✗](bold red)"
@@ -13,8 +16,12 @@ diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 # Show the number of modified, untracked, and staged files
 # Use the Greek Delta to represent modified but unstaged files as this means "change"
 # Use the letter "U" instead of "?" to make it clear what it represents
-modified = "Δ${count}"
-untracked = "U${count}"
-staged = "+${count}"
-# nf-cod-trash from nerd-fonts
+conflicted = "!${count}"
+# nf-cod-trash
 deleted = "\uea81${count}"
+modified = "Δ${count}"
+renamed = "»${count}"
+staged = "+${count}"
+# nf-fa-box
+stashed = "\ued75${count}"
+untracked = "U${count}"
