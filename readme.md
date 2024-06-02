@@ -44,8 +44,8 @@ flavour of Markdown.
 
 Several options are available to customize the configuration on top of what the flake's inputs provide, although
 it is preferred to only use the newly provided options in the `configuration.nix` file. All newly provided options
-are under the `custom` key. This is generated during the build process and can be found in [docs/options.md](docs/options.md).
-They are configured the same as any other option in NixOS.
+are under the `custom` key. This is generated during the build process. Host options are documented in [docs/host-options.md](docs/host-options.md)
+while user-specific options are in [docs/user-options.md](docs/user-options.md). These can be used as any other NixOS option would be.
 
 This is generated with `nixosOptionsDoc` and I wouldn't have known about it or how to use it without Brian McGee's
 [blog post](https://bmcgee.ie/posts/2023/03/til-how-to-generate-nixos-module-docs/).
