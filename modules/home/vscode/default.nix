@@ -16,6 +16,7 @@ in
         github.copilot-chat
         gruntfuggly.todo-tree
         ms-vscode-remote.remote-ssh
+        streetsidesoftware.code-spell-checker
 
         # Language support
         jnoortheen.nix-ide
