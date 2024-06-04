@@ -1,7 +1,7 @@
 # System level Firefox settings
 # See also: ../home/firefox.nix
 # TODO: Make the link clickable
-{ config, pkgs, ...}:
+{ pkgs, ...}:
 {
   environment.gnome.excludePackages = with pkgs; [
     # GNOME's built-in browser
@@ -15,6 +15,7 @@
     enable = true;
 
     policies = {
+      AutofillCreditCardEnabled = false;
       # Updates are managed by Nix
       DisableAppUpdate = true;
       DisableTelemetry = true;
