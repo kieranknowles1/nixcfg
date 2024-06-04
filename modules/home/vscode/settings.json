@@ -29,6 +29,7 @@
     // The default limits are a bit low for large files, so increase them to be practically unlimited
     "cSpell.maxNumberOfProblems": 99999,
     "cSpell.checkLimit": 99999,
+    "cSpell.language": "en-GB", // American English is simplified English
 
     "todo-tree.tree.expanded": true,
     "todo-tree.tree.showCountsInTree": true,
@@ -61,5 +62,6 @@
     // ========
     "python.analysis.diagnosticMode": "workspace", // Check the whole project, not just open files
     "python.analysis.typeCheckingMode": "strict", // Be strict about type checking, good for catching bugs
-    "python.analysis.inlayHints.functionReturnTypes": true, // Show return types in function signatures, useful for understanding code
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "github.copilot.editor.enableAutoCompletions": true, // Show return types in function signatures, useful for understanding code
 }
