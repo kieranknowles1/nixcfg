@@ -10,6 +10,7 @@
     development = {
       enable = true;
       cpp.enable = true;
+      modding.enable = true;
     };
     games.enable = true;
     nvidia.enable = true;

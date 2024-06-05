@@ -1,16 +1,28 @@
-{ config, hostConfig, lib, pkgs-unstable, ... }:
+{
+  config,
+  hostConfig,
+  lib,
+  pkgs-unstable,
+  inputs,
+  system,
+  ...
+}:
 let
   settings-root = "${config.xdg.configHome}/Code/User";
+
+  hostDevelopment = hostConfig.custom.development;
+
+  extensionsRepo = inputs.vscode-extensions.extensions.${system};
 in
 {
-  config = lib.mkIf hostConfig.custom.development.enable {
+  config = lib.mkIf hostDevelopment.enable {
     programs.vscode = {
       enable = true;
 
       # Use the latest version of VSCode from the unstable channel
       package = pkgs-unstable.vscode;
 
-      extensions = with pkgs-unstable.vscode-extensions; [
+      extensions = with extensionsRepo.vscode-marketplace; [
         # Must-have extensions
         github.copilot
         github.copilot-chat
@@ -29,7 +41,9 @@ in
         # Plain VSCode supports Markdown, but this extension
         # adds some nice features, namely table of contents
         yzhang.markdown-all-in-one
-      ];
+      ] ++ (lib.optionals hostDevelopment.modding.enable [
+        joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
+      ]);
     };
 
     # TODO: Find a way that I can still edit and sync back
