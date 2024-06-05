@@ -7,9 +7,15 @@ from os import geteuid
 class Arguments:
     @staticmethod
     def from_cli():
+        """
+        Parse arguments from the command line.
+
+        Convention: Lowercase flags are for enabling features, uppercase flags are for disabling features. All
+        flags must have a long form, if it's a disabling flag, it must be prefixed with "no-".
+        """
         parser = ArgumentParser(description="Rebuilds the system from the current repository state and commits the changes if successful.")
 
-        # Require exactly one of these arguments. Checks are done later.
+        # The message is required unless we're not committing or are updating
         parser.add_argument("message", help="The commit message.", nargs="?")
         parser.add_argument("-C", "--no-commit", action="store_true", help="Don't commit the changes.")
 
@@ -20,14 +26,22 @@ class Arguments:
         return Arguments(parser.parse_args())
 
     def __init__(self, args: Namespace):
-        if args.message is None and not args.no_commit:
-            raise ValueError("A commit message is required when committing changes.")
-        elif args.message is not None and args.no_commit:
-            raise ValueError("A commit message cannot be provided when not committing changes.")
-
+        self.no_commit: bool = args.no_commit
         self.message: str|None = args.message
         self.diff: bool = not args.no_diff
         self.update: bool = args.update
+
+        # Message may or may not be required, depending on the other arguments. Too complex for argparse on its own, so we handle it here.
+        if self.message is None:
+            # If we're not committing, we don't need a message
+            if self.no_commit:
+                pass
+            # If we're updating, we can give a default
+            elif self.update:
+                self.message = "Update flake inputs."
+            # Otherwise, we need a message
+            else:
+                raise ValueError("A commit message is required when not updating or committing changes.")
 
 def called_as_root():
     return geteuid() == 0
@@ -81,7 +95,7 @@ def main():
 
     apply_configuration()
 
-    if arguments.message is not None:
+    if not arguments.no_commit:
         generation_meta = get_generation_meta()
 
         commit_messages = [
