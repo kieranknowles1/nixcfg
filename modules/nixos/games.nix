@@ -1,6 +1,7 @@
 # Module to install game tools
-{ config, lib, pkgs-unstable, pkgs, ... }:
-{
+{ config, lib, pkgs-unstable, pkgs, flake, system, ... }: let
+  flakePackages = flake.packages.${system};
+in {
   options = {
     custom.games.enable = lib.mkEnableOption "games";
   };
@@ -19,6 +20,9 @@
       protontricks # Proton itself is installed by steam
 
       openmw # TODO: Get my own version building. May be time to learn dev shells
+
+      # Game tools
+      flakePackages.clean-skse-cosaves
     ];
   };
 }

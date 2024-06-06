@@ -62,5 +62,7 @@
         ];
       };
     };
+
+    packages.x86_64-linux = import ./packages { pkgs = import nixpkgs { system = "x86_64-linux"; }; };
   };
 }

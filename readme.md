@@ -58,6 +58,7 @@ This is generated with `nixosOptionsDoc` and I wouldn't have known about it or h
 - [modules](modules/) modules included by the hosts.
   - [home](modules/home/) modules used by home-manager.
   - [nixos](modules/nixos/) modules used by NixOS.
+- [packages](packages/) contains packages and scripts written for the repository.
 - [users](users/) contains user configurations.
 - [flake.nix](flake.nix) is the entry point for the repository.
 - [rebuild.sh](rebuild.sh) script to update from the repository and commit changes.
