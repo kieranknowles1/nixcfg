@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./core.nix
+    ./docs.nix
     ./espanso
     ./firefox.nix
     ./games.nix
