@@ -15,7 +15,7 @@ let
   extensionsRepo = inputs.vscode-extensions.extensions.${system};
 in
 {
-  config = lib.mkIf hostDevelopment.enable {
+  config = lib.mkIf (config.custom.development.editor == "vscode") {
     programs.vscode = {
       enable = true;
 

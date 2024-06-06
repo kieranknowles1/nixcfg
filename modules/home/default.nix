@@ -5,6 +5,7 @@
 {
   imports = [
     ./core.nix
+    ./editor
     ./espanso
     ./firefox.nix
     ./games.nix
@@ -12,6 +13,5 @@
     ./mime
     ./nushell
     ./shortcuts
-    ./vscode
   ];
 }
