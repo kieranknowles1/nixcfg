@@ -12,6 +12,8 @@
       plugins = with pkgs.vimPlugins; [
         nvim-lspconfig
       ];
+
+      extraLuaConfig = builtins.readFile ./init.lua;
     };
   };
 }
