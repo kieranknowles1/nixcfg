@@ -27,10 +27,10 @@ in
         github.copilot
         github.copilot-chat
         gruntfuggly.todo-tree
-        ms-vscode-remote.remote-ssh
         streetsidesoftware.code-spell-checker
 
         # Language support
+        # TODO: Move all of these to an option for "development of this repo"
         jnoortheen.nix-ide
         redhat.vscode-yaml
         tamasfe.even-better-toml
@@ -43,6 +43,8 @@ in
         yzhang.markdown-all-in-one
       ] ++ (lib.optionals hostDevelopment.modding.enable [
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
+      ]) ++ (lib.optionals hostDevelopment.remote.enable [
+        ms-vscode-remote.remote-ssh
       ]);
     };
 

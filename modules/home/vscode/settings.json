@@ -2,12 +2,15 @@
     // ======
     //  Core
     // ======
-    "telemetry.telemetryLevel": "off",
-    "terminal.external.linuxExec": "kgx",
 
-    // Extensions are managed by Nix, so don't let VSCode try to update them
+    "terminal.external.linuxExec": "kgx", // The default terminal isn't installed and fails silently
+    "telemetry.telemetryLevel": "off", // Don't send telemetry data to Microsoft
+    "redhat.telemetry.enabled": false, // I'm installing this automatically, so technically I never consented and enabling by default is a GDPR violation
+
+    // VSCode and extensions are managed by Nix, so don't auto-update or even check for updates
     "extensions.autoCheckUpdates": false,
     "extensions.autoUpdate": false,
+    "update.mode": "none",
 
     "files.insertFinalNewline": true, // Makes some tools happier
     "files.trimTrailingWhitespace": true, // Trailing whitespace is bad practice

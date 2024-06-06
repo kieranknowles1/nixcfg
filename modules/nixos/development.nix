@@ -4,9 +4,11 @@
   options.custom = {
     development = {
       enable = lib.mkEnableOption "development tools";
-      node.enable = lib.mkEnableOption "node.js";
+
       cpp.enable = lib.mkEnableOption "C++";
       modding.enable = lib.mkEnableOption "modding tools";
+      node.enable = lib.mkEnableOption "node.js";
+      remote.enable = lib.mkEnableOption "remote development over SSH";
     };
   };
 
