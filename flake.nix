@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-24.05";
@@ -18,9 +18,11 @@
 
     # Again, we want to be on the latest versions
     # This is a much more complete set of extensions than the ones in nixpkgs
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions?ref=master";
+    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
-    stylix.url = "github:danth/stylix?ref=master";
+    nixvim.url = "github:nix-community/nixvim";
+
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {

@@ -2,18 +2,25 @@
   config,
   lib,
   pkgs,
+  inputs,
+  system,
   ...
-}: {
+}: let
+  nixvimLib = inputs.nixvim.lib.${system};
+  nixvim = inputs.nixvim.legacyPackages.${system};
+  nixvimModule = {
+    inherit pkgs;
+    module = import ./config;
+    extraSpecialArgs = {
+
+    };
+  };
+  nvim = nixvim.makeNixvimWithModule nixvimModule;
+in {
   # TODO: Configure neovim
   config = lib.mkIf (config.custom.development.editor == "neovim") {
-    programs.neovim = {
-      enable = true;
-
-      plugins = with pkgs.vimPlugins; [
-        nvim-lspconfig
-      ];
-
-      extraLuaConfig = builtins.readFile ./init.lua;
-    };
+    home.packages = [
+      nvim
+    ];
   };
 }
