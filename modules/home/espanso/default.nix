@@ -2,11 +2,7 @@
  config,
  lib,
   ...
-}: let
-  mkMatch = trigger: replace: {
-    inherit trigger replace;
-  };
-in {
+}: {
   options = {
     custom.email = lib.mkOption {
       description = "Email address";
@@ -23,13 +19,13 @@ in {
   config = {
     services.espanso = {
       enable = true;
-      # Don't manage configs here, apart from the default match file
+      # Don't manage configs here, apart from the base match file
       # which we'll use for matches that use variables
       configs = {};
       matches = {
-        default.matches = [
-          (mkMatch ":email:" config.custom.email)
-          (mkMatch ":name:" config.custom.fullName)
+        base.matches = [
+          { trigger = ":email:"; replace = config.custom.email; }
+          { trigger = ":name:"; replace = config.custom.fullName; }
         ];
       };
     };
