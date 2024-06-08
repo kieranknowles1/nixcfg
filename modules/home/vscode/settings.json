@@ -26,7 +26,7 @@
     "editor.showFoldingControls": "always", // Always show folding controls, so it's clear what's foldable
 
     // =================
-    //  Core Extentions
+    //  Core Extensions
     // =================
 
     // The default limits are a bit low for large files, so increase them to be practically unlimited
@@ -65,6 +65,11 @@
     // ========
     "python.analysis.diagnosticMode": "workspace", // Check the whole project, not just open files
     "python.analysis.typeCheckingMode": "strict", // Be strict about type checking, good for catching bugs
-    "python.analysis.inlayHints.functionReturnTypes": true,
-    "github.copilot.editor.enableAutoCompletions": true, // Show return types in function signatures, useful for understanding code
+    "python.analysis.inlayHints.functionReturnTypes": true, // Show return types in function signatures, useful for understanding code
+    "python.analysis.diagnosticSeverityOverrides": { // Configure Pylance to be stricter than usual
+        "reportUnusedClass": "warning",
+        "reportUnusedExpression": "warning",
+        "reportUnusedFunction": "warning",
+        "reportUnusedVariable": "warning",
+    }
 }
