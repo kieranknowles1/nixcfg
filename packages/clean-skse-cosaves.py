@@ -7,6 +7,7 @@
 
 from os import listdir, remove, path
 
+# TODO: Don't hardcode this, this is currently a symlink to MO2's actual profile. Probably use Nix or something
 SAVE_DIR = path.expanduser("~/Documents/src/dotfiles/configs/games/skyrim/profile/saves")
 
 def collect_saves() -> tuple[set[str], set[str]]:
@@ -36,6 +37,9 @@ def main():
 
     # Get a list of everything in skse_files that is not in ess_files
     to_delete = skse_files - ess_files
+
+    if len(to_delete) == 0:
+        print("Nothing to do")
 
     for file in to_delete:
         remove(path.join(SAVE_DIR, f"{file}.skse"))
