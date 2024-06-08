@@ -36,5 +36,5 @@
 in {
   clean-skse-cosaves = packagePythonScript "clean-skse-cosaves" "1.0.1";
 
-  edit-config = packagePythonScript "edit-config" "1.0.0";
+  edit-config = packagePythonScript "edit-config" "1.0.1";
 }

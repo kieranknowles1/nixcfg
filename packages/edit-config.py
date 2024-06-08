@@ -4,7 +4,7 @@
 # then copy them back to the source repository for version control
 
 from argparse import ArgumentParser, Namespace
-from os import readlink, remove, path
+from os import remove, path
 from shutil import copyfile, move
 from subprocess import run
 
@@ -17,7 +17,7 @@ class Application:
     def __init__(self, system_path: str, repo_path: str):
         self.system_path = system_path
         """The path to the file on disk."""
-        self.repo_path = repo_path
+        self.repo_path = path.join(REPOSITORY, repo_path)
         """The path to the file relative to the repository."""
 
     def check_valid(self):
@@ -40,15 +40,14 @@ class Application:
         # NixOS/Home Manager symlinks all its files, so we replace the symlink with a copy of the actual file
         self.check_valid()
 
-        # Get the actual file path
-        real_file = readlink(self.system_path)
         # Rebuilding the link would be a pain, so just move it out of the way
         link_backup = f"{self.system_path}.edit-config-link-backup"
         move(self.system_path, link_backup)
 
-        # Replace the symlink with a copy of the actual file
-        copyfile(real_file, self.system_path)
-
+        # Replace the symlink with a copy of the file as it is in the repository
+        # We don't want the version in the store as it may be out of date if
+        # there are uncommitted changes
+        copyfile(self.repo_path, self.system_path)
 
         run([EDITOR, self.system_path])
         print("Make your changes to the config file")
@@ -56,7 +55,7 @@ class Application:
         input("Press Enter to continue...")
 
         # Pull the changes back to the repository
-        copyfile(self.system_path, path.join(REPOSITORY, self.repo_path))
+        copyfile(self.system_path, self.repo_path)
 
         # Restore the symlink
         remove(self.system_path)
