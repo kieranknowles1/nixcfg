@@ -2,8 +2,11 @@
 
 {
   custom = {
-    email = "kieranknowles11@hotmail.co.uk";
-    fullName = "Kieran Knowles";
+    userDetails = {
+      email = "kieranknowles11@hotmail.co.uk";
+      firstName = "Kieran";
+      surName = "Knowles";
+    };
   };
 
   # This value determines the Home Manager release that your configuration is
