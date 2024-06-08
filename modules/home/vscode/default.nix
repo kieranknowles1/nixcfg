@@ -48,8 +48,6 @@ in
       ]);
     };
 
-    # TODO: Find a way that I can still edit and sync back
-    # to the repo later
     home.file."${settings-root}/settings.json" = {
       source = ./settings.json;
     };

@@ -1,6 +1,7 @@
 # Core configuration needed for any host
-{ pkgs, pkgs-unstable, ... }:
-{
+{ pkgs, pkgs-unstable, flake, system, ... }: let
+  flakePackages = flake.packages.${system};
+in {
   # Enable flakes
   nix.settings.experimental-features = [
     "nix-command"
@@ -56,6 +57,9 @@
     fsearch
     p7zip
     nix-index # Good for searching packages
+
+    # My utilities to make workflows easier
+    flakePackages.edit-config
   ];
 
   fonts.packages = with pkgs; [
