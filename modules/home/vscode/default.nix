@@ -52,7 +52,7 @@ in
       source = ./settings.json;
     };
 
-    custom.edit-config.program.code = {
+    custom.edit-config.programs.code = {
       system-path = settingsFile;
       repo-path = "modules/home/vscode/settings.json";
     };

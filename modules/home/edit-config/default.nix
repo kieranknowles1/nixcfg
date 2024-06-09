@@ -8,9 +8,28 @@
   package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "2.0.0";
 in {
   options.custom.edit-config = {
-    program = lib.mkOption {
+    editor = lib.mkOption {
       description = ''
-        A program with configuration files to edit. The key will be used to
+        The editor to use when editing configuration files. May be GUI or CLI, so long
+        as it accepts a file path as an argument.
+      '';
+
+      type = lib.types.str;
+      default = "code";
+    };
+
+    repository = lib.mkOption {
+      description = ''
+        The path to the repository containing the configuration files to edit.
+        Tildes are expanded to the user's home directory.
+      '';
+
+      type = lib.types.str;
+    };
+
+    programs = lib.mkOption {
+      description = ''
+        Programs with configuration files to edit. The key will be used to
         select the configuration file via the command line.
       '';
 
