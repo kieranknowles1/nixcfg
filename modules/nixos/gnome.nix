@@ -16,7 +16,9 @@
     gedit # Replaced by vscode, but that is managed by home-manager
     gnome-connections # I have no need for remote desktop
     gnome-tour # Basic intro to GNOME
-    gnome.cheese # TODO: Why isnt this removed
+    # NOTE: This is a dependency of gnome-control-center, so it isn't really removed.
+    # While removing it would be the Nix way, it's too useful for finding what to do in the first place.
+    gnome.cheese # I don't have a webcam.
     gnome.file-roller # Nautilus can handle archives
     gnome.gnome-calendar # I use my phone for calendar
     gnome.gnome-clocks # I use my phone for alarms
