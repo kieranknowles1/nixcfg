@@ -63,6 +63,9 @@
       };
     };
 
-    packages.x86_64-linux = import ./packages { pkgs = import nixpkgs { system = "x86_64-linux"; }; };
+    packages.x86_64-linux = import ./packages {
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      flakeLib = lib;
+    };
   };
 }
