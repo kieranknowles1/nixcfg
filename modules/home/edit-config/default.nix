@@ -58,8 +58,10 @@ in {
   };
 
   config = {
+    # Put our script on the PATH.
     home.packages = [ package ];
 
+    # Provisioning a file in .config is easier than including it in the edit-config derivation.
     home.file."${config.xdg.configHome}/edit-config.json".text = builtins.toJSON config.custom.edit-config;
   };
 }
