@@ -2,7 +2,7 @@
 
 {
   custom = {
-    edit-config.repository = "Documents/src/nixcfg";
+    edit-config.repository = "~/Documents/src/nixcfg";
     userDetails = {
       email = "kieranknowles11@hotmail.co.uk";
       firstName = "Kieran";
