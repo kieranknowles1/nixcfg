@@ -71,6 +71,7 @@ used are linked as-and-when they were used.
 - [Isaac Elliott's Blog on mkDerivation](https://blog.ielliott.io/nix-docs/mkDerivation.html) - A great explanation of `mkDerivation`.
 - [Noogle](https://noogle.dev/) - A search engine for NixOS functions.
 - [Vimjoyer](https://www.youtube.com/@vimjoyer) - A great resource for NixOS. Introduces many important concepts, tools, and all around was my go-to for learning NixOS.
+- [Sphinx NixOS Manual](https://nlewo.github.io/nixos-manual-sphinx/development/option-types.xml.html) - The official NixOS manual in a format that doesn't freeze with 32GB of RAM.
 
 ### Todo List
 

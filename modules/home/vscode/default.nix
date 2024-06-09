@@ -8,7 +8,7 @@
   ...
 }:
 let
-  settings-root = "${config.xdg.configHome}/Code/User";
+  settingsFile = "${config.xdg.configHome}/Code/User/settings.json";
 
   hostDevelopment = hostConfig.custom.development;
 
@@ -48,8 +48,13 @@ in
       ]);
     };
 
-    home.file."${settings-root}/settings.json" = {
+    home.file."${settingsFile}" = {
       source = ./settings.json;
+    };
+
+    custom.edit-config.program.code = {
+      system-path = settingsFile;
+      repo-path = "modules/home/vscode/settings.json";
     };
   };
 }

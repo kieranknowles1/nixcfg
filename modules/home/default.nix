@@ -5,6 +5,7 @@
 {
   imports = [
     ./docs.nix
+    ./edit-config
     ./espanso
     ./firefox.nix
     ./games.nix

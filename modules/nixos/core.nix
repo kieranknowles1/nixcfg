@@ -57,9 +57,6 @@ in {
     fsearch
     p7zip
     nix-index # Good for searching packages
-
-    # My utilities to make workflows easier
-    flakePackages.edit-config
   ];
 
   fonts.packages = with pkgs; [
