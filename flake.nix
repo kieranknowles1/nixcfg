@@ -20,6 +20,7 @@
     # This is a much more complete set of extensions than the ones in nixpkgs
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions?ref=master";
 
+    # TODO: Pin this to 24.05 once it releases on stable
     stylix.url = "github:danth/stylix?ref=master";
   };
 
