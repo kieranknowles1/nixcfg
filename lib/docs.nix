@@ -1,6 +1,10 @@
-{ nixpkgs }: let
+{
+  nixpkgs,
+  flake,
+}: let
   # TODO: Don't repeat importing packages in every function.
   pkgs = import nixpkgs { system = "x86_64-linux"; };
+  flakePkgs = flake.packages.x86_64-linux;
 in {
   /**
     Generate documentation for the functions in the given directory.
@@ -20,6 +24,8 @@ in {
    */
   mkFunctionDocs = path: let
     nixdoc = "${pkgs.nixdoc}/bin/nixdoc";
+    capitalise = "${flakePkgs.capitalize}/bin/capitalize";
+    replace = "${flakePkgs.replace}/bin/replace";
 
     docs = pkgs.runCommand "mkFunctionDocs" {} ''
       mkdir -p $out
@@ -31,10 +37,8 @@ in {
           continue
         fi
 
-        # TODO: Replace slashes with dots in the category to represent submodules.
-        lib_name=$(basename $file .nix)
-        # TODO: Capitalize the first letter of the name or have a way to specify the human name.
-        human_name="$lib_name"
+        lib_name=$(${replace} $(basename $file .nix) '/' '.')
+        human_name=$(${capitalise} $lib_name)
 
         # TODO: Find a way to make links between functions.
         ${nixdoc} --category "$lib_name" --description "$human_name" --file "$file" >> $OUTPUT
