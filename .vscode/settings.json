@@ -5,5 +5,5 @@
     },
     "python.analysis.exclude": [
         "**/result/**", // Ignore Nix's result symlink, otherwise Pylance will report 200k errors.
-    ]
+    ],
 }

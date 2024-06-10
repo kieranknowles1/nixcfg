@@ -27,8 +27,8 @@ in
         github.copilot
         github.copilot-chat
         gruntfuggly.todo-tree
+        isotechnics.commentlinks
         streetsidesoftware.code-spell-checker
-
 
         # Plain VSCode supports Markdown, but this extension
         # adds some nice features, namely table of contents

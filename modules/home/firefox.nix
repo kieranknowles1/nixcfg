@@ -1,6 +1,5 @@
 # Per-user Firefox settings
-# See also: ../nixos/firefox.nix
-# TODO: Make the link clickable
+# See also: [[../nixos/firefox.nix]]
 { inputs, system, ... }:
 
 {
