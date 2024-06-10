@@ -1,6 +1,5 @@
 # System level Firefox settings
-# See also: ../home/firefox.nix
-# TODO: Make the link clickable
+# See also: [[../home/firefox.nix]]
 { pkgs, ...}:
 {
   environment.gnome.excludePackages = with pkgs; [

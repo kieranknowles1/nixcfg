@@ -20,8 +20,7 @@ in {
     # Install the desktop file to ~/.local/share/applications
     home.file."${applicationsDir}/${resaverDesktop.fileName}".text = resaverDesktop.contents;
 
-    # Associate our mime types with the desktop file. See ./mime/
-    # TODO: Make the link clickable
+    # Associate our mime types with the desktop file. See [[./mime/default.nix]]
     xdg.mimeApps = {
       enable = true;
 

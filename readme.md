@@ -93,7 +93,7 @@ I can do all my work in one place.
 - [x] Associate file types with programs
   - [x] PDFs with Firefox, overriding  LibreOffice
   - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
-- [ ] Automate running checks on the repo
+- [ ] Automate running checks on the repo. Do these in nix's `checkPhase`?
   - [ ] Links in Markdown
   - [ ] Links in comments [extension](https://marketplace.visualstudio.com/items?itemName=Isotechnics.commentlinks)
 

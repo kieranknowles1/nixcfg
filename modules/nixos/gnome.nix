@@ -1,6 +1,5 @@
 # Global-user Gnome settings
-# See also: ../home/gnome.nix
-# TODO: Make the link clickable
+# See also: [[../home/gnome.nix]]
 { pkgs, ...}:
 {
   # Enable the GNOME Desktop Environment.

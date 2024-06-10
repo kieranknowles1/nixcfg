@@ -1,6 +1,5 @@
 # Per-user Gnome settings
-# See also: ../nixos/gnome.nix
-# TODO: Make the link clickable
+# See also: [[../nixos/gnome.nix]]
 { ... }:
 {
   dconf.settings = {
