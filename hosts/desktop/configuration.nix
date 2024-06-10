@@ -9,7 +9,7 @@
   config.custom = {
     development = {
       enable = true;
-      cpp.enable = true;
+      meta.enable = true;
       modding.enable = true;
     };
     games.enable = true;
