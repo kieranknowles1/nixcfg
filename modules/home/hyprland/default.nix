@@ -32,9 +32,12 @@
 
   hostHyprConfig = hostConfig.custom.hyprland;
 
-  hyprland = inputs.hyprland.packages.${system}.hyprland;
+  mouseLeft = "mouse:272";
+  mouseRight = "mouse:273";
+  mouseMiddle = "mouse:274";
 
-  modifier = "SUPER"; # Windows key
+  hyprland = inputs.hyprland.packages.${system}.hyprland;
+  windows = "SUPER"; # Windows key
   ags = "${pkgs.ags}/bin/ags";
   terminal = "${pkgs.kitty}/bin/kitty";
 in {
@@ -55,19 +58,29 @@ in {
 
         # == Input ==
         bind = [
-          "${modifier}, T, exec, ${terminal}"
+          # Win + T -> Open terminal
+          "${windows}, T, exec, ${terminal}"
+          # Win + F -> Toggle floating
+          "${windows}, F, togglefloating"
 
           # Add the standard keybinds
           "ALT, F4, killactive"
           "ALT, Tab, cyclenext"
           "ALT Shift, Tab, cyclenext, prev"
         # Move windows between monitors with Win+digit
-        ] ++ (repeatForDigits "${modifier}, #, movetoworkspace, #");
+        ] ++ (repeatForDigits "${windows}, #, movetoworkspace, #");
 
         # Key release bindings
         bindr = [
           # Windows key to open the launcher
-          "SUPER, SUPER_L, exec, ${ags} -t launcher"
+          "${windows}, ${windows}_L, exec, ${ags} -t launcher"
+        ];
+        # Mouse bindings
+        bindm = [
+          # Middle click to move windows
+          ", ${mouseMiddle}, movewindow"
+          # Alt + left click to resize windows
+          "ALT, ${mouseLeft}, resizewindow"
         ];
 
         input = {

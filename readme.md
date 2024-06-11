@@ -26,7 +26,8 @@ For more information, run `./rebuild.py --help`.
 
 #### Key Bindings
 
-- `Alt+T` - Open terminal
+- `Win+T` - Open terminal
+- `Win+F` - Toggle window floating
 - `Ctrl+Shift+Escape` - Open System Monitor
 - `Ctrl+Alt+E` - Open FSearch
 
