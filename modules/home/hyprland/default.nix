@@ -84,7 +84,6 @@ in {
     # programs.ags = {
     #   enable = true;
 
-    #   # TODO: Put all of hyperland in a directory
     #   configDir = ./ags;
     # };
   };
