@@ -47,6 +47,18 @@ in {
         input = {
           kb_layout = "gb";
         };
+
+        # == Look and Feel ==
+        general = {
+          # Default gaps are a bit aggressive, a few pixels is enough
+          gaps_in = 0; # Between windows
+          gaps_out = 0; # Between windows and screen edge
+          border_size = 1; # Keep it present so we can see which window is focused, but not too big to be distracting
+        };
+
+        decoration = {
+          rounding = 0; # Rounded corners feel "mobile first" to me
+        };
       };
     };
   };
@@ -72,9 +84,7 @@ in {
 # # See https://wiki.hyprland.org/Configuring/Keywords/
 
 # # Set programs that you use
-# $terminal = kgx
 # $fileManager = nautilus
-# $menu = rofi -show drun -show-icons
 
 
 # #################
@@ -110,11 +120,6 @@ in {
 
 # # https://wiki.hyprland.org/Configuring/Variables/#general
 # general {
-#     gaps_in = 2
-#     gaps_out = 0
-
-#     border_size = 1
-
 #     # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
 #     col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
 #     col.inactive_border = rgba(595959aa)
@@ -130,8 +135,6 @@ in {
 
 # # https://wiki.hyprland.org/Configuring/Variables/#decoration
 # decoration {
-#     rounding = 5
-
 #     # Change transparency of focused and unfocused windows
 #     active_opacity = 1.0
 #     inactive_opacity = 1.0
@@ -191,7 +194,6 @@ in {
 
 # # https://wiki.hyprland.org/Configuring/Variables/#input
 # input {
-#     kb_layout = gb
 #     kb_variant =
 #     kb_model =
 #     kb_options =
@@ -228,11 +230,8 @@ in {
 
 # # My keybinds
 # # TODO: Replace example binds with my own
-# bind = $mainMod, A, exec, $menu
-# bind = $mainMod, T, exec, $terminal
 
 # # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-# bind = $mainMod, Q, exec, $terminal
 # bind = $mainMod, C, killactive,
 # bind = $mainMod, M, exit,
 # bind = $mainMod, E, exec, $fileManager

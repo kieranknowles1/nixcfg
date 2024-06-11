@@ -27,6 +27,7 @@
       package  = inputs.hyprland.packages.${system}.hyprland;
     };
 
+    # TODO: Think most of this can be done without installign system-wide
     environment.systemPackages = with pkgs; [
       # Notification daemon
       mako
