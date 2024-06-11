@@ -21,6 +21,7 @@
   };
 
   config = {
+    # TODO: Is this necessary with home-manager installing this?
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -31,9 +32,6 @@
     environment.systemPackages = with pkgs; [
       # Notification daemon
       mako
-
-      # Wallpaper daemon
-      swww
 
       # App launcher
       rofi-wayland
