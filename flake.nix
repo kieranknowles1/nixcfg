@@ -6,6 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    ags.url = "github:Aylur/ags";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-24.05";

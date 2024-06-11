@@ -38,6 +38,10 @@
 
       # Dependency of mako
       libnotify
+
+      # Widgets, and much more
+      # ags
+      bun
     ];
 
     # The desktop portal handles a bunch of stuff

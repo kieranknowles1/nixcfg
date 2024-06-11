@@ -76,9 +76,17 @@ in {
 
         exec-once = [
           (setWallpaper (flake.lib.image.fromHeif ../../media/wallpaper.heic))
+          "${pkgs.ags}/bin/ags" # Widgets and whatever you can do in JS
         ];
       };
     };
+
+    # programs.ags = {
+    #   enable = true;
+
+    #   # TODO: Put all of hyperland in a directory
+    #   configDir = ./ags;
+    # };
   };
 }
 
