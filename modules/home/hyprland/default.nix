@@ -35,7 +35,7 @@
   hyprland = inputs.hyprland.packages.${system}.hyprland;
 
   modifier = "SUPER"; # Windows key
-  menu = "${pkgs.rofi}/bin/rofi -show drun -show-icons";
+  ags = "${pkgs.ags}/bin/ags";
   terminal = "${pkgs.kitty}/bin/kitty";
 in {
   config = {
@@ -45,6 +45,8 @@ in {
       package = hyprland;
 
       # This gets transformed into hyprland syntax for hyprland.conf
+      # Refer to the wiki for more information.
+      # https://wiki.hyprland.org/Configuring/Configuring-Hyprland/
       # TODO: Need to run hyprctl reload manually. Should be automated as part of rebuild
       # An activation script doesn't work for some reason
       settings = {
@@ -53,10 +55,15 @@ in {
 
         # == Input ==
         bind = [
-          "${modifier}, A, exec, ${menu}"
           "${modifier}, T, exec, ${terminal}"
         # Move windows between monitors with Win+digit
         ] ++ (repeatForDigits "${modifier}, #, movetoworkspace, #");
+
+        # Key release bindings
+        bindr = [
+          # Windows key to open the launcher
+          "SUPER, SUPER_L, exec, ${ags} -t launcher"
+        ];
 
         input = {
           kb_layout = "gb";
@@ -75,8 +82,8 @@ in {
         };
 
         exec-once = [
-          (setWallpaper (flake.lib.image.fromHeif ../../media/wallpaper.heic))
-          "${pkgs.ags}/bin/ags" # Widgets and whatever you can do in JS
+          (setWallpaper (flake.lib.image.fromHeif ../../../media/wallpaper.heic))
+          ags # Widgets and whatever you can do in JS
         ];
       };
     };
@@ -92,8 +99,6 @@ in {
 
 # # TODO: Port this all to nix
 # # This is an example Hyprland config file.
-# # Refer to the wiki for more information.
-# # https://wiki.hyprland.org/Configuring/Configuring-Hyprland/
 
 # # Please note not all available settings / options are set here.
 # # For a full list, see the wiki

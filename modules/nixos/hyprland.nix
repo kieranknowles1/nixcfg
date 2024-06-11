@@ -33,9 +33,6 @@
       # Notification daemon
       mako
 
-      # App launcher
-      rofi-wayland
-
       # Dependency of mako
       libnotify
 
