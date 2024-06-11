@@ -56,6 +56,11 @@ in {
         # == Input ==
         bind = [
           "${modifier}, T, exec, ${terminal}"
+
+          # Add the standard keybinds
+          "ALT, F4, killactive"
+          "ALT, Tab, cyclenext"
+          "ALT Shift, Tab, cyclenext, prev"
         # Move windows between monitors with Win+digit
         ] ++ (repeatForDigits "${modifier}, #, movetoworkspace, #");
 
