@@ -75,6 +75,9 @@ in {
           "ALT, F4, killactive"
           "ALT, Tab, cyclenext"
           "ALT Shift, Tab, cyclenext, prev"
+
+          # Toggle mute
+          ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         # Move windows between monitors with Win+digit
         ] ++ (repeatForDigits "${windows}, #, movetoworkspace, #");
 
@@ -93,9 +96,12 @@ in {
 
         # Media keys
         # TODO: Add a widget on change
+        # TODO: Get play/pause working somehow
         binde = [
           ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+          ",XF86AudioRaiseVolume, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ 0"
           ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ",XF86AudioLowerVolume, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ 0"
         ];
 
         input = {
