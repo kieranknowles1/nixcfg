@@ -2,6 +2,7 @@
 # See also: [[../nixos/hyprland.nix]]
 {
   lib,
+  flake,
   hostConfig,
   inputs,
   system,
@@ -13,6 +14,19 @@
   _repeatForDigitsImpl = str: current: if current < 10
     then [(builtins.replaceStrings ["#"] [(builtins.toString current)] str)] ++ (_repeatForDigitsImpl str (current + 1))
     else [];
+
+  # This step needs the daemon to start and then called in a specific order, so do it in a script
+  # FIXME: This causes a delay on startup, maybe try a different daemon
+  setWallpaper = image: let
+    swww = pkgs.swww;
+
+    script = pkgs.writeShellScriptBin "set-wallpaper" ''
+      ${swww}/bin/swww-daemon &
+      sleep 1 # Give the daemon time to start
+      ${swww}/bin/swww img "${image}"
+    '';
+  in "${script}/bin/set-wallpaper";
+
 
   repeatForDigits = str: _repeatForDigitsImpl str 1;
 
@@ -59,6 +73,10 @@ in {
         decoration = {
           rounding = 0; # Rounded corners feel "mobile first" to me
         };
+
+        exec-once = [
+          (setWallpaper (flake.lib.image.fromHeif ../../media/wallpaper.heic))
+        ];
       };
     };
   };
