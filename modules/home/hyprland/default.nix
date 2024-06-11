@@ -57,6 +57,14 @@ in {
         monitor = hostHyprConfig.monitors;
 
         # == Input ==
+        # Flags:
+        # l -> locked, will also work when an input inhibitor (e.g. a lockscreen) is active.
+        # r -> release, will trigger on release of a key.
+        # e -> repeat, will repeat when held.
+        # n -> non-consuming, key/mouse events will be passed to the active window in addition to triggering the dispatcher.
+        # m -> mouse, see below
+        # t -> transparent, cannot be shadowed by other binds.
+        # i -> ignore mods, will ignore modifiers.
         bind = [
           # Win + T -> Open terminal
           "${windows}, T, exec, ${terminal}"
@@ -77,10 +85,17 @@ in {
         ];
         # Mouse bindings
         bindm = [
-          # Middle click to move windows
-          ", ${mouseMiddle}, movewindow"
-          # Alt + left click to resize windows
-          "ALT, ${mouseLeft}, resizewindow"
+          # Alt + left click to move windows
+          "Alt, ${mouseLeft}, movewindow"
+          # Alt + right click to resize windows
+          "ALT, ${mouseRight}, resizewindow"
+        ];
+
+        # Media keys
+        # TODO: Add a widget on change
+        binde = [
+          ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+          ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ];
 
         input = {
@@ -301,11 +316,6 @@ in {
 # # Scroll through existing workspaces with mainMod + scroll
 # bind = $mainMod, mouse_down, workspace, e+1
 # bind = $mainMod, mouse_up, workspace, e-1
-
-# # Move/resize windows with mainMod + LMB/RMB and dragging
-# bindm = $mainMod, mouse:272, movewindow
-# bindm = $mainMod, mouse:273, resizewindow
-
 
 # ##############################
 # ### WINDOWS AND WORKSPACES ###
