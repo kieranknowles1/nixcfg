@@ -10,6 +10,7 @@
     ./firefox.nix
     ./games.nix
     ./gnome.nix
+    ./hyprland.nix
     ./mime
     ./nushell
     ./shortcuts

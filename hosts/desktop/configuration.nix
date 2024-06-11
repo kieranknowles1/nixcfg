@@ -14,5 +14,16 @@
     };
     games.enable = true;
     nvidia.enable = true;
+
+    hyprland = {
+      monitors = [
+        # Primary monitor
+        "DP-1,2560x1440,0x0,1"
+        # Secondary monitor on the left and a bit down
+        "HDMI-A-2,1920x1080,-1920x500,1"
+        # Weird extra monitor from (Nvidia drivers?)
+        "Unknown-1,disable"
+      ];
+    };
   };
 }
