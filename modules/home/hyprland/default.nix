@@ -81,6 +81,7 @@ in {
       };
     };
 
+    # TODO: Get this working to manage the config
     # programs.ags = {
     #   enable = true;
 
