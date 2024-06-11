@@ -1,10 +1,13 @@
 {
   pkgs,
+  inputs,
+  system,
   ...
 }: {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    package  = inputs.hyprland.packages.${system}.hyprland;
   };
 
   environment.systemPackages = with pkgs; [
