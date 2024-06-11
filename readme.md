@@ -85,7 +85,7 @@ I can do all my work in one place.
   - [x] For functions
   - [x] For options
 - [x] Set keyboard shortcuts
-  - [ ] Run autokey on startup
+  - [ ] Replace autokey with hyprland
   - [x] `Alt+T` to open terminal
   - [x] `Ctrl+Shift+Escape` to open System Monitor
   - [x] `Ctrl+Alt+E` to open FSearch
