@@ -7,8 +7,6 @@
 
 {
   imports = [
-    # TODO: Find a better place for this
-    # inputs.ags.homeManagerModules.default
     ./docs.nix
     ./edit-config
     ./espanso

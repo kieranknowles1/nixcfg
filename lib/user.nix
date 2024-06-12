@@ -39,8 +39,9 @@
     home-manager = {
       backupFileExtension = "backup";
 
-      users.${userName} = {
+      users.${userName} = { inputs, ... }: {
         imports = [
+          inputs.ags.homeManagerModules.default
           ../modules/home
           ../users/${userName}.nix
         ];

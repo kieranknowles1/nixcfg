@@ -97,12 +97,11 @@ in {
       };
     };
 
-    # TODO: Get this working to manage the config
-    # programs.ags = {
-    #   enable = true;
+    programs.ags = {
+      enable = true;
 
-    #   configDir = ./ags;
-    # };
+      configDir = ./ags;
+    };
   };
 }
 

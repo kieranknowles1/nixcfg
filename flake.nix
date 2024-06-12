@@ -6,7 +6,12 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    ags.url = "github:Aylur/ags";
+    ags = {
+      url = "github:Aylur/ags";
+      # Follow the same channel as the main nixpkgs, otherwise we'll have
+      # an extra copy of all its dependencies
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-24.05";

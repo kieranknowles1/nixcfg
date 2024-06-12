@@ -40,7 +40,6 @@
       libnotify
 
       # Widgets, and much more
-      ags
       bun
     ];
 
