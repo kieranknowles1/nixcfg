@@ -1,5 +1,4 @@
 // Copy of https://github.com/Aylur/ags/blob/main/example/ts-starter-config/config.js
-// TODO: Include type definitions in the repository
 
 const main = '/tmp/ags/main.js';
 
