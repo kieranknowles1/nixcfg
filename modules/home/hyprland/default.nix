@@ -32,10 +32,6 @@
 
   hostHyprConfig = hostConfig.custom.hyprland;
 
-  mouseLeft = "mouse:272";
-  mouseRight = "mouse:273";
-  mouseMiddle = "mouse:274";
-
   hyprland = inputs.hyprland.packages.${system}.hyprland;
   windows = "SUPER"; # Windows key
   ags = "${pkgs.ags}/bin/ags";
@@ -56,15 +52,18 @@ in {
         # == Per Host ==
         monitor = hostHyprConfig.monitors;
 
+        "$ags" = "${pkgs.ags}/bin/ags";
+
+        # Paths can't be used directly, so we need to map them to strings
+        # toString on a path will give the full path to the file in the store
+        # While Hyprland's Nix module is great for some things, standalone files are better
+        # for some things like keybinds, for reasons explained in the individual conf files
+        source = (builtins.map builtins.toString [
+          ./config/keybinds.conf
+        ]);
+
         # == Input ==
-        # Flags:
-        # l -> locked, will also work when an input inhibitor (e.g. a lockscreen) is active.
-        # r -> release, will trigger on release of a key.
-        # e -> repeat, will repeat when held.
-        # n -> non-consuming, key/mouse events will be passed to the active window in addition to triggering the dispatcher.
-        # m -> mouse, see below
-        # t -> transparent, cannot be shadowed by other binds.
-        # i -> ignore mods, will ignore modifiers.
+        # TODO: Move all this to keybinds.conf
         bind = [
           # Win + T -> Open terminal
           "${windows}, T, exec, ${terminal}"
@@ -80,19 +79,6 @@ in {
           ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         # Move windows between monitors with Win+digit
         ] ++ (repeatForDigits "${windows}, #, movetoworkspace, #");
-
-        # Key release bindings
-        bindr = [
-          # Windows key to open the launcher
-          "${windows}, ${windows}_L, exec, ${ags} -t launcher"
-        ];
-        # Mouse bindings
-        bindm = [
-          # Alt + left click to move windows
-          "Alt, ${mouseLeft}, movewindow"
-          # Alt + right click to resize windows
-          "ALT, ${mouseRight}, resizewindow"
-        ];
 
         # Media keys
         # TODO: Add a widget on change
