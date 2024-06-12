@@ -12,7 +12,6 @@
     ./espanso
     ./firefox.nix
     ./games.nix
-    ./gnome.nix
     ./hyprland
     ./mime
     ./nushell
