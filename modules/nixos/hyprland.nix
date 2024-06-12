@@ -30,6 +30,9 @@
 
     # TODO: Think most of this can be done without installign system-wide
     environment.systemPackages = with pkgs; [
+      # Terminal
+      kitty
+
       # Notification daemon
       mako
 
@@ -37,7 +40,7 @@
       libnotify
 
       # Widgets, and much more
-      # ags
+      ags
       bun
     ];
 

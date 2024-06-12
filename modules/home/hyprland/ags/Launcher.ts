@@ -2,6 +2,7 @@
  * Application launcher
  * Heavily based on https://github.com/Aylur/ags/blob/main/example/applauncher/applauncher.js
  */
+// TODO: Add eslint
 
 import { type Application } from "types/service/applications";
 
@@ -39,6 +40,39 @@ function AppItem(app: Application) {
                 })
             ]
         })
+    })
+}
+
+/**
+ * Buttons to launch core applications such as the terminal
+ */
+function SystemApps() {
+    function makeButton(name: string, hotkey: string, icon: string, onClick: () => void) {
+        return Widget.Button({
+            on_clicked: () => {
+                App.closeWindow(WINDOW_NAME);
+                onClick();
+            },
+            child: Widget.Box({
+                vertical: true,
+                children: [
+                    Widget.Icon({
+                        icon,
+                        size: 24,
+                        tooltipText: `${name} (${hotkey})`,
+                    }),
+                ],
+            })
+        })
+    }
+
+    return Widget.Box({
+        // Horizontal box
+        children: [
+            makeButton(
+                'Terminal', 'Win+T', 'utilities-terminal', () => Utils.execAsync('kitty')
+            ),
+        ],
     })
 }
 
@@ -86,7 +120,8 @@ function AppLauncher(args: {
                     vertical: true,
                     children: apps,
                 })
-            })
+            }),
+            SystemApps(),
         ]
     })
 }

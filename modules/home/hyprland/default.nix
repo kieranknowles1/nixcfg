@@ -34,7 +34,6 @@
 
   hyprland = inputs.hyprland.packages.${system}.hyprland;
   windows = "SUPER"; # Windows key
-  ags = "${pkgs.ags}/bin/ags";
   terminal = "${pkgs.kitty}/bin/kitty";
 in {
   config = {
@@ -51,8 +50,6 @@ in {
       settings = {
         # == Per Host ==
         monitor = hostHyprConfig.monitors;
-
-        "$ags" = "${pkgs.ags}/bin/ags";
 
         # Paths can't be used directly, so we need to map them to strings
         # toString on a path will give the full path to the file in the store
@@ -95,7 +92,7 @@ in {
 
         exec-once = [
           (setWallpaper (flake.lib.image.fromHeif ../../../media/wallpaper.heic))
-          ags # Widgets and whatever you can do in JS
+          "ags" # Widgets and whatever you can do in JS
         ];
       };
     };
