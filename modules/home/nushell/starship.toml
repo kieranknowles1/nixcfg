@@ -11,7 +11,7 @@ error_symbol = "[✗](bold red)"
 # Show how far ahead/behind we are compared to origin
 ahead = "⇡${count}"
 behind = "⇣${count}"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+diverged = "⇡${ahead_count}⇣${behind_count}"
 
 # Show the number of modified, untracked, and staged files
 # Use the Greek Delta to represent modified but unstaged files as this means "change"
