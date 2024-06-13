@@ -6,6 +6,10 @@
   ...
 }: let
   package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "2.0.0";
+
+  combinedConfig = config.custom.edit-config // {
+    repository = "~/${config.custom.repoPath}";
+  };
 in {
   options.custom.edit-config = {
     editor = lib.mkOption {
@@ -16,15 +20,6 @@ in {
 
       type = lib.types.str;
       default = "code";
-    };
-
-    repository = lib.mkOption {
-      description = ''
-        The path to the repository containing the configuration files to edit.
-        Tildes are expanded to the user's home directory.
-      '';
-
-      type = lib.types.str;
     };
 
     programs = lib.mkOption {
@@ -62,6 +57,6 @@ in {
     home.packages = [ package ];
 
     # Provisioning a file in .config is easier than including it in the edit-config derivation.
-    home.file."${config.xdg.configHome}/edit-config.json".text = builtins.toJSON config.custom.edit-config;
+    home.file."${config.xdg.configHome}/edit-config.json".text = builtins.toJSON combinedConfig;
   };
 }
