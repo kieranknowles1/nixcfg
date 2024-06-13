@@ -13,5 +13,12 @@
         gutenprintBin
       ];
     };
+
+    # Enable resolving *.local hostnames via mDNS
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      nssmdns6 = true;
+    };
   };
 }
