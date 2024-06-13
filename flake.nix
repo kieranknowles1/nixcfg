@@ -18,10 +18,17 @@
 
     # Again, we want to be on the latest versions
     # This is a much more complete set of extensions than the ones in nixpkgs
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions?ref=master";
+    vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # TODO: Pin this to 24.05 once it releases on stable
-    stylix.url = "github:danth/stylix?ref=master";
+    stylix = {
+      # TODO: Latest version is currently breaks dark mode
+      url = "github:danth/stylix?ref=ca3247ed8cfbf369f3fe1b7a421579812a95c101";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = {
