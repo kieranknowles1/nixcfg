@@ -16,7 +16,6 @@
     ./hyprland
     ./mime
     ./nushell
-    ./shortcuts
     ./vscode
   ];
 }

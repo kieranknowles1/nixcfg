@@ -68,6 +68,14 @@ in {
           (setWallpaper (flake.lib.image.fromHeif ../../../media/wallpaper.heic))
           "ags" # Widgets and whatever you can do in JS
         ];
+
+        # == Window Rules ==
+        # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
+        windowrulev2 = [
+          "float, class:^(fsearch)$"
+          "float, class:^(kitty)$"
+          "float, class:^(resources)$"
+        ];
       };
     };
 
@@ -99,26 +107,12 @@ in {
 # ### MY PROGRAMS ###
 # ###################
 
-# # See https://wiki.hyprland.org/Configuring/Keywords/
-
-# # Set programs that you use
-# $fileManager = nautilus
-
-
 # #################
 # ### AUTOSTART ###
 # #################
 
 # # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # # Or execute your favorite apps at launch like this:
-
-# # exec-once = $terminal
-# # exec-once = nm-applet &
-# # exec-once = waybar & hyprpaper & firefox
-
-# exec-once = swww-daemon # Wallpaper daemon
-# # exec-once = waybar # Status bar
-# exec-once = mako # Notifications
 
 # #############################
 # ### ENVIRONMENT VARIABLES ###
@@ -243,9 +237,6 @@ in {
 # ### KEYBINDINGSS ###
 # ####################
 
-# # See https://wiki.hyprland.org/Configuring/Keywords/
-# $mainMod = SUPER # Sets "Windows" key as main modifier
-
 # # My keybinds
 # # TODO: Replace example binds with my own
 
@@ -270,18 +261,3 @@ in {
 # # Scroll through existing workspaces with mainMod + scroll
 # bind = $mainMod, mouse_down, workspace, e+1
 # bind = $mainMod, mouse_up, workspace, e-1
-
-# ##############################
-# ### WINDOWS AND WORKSPACES ###
-# ##############################
-
-# # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-# # See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
-
-# # Example windowrule v1
-# # windowrule = float, ^(kitty)$
-
-# # Example windowrule v2
-# # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-
-# windowrulev2 = suppressevent maximize, class:.* # You'll probably like this.

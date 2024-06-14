@@ -3,7 +3,7 @@
     //  Core
     // ======
 
-    "terminal.external.linuxExec": "kgx", // The default terminal isn't installed and fails silently
+    "terminal.external.linuxExec": "kitty", // The default terminal isn't installed and fails silently
     "telemetry.telemetryLevel": "off", // Don't send telemetry data to Microsoft
     "redhat.telemetry.enabled": false, // I'm installing this automatically, so technically I never consented and enabling by default is a GDPR violation
 

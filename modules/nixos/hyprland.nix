@@ -46,8 +46,11 @@
       # Dependency of mako
       libnotify
 
-      # Widgets, and much more
+      # TypeScript runtime
       bun
+
+      # Task manager
+      resources
     ];
 
     # The desktop portal handles a bunch of stuff
