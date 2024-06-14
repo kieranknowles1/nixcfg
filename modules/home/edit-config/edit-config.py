@@ -54,6 +54,7 @@ class Application:
         self.check_valid()
 
         # Rebuilding the link would be a pain, so just move it out of the way
+        # TODO: If system_path is a directory, we should do this for all files recursively. Split this into a separate function
         link_backup = f"{self.system_path}.edit-config-link-backup"
         move(self.system_path, link_backup)
 

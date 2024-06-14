@@ -35,6 +35,7 @@ in {
           continue
         fi
 
+        # This could be done with sed, but no sane person uses sed willingly.
         lib_name=$(${replace} $(basename $file .nix) '/' '.')
         human_name=$(${capitalise} $lib_name)
 
@@ -78,7 +79,5 @@ in {
     optionsDoc = pkgs.nixosOptionsDoc {
       options = modulesEval.options;
     };
-    # TODO: Maybe use something more readable than the default markdown. Only got a few options to document so it's not a big deal.
-    # Could possibly use mkdocs or something similar.
   in optionsDoc.optionsCommonMark;
 }
