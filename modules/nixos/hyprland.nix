@@ -1,5 +1,5 @@
 # Hyprland desktop environment
-# See also: [[../home/hyprland.nix]]
+# See also: [[../home/hyprland/default.nix]]
 # TODO: Remove GNOME
 {
   pkgs,
@@ -33,6 +33,9 @@
       # Terminal
       kitty
 
+      # File manager
+      gnome.nautilus
+
       # Notification daemon
       mako
 
@@ -44,7 +47,7 @@
     ];
 
     # The desktop portal handles a bunch of stuff
-    # TODO: What does this do?
+    # TODO: What? You can't just say "a bunch of stuff"
     # TODO: Uncomment once I can build with it enabled
     # xdg.portal = {
     #   enable = true;

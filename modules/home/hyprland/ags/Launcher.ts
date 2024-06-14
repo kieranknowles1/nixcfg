@@ -3,6 +3,7 @@
  * Heavily based on https://github.com/Aylur/ags/blob/main/example/applauncher/applauncher.js
  */
 // TODO: Add eslint
+// TODO: Reset the launcher on close
 
 import { type Application } from "types/service/applications";
 
@@ -29,7 +30,6 @@ function AppItem(app: Application) {
         child: Widget.Box({
             // Horizontal box
             children: [
-                // TODO: Icon
                 Widget.Icon({
                     icon: app.icon_name ?? '',
                     size: 24,
@@ -57,7 +57,7 @@ function SystemApps() {
                 vertical: true,
                 children: [
                     Widget.Icon({
-                        icon,
+                        icon, // TODO: Try to get mdi-icons working. Not sure how to do it with GTK
                         size: 24,
                         tooltipText: `${name} (${hotkey})`,
                     }),
@@ -70,7 +70,10 @@ function SystemApps() {
         // Horizontal box
         children: [
             makeButton(
-                'Terminal', 'Win+T', 'utilities-terminal', () => Utils.execAsync('kitty')
+            'File Manager', 'Win+E', 'nautilus', () => Utils.execAsync('nautilus'),
+            ),
+            makeButton(
+                'Terminal', 'Win+T', 'utilities-terminal', () => Utils.execAsync('kitty'),
             ),
         ],
     })

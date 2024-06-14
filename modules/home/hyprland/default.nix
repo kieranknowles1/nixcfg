@@ -1,7 +1,6 @@
 # Hyprland user config
-# See also: [[../nixos/hyprland.nix]]
+# See also: [[../../nixos/hyprland.nix]]
 {
-  lib,
   flake,
   hostConfig,
   inputs,
