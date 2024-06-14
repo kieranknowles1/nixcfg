@@ -123,11 +123,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1718251401,
-        "narHash": "sha256-enzmGqA0Cjwoh3ptVvbFh+ZUxwavM0awYJPK/KnLH3E=",
+        "lastModified": 1718337800,
+        "narHash": "sha256-Azz2lg6WsfT4SDMTA3DtJ6hS7kox3e0buSrV4J+zMAQ=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "89accb69b1fd641dbafba9619a30b50af318820b",
+        "rev": "aaf15fa3ed60109af8aad4cbb19c1fe28b4476ad",
         "type": "gitlab"
       },
       "original": {
@@ -275,11 +275,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1718295028,
-        "narHash": "sha256-ZttQPkVQzeQ7xv5lRBLp/xHw1xnW1Ow7e/P15noJrVc=",
+        "lastModified": 1718358719,
+        "narHash": "sha256-EjJxVZcGjZFL43ap+0dxSSldpbqNb2ADbaTESjPFwCc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d6932277603be242798436b3fc04eceb5788ea38",
+        "rev": "7894cf0c8701618edd4106ee65cf6e5bec617c70",
         "type": "github"
       },
       "original": {
@@ -318,16 +318,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1717866166,
-        "narHash": "sha256-iOeRZXIhFpQJdxzNJ3nUAANyDfLqCslRhjGhLD2RstM=",
+        "lastModified": 1718292734,
+        "narHash": "sha256-XAwxzCDfExqIj0PIjEpjt3eOzsosxOCLx6sQWHPSrSg=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "ca3247ed8cfbf369f3fe1b7a421579812a95c101",
+        "rev": "73c6955b4572346cc10f43a459949fe646efbde0",
         "type": "github"
       },
       "original": {
         "owner": "danth",
-        "ref": "ca3247ed8cfbf369f3fe1b7a421579812a95c101",
         "repo": "stylix",
         "type": "github"
       }
@@ -356,11 +355,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718242391,
-        "narHash": "sha256-WhxFBlbO63SoapmTuFjby8z+XADbac8IKoLjAO5I2zk=",
+        "lastModified": 1718328588,
+        "narHash": "sha256-dTuHdsZkPJg2YS7S/04d5gLpLqCmKEGuJkRO0yHklgo=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "fd5d22a81cd2aa22c59484247e1fefd144e4dc20",
+        "rev": "ae25cb00075c72a2a91497814a11a00f567f5f75",
         "type": "github"
       },
       "original": {

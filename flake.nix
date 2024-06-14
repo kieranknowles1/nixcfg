@@ -10,8 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # We want to be on the latest versions here
     firefox-addons = {
-      # We want to be on the latest versions here
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -24,8 +24,7 @@
     };
 
     stylix = {
-      # TODO: Latest version is currently breaks dark mode
-      url = "github:danth/stylix?ref=ca3247ed8cfbf369f3fe1b7a421579812a95c101";
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
