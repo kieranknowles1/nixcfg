@@ -26,12 +26,7 @@ For more information, run `./rebuild.py --help`.
 
 #### Key Bindings
 
-Key bindings are managed by Hyprland. See also [its config](modules/home/hyprland/config/keybinds.conf).
-
-- `Win+T` - Open terminal
-- `Win+F` - Toggle window floating
-- `Ctrl+Shift+Escape` - Open System Monitor
-- `Ctrl+Alt+E` - Open FSearch
+Key bindings are managed by Hyprland. See [its config](modules/home/hyprland/config/keybinds.conf) for more information.
 
 ## Documentation and Development Notes
 

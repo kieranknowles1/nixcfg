@@ -10,12 +10,6 @@
   pkgs,
   ...
 }: let
-  # TODO: Give this a better name, move to lib, and make generic, and document
-  # Nix is a functional language, so we can only iterate through recursion
-  _repeatForDigitsImpl = str: current: if current < 10
-    then [(builtins.replaceStrings ["#"] [(builtins.toString current)] str)] ++ (_repeatForDigitsImpl str (current + 1))
-    else [];
-
   # This step needs the daemon to start and then called in a specific order, so do it in a script
   # FIXME: This causes a delay on startup, maybe try a different daemon
   setWallpaper = image: let
@@ -28,14 +22,9 @@
     '';
   in "${script}/bin/set-wallpaper";
 
-
-  repeatForDigits = str: _repeatForDigitsImpl str 1;
-
   hostHyprConfig = hostConfig.custom.hyprland;
 
   hyprland = inputs.hyprland.packages.${system}.hyprland;
-  windows = "SUPER"; # Windows key
-  terminal = "${pkgs.kitty}/bin/kitty";
 in {
   config = {
     # Manage hyprland with home-manager
@@ -59,21 +48,6 @@ in {
         source = (builtins.map builtins.toString [
           ./config/keybinds.conf
         ]);
-
-        # == Input ==
-        # TODO: Move all this to keybinds.conf
-        bind = [
-          # Win + T -> Open terminal
-          "${windows}, T, exec, ${terminal}"
-          # Win + F -> Toggle floating
-          "${windows}, F, togglefloating"
-
-          # Add the standard keybinds
-          "ALT, F4, killactive"
-          "ALT, Tab, cyclenext"
-          "ALT Shift, Tab, cyclenext, prev"
-        # Move windows between monitors with Win+digit
-        ] ++ (repeatForDigits "${windows}, #, movetoworkspace, #");
 
         input = {
           kb_layout = "gb";
