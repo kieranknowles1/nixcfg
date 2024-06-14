@@ -1,5 +1,4 @@
 // TODO: Disable warning about global await
-// TODO: Configure everything in Nix
 
 import Launcher from "Launcher"
 
@@ -15,10 +14,6 @@ const Bar = (monitor: number) => Widget.Window({
     anchor: ['top', 'left', 'right'],
     exclusivity: 'exclusive',
     child: Widget.CenterBox({
-        start_widget: Widget.Label({
-            hpack: 'center',
-            label: 'Welcome to AGS!',
-        }),
         center_widget: Widget.Label({
             hpack: 'center',
             label: time.bind(),

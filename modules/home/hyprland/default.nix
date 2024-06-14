@@ -58,7 +58,15 @@ in {
           gaps_in = 0; # Between windows
           gaps_out = 0; # Between windows and screen edge
           border_size = 1; # Keep it present so we can see which window is focused, but not too big to be distracting
+
+          allow_tearing = true; # Tearing is less distracting than stuttering/flickering to the previous frame
         };
+
+        env = [
+          # Disable APIs that don't support tearing
+          # TODO: This can be disabled once we are on kernel 6.8
+          "WLR_DRM_NO_ATOMIC,1"
+        ];
 
         decoration = {
           rounding = 0; # Rounded corners feel "mobile first" to me
@@ -79,6 +87,10 @@ in {
           "float, class:^(fsearch)$"
           "float, class:^(kitty)$"
           "float, class:^(resources)$"
+
+          # Enable tearing for games running under Proton
+          # NOTE: This only works in fullscreen mode
+          "immediate, class:^(steam_app_\d+)$"
         ];
       };
     };
@@ -107,10 +119,6 @@ in {
 #     # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
 #     col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
 #     col.inactive_border = rgba(595959aa)
-
-#     # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-#     allow_tearing = false
-
 #     layout = dwindle
 # }
 
