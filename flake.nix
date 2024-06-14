@@ -6,7 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
 
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-24.05";
+      url = "github:nix-community/home-manager?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -37,13 +37,19 @@
     ...
   }@inputs:
   let
+    # The default branch to use for nixpkgs. Individual packages can request
+    # the unstable branch by referencing `pkgs-unstable` instead of `pkgs`.
+    # If we're feeling brave, we can point everything at unstable.
+    defaultNixpkgs = nixpkgs-unstable;
+
     lib = import ./lib {
-      inherit nixpkgs nixpkgs-unstable inputs;
+      inherit nixpkgs-unstable inputs;
+      nixpkgs = defaultNixpkgs;
       flake = self;
     };
 
     mk-kk-user = system: let
-      pkgs = import nixpkgs { system = system; allowUnfree = true; };
+      pkgs = import defaultNixpkgs { system = system; allowUnfree = true; };
     in lib.user.mkUser {
       userName = "kieran";
       displayName = "Kieran";

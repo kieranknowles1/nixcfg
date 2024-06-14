@@ -106,6 +106,9 @@ Here are some mistakes I made and lessons learned while setting up this reposito
 Wayland is still quite buggy for me. I've had issues with flickering and Proton games
 don't seem to work at all. Stick with X11 for now. Your choice will persist between reboots.
 
+Status June 2024: Wayland causes flickering in Skyrim when there's dropped frames, which I think
+is due to double buffering. The issue occurs on both GNOME Wayland and Hyprland. Stick with X11.
+
 ### Make Sure You Have a User
 
 It's completely valid syntax to have a system without any usable users. Make sure your config
