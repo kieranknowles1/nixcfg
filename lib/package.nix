@@ -13,18 +13,13 @@
     # Arguments
     script :: String : The name of the output executable.
 
-    src :: Path | String : The path to the script to package or the script itself
+    src :: String : The path to the script to package or the script itself
 
     version :: String : The version of the script.
    */
-  packagePythonScript = name: src: version: let
-    srcCode = if builtins.isString src then src else builtins.readFile src;
-  in pkgs.stdenv.mkDerivation rec {
+  packagePythonScript = name: src: version: pkgs.stdenv.mkDerivation rec {
     pname = name;
     inherit version src;
-
-    # The source code of the script. Exposed as an environment variable for use in the install phase
-    SOURCE_CODE = srcCode;
 
     dontUnpack = true; # This is a text file, unpacking is only applicable to archives
     installPhase = ''
@@ -33,7 +28,7 @@
       shebang="#!${pkgs.python3}/bin/python3"
 
       echo "$shebang" > $out/bin/${pname}
-      echo "$SOURCE_CODE" >> $out/bin/${pname}
+      cat $src >> $out/bin/${pname}
       chmod +x $out/bin/${pname}
     '';
   };
