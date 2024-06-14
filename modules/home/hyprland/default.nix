@@ -105,8 +105,7 @@ in {
     };
 
     # Provision AGS type stubs
-    # TODO: Move edit-config.repository to a generic option
-    home.file."${config.custom.edit-config.repository}/modules/home/hyprland/ags/types" = {
+    home.file."${config.custom.repoPath}/modules/home/hyprland/ags/types" = {
       source = "${inputs.ags.packages.${system}.default}/share/com.github.Aylur.ags/types";
     };
   };
