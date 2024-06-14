@@ -2,10 +2,13 @@
 { pkgs, flake, ... }:
 {
   stylix = {
+    enable = true;
+
     # Stylix can generate a theme from the wallpaper, but in the images I've tested it came out ugly
     base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-gray.yaml";
-    # image = ../../media/wallpaper.jpg;
     image = flake.lib.image.fromHeif ../../media/wallpaper.heic;
+
+    polarity = "dark"; # Force a dark theme
 
     cursor = {
       package = pkgs.bibata-cursors;

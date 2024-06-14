@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./common.nix
     ./docs.nix
     ./edit-config
     ./espanso

@@ -2,9 +2,7 @@
 
 {
   custom = {
-    # TODO: Put the tilde back in
-    # edit-config.repository = "~/Documents/src/nixcfg";
-    edit-config.repository = "Documents/src/nixcfg";
+    repoPath = "Documents/src/nixcfg";
     userDetails = {
       email = "kieranknowles11@hotmail.co.uk";
       firstName = "Kieran";

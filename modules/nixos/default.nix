@@ -13,6 +13,7 @@
     ./locale.nix
     ./nvidia.nix
     ./office.nix
+    ./printing.nix
     ./theme.nix
     ./thunderbird.nix
   ];

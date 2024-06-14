@@ -29,5 +29,11 @@ in {
         "application/x-fallout4save" = resaverDesktop.fileName;
       };
     };
+
+    systemd.user.sessionVariables = {
+      # Use Wayland instead of XWayland for Factorio and probably other games.
+      # https://www.factorio.com/blog/post/fff-408
+      SDL_VIDEODRIVER = "wayland";
+    };
   };
 }

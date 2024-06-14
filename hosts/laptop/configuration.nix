@@ -12,6 +12,7 @@
     development = {
       enable = true;
       node.enable = true;
+      meta.enable = true;
     };
   };
 }

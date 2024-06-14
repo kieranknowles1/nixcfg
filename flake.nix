@@ -18,18 +18,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # We want to be on the latest versions here
     firefox-addons = {
-      # We want to be on the latest versions here
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Again, we want to be on the latest versions
     # This is a much more complete set of extensions than the ones in nixpkgs
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions?ref=master";
+    vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # TODO: Pin this to 24.05 once it releases on stable
-    stylix.url = "github:danth/stylix?ref=master";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = {
