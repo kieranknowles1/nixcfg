@@ -1,9 +1,7 @@
 {
-  nixpkgs,
+  pkgs,
   flake,
 }: let
-  # TODO: Don't repeat importing packages in every function.
-  pkgs = import nixpkgs { system = "x86_64-linux"; };
   flakePkgs = flake.packages.x86_64-linux;
 in {
   /**
@@ -65,7 +63,7 @@ in {
     : The file to import all modules containing options
    */
   mkOptionDocs = importer: let
-    modulesEval = nixpkgs.lib.evalModules {
+    modulesEval = pkgs.lib.evalModules {
       modules = [
         importer
         # Don't eval flake inputs, we don't want to generate documentation for them.

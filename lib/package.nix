@@ -1,9 +1,6 @@
 {
-  nixpkgs
-}: let
-  system = "x86_64-linux";
-  pkgs = import nixpkgs { inherit system; };
-in {
+  pkgs
+}: {
   /**
     Package a Python script as a standalone executable.
 

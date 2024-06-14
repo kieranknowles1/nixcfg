@@ -1,9 +1,6 @@
 {
-  nixpkgs
-}: let
-  system = "x86_64-linux";
-  pkgs = import nixpkgs { inherit system; };
-in {
+  pkgs
+}: {
   # Convert a HEIC image to a PNG
   # Takes a path to a HEIC image and returns a path to a PNG image.
   /**
