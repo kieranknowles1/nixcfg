@@ -62,6 +62,10 @@ in {
 
         decoration = {
           rounding = 0; # Rounded corners feel "mobile first" to me
+
+          blur = {
+            enabled = false; # Prefer to keep transparent backgrounds transparent
+          };
         };
 
         exec-once = [
@@ -93,51 +97,16 @@ in {
 }
 
 # # TODO: Port this all to nix
-# # This is an example Hyprland config file.
-
-# # Please note not all available settings / options are set here.
-# # For a full list, see the wiki
-
-# # You can split this configuration into multiple files
-# # Create your files separately and then link them to this file like this:
-# # source = ~/.config/hypr/myColors.conf
-
-
-# ###################
-# ### MY PROGRAMS ###
-# ###################
-
-# #################
-# ### AUTOSTART ###
-# #################
-
-# # Autostart necessary processes (like notifications daemons, status bars, etc.)
-# # Or execute your favorite apps at launch like this:
-
-# #############################
-# ### ENVIRONMENT VARIABLES ###
-# #############################
-
-# # See https://wiki.hyprland.org/Configuring/Environment-variables/
-
-# env = XCURSOR_SIZE,24
-# env = HYPRCURSOR_SIZE,24
-
 
 # #####################
 # ### LOOK AND FEEL ###
 # #####################
-
-# # Refer to https://wiki.hyprland.org/Configuring/Variables/
 
 # # https://wiki.hyprland.org/Configuring/Variables/#general
 # general {
 #     # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
 #     col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
 #     col.inactive_border = rgba(595959aa)
-
-#     # Set to true enable resizing windows by clicking and dragging on borders and gaps
-#     resize_on_border = false
 
 #     # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
 #     allow_tearing = false
@@ -155,15 +124,6 @@ in {
 #     shadow_range = 4
 #     shadow_render_power = 3
 #     col.shadow = rgba(1a1a1aee)
-
-#     # https://wiki.hyprland.org/Configuring/Variables/#blur
-#     blur {
-#         enabled = true
-#         size = 3
-#         passes = 1
-
-#         vibrancy = 0.1696
-#     }
 # }
 
 # # https://wiki.hyprland.org/Configuring/Variables/#animations
