@@ -7,7 +7,6 @@
     ./development.nix
     ./firefox.nix
     ./games.nix
-    ./gnome.nix
     ./hyprland.nix
     ./libraries.nix
     ./locale.nix

@@ -1,6 +1,6 @@
 # Hyprland desktop environment
+# NOTE: Some modules still reference GNOME, but this becomes a no-op as we don't install GNOME
 # See also: [[../home/hyprland/default.nix]]
-# TODO: Remove GNOME
 {
   pkgs,
   inputs,
@@ -21,6 +21,10 @@
   };
 
   config = {
+    # Login manager, compatible with any desktop environment
+    # Without this, we would have to log in via the terminal
+    services.xserver.displayManager.gdm.enable = true;
+
     # TODO: Is this necessary with home-manager installing this?
     programs.hyprland = {
       enable = true;
