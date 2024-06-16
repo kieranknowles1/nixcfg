@@ -9,7 +9,7 @@
     ./edit-config
     ./espanso
     ./firefox.nix
-    ./games.nix
+    ./games
     ./gnome.nix
     ./mime
     ./nushell
