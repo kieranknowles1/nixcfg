@@ -35,5 +35,8 @@ in {
       # https://www.factorio.com/blog/post/fff-408
       SDL_VIDEODRIVER = "wayland";
     };
+
+    # TODO: Build a Factorio blueprint string from ./factorio/blueprints and install it
+    # TODO: Standardise how we install files into the repo
   };
 }
