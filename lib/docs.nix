@@ -22,8 +22,6 @@ in {
    */
   mkFunctionDocs = path: let
     nixdoc = "${pkgs.nixdoc}/bin/nixdoc";
-    capitalise = "${flakePkgs.capitalize}/bin/capitalize";
-    replace = "${flakePkgs.replace}/bin/replace";
 
     docs = pkgs.runCommand "mkFunctionDocs" {} ''
       mkdir -p $out
@@ -35,9 +33,12 @@ in {
           continue
         fi
 
-        # This could be done with sed, but no sane person uses sed willingly.
-        lib_name=$(${replace} $(basename $file .nix) '/' '.')
-        human_name=$(${capitalise} $lib_name)
+        lib_name=$(basename "$file" .nix | tr '/' '.')
+        # https://stackoverflow.com/questions/1538676/uppercasing-first-letter-of-words-using-sed
+        # s| uses | as a delimiter, to avoid confusion with slashes
+        # \<. matches the first character of each word when combined with |g for global matching
+        # \U& converts the matched character to uppercase
+        human_name=$(echo "$lib_name" | sed 's|\<.|\U&|g')
 
         # TODO: Find a way to make links between functions.
         ${nixdoc} --category "$lib_name" --description "$human_name" --file "$file" >> $OUTPUT
