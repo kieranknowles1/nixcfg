@@ -1,0 +1,1390 @@
+{
+  "blueprint": {
+    "description": "Steam engines to fully utilize 1 pump.",
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "pipe",
+        "position": {
+          "x": 7.5,
+          "y": -56.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -53.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -53.5
+        }
+      },
+      {
+        "entity_number": 4,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": -55.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 5,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -53.5
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "pipe",
+        "position": {
+          "x": 7.5,
+          "y": -55.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "pipe",
+        "position": {
+          "x": 6.5,
+          "y": -55.5
+        }
+      },
+      {
+        "entity_number": 8,
+        "name": "pipe",
+        "position": {
+          "x": 9.5,
+          "y": -55.5
+        }
+      },
+      {
+        "entity_number": 9,
+        "name": "pipe",
+        "position": {
+          "x": 8.5,
+          "y": -55.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 10,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -53.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 11,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -53.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 12,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -53.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -53.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "small-electric-pole",
+        "neighbours": [
+          43
+        ],
+        "position": {
+          "x": -1.5,
+          "y": -52.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 15,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -53.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -52.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -53.5
+        }
+      },
+      {
+        "entity_number": 18,
+        "name": "small-electric-pole",
+        "neighbours": [
+          47
+        ],
+        "position": {
+          "x": 8.5,
+          "y": -52.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 19,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -53.5
+        }
+      },
+      {
+        "entity_number": 20,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -53.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 21,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -50.5
+        }
+      },
+      {
+        "entity_number": 22,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -50.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 23,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -50.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 24,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -50.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 25,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -50.5
+        }
+      },
+      {
+        "entity_number": 26,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -50.5
+        }
+      },
+      {
+        "entity_number": 27,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -51.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 28,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -50.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 29,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -50.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 30,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -50.5
+        }
+      },
+      {
+        "entity_number": 31,
+        "name": "small-electric-pole",
+        "neighbours": [
+          60
+        ],
+        "position": {
+          "x": 16.5,
+          "y": -51.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 32,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -50.5
+        }
+      },
+      {
+        "entity_number": 33,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -50.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 34,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -47.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 35,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -47.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 36,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -47.5
+        }
+      },
+      {
+        "entity_number": 37,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -48.5
+        }
+      },
+      {
+        "entity_number": 38,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -49.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 39,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -47.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 40,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -47.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 41,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -47.5
+        }
+      },
+      {
+        "entity_number": 42,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -47.5
+        }
+      },
+      {
+        "entity_number": 43,
+        "name": "small-electric-pole",
+        "neighbours": [
+          14,
+          72
+        ],
+        "position": {
+          "x": -1.5,
+          "y": -46.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 44,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -47.5
+        }
+      },
+      {
+        "entity_number": 45,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -46.5
+        }
+      },
+      {
+        "entity_number": 46,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -47.5
+        }
+      },
+      {
+        "entity_number": 47,
+        "name": "small-electric-pole",
+        "neighbours": [
+          18,
+          76
+        ],
+        "position": {
+          "x": 8.5,
+          "y": -46.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 48,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -47.5
+        }
+      },
+      {
+        "entity_number": 49,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -47.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 50,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -44.5
+        }
+      },
+      {
+        "entity_number": 51,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -44.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 52,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -44.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 53,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -44.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 54,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -44.5
+        }
+      },
+      {
+        "entity_number": 55,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -44.5
+        }
+      },
+      {
+        "entity_number": 56,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -45.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 57,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -44.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 58,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -44.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 59,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -44.5
+        }
+      },
+      {
+        "entity_number": 60,
+        "name": "small-electric-pole",
+        "neighbours": [
+          31,
+          90
+        ],
+        "position": {
+          "x": 16.5,
+          "y": -45.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 61,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -44.5
+        }
+      },
+      {
+        "entity_number": 62,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -44.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 63,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -41.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 64,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -41.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 65,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -41.5
+        }
+      },
+      {
+        "entity_number": 66,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -42.5
+        }
+      },
+      {
+        "entity_number": 67,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -43.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 68,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -41.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 69,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -41.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 70,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -41.5
+        }
+      },
+      {
+        "entity_number": 71,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -41.5
+        }
+      },
+      {
+        "entity_number": 72,
+        "name": "small-electric-pole",
+        "neighbours": [
+          43,
+          101
+        ],
+        "position": {
+          "x": -1.5,
+          "y": -40.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 73,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -41.5
+        }
+      },
+      {
+        "entity_number": 74,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -40.5
+        }
+      },
+      {
+        "entity_number": 75,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -41.5
+        }
+      },
+      {
+        "entity_number": 76,
+        "name": "small-electric-pole",
+        "neighbours": [
+          47,
+          105
+        ],
+        "position": {
+          "x": 8.5,
+          "y": -40.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 77,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -41.5
+        }
+      },
+      {
+        "entity_number": 78,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -41.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 79,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -38.5
+        }
+      },
+      {
+        "entity_number": 80,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -38.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 81,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -38.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 82,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -38.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 83,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -38.5
+        }
+      },
+      {
+        "entity_number": 84,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -38.5
+        }
+      },
+      {
+        "entity_number": 85,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -39.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 86,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -38.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 87,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -38.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 88,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -38.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 89,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -38.5
+        }
+      },
+      {
+        "entity_number": 90,
+        "name": "small-electric-pole",
+        "neighbours": [
+          60,
+          119
+        ],
+        "position": {
+          "x": 16.5,
+          "y": -39.5
+        }
+      },
+      {
+        "entity_number": 91,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -38.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 92,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -35.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 93,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -35.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 94,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -35.5
+        }
+      },
+      {
+        "entity_number": 95,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -36.5
+        }
+      },
+      {
+        "entity_number": 96,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -37.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 97,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -35.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 98,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -35.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 99,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -35.5
+        }
+      },
+      {
+        "entity_number": 100,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -35.5
+        }
+      },
+      {
+        "entity_number": 101,
+        "name": "small-electric-pole",
+        "neighbours": [
+          72,
+          130
+        ],
+        "position": {
+          "x": -1.5,
+          "y": -34.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 102,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -35.5
+        }
+      },
+      {
+        "entity_number": 103,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -34.5
+        }
+      },
+      {
+        "entity_number": 104,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -35.5
+        }
+      },
+      {
+        "entity_number": 105,
+        "name": "small-electric-pole",
+        "neighbours": [
+          76,
+          143
+        ],
+        "position": {
+          "x": 8.5,
+          "y": -34.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 106,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -35.5
+        }
+      },
+      {
+        "entity_number": 107,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -35.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 108,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -32.5
+        }
+      },
+      {
+        "entity_number": 109,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -32.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 110,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -32.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 111,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -32.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 112,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -32.5
+        }
+      },
+      {
+        "entity_number": 113,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -32.5
+        }
+      },
+      {
+        "entity_number": 114,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -33.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 115,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -32.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 116,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -32.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 117,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -32.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 118,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -32.5
+        }
+      },
+      {
+        "entity_number": 119,
+        "name": "small-electric-pole",
+        "neighbours": [
+          90,
+          148
+        ],
+        "position": {
+          "x": 16.5,
+          "y": -33.5
+        }
+      },
+      {
+        "entity_number": 120,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -32.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 121,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -29.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 122,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -29.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 123,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -29.5
+        }
+      },
+      {
+        "entity_number": 124,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -30.5
+        }
+      },
+      {
+        "entity_number": 125,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -31.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 126,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -29.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 127,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -29.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 128,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -29.5
+        }
+      },
+      {
+        "entity_number": 129,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -29.5
+        }
+      },
+      {
+        "entity_number": 130,
+        "name": "small-electric-pole",
+        "neighbours": [
+          101,
+          150
+        ],
+        "position": {
+          "x": -1.5,
+          "y": -28.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 131,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -29.5
+        }
+      },
+      {
+        "entity_number": 132,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -28.5
+        }
+      },
+      {
+        "entity_number": 133,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -29.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 134,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -29.5
+        }
+      },
+      {
+        "entity_number": 135,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -29.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 136,
+        "name": "steam-engine",
+        "position": {
+          "x": -4.5,
+          "y": -26.5
+        }
+      },
+      {
+        "entity_number": 137,
+        "name": "pipe",
+        "position": {
+          "x": -1.5,
+          "y": -26.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 138,
+        "name": "steam-engine",
+        "position": {
+          "x": 1.5,
+          "y": -26.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 139,
+        "name": "boiler",
+        "position": {
+          "x": 5,
+          "y": -26.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 140,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": -26.5
+        }
+      },
+      {
+        "entity_number": 141,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -26.5
+        }
+      },
+      {
+        "entity_number": 142,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -27.5
+        }
+      },
+      {
+        "entity_number": 143,
+        "name": "small-electric-pole",
+        "neighbours": [
+          105,
+          150,
+          153
+        ],
+        "position": {
+          "x": 8.5,
+          "y": -27.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 144,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": -26.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 145,
+        "name": "boiler",
+        "position": {
+          "x": 10,
+          "y": -26.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 146,
+        "name": "steam-engine",
+        "position": {
+          "x": 13.5,
+          "y": -26.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 147,
+        "name": "steam-engine",
+        "position": {
+          "x": 19.5,
+          "y": -26.5
+        }
+      },
+      {
+        "entity_number": 148,
+        "name": "small-electric-pole",
+        "neighbours": [
+          119,
+          153
+        ],
+        "position": {
+          "x": 16.5,
+          "y": -27.5
+        }
+      },
+      {
+        "entity_number": 149,
+        "name": "pipe",
+        "position": {
+          "x": 16.5,
+          "y": -26.5
+        }
+      },
+      {
+        "entity_number": 150,
+        "name": "small-electric-pole",
+        "neighbours": [
+          143,
+          130
+        ],
+        "position": {
+          "x": 4.5,
+          "y": -24.5
+        }
+      },
+      {
+        "entity_number": 151,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -24.5
+        }
+      },
+      {
+        "entity_number": 152,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": -25.5
+        }
+      },
+      {
+        "entity_number": 153,
+        "name": "small-electric-pole",
+        "neighbours": [
+          143,
+          148
+        ],
+        "position": {
+          "x": 10.5,
+          "y": -24.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "steam-engine",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "40 Steam Engine Array",
+    "version": 281479278690304
+  },
+  "index": 0
+}

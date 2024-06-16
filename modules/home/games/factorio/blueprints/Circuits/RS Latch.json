@@ -1,0 +1,165 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "circuit_id": 1,
+                "entity_id": 2
+              }
+            ]
+          },
+          "2": {
+            "green": [
+              {
+                "circuit_id": 2,
+                "entity_id": 2
+              },
+              {
+                "circuit_id": 1,
+                "entity_id": 3
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "decider_conditions": {
+            "comparator": ">",
+            "constant": 90,
+            "copy_count_from_input": false,
+            "first_signal": {
+              "name": "signal-A",
+              "type": "virtual"
+            },
+            "output_signal": {
+              "name": "signal-R",
+              "type": "virtual"
+            }
+          }
+        },
+        "direction": 2,
+        "entity_number": 1,
+        "name": "decider-combinator",
+        "position": {
+          "x": 61,
+          "y": 37.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "circuit_id": 1,
+                "entity_id": 1
+              }
+            ]
+          },
+          "2": {
+            "green": [
+              {
+                "circuit_id": 2,
+                "entity_id": 1
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "decider_conditions": {
+            "comparator": "<",
+            "constant": 20,
+            "copy_count_from_input": false,
+            "first_signal": {
+              "name": "signal-A",
+              "type": "virtual"
+            },
+            "output_signal": {
+              "name": "signal-S",
+              "type": "virtual"
+            }
+          }
+        },
+        "direction": 2,
+        "entity_number": 2,
+        "name": "decider-combinator",
+        "position": {
+          "x": 61,
+          "y": 36.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "circuit_id": 2,
+                "entity_id": 1
+              }
+            ],
+            "red": [
+              {
+                "circuit_id": 2,
+                "entity_id": 3
+              }
+            ]
+          },
+          "2": {
+            "red": [
+              {
+                "circuit_id": 1,
+                "entity_id": 3
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "decider_conditions": {
+            "comparator": ">",
+            "copy_count_from_input": false,
+            "first_signal": {
+              "name": "signal-S",
+              "type": "virtual"
+            },
+            "output_signal": {
+              "name": "signal-S",
+              "type": "virtual"
+            },
+            "second_signal": {
+              "name": "signal-R",
+              "type": "virtual"
+            }
+          }
+        },
+        "direction": 2,
+        "entity_number": 3,
+        "name": "decider-combinator",
+        "position": {
+          "x": 64,
+          "y": 37.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "signal-R",
+          "type": "virtual"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "signal-S",
+          "type": "virtual"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "RS Latch",
+    "version": 281479278690304
+  },
+  "index": 1
+}

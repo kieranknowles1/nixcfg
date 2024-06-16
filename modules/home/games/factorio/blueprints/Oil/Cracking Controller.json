@@ -1,0 +1,546 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "storage-tank",
+        "position": {
+          "x": 249.5,
+          "y": 224.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 10
+              }
+            ]
+          }
+        },
+        "direction": 2,
+        "entity_number": 2,
+        "name": "storage-tank",
+        "position": {
+          "x": 249.5,
+          "y": 227.5
+        }
+      },
+      {
+        "entity_number": 3,
+        "name": "pipe",
+        "position": {
+          "x": 251.5,
+          "y": 226.5
+        }
+      },
+      {
+        "entity_number": 4,
+        "name": "pipe",
+        "position": {
+          "x": 253.5,
+          "y": 227.5
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "pipe",
+        "position": {
+          "x": 253.5,
+          "y": 226.5
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "pipe",
+        "position": {
+          "x": 252.5,
+          "y": 226.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 10
+              }
+            ]
+          },
+          "2": {
+            "green": [
+              {
+                "entity_id": 15
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "arithmetic_conditions": {
+            "first_signal": {
+              "name": "light-oil",
+              "type": "fluid"
+            },
+            "operation": "-",
+            "output_signal": {
+              "name": "signal-D",
+              "type": "virtual"
+            },
+            "second_signal": {
+              "name": "petroleum-gas",
+              "type": "fluid"
+            }
+          }
+        },
+        "direction": 2,
+        "entity_number": 7,
+        "name": "arithmetic-combinator",
+        "position": {
+          "x": 252,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 8,
+        "name": "chemical-plant",
+        "position": {
+          "x": 254.5,
+          "y": 229.5
+        },
+        "recipe": "light-oil-cracking"
+      },
+      {
+        "entity_number": 9,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          12,
+          28
+        ],
+        "position": {
+          "x": 248.5,
+          "y": 230.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 2
+              },
+              {
+                "circuit_id": 1,
+                "entity_id": 7
+              }
+            ]
+          }
+        },
+        "entity_number": 10,
+        "name": "storage-tank",
+        "position": {
+          "x": 249.5,
+          "y": 232.5
+        }
+      },
+      {
+        "entity_number": 11,
+        "name": "pipe",
+        "position": {
+          "x": 253.5,
+          "y": 231.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          9,
+          25
+        ],
+        "position": {
+          "x": 254.5,
+          "y": 231.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "pipe",
+        "position": {
+          "x": 255.5,
+          "y": 231.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 231.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "circuit_id": 2,
+                "entity_id": 7
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": ">",
+            "constant": 5000,
+            "first_signal": {
+              "name": "signal-D",
+              "type": "virtual"
+            }
+          }
+        },
+        "direction": 2,
+        "entity_number": 15,
+        "name": "pump",
+        "position": {
+          "x": 252,
+          "y": 233.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "pipe",
+        "position": {
+          "x": 253.5,
+          "y": 232.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "pipe",
+        "position": {
+          "x": 253.5,
+          "y": 233.5
+        }
+      },
+      {
+        "entity_number": 18,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 232.5
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 233.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 33
+              }
+            ]
+          }
+        },
+        "direction": 2,
+        "entity_number": 20,
+        "name": "storage-tank",
+        "position": {
+          "x": 249.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 21,
+        "name": "pipe",
+        "position": {
+          "x": 251.5,
+          "y": 234.5
+        }
+      },
+      {
+        "entity_number": 22,
+        "name": "pipe",
+        "position": {
+          "x": 251.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 23,
+        "name": "pipe",
+        "position": {
+          "x": 252.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 24,
+        "name": "pipe",
+        "position": {
+          "x": 253.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 25,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          12,
+          28
+        ],
+        "position": {
+          "x": 254.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 26,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 27,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 234.5
+        }
+      },
+      {
+        "entity_number": 28,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          9,
+          25
+        ],
+        "position": {
+          "x": 248.5,
+          "y": 237.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 33
+              }
+            ]
+          },
+          "2": {
+            "green": [
+              {
+                "entity_id": 39
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "arithmetic_conditions": {
+            "first_signal": {
+              "name": "heavy-oil",
+              "type": "fluid"
+            },
+            "operation": "-",
+            "output_signal": {
+              "name": "signal-D",
+              "type": "virtual"
+            },
+            "second_signal": {
+              "name": "light-oil",
+              "type": "fluid"
+            }
+          }
+        },
+        "direction": 2,
+        "entity_number": 29,
+        "name": "arithmetic-combinator",
+        "position": {
+          "x": 252,
+          "y": 236.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 30,
+        "name": "chemical-plant",
+        "position": {
+          "x": 254.5,
+          "y": 237.5
+        },
+        "recipe": "heavy-oil-cracking"
+      },
+      {
+        "entity_number": 31,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 236.5
+        }
+      },
+      {
+        "entity_number": 32,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 237.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 20
+              },
+              {
+                "circuit_id": 1,
+                "entity_id": 29
+              }
+            ]
+          }
+        },
+        "entity_number": 33,
+        "name": "storage-tank",
+        "position": {
+          "x": 249.5,
+          "y": 239.5
+        }
+      },
+      {
+        "entity_number": 34,
+        "name": "pipe",
+        "position": {
+          "x": 253.5,
+          "y": 239.5
+        }
+      },
+      {
+        "entity_number": 35,
+        "name": "pipe",
+        "position": {
+          "x": 255.5,
+          "y": 239.5
+        }
+      },
+      {
+        "entity_number": 36,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 238.5
+        }
+      },
+      {
+        "entity_number": 37,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 239.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 38,
+        "name": "storage-tank",
+        "position": {
+          "x": 249.5,
+          "y": 242.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "circuit_id": 2,
+                "entity_id": 29
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": ">",
+            "constant": 5000,
+            "first_signal": {
+              "name": "signal-D",
+              "type": "virtual"
+            }
+          }
+        },
+        "direction": 2,
+        "entity_number": 39,
+        "name": "pump",
+        "position": {
+          "x": 252,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 40,
+        "name": "pipe",
+        "position": {
+          "x": 253.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 41,
+        "name": "pipe",
+        "position": {
+          "x": 256.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 42,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 256.5,
+          "y": 241.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "heavy-oil",
+          "type": "fluid"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "light-oil",
+          "type": "fluid"
+        }
+      },
+      {
+        "index": 3,
+        "signal": {
+          "name": "petroleum-gas",
+          "type": "fluid"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Cracking Controller",
+    "version": 281479278690304
+  },
+  "index": 1
+}

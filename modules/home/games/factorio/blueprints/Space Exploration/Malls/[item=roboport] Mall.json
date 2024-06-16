@@ -1,0 +1,286 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 459.5,
+          "y": 273.5
+        },
+        "recipe": "iron-gear-wheel"
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "inserter",
+        "position": {
+          "x": 461.5,
+          "y": 273.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 3,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 462.5,
+          "y": 273.5
+        }
+      },
+      {
+        "bar": 10,
+        "entity_number": 4,
+        "name": "logistic-chest-passive-provider",
+        "position": {
+          "x": 455.5,
+          "y": 274.5
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          8
+        ],
+        "position": {
+          "x": 454.5,
+          "y": 275.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 6,
+        "name": "inserter",
+        "position": {
+          "x": 455.5,
+          "y": 275.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "inserter",
+        "position": {
+          "x": 459.5,
+          "y": 275.5
+        }
+      },
+      {
+        "entity_number": 8,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          5,
+          22
+        ],
+        "position": {
+          "x": 460.5,
+          "y": 275.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 9,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 462.5,
+          "y": 274.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 10,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 462.5,
+          "y": 275.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 11,
+        "name": "inserter",
+        "position": {
+          "x": 453.5,
+          "y": 277.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 12,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 452.5,
+          "y": 277.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 455.5,
+          "y": 277.5
+        },
+        "recipe": "roboport"
+      },
+      {
+        "direction": 2,
+        "entity_number": 14,
+        "name": "inserter",
+        "position": {
+          "x": 457.5,
+          "y": 277.5
+        }
+      },
+      {
+        "entity_number": 15,
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 459.5,
+          "y": 277.5
+        },
+        "recipe": "electric-motor"
+      },
+      {
+        "direction": 2,
+        "entity_number": 16,
+        "name": "inserter",
+        "position": {
+          "x": 461.5,
+          "y": 277.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 17,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 462.5,
+          "y": 276.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 18,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 462.5,
+          "y": 277.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 19,
+        "name": "inserter",
+        "position": {
+          "x": 453.5,
+          "y": 278.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 20,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 452.5,
+          "y": 278.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 21,
+        "name": "fast-inserter",
+        "position": {
+          "x": 459.5,
+          "y": 279.5
+        }
+      },
+      {
+        "entity_number": 22,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          8
+        ],
+        "position": {
+          "x": 458.5,
+          "y": 279.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 23,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 452.5,
+          "y": 281.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 24,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 453.5,
+          "y": 281.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 25,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 454.5,
+          "y": 281.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 26,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 455.5,
+          "y": 281.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 27,
+        "name": "fast-inserter",
+        "position": {
+          "x": 457.5,
+          "y": 281.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 28,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 456.5,
+          "y": 281.5
+        }
+      },
+      {
+        "entity_number": 29,
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 459.5,
+          "y": 281.5
+        },
+        "recipe": "copper-cable"
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "roboport",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "[item=roboport] Mall",
+    "version": 281479278690304
+  },
+  "index": 3
+}

@@ -1,0 +1,239 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 6,
+        "entity_number": 1,
+        "name": "fast-splitter",
+        "position": {
+          "x": 781.5,
+          "y": -13
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 2,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 782.5,
+          "y": -13.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 3,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 783.5,
+          "y": -13.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 4,
+        "name": "fast-splitter",
+        "position": {
+          "x": 783.5,
+          "y": -12
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 5,
+        "name": "fast-underground-belt",
+        "position": {
+          "x": 782.5,
+          "y": -12.5
+        },
+        "type": "output"
+      },
+      {
+        "direction": 6,
+        "entity_number": 6,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 784.5,
+          "y": -13.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 7,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 785.5,
+          "y": -13.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 8,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 785.5,
+          "y": -12.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 9,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 784.5,
+          "y": -12.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 10,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 786.5,
+          "y": -12.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 11,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 786.5,
+          "y": -13.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 12,
+        "name": "fast-underground-belt",
+        "position": {
+          "x": 787.5,
+          "y": -12.5
+        },
+        "type": "input"
+      },
+      {
+        "direction": 6,
+        "entity_number": 13,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 781.5,
+          "y": -10.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 14,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 781.5,
+          "y": -11.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 15,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 782.5,
+          "y": -11.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 16,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 783.5,
+          "y": -10.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 17,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 782.5,
+          "y": -10.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 18,
+        "name": "fast-underground-belt",
+        "position": {
+          "x": 784.5,
+          "y": -11.5
+        },
+        "type": "output"
+      },
+      {
+        "direction": 6,
+        "entity_number": 19,
+        "name": "fast-splitter",
+        "position": {
+          "x": 785.5,
+          "y": -11
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 20,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 784.5,
+          "y": -10.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 21,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 786.5,
+          "y": -11.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 22,
+        "name": "fast-underground-belt",
+        "position": {
+          "x": 787.5,
+          "y": -11.5
+        },
+        "type": "input"
+      },
+      {
+        "direction": 6,
+        "entity_number": 23,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 787.5,
+          "y": -10.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 24,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 786.5,
+          "y": -10.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "fast-transport-belt",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "3-way merger",
+    "version": 281479278690304
+  },
+  "index": 10
+}

@@ -1,0 +1,39 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "laser-turret",
+        "position": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "entity_number": 2,
+        "name": "medium-electric-pole",
+        "position": {
+          "x": 3.5,
+          "y": 3.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "laser-turret",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Inner Corner",
+    "snap-to-grid": {
+      "x": 7,
+      "y": 7
+    },
+    "version": 281479278690304
+  },
+  "index": 2
+}

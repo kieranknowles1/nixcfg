@@ -1,0 +1,1259 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          2
+        ],
+        "position": {
+          "x": -3.5,
+          "y": 215.5
+        }
+      },
+      {
+        "entity_number": 2,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          1,
+          3
+        ],
+        "position": {
+          "x": 2.5,
+          "y": 215.5
+        }
+      },
+      {
+        "entity_number": 3,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          2,
+          4
+        ],
+        "position": {
+          "x": 11.5,
+          "y": 215.5
+        }
+      },
+      {
+        "entity_number": 4,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          3,
+          25
+        ],
+        "position": {
+          "x": 20.5,
+          "y": 215.5
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "steam-engine",
+        "position": {
+          "x": -3.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "steam-engine",
+        "position": {
+          "x": -0.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "steam-engine",
+        "position": {
+          "x": 2.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 8,
+        "name": "steam-engine",
+        "position": {
+          "x": 5.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 9,
+        "name": "steam-engine",
+        "position": {
+          "x": 8.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 10,
+        "name": "steam-engine",
+        "position": {
+          "x": 11.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 11,
+        "name": "steam-engine",
+        "position": {
+          "x": 14.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "steam-engine",
+        "position": {
+          "x": 17.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "steam-engine",
+        "position": {
+          "x": 20.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "steam-engine",
+        "position": {
+          "x": 23.5,
+          "y": 218.5
+        }
+      },
+      {
+        "entity_number": 15,
+        "name": "steam-engine",
+        "position": {
+          "x": -3.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "steam-engine",
+        "position": {
+          "x": -0.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "steam-engine",
+        "position": {
+          "x": 2.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 18,
+        "name": "steam-engine",
+        "position": {
+          "x": 5.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "steam-engine",
+        "position": {
+          "x": 8.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 20,
+        "name": "steam-engine",
+        "position": {
+          "x": 11.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 21,
+        "name": "steam-engine",
+        "position": {
+          "x": 14.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 22,
+        "name": "steam-engine",
+        "position": {
+          "x": 17.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 23,
+        "name": "steam-engine",
+        "position": {
+          "x": 20.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 24,
+        "name": "steam-engine",
+        "position": {
+          "x": 23.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 25,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          4,
+          75
+        ],
+        "position": {
+          "x": 25.5,
+          "y": 220.5
+        }
+      },
+      {
+        "entity_number": 26,
+        "name": "boiler",
+        "position": {
+          "x": -3.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 27,
+        "name": "boiler",
+        "position": {
+          "x": -0.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 28,
+        "name": "boiler",
+        "position": {
+          "x": 2.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 29,
+        "name": "boiler",
+        "position": {
+          "x": 5.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 30,
+        "name": "boiler",
+        "position": {
+          "x": 8.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 31,
+        "name": "boiler",
+        "position": {
+          "x": 11.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 32,
+        "name": "boiler",
+        "position": {
+          "x": 14.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 33,
+        "name": "boiler",
+        "position": {
+          "x": 17.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 34,
+        "name": "boiler",
+        "position": {
+          "x": 20.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 35,
+        "name": "boiler",
+        "position": {
+          "x": 23.5,
+          "y": 227
+        }
+      },
+      {
+        "entity_number": 36,
+        "name": "pipe",
+        "position": {
+          "x": 25.5,
+          "y": 227.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 37,
+        "name": "transport-belt",
+        "position": {
+          "x": -5.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 38,
+        "name": "transport-belt",
+        "position": {
+          "x": -4.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 39,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          48,
+          87
+        ],
+        "position": {
+          "x": -2.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 40,
+        "name": "inserter",
+        "position": {
+          "x": -3.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 41,
+        "name": "transport-belt",
+        "position": {
+          "x": -3.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 42,
+        "name": "transport-belt",
+        "position": {
+          "x": -2.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 43,
+        "name": "inserter",
+        "position": {
+          "x": -0.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 44,
+        "name": "transport-belt",
+        "position": {
+          "x": -1.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 45,
+        "name": "transport-belt",
+        "position": {
+          "x": -0.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 46,
+        "name": "transport-belt",
+        "position": {
+          "x": 0.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 47,
+        "name": "transport-belt",
+        "position": {
+          "x": 1.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 48,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          39,
+          57,
+          92
+        ],
+        "position": {
+          "x": 3.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 49,
+        "name": "inserter",
+        "position": {
+          "x": 2.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 50,
+        "name": "transport-belt",
+        "position": {
+          "x": 2.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 51,
+        "name": "transport-belt",
+        "position": {
+          "x": 3.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 52,
+        "name": "inserter",
+        "position": {
+          "x": 5.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 53,
+        "name": "transport-belt",
+        "position": {
+          "x": 4.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 54,
+        "name": "transport-belt",
+        "position": {
+          "x": 5.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 55,
+        "name": "transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 56,
+        "name": "transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 57,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          48,
+          66,
+          97
+        ],
+        "position": {
+          "x": 9.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 58,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 59,
+        "name": "transport-belt",
+        "position": {
+          "x": 8.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 60,
+        "name": "transport-belt",
+        "position": {
+          "x": 9.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 61,
+        "name": "inserter",
+        "position": {
+          "x": 11.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 62,
+        "name": "transport-belt",
+        "position": {
+          "x": 11.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 63,
+        "name": "transport-belt",
+        "position": {
+          "x": 10.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 64,
+        "name": "transport-belt",
+        "position": {
+          "x": 13.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 65,
+        "name": "transport-belt",
+        "position": {
+          "x": 12.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 66,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          57,
+          75,
+          102
+        ],
+        "position": {
+          "x": 15.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 67,
+        "name": "inserter",
+        "position": {
+          "x": 14.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 68,
+        "name": "transport-belt",
+        "position": {
+          "x": 15.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 69,
+        "name": "transport-belt",
+        "position": {
+          "x": 14.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 70,
+        "name": "inserter",
+        "position": {
+          "x": 17.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 71,
+        "name": "transport-belt",
+        "position": {
+          "x": 17.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 72,
+        "name": "transport-belt",
+        "position": {
+          "x": 16.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 73,
+        "name": "transport-belt",
+        "position": {
+          "x": 19.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 74,
+        "name": "transport-belt",
+        "position": {
+          "x": 18.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 75,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          66,
+          25,
+          107
+        ],
+        "position": {
+          "x": 21.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 76,
+        "name": "inserter",
+        "position": {
+          "x": 20.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 77,
+        "name": "transport-belt",
+        "position": {
+          "x": 21.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 78,
+        "name": "transport-belt",
+        "position": {
+          "x": 20.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 79,
+        "name": "inserter",
+        "position": {
+          "x": 23.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 80,
+        "name": "transport-belt",
+        "position": {
+          "x": 23.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 81,
+        "name": "transport-belt",
+        "position": {
+          "x": 22.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 82,
+        "name": "pipe",
+        "position": {
+          "x": 25.5,
+          "y": 228.5
+        }
+      },
+      {
+        "entity_number": 83,
+        "name": "pipe",
+        "position": {
+          "x": 25.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 84,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 27.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 85,
+        "name": "pipe",
+        "position": {
+          "x": 26.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 86,
+        "name": "boiler",
+        "position": {
+          "x": -3.5,
+          "y": 232
+        }
+      },
+      {
+        "entity_number": 87,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          39,
+          92
+        ],
+        "position": {
+          "x": -2.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 88,
+        "name": "inserter",
+        "position": {
+          "x": -3.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 89,
+        "name": "inserter",
+        "position": {
+          "x": -0.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 90,
+        "name": "boiler",
+        "position": {
+          "x": -0.5,
+          "y": 232
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 91,
+        "name": "boiler",
+        "position": {
+          "x": 2.5,
+          "y": 232
+        }
+      },
+      {
+        "entity_number": 92,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          48,
+          87,
+          97
+        ],
+        "position": {
+          "x": 3.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 93,
+        "name": "inserter",
+        "position": {
+          "x": 2.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 94,
+        "name": "inserter",
+        "position": {
+          "x": 5.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 95,
+        "name": "boiler",
+        "position": {
+          "x": 5.5,
+          "y": 232
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 96,
+        "name": "boiler",
+        "position": {
+          "x": 8.5,
+          "y": 232
+        }
+      },
+      {
+        "entity_number": 97,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          57,
+          92,
+          102
+        ],
+        "position": {
+          "x": 9.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 98,
+        "name": "inserter",
+        "position": {
+          "x": 8.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 99,
+        "name": "inserter",
+        "position": {
+          "x": 11.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 100,
+        "name": "boiler",
+        "position": {
+          "x": 11.5,
+          "y": 232
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 101,
+        "name": "boiler",
+        "position": {
+          "x": 14.5,
+          "y": 232
+        }
+      },
+      {
+        "entity_number": 102,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          66,
+          97,
+          107
+        ],
+        "position": {
+          "x": 15.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 103,
+        "name": "inserter",
+        "position": {
+          "x": 14.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 104,
+        "name": "inserter",
+        "position": {
+          "x": 17.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 105,
+        "name": "boiler",
+        "position": {
+          "x": 17.5,
+          "y": 232
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 106,
+        "name": "boiler",
+        "position": {
+          "x": 20.5,
+          "y": 232
+        }
+      },
+      {
+        "entity_number": 107,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          75,
+          102,
+          123
+        ],
+        "position": {
+          "x": 21.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 108,
+        "name": "inserter",
+        "position": {
+          "x": 20.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 109,
+        "name": "inserter",
+        "position": {
+          "x": 23.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 110,
+        "name": "boiler",
+        "position": {
+          "x": 23.5,
+          "y": 232
+        }
+      },
+      {
+        "entity_number": 111,
+        "name": "pipe",
+        "position": {
+          "x": 25.5,
+          "y": 231.5
+        }
+      },
+      {
+        "entity_number": 112,
+        "name": "pipe",
+        "position": {
+          "x": 25.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 113,
+        "name": "steam-engine",
+        "position": {
+          "x": -3.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 114,
+        "name": "steam-engine",
+        "position": {
+          "x": -0.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 115,
+        "name": "steam-engine",
+        "position": {
+          "x": 2.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 116,
+        "name": "steam-engine",
+        "position": {
+          "x": 5.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 117,
+        "name": "steam-engine",
+        "position": {
+          "x": 8.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 118,
+        "name": "steam-engine",
+        "position": {
+          "x": 11.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 119,
+        "name": "steam-engine",
+        "position": {
+          "x": 14.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 120,
+        "name": "steam-engine",
+        "position": {
+          "x": 17.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 121,
+        "name": "steam-engine",
+        "position": {
+          "x": 20.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 122,
+        "name": "steam-engine",
+        "position": {
+          "x": 23.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 123,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          107,
+          137
+        ],
+        "position": {
+          "x": 25.5,
+          "y": 236.5
+        }
+      },
+      {
+        "entity_number": 124,
+        "name": "steam-engine",
+        "position": {
+          "x": -3.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 125,
+        "name": "steam-engine",
+        "position": {
+          "x": -0.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 126,
+        "name": "steam-engine",
+        "position": {
+          "x": 2.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 127,
+        "name": "steam-engine",
+        "position": {
+          "x": 5.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 128,
+        "name": "steam-engine",
+        "position": {
+          "x": 8.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 129,
+        "name": "steam-engine",
+        "position": {
+          "x": 11.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 130,
+        "name": "steam-engine",
+        "position": {
+          "x": 14.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 131,
+        "name": "steam-engine",
+        "position": {
+          "x": 17.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 132,
+        "name": "steam-engine",
+        "position": {
+          "x": 20.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 133,
+        "name": "steam-engine",
+        "position": {
+          "x": 23.5,
+          "y": 240.5
+        }
+      },
+      {
+        "entity_number": 134,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          135
+        ],
+        "position": {
+          "x": -0.5,
+          "y": 243.5
+        }
+      },
+      {
+        "entity_number": 135,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          134,
+          136
+        ],
+        "position": {
+          "x": 8.5,
+          "y": 243.5
+        }
+      },
+      {
+        "entity_number": 136,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          135,
+          137
+        ],
+        "position": {
+          "x": 17.5,
+          "y": 243.5
+        }
+      },
+      {
+        "entity_number": 137,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          136,
+          123
+        ],
+        "position": {
+          "x": 24.5,
+          "y": 243.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "steam-engine",
+          "type": "item"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "medium-electric-pole",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Medium Pole Steam Array",
+    "version": 281479278690304
+  },
+  "index": 1
+}

@@ -1,0 +1,17 @@
+{
+  "deconstruction_planner": {
+    "item": "deconstruction-planner",
+    "label": "Pick up Items",
+    "settings": {
+      "entity_filters": [
+        {
+          "index": 0,
+          "name": "item-on-ground"
+        }
+      ],
+      "tile_selection_mode": 2
+    },
+    "version": 281479278690304
+  },
+  "index": 4
+}

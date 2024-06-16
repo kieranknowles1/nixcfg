@@ -1,0 +1,187 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 2,
+        "entity_number": 1,
+        "name": "laser-turret",
+        "position": {
+          "x": 5,
+          "y": 1
+        }
+      },
+      {
+        "entity_number": 2,
+        "name": "stone-wall",
+        "position": {
+          "x": 6.5,
+          "y": 0.5
+        }
+      },
+      {
+        "entity_number": 3,
+        "name": "medium-electric-pole",
+        "position": {
+          "x": 2.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "laser-turret",
+        "position": {
+          "x": 5,
+          "y": 3
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "stone-wall",
+        "position": {
+          "x": 6.5,
+          "y": 1.5
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "stone-wall",
+        "position": {
+          "x": 6.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 7,
+        "name": "laser-turret",
+        "position": {
+          "x": 1,
+          "y": 5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "laser-turret",
+        "position": {
+          "x": 3,
+          "y": 5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 9,
+        "name": "laser-turret",
+        "position": {
+          "x": 5,
+          "y": 5
+        }
+      },
+      {
+        "entity_number": 10,
+        "name": "stone-wall",
+        "position": {
+          "x": 6.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 11,
+        "name": "stone-wall",
+        "position": {
+          "x": 6.5,
+          "y": 4.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "stone-wall",
+        "position": {
+          "x": 0.5,
+          "y": 6.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "stone-wall",
+        "position": {
+          "x": 2.5,
+          "y": 6.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "stone-wall",
+        "position": {
+          "x": 1.5,
+          "y": 6.5
+        }
+      },
+      {
+        "entity_number": 15,
+        "name": "stone-wall",
+        "position": {
+          "x": 4.5,
+          "y": 6.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "stone-wall",
+        "position": {
+          "x": 3.5,
+          "y": 6.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "stone-wall",
+        "position": {
+          "x": 6.5,
+          "y": 5.5
+        }
+      },
+      {
+        "entity_number": 18,
+        "name": "stone-wall",
+        "position": {
+          "x": 6.5,
+          "y": 6.5
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "stone-wall",
+        "position": {
+          "x": 5.5,
+          "y": 6.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "laser-turret",
+          "type": "item"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "stone-wall",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Corner",
+    "snap-to-grid": {
+      "x": 7,
+      "y": 7
+    },
+    "version": 281479278690304
+  },
+  "index": 1
+}
