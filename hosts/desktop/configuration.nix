@@ -11,6 +11,7 @@
       enable = true;
       meta.enable = true;
       modding.enable = true;
+      rust.enable = true;
     };
     games.enable = true;
     nvidia.enable = true;
