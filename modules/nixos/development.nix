@@ -26,6 +26,7 @@
       nodejs
     ]) ++ (lib.optionals config.custom.development.rust.enable [
       cargo
+      gcc # Rust needs GCC as a linker
       rustc
     ]);
   };
