@@ -3,6 +3,7 @@
 from argparse import ArgumentParser, Namespace
 from subprocess import run
 from os import geteuid
+from platform import node
 
 class Arguments:
     @staticmethod
@@ -65,21 +66,23 @@ def apply_configuration():
     """Apply the configuration to the system."""
     run(["sudo", "nixos-rebuild", "switch", "--flake", "."], check=True)
 
-# TODO: This doesn't currently work, list-generations throws an error
-# def get_generation_meta():
-#     """Get the generation number, build timestamp, etc. of the active configuration."""
+def get_generation_meta():
+    """
+    Get the generation number, build timestamp, etc. of the active configuration.
+    NOTE: This may fail if there are too many generations and exit with an error.
+    """
 
-#     # We only need the first two lines
-#     result = run(["nixos-rebuild", "list-generations"], check=True, capture_output=True, text=True).stdout.splitlines()[:2]
+    # We only need the first two lines
+    result = run(["nixos-rebuild", "list-generations"], check=True, capture_output=True, text=True).stdout.splitlines()[:2]
 
-#     meta = "\n".join(result)
-#     number = result[1].split()[0]
+    meta = "\n".join(result)
+    number = result[1].split()[0]
 
-#     class Result:
-#         def __init__(self, meta: str, number: str):
-#             self.meta = meta
-#             self.number = number
-#     return Result(meta, number)
+    class Result:
+        def __init__(self, meta: str, number: str):
+            self.meta = meta
+            self.number = number
+    return Result(meta, number)
 
 def main():
     if called_as_root():
@@ -97,12 +100,13 @@ def main():
     apply_configuration()
 
     if not arguments.no_commit:
-        # generation_meta = get_generation_meta()
+        generation_meta = get_generation_meta()
+        host_name = node()
 
         commit_messages = [
             arguments.message or "Rebuild system.",
-            # f"{generation_meta.number}: {arguments.message}",
-            # generation_meta.meta,
+            f"{generation_meta.number}#{host_name}: {arguments.message}",
+            generation_meta.meta,
         ] + ([diff] if arguments.diff else [])
         combined_message = "\n\n".join(commit_messages)
 
