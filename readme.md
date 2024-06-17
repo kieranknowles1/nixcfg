@@ -60,8 +60,9 @@ This is generated with `nixosOptionsDoc` and I wouldn't have known about it or h
   - [nixos](modules/nixos/) modules used by NixOS.
 - [packages](packages/) contains packages and scripts written for the repository.
 - [users](users/) contains user configurations.
+- [export-blueprints.py](export-blueprints.py) script to export Factorio blueprints to the repository.
 - [flake.nix](flake.nix) is the entry point for the repository.
-- [rebuild.sh](rebuild.sh) script to update from the repository and commit changes.
+- [rebuild.py](rebuild.py) script to update from the repository and commit changes.
 
 ### Essential Resources
 
