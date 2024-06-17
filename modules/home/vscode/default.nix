@@ -44,6 +44,10 @@ in
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
       ]) ++ (lib.optionals hostDevelopment.remote.enable [
         ms-vscode-remote.remote-ssh
+      ]) ++ (lib.optionals hostDevelopment.rust.enable [
+        dustypomerleau.rust-syntax
+        rust-lang.rust-analyzer
+        serayuzgur.crates
       ]);
     };
 
