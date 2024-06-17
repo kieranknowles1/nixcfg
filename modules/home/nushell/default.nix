@@ -3,8 +3,15 @@
 {
   pkgs,
   ...
-}:
-{
+}: let
+  # TODO: Make the font configurable and apply it to the terminal
+  shellFont = "DejaVuSansMono";
+
+  # NerdFonts is quite large, so only install what we need for the shell
+  minifiedNerdFonts = pkgs.nerdfonts.override {
+    fonts = [ shellFont ];
+  };
+in {
   programs.nushell = {
     enable = true;
 
@@ -26,7 +33,9 @@
 
   fonts.fontconfig.enable = true;
 
-  home.packages = with pkgs; [
-    nerdfonts # Patched fonts with icons used by Starship in Unicode's Private Use Area
+
+  # Starship uses icons from NerdFonts
+  home.packages = [
+    minifiedNerdFonts
   ];
 }
