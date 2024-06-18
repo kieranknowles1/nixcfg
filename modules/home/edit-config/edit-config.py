@@ -4,7 +4,7 @@
 # then copy them back to the source repository for version control
 
 from argparse import ArgumentParser, Namespace
-from os import remove, path
+from os import remove, path, listdir
 from shutil import copyfile, move
 from subprocess import run
 import json
@@ -22,45 +22,90 @@ class Config:
         for app, app_data in data["programs"].items():
             self.applications[app] = Application(
                 path.expanduser(app_data["system-path"]),
-                path.join(repository, app_data["repo-path"])
+                path.join(repository, app_data["repo-path"]),
+                app_data.get("ignore-dirs"),
             )
 
 class Application:
-    def __init__(self, system_path: str, repo_path: str):
+    BACKUP_EXTENSION = ".edit-config-backup"
+
+    def __init__(self, system_path: str, repo_path: str, ignore_dirs: list[str]):
         self.system_path = system_path
-        """The path to the file on disk."""
+        """The path to the directory on disk."""
         self.repo_path = repo_path
-        """The path to the file relative to the repository."""
-        print(self.repo_path)
+        """The path to the directory relative to the repository."""
+        self.ignore_dirs = ignore_dirs
+        """A list of directories to ignore when copying the configuration files. Only the top level is checked."""
+
 
     def check_valid(self):
         """
         Check that all necessary conditions are met for editing the configuration file.
         """
 
-        # The file MUST exist and MUST be a symbolic link
-        if not path.exists(self.system_path):
-            raise FileNotFoundError(f"File does not exist: {self.system_path}")
+        # The system path MUST be a directory
+        if not path.isdir(self.system_path):
+            raise NotADirectoryError(f"Path is not a directory: {self.system_path}")
 
-        if not path.islink(self.system_path):
-            raise ValueError(f"File is not a symbolic link: {self.system_path}")
+        # The repository path MUST be a directory
+        if not path.isdir(self.repo_path):
+            raise NotADirectoryError(f"Path is not a directory: {self.repo_path}")
 
-        # The file in the repository MUST exist
-        if not path.exists(self.repo_path):
-            raise FileNotFoundError(f"File does not exist in repository: {self.repo_path}")
+    def _collect_links_recursive(self, relative_path: str, is_root: bool = False):
+        full_repo_path = path.join(self.repo_path, relative_path)
+        full_system_path = path.join(self.system_path, relative_path)
+
+        if path.isdir(full_system_path):
+            for file in listdir(full_system_path):
+                if file in self.ignore_dirs:
+                    continue
+
+                yield from self._collect_links_recursive(path.join(relative_path, file))
+        elif path.islink(full_system_path):
+            if path.exists(full_repo_path):
+                yield relative_path
+            else:
+                print(f"Warning: {relative_path} was marked for editing, but does not exist in the repository")
+        else:
+            print(f"Warning: {relative_path} is not a symlink")
+
+    def collect_links(self):
+        """
+        Collect all symlinks that will be editable.
+
+        Returns
+        -------
+        list[str]
+            A list of all symlinks that will be edited, relative to both system_path and repo_path.
+        """
+
+        yield from self._collect_links_recursive("", is_root=True)
+    
+    def swap_links_with_repo(self, links: list[str]):
+        for link in links:
+            full_repo_path = path.join(self.repo_path, link)
+            full_system_path = path.join(self.system_path, link)
+
+            # Move the symlink out of the way
+            move(full_system_path, full_system_path + self.BACKUP_EXTENSION)
+            # Copy the file from the repository to the system
+            copyfile(full_repo_path, full_system_path)
+    
 
     def edit_config(self):
         # NixOS/Home Manager symlinks all its files, so we replace the symlink with a copy of the actual file
         self.check_valid()
 
+        links = list(self.collect_links())
+
         # Rebuilding the link would be a pain, so just move it out of the way
-        link_backup = f"{self.system_path}.edit-config-link-backup"
-        move(self.system_path, link_backup)
+        # changed_links = self.backup_links()
+        self.swap_links_with_repo(links)
 
         # Replace the symlink with a copy of the file as it is in the repository
         # We don't want the version in the store as it may be out of date if
         # there are uncommitted changes
-        copyfile(self.repo_path, self.system_path)
+        # copyfile(self.repo_path, self.system_path)
 
         run([CONFIG.editor, self.system_path])
         print("Make your changes to the config file")
@@ -68,11 +113,12 @@ class Application:
         input("Press Enter to continue...")
 
         # Pull the changes back to the repository
-        copyfile(self.system_path, self.repo_path)
+        # TODO: Reimplement this
+        # copyfile(self.system_path, self.repo_path)
 
         # Restore the symlink
-        remove(self.system_path)
-        move(link_backup, self.system_path)
+        # remove(self.system_path)
+        # move(link_backup, self.system_path)
 
         print("Changes pulled to repository")
 

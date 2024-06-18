@@ -9,7 +9,6 @@
 }:
 let
   userSettingsDir = "${config.xdg.configHome}/Code/User";
-  settingsFile = "${userSettingsDir}/settings.json";
 
   hostDevelopment = hostConfig.custom.development;
 
@@ -48,7 +47,7 @@ in
       ]);
     };
 
-    home.file."${settingsFile}" = {
+    home.file."${userSettingsDir}/settings.json" = {
       source = ./settings.json;
     };
     home.file."${userSettingsDir}/snippets" = {
@@ -58,8 +57,13 @@ in
     };
 
     custom.edit-config.programs.code = {
-      system-path = settingsFile;
-      repo-path = "modules/home/vscode/settings.json";
+      system-path = userSettingsDir;
+      repo-path = "modules/home/vscode/";
+      ignore-dirs = [
+        "History"
+        "globalStorage"
+        "workspaceStorage"
+      ];
     };
   };
 }

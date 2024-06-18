@@ -47,6 +47,13 @@ in {
             # store, not the repository.
             type = lib.types.str;
           };
+          ignore-dirs = lib.mkOption {
+            description = ''
+              Top-level directories to ignore when searching for files.
+            '';
+            type = lib.types.listOf lib.types.str;
+            default = [];
+          };
         };
       });
     };
