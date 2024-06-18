@@ -4,6 +4,7 @@
   system,
   ...
 }: let
+  # Force this module to use the stable nixpkgs, even if the system is running unstable
   packagesStable = inputs.nixpkgs.legacyPackages.${system};
 in {
   services = {
@@ -11,6 +12,7 @@ in {
       enable = true;
 
       # CUPS seems to be borked on unstable, so let's use the old version
+      # When adding a printer, the connection input field is garbage data
       package = packagesStable.cups;
 
       drivers = with packagesStable; [
