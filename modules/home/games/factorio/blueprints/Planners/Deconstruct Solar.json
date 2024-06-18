@@ -1,0 +1,31 @@
+{
+  "deconstruction_planner": {
+    "item": "deconstruction-planner",
+    "label": "Deconstruct Solar",
+    "settings": {
+      "description": "Deconstruct solar fields, while leaving power and robot infrastructure",
+      "entity_filters": [
+        {
+          "index": 0,
+          "name": "solar-panel"
+        },
+        {
+          "index": 1,
+          "name": "accumulator"
+        }
+      ],
+      "icons": [
+        {
+          "index": 1,
+          "signal": {
+            "name": "solar-panel",
+            "type": "item"
+          }
+        }
+      ],
+      "tile_selection_mode": 2
+    },
+    "version": 281479278690304
+  },
+  "index": 3
+}

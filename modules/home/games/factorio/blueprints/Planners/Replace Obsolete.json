@@ -59,17 +59,6 @@
             "name": "medium-electric-pole",
             "type": "entity"
           }
-        },
-        {
-          "from": {
-            "name": "productivity-module",
-            "type": "item"
-          },
-          "index": 20,
-          "to": {
-            "name": "productivity-module-2",
-            "type": "item"
-          }
         }
       ]
     },

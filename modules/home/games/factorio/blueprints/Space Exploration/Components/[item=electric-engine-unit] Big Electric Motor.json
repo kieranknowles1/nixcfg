@@ -1,0 +1,1521 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 2,
+        "entity_number": 1,
+        "filter": "electric-engine-unit",
+        "name": "fast-splitter",
+        "output_priority": "left",
+        "position": {
+          "x": 203.5,
+          "y": 72
+        }
+      },
+      {
+        "entity_number": 2,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 204.5,
+          "y": 71.5
+        }
+      },
+      {
+        "entity_number": 3,
+        "name": "inserter",
+        "position": {
+          "x": 189.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 189.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 5,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 188.5,
+          "y": 72.5
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 188.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 7,
+        "name": "inserter",
+        "position": {
+          "x": 191.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 191.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 9,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 72.5
+        }
+      },
+      {
+        "entity_number": 10,
+        "name": "inserter",
+        "position": {
+          "x": 193.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 11,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 193.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 12,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 192.5,
+          "y": 72.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          23,
+          37
+        ],
+        "position": {
+          "x": 194.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 14,
+        "name": "inserter",
+        "position": {
+          "x": 195.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 15,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 195.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 16,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 194.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 17,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 197.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 18,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 196.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 19,
+        "name": "inserter",
+        "position": {
+          "x": 198.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 20,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 199.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 21,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 198.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 22,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 201.5,
+          "y": 72.5
+        }
+      },
+      {
+        "entity_number": 23,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          13,
+          41
+        ],
+        "position": {
+          "x": 201.5,
+          "y": 73.5
+        }
+      },
+      {
+        "entity_number": 24,
+        "name": "inserter",
+        "position": {
+          "x": 200.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 25,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 200.5,
+          "y": 72.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 26,
+        "name": "inserter",
+        "position": {
+          "x": 202.5,
+          "y": 73.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 27,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 202.5,
+          "y": 72.5
+        }
+      },
+      {
+        "entity_number": 28,
+        "name": "fast-underground-belt",
+        "position": {
+          "x": 188.5,
+          "y": 74.5
+        },
+        "type": "output"
+      },
+      {
+        "direction": 2,
+        "entity_number": 29,
+        "items": {
+          "speed-module": 2
+        },
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 190.5,
+          "y": 75.5
+        },
+        "recipe": "electric-engine-unit"
+      },
+      {
+        "entity_number": 30,
+        "name": "pipe",
+        "position": {
+          "x": 192.5,
+          "y": 75.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 31,
+        "items": {
+          "speed-module": 2
+        },
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 194.5,
+          "y": 75.5
+        },
+        "recipe": "electric-engine-unit"
+      },
+      {
+        "direction": 2,
+        "entity_number": 32,
+        "items": {
+          "speed-module": 2
+        },
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 197.5,
+          "y": 75.5
+        },
+        "recipe": "electric-engine-unit"
+      },
+      {
+        "entity_number": 33,
+        "name": "pipe",
+        "position": {
+          "x": 199.5,
+          "y": 75.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 34,
+        "items": {
+          "speed-module": 2
+        },
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 201.5,
+          "y": 75.5
+        },
+        "recipe": "electric-engine-unit"
+      },
+      {
+        "direction": 4,
+        "entity_number": 35,
+        "name": "inserter",
+        "position": {
+          "x": 190.5,
+          "y": 77.5
+        }
+      },
+      {
+        "entity_number": 36,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 192.5,
+          "y": 76.5
+        }
+      },
+      {
+        "entity_number": 37,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          13,
+          41,
+          73
+        ],
+        "position": {
+          "x": 192.5,
+          "y": 77.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 38,
+        "name": "inserter",
+        "position": {
+          "x": 194.5,
+          "y": 77.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 39,
+        "name": "inserter",
+        "position": {
+          "x": 197.5,
+          "y": 77.5
+        }
+      },
+      {
+        "entity_number": 40,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 199.5,
+          "y": 76.5
+        }
+      },
+      {
+        "entity_number": 41,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          37,
+          23,
+          78
+        ],
+        "position": {
+          "x": 199.5,
+          "y": 77.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 42,
+        "name": "inserter",
+        "position": {
+          "x": 201.5,
+          "y": 77.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 43,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 189.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 44,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 188.5,
+          "y": 78.5
+        }
+      },
+      {
+        "entity_number": 45,
+        "name": "inserter",
+        "position": {
+          "x": 190.5,
+          "y": 79.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 46,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 191.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 47,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 48,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 193.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 49,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 192.5,
+          "y": 78.5
+        }
+      },
+      {
+        "entity_number": 50,
+        "name": "inserter",
+        "position": {
+          "x": 194.5,
+          "y": 79.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 51,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 195.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 52,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 194.5,
+          "y": 78.5
+        }
+      },
+      {
+        "entity_number": 53,
+        "name": "inserter",
+        "position": {
+          "x": 197.5,
+          "y": 79.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 54,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 197.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 55,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 196.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 56,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 199.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 57,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 198.5,
+          "y": 78.5
+        }
+      },
+      {
+        "entity_number": 58,
+        "name": "inserter",
+        "position": {
+          "x": 201.5,
+          "y": 79.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 59,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 201.5,
+          "y": 78.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 60,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 200.5,
+          "y": 78.5
+        }
+      },
+      {
+        "entity_number": 61,
+        "name": "fast-underground-belt",
+        "position": {
+          "x": 188.5,
+          "y": 81.5
+        },
+        "type": "input"
+      },
+      {
+        "direction": 2,
+        "entity_number": 62,
+        "items": {
+          "speed-module": 2
+        },
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 190.5,
+          "y": 81.5
+        },
+        "recipe": "electric-engine-unit"
+      },
+      {
+        "direction": 4,
+        "entity_number": 63,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 192.5,
+          "y": 80.5
+        }
+      },
+      {
+        "entity_number": 64,
+        "name": "pipe",
+        "position": {
+          "x": 192.5,
+          "y": 81.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 65,
+        "items": {
+          "speed-module": 2
+        },
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 194.5,
+          "y": 81.5
+        },
+        "recipe": "electric-engine-unit"
+      },
+      {
+        "direction": 2,
+        "entity_number": 66,
+        "items": {
+          "speed-module": 2
+        },
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 197.5,
+          "y": 81.5
+        },
+        "recipe": "electric-engine-unit"
+      },
+      {
+        "direction": 4,
+        "entity_number": 67,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 199.5,
+          "y": 80.5
+        }
+      },
+      {
+        "entity_number": 68,
+        "name": "pipe",
+        "position": {
+          "x": 199.5,
+          "y": 81.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 69,
+        "items": {
+          "speed-module": 2
+        },
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 201.5,
+          "y": 81.5
+        },
+        "recipe": "electric-engine-unit"
+      },
+      {
+        "direction": 4,
+        "entity_number": 70,
+        "name": "inserter",
+        "position": {
+          "x": 189.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 71,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 188.5,
+          "y": 82.5
+        }
+      },
+      {
+        "entity_number": 72,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 188.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 73,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          37,
+          78
+        ],
+        "position": {
+          "x": 190.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 74,
+        "name": "inserter",
+        "position": {
+          "x": 191.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 75,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 192.5,
+          "y": 82.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 76,
+        "name": "inserter",
+        "position": {
+          "x": 193.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 77,
+        "name": "inserter",
+        "position": {
+          "x": 195.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 78,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          41,
+          73,
+          116
+        ],
+        "position": {
+          "x": 197.5,
+          "y": 83.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 79,
+        "name": "inserter",
+        "position": {
+          "x": 196.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 80,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 199.5,
+          "y": 82.5
+        }
+      },
+      {
+        "entity_number": 81,
+        "name": "inserter",
+        "position": {
+          "x": 198.5,
+          "y": 83.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 82,
+        "name": "inserter",
+        "position": {
+          "x": 200.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 83,
+        "name": "inserter",
+        "position": {
+          "x": 202.5,
+          "y": 83.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 84,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 203.5,
+          "y": 83.5
+        }
+      },
+      {
+        "entity_number": 85,
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 206.5,
+          "y": 84.5
+        },
+        "recipe": "electric-motor"
+      },
+      {
+        "entity_number": 86,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 188.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 87,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 189.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 88,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 191.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 89,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 90,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 192.5,
+          "y": 85.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 91,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 193.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 92,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 192.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 93,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 195.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 94,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 194.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 95,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 197.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 96,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 196.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 97,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 199.5,
+          "y": 85.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 98,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 199.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 99,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 198.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 100,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 201.5,
+          "y": 85.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 101,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 200.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 102,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 201.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 103,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 202.5,
+          "y": 85.5
+        }
+      },
+      {
+        "entity_number": 104,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 203.5,
+          "y": 85.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 105,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 203.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 106,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 202.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 107,
+        "name": "fast-inserter",
+        "position": {
+          "x": 204.5,
+          "y": 84.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 108,
+        "name": "long-handed-inserter",
+        "position": {
+          "x": 204.5,
+          "y": 85.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 109,
+        "name": "fast-inserter",
+        "position": {
+          "x": 208.5,
+          "y": 85.5
+        }
+      },
+      {
+        "entity_number": 110,
+        "name": "pipe",
+        "position": {
+          "x": 192.5,
+          "y": 86.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 111,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 193.5,
+          "y": 86.5
+        }
+      },
+      {
+        "entity_number": 112,
+        "name": "pipe",
+        "position": {
+          "x": 199.5,
+          "y": 86.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 113,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 198.5,
+          "y": 86.5
+        }
+      },
+      {
+        "entity_number": 114,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 201.5,
+          "y": 86.5
+        }
+      },
+      {
+        "entity_number": 115,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 201.5,
+          "y": 87.5
+        }
+      },
+      {
+        "entity_number": 116,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          78,
+          121
+        ],
+        "position": {
+          "x": 202.5,
+          "y": 86.5
+        }
+      },
+      {
+        "entity_number": 117,
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 204.5,
+          "y": 88.5
+        },
+        "recipe": "iron-gear-wheel"
+      },
+      {
+        "direction": 4,
+        "entity_number": 118,
+        "name": "fast-inserter",
+        "position": {
+          "x": 205.5,
+          "y": 86.5
+        }
+      },
+      {
+        "entity_number": 119,
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 207.5,
+          "y": 88.5
+        },
+        "recipe": "copper-cable"
+      },
+      {
+        "direction": 4,
+        "entity_number": 120,
+        "name": "fast-inserter",
+        "position": {
+          "x": 207.5,
+          "y": 86.5
+        }
+      },
+      {
+        "entity_number": 121,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          116,
+          140
+        ],
+        "position": {
+          "x": 208.5,
+          "y": 86.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 122,
+        "name": "fast-inserter",
+        "position": {
+          "x": 209.5,
+          "y": 86.5
+        }
+      },
+      {
+        "entity_number": 123,
+        "name": "assembling-machine-2",
+        "position": {
+          "x": 210.5,
+          "y": 88.5
+        },
+        "recipe": "copper-cable"
+      },
+      {
+        "direction": 2,
+        "entity_number": 124,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 191.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 125,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 88.5
+        }
+      },
+      {
+        "entity_number": 126,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 89.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 127,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 193.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 128,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 192.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 129,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 195.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 130,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 194.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 131,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 197.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 132,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 196.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 133,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 199.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 134,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 198.5,
+          "y": 88.5
+        }
+      },
+      {
+        "entity_number": 135,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 201.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 136,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 200.5,
+          "y": 88.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 137,
+        "name": "fast-inserter",
+        "position": {
+          "x": 202.5,
+          "y": 88.5
+        }
+      },
+      {
+        "entity_number": 138,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 90.5
+        }
+      },
+      {
+        "entity_number": 139,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 91.5
+        }
+      },
+      {
+        "entity_number": 140,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          121
+        ],
+        "position": {
+          "x": 207.5,
+          "y": 90.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 141,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 209.5,
+          "y": 91.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 142,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 208.5,
+          "y": 91.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 143,
+        "name": "fast-inserter",
+        "position": {
+          "x": 209.5,
+          "y": 90.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 144,
+        "name": "fast-inserter",
+        "position": {
+          "x": 208.5,
+          "y": 90.5
+        }
+      },
+      {
+        "entity_number": 145,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 92.5
+        }
+      },
+      {
+        "entity_number": 146,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 190.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 147,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 192.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 148,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 193.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 149,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 194.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 150,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 195.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 151,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 196.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 152,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 197.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 153,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 199.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 154,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 198.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 155,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 200.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 156,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 201.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 157,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 202.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 158,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 203.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 159,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 205.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 160,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 204.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 161,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 207.5,
+          "y": 93.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 162,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 206.5,
+          "y": 93.5
+        }
+      },
+      {
+        "entity_number": 163,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 208.5,
+          "y": 93.5
+        }
+      },
+      {
+        "entity_number": 164,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 208.5,
+          "y": 92.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "electric-engine-unit",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "[item=electric-engine-unit] Big Electric Motor",
+    "version": 281479278690304
+  },
+  "index": 6
+}
