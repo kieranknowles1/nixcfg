@@ -52,6 +52,9 @@ in {
     custom.edit-config.programs.espanso = {
       system-path = configDir;
       repo-path = "modules/home/espanso/config";
+      nix-managed-paths = [
+        "match/base.yml" # Managed by espanso.matches.base
+      ];
     };
   };
 }

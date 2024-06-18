@@ -7,6 +7,7 @@ from argparse import ArgumentParser, Namespace
 from os import remove, path, listdir
 from shutil import copyfile, move
 from subprocess import run
+from typing import Generator
 import json
 
 class Config:
@@ -24,18 +25,27 @@ class Config:
                 path.expanduser(app_data["system-path"]),
                 path.join(repository, app_data["repo-path"]),
                 app_data.get("ignore-dirs"),
+                app_data.get("nix-managed-paths"),
             )
 
 class Application:
     BACKUP_EXTENSION = ".edit-config-backup"
 
-    def __init__(self, system_path: str, repo_path: str, ignore_dirs: list[str]):
+    def __init__(
+            self,
+            system_path: str,
+            repo_path: str,
+            ignore_dirs: list[str],
+            nix_managed_paths: list[str],
+        ):
         self.system_path = system_path
         """The path to the directory on disk."""
         self.repo_path = repo_path
         """The path to the directory relative to the repository."""
         self.ignore_dirs = ignore_dirs
         """A list of directories to ignore when copying the configuration files. Only the top level is checked."""
+        self.nix_managed_paths = nix_managed_paths
+        """A list of paths that are managed by NixOS and are not expected to be in the repository directly."""
 
 
     def check_valid(self):
@@ -51,7 +61,7 @@ class Application:
         if not path.isdir(self.repo_path):
             raise NotADirectoryError(f"Path is not a directory: {self.repo_path}")
 
-    def _collect_links_recursive(self, relative_path: str, is_root: bool = False):
+    def _collect_links_recursive(self, relative_path: str, is_root: bool = False) -> Generator[str, None, None]:
         full_repo_path = path.join(self.repo_path, relative_path)
         full_system_path = path.join(self.system_path, relative_path)
 
@@ -63,13 +73,19 @@ class Application:
                 yield from self._collect_links_recursive(path.join(relative_path, file))
         elif path.islink(full_system_path):
             if path.exists(full_repo_path):
+                # The paths in the repository and the system are as expected for being provisioned by home-manager
                 yield relative_path
-            else:
+            elif relative_path not in self.nix_managed_paths:
+                # The path is not in the repository, and is not managed by NixOS
+                # NixOS can generate files, these are expected to not be in the repository
+                # Warn for anything else
                 print(f"Warning: {relative_path} was marked for editing, but does not exist in the repository")
         else:
-            print(f"Warning: {relative_path} is not a symlink")
 
-    def collect_links(self):
+            print(f"Warning: {relative_path} is not a symlink or directory")
+            return
+
+    def collect_links(self) -> Generator[str, None, None]:
         """
         Collect all symlinks that will be editable.
 
@@ -80,7 +96,7 @@ class Application:
         """
 
         yield from self._collect_links_recursive("", is_root=True)
-    
+
     def swap_links_with_repo(self, links: list[str]):
         """
         Swap the symlinks with the actual files in the repository. Symlinks are moved out of the way with a special extension.
@@ -93,7 +109,7 @@ class Application:
             move(full_system_path, full_system_path + self.BACKUP_EXTENSION)
             # Copy the file from the repository to the system
             copyfile(full_repo_path, full_system_path)
-    
+
     def restore_links_and_pull_changes(self, links: list[str]):
         """
         Copy the modified files back to the repository and restore the symlinks that were moved out of the way.
@@ -107,7 +123,7 @@ class Application:
             # Move the symlink back
             remove(full_system_path)
             move(full_system_path + self.BACKUP_EXTENSION, full_system_path)
-    
+
 
     def edit_config(self):
         # NixOS/Home Manager symlinks all its files, so we replace the symlink with a copy of the actual file

@@ -5,7 +5,7 @@
   config,
   ...
 }: let
-  package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "3.0.0";
+  package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "3.1.0";
 
   combinedConfig = config.custom.edit-config // {
     repository = "~/${config.custom.repoPath}";
@@ -53,6 +53,15 @@ in {
             '';
             type = lib.types.listOf lib.types.str;
             default = [];
+            example = [ "node_modules" ];
+          };
+          nix-managed-paths = lib.mkOption {
+            description = ''
+              Paths that are managed by Nix and should be ignored.
+            '';
+            type = lib.types.listOf lib.types.str;
+            default = [];
+            example = [ "match/base.yml" ];
           };
         };
       });
