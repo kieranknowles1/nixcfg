@@ -1,8 +1,15 @@
 {
+    // File Types
+    "files.associations": {
+        "**/vscode/snippets/*.json": "jsonc",
+    },
+
     "yaml.schemas": {
         "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/config.schema.json": "modules/home/espanso/config/config/**/*.yml",
         "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json": "modules/home/espanso/config/match/**/*.yml",
     },
+
+    // Language Settings
     "python.analysis.exclude": [
         "**/result/**", // Ignore Nix's result symlink, otherwise Pylance will report 200k errors.
     ],

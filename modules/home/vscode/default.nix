@@ -8,7 +8,8 @@
   ...
 }:
 let
-  settingsFile = "${config.xdg.configHome}/Code/User/settings.json";
+  userSettingsDir = "${config.xdg.configHome}/Code/User";
+  settingsFile = "${userSettingsDir}/settings.json";
 
   hostDevelopment = hostConfig.custom.development;
 
@@ -49,6 +50,11 @@ in
 
     home.file."${settingsFile}" = {
       source = ./settings.json;
+    };
+    home.file."${userSettingsDir}/snippets" = {
+      # TODO: Link this to edit-config
+      source = ./snippets;
+      recursive = true;
     };
 
     custom.edit-config.programs.code = {
