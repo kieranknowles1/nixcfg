@@ -4,6 +4,8 @@
   ...
 }: let
   userDetails = config.custom.userDetails;
+
+  configDir = "${config.xdg.configHome}/espanso";
 in {
   options.custom.userDetails = {
     email = lib.mkOption {
@@ -41,9 +43,15 @@ in {
 
     # Provision with home-manager so we can use yaml directly
     # This is linked to the schemas which gives us validation
-    home.file."${config.xdg.configHome}/espanso/" = {
+    home.file."${configDir}" = {
       source = ./config;
       recursive = true;
+    };
+
+    # Link to our edit-config script
+    custom.edit-config.programs.espanso = {
+      system-path = configDir;
+      repo-path = "modules/home/espanso/config";
     };
   };
 }
