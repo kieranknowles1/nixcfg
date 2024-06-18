@@ -5,7 +5,7 @@
   config,
   ...
 }: let
-  package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "2.0.0";
+  package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "3.0.0";
 
   combinedConfig = config.custom.edit-config // {
     repository = "~/${config.custom.repoPath}";

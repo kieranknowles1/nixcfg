@@ -57,7 +57,7 @@ class Application:
 
         if path.isdir(full_system_path):
             for file in listdir(full_system_path):
-                if file in self.ignore_dirs:
+                if is_root and file in self.ignore_dirs:
                     continue
 
                 yield from self._collect_links_recursive(path.join(relative_path, file))
@@ -82,6 +82,9 @@ class Application:
         yield from self._collect_links_recursive("", is_root=True)
     
     def swap_links_with_repo(self, links: list[str]):
+        """
+        Swap the symlinks with the actual files in the repository. Symlinks are moved out of the way with a special extension.
+        """
         for link in links:
             full_repo_path = path.join(self.repo_path, link)
             full_system_path = path.join(self.system_path, link)
@@ -91,6 +94,20 @@ class Application:
             # Copy the file from the repository to the system
             copyfile(full_repo_path, full_system_path)
     
+    def restore_links_and_pull_changes(self, links: list[str]):
+        """
+        Copy the modified files back to the repository and restore the symlinks that were moved out of the way.
+        """
+        for link in links:
+            full_repo_path = path.join(self.repo_path, link)
+            full_system_path = path.join(self.system_path, link)
+
+            # Copy the file from the system to the repository
+            copyfile(full_system_path, full_repo_path)
+            # Move the symlink back
+            remove(full_system_path)
+            move(full_system_path + self.BACKUP_EXTENSION, full_system_path)
+    
 
     def edit_config(self):
         # NixOS/Home Manager symlinks all its files, so we replace the symlink with a copy of the actual file
@@ -98,27 +115,15 @@ class Application:
 
         links = list(self.collect_links())
 
-        # Rebuilding the link would be a pain, so just move it out of the way
-        # changed_links = self.backup_links()
+        # Rebuilding the links would be a pain, so just move it out of the way
         self.swap_links_with_repo(links)
-
-        # Replace the symlink with a copy of the file as it is in the repository
-        # We don't want the version in the store as it may be out of date if
-        # there are uncommitted changes
-        # copyfile(self.repo_path, self.system_path)
 
         run([CONFIG.editor, self.system_path])
         print("Make your changes to the config file")
         # Code exits immediately when run from the command line, so we wait for additional input
         input("Press Enter to continue...")
 
-        # Pull the changes back to the repository
-        # TODO: Reimplement this
-        # copyfile(self.system_path, self.repo_path)
-
-        # Restore the symlink
-        # remove(self.system_path)
-        # move(link_backup, self.system_path)
+        self.restore_links_and_pull_changes(links)
 
         print("Changes pulled to repository")
 
