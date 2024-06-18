@@ -1,13 +1,19 @@
 # Enable printers, I.e., the spawn of the devil or "let's just go to the library"
 {
-  pkgs,
+  inputs,
+  system,
   ...
-}: {
+}: let
+  packagesStable = inputs.nixpkgs.legacyPackages.${system};
+in {
   services = {
     printing = {
       enable = true;
 
-      drivers = with pkgs; [
+      # CUPS seems to be borked on unstable, so let's use the old version
+      package = packagesStable.cups;
+
+      drivers = with packagesStable; [
         # Drivers for various printers
         gutenprint
         gutenprintBin
