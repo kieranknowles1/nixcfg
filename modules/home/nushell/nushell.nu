@@ -23,7 +23,7 @@ def __show_welcome_message [] {
     # Get a timestamp in the format "X days ago"
     let last_update_relative = $nixpkgs_timestamp | date humanize
 
-    print $"Welcome to (ansi green)Nushell!(ansi reset)"
+    print $"Welcome to (ansi green)Nushell(ansi reset)!"
     print $"Nixpkgs was last updated (ansi cyan)($last_update_relative)(ansi reset)."
 }
 __show_welcome_message
