@@ -56,7 +56,7 @@
       isSudoer = true;
       shell = pkgs.nushell;
     };
-  in {
+  in rec {
     inherit lib; # Expose the lib module to configurations
 
     nixosConfigurations = {
@@ -79,6 +79,11 @@
     packages.x86_64-linux = import ./packages {
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       flakeLib = lib;
+    };
+
+    devShells.x86_64-linux = import ./shells {
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      flakePkgs = packages.x86_64-linux;
     };
   };
 }

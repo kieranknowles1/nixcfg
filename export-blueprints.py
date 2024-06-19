@@ -4,7 +4,6 @@
 
 # Script to export Factorio blueprints to the repository
 
-DECODE = ["nix", "run", ".#factorio-blueprint-decoder"]
 OUTPUT_DIR = "modules/home/games/factorio/blueprints"
 
 from os import path, makedirs
@@ -14,13 +13,12 @@ import json
 from shutil import rmtree
 
 def write_json(data: Any, path: str):
-    print(f"Writing to {path}")
     with open(path, "w") as f:
         json.dump(data, f, indent=2)
 
 def export_bin():
     result = run(
-        DECODE + [path.expanduser("~/.factorio/blueprint-storage.dat")],
+        ["factorio-blueprint-decoder", path.expanduser("~/.factorio/blueprint-storage.dat"), "--skip-bad"],
         check=True, capture_output=True, text=True
     )
 
