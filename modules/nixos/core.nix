@@ -1,6 +1,9 @@
 # Core configuration needed for any host
 { pkgs, pkgs-unstable, flake, system, ... }: let
-  flakePackages = flake.packages.${system};
+  # Helper to activate a dev shell
+  develop = pkgs.writeShellScriptBin "develop" ''
+    nix develop "$FLAKE#$1"
+  '';
 in {
   # Enable flakes
   nix.settings.experimental-features = [
@@ -44,6 +47,7 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    develop # Our nix develop helper
     git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
 
     python3 # The rebuild script is written in Python and I use it for scripts in other repositories
