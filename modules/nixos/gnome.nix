@@ -26,5 +26,10 @@
     gnome.gnome-weather # I use my phone for weather
     gnome.simple-scan # I have no scanner
     gnome.yelp # I use the web for documentation
+    gnome.gnome-system-monitor # I use Resouces
+  ];
+
+  environment.systemPackages = with pkgs; [
+    resources
   ];
 }

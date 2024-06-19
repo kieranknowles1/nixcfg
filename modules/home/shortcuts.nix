@@ -21,7 +21,7 @@ in {
     keybindings = {
       "alt + t" = "kgx"; # Open terminal
       "ctrl + alt + e" = "fsearch"; # Open FSearch (Everything clone)
-      "ctrl + alt + Escape" = "gnome-system-monitor"; # Open task manager. Copy of Windows shortcut
+      "ctrl + shift + Escape" = "resources"; # Open task manager. Copy of Windows shortcut
     };
   };
 
