@@ -1,7 +1,8 @@
 # System level Firefox settings
 # See also: [[../home/firefox.nix]]
-{ pkgs, ...}:
-{
+{ inputs, system, pkgs, ...}: let
+  pkgs-stable = inputs.nixpkgs.legacyPackages.${system};
+in {
   environment.gnome.excludePackages = with pkgs; [
     # GNOME's built-in browser
     epiphany
@@ -12,6 +13,8 @@
   # Install firefox. Extensions are managed by home manager
   programs.firefox = {
     enable = true;
+
+    package = pkgs-stable.firefox;
 
     policies = {
       AutofillCreditCardEnabled = false;
