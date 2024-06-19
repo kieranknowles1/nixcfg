@@ -11,6 +11,10 @@
     xterm
   ];
 
+  services.gnome = {
+    gnome-initial-setup.enable = false; # Redundant with NixOS
+  };
+
   environment.gnome.excludePackages = with pkgs; [
     gedit # Replaced by vscode, but that is managed by home-manager
     gnome-connections # I have no need for remote desktop
@@ -22,11 +26,16 @@
     gnome.gnome-calendar # I use my phone for calendar
     gnome.gnome-clocks # I use my phone for alarms
     gnome.gnome-contacts # I use my phone for contacts
+    gnome.gnome-control-center # Settings are managed by NixOS
+    gnome.gnome-font-viewer # I just use the font dialog in apps
     gnome.gnome-maps # I use my phone for maps
+    gnome.gnome-music # Not using this
+    gnome.gnome-shell-extensions # Not using any of these
+    gnome.gnome-system-monitor # I use Resouces
     gnome.gnome-weather # I use my phone for weather
     gnome.simple-scan # I have no scanner
+    gnome.totem # Video player. Use VLC instead
     gnome.yelp # I use the web for documentation
-    gnome.gnome-system-monitor # I use Resouces
   ];
 
   environment.systemPackages = with pkgs; [
