@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Rebuild the system from the current repository state and commit the changes if successful.
+# This could be packaged within a devshell, but I'm reluctant to add the extra step of activating the devshell.
+
 from argparse import ArgumentParser, Namespace
 from subprocess import run
 from os import geteuid
