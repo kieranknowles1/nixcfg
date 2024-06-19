@@ -26,9 +26,8 @@ For more information, run `./rebuild.py --help`.
 
 #### Key Bindings
 
-- `Alt+T` - Open terminal
-- `Ctrl+Shift+Escape` - Open System Monitor
-- `Ctrl+Alt+E` - Open FSearch
+Key bindings are managed by [sxhkd](modules/home/shortcuts.nix). See its
+configuration for a list of bindings.
 
 ## Documentation and Development Notes
 
@@ -86,7 +85,6 @@ I can do all my work in one place.
   - [x] For functions
   - [x] For options
 - [x] Set keyboard shortcuts
-  - [ ] Run autokey on startup
   - [x] `Alt+T` to open terminal
   - [x] `Ctrl+Shift+Escape` to open System Monitor
   - [x] `Ctrl+Alt+E` to open FSearch
