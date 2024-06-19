@@ -3,7 +3,7 @@ $env.config = {
 }
 
 alias __orig_nix-shell = nix-shell
-alias nix-shell = nix-shell --command "nu"
+alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
 def __get_nixpkgs_last_update [] {
     let flake = $env.FLAKE + "/flake.lock"
@@ -26,4 +26,8 @@ def __show_welcome_message [] {
     print $"Welcome to (ansi green)Nushell(ansi reset)!"
     print $"Nixpkgs was last updated (ansi cyan)($last_update_relative)(ansi reset)."
 }
-__show_welcome_message
+
+# Show a welcome message unless we're in a Nix shell
+if not ($env.DEVSHELL? | default false | into bool) {
+    __show_welcome_message
+}
