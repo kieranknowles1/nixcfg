@@ -9,5 +9,8 @@
 
   # TODO: Add our own mkShell that sets the interpreter to nushell
   # We use exec to replace bash with nushell, rather than running nushell in bash which would require a second exit command
-  shellHook = "exec nu";
+  shellHook = ''
+    cd "$FLAKE"
+    exec nu
+  '';
 }
