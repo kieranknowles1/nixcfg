@@ -1,10 +1,14 @@
 # Per-user Firefox settings
 # See also: [[../nixos/firefox.nix]]
-{ inputs, system, ... }:
-
-{
+{ inputs, system, ... }: let
+  pkgs-stable = inputs.nixpkgs.legacyPackages.${system};
+in {
   programs.firefox = {
     enable = true;
+
+    # Firefix updates frequently and takes a long time to build, so we use the
+    # stable channel here.
+    package = pkgs-stable.firefox;
 
     profiles.default = {
       id = 0;
