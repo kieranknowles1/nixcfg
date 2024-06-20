@@ -7,7 +7,7 @@
     # Arguments
     Identical to mkShellNoCC. Note that shellHook is executed as Bash before exec'ing the user's shell.
    */
-  mkShellEx = args: pkgs.mkShellNoCC args // {
+  mkShellEx = args: pkgs.mkShellNoCC (args // {
     # args // passes all arguments to mkShellNoCC, except those that are overridden below
 
     # Our hook does the following:
@@ -20,5 +20,5 @@
       export DEVSHELL=1
       exec "$SHELL"
     '';
-  };
+  });
 }
