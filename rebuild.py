@@ -19,9 +19,8 @@ class Arguments:
         """
         parser = ArgumentParser(description="Rebuilds the system from the current repository state and commits the changes if successful.")
 
-        # The message is required unless we're not committing or are updating
+        # The message is required unless we are updating, then we can provide a default.
         parser.add_argument("message", help="The commit message.", nargs="?")
-        parser.add_argument("-C", "--no-commit", action="store_true", help="Don't commit the changes.")
 
         parser.add_argument("-D", "--no-diff", action="store_true", help="Don't include a diff in the commit message.")
 
@@ -30,18 +29,14 @@ class Arguments:
         return Arguments(parser.parse_args())
 
     def __init__(self, args: Namespace):
-        self.no_commit: bool = args.no_commit
         self.message: str|None = args.message
         self.diff: bool = not args.no_diff
         self.update: bool = args.update
 
         # Message may or may not be required, depending on the other arguments. Too complex for argparse on its own, so we handle it here.
         if self.message is None:
-            # If we're not committing, we don't need a message
-            if self.no_commit:
-                pass
             # If we're updating, we can give a default
-            elif self.update:
+            if self.update:
                 self.message = "Update flake inputs."
             # Otherwise, we need a message
             else:
@@ -102,21 +97,20 @@ def main():
 
     apply_configuration()
 
-    if not arguments.no_commit:
-        generation_meta = get_generation_meta()
-        host_name = node()
+    generation_meta = get_generation_meta()
+    host_name = node()
 
-        commit_messages = [
-            arguments.message or "Rebuild system.",
-            f"{generation_meta.number}#{host_name}: {arguments.message}",
-            generation_meta.meta,
-        ] + ([diff] if arguments.diff else [])
-        combined_message = "\n\n".join(commit_messages)
+    commit_messages = [
+        arguments.message or "Rebuild system.",
+        f"{generation_meta.number}#{host_name}: {arguments.message}",
+        generation_meta.meta,
+    ] + ([diff] if arguments.diff else [])
+    combined_message = "\n\n".join(commit_messages)
 
-        # Commit the changes.
-        run(["git", "add", "."], check=True)
-        run(["git", "commit",
-            "-m", combined_message], check=True)
+    # Commit the changes.
+    run(["git", "add", "."], check=True)
+    run(["git", "commit",
+        "-m", combined_message], check=True)
 
 if __name__ == "__main__":
     main()
