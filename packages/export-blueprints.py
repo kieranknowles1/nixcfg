@@ -7,10 +7,11 @@
 OUTPUT_DIR = "modules/home/games/factorio/blueprints"
 
 from os import path, makedirs
+from shutil import rmtree
 from subprocess import run
+from sys import stderr
 from typing import Any
 import json
-from shutil import rmtree
 
 def write_json(data: Any, path: str):
     with open(path, "w") as f:
@@ -19,10 +20,18 @@ def write_json(data: Any, path: str):
 def export_bin():
     result = run(
         ["factorio-blueprint-decoder", path.expanduser("~/.factorio/blueprint-storage.dat"), "--skip-bad"],
-        check=True, capture_output=True, text=True
+        capture_output=True, text=True
     )
+    print(result.stderr, file=stderr)
 
-    return json.loads(result.stdout)
+    skipped_any = result.returncode == 2
+    if result.returncode != 0:
+        if skipped_any:
+            print("Warning: Some blueprints could not be decoded", file=stderr)
+        else:
+            print("Error: Failed to decode blueprints", file=stderr)
+
+    return (json.loads(result.stdout), result.stderr if skipped_any else None)
 
 def get_name(entry: dict[str, Any]) -> str:
     if "blueprint" in entry:
@@ -79,11 +88,16 @@ def dump_entry(entry: dict[str, Any], base_dir: str, *, is_root: bool):
         dump_generic(entry, base_dir)
 
 def main():
-    blob = export_bin()
+    blob, errors = export_bin()
 
     # The raw JSON is a bit large for Git, so we'll split it into smaller files by blueprint
     rmtree(OUTPUT_DIR) # Clear out the old data
     dump_entry(blob, OUTPUT_DIR, is_root=True)
+
+    # If there were any errors, write them to a file to track in the commit
+    if errors:
+        with open(path.join(OUTPUT_DIR, "errors.txt"), "w") as f:
+            f.write(errors)
 
 if __name__ == "__main__":
     main()

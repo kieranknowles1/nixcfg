@@ -6,7 +6,7 @@
 
 from base64 import b64encode
 from os import listdir, path
-from sys import argv
+from sys import argv, stderr
 from typing import Any
 import json
 import zlib
@@ -33,7 +33,7 @@ def read_book(book_dir: str):
 
         if path.isdir(full_path):
             blueprints.append(read_book(full_path))
-        else:
+        elif full_path.endswith(".json"):
             blueprints.append(read_json(full_path))
 
     data["blueprint_book"]["blueprints"] = blueprints
@@ -57,7 +57,7 @@ def encode_blueprint_string(data: Any):
 
 def main():
     if len(argv) != 2:
-        print(f"Usage: {argv[0]} <blueprint_dir>")
+        print(f"Usage: {argv[0]} <blueprint_dir>", file=stderr)
         exit(1)
     path = argv[1]
 
