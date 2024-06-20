@@ -4,14 +4,14 @@
       {
         "index": 1,
         "signal": {
-          "name": "rocket-silo",
+          "name": "stone-furnace",
           "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Space Exploration",
+    "label": "Smelting",
     "version": 281479278690304
   },
-  "index": 6
+  "index": 0
 }
