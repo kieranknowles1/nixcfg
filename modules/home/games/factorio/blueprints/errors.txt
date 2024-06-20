@@ -1,4 +1,4 @@
-ERROR: skipping blueprint 'Straight' due to exception: expected 0x00 but got 0x4d at position 129406 (0x1f97e)
+ERROR: skipping blueprint 'Straight' due to exception: expected 0x00 but got 0x4d at position 139345 (0x22051)
 Traceback (most recent call last):
   File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2666, in parse_blueprint
     parse_entities(stream, index, result)
@@ -10,8 +10,8 @@ Traceback (most recent call last):
     stream.expect(*[0x00]*4)
   File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 341, in expect
     raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
-ParseError: expected 0x00 but got 0x4d at position 129406 (0x1f97e)
-ERROR: skipping blueprint 'Corner' due to exception: expected 0x00 but got 0x4d at position 131247 (0x200af)
+ParseError: expected 0x00 but got 0x4d at position 139345 (0x22051)
+ERROR: skipping blueprint 'Corner' due to exception: expected 0x00 but got 0x4d at position 141186 (0x22782)
 Traceback (most recent call last):
   File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2666, in parse_blueprint
     parse_entities(stream, index, result)
@@ -23,8 +23,8 @@ Traceback (most recent call last):
     stream.expect(*[0x00]*4)
   File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 341, in expect
     raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
-ParseError: expected 0x00 but got 0x4d at position 131247 (0x200af)
-ERROR: skipping blueprint 'Inner Corner' due to exception: expected 0x00 but got 0x4d at position 132939 (0x2074b)
+ParseError: expected 0x00 but got 0x4d at position 141186 (0x22782)
+ERROR: skipping blueprint 'Inner Corner' due to exception: expected 0x00 but got 0x4d at position 142878 (0x22e1e)
 Traceback (most recent call last):
   File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2666, in parse_blueprint
     parse_entities(stream, index, result)
@@ -36,5 +36,5 @@ Traceback (most recent call last):
     stream.expect(*[0x00]*4)
   File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 341, in expect
     raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
-ParseError: expected 0x00 but got 0x4d at position 132939 (0x2074b)
+ParseError: expected 0x00 but got 0x4d at position 142878 (0x22e1e)
 ERROR - summary: skipped 3 unreadable blueprints.
