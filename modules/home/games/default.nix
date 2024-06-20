@@ -39,5 +39,10 @@ in {
       # https://www.factorio.com/blog/post/fff-408
       SDL_VIDEODRIVER = "wayland";
     };
+
+    home.packages = with pkgs; [
+      # Minecraft launcher
+      prismlauncher
+    ];
   };
 }
