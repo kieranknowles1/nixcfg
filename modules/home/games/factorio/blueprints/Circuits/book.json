@@ -4,14 +4,14 @@
       {
         "index": 1,
         "signal": {
-          "name": "stone-wall",
+          "name": "arithmetic-combinator",
           "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Walls",
+    "label": "Circuits",
     "version": 281479278690304
   },
-  "index": 2
+  "index": 7
 }
