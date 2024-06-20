@@ -18,4 +18,6 @@ in {
   export-blueprints = packagePythonScript "export-blueprints" ./export-blueprints.py "1.0.0";
 
   factorio-blueprint-decoder = packagePythonScript "factorio-blueprint-decoder" "${factorioDecoderSrc}/decode" "0.1.1";
+
+  rebuild = packagePythonScript "rebuild" ./rebuild.py "1.0.0";
 }

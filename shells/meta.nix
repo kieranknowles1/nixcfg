@@ -5,6 +5,7 @@
   packages = with flakePkgs; [
     export-blueprints
     factorio-blueprint-decoder
+    rebuild
   ];
 
   # TODO: Add our own mkShell that sets the interpreter to nushell
