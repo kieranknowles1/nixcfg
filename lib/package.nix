@@ -32,4 +32,31 @@
       chmod +x $out/bin/${pname}
     '';
   };
+
+  # TODO: Use this for resaver
+  /**
+    Generate an XDG desktop entry file for a command.
+    See https://wiki.archlinux.org/title/desktop_entries#Application_entry
+    for more information.
+
+    # Arguments
+    name :: String : The name of the desktop entry.
+    description :: String : A brief description of the command.
+    command :: String : The command to run.
+
+    # Returns
+    String : The contents of the desktop entry file.
+   */
+  mkDesktopEntry = {
+    name,
+    description,
+    command
+  }: ''
+    [Desktop Entry]
+    Type=Application
+    Version=1.0
+    Name=${name}
+    Comment=${description}
+    Exec=${command}
+  '';
 }
