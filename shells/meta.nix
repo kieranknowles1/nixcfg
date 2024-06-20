@@ -1,7 +1,7 @@
 {
-  pkgs,
+  flakeLib,
   flakePkgs
-}: pkgs.mkShellNoCC {
+}: flakeLib.shell.mkShellEx {
   packages = with flakePkgs; [
     export-blueprints
     factorio-blueprint-decoder

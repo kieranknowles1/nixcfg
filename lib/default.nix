@@ -11,5 +11,6 @@ in {
   host = import ./host.nix { inherit nixpkgs nixpkgs-unstable flake inputs; };
   image = import ./image.nix { inherit pkgs; };
   package = import ./package.nix { inherit pkgs; };
+  shell = import ./shell.nix { inherit pkgs; };
   user = import ./user.nix {};
 }

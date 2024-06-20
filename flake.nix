@@ -83,6 +83,7 @@
 
     devShells.x86_64-linux = import ./shells {
       pkgs = import nixpkgs { system = "x86_64-linux"; };
+      flakeLib = lib;
       flakePkgs = packages.x86_64-linux;
     };
   };
