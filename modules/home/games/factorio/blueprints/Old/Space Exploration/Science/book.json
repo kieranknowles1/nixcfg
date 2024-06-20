@@ -4,14 +4,14 @@
       {
         "index": 1,
         "signal": {
-          "name": "stone-wall",
+          "name": "automation-science-pack",
           "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Walls",
+    "label": "Science",
     "version": 281479278690304
   },
-  "index": 6
+  "index": 0
 }

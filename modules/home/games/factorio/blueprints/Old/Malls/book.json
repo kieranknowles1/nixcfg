@@ -4,14 +4,14 @@
       {
         "index": 1,
         "signal": {
-          "name": "rocket-silo",
+          "name": "assembling-machine-2",
           "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Space Exploration",
+    "label": "Malls",
     "version": 281479278690304
   },
-  "index": 0
+  "index": 13
 }

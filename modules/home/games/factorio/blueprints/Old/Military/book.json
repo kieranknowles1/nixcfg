@@ -4,14 +4,14 @@
       {
         "index": 1,
         "signal": {
-          "name": "assembling-machine-2",
+          "name": "gun-turret",
           "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Malls",
+    "label": "Military",
     "version": 281479278690304
   },
-  "index": 8
+  "index": 10
 }
