@@ -3,3 +3,6 @@
 
 # Generated during the build process
 /docs
+
+# Rust compiler output
+target/
