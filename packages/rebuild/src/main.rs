@@ -32,6 +32,7 @@ struct Opt {
     update: bool,
 }
 
+
 fn check_ok(status: ExitStatus, command: &str) -> Result<(), std::io::Error> {
     match status.success() {
         true => Ok(()),
@@ -39,8 +40,13 @@ fn check_ok(status: ExitStatus, command: &str) -> Result<(), std::io::Error> {
     }
 }
 
-fn update_flake_inputs()  {
-    // TODO: Implement
+fn update_flake_inputs() -> std::io::Result<()> {
+    let status = Command::new("nix")
+        .arg("flake")
+        .arg("update")
+        .status()?;
+
+    check_ok(status, "nix flake update")
 }
 
 /// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
@@ -124,7 +130,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opt = Opt::parse();
 
     if opt.update {
-        update_flake_inputs();
+        update_flake_inputs()?;
     }
 
     let diff = fancy_build(&config.repo_path)?;

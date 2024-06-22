@@ -2,6 +2,8 @@
   pkgs,
   flakeLib
 }: flakeLib.shell.mkShellEx {
+  name = "rust";
+
   # Packages to put on the PATH
   packages = with pkgs; [
     cargo
