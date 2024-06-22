@@ -15,6 +15,12 @@
       Exec=${pkgs.jdk21}/bin/java -jar /home/kieran/Games/modding-tools/resaver/target/ReSaver.jar %u
     '';
   };
+
+  prismOverride = pkgs.prismlauncher.overrideAttrs (oldAttrs: {
+    jdks = with pkgs; oldAttrs.jdks ++ [
+      jdk17
+    ];
+  });
 in {
   imports = [
     ./factorio
