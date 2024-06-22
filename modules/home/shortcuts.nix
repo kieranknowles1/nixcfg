@@ -2,10 +2,14 @@
 {
   config,
   flake,
+  pkgs,
   ...
-}: {
+}: let
+  sxhkd = pkgs.sxhkd;
+in {
   services.sxhkd = {
     enable = true;
+    package = sxhkd;
 
     keybindings = {
       "alt + t" = "kgx"; # Open terminal
@@ -19,5 +23,6 @@
     name = "sxhkd";
     description = "Simple X Hotkey Daemon";
     command = "sxhkd";
+    version = sxhkd.version;
   };
 }
