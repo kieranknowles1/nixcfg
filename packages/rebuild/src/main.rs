@@ -1,6 +1,10 @@
+// cSpell: words gethostname nixos
+
 use clap::Parser;
+use gethostname::gethostname;
 use core::str;
-use std::process::Command;
+use std::path::PathBuf;
+use std::process::{Command, ExitStatus};
 use std::env;
 
 /// Configuration derived from the environment.
@@ -28,33 +32,45 @@ struct Opt {
     update: bool,
 }
 
+fn check_ok(status: ExitStatus, command: &str) -> Result<(), std::io::Error> {
+    match status.success() {
+        true => Ok(()),
+        false => Err(std::io::Error::new(std::io::ErrorKind::Other, format!("Command '{}' failed with status {}", command, status))),
+    }
+}
+
 fn update_flake_inputs()  {
     // TODO: Implement
 }
 
 /// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
-fn fancy_build() -> std::io::Result<String> {
-    let status = Command::new("nh")
+fn fancy_build(repo_path: &String) -> std::io::Result<String> {
+    let build_status = Command::new("nh")
         .arg("os")
         .arg("build")
         .status()?;
 
     // We put build and diff in the same function as the diff only works after a build but
     // before a switch. This guarantees that we don't call it at the wrong time.
-    match status.success() {
-        true => {
-            let output = Command::new("nvd")
-            .arg("diff")
-            .arg("/run/current-system")
-            .arg("result/")
-            .output()?;
-            Ok(String::from_utf8(output.stdout).unwrap())
-        }
-        false => Err(std::io::Error::new(std::io::ErrorKind::Other, "Build failed")),
-    }
+    check_ok(build_status, "nh os build")?;
+
+    let diff_output = Command::new("nvd")
+        .arg("diff")
+        .arg("/run/current-system")
+        .arg(PathBuf::from(repo_path).join("result"))
+        .output()?;
+
+    check_ok(diff_output.status, "nvd diff")?;
+    Ok(String::from_utf8(diff_output.stdout).unwrap())
 }
 
-fn apply_configuration(repo_path: &str) -> std::io::Result<()> {
+struct GenerationMeta {
+    number: String,
+    full: String,
+}
+
+/// Apply the configuration. Returns the metadata of the new generation.
+fn apply_configuration(repo_path: &str) -> std::io::Result<GenerationMeta> {
     let status = Command::new("sudo")
         .arg("nixos-rebuild")
         .arg("switch")
@@ -62,19 +78,46 @@ fn apply_configuration(repo_path: &str) -> std::io::Result<()> {
         .arg(repo_path)
         .status()?;
 
-    match status.success() {
-        true => Ok(()),
-        false => Err(std::io::Error::new(std::io::ErrorKind::Other, "Failed to apply configuration")),
-    }
+    check_ok(status, "nixos-rebuild switch")?;
+
+    let output = Command::new("nixos-rebuild")
+        .arg("list-generations")
+        .output()?;
+
+    check_ok(output.status, "nixos-rebuild lis-generations")?;
+
+    // list-generations returns a tsv, with the first line being the header and the second line being the current generation
+    let lines = str::from_utf8(&output.stdout).unwrap().lines().take(2).collect::<Vec<_>>();
+
+    let number = match lines.get(1) {
+        Some(line) => line.split_whitespace().next().unwrap().to_string(),
+        None => Err(std::io::Error::new(std::io::ErrorKind::Other, "Failed to get generation number"))?,
+    };
+
+    Ok(GenerationMeta {
+        number,
+        full: lines.join("\n"),
+    })
 }
 
-fn get_generation_meta() {
-    // TODO: Implement
-}
+fn make_commit(message: &str) -> Result<(), std::io::Error> {
+    // This could be done with git2, but it's easier to just shell out
 
-// fn make_commit(repo: &Repository, message: &str) {
-//     // TODO: Implement
-// }
+    let add_status = Command::new("git")
+        .arg("add")
+        .arg(".")
+        .status()?;
+    check_ok(add_status, "git add")?;
+
+    let commit_status = Command::new("git")
+        .arg("commit")
+        .arg("-m")
+        .arg(message)
+        .status()?;
+    check_ok(commit_status, "git commit")?;
+
+    Ok(())
+}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = Config::new()?;
@@ -84,57 +127,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         update_flake_inputs();
     }
 
-    let diff = fancy_build()?;
+    let diff = fancy_build(&config.repo_path)?;
 
-    apply_configuration(&config.repo_path)?;
+    let metadata = apply_configuration(&config.repo_path)?;
 
-    // TODO: Commit the changes
+    let full_message = format!(
+        "{}#{}: {}\n\n{}\n\n{}",
+        metadata.number, gethostname().to_string_lossy(), opt.commit_message,
+        metadata.full,
+        diff,
+    );
+    make_commit(&full_message)?;
 
     Ok(())
 }
-
-// def get_generation_meta():
-//     """
-//     Get the generation number, build timestamp, etc. of the active configuration.
-//     NOTE: This may fail if there are too many generations and exit with an error.
-//     """
-
-//     # We only need the first two lines
-//     result = run(["nixos-rebuild", "list-generations"], check=True, capture_output=True, text=True).stdout.splitlines()[:2]
-
-//     meta = "\n".join(result)
-//     number = result[1].split()[0]
-
-//     class Result:
-//         def __init__(self, meta: str, number: str):
-//             self.meta = meta
-//             self.number = number
-//     return Result(meta, number)
-
-// def main():
-//     arguments = Arguments.from_cli()
-
-//     if arguments.update:
-//         update_flake_inputs()
-
-//     fancy_build()
-
-//     # We need to do this before applying the configuration, or we're just comparing the current system to itself
-//     diff = get_diff()
-
-//     apply_configuration()
-
-//     generation_meta = get_generation_meta()
-//     host_name = node()
-
-//     commit_messages = [
-//         arguments.message or "Rebuild system.",
-//         f"{generation_meta.number}#{host_name}: {arguments.message}",
-//         generation_meta.meta,
-//     ] + ([diff] if arguments.diff else [])
-//     combined_message = "\n\n".join(commit_messages)
-
-//     # Commit the changes.
-//     run(["git", "add", "."], check=True)
-//     run(["git", "commit",
-//         "-m", combined_message], check=True)
