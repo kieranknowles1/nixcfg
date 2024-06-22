@@ -2,9 +2,19 @@ $env.config = {
     show_banner: false,
 }
 
+# === Commands and Aliases ===
 alias __orig_nix-shell = nix-shell
 alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
+# Create a new directory and cd into it
+def --env mkcd [
+    name: string
+] {
+    mkdir $name
+    cd $name
+}
+
+# === Welcome Message ===
 def __get_nixpkgs_last_update [] {
     let flake = $env.FLAKE + "/flake.lock"
     let nixpkgs_utc_time = open $flake | from json | get nodes.nixpkgs-unstable.locked.lastModified

@@ -7,10 +7,17 @@
           "name": "stone-furnace",
           "type": "item"
         }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "electric-mining-drill",
+          "type": "item"
+        }
       }
     ],
     "item": "blueprint-book",
-    "label": "Smelting",
+    "label": "Mining",
     "version": 281479278690304
   },
   "index": 0
