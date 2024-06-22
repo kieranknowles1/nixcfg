@@ -3,7 +3,6 @@
 use clap::Parser;
 use gethostname::gethostname;
 use core::str;
-use std::path::PathBuf;
 use std::process::{Command, ExitStatus};
 use std::env;
 
@@ -60,10 +59,18 @@ fn fancy_build(repo_path: &String) -> std::io::Result<String> {
     // before a switch. This guarantees that we don't call it at the wrong time.
     check_ok(build_status, "nh os build")?;
 
+    // nixos-rebuild doesn't have anything to do since we've already built the system
+    // it will link the new generation to ./result for us to diff
+    let dump_link_output = Command::new("nixos-rebuild")
+        .arg("build")
+        .arg("--flake").arg(repo_path)
+        .output()?; // We use output to suppress stdout
+    check_ok(dump_link_output.status, "nixos-rebuild build")?;
+
     let diff_output = Command::new("nvd")
         .arg("diff")
         .arg("/run/current-system")
-        .arg(PathBuf::from(repo_path).join("result"))
+        .arg("./result")
         .output()?;
 
     check_ok(diff_output.status, "nvd diff")?;
