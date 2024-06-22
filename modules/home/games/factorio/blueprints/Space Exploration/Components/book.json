@@ -1,0 +1,17 @@
+{
+  "blueprint_book": {
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "iron-gear-wheel",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint-book",
+    "label": "Components",
+    "version": 281479278690304
+  },
+  "index": 2
+}
