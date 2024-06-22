@@ -26,7 +26,7 @@
     gnome.gnome-calendar # I use my phone for calendar
     gnome.gnome-clocks # I use my phone for alarms
     gnome.gnome-contacts # I use my phone for contacts
-    gnome.gnome-control-center # Settings are managed by NixOS
+    # gnome.gnome-control-center # Settings are managed by NixOS
     gnome.gnome-font-viewer # I just use the font dialog in apps
     gnome.gnome-maps # I use my phone for maps
     gnome.gnome-music # Not using this
