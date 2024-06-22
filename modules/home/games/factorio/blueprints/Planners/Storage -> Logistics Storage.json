@@ -1,0 +1,54 @@
+{
+  "index": 1,
+  "upgrade_planner": {
+    "item": "upgrade-planner",
+    "label": "Storage -> Logistics Storage",
+    "settings": {
+      "icons": [
+        {
+          "index": 1,
+          "signal": {
+            "name": "logistic-chest-passive-provider",
+            "type": "item"
+          }
+        }
+      ],
+      "mappers": [
+        {
+          "from": {
+            "name": "steel-chest",
+            "type": "entity"
+          },
+          "index": 0,
+          "to": {
+            "name": "logistic-chest-passive-provider",
+            "type": "entity"
+          }
+        },
+        {
+          "from": {
+            "name": "iron-chest",
+            "type": "entity"
+          },
+          "index": 4,
+          "to": {
+            "name": "logistic-chest-passive-provider",
+            "type": "entity"
+          }
+        },
+        {
+          "from": {
+            "name": "wooden-chest",
+            "type": "entity"
+          },
+          "index": 8,
+          "to": {
+            "name": "logistic-chest-passive-provider",
+            "type": "entity"
+          }
+        }
+      ]
+    },
+    "version": 281479278690304
+  }
+}

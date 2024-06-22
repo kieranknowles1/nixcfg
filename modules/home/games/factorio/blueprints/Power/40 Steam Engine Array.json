@@ -1,6 +1,6 @@
 {
   "blueprint": {
-    "description": "Steam engines to fully utilize 1 pump.",
+    "description": "Steam engines to fully utilize 1 pump. Produces 36MW of power.",
     "entities": [
       {
         "entity_number": 1,
