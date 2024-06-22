@@ -8,9 +8,9 @@
   config = lib.mkIf config.custom.nvidia.enable {
     # This may not cover everything, but it gets Skyrim running and that's good enough for now.
     # https://nixos.wiki/wiki/Nvidia
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
