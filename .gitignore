@@ -1,5 +1,5 @@
 # Output of any builds from Nix
-/result
+result
 
 # Generated during the build process
 /docs
