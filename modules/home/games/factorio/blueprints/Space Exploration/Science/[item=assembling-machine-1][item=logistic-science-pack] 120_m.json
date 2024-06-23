@@ -2949,7 +2949,7 @@
       }
     ],
     "item": "blueprint",
-    "label": "[item=logistic-science-pack] 120/m",
+    "label": "[item=assembling-machine-1][item=logistic-science-pack] 120/m",
     "version": 281479278690304
   },
   "index": 7
