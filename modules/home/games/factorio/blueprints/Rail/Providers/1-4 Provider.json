@@ -4970,8 +4970,8 @@
       {
         "index": 1,
         "signal": {
-          "name": "locomotive",
-          "type": "item"
+          "name": "signal-1",
+          "type": "virtual"
         }
       },
       {
@@ -4986,5 +4986,5 @@
     "label": "1-4 Provider",
     "version": 281479278690304
   },
-  "index": 6
+  "index": 3
 }

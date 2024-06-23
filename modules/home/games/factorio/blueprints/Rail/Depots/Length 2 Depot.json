@@ -1,0 +1,370 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 2,
+        "entity_number": 1,
+        "name": "straight-rail",
+        "position": {
+          "x": 431,
+          "y": -133
+        }
+      },
+      {
+        "entity_number": 2,
+        "inventory": null,
+        "name": "cargo-wagon",
+        "orientation": 0.25,
+        "position": {
+          "x": 435,
+          "y": -133
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "straight-rail",
+        "position": {
+          "x": 433,
+          "y": -133
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "straight-rail",
+        "position": {
+          "x": 435,
+          "y": -133
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 5,
+        "name": "straight-rail",
+        "position": {
+          "x": 437,
+          "y": -133
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "locomotive",
+        "orientation": 0.25,
+        "position": {
+          "x": 442,
+          "y": -133
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 7,
+        "name": "straight-rail",
+        "position": {
+          "x": 439,
+          "y": -133
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "straight-rail",
+        "position": {
+          "x": 441,
+          "y": -133
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 9,
+        "name": "straight-rail",
+        "position": {
+          "x": 443,
+          "y": -133
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 10,
+        "name": "straight-rail",
+        "position": {
+          "x": 445,
+          "y": -133
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 11,
+        "name": "straight-rail",
+        "position": {
+          "x": 447,
+          "y": -133
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 12,
+        "name": "rail-signal",
+        "position": {
+          "x": 431.5,
+          "y": -131.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "medium-electric-pole",
+        "position": {
+          "x": 439.5,
+          "y": -131.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 14,
+        "name": "splitter",
+        "position": {
+          "x": 439,
+          "y": -130.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 15,
+        "name": "underground-belt",
+        "position": {
+          "x": 438.5,
+          "y": -131.5
+        },
+        "type": "output"
+      },
+      {
+        "direction": 4,
+        "entity_number": 16,
+        "name": "fast-inserter",
+        "position": {
+          "x": 440.5,
+          "y": -131.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "transport-belt",
+        "position": {
+          "x": 440.5,
+          "y": -130.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 20
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "filters": [
+            {
+              "count": 1,
+              "index": 1,
+              "signal": {
+                "name": "ltn-depot",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 2,
+              "index": 2,
+              "signal": {
+                "name": "ltn-min-train-length",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 2,
+              "index": 3,
+              "signal": {
+                "name": "ltn-max-train-length",
+                "type": "virtual"
+              }
+            }
+          ]
+        },
+        "direction": 4,
+        "entity_number": 18,
+        "name": "constant-combinator",
+        "position": {
+          "x": 442.5,
+          "y": -131.5
+        }
+      },
+      {
+        "control_behavior": {
+          "filters": [
+            {
+              "count": 1,
+              "index": 1,
+              "signal": {
+                "name": "ltn-position-any-locomotive",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 2,
+              "index": 2,
+              "signal": {
+                "name": "ltn-position-any-cargo-wagon",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 1,
+              "index": 3,
+              "signal": {
+                "name": "ltn-position-locomotive",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 2,
+              "index": 4,
+              "signal": {
+                "name": "ltn-position-cargo-wagon",
+                "type": "virtual"
+              }
+            }
+          ]
+        },
+        "direction": 2,
+        "entity_number": 19,
+        "name": "logistic-train-stop-output",
+        "position": {
+          "x": 445.5,
+          "y": -131.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 18
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": ">",
+            "constant": 0,
+            "first_signal": {
+              "name": "signal-anything",
+              "type": "virtual"
+            }
+          },
+          "use_colors": true
+        },
+        "entity_number": 20,
+        "name": "logistic-train-stop-input",
+        "position": {
+          "x": 445.5,
+          "y": -130.5
+        }
+      },
+      {
+        "control_behavior": {
+          "read_from_train": true,
+          "train_stopped_signal": {
+            "name": "signal-T",
+            "type": "virtual"
+          }
+        },
+        "direction": 2,
+        "entity_number": 21,
+        "name": "logistic-train-stop",
+        "position": {
+          "x": 445,
+          "y": -131
+        },
+        "station": "Depot"
+      },
+      {
+        "direction": 6,
+        "entity_number": 22,
+        "name": "rail-signal",
+        "position": {
+          "x": 447.5,
+          "y": -131.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 23,
+        "name": "transport-belt",
+        "position": {
+          "x": 439.5,
+          "y": -129.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 24,
+        "name": "underground-belt",
+        "position": {
+          "x": 438.5,
+          "y": -129.5
+        },
+        "type": "input"
+      },
+      {
+        "entity_number": 25,
+        "name": "transport-belt",
+        "position": {
+          "x": 440.5,
+          "y": -129.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "ltn-depot",
+          "type": "virtual"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "signal-2",
+          "type": "virtual"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Length 2 Depot",
+    "schedules": [
+      {
+        "locomotives": [
+          6
+        ],
+        "schedule": [
+          {
+            "station": "Depot Length 2",
+            "wait_conditions": [
+              {
+                "compare_type": "and",
+                "ticks": 300,
+                "type": "inactivity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "version": 281479278690304
+  },
+  "index": 0
+}

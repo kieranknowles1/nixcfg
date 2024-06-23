@@ -1771,8 +1771,8 @@
       }
     ],
     "item": "blueprint",
-    "label": "[item=chemical-science-pack] 37.5/m",
+    "label": "[item=assembling-machine-2][item=chemical-science-pack] 37.5/m",
     "version": 281479278690304
   },
-  "index": 3
+  "index": 15
 }
