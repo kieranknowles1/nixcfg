@@ -23,6 +23,9 @@ in {
 
       # Game tools
       flakePackages.clean-skse-cosaves
+
+      # Launcher for Epic Games Store
+      heroic
     ];
   };
 }
