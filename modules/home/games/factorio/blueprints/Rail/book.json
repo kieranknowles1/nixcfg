@@ -1,5 +1,6 @@
 {
   "blueprint_book": {
+    "description": "LTN rails on a 32x32 grid. Drive on the left",
     "icons": [
       {
         "index": 1,
@@ -13,5 +14,5 @@
     "label": "Rail",
     "version": 281479278690304
   },
-  "index": 9
+  "index": 11
 }

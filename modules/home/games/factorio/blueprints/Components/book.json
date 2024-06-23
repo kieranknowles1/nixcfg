@@ -1,18 +1,17 @@
 {
   "blueprint_book": {
-    "description": "FOR DEMOCRACY!",
     "icons": [
       {
         "index": 1,
         "signal": {
-          "name": "crude-oil",
-          "type": "fluid"
+          "name": "iron-gear-wheel",
+          "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Oil",
+    "label": "Components",
     "version": 281479278690304
   },
-  "index": 14
+  "index": 2
 }

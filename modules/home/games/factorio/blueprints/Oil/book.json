@@ -1,0 +1,18 @@
+{
+  "blueprint_book": {
+    "description": "FOR DEMOCRACY!",
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "crude-oil",
+          "type": "fluid"
+        }
+      }
+    ],
+    "item": "blueprint-book",
+    "label": "Oil",
+    "version": 281479278690304
+  },
+  "index": 6
+}
