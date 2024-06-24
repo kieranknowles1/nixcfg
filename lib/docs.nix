@@ -1,9 +1,7 @@
 {
   pkgs,
   flake,
-}: let
-  flakePkgs = flake.packages.x86_64-linux;
-in {
+}: {
   /**
     Generate documentation for the functions in the given directory.
 

@@ -51,7 +51,7 @@ This is generated with `nixosOptionsDoc` and I wouldn't have known about it or h
 
 ### Repository Structure
 
-- [docs (gitignored)](docs/) contains documentation generated during the build process.
+- [docs (gitignored)](docs/readme.md) contains documentation generated during the build process.
 - [hosts](hosts/) contains the configuration for each host.
 - [media](media/) contains media used throughout the repository.
 - [modules](modules/) modules included by the hosts.
@@ -72,6 +72,7 @@ used are linked as-and-when they were used.
 - [Noogle](https://noogle.dev/) - A search engine for NixOS functions.
 - [Vimjoyer](https://www.youtube.com/@vimjoyer) - A great resource for NixOS. Introduces many important concepts, tools, and all around was my go-to for learning NixOS.
 - [Sphinx NixOS Manual](https://nlewo.github.io/nixos-manual-sphinx/development/option-types.xml.html) - The official NixOS manual in a format that doesn't freeze with 32GB of RAM.
+- [Teu5us' Nix Library](https://teu5us.github.io/nix-lib.html) - Documentation for what the Nix library does and, more importantly, that the functions exist.
 
 ### Todo List
 
