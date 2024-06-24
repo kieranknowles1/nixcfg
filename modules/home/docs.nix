@@ -9,8 +9,15 @@
     # Get an alphabetically sorted list of the files
     fileNames = builtins.attrNames files;
 
-    links = lib.lists.forEach fileNames (name: "- [${name}](./${name})");
+    # Map the files to a markdown list of links
+    links = lib.lists.forEach fileNames (name: let
+      value = files.${name};
+    in "- [${name}](./${name}) - ${value.description}");
 
+  # Generate the index file
+  # This is done in pure Nix because it's easier than working with bash and jq
+  # This gives the same result as bash, but in a language that while I wouldn't call
+  # good, is at least better than bash, a very low bar to clear.
   in ''
     # Documentation index
 
@@ -32,10 +39,27 @@ in {
       '';
 
       example = {
-        "file-a.md" = ./docs-generated/file-a.md;
+        "file-a.md" = {
+          description = "Some generated stuff";
+          source = ./docs-generated/file-a.md;
+        };
       };
 
-      type = lib.types.attrsOf lib.types.path;
+      type = lib.types.attrsOf (lib.types.submodule {
+        options = {
+          description = lib.mkOption {
+            description = "A brief, one-line description of the file.";
+            type = lib.types.str;
+            example = "Options for home-manager";
+          };
+
+          source = lib.mkOption {
+            description = "The file containing the content. Probably a derivation.";
+            type = lib.types.path;
+            example = ./docs-generated/file-a.md;
+          };
+        };
+      });
     };
   };
 
@@ -47,13 +71,22 @@ in {
     # mapAttrs' returns a set where we can change the key and value.
     homeFiles = lib.attrsets.mapAttrs' (name: value: {
       name = "${docsPath}/${name}";
-      value = { source = value; };
+      value = { source = value.source; };
     }) docFiles;
   in {
     custom.docs-generate.file = {
-      "lib.md" = flake.lib.docs.mkFunctionDocs ../../lib;
-      "host-options.md" = flake.lib.docs.mkOptionDocs ../nixos/default.nix;
-      "user-options.md" = flake.lib.docs.mkOptionDocs ./default.nix;
+      "lib.md" = {
+        description = "flake.lib library";
+        source = flake.lib.docs.mkFunctionDocs ../../lib;
+      };
+      "host-options.md" = {
+        description = "NixOS options";
+        source = flake.lib.docs.mkOptionDocs ../nixos/default.nix;
+      };
+      "user-options.md" = {
+        description = "home-manager options";
+        source = flake.lib.docs.mkOptionDocs ./default.nix;
+      };
     };
 
     home.file = homeFiles // {
