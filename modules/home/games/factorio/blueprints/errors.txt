@@ -1,0 +1,40 @@
+ERROR: skipping blueprint 'Straight' due to exception: expected 0x00 but got 0x4d at position 299797 (0x49315)
+Traceback (most recent call last):
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2666, in parse_blueprint
+    parse_entities(stream, index, result)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2330, in parse_entities
+    handler(stream, index, entity)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 1844, in eh_electric_turret
+    ep_turret_common(stream, index, entity)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 793, in ep_turret_common
+    stream.expect(*[0x00]*4)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 341, in expect
+    raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
+ParseError: expected 0x00 but got 0x4d at position 299797 (0x49315)
+ERROR: skipping blueprint 'Corner' due to exception: expected 0x00 but got 0x4d at position 301754 (0x49aba)
+Traceback (most recent call last):
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2666, in parse_blueprint
+    parse_entities(stream, index, result)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2330, in parse_entities
+    handler(stream, index, entity)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 1844, in eh_electric_turret
+    ep_turret_common(stream, index, entity)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 793, in ep_turret_common
+    stream.expect(*[0x00]*4)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 341, in expect
+    raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
+ParseError: expected 0x00 but got 0x4d at position 301754 (0x49aba)
+ERROR: skipping blueprint 'Inner corner' due to exception: expected 0x00 but got 0x4d at position 303394 (0x4a122)
+Traceback (most recent call last):
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2666, in parse_blueprint
+    parse_entities(stream, index, result)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 2330, in parse_entities
+    handler(stream, index, entity)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 1844, in eh_electric_turret
+    ep_turret_common(stream, index, entity)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 793, in ep_turret_common
+    stream.expect(*[0x00]*4)
+  File "/nix/store/8czjmjy94f25nvsnl1ai7r5rddyc5vyw-factorio-blueprint-decoder-0.1.1/bin/factorio-blueprint-decoder", line 341, in expect
+    raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
+ParseError: expected 0x00 but got 0x4d at position 303394 (0x4a122)
+ERROR - summary: skipped 3 unreadable blueprints.
