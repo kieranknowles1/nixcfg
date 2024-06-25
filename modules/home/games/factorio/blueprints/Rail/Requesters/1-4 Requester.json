@@ -2641,8 +2641,8 @@
       {
         "index": 1,
         "signal": {
-          "name": "locomotive",
-          "type": "item"
+          "name": "signal-1",
+          "type": "virtual"
         }
       },
       {
@@ -2657,5 +2657,5 @@
     "label": "1-4 Requester",
     "version": 281479278690304
   },
-  "index": 7
+  "index": 3
 }
