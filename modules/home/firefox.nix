@@ -21,6 +21,7 @@ in {
         darkreader
         privacy-badger
         return-youtube-dislikes
+        indie-wiki-buddy
         sponsorblock
         ublock-origin
         youtube-shorts-block
