@@ -76,6 +76,9 @@
       };
     };
 
+    # Formatter for all Nix files in this flake. Run using `nix fmt`.
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+
     packages.x86_64-linux = import ./packages {
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       flakeLib = lib;
