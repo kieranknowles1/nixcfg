@@ -1,7 +1,8 @@
 {
   pkgs,
-  flakeLib
-}: flakeLib.shell.mkShellEx {
+  flakeLib,
+}:
+flakeLib.shell.mkShellEx {
   name = "rust";
 
   # Packages to put on the PATH

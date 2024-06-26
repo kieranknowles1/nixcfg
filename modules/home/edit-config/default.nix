@@ -7,9 +7,11 @@
 }: let
   package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "3.1.0";
 
-  combinedConfig = config.custom.edit-config // {
-    repository = "~/${config.custom.repoPath}";
-  };
+  combinedConfig =
+    config.custom.edit-config
+    // {
+      repository = "~/${config.custom.repoPath}";
+    };
 in {
   options.custom.edit-config = {
     editor = lib.mkOption {
@@ -53,7 +55,7 @@ in {
             '';
             type = lib.types.listOf lib.types.str;
             default = [];
-            example = [ "node_modules" ];
+            example = ["node_modules"];
           };
           nix-managed-paths = lib.mkOption {
             description = ''
@@ -61,7 +63,7 @@ in {
             '';
             type = lib.types.listOf lib.types.str;
             default = [];
-            example = [ "match/base.yml" ];
+            example = ["match/base.yml"];
           };
         };
       });
@@ -70,7 +72,7 @@ in {
 
   config = {
     # Put our script on the PATH.
-    home.packages = [ package ];
+    home.packages = [package];
 
     # Provisioning a file in .config is easier than including it in the edit-config derivation.
     home.file."${config.xdg.configHome}/edit-config.json".text = builtins.toJSON combinedConfig;

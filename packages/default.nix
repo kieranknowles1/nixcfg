@@ -19,5 +19,5 @@ in {
 
   factorio-blueprint-decoder = packagePythonScript "factorio-blueprint-decoder" "${factorioDecoderSrc}/decode" "0.1.1";
 
-  rebuild = import ./rebuild { inherit pkgs; };
+  rebuild = import ./rebuild {inherit pkgs;};
 }

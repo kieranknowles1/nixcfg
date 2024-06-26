@@ -1,15 +1,12 @@
 # Home Manager module to enable Nushell and make it the default shell
 # https://nixos.wiki/wiki/Nushell
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   # TODO: Make the font configurable and apply it to the terminal
   shellFont = "DejaVuSansMono";
 
   # NerdFonts is quite large, so only install what we need for the shell
   minifiedNerdFonts = pkgs.nerdfonts.override {
-    fonts = [ shellFont ];
+    fonts = [shellFont];
   };
 in {
   programs.nushell = {
@@ -32,7 +29,6 @@ in {
   };
 
   fonts.fontconfig.enable = true;
-
 
   # Starship uses icons from NerdFonts
   home.packages = [

@@ -1,11 +1,9 @@
 # Locale and timezone settings module
-{ ... }:
-let
+{...}: let
   keymap = "gb";
   locale = "en_GB.UTF-8";
   timezone = "Europe/London";
-in
-{
+in {
   # Set the keyboard layout for X11.
   services.xserver.xkb.layout = keymap;
   # Inherit this for the console.

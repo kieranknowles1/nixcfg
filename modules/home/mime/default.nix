@@ -1,11 +1,14 @@
 # MIME definitions and associations
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   # Base directory for MIME definitions. The definitions themselves
   # are stored in the `packages` subdirectory.
   mime-directory = "${config.xdg.dataHome}/mime";
-in
-{
+in {
   # Copy definitions into the user's mime directory
   home.file."${mime-directory}/packages" = {
     source = ./definitions;

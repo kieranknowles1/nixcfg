@@ -1,21 +1,21 @@
-{ }:
-{
-  /**
-    Create a user with a home-manager configuration for use with [lib.host.mkHost](#function-library-lib.host.mkhost).
+{}: {
+  /*
+  *
+  Create a user with a home-manager configuration for use with [lib.host.mkHost](#function-library-lib.host.mkhost).
 
-    Configuration is sourced from `users/${userName}.nix` and the host's configuration is available
-    through the `hostConfig` argument to modules.
+  Configuration is sourced from `users/${userName}.nix` and the host's configuration is available
+  through the `hostConfig` argument to modules.
 
-    # Arguments
+  # Arguments
 
-    userName :: String : The login name of the user.
+  userName :: String : The login name of the user.
 
-    displayName :: String : The name shown in UIs.
+  displayName :: String : The name shown in UIs.
 
-    isSudoer :: Bool = false : Whether the user should be able to sudo.
+  isSudoer :: Bool = false : Whether the user should be able to sudo.
 
-    shell :: Package : The package for the user's shell.
-   */
+  shell :: Package : The package for the user's shell.
+  */
   mkUser = {
     userName,
     displayName,
@@ -30,8 +30,13 @@
 
       # Give everyone "networkmanager" membership so they can connect to networks
       # Give sudoers "wheel" membership so they can sudo
-      extraGroups = [ "networkmanager" ]
-        ++ (if isSudoer then [ "wheel" ] else []);
+      extraGroups =
+        ["networkmanager"]
+        ++ (
+          if isSudoer
+          then ["wheel"]
+          else []
+        );
 
       shell = shell;
     };

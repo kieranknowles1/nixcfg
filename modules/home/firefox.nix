@@ -1,6 +1,10 @@
 # Per-user Firefox settings
 # See also: [[../nixos/firefox.nix]]
-{ inputs, system, ... }: let
+{
+  inputs,
+  system,
+  ...
+}: let
   pkgs-stable = inputs.nixpkgs.legacyPackages.${system};
 in {
   programs.firefox = {

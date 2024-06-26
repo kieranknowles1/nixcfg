@@ -1,6 +1,11 @@
 # System level Firefox settings
 # See also: [[../home/firefox.nix]]
-{ inputs, system, pkgs, ...}: let
+{
+  inputs,
+  system,
+  pkgs,
+  ...
+}: let
   pkgs-stable = inputs.nixpkgs.legacyPackages.${system};
 in {
   environment.gnome.excludePackages = with pkgs; [
