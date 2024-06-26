@@ -7,8 +7,8 @@
   factorioDecoderSrc = pkgs.fetchFromGitHub {
     owner = "kieranknowles1";
     repo = "factorio-blueprint-decoder";
-    rev = "master";
-    hash = "sha256-vY2As4HbxmfePptOfISPJEMMRRYbRyez3A/qSS5LGXo=";
+    rev = "turret_fix";
+    hash = "sha256-SCcWptznd75ImsGlMl2Bj6z0er2Ila90vXuPPUBIkyI=";
   };
 in {
   clean-skse-cosaves = packagePythonScript "clean-skse-cosaves" ./clean-skse-cosaves.py "1.0.1";
@@ -17,7 +17,7 @@ in {
 
   export-blueprints = packagePythonScript "export-blueprints" ./export-blueprints.py "1.0.0";
 
-  factorio-blueprint-decoder = packagePythonScript "factorio-blueprint-decoder" "${factorioDecoderSrc}/decode" "0.1.1";
+  factorio-blueprint-decoder = packagePythonScript "factorio-blueprint-decoder" "${factorioDecoderSrc}/decode" "0.1.2";
 
   rebuild = import ./rebuild {inherit pkgs;};
 }
