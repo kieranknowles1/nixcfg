@@ -35,8 +35,7 @@
     nixpkgs,
     nixpkgs-unstable,
     ...
-  }@inputs:
-  let
+  } @ inputs: let
     # The default branch to use for nixpkgs. Individual packages can request
     # the unstable branch by referencing `pkgs-unstable` instead of `pkgs`.
     # If we're feeling brave, we can point everything at unstable.
@@ -49,13 +48,17 @@
     };
 
     mk-kk-user = system: let
-      pkgs = import defaultNixpkgs { system = system; allowUnfree = true; };
-    in lib.user.mkUser {
-      userName = "kieran";
-      displayName = "Kieran";
-      isSudoer = true;
-      shell = pkgs.nushell;
-    };
+      pkgs = import defaultNixpkgs {
+        system = system;
+        allowUnfree = true;
+      };
+    in
+      lib.user.mkUser {
+        userName = "kieran";
+        displayName = "Kieran";
+        isSudoer = true;
+        shell = pkgs.nushell;
+      };
   in rec {
     inherit lib; # Expose the lib module to configurations
 
@@ -80,12 +83,12 @@
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
     packages.x86_64-linux = import ./packages {
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs = import nixpkgs {system = "x86_64-linux";};
       flakeLib = lib;
     };
 
     devShells.x86_64-linux = import ./shells {
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs = import nixpkgs {system = "x86_64-linux";};
       flakeLib = lib;
       flakePkgs = packages.x86_64-linux;
     };

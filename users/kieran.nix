@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   custom = {
     repoPath = "Documents/src/nixcfg";
     userDetails = {

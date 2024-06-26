@@ -1,6 +1,9 @@
 # Theme settings for the system
-{ pkgs, flake, ... }:
 {
+  pkgs,
+  flake,
+  ...
+}: {
   stylix = {
     enable = true;
 
@@ -23,11 +26,13 @@
     };
   };
 
-  home-manager.sharedModules = [{
-    stylix.targets = {
-      # Don't manage the VSCode theme, as I like the default dark and managing
-      # with Stylix conflicts with home-manager's settings.json
-      vscode.enable = false;
-    };
-  }];
+  home-manager.sharedModules = [
+    {
+      stylix.targets = {
+        # Don't manage the VSCode theme, as I like the default dark and managing
+        # with Stylix conflicts with home-manager's settings.json
+        vscode.enable = false;
+      };
+    }
+  ];
 }

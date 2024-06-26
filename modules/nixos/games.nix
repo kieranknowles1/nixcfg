@@ -1,5 +1,13 @@
 # Module to install game tools
-{ config, lib, pkgs-unstable, pkgs, flake, system, ... }: let
+{
+  config,
+  lib,
+  pkgs-unstable,
+  pkgs,
+  flake,
+  system,
+  ...
+}: let
   flakePackages = flake.packages.${system};
 in {
   options = {

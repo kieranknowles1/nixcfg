@@ -1,6 +1,6 @@
 {
- config,
- lib,
+  config,
+  lib,
   ...
 }: let
   userDetails = config.custom.userDetails;
@@ -33,10 +33,22 @@ in {
       configs = {};
       matches = {
         base.matches = [
-          { trigger = ":email:"; replace = userDetails.email; }
-          { trigger = ":name:"; replace = "${userDetails.firstName} ${userDetails.surName}"; }
-          { triggers = [":firstname:" ":fname:"]; replace = userDetails.firstName; }
-          { triggers = [":surname:" ":sname:"]; replace = userDetails.surName; }
+          {
+            trigger = ":email:";
+            replace = userDetails.email;
+          }
+          {
+            trigger = ":name:";
+            replace = "${userDetails.firstName} ${userDetails.surName}";
+          }
+          {
+            triggers = [":firstname:" ":fname:"];
+            replace = userDetails.firstName;
+          }
+          {
+            triggers = [":surname:" ":sname:"];
+            replace = userDetails.surName;
+          }
         ];
       };
     };

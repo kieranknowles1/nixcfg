@@ -1,6 +1,9 @@
 # Module to install Nvidia drivers
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   options = {
     custom.nvidia.enable = lib.mkEnableOption "Nvidia drivers";
   };
@@ -12,7 +15,7 @@
       enable = true;
       enable32Bit = true;
     };
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = ["nvidia"];
     hardware.nvidia = {
       modesetting.enable = true;
       powerManagement.enable = false;

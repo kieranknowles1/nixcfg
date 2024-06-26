@@ -1,6 +1,5 @@
 # Installs libraries needed by unpackaged executables, and enables nix-ld
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [

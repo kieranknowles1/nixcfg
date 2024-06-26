@@ -1,4 +1,11 @@
-{ pkgs, lib, config, hostConfig, flake, ... }: let
+{
+  pkgs,
+  lib,
+  config,
+  hostConfig,
+  flake,
+  ...
+}: let
   applicationsDir = "${config.xdg.dataHome}/applications";
 
   resaverDesktopFileName = "nixcfg-resaver.desktop";

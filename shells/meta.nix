@@ -1,7 +1,8 @@
 {
   flakeLib,
-  flakePkgs
-}: flakeLib.shell.mkShellEx {
+  flakePkgs,
+}:
+flakeLib.shell.mkShellEx {
   name = "meta";
 
   packages = with flakePkgs; [

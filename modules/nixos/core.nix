@@ -1,5 +1,11 @@
 # Core configuration needed for any host
-{ pkgs, pkgs-unstable, flake, system, ... }: let
+{
+  pkgs,
+  pkgs-unstable,
+  flake,
+  system,
+  ...
+}: let
   # Helper to activate a dev shell
   develop = pkgs.writeShellScriptBin "develop" ''
     nix develop "$FLAKE#$1"
@@ -62,7 +68,7 @@ in {
 
   # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
   # a bad superblock, try mounting it in the terminal instead.
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = ["ntfs"];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
