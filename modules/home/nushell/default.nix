@@ -1,12 +1,15 @@
 # Home Manager module to enable Nushell and make it the default shell
 # https://nixos.wiki/wiki/Nushell
-{pkgs, ...}: let
-  # TODO: Make the font configurable and apply it to the terminal
-  shellFont = "DejaVuSansMono";
+{
+  pkgs,
+  config,
+  ...
+}: let
+  defaultMonoFont = config.custom.fonts.defaultMono;
 
   # NerdFonts is quite large, so only install what we need for the shell
   minifiedNerdFonts = pkgs.nerdfonts.override {
-    fonts = [shellFont];
+    fonts = [defaultMonoFont];
   };
 in {
   programs.nushell = {
