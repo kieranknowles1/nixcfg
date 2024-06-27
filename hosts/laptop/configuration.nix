@@ -6,6 +6,8 @@
   config.custom = {
     office.enable = true;
 
+    printing.enable = true;
+
     development = {
       enable = true;
       node.enable = true;
