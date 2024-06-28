@@ -1,0 +1,563 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "pipe",
+        "position": {
+          "x": 505.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 2,
+        "name": "pipe",
+        "position": {
+          "x": 506.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 3,
+        "name": "pipe",
+        "position": {
+          "x": 507.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 4,
+        "name": "pipe",
+        "position": {
+          "x": 508.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "pipe",
+        "position": {
+          "x": 509.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "pipe",
+        "position": {
+          "x": 510.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "pipe",
+        "position": {
+          "x": 511.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 8,
+        "name": "pipe",
+        "position": {
+          "x": 512.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 9,
+        "name": "pipe",
+        "position": {
+          "x": 513.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 10,
+        "name": "pipe",
+        "position": {
+          "x": 514.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 11,
+        "name": "pipe",
+        "position": {
+          "x": 515.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "pipe",
+        "position": {
+          "x": 516.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "pipe",
+        "position": {
+          "x": 517.5,
+          "y": 223.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 505.5,
+          "y": 224.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 15,
+        "name": "se-fuel-refinery",
+        "position": {
+          "x": 508.5,
+          "y": 226.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "direction": 4,
+        "entity_number": 16,
+        "name": "se-fuel-refinery",
+        "position": {
+          "x": 513.5,
+          "y": 226.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "direction": 4,
+        "entity_number": 17,
+        "name": "se-fuel-refinery",
+        "position": {
+          "x": 518.5,
+          "y": 226.5
+        },
+        "recipe": "rocket-fuel"
+      },
+      {
+        "direction": 6,
+        "entity_number": 18,
+        "name": "fast-inserter",
+        "position": {
+          "x": 521.5,
+          "y": 226.5
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          22
+        ],
+        "position": {
+          "x": 511.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 20,
+        "name": "fast-inserter",
+        "position": {
+          "x": 510.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 21,
+        "name": "fast-inserter",
+        "position": {
+          "x": 513.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 22,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          19,
+          25
+        ],
+        "position": {
+          "x": 517.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 23,
+        "name": "stack-inserter",
+        "position": {
+          "x": 518.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 24,
+        "name": "stack-inserter",
+        "position": {
+          "x": 519.5,
+          "y": 229.5
+        }
+      },
+      {
+        "entity_number": 25,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          22
+        ],
+        "position": {
+          "x": 521.5,
+          "y": 228.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 26,
+        "name": "stack-inserter",
+        "position": {
+          "x": 520.5,
+          "y": 229.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 27,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 509.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 28,
+        "name": "fast-inserter",
+        "position": {
+          "x": 510.5,
+          "y": 231.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 29,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 511.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 30,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 510.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 31,
+        "name": "fast-inserter",
+        "position": {
+          "x": 513.5,
+          "y": 231.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 32,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 513.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 33,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 512.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 34,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 515.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 35,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 514.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 36,
+        "name": "fast-inserter",
+        "position": {
+          "x": 516.5,
+          "y": 231.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 37,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 517.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 38,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 516.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 39,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 519.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 40,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 518.5,
+          "y": 230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 41,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 520.5,
+          "y": 230.5
+        }
+      },
+      {
+        "entity_number": 42,
+        "name": "pipe",
+        "position": {
+          "x": 505.5,
+          "y": 233.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 43,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 505.5,
+          "y": 232.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 44,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 504.5,
+          "y": 233.5
+        }
+      },
+      {
+        "entity_number": 45,
+        "name": "se-fuel-refinery",
+        "position": {
+          "x": 508.5,
+          "y": 234.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "entity_number": 46,
+        "name": "se-fuel-refinery",
+        "position": {
+          "x": 513.5,
+          "y": 234.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "entity_number": 47,
+        "name": "se-fuel-refinery",
+        "position": {
+          "x": 518.5,
+          "y": 234.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "entity_number": 48,
+        "name": "pipe",
+        "position": {
+          "x": 505.5,
+          "y": 234.5
+        }
+      },
+      {
+        "entity_number": 49,
+        "name": "pipe",
+        "position": {
+          "x": 505.5,
+          "y": 235.5
+        }
+      },
+      {
+        "entity_number": 50,
+        "name": "pipe",
+        "position": {
+          "x": 505.5,
+          "y": 236.5
+        }
+      },
+      {
+        "entity_number": 51,
+        "name": "pipe",
+        "position": {
+          "x": 505.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 52,
+        "name": "pipe",
+        "position": {
+          "x": 506.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 53,
+        "name": "pipe",
+        "position": {
+          "x": 507.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 54,
+        "name": "pipe",
+        "position": {
+          "x": 508.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 55,
+        "name": "pipe",
+        "position": {
+          "x": 509.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 56,
+        "name": "pipe",
+        "position": {
+          "x": 510.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 57,
+        "name": "pipe",
+        "position": {
+          "x": 511.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 58,
+        "name": "pipe",
+        "position": {
+          "x": 512.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 59,
+        "name": "pipe",
+        "position": {
+          "x": 513.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 60,
+        "name": "pipe",
+        "position": {
+          "x": 514.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 61,
+        "name": "pipe",
+        "position": {
+          "x": 515.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 62,
+        "name": "pipe",
+        "position": {
+          "x": 516.5,
+          "y": 237.5
+        }
+      },
+      {
+        "entity_number": 63,
+        "name": "pipe",
+        "position": {
+          "x": 517.5,
+          "y": 237.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "rocket-fuel",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "[item=rocket-fuel] 60/m",
+    "version": 281479278690304
+  },
+  "index": 7
+}
