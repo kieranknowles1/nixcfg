@@ -31,8 +31,8 @@ in {
       # Don't manage configs here, apart from the base match file
       # which we'll use for matches that use variables
       configs = {};
-      matches = {
-        base.matches = [
+      matches.base = {
+        matches = [
           {
             trigger = ":email:";
             replace = userDetails.email;
@@ -49,6 +49,25 @@ in {
             triggers = [":surname:" ":sname:"];
             replace = userDetails.surName;
           }
+        ];
+
+        # Variables that we expose to all match files. Used when cleaner
+        # than the Nix syntax or for app-specific match files
+        # TODO: Use these for an email template
+        global_vars = let
+          # All variables in Espanso come from one of several sources.
+          # We are only interested in constants here, so we use the echo
+          # type to define them.
+          # This is a helper as the syntax is a bit verbose
+          mkGlobalVar = name: value: {
+            name = name;
+            type = "echo";
+            params.echo = value;
+          };
+        in [
+          (mkGlobalVar "email" userDetails.email)
+          (mkGlobalVar "firstname" userDetails.firstName)
+          (mkGlobalVar "surname" userDetails.surName)
         ];
       };
     };

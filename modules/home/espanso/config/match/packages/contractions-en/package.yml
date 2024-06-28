@@ -21,10 +21,11 @@ matches:
     replace: "can't"
     propagate_case: true
     word: true
-  - trigger: 'cause'
-    replace: '’cause'
-    propagate_case: true
-    word: true
+  # This conflicts with the word "cause" and I've never seen "’cause" used.
+  # - trigger: 'cause'
+  #   replace: '’cause'
+  #   propagate_case: true
+  #   word: true
   - trigger: 'couldve'
     replace: "could've"
     propagate_case: true

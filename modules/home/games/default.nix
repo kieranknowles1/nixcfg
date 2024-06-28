@@ -24,6 +24,8 @@ in {
       workingDirectory = "/home/kieran/Games/modding-tools/resaver/target";
     };
 
+    # TODO: Split config for Skyrim into its own file and add a shortcut to open the latest crash log
+
     # Associate our mime types with the desktop file. See [[../mime/default.nix]]
     xdg.mimeApps = {
       enable = true;
