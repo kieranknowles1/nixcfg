@@ -49,7 +49,7 @@ fn update_flake_inputs() -> std::io::Result<()> {
 }
 
 /// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
-fn fancy_build(repo_path: &String) -> std::io::Result<String> {
+fn fancy_build(_: &CommitToken, repo_path: &String) -> std::io::Result<String> {
     let build_status = Command::new("nh")
         .arg("os")
         .arg("build")
@@ -83,7 +83,8 @@ struct GenerationMeta {
 }
 
 /// Apply the configuration. Returns the metadata of the new generation.
-fn apply_configuration(repo_path: &str) -> std::io::Result<GenerationMeta> {
+/// No BuildToken here as nixos-rebuild produces the same output, just without the fancy bits.
+fn apply_configuration(_: &CommitToken, repo_path: &str) -> std::io::Result<GenerationMeta> {
     let status = Command::new("sudo")
         .arg("nixos-rebuild")
         .arg("switch")
@@ -113,7 +114,13 @@ fn apply_configuration(repo_path: &str) -> std::io::Result<GenerationMeta> {
     })
 }
 
-fn make_commit(message: &str) -> Result<(), std::io::Error> {
+/// A token that represents a commit has been made. Does nothing except prevent amending without a commit.
+/// I believe this is the Rust way of making invalid states unpresentable.
+struct CommitToken {}
+
+/// Make a temporary commit to stage changes.
+/// Required as rebuild doesn't include untracked files and complains if there are uncommitted changes.
+fn make_staging_commit() -> std::io::Result<CommitToken> {
     // This could be done with git2, but it's easier to just shell out
 
     let add_status = Command::new("git")
@@ -125,12 +132,25 @@ fn make_commit(message: &str) -> Result<(), std::io::Error> {
     let commit_status = Command::new("git")
         .arg("commit")
         .arg("-m")
-        .arg(message)
+        .arg("Temporary rebuild commit")
         .status()?;
     check_ok(commit_status, "git commit")?;
 
-    Ok(())
+    Ok(CommitToken {})
 }
+
+/// Amend the latest commit with the given message.
+/// We move the token to prevent further amending.
+fn finalize_commit(_: CommitToken, message: &str) -> Result<(), std::io::Error> {
+    let commit_status = Command::new("git")
+        .arg("commit")
+        .arg("--amend")
+        .arg("-m")
+        .arg(message)
+        .status()?;
+    check_ok(commit_status, "git commit --amend")
+}
+
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = Config::new()?;
@@ -140,9 +160,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         update_flake_inputs()?;
     }
 
-    let diff = fancy_build(&config.repo_path)?;
+    let commit = make_staging_commit()?;
+    let diff = fancy_build(&commit, &config.repo_path)?;
 
-    let metadata = apply_configuration(&config.repo_path)?;
+    let metadata = apply_configuration(&commit, &config.repo_path)?;
 
     let full_message = format!(
         "{}#{}: {}\n\n{}\n\n{}",
@@ -150,7 +171,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         metadata.full,
         diff,
     );
-    make_commit(&full_message)?;
+    finalize_commit(commit, &full_message)?;
 
     Ok(())
 }
