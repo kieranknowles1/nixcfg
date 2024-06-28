@@ -49,7 +49,7 @@ fn update_flake_inputs() -> std::io::Result<()> {
 }
 
 /// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
-fn fancy_build(_: &CommitToken, repo_path: &String) -> std::io::Result<String> {
+fn fancy_build(_: &CommitToken, repo_path: &str) -> std::io::Result<String> {
     let build_status = Command::new("nh")
         .arg("os")
         .arg("build")
@@ -118,6 +118,18 @@ fn apply_configuration(_: &CommitToken, repo_path: &str) -> std::io::Result<Gene
 /// I believe this is the Rust way of making invalid states unpresentable.
 struct CommitToken {}
 
+/// An extension of check_ok that warns if an unrecoverable Git error occurs.
+/// We could try to handle it, but I don't want to risk making things worse.
+fn check_git_ok(status: ExitStatus, command: &str) -> Result<(), std::io::Error> {
+    match check_ok(status, command) {
+        Ok(_) => Ok(()),
+        Err(e) => {
+            eprintln!("A Git command failed. The repository may have been altered by this script. Please check the repository and fix any issues manually.");
+            Err(e)
+        }
+    }
+}
+
 /// Make a temporary commit to stage changes.
 /// Required as rebuild doesn't include untracked files and complains if there are uncommitted changes.
 fn make_staging_commit() -> std::io::Result<CommitToken> {
@@ -127,14 +139,14 @@ fn make_staging_commit() -> std::io::Result<CommitToken> {
         .arg("add")
         .arg(".")
         .status()?;
-    check_ok(add_status, "git add")?;
+    check_git_ok(add_status, "git add")?;
 
     let commit_status = Command::new("git")
         .arg("commit")
         .arg("-m")
         .arg("Temporary rebuild commit")
         .status()?;
-    check_ok(commit_status, "git commit")?;
+    check_git_ok(commit_status, "git commit")?;
 
     Ok(CommitToken {})
 }
@@ -148,9 +160,31 @@ fn finalize_commit(_: CommitToken, message: &str) -> Result<(), std::io::Error> 
         .arg("-m")
         .arg(message)
         .status()?;
-    check_ok(commit_status, "git commit --amend")
+    check_git_ok(commit_status, "git commit --amend")
 }
 
+/// Reset the repository to the previous commit. Does not touch the working directory
+/// meaning that the changes exist but are not staged.
+/// Useful for cleaning up after a failed build.
+/// We move the token to prevent amending or reverting again.
+fn reset_commit(_: CommitToken) -> Result<(), std::io::Error> {
+    let status = Command::new("git")
+        .arg("reset")
+        .arg("HEAD~")
+        .status()?;
+    check_git_ok(status, "git reset --soft HEAD^")
+}
+
+fn build_and_switch(commit: &CommitToken, repo_path: &str, commit_message: &str) -> std::io::Result<String> {
+    let diff = fancy_build(&commit, &repo_path)?;
+    let metadata = apply_configuration(&commit, &repo_path)?;
+    Ok(format!(
+        "{}#{}: {}\n\n{}\n\n{}",
+        metadata.number, gethostname().to_string_lossy(), commit_message,
+        metadata.full,
+        diff,
+    ))
+}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = Config::new()?;
@@ -161,17 +195,20 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let commit = make_staging_commit()?;
-    let diff = fancy_build(&commit, &config.repo_path)?;
 
-    let metadata = apply_configuration(&commit, &config.repo_path)?;
-
-    let full_message = format!(
-        "{}#{}: {}\n\n{}\n\n{}",
-        metadata.number, gethostname().to_string_lossy(), opt.commit_message,
-        metadata.full,
-        diff,
-    );
-    finalize_commit(commit, &full_message)?;
-
-    Ok(())
+    // The use of match here is the equivalent of a try-catch block in another language
+    // Main difference is that it returns a Result which we either use finalize or reset on
+    // Failures in Git are considered unrecoverable so the user will have to fix it manually
+    match build_and_switch(&commit, &config.repo_path, &opt.commit_message) {
+        Ok(full_message) => {
+            finalize_commit(commit, &full_message)?;
+            println!("Successfully built and applied configuration");
+            Ok(())
+        },
+        Err(e) => {
+            println!("Failed to build and apply configuration");
+            reset_commit(commit)?;
+            Err(Box::new(e))
+        }
+    }
 }
