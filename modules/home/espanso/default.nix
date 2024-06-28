@@ -53,7 +53,6 @@ in {
 
         # Variables that we expose to all match files. Used when cleaner
         # than the Nix syntax or for app-specific match files
-        # TODO: Use these for an email template
         global_vars = let
           # All variables in Espanso come from one of several sources.
           # We are only interested in constants here, so we use the echo

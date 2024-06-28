@@ -1,0 +1,14 @@
+# Matches for email clients
+
+matches:
+  - trigger: ":template:"
+    form: |
+      Hello [[recipient]],
+
+      [[text]]
+
+      Kind regards,
+      {{firstname}}
+    form_fields:
+      text:
+        multiline: true
