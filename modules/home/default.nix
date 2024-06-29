@@ -6,12 +6,12 @@
     ./desktop
     ./docs.nix
     ./edit-config
+    ./editor
     ./espanso
     ./firefox.nix
     ./games
     ./mime
     ./nushell
     ./shortcuts.nix
-    ./vscode
   ];
 }
