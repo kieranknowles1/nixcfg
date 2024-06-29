@@ -14,6 +14,7 @@
     };
 in {
   options.custom.edit-config = {
+    # TODO: Remove this and just use config.custom.editor
     editor = lib.mkOption {
       description = ''
         The editor to use when editing configuration files. May be GUI or CLI, so long
