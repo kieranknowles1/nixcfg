@@ -26,8 +26,8 @@ For more information, run `./rebuild.py --help`.
 
 #### Key Bindings
 
-Key bindings are managed by [sxhkd](modules/home/shortcuts.nix). See its
-configuration for a list of bindings.
+Key bindings are managed by sxhkd. Documentation is generated during build and can be found in
+[docs/shortcuts.md](docs/shortcuts.md).
 
 ## Documentation and Development Notes
 
