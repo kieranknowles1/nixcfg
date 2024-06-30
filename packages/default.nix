@@ -11,7 +11,7 @@
     hash = "sha256-SCcWptznd75ImsGlMl2Bj6z0er2Ila90vXuPPUBIkyI=";
   };
 in {
-  clean-skse-cosaves = packagePythonScript "clean-skse-cosaves" ./clean-skse-cosaves.py "1.0.1";
+  clean-skse-cosaves = import ./clean-skse-cosaves {inherit pkgs;};
 
   combine-blueprints = packagePythonScript "combine-blueprints" ./combine-blueprints.py "1.0.0";
 

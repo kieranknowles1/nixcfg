@@ -53,14 +53,13 @@ in {
       source = ./settings.json;
     };
     home.file."${userSettingsDir}/snippets" = {
-      # TODO: Link this to edit-config
       source = ./snippets;
       recursive = true;
     };
 
     custom.edit-config.programs.code = {
       system-path = userSettingsDir;
-      repo-path = "modules/home/vscode/";
+      repo-path = "modules/home/editor/vscode/";
       ignore-dirs = [
         "History"
         "globalStorage"
