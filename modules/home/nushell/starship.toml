@@ -2,10 +2,28 @@
 
 # Config for the Starship prompt
 # Can include icons from nerd-fonts: https://www.nerdfonts.com/cheat-sheet
+# These should be in the form of "\u{<codepoint>}". Spaces after may be needed
+# to avoid overlap with the next character
+
+# ================
+#  Global Options
+# ================
 
 [character]
 # Display a cross if the last command failed (non-zero exit code)
 error_symbol = "[✗](bold red)"
+
+# ===================
+#  Workload Specific
+# ===================
+
+[cmake]
+# CMake doesn't have an icon in nerd-fonts, so we'll use the plain
+# Makefile icon instead
+# nf-seti-makefile
+symbol = "\ue673 "
+# Orange-red, mirroring VSCode's icon for makefiles
+style = "bold bright-red"
 
 [git_status]
 # Show how far ahead/behind we are compared to origin
@@ -23,5 +41,11 @@ modified = "Δ${count}"
 renamed = "»${count}"
 staged = "+${count}"
 # nf-fa-box
-stashed = "\ued75${count}"
+stashed = "\ued75 ${count}"
 untracked = "U${count}"
+
+[nix_shell]
+# nf-linux-nixos
+symbol = "\uf313 "
+# This gives us more contrast from other modules
+style = "bold cyan"
