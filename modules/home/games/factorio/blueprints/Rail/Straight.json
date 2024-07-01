@@ -1,6 +1,5 @@
 {
   "blueprint": {
-    "absolute-snapping": true,
     "entities": [
       {
         "direction": 2,
