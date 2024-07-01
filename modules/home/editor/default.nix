@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   options.custom = {
     editor = lib.mkOption {
       description = "Text editor to use";
