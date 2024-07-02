@@ -9,7 +9,6 @@
     development = {
       enable = lib.mkEnableOption "development tools";
 
-      cpp.enable = lib.mkEnableOption "C++";
       meta.enable = lib.mkEnableOption "development of this repository";
       modding.enable = lib.mkEnableOption "modding tools";
       node.enable = lib.mkEnableOption "node.js";
@@ -27,10 +26,6 @@
       ])
       ++ (lib.optionals config.custom.development.node.enable [
         nodejs
-      ])
-      ++ (lib.optionals config.custom.development.cpp.enable [
-        cmake
-        clang
       ]);
   };
 }
