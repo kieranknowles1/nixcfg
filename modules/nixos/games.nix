@@ -19,7 +19,7 @@ in {
 
     # Run proton and wine on the bleeding edge as they are updated frequently
     environment.systemPackages = with pkgs-unstable; [
-      pkgs.gnome.zenity # Need this for MO2 installer
+      zenity # Need this for MO2 installer
 
       # Windows dependencies can be installed to a wine prefix using winetricks.
       # If an installer says to restart Windows, restarting wine should be enough.

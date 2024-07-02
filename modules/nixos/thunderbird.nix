@@ -6,7 +6,7 @@
     ];
 
     gnome.excludePackages = with pkgs; [
-      gnome.geary
+      geary # GNOME's built in mail client
     ];
   };
 }
