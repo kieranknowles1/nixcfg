@@ -8,10 +8,9 @@
       # Only allow public key authentication
       settings.PasswordAuthentication = false;
 
-      # Install signatures of all my hosts, read from [[./hosts]]
-      # File name is the hostname, content is the signature returned by `ssh-keyscan ${hostname}`
-      # this will work for localhost and remote hosts
-      # Multiple algorithms will be listed, prefer "ssh-ed25519" as it is the most secure
+      # Install signatures of all my hosts and some common remotes (e.g., github.com)
+      # These are read from [[./hosts]] where the file name is the hostname and the content is the ed25519 signature
+      # To get the signature of a host, run `ssh-keyscan ${hostname}` which will work for both local and remote hosts
       knownHosts = builtins.mapAttrs (name: value: {
         hostNames = [name];
         publicKeyFile = ./hosts/${name};
