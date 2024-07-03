@@ -30,6 +30,13 @@ in {
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Enable resolving *.local hostnames via mDNS
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    nssmdns6 = true;
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
