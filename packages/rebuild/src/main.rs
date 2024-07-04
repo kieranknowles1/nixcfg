@@ -22,13 +22,16 @@ impl Config {
 
 /// Command-line options.
 #[derive(Parser)]
-struct Opt {
-    /// The message to use for the commit.
-    commit_message: String,
-
-    /// If true, update flake inputs before rebuilding.
-    #[arg(short, long)]
-    update: bool,
+enum Opt {
+    /// Build the system from source and commit the changes.
+    Build {
+        message: String,
+    },
+    /// Update flake inputs and commit the changes.
+    Update {
+        #[arg(default_value = "Update flake inputs")]
+        message: String,
+    },
 }
 
 
@@ -190,16 +193,20 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = Config::new()?;
     let opt = Opt::parse();
 
-    if opt.update {
-        update_flake_inputs()?;
-    }
+    let commit_message = match opt {
+        Opt::Build { message } => message,
+        Opt::Update { message } => {
+            update_flake_inputs()?;
+            message
+        }
+    };
 
     let commit = make_staging_commit()?;
 
     // The use of match here is the equivalent of a try-catch block in another language
     // Main difference is that it returns a Result which we either use finalize or reset on
     // Failures in Git are considered unrecoverable so the user will have to fix it manually
-    match build_and_switch(&commit, &config.repo_path, &opt.commit_message) {
+    match build_and_switch(&commit, &config.repo_path, &commit_message) {
         Ok(full_message) => {
             finalize_commit(commit, &full_message)?;
             println!("Successfully built and applied configuration");
