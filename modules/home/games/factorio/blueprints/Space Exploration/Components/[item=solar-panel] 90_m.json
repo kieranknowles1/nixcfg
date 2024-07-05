@@ -1222,8 +1222,8 @@
         "name": "medium-electric-pole",
         "neighbours": [
           121,
-          233,
-          60
+          60,
+          233
         ],
         "position": {
           "x": 381.5,
@@ -2525,7 +2525,7 @@
     ],
     "item": "blueprint",
     "label": "[item=solar-panel] 90/m",
-    "version": 281479278690304
+    "version": 281479278821376
   },
   "index": 6
 }
