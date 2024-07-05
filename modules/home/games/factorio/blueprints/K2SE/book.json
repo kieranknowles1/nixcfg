@@ -1,0 +1,17 @@
+{
+  "blueprint_book": {
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "rocket-silo",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint-book",
+    "label": "K2SE",
+    "version": 281479278821376
+  },
+  "index": 12
+}
