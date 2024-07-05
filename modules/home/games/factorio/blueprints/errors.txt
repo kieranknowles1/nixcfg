@@ -1,0 +1,23 @@
+ERROR: skipping blueprint 'Length 2 Depot' due to exception: expected 0x00 but got 0x4d at position 201413 (0x312c5)
+Traceback (most recent call last):
+  File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 2685, in parse_blueprint
+    parse_entities(stream, index, result)
+  File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 2349, in parse_entities
+    handler(stream, index, entity)
+  File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 1335, in eh_cargo_wagon
+    stream.expect(0x00)
+  File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 345, in expect
+    raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
+ParseError: expected 0x00 but got 0x4d at position 201413 (0x312c5)
+ERROR: skipping blueprint 'Length 5 Depot' due to exception: expected 0x00 but got 0x4d at position 222980 (0x36704)
+Traceback (most recent call last):
+  File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 2685, in parse_blueprint
+    parse_entities(stream, index, result)
+  File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 2349, in parse_entities
+    handler(stream, index, entity)
+  File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 1335, in eh_cargo_wagon
+    stream.expect(0x00)
+  File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 345, in expect
+    raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
+ParseError: expected 0x00 but got 0x4d at position 222980 (0x36704)
+ERROR - summary: skipped 2 unreadable blueprints.

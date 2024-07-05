@@ -1,0 +1,31 @@
+{
+  "blueprint_book": {
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "speed-module-3",
+          "type": "item"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "productivity-module-3",
+          "type": "item"
+        }
+      },
+      {
+        "index": 3,
+        "signal": {
+          "name": "effectivity-module-3",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint-book",
+    "label": "Modules",
+    "version": 281479278821376
+  },
+  "index": 9
+}
