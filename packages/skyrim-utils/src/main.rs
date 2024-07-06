@@ -5,6 +5,34 @@ use std::io::Result;
 use std::path::PathBuf;
 use std::collections::HashSet;
 use shellexpand;
+use clap::{Args, Parser};
+
+#[derive(Parser)]
+enum Arguments {
+    /// Clean up orphaned .skse files
+    Clean(CleanArgs),
+}
+
+#[derive(Args)]
+struct CleanArgs {}
+
+impl CleanArgs {
+    fn run(&self, save_dir: &str) -> Result<()> {
+        let save_files = SaveFiles::collect(&save_dir)?;
+
+        let orphans = save_files.get_orphans();
+
+        match orphans.is_empty() {
+            true => println!("Nothing to do"),
+            false => for skse in &orphans {
+                println!("Deleting {:?}", skse.file_name().unwrap_or_default());
+                fs::remove_file(skse)?;
+            },
+        };
+
+        Ok(())
+    }
+}
 
 /// A representation of all found .ess and .skse files in a directory
 struct SaveFiles {
@@ -47,21 +75,14 @@ impl SaveFiles {
 }
 
 fn main() -> Result<()> {
+    let args = Arguments::parse();
+
     // TODO: Don't hardcode this, this is currently a symlink to MO2's actual profile. Probably use Nix or something
     let save_dir = shellexpand::tilde("~/Documents/src/dotfiles/configs/games/skyrim/profile/saves");
 
-    let save_files = SaveFiles::collect(&save_dir)?;
-
-    let orphans = save_files.get_orphans();
-
-    match orphans.is_empty() {
-        true => println!("Nothing to do"),
-        false => for skse in &orphans {
-            println!("Deleting {:?}", skse.file_name().unwrap_or_default());
-            fs::remove_file(skse)?;
-        },
-
-    }
+    match args {
+        Arguments::Clean(clean_args) => clean_args.run(&save_dir),
+    }?;
 
     Ok(())
 }
