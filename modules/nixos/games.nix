@@ -30,7 +30,7 @@ in {
       openmw # TODO: Get my own version building. May be time to learn dev shells
 
       # Game tools
-      flakePackages.clean-skse-cosaves
+      flakePackages.skyrim-utils
 
       # Launcher for Epic Games Store
       heroic
