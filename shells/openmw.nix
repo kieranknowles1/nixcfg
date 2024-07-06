@@ -11,12 +11,14 @@
 
   # OpenMW requires double precision bullet
   bulletOverride = pkgs.bullet.overrideDerivation (old: {
-    cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-      "-Wno-dev" # Suppress warnings intended for Bullet developers
-      "-DOpenGL_GL_PREFERENCE=${GL}"
-      "-DUSE_DOUBLE_PRECISION=ON"
-      "-DBULLET2_MULTITHREADING=ON" # OpenMW can use ths
-    ];
+    cmakeFlags =
+      (old.cmakeFlags or [])
+      ++ [
+        "-Wno-dev" # Suppress warnings intended for Bullet developers
+        "-DOpenGL_GL_PREFERENCE=${GL}"
+        "-DUSE_DOUBLE_PRECISION=ON"
+        "-DBULLET2_MULTITHREADING=ON" # OpenMW can use ths
+      ];
   });
 
   # We need MyGUI 3.4.3, while nixpkgs has 3.4.2
@@ -30,49 +32,49 @@
     };
 
     # disable-framework.patch can't be applied and was only needed for macOS
-    patches = [ ];
+    patches = [];
   });
 in
-flakeLib.shell.mkShellEx {
-  name = "openmw";
+  flakeLib.shell.mkShellEx {
+    name = "openmw";
 
-  # TODO: Sort package lists
+    # TODO: Sort package lists
 
-  # Packages to put on our PATH
-  packages = with pkgs; [
-    cmakeWithGui
-    clang
-  ];
+    # Packages to put on our PATH
+    packages = with pkgs; [
+      cmakeWithGui
+      clang
+    ];
 
-  # Libraries needed for building
-  buildInputs = with pkgs; [
-    SDL2
-    boost
-    bulletOverride
-    ffmpeg
-    xorg.libXt
-    luajit
-    lz4
-    myguiOverride
-    openal
-    openscenegraph
-    recastnavigation
-    unshield
-    yaml-cpp
-  ];
+    # Libraries needed for building
+    buildInputs = with pkgs; [
+      SDL2
+      boost
+      bulletOverride
+      ffmpeg
+      xorg.libXt
+      luajit
+      lz4
+      myguiOverride
+      openal
+      openscenegraph
+      recastnavigation
+      unshield
+      yaml-cpp
+    ];
 
-  # Libraries needed for running
-  # TODO: Is this the same in a shell? Will compiled binaries work outside the shell?
-  nativeBuildInputs = with pkgs; [
-    libsForQt5.qt5.wrapQtAppsHook
-    libsForQt5.qt5.qttools
-    pkg-config
-  ];
+    # Libraries needed for running
+    # TODO: Is this the same in a shell? Will compiled binaries work outside the shell?
+    nativeBuildInputs = with pkgs; [
+      libsForQt5.qt5.wrapQtAppsHook
+      libsForQt5.qt5.qttools
+      pkg-config
+    ];
 
-  # cd to the build directory if we're not already in the repo
-  shellHook = ''
-    if ! [[ "$PWD" =~ /openmw$ ]]; then
-      cd "$HOME/Documents/src/openmw/build"
-    fi
-  '';
-}
+    # cd to the build directory if we're not already in the repo
+    shellHook = ''
+      if ! [[ "$PWD" =~ /openmw$ ]]; then
+        cd "$HOME/Documents/src/openmw/build"
+      fi
+    '';
+  }
