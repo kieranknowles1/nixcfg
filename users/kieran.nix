@@ -1,6 +1,6 @@
 pkgs: {
   core = {
-    displayName = "Kieran Knowles";
+    displayName = "Kieran";
     isSudoer = true;
     shell = pkgs.nushell;
   };

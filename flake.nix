@@ -46,19 +46,6 @@
       nixpkgs = defaultNixpkgs;
       flake = self;
     };
-
-    mk-kk-user = system: let
-      pkgs = import defaultNixpkgs {
-        system = system;
-        allowUnfree = true;
-      };
-    in
-      lib.user.mkUser {
-        userName = "kieran";
-        displayName = "Kieran";
-        isSudoer = true;
-        shell = pkgs.nushell;
-      };
   in rec {
     inherit lib; # Expose the lib module to configurations
 
@@ -70,16 +57,10 @@
       laptop = lib.host.mkHost {
         name = "laptop";
         system = "x86_64-linux";
-        users = [
-          (mk-kk-user "x86_64-linux")
-        ];
       };
       server = lib.host.mkHost {
         name = "server";
         system = "x86_64-linux"; # TODO: Should be arm
-        users = [
-          (mk-kk-user "x86_64-linux") # TODO: Should be arm
-        ];
       };
     };
 
