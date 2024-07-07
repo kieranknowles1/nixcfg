@@ -45,13 +45,14 @@
     linkDocs = lib.lists.forEach fileNames (name: let
       value = files.${name};
     in "ln --symbolic ${value.source} $out/${name}");
-  in pkgs.runCommand "merged-docs" {
-    INDEX = mkIndex files;
-  } ''
-    mkdir -p $out
-    echo "$INDEX" > $out/readme.md
-    ${lib.strings.concatStringsSep "\n" linkDocs}
-  '';
+  in
+    pkgs.runCommand "merged-docs" {
+      INDEX = mkIndex files;
+    } ''
+      mkdir -p $out
+      echo "$INDEX" > $out/readme.md
+      ${lib.strings.concatStringsSep "\n" linkDocs}
+    '';
 in {
   options.custom.docs-generate = {
     file = lib.mkOption {

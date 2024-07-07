@@ -15,5 +15,6 @@
     ./ssh
     ./theme.nix
     ./thunderbird.nix
+    ./users.nix
   ];
 }
