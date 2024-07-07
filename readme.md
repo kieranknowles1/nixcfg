@@ -80,7 +80,6 @@ Tasks I want to complete in the future. I'm tracking these here rather than in i
 I can do all my work in one place.
 
 - ❎ Automate updates of packages. (Not planned)
-- ❎ Build an ISO with the configuration. [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE) (Not planned)
 - [x] Preview changes before applying them. [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
 - [x] Generate documentation rather than doing it manually
   - [x] For functions
@@ -93,6 +92,8 @@ I can do all my work in one place.
 - [x] Associate file types with programs
   - [x] PDFs with Firefox, overriding  LibreOffice
   - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
+- [ ] Port my server to NixOS
+  - [ ] Build ISO [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
 - [ ] Automate running checks on the repo. Do these in nix's `checkPhase`?
   - [ ] Links in Markdown
   - [ ] Links in comments [extension](https://marketplace.visualstudio.com/items?itemName=Isotechnics.commentlinks)

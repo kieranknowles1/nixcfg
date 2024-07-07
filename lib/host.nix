@@ -4,6 +4,7 @@
   flake,
   inputs,
 }: {
+  # TODO: Do this automatically for everything in ./hosts and put all options in the host's configuration.nix
   /*
   *
   Create a host configuration. It imports the host's configuration.nix and hardware-configuration.nix files.
@@ -65,6 +66,8 @@
               extraSpecialArgs = moduleArgs // {hostConfig = config;};
               backupFileExtension = "backup";
             };
+
+            nixpkgs.hostPlatform = system;
           })
         ]
         ++ users;
