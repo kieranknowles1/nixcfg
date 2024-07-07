@@ -96,30 +96,34 @@
       # If a file to be provisioned already exists, back it up
       backupFileExtension = "backup";
 
-      users = lib.attrsets.mapAttrs (name: user: {
-        imports = [
-          ../home
-          user.home
-        ];
+      users =
+        lib.attrsets.mapAttrs (name: user: {
+          imports = [
+            ../home
+            user.home
+          ];
 
-        # Give home-manager some basic info about the user
-        home.username = name;
-        home.homeDirectory = "/home/${name}";
-      }) config.custom.user;
+          # Give home-manager some basic info about the user
+          home.username = name;
+          home.homeDirectory = "/home/${name}";
+        })
+        config.custom.user;
     };
 
-    users.users = lib.attrsets.mapAttrs (name: user: {
-      # A normal user is one that can log in, as opposed to a system user used for services
-      isNormalUser = true;
-      # User's full name
-      description = user.core.displayName;
+    users.users =
+      lib.attrsets.mapAttrs (name: user: {
+        # A normal user is one that can log in, as opposed to a system user used for services
+        isNormalUser = true;
+        # User's full name
+        description = user.core.displayName;
 
-      # Everyone gets networkmanager membership so they can connect to networks
-      # Only sudoers get wheel membership so they can sudo
-      extraGroups =
-        ["networkmanager"] ++ (lib.optional user.core.isSudoer "wheel");
+        # Everyone gets networkmanager membership so they can connect to networks
+        # Only sudoers get wheel membership so they can sudo
+        extraGroups =
+          ["networkmanager"] ++ (lib.optional user.core.isSudoer "wheel");
 
-      shell = user.core.shell;
-    }) config.custom.user;
+        shell = user.core.shell;
+      })
+      config.custom.user;
   };
 }
