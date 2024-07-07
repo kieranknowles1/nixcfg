@@ -4,6 +4,8 @@
 {...}: {
   # Enable everything needed for this configuration
   config.custom = {
+    deviceType = "desktop";
+
     development = {
       enable = true;
       meta.enable = true;

@@ -4,6 +4,8 @@
 {...}: {
   # Enable everything needed for this configuration
   config.custom = {
+    deviceType = "desktop";
+
     wireless.enable = true;
 
     office.enable = true;
