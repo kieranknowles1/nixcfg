@@ -42,6 +42,7 @@
       modules =
         [
           inputs.stylix.nixosModules.stylix
+          # TODO: Why does importing home-manager in a module not work? Why does it need to be imported here?
           inputs.home-manager.nixosModules.home-manager
           ../modules/nixos
           ../hosts/${name}/configuration.nix
@@ -53,19 +54,6 @@
           }: {
             # Base nixos for all hosts
             networking.hostName = name; # The hostname is used as the default target of nixos-rebuild switch
-
-            environment.systemPackages = with pkgs; [
-              home-manager
-            ];
-
-            # Base home-manager for all users
-            home-manager = {
-              useGlobalPkgs = true;
-              # Pass all flake inputs to home manager configs
-              # Also expose the host's configuration
-              extraSpecialArgs = moduleArgs // {hostConfig = config;};
-              backupFileExtension = "backup";
-            };
 
             nixpkgs.hostPlatform = system;
           })
