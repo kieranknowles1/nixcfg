@@ -23,7 +23,7 @@
   mkHost = {
     name,
     system,
-    users,
+    users ? [], # TODO: This is deprecated
   }: let
     pkgs-unstable = import nixpkgs-unstable {
       system = system;

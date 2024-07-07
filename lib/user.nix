@@ -1,4 +1,5 @@
 {}: {
+  # TODO: Remove this once I've migrated away from it
   /*
   *
   Create a user with a home-manager configuration for use with [lib.host.mkHost](#function-library-lib.host.mkhost).
@@ -22,25 +23,6 @@
     isSudoer ? false,
     shell,
   }: {
-    users.users.${userName} = {
-      # A regular user that can log in
-      isNormalUser = true;
-      # User's full name
-      description = displayName;
-
-      # Give everyone "networkmanager" membership so they can connect to networks
-      # Give sudoers "wheel" membership so they can sudo
-      extraGroups =
-        ["networkmanager"]
-        ++ (
-          if isSudoer
-          then ["wheel"]
-          else []
-        );
-
-      shell = shell;
-    };
-
     home-manager = {
       backupFileExtension = "backup";
 
