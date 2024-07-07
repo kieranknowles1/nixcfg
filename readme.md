@@ -22,6 +22,8 @@ To rebuild the system, run `./rebuild.py <commit message>`.
 This will update and switch to the current changes, then commit them if it was successful.
 For more information, run `./rebuild.py --help`.
 
+`nix-tree` is a useful tool for visualizing what derivations are included and their dependencies.
+
 ### System Usage
 
 #### Key Bindings

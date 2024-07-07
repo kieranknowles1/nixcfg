@@ -1,9 +1,6 @@
 # System level Firefox settings
 # See also: [[../home/firefox.nix]]
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.gnome.excludePackages = with pkgs; [
     # GNOME's built-in browser
     epiphany
