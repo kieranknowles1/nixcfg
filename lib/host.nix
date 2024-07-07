@@ -23,7 +23,6 @@
   mkHost = {
     name,
     system,
-    users ? [], # TODO: This is deprecated
   }: let
     pkgs-unstable = import nixpkgs-unstable {
       system = system;
@@ -39,25 +38,23 @@
 
       # Include the host's configuration and all modules
       # The host configuration.nix can configure the modules
-      modules =
-        [
-          inputs.stylix.nixosModules.stylix
-          # TODO: Why does importing home-manager in a module not work? Why does it need to be imported here?
-          inputs.home-manager.nixosModules.home-manager
-          ../modules/nixos
-          ../hosts/${name}/configuration.nix
-          ../hosts/${name}/hardware-configuration.nix
-          ({
-            pkgs,
-            config,
-            ...
-          }: {
-            # Base nixos for all hosts
-            networking.hostName = name; # The hostname is used as the default target of nixos-rebuild switch
+      modules = [
+        inputs.stylix.nixosModules.stylix
+        # TODO: Why does importing home-manager in a module not work? Why does it need to be imported here?
+        inputs.home-manager.nixosModules.home-manager
+        ../modules/nixos
+        ../hosts/${name}/configuration.nix
+        ../hosts/${name}/hardware-configuration.nix
+        ({
+          pkgs,
+          config,
+          ...
+        }: {
+          # Base nixos for all hosts
+          networking.hostName = name; # The hostname is used as the default target of nixos-rebuild switch
 
-            nixpkgs.hostPlatform = system;
-          })
-        ]
-        ++ users;
+          nixpkgs.hostPlatform = system;
+        })
+      ];
     };
 }
