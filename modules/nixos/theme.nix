@@ -2,10 +2,12 @@
 {
   pkgs,
   flake,
+  config,
   ...
 }: {
   stylix = {
-    enable = true;
+    # No need to theme the system if it's a server
+    enable = config.custom.deviceType == "desktop";
 
     # Stylix can generate a theme from the wallpaper, but in the images I've tested it came out ugly
     base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-gray.yaml";
