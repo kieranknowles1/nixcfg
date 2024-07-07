@@ -66,9 +66,6 @@
       desktop = lib.host.mkHost {
         name = "desktop";
         system = "x86_64-linux";
-        users = [
-          (mk-kk-user "x86_64-linux")
-        ];
       };
       laptop = lib.host.mkHost {
         name = "laptop";
