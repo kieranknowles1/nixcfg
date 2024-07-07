@@ -1,4 +1,8 @@
-{...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   config = {
     services.openssh = {
       enable = true;
@@ -16,8 +20,15 @@
     };
 
     # Accept any of my public keys, read from [[./keys]]
-    # TODO: Don't hardcode the username, maybe do this in mkUser
     # TODO: Secret management to automatically add the private keys
-    users.users.kieran.openssh.authorizedKeys.keyFiles = builtins.map (name: ./keys/${name}) (builtins.attrNames (builtins.readDir ./keys));
+    # TODO: Should this be in the user's config? authorized_keys is a user-level setting
+    users.users =
+      lib.attrsets.mapAttrs (name: user: {
+        openssh.authorizedKeys.keyFiles =
+          builtins.map
+          (name: ./keys/${name})
+          (builtins.attrNames (builtins.readDir ./keys));
+      })
+      config.custom.user;
   };
 }
