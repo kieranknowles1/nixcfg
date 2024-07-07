@@ -4,6 +4,8 @@
 {...}: {
   # Enable everything needed for this configuration
   config.custom = {
+    wireless.enable = true;
+
     office.enable = true;
 
     printing.enable = true;

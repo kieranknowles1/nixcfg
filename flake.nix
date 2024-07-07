@@ -77,6 +77,13 @@
           (mk-kk-user "x86_64-linux")
         ];
       };
+      server = lib.host.mkHost {
+        name = "server";
+        system = "x86_64-linux"; # TODO: Should be arm
+        users = [
+          (mk-kk-user "x86_64-linux") # TODO: Should be arm
+        ];
+      };
     };
 
     # Formatter for all Nix files in this flake. Run using `nix fmt`.
