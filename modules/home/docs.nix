@@ -45,7 +45,7 @@
     linkDocs = lib.lists.forEach fileNames (name: let
       value = files.${name};
     in "ln --symbolic ${value.source} $out/${name}");
-  in pkgs.runCommand "combine-docs" {
+  in pkgs.runCommand "merged-docs" {
     INDEX = mkIndex files;
   } ''
     mkdir -p $out
