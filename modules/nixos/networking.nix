@@ -1,17 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: {
-  options.custom = {
-    wireless.enable = lib.mkEnableOption "wireless networking";
-  };
-
+{...}: {
   config = {
     # Enable networking
     networking = {
       networkmanager.enable = true;
-      wireless.enable = config.custom.wireless.enable;
+      # This is handled by NetworkManager
+      wireless.enable = false;
     };
 
     # Enable resolving *.local hostnames via mDNS
