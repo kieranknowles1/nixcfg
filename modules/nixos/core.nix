@@ -1,10 +1,9 @@
 # Core configuration needed for any host
 {
+  config,
   pkgs,
   pkgs-unstable,
-  flake,
   lib,
-  system,
   ...
 }: let
   # Helper to activate a dev shell
@@ -13,6 +12,15 @@
   '';
 in {
   options.custom = {
+    # Flakes run as pure functions, and as such can't
+    # find the repository path on their own. This option
+    # is used instead.
+    # TODO: Also substitute store references in docs
+    repoPath = lib.mkOption {
+      description = "Absolute path to the repository on disk";
+      type = with lib.types; uniq str;
+    };
+
     deviceType = lib.mkOption {
       description = "The type of device this configuration is for.";
 
