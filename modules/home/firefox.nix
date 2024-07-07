@@ -1,5 +1,4 @@
 # Per-user Firefox settings
-# See also: [[../nixos/firefox.nix]]
 {
   hostConfig,
   inputs,
