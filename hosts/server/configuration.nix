@@ -9,6 +9,7 @@
   ];
 
   config.custom = {
+    user.kieran = import ../../users/kieran.nix pkgs;
     deviceType = "server";
   };
 }
