@@ -5,6 +5,7 @@
   # Enable everything needed for this configuration
   config.custom = {
     deviceType = "desktop";
+    repoPath = "/home/kieran/Documents/src/nixcfg";
 
     office.enable = true;
 

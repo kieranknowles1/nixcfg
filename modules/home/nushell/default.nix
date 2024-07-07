@@ -3,6 +3,7 @@
 {
   pkgs,
   config,
+  hostConfig,
   ...
 }: let
   defaultMonoFont = config.custom.fonts.defaultMono;
@@ -14,6 +15,11 @@
 in {
   programs.nushell = {
     enable = true;
+
+    # Give us an environment variable for our flake path
+    environmentVariables = {
+      FLAKE = hostConfig.custom.repoPath;
+    };
 
     # Append my custom config to the default
     extraConfig = builtins.readFile ./nushell.nu;
