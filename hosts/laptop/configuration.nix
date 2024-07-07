@@ -6,8 +6,6 @@
   config.custom = {
     deviceType = "desktop";
 
-    wireless.enable = true;
-
     office.enable = true;
 
     printing.enable = true;
