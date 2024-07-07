@@ -5,7 +5,6 @@
     ./core.nix
     ./desktop
     ./development.nix
-    ./firefox.nix
     ./games.nix
     ./libraries.nix
     ./locale.nix

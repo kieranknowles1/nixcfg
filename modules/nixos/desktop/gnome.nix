@@ -21,6 +21,10 @@
     };
 
     environment.gnome.excludePackages = with pkgs; [
+      # GNOME's built-in browser
+      epiphany
+      # GNOME's document viewer. Firefox does a better job at this
+      evince
       gedit # Replaced by vscode, but that is managed by home-manager
       gnome-connections # I have no need for remote desktop
       gnome-tour # Basic intro to GNOME
