@@ -78,10 +78,6 @@
   };
 
   config = {
-    environment.systemPackages = with pkgs; [
-      home-manager
-    ];
-
     home-manager = {
       # Inherit the global pkgs
       useGlobalPkgs = true;
