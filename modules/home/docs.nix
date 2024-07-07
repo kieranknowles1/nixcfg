@@ -1,6 +1,7 @@
 # Module to include generated documentation for the flake and its options
 {
   flake,
+  pkgs,
   lib,
   config,
   ...
@@ -30,6 +31,26 @@
 
     ## Files
     ${lib.strings.concatStringsSep "\n" links}
+  '';
+
+  /*
+   *
+  * Combine all the documentation files into one. Generate the index file.
+  */
+  mkDocs = files: let
+    fileNames = builtins.attrNames files;
+
+    # Generate code to symlink the files
+    # Easier than doing a loop in bash
+    linkDocs = lib.lists.forEach fileNames (name: let
+      value = files.${name};
+    in "ln --symbolic ${value.source} $out/${name}");
+  in pkgs.runCommand "combine-docs" {
+    INDEX = mkIndex files;
+  } ''
+    mkdir -p $out
+    echo "$INDEX" > $out/readme.md
+    ${lib.strings.concatStringsSep "\n" linkDocs}
   '';
 in {
   options.custom.docs-generate = {
@@ -68,19 +89,7 @@ in {
     };
   };
 
-  config = let
-    docFiles = config.custom.docs-generate.file;
-
-    # Map the files to the correct paths. Having all docs in one option simplifies any changes I might want to make.
-    # No sane language would allow an apostrophe in a variable name, but Nix is not a sane language.
-    # mapAttrs' returns a set where we can change the key and value.
-    homeFiles =
-      lib.attrsets.mapAttrs' (name: value: {
-        name = "${docsPath}/${name}";
-        value = {source = value.source;};
-      })
-      docFiles;
-  in {
+  config = {
     custom.docs-generate.file = {
       "lib.md" = {
         description = "flake.lib library";
@@ -96,10 +105,9 @@ in {
       };
     };
 
-    home.file =
-      homeFiles
-      // {
-        "${docsPath}/readme.md".text = mkIndex docFiles;
-      };
+    home.file.${docsPath} = {
+      source = mkDocs config.custom.docs-generate.file;
+      recursive = true;
+    };
   };
 }
