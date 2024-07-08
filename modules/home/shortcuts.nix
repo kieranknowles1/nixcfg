@@ -1,6 +1,7 @@
 # Keyboard shortcuts managed by sxhkd
 {
   config,
+  hostConfig,
   lib,
   flake,
   pkgs,
@@ -45,7 +46,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf (hostConfig.custom.deviceType == "desktop") {
     # Default shortcuts
     custom.shortcuts = {
       "alt + t" = {

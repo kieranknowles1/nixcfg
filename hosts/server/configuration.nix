@@ -12,6 +12,8 @@
   config.custom = {
     user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
     deviceType = "server";
+
+    repoPath = "/home/kieran/nixcfg";
   };
 }
 # TODO: Implement the configuration of the server.

@@ -59,10 +59,11 @@ in {
       nvd # Generate diffs between generations
       pkgs-unstable.nh # Nix helper, not in stable yet but useful to generate diffs before applying changes
       file
-      fsearch
       p7zip
       nix-index # Good for searching packages
-    ];
+    ] ++ (lib.optionals (config.custom.deviceType == "desktop") [
+      fsearch # Everything clone. GUI only
+    ]);
 
     # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
     # a bad superblock, try mounting it in the terminal instead.
