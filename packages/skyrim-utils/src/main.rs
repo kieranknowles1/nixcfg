@@ -4,9 +4,9 @@ use std::fs::{self, DirEntry};
 use std::io::Result;
 use std::path::PathBuf;
 use std::collections::HashSet;
-use clap::builder::OsStr;
 use shellexpand;
 use clap::{Args, Parser};
+use regex::Regex;
 
 #[derive(Parser)]
 enum Arguments {
@@ -14,13 +14,15 @@ enum Arguments {
     Clean(CleanArgs),
     /// Open the latest save file
     Latest(LatestArgs),
+    /// Open the latest crash log
+    Crash(CrashArgs),
 }
 
 #[derive(Args)]
 struct CleanArgs {}
 
 impl CleanArgs {
-    fn run(&self, save_dir: &str) -> Result<()> {
+    fn run(&self, save_dir: &PathBuf) -> Result<()> {
         let save_files = SaveFiles::collect(&save_dir)?;
 
         let orphans = save_files.get_orphans();
@@ -41,10 +43,34 @@ impl CleanArgs {
 struct LatestArgs {}
 
 impl LatestArgs {
-    fn run(&self, save_dir: &str) -> Result<()> {
+    fn run(&self, save_dir: &PathBuf) -> Result<()> {
         let latest = SaveFiles::get_latest(&save_dir)?;
 
-        open::that(latest)?;
+        match latest {
+            Some(path) => open::that(path)?,
+            None => println!("No save files found"),
+        };
+
+        Ok(())
+    }
+}
+
+#[derive(Args)]
+struct CrashArgs {}
+
+impl CrashArgs {
+    fn run(&self, log_dir: &PathBuf) -> Result<()> {
+        let pattern = Regex::new(r"crash-.*\.log").unwrap(); // We know this pattern is valid
+
+        let latest = latest_file_matching_predicate(log_dir, |file| {
+            let name = file.file_name();
+            pattern.is_match(&name.to_string_lossy())
+        })?;
+
+        match latest {
+            Some(file) => open::that(file.path())?,
+            None => println!("No crash logs found"),
+        };
 
         Ok(())
     }
@@ -66,8 +92,24 @@ fn extension_plain_str(path: &PathBuf) -> Option<&str> {
     }
 }
 
+fn latest_file_matching_predicate(dir: &PathBuf, predicate: impl Fn(&DirEntry) -> bool) -> Result<Option<DirEntry>> {
+    fn get_modified_time(file: &DirEntry) -> Option<std::time::SystemTime> {
+        match file.metadata() {
+            Ok(metadata) => metadata.modified().ok(),
+            Err(_) => None,
+        }
+    }
+
+    let newest = fs::read_dir(dir)?
+        .flatten() // Remove any errors
+        .filter(predicate)
+        .max_by_key(get_modified_time);
+
+    Ok(newest)
+}
+
 impl SaveFiles {
-    fn collect(dir: &str) -> Result<Self> {
+    fn collect(dir: &PathBuf) -> Result<Self> {
         let mut ess_files = HashSet::new();
         let mut skse_files = HashSet::new();
 
@@ -87,22 +129,16 @@ impl SaveFiles {
         })
     }
 
-    fn get_latest(dir: &str) -> Result<PathBuf> {
-        fn get_modified_time(file: &DirEntry) -> Option<std::time::SystemTime> {
-            match file.metadata() {
-                Ok(metadata) => metadata.modified().ok(),
-                Err(_) => None,
-            }
-        }
+    fn get_latest(dir: &PathBuf) -> Result<Option<PathBuf>> {
+        let latest = latest_file_matching_predicate(
+            dir,
+            |file| extension_plain_str(&file.path()) == Some("ess")
+        );
 
-        let newest = fs::read_dir(dir)?
-            .flatten() // Remove any errors
-            .filter(|file| extension_plain_str(&file.path()) == Some("ess"))
-            .max_by_key(get_modified_time);
-
-        match newest {
-            Some(file) => Ok(file.path()),
-            None => Err(std::io::Error::new(std::io::ErrorKind::NotFound, "No files found")),
+        match latest {
+            Ok(Some(file)) => Ok(Some(file.path())),
+            Ok(None) => Ok(None),
+            Err(e) => Err(e),
         }
     }
 
@@ -117,12 +153,16 @@ impl SaveFiles {
 fn main() -> Result<()> {
     let args = Arguments::parse();
 
-    // TODO: Don't hardcode this, this is currently a symlink to MO2's actual profile. Probably use Nix or something
-    let save_dir = shellexpand::tilde("~/Documents/src/dotfiles/configs/games/skyrim/profile/saves");
+    // God that's a mouthful, I blame Windows for not using the Unix file structure
+    let data_dir = shellexpand::tilde("~/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My Games/Skyrim Special Edition").to_string();
+
+    let save_dir = PathBuf::from(&data_dir).join("Saves");
+    let log_dir = PathBuf::from(&data_dir).join("SKSE");
 
     match args {
         Arguments::Clean(clean_args) => clean_args.run(&save_dir),
         Arguments::Latest(latest_args) => latest_args.run(&save_dir),
+        Arguments::Crash(crash_args) => crash_args.run(&log_dir),
     }?;
 
     Ok(())
