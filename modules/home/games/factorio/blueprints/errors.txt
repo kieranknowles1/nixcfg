@@ -1,4 +1,4 @@
-ERROR: skipping blueprint 'Length 2 Depot' due to exception: expected 0x00 but got 0x4d at position 201485 (0x3130d)
+ERROR: skipping blueprint 'Length 2 Depot' due to exception: expected 0x00 but got 0x4d at position 201506 (0x31322)
 Traceback (most recent call last):
   File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 2685, in parse_blueprint
     parse_entities(stream, index, result)
@@ -8,8 +8,8 @@ Traceback (most recent call last):
     stream.expect(0x00)
   File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 345, in expect
     raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
-ParseError: expected 0x00 but got 0x4d at position 201485 (0x3130d)
-ERROR: skipping blueprint 'Length 5 Depot' due to exception: expected 0x00 but got 0x4d at position 223052 (0x3674c)
+ParseError: expected 0x00 but got 0x4d at position 201506 (0x31322)
+ERROR: skipping blueprint 'Length 5 Depot' due to exception: expected 0x00 but got 0x4d at position 223073 (0x36761)
 Traceback (most recent call last):
   File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 2685, in parse_blueprint
     parse_entities(stream, index, result)
@@ -19,5 +19,5 @@ Traceback (most recent call last):
     stream.expect(0x00)
   File "/nix/store/8qdiqcb1mav1q1j6sczlxinvl8qsdkii-factorio-blueprint-decoder-0.1.2/bin/factorio-blueprint-decoder", line 345, in expect
     raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
-ParseError: expected 0x00 but got 0x4d at position 223052 (0x3674c)
+ParseError: expected 0x00 but got 0x4d at position 223073 (0x36761)
 ERROR - summary: skipped 2 unreadable blueprints.
