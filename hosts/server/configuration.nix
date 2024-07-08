@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   modulesPath,
   ...
 }: {
@@ -9,7 +10,7 @@
   ];
 
   config.custom = {
-    user.kieran = import ../../users/kieran.nix pkgs;
+    user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
     deviceType = "server";
   };
 }

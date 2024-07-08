@@ -1,4 +1,6 @@
-pkgs: {
+{pkgs, config}: let
+  isDesktop = config.custom.deviceType == "desktop";
+in {
   core = {
     displayName = "Kieran";
     isSudoer = true;
@@ -13,6 +15,9 @@ pkgs: {
         firstName = "Kieran";
         surName = "Knowles";
       };
+
+      docs-generate.enable = isDesktop;
+      edit-config.enable = isDesktop;
     };
 
     # This value determines the Home Manager release that your configuration is
