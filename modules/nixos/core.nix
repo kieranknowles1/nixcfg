@@ -50,20 +50,22 @@ in {
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
-    environment.systemPackages = with pkgs; [
-      develop # Our nix develop helper
-      git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
+    environment.systemPackages = with pkgs;
+      [
+        develop # Our nix develop helper
+        git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
 
-      python3 # The rebuild script is written in Python and I use it for scripts in other repositories
+        python3 # The rebuild script is written in Python and I use it for scripts in other repositories
 
-      nvd # Generate diffs between generations
-      pkgs-unstable.nh # Nix helper, not in stable yet but useful to generate diffs before applying changes
-      file
-      p7zip
-      nix-index # Good for searching packages
-    ] ++ (lib.optionals (config.custom.deviceType == "desktop") [
-      fsearch # Everything clone. GUI only
-    ]);
+        nvd # Generate diffs between generations
+        pkgs-unstable.nh # Nix helper, not in stable yet but useful to generate diffs before applying changes
+        file
+        p7zip
+        nix-index # Good for searching packages
+      ]
+      ++ (lib.optionals (config.custom.deviceType == "desktop") [
+        fsearch # Everything clone. GUI only
+      ]);
 
     # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
     # a bad superblock, try mounting it in the terminal instead.

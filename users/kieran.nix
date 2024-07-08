@@ -1,4 +1,7 @@
-{pkgs, config}: let
+{
+  pkgs,
+  config,
+}: let
   isDesktop = config.custom.deviceType == "desktop";
 in {
   core = {
