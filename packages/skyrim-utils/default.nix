@@ -1,8 +1,8 @@
 {pkgs}:
 pkgs.rustPlatform.buildRustPackage {
   pname = "skyrim-utils";
-  version = "1.1.0";
+  version = "1.2.0";
   src = ./.;
 
-  cargoHash = "sha256-pcwaj+KhvhIS4aWh5C2KH23KcqKcxeVv/8Xcb2wecZQ=";
+  cargoHash = "sha256-LuEfA3yj47UI66kALNgHVUvLv6chQLYKj6RiToTa2MY=";
 }
