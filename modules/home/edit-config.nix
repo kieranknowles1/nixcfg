@@ -3,11 +3,9 @@
   flake,
   lib,
   config,
+  system,
   ...
 }: let
-  # TODO: Move this to flake.pkgs
-  package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "3.1.0";
-
   combinedConfig =
     config.custom.edit-config
     // {
@@ -16,6 +14,8 @@
 in {
   options.custom.edit-config = {
     enable = lib.mkEnableOption "edit-config script.";
+
+    package = lib.mkPackageOption flake.packages.${system} "edit-config" {};
 
     # TODO: Remove this and just use config.custom.editor
     editor = lib.mkOption {
@@ -76,7 +76,7 @@ in {
 
   config = lib.mkIf config.custom.edit-config.enable {
     # Put our script on the PATH.
-    home.packages = [package];
+    home.packages = [config.custom.edit-config.package];
 
     # Provisioning a file in .config is easier than including it in the edit-config derivation.
     home.file."${config.xdg.configHome}/edit-config.json".text = builtins.toJSON combinedConfig;
