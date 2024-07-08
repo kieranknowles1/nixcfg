@@ -55,6 +55,8 @@
     '';
 in {
   options.custom.docs-generate = {
+    enable = lib.mkEnableOption "generate documentation for the flake and its options.";
+
     file = lib.mkOption {
       description = ''
         A file include in the generated documentation.
@@ -106,7 +108,7 @@ in {
       };
     };
 
-    home.file.${docsPath} = {
+    home.file.${docsPath} = lib.mkIf config.custom.docs-generate.enable {
       source = mkDocs config.custom.docs-generate.file;
       recursive = true;
     };

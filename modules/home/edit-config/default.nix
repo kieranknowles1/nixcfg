@@ -5,6 +5,7 @@
   config,
   ...
 }: let
+  # TODO: Move this to flake.pkgs
   package = flake.lib.package.packagePythonScript "edit-config" ./edit-config.py "3.1.0";
 
   combinedConfig =
@@ -14,6 +15,8 @@
     };
 in {
   options.custom.edit-config = {
+    enable = lib.mkEnableOption "edit-config script.";
+
     # TODO: Remove this and just use config.custom.editor
     editor = lib.mkOption {
       description = ''
@@ -71,7 +74,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf config.custom.edit-config.enable {
     # Put our script on the PATH.
     home.packages = [package];
 
