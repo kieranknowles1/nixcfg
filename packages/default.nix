@@ -3,21 +3,25 @@
   flakeLib,
 }: let
   packagePythonScript = flakeLib.package.packagePythonScript;
-
-  factorioDecoderSrc = pkgs.fetchFromGitHub {
-    owner = "kieranknowles1";
-    repo = "factorio-blueprint-decoder";
-    rev = "turret_fix";
-    hash = "sha256-SCcWptznd75ImsGlMl2Bj6z0er2Ila90vXuPPUBIkyI=";
-  };
 in {
-  skyrim-utils = import ./skyrim-utils {inherit pkgs;};
-
+  # TODO: Add descriptions in each packages metadata
   combine-blueprints = packagePythonScript "combine-blueprints" ./combine-blueprints.py "1.0.0";
+
+  edit-config = packagePythonScript "edit-config" ./edit-config.py "3.1.0";
 
   export-blueprints = packagePythonScript "export-blueprints" ./export-blueprints.py "1.0.0";
 
-  factorio-blueprint-decoder = packagePythonScript "factorio-blueprint-decoder" "${factorioDecoderSrc}/decode" "0.1.2";
+  factorio-blueprint-decoder = let
+    src = pkgs.fetchFromGitHub {
+      owner = "kieranknowles1";
+      repo = "factorio-blueprint-decoder";
+      rev = "turret_fix";
+      hash = "sha256-SCcWptznd75ImsGlMl2Bj6z0er2Ila90vXuPPUBIkyI=";
+    };
+  in
+    packagePythonScript "factorio-blueprint-decoder" "${src}/decode" "0.1.2";
 
   rebuild = import ./rebuild {inherit pkgs;};
+
+  skyrim-utils = import ./skyrim-utils {inherit pkgs;};
 }
