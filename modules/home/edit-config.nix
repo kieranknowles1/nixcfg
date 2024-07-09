@@ -21,18 +21,26 @@ in {
     editor = lib.mkOption {
       description = ''
         The editor to use when editing configuration files. May be GUI or CLI, so long
-        as it accepts a file path as an argument.
+        as it accepts a directory as an argument.
       '';
 
       type = lib.types.str;
-      default = "code";
+      default = "nvim";
     };
 
     programs = lib.mkOption {
+      # TODO: Treeitter hightlighting for MarkDown, try to automate for all descriptions/doc comments
       description = ''
         Programs with configuration files to edit. The key will be used to
         select the configuration file via the command line.
       '';
+
+      example = {
+        edit-config.programs.test = {
+          system-path = "~/.config/my-app";
+          repo-path = "modules/home/my-app/config";
+        };
+      };
 
       # attrsOf + submodule gives us a syntax similar to a JSON object
       # which is merged by Nix.
