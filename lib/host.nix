@@ -4,7 +4,6 @@
   flake,
   inputs,
 }: {
-  # TODO: Do this automatically for everything in ./hosts and put all options in the host's configuration.nix
   /*
   *
   Create a host configuration. It imports the host's configuration.nix and hardware-configuration.nix files.
@@ -17,8 +16,6 @@
   name :: String : The host name. Should match the key in nixosConfigurations for rebuilds to detect it automatically
 
   system :: String : System type. Usually x86_64-linux
-
-  users :: List : A list of users to create, as returned by [lib.mkUser](#function-library-lib.user.mkUser)
   */
   mkHost = {
     name,
