@@ -18,6 +18,15 @@ in {
   };
 
   config = lib.mkIf config.custom.editor.vscode.enable {
+    # Rebuild will fail if any assertion is false. VSCode requires a desktop environment, so isn't useful on servers.
+    # If code isn't enabled, the assertion will never be checked due to the mkIf.
+    assertions = [
+      {
+        assertion = hostConfig.custom.deviceType != "server";
+        message = "VS Code is not supported on servers. Use remote development instead.";
+      }
+    ];
+
     programs.vscode = {
       enable = true;
 

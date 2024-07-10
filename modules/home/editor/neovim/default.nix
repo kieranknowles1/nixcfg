@@ -31,7 +31,6 @@
       recursive = true;
     };
 
-
     custom.edit-config.programs.nvim = {
       system-path = "~/.config/nvim";
       repo-path = "modules/home/editor/neovim/config";
