@@ -24,7 +24,7 @@ in {
 
       editor = {
         neovim.enable = true;
-        vscode.enable = isDesktop; # TODO: Add an assert to only allow vscode on desktops
+        vscode.enable = isDesktop;
       };
     };
 
