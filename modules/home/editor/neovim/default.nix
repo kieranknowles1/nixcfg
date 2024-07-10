@@ -4,7 +4,10 @@
   lib,
   ...
 }: {
-  # TODO: Maybe allow multiple editors to be installed at the same time
+  options.custom.editor.neovim = {
+    enable = lib.mkEnableOption "NeoVim";
+  };
+
   # TODO: Configure all the language servers I use
   # - Rust
   # - Nix
@@ -12,7 +15,7 @@
   # - Yaml
   # - Nu
   # - Toml
-  config = lib.mkIf (config.custom.editor == "neovim") {
+  config = lib.mkIf config.custom.editor.neovim.enable {
     programs.neovim = {
       enable = true;
 
