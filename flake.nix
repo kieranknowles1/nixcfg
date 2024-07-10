@@ -60,7 +60,7 @@
       };
       server = lib.host.mkHost {
         name = "server";
-        system = "x86_64-linux"; # TODO: Should be arm
+        system = "x86_64-linux"; # TODO: Should be arm, but I can't cross-compile directly. Try mounting the flake in a minimal ARM NixOS VM and building it there.
       };
     };
 
