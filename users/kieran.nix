@@ -21,6 +21,11 @@ in {
 
       docs-generate.enable = isDesktop;
       edit-config.enable = isDesktop;
+
+      editor = {
+        neovim.enable = true;
+        vscode.enable = isDesktop; # TODO: Add an assert to only allow vscode on desktops
+      };
     };
 
     # This value determines the Home Manager release that your configuration is
