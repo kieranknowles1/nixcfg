@@ -70,7 +70,7 @@ in {
       example = {
         "file-a.md" = {
           description = "Some generated stuff";
-          source = ./docs-generated/file-a.md;
+          source = "./docs-generated/file-a.md";
         };
       };
 
@@ -85,7 +85,7 @@ in {
           source = lib.mkOption {
             description = "The file containing the content. Probably a derivation.";
             type = lib.types.path;
-            example = ./docs-generated/file-a.md;
+            example = "./docs-generated/file-a.md";
           };
         };
       });
@@ -102,9 +102,17 @@ in {
         description = "NixOS options";
         source = flake.lib.docs.mkOptionDocs ../nixos/default.nix;
       };
+      "host-options.schema.json" = {
+        description = "NixOS options schema";
+        source = flake.lib.docs.mkJsonSchema ../nixos/default.nix;
+      };
       "user-options.md" = {
         description = "home-manager options";
         source = flake.lib.docs.mkOptionDocs ./default.nix;
+      };
+      "user-options.schema.json" = {
+        description = "home-manager options schema";
+        source = flake.lib.docs.mkJsonSchema ./default.nix;
       };
     };
 
