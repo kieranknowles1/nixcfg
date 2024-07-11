@@ -90,7 +90,7 @@ in {
 
   # Example
   ```nix
-  mkJsonSchema ./modules/nixos
+  mkJsonSchema ./modules/nixos (opts: opts.foo)
   => JSON file
 
   ```
@@ -98,15 +98,20 @@ in {
 
   # Arguments
   importer :: Path : The file to import all modules containing options
+  filter :: Func(AttrSet -> AttrSet) : A function to filter the options
+
+  NOTE: If the filter function selects a subset of the options (e.g, opts.foo), the schema will only contain the
+  selected options and they will have to be manually merged at the appropriate place.
 
   # Returns
   Path : The path to the generated JSON file
 
 
   */
-  mkJsonSchema = importer: let
+  mkJsonSchema = importer: filter: let
     modulesEval = evalModules importer;
-    schemaNix = inputs.clan-core.lib.jsonschema.parseOptions modulesEval.options;
+    filtered = filter modulesEval.options;
+    schemaNix = inputs.clan-core.lib.jsonschema.parseOptions filtered;
 
     schemaJson = builtins.toJSON schemaNix;
   in pkgs.writeText "schema.json" schemaJson;

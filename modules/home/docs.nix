@@ -104,7 +104,7 @@ in {
       };
       "host-options.schema.json" = {
         description = "NixOS options schema";
-        source = flake.lib.docs.mkJsonSchema ../nixos/default.nix;
+        source = flake.lib.docs.mkJsonSchema ../nixos/default.nix (opts: opts.custom);
       };
       "user-options.md" = {
         description = "home-manager options";
@@ -112,7 +112,7 @@ in {
       };
       "user-options.schema.json" = {
         description = "home-manager options schema";
-        source = flake.lib.docs.mkJsonSchema ./default.nix;
+        source = flake.lib.docs.mkJsonSchema ./default.nix (opts: opts.custom);
       };
     };
 
