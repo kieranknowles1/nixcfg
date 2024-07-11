@@ -7,21 +7,7 @@
   ...
 }: {
   # Enable everything needed for this configuration
-  # TODO: Use TOML instead of Nix
   config.custom = {
     user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
-
-    deviceType = "desktop";
-    repoPath = "/home/kieran/Documents/src/nixcfg";
-
-    office.enable = true;
-
-    printing.enable = true;
-
-    development = {
-      enable = true;
-      node.enable = true;
-      meta.enable = true;
-    };
-  };
+  } // builtins.fromTOML (builtins.readFile ./config.toml);
 }
