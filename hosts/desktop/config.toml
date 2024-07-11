@@ -1,0 +1,13 @@
+#:schema ../../docs/host-options.schema.json
+
+deviceType = "desktop"
+repoPath = "/home/kieran/Documents/src/nixcfg"
+
+games.enable = true
+
+nvidia.enable = true
+
+[development]
+enable = true
+meta.enable = true
+modding.enable = true

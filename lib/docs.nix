@@ -93,8 +93,11 @@ in {
   mkJsonSchema ./modules/nixos (opts: opts.foo)
   => JSON file
 
+  # Toml is preferred for configuration files as it supports comments
+  # and has a more nix-like syntax.
+  config.foo = builtins.fromTOML (builtins.readFile ./config.toml)
+
   ```
-  # TODO: Add example usage in a configuration.nix file
 
   # Arguments
   importer :: Path : The file to import all modules containing options

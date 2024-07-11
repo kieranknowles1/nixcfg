@@ -5,6 +5,9 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
 
+    # Used to generate schemas for config files. This lets
+    # our language server provide completions, type checking, and documentation by linking to the schema.
+    # See [[./lib/docs.nix]] for more information. This is a much more convenient way to find options than generated markdown.
     clan-core = {
       url = "git+https://git.clan.lol/clan/clan-core";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -9,6 +9,7 @@
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
+  # TODO: Use TOML instead of Nix
   config.custom = {
     user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
     deviceType = "server";
