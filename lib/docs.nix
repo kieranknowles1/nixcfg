@@ -1,7 +1,20 @@
 {
   pkgs,
   flake,
-}: {
+  inputs,
+}: let
+  evalModules = importer: pkgs.lib.evalModules {
+    modules = [
+      importer
+      # Don't eval flake inputs, we don't want to generate documentation for them.
+      # The checks this disables are already being done during build time.
+
+      # This works because evalModules is not passed anything from the flake inputs, such as nixpkgs.
+      # Disabling checks supresses the missing input error (which is expected and any unexpected error will have already been caught).
+      {config._module.check = false;}
+    ];
+  };
+in {
   /*
   *
   Generate documentation for the functions in the given directory.
@@ -52,7 +65,7 @@
   # Example
   ```nix
   mkOptionDocs ./modules/nixos
-  => Markdown text
+  => Markdown file
   ```
 
   # Type
@@ -63,21 +76,38 @@
   : The file to import all modules containing options
   */
   mkOptionDocs = importer: let
-    modulesEval = pkgs.lib.evalModules {
-      modules = [
-        importer
-        # Don't eval flake inputs, we don't want to generate documentation for them.
-        # The checks this disables are already being done during build time.
-
-        # This works because evalModules is not passed anything from the flake inputs, such as nixpkgs.
-        # Disabling checks supresses the missing input error (which is expected and any unexpected error will have already been caught).
-        {config._module.check = false;}
-      ];
-    };
+    modulesEval = evalModules importer;
 
     optionsDoc = pkgs.nixosOptionsDoc {
       options = modulesEval.options;
     };
   in
     optionsDoc.optionsCommonMark;
+
+  /*
+  *
+  Generate a JSON schema for options in the given directory
+
+  # Example
+  ```nix
+  mkJsonSchema ./modules/nixos
+  => JSON file
+
+  ```
+  # TODO: Add example usage in a configuration.nix file
+
+  # Arguments
+  importer :: Path : The file to import all modules containing options
+
+  # Returns
+  Path : The path to the generated JSON file
+
+
+  */
+  mkJsonSchema = importer: let
+    modulesEval = evalModules importer;
+    schemaNix = inputs.clan-core.lib.jsonschema.parseOptions modulesEval.options;
+
+    schemaJson = builtins.toJSON schemaNix;
+  in pkgs.writeText "schema.json" schemaJson;
 }

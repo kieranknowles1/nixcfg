@@ -114,6 +114,52 @@
         "type": "github"
       }
     },
+    "clan-core": {
+      "inputs": {
+        "disko": "disko",
+        "flake-parts": "flake-parts",
+        "nixos-images": "nixos-images",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "sops-nix": "sops-nix",
+        "treefmt-nix": "treefmt-nix"
+      },
+      "locked": {
+        "lastModified": 1720716544,
+        "narHash": "sha256-SoWNPWkxRaEvTs1w//AKIdFzU2N8WikpWgL69rW0aMI=",
+        "ref": "refs/heads/main",
+        "rev": "0bbab9484122735a5a42412be641a1af60da2039",
+        "revCount": 3395,
+        "type": "git",
+        "url": "https://git.clan.lol/clan/clan-core"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.clan.lol/clan/clan-core"
+      }
+    },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "clan-core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720056646,
+        "narHash": "sha256-BymcV4HWtx2VFuabDCM4/nEJcfivCx0S02wUCz11mAY=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "64679cd7f318c9b6595902b47d4585b1d51d5f9e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -167,6 +213,27 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "clan-core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1719994518,
+        "narHash": "sha256-pQMhCCHyQGRzdfAkdJ4cIWiw+JNuWsTX7f0ZYSyz0VY=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "9227223f6d922fee3c7b190b2cc238a99527bbb7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
         "type": "github"
       }
     },
@@ -257,6 +324,30 @@
         "type": "github"
       }
     },
+    "nixos-images": {
+      "inputs": {
+        "nixos-stable": [
+          "clan-core"
+        ],
+        "nixos-unstable": [
+          "clan-core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720055024,
+        "narHash": "sha256-c5rsiI1R7tnCDpcgfsa7ouSdn6wpctbme9TUp53CFyU=",
+        "owner": "nix-community",
+        "repo": "nixos-images",
+        "rev": "f8650460d37d9d1820a93ebb7f0db5b6c3621946",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-images",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1720386169,
@@ -291,12 +382,37 @@
     },
     "root": {
       "inputs": {
+        "clan-core": "clan-core",
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "stylix": "stylix",
         "vscode-extensions": "vscode-extensions"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "clan-core",
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": [
+          "clan-core"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720321395,
+        "narHash": "sha256-kcI8q9Nh8/CSj0ygfWq1DLckHl8IHhFarL8ie6g7OEk=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "c184aca4db5d71c3db0c8cbfcaaec337a5d065ea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "stylix": {
@@ -343,6 +459,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "clan-core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720436211,
+        "narHash": "sha256-/cKXod0oGLl+vH4bKBZnTV3qxrw4jgOLnyQ8KXey5J8=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "6fc8bded78715cdd43a3278a14ded226eb3a239e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "type": "github"
       }
     },

@@ -8,13 +8,13 @@
     # TODO: Remove this in favour of the host's configuration
     repoPath = lib.mkOption {
       description = "Path to the repository on disk, relative to the home directory";
-      type = with lib.types; uniq str;
+      type = lib.types.str;
     };
 
     fonts = {
       defaultMono = lib.mkOption {
         description = "Default monospace font";
-        type = with lib.types; uniq str;
+        type = lib.types.str;
         default = "DejaVuSansMono";
       };
     };
