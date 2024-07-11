@@ -10,6 +10,7 @@ in {
     shell = pkgs.nushell;
   };
 
+  # TODO: Use TOML instead of Nix
   home = {
     custom = {
       repoPath = "Documents/src/nixcfg";
