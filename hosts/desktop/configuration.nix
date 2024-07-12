@@ -7,7 +7,9 @@
   ...
 }: {
   # Enable everything needed for this configuration
-  config.custom = {
-    user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
-  } // builtins.fromTOML (builtins.readFile ./config.toml);
+  config.custom =
+    {
+      user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
+    }
+    // builtins.fromTOML (builtins.readFile ./config.toml);
 }

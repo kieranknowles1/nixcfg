@@ -3,17 +3,18 @@
   flake,
   inputs,
 }: let
-  evalModules = importer: pkgs.lib.evalModules {
-    modules = [
-      importer
-      # Don't eval flake inputs, we don't want to generate documentation for them.
-      # The checks this disables are already being done during build time.
+  evalModules = importer:
+    pkgs.lib.evalModules {
+      modules = [
+        importer
+        # Don't eval flake inputs, we don't want to generate documentation for them.
+        # The checks this disables are already being done during build time.
 
-      # This works because evalModules is not passed anything from the flake inputs, such as nixpkgs.
-      # Disabling checks supresses the missing input error (which is expected and any unexpected error will have already been caught).
-      {config._module.check = false;}
-    ];
-  };
+        # This works because evalModules is not passed anything from the flake inputs, such as nixpkgs.
+        # Disabling checks supresses the missing input error (which is expected and any unexpected error will have already been caught).
+        {config._module.check = false;}
+      ];
+    };
 in {
   /*
   *
@@ -117,5 +118,6 @@ in {
     schemaNix = inputs.clan-core.lib.jsonschema.parseOptions filtered;
 
     schemaJson = builtins.toJSON schemaNix;
-  in pkgs.writeText "schema.json" schemaJson;
+  in
+    pkgs.writeText "schema.json" schemaJson;
 }
