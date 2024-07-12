@@ -3,7 +3,7 @@
   flake,
   lib,
   config,
-  system,
+  hostConfig,
   ...
 }: let
   combinedConfig =
@@ -15,7 +15,7 @@ in {
   options.custom.edit-config = {
     enable = lib.mkEnableOption "edit-config script.";
 
-    package = lib.mkPackageOption flake.packages.${system} "edit-config" {};
+    package = lib.mkPackageOption flake.packages.${hostConfig.nixpkgs.hostPlatform.system} "edit-config" {};
 
     # TODO: Remove this and just use config.custom.editor
     editor = lib.mkOption {

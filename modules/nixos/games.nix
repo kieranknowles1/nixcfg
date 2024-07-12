@@ -5,10 +5,9 @@
   pkgs-unstable,
   pkgs,
   flake,
-  system,
   ...
 }: let
-  flakePackages = flake.packages.${system};
+  flakePackages = flake.packages.${config.nixpkgs.hostPlatform.system};
 in {
   options = {
     custom.games.enable = lib.mkEnableOption "games";

@@ -2,12 +2,11 @@
 {
   inputs,
   lib,
-  system,
   config,
   ...
 }: let
   # Force this module to use the stable nixpkgs, even if the system is running unstable
-  packagesStable = inputs.nixpkgs.legacyPackages.${system};
+  packagesStable = inputs.nixpkgs.legacyPackages.${config.nixpkgs.hostPlatform.system};
 in {
   options.custom = {
     printing.enable = lib.mkEnableOption "printing";

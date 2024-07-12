@@ -4,7 +4,6 @@
   config,
   flake,
   inputs,
-  system,
   pkgs-unstable,
   ...
 }: {
@@ -83,9 +82,8 @@
       useGlobalPkgs = true;
 
       # Pass flake inputs plus host configuration
-      # TODO: The system arg seems redundant, can we use config.??? instead?
       extraSpecialArgs = {
-        inherit flake inputs system pkgs-unstable;
+        inherit flake inputs pkgs-unstable;
         hostConfig = config;
       };
 
