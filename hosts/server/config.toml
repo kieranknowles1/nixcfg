@@ -1,0 +1,4 @@
+#:schema ../../docs/host-options.schema.json
+
+deviceType = "server"
+repoPath = "/home/kieran/nixcfg"

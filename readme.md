@@ -6,9 +6,11 @@ This repository contains the NixOS configuration for my systems.
   - [Usage](#usage)
     - [System Usage](#system-usage)
       - [Key Bindings](#key-bindings)
+      - [Dev Shells](#dev-shells)
   - [Documentation and Development Notes](#documentation-and-development-notes)
     - [Library](#library)
     - [Options](#options)
+    - [Packages](#packages)
     - [Repository Structure](#repository-structure)
     - [Essential Resources](#essential-resources)
     - [Todo List](#todo-list)
@@ -18,9 +20,9 @@ This repository contains the NixOS configuration for my systems.
 
 ## Usage
 
-To rebuild the system, run `./rebuild.py <commit message>`.
+To rebuild the system, run `rebuild build <commit message>`.
 This will update and switch to the current changes, then commit them if it was successful.
-For more information, run `./rebuild.py --help`.
+For more information, run `rebuild --help`.
 
 `nix-tree` is a useful tool for visualizing what derivations are included and their dependencies.
 
@@ -30,6 +32,11 @@ For more information, run `./rebuild.py --help`.
 
 Key bindings are managed by sxhkd. Documentation is generated during build and can be found in
 [docs/shortcuts.md](docs/shortcuts.md).
+
+#### Dev Shells
+
+Dev shells are provided for development of various languages/projects. These can be entered with `develop <shell>`.
+To list available shells, run `nix flake show`.
 
 ## Documentation and Development Notes
 
@@ -50,6 +57,18 @@ while user-specific options are in [docs/user-options.md](docs/user-options.md).
 
 This is generated with `nixosOptionsDoc` and I wouldn't have known about it or how to use it without Brian McGee's
 [blog post](https://bmcgee.ie/posts/2023/03/til-how-to-generate-nixos-module-docs/).
+
+A more recent addition is the use of `clan-core` to generate JSON schemas for the options. This is in turn used
+to configure modules with TOML files for better feedback during development. This is generated during the build process and
+dumped to [docs/host-options.schema.json](docs/host-options.schema.json) and [docs/user-options.schema.json](docs/user-options.schema.json).
+
+### Packages
+
+A few packages are provided in the [packages](packages/) directory. These are built with `nix build`, or included in a
+shell or configuration. These are quite specific to my use case and may or may not be useful to others.
+
+These are written in Python, although some have been oxidized as I'm trying to learn Rust, the language with a suspiciously
+high overlap between people who use it, and people who use NixOS.
 
 ### Repository Structure
 

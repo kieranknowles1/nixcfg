@@ -1,7 +1,21 @@
 {
   pkgs,
   flake,
-}: {
+  inputs,
+}: let
+  evalModules = importer:
+    pkgs.lib.evalModules {
+      modules = [
+        importer
+        # Don't eval flake inputs, we don't want to generate documentation for them.
+        # The checks this disables are already being done during build time.
+
+        # This works because evalModules is not passed anything from the flake inputs, such as nixpkgs.
+        # Disabling checks supresses the missing input error (which is expected and any unexpected error will have already been caught).
+        {config._module.check = false;}
+      ];
+    };
+in {
   /*
   *
   Generate documentation for the functions in the given directory.
@@ -52,7 +66,7 @@
   # Example
   ```nix
   mkOptionDocs ./modules/nixos
-  => Markdown text
+  => Markdown file
   ```
 
   # Type
@@ -63,21 +77,47 @@
   : The file to import all modules containing options
   */
   mkOptionDocs = importer: let
-    modulesEval = pkgs.lib.evalModules {
-      modules = [
-        importer
-        # Don't eval flake inputs, we don't want to generate documentation for them.
-        # The checks this disables are already being done during build time.
-
-        # This works because evalModules is not passed anything from the flake inputs, such as nixpkgs.
-        # Disabling checks supresses the missing input error (which is expected and any unexpected error will have already been caught).
-        {config._module.check = false;}
-      ];
-    };
+    modulesEval = evalModules importer;
 
     optionsDoc = pkgs.nixosOptionsDoc {
       options = modulesEval.options;
     };
   in
     optionsDoc.optionsCommonMark;
+
+  /*
+  *
+  Generate a JSON schema for options in the given directory
+
+  # Example
+  ```nix
+  mkJsonSchema ./modules/nixos (opts: opts.foo)
+  => JSON file
+
+  # Toml is preferred for configuration files as it supports comments
+  # and has a more nix-like syntax.
+  config.foo = builtins.fromTOML (builtins.readFile ./config.toml)
+
+  ```
+
+  # Arguments
+  importer :: Path : The file to import all modules containing options
+  filter :: Func(AttrSet -> AttrSet) : A function to filter the options
+
+  NOTE: If the filter function selects a subset of the options (e.g, opts.foo), the schema will only contain the
+  selected options and they will have to be manually merged at the appropriate place.
+
+  # Returns
+  Path : The path to the generated JSON file
+
+
+  */
+  mkJsonSchema = importer: filter: let
+    modulesEval = evalModules importer;
+    filtered = filter modulesEval.options;
+    schemaNix = inputs.clan-core.lib.jsonschema.parseOptions filtered;
+
+    schemaJson = builtins.toJSON schemaNix;
+  in
+    pkgs.writeText "schema.json" schemaJson;
 }

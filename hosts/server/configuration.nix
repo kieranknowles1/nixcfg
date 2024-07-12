@@ -9,12 +9,11 @@
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
-  config.custom = {
-    user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
-    deviceType = "server";
-
-    repoPath = "/home/kieran/nixcfg";
-  };
+  config.custom =
+    {
+      user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
+    }
+    // builtins.fromTOML (builtins.readFile ./config.toml);
 }
 # TODO: Implement the configuration of the server.
 

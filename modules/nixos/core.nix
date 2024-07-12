@@ -18,7 +18,7 @@ in {
     # TODO: Also substitute store references in docs
     repoPath = lib.mkOption {
       description = "Absolute path to the repository on disk";
-      type = with lib.types; uniq str;
+      type = lib.types.str;
     };
 
     deviceType = lib.mkOption {
