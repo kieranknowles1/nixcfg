@@ -2,12 +2,11 @@
 {
   hostConfig,
   inputs,
-  system,
   ...
 }: let
   isDesktop = hostConfig.custom.deviceType == "desktop";
 
-  pkgs-stable = inputs.nixpkgs.legacyPackages.${system};
+  pkgs-stable = inputs.nixpkgs.legacyPackages.${hostConfig.nixpkgs.hostPlatform.system};
 in {
   programs.firefox = {
     enable = isDesktop;
@@ -33,7 +32,7 @@ in {
       isDefault = true;
 
       # NOTE: Extensions here still have to be enabled manually
-      extensions = with inputs.firefox-addons.packages."${system}"; [
+      extensions = with inputs.firefox-addons.packages."${hostConfig.nixpkgs.hostPlatform.system}"; [
         bitwarden
         darkreader
         privacy-badger

@@ -4,14 +4,13 @@
   lib,
   pkgs-unstable,
   inputs,
-  system,
   ...
 }: let
   userSettingsDir = "${config.xdg.configHome}/Code/User";
 
   hostDevelopment = hostConfig.custom.development;
 
-  extensionsRepo = inputs.vscode-extensions.extensions.${system};
+  extensionsRepo = inputs.vscode-extensions.extensions.${hostConfig.nixpkgs.hostPlatform.system};
 in {
   options.custom.editor.vscode = {
     enable = lib.mkEnableOption "VS Code";
