@@ -9,7 +9,7 @@
   combinedConfig =
     config.custom.edit-config
     // {
-      repository = "~/${config.custom.repoPath}";
+      repository = hostConfig.custom.repoPath;
     };
 in {
   options.custom.edit-config = {

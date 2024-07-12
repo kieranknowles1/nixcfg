@@ -14,7 +14,6 @@ in {
   # otherwise it would be a bit messy to have some toml and some nix
   home = {
     custom = {
-      repoPath = "Documents/src/nixcfg";
       userDetails = {
         email = "kieranknowles11@hotmail.co.uk";
         firstName = "Kieran";
