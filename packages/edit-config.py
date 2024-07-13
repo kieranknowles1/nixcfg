@@ -24,7 +24,7 @@ class Config:
             self.applications[app] = Application(
                 path.expanduser(app_data["system-path"]),
                 path.join(repository, app_data["repo-path"]),
-                app_data.get("ignore-dirs"),
+                app_data.get("ignore-paths"),
                 app_data.get("nix-managed-paths"),
             )
 

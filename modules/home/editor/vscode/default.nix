@@ -72,7 +72,7 @@ in {
     custom.edit-config.programs.code = {
       system-path = userSettingsDir;
       repo-path = "modules/home/editor/vscode/";
-      ignore-dirs = [
+      ignore-paths = [
         "History"
         "globalStorage"
         "workspaceStorage"
