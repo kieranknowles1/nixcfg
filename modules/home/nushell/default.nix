@@ -37,6 +37,12 @@ in {
     settings = builtins.fromTOML (builtins.readFile ./starship.toml);
   };
 
+  # Smart cd
+  programs.zoxide = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
   fonts.fontconfig.enable = true;
 
   # Starship uses icons from NerdFonts
