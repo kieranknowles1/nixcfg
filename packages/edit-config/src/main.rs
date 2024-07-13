@@ -36,9 +36,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
 
     let program = match config.programs.get(&args.program) {
-        Some(program) => program,
+        Some(program) => program.to_absolute(&config.repository),
         None => Err(ProgramNotFoundError { program: args.program })?,
     };
+
+    println!("Program: {:?}", program);
 
     Ok(())
 }

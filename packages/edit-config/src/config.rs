@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::{HashMap, HashSet}, path::{Path, PathBuf}};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -6,7 +6,7 @@ pub struct Config {
     /// Editor to use for opening files
     pub editor: String,
     /// Path to the nixcfg repository on disk
-    pub repository: String,
+    pub repository: PathBuf,
 
     /// Programs that can be configured, with keys being the program name
     /// and values being their config data
@@ -18,13 +18,31 @@ pub struct ProgramConfig {
     /// List of paths to ignore. If a directory is ignored, all files
     /// within it are ignored as well.
     #[serde(rename = "ignore-paths")]
-    pub ignore_paths: Vec<String>,
+    ignore_paths: HashSet<String>,
 
     #[serde(rename = "repo-path")]
-    pub repo_path: String,
+    repo_path: String,
 
     #[serde(rename = "system-path")]
-    pub system_path: String,
+    system_path: String,
+}
+
+/// Program config with absolute paths instead of possibly relative paths
+#[derive(Debug)]
+pub struct AbsoluteProgramConfig {
+    pub ignore_paths: HashSet<PathBuf>,
+    pub repo_path: PathBuf,
+    pub system_path: PathBuf,
+}
+
+impl ProgramConfig {
+    pub fn to_absolute(&self, repository: &PathBuf) -> AbsoluteProgramConfig {
+        AbsoluteProgramConfig {
+            ignore_paths: self.ignore_paths.iter().map(|p| repository.join(p)).collect(),
+            repo_path: repository.join(&self.repo_path),
+            system_path: shellexpand::tilde(&self.system_path).into_owned().into(),
+        }
+    }
 }
 
 impl Config {
