@@ -61,21 +61,19 @@ in {
             # store, not the repository.
             type = lib.types.str;
           };
-          ignore-dirs = lib.mkOption {
+          ignore-paths = lib.mkOption {
             description = ''
-              Top-level directories to ignore when searching for files.
+              Paths to ignore when searching for configuration files.
+              If a directory is listed, all files within it will be ignored.
+
+              All paths are relative to system-path.
             '';
             type = lib.types.listOf lib.types.str;
             default = [];
-            example = ["node_modules"];
-          };
-          nix-managed-paths = lib.mkOption {
-            description = ''
-              Paths that are managed by Nix and should be ignored.
-            '';
-            type = lib.types.listOf lib.types.str;
-            default = [];
-            example = ["match/base.yml"];
+            example = [
+              "node_modules"
+              "match/base.yml"
+            ];
           };
         };
       });
