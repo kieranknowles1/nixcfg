@@ -15,6 +15,10 @@
         {config._module.check = false;}
       ];
     };
+
+  jsonLib = inputs.clan-core.lib.jsonschema {
+    # Options can be overridden here.
+  };
 in {
   /*
   *
@@ -115,7 +119,8 @@ in {
   mkJsonSchema = importer: filter: let
     modulesEval = evalModules importer;
     filtered = filter modulesEval.options;
-    schemaNix = inputs.clan-core.lib.jsonschema.parseOptions filtered;
+    # We can override a different set of options here.
+    schemaNix = jsonLib.parseOptions filtered { };
 
     schemaJson = builtins.toJSON schemaNix;
   in
