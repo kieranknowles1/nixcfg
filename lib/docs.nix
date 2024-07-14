@@ -122,6 +122,7 @@ in {
     # We can override a different set of options here.
     schemaNix = jsonLib.parseOptions filtered { };
 
+    # Convert the Nix object to JSON to be consistent with the other docs-related functions.
     schemaJson = builtins.toJSON schemaNix;
   in
     pkgs.writeText "schema.json" schemaJson;

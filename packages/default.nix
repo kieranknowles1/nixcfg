@@ -4,13 +4,15 @@
 }: let
   packagePythonScript = flakeLib.package.packagePythonScript;
 in {
-  # TODO: Add descriptions in each packages metadata
+  # TODO: Add metadata
   combine-blueprints = packagePythonScript "combine-blueprints" ./combine-blueprints.py "1.0.0";
 
   edit-config = import ./edit-config {inherit pkgs;};
 
+  # TODO: Add metadata
   export-blueprints = packagePythonScript "export-blueprints" ./export-blueprints.py "1.0.0";
 
+  # TODO: Add metadata
   factorio-blueprint-decoder = let
     src = pkgs.fetchFromGitHub {
       owner = "kieranknowles1";
