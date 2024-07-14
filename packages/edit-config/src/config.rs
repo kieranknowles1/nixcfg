@@ -1,4 +1,4 @@
-use std::{collections::{HashMap, HashSet}, path::{Path, PathBuf}};
+use std::{collections::{HashMap, HashSet}, path::{Path, PathBuf, StripPrefixError}};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -36,12 +36,29 @@ pub struct AbsoluteProgramConfig {
 }
 
 impl ProgramConfig {
-    pub fn to_absolute(&self, repository: &PathBuf) -> AbsoluteProgramConfig {
+    pub fn to_absolute(&self, repository: &Path) -> AbsoluteProgramConfig {
+        let expanded_system_path = shellexpand::tilde(&self.system_path);
+        let system_path = PathBuf::from(expanded_system_path.into_owned());
+
         AbsoluteProgramConfig {
-            ignore_paths: self.ignore_paths.iter().map(|p| repository.join(p)).collect(),
+            ignore_paths: self.ignore_paths.iter().map(|p| system_path.join(p)).collect(),
             repo_path: repository.join(&self.repo_path),
-            system_path: shellexpand::tilde(&self.system_path).into_owned().into(),
+            system_path,
         }
+    }
+}
+
+impl AbsoluteProgramConfig {
+    /// Check if a path in system_path is ignored
+    pub fn is_ignored(&self, path: &Path) -> bool {
+        // starts_with also counts if the path is identical
+        self.ignore_paths.iter().any(|p| path.starts_with(p))
+    }
+
+    /// Convert a path in system_path to a path in repo_path
+    pub fn to_repo_path(&self, path: &Path) -> Result<PathBuf, StripPrefixError> {
+        let stripped = path.strip_prefix(&self.system_path)?;
+        Ok(self.repo_path.join(stripped))
     }
 }
 
