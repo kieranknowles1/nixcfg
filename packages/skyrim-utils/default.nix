@@ -5,4 +5,8 @@ pkgs.rustPlatform.buildRustPackage {
   src = ./.;
 
   cargoHash = "sha256-LuEfA3yj47UI66kALNgHVUvLv6chQLYKj6RiToTa2MY=";
+
+  meta = {
+    description = "Utilities for Skyrim debugging";
+  };
 }
