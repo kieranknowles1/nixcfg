@@ -7,7 +7,7 @@ in {
   # TODO: Add descriptions in each packages metadata
   combine-blueprints = packagePythonScript "combine-blueprints" ./combine-blueprints.py "1.0.0";
 
-  edit-config = packagePythonScript "edit-config" ./edit-config.py "3.1.0";
+  edit-config = import ./edit-config {inherit pkgs;};
 
   export-blueprints = packagePythonScript "export-blueprints" ./export-blueprints.py "1.0.0";
 
