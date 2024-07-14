@@ -10,7 +10,7 @@ from os import path, makedirs
 from shutil import rmtree
 from subprocess import run
 from sys import stderr
-from typing import Any
+from typing import Any, Optional
 import json
 
 def write_json(data: Any, path: str):
@@ -33,23 +33,28 @@ def export_bin():
 
     return (json.loads(result.stdout), result.stderr if skipped_any else None)
 
-def get_name(entry: dict[str, Any]) -> str:
+def get_name(entry: dict[str, Any]) -> Optional[str]:
     if "blueprint" in entry:
-        return entry["blueprint"]["label"]
+        container = entry["blueprint"]
     elif "blueprint_book" in entry:
-        return entry["blueprint_book"]["label"]
+        container = entry["blueprint_book"]
     elif "deconstruction_planner" in entry:
-        return entry["deconstruction_planner"]["label"]
+        container = entry["deconstruction_planner"]
     elif "upgrade_planner" in entry:
-        return entry["upgrade_planner"]["label"]
+        container = entry["upgrade_planner"]
     else:
         raise ValueError(f"Unknown entry type: {entry.keys()}")
+
+    return container["label"] if "label" in container else None
 
 def dump_book(entry: dict[str, Any], base_dir: str, *, is_root: bool):
     """
     Dump a blueprint book and all its contents
     """
     name = get_name(entry)
+    if name is None:
+        raise ValueError(f"Book at {base_dir} has no name")
+
     dir_path = path.join(base_dir, name) if not is_root else base_dir
 
     makedirs(dir_path, exist_ok=True)
@@ -75,6 +80,8 @@ def dump_generic(entry: dict[str, Any], base_dir: str):
     Dump an entry that doesn't require special handling
     """
     name = get_name(entry)
+    if name is None:
+        raise ValueError(f"Entry at {base_dir} has no name")
 
     # Blueprint names can contain slashes, which would create subdirectories
     name = name.replace("/", "_")
