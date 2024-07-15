@@ -44,21 +44,17 @@ in {
           # Plain VSCode supports Markdown, but this extension
           # adds some nice features, namely table of contents
           yzhang.markdown-all-in-one
-        ]
-        ++ (lib.optionals hostDevelopment.meta.enable [
+
+          # Language support
           jnoortheen.nix-ide # Nix IDE
           redhat.vscode-yaml # We have some YAML files in the repo
           tamasfe.even-better-toml # Same for TOML
           thenuprojectcontributors.vscode-nushell-lang # Nushell config
           ms-python.python # Used for several scripts in the repo
           ms-python.vscode-pylance
-        ])
-        ++ (lib.optionals hostDevelopment.modding.enable [
+
           joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
-        ])
-        ++ (lib.optionals hostDevelopment.remote.enable [
-          ms-vscode-remote.remote-ssh
-        ]);
+        ];
     };
 
     home.file."${userSettingsDir}/settings.json" = {

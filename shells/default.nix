@@ -5,9 +5,7 @@
 }: {
   openmw = import ./openmw.nix {inherit pkgs flakeLib;};
 
-  # TODO: Replace all our "config.custom.development" options with dev shells.
-  # Need some way to provision code extensions and other things.
-  meta = import ./meta.nix {inherit flakeLib flakePkgs;};
+  meta = import ./meta.nix {inherit pkgs flakeLib flakePkgs;};
 
   rust = import ./rust.nix {inherit pkgs flakeLib;};
 }
