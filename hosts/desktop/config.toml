@@ -9,5 +9,3 @@ nvidia.enable = true
 
 [development]
 enable = true
-meta.enable = true
-modding.enable = true
