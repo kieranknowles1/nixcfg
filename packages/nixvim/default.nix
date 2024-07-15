@@ -4,8 +4,13 @@
 {
   pkgs,
   inputs,
-}:
-inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
+}: let
+  # List of languages to enable
+  # Format: server = "language-server"; tsgrammar = tree-sitter-grammar;
+  languages = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+    {server = "nil-ls"; tsgrammar = nix; }
+  ];
+in inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
   module = {
     opts = {
       number = true;
@@ -20,7 +25,10 @@ inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
     colorschemes.gruvbox.enable = true;
 
     plugins = {
-      treesitter.enable = true;
+      treesitter = {
+        enable = true;
+        grammarPackages = builtins.map (language: language.tsgrammar) languages;
+      };
       lualine.enable = true;
 
       # Bracket pair color/highlight
@@ -32,16 +40,28 @@ inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
       # Show untracked changes
       gitsigns.enable = true;
 
+      # Search
+      telescope = {
+        enable = true;
+
+        keymaps = {
+          "<C-f>" = "current_buffer_fuzzy_find";
+          # TODO: Search for all files in workspace
+        };
+      };
+
       # Language servers
       lsp = {
         enable = true;
-        servers = {
-          # Nix
-          nil-ls.enable = true;
-          # Lua
-          lua-ls.enable = true;
-        };
+        servers = builtins.listToAttrs (builtins.map (language: {
+          name = language.server;
+          value = { enable = true; };
+        }) languages);
       };
+
+      # Snippets (not specific to Lua)
+      luasnip.enable = true;
+      friendly-snippets.enable = true;
 
       # Completions
       cmp = {
@@ -59,5 +79,14 @@ inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
         };
       };
     };
+
+    # TODO: Remove this once the plugins are properly configured
+    extraConfigLua = builtins.concatStringsSep "\n" (builtins.map (file: builtins.readFile file) [
+      ./config/lua/options.lua
+      ./config/after/plugin/cmp.lua
+      ./config/after/plugin/lsp.lua
+      ./config/after/plugin/telescope.lua
+      ./config/after/plugin/treesitter.lua
+    ]);
   };
 }
