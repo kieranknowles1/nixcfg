@@ -1,6 +1,7 @@
 {
   pkgs,
   flakeLib,
+  inputs,
 }: let
   packagePythonScript = flakeLib.package.packagePythonScript;
 in {
@@ -22,6 +23,8 @@ in {
     };
   in
     packagePythonScript "factorio-blueprint-decoder" "${src}/decode" "0.1.2";
+
+  nixvim = import ./nixvim {inherit pkgs inputs;};
 
   rebuild = import ./rebuild {inherit pkgs;};
 
