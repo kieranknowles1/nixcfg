@@ -43,25 +43,26 @@ lspconfig.lua_ls.setup {
 	},
 }
 
--- Install language servers as needed
-require("mason").setup()
-require("mason-lspconfig").setup_handlers({
-	function(server_name)
-		-- Default handler for anything not explicitly configured
-		lspconfig[server_name].setup {
-			on_attach = on_attach,
-			capabilities = capabilities
-		}
-	end,
-	["lua_ls"] = function()
-		require('neodev').setup()
-		lspconfig.lua_ls.setup {
-			on_attach = on_attach,
-			capabilities = capabilities,
-			Lua = {
-				workspace = { checkThirdParty = false },
-				telemetry = { enabled = false },
-			},
-		}
-	end,
-})
+-- -- Install language servers as needed
+-- Nixvim is handling this now
+-- require("mason").setup()
+-- require("mason-lspconfig").setup_handlers({
+-- 	function(server_name)
+-- 		-- Default handler for anything not explicitly configured
+-- 		lspconfig[server_name].setup {
+-- 			on_attach = on_attach,
+-- 			capabilities = capabilities
+-- 		}
+-- 	end,
+-- 	["lua_ls"] = function()
+-- 		require('neodev').setup()
+-- 		lspconfig.lua_ls.setup {
+-- 			on_attach = on_attach,
+-- 			capabilities = capabilities,
+-- 			Lua = {
+-- 				workspace = { checkThirdParty = false },
+-- 				telemetry = { enabled = false },
+-- 			},
+-- 		}
+-- 	end,
+-- })
