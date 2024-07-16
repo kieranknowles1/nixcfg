@@ -9,10 +9,11 @@
   writePython3Bin = pkgs.writers.writePython3Bin;
 
   # Write a Python file without checking the syntax
-  writePythonFile = name: environment: file: writePython3Bin name environment ''
-    # flake8: noqa
-    ${builtins.readFile file}
-  '';
+  writePythonFile = name: environment: file:
+    writePython3Bin name environment ''
+      # flake8: noqa
+      ${builtins.readFile file}
+    '';
 in {
   # TODO: Add metadata
   combine-blueprints = writePythonFile "combine-blueprints" {} ./combine-blueprints.py;
