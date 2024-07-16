@@ -579,6 +579,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
+        "src-factorio-blueprint-decoder": "src-factorio-blueprint-decoder",
         "stylix": "stylix",
         "vscode-extensions": "vscode-extensions"
       }
@@ -604,6 +605,23 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "src-factorio-blueprint-decoder": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721133589,
+        "narHash": "sha256-MC4/87sUdC9WN1R6WuRtZ8r+Gxj7LbfFwmdftnL/7FY=",
+        "owner": "kieranknowles1",
+        "repo": "factorio-blueprint-decoder",
+        "rev": "6ac7ff494799b1fd24c30fba410ffd40ce3bbbb0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kieranknowles1",
+        "ref": "turret_fix",
+        "repo": "factorio-blueprint-decoder",
         "type": "github"
       }
     },
