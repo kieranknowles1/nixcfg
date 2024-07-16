@@ -3,21 +3,27 @@
   flakeLib,
   inputs,
 }: let
-  packagePythonScript = flakeLib.package.packagePythonScript;
+  # Usage: writePython3 "name" {environment} contents
+  # contents can come from builtins.readFile, but not a Git repository
+  # To use a git repo, add it as a flake input with flake = false.
+  writePython3Bin = pkgs.writers.writePython3Bin;
+
+  # Write a Python file without checking the syntax
+  writePythonFile = name: environment: file: writePython3Bin name environment ''
+    # flake8: noqa
+    ${builtins.readFile file}
+  '';
 in {
   # TODO: Add metadata
-  combine-blueprints = packagePythonScript "combine-blueprints" ./combine-blueprints.py "1.0.0";
+  combine-blueprints = writePythonFile "combine-blueprints" {} ./combine-blueprints.py;
 
   edit-config = import ./edit-config {inherit pkgs;};
 
   # TODO: Add metadata
-  export-blueprints = packagePythonScript "export-blueprints" ./export-blueprints.py "1.0.0";
+  export-blueprints = writePythonFile "export-blueprints" {} ./export-blueprints.py;
 
   # TODO: Add metadata
-  factorio-blueprint-decoder = let
-    src = inputs.src-factorio-blueprint-decoder;
-  in
-    pkgs.writers.writePython3 "factorio-blueprint-decoder" {} (builtins.readFile "${src}/decode");
+  factorio-blueprint-decoder = writePythonFile "factorio-blueprint-decoder" {} "${inputs.src-factorio-blueprint-decoder}/decode";
 
   nixvim = import ./nixvim {inherit pkgs inputs;};
 
