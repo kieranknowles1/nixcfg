@@ -15,14 +15,9 @@ in {
 
   # TODO: Add metadata
   factorio-blueprint-decoder = let
-    src = pkgs.fetchFromGitHub {
-      owner = "kieranknowles1";
-      repo = "factorio-blueprint-decoder";
-      rev = "turret_fix";
-      hash = "sha256-SCcWptznd75ImsGlMl2Bj6z0er2Ila90vXuPPUBIkyI=";
-    };
+    src = inputs.src-factorio-blueprint-decoder;
   in
-    packagePythonScript "factorio-blueprint-decoder" "${src}/decode" "0.1.2";
+    pkgs.writers.writePython3 "factorio-blueprint-decoder" {} (builtins.readFile "${src}/decode");
 
   nixvim = import ./nixvim {inherit pkgs inputs;};
 

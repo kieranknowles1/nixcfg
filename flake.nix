@@ -42,6 +42,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    # Source code that will updated along with the rest of the flake
+    # This saves us from having to manually update hashes
+    src-factorio-blueprint-decoder = {
+      # Branch name is a bit misleading, it represents the original repo with all
+      # PRs merged in. I use it so I have the latest without waiting for the PR
+      url = "github:kieranknowles1/factorio-blueprint-decoder?ref=turret_fix";
+      flake = false;
+    };
   };
 
   outputs = {
