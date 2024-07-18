@@ -1810,10 +1810,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 201
+                "entity_id": 198
               },
               {
-                "entity_id": 198
+                "entity_id": 201
               }
             ]
           }
@@ -1866,10 +1866,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 205
+                "entity_id": 201
               },
               {
-                "entity_id": 201
+                "entity_id": 205
               }
             ]
           }
@@ -1963,10 +1963,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 212
+                "entity_id": 209
               },
               {
-                "entity_id": 209
+                "entity_id": 212
               }
             ]
           }
@@ -2019,10 +2019,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 216
+                "entity_id": 212
               },
               {
-                "entity_id": 212
+                "entity_id": 216
               }
             ]
           }
@@ -2075,10 +2075,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 220
+                "entity_id": 216
               },
               {
-                "entity_id": 216
+                "entity_id": 220
               }
             ]
           }
@@ -2156,10 +2156,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 225
+                "entity_id": 223
               },
               {
-                "entity_id": 223
+                "entity_id": 225
               }
             ]
           }
@@ -2220,10 +2220,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 230
+                "entity_id": 225
               },
               {
-                "entity_id": 225
+                "entity_id": 230
               }
             ]
           }
@@ -2309,10 +2309,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 236
+                "entity_id": 234
               },
               {
-                "entity_id": 234
+                "entity_id": 236
               }
             ]
           }
@@ -2373,10 +2373,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 241
+                "entity_id": 236
               },
               {
-                "entity_id": 236
+                "entity_id": 241
               }
             ]
           }
@@ -2421,10 +2421,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 244
+                "entity_id": 241
               },
               {
-                "entity_id": 241
+                "entity_id": 244
               }
             ]
           }
@@ -2860,8 +2860,8 @@
         "entity_number": 286,
         "name": "medium-electric-pole",
         "neighbours": [
-          275,
           208,
+          275,
           301
         ],
         "position": {
@@ -3076,8 +3076,8 @@
         "entity_number": 301,
         "name": "medium-electric-pole",
         "neighbours": [
-          286,
           222,
+          286,
           312
         ],
         "position": {
@@ -3234,8 +3234,8 @@
         "entity_number": 312,
         "name": "medium-electric-pole",
         "neighbours": [
-          301,
           233,
+          301,
           327
         ],
         "position": {
@@ -3431,10 +3431,10 @@
           "1": {
             "green": [
               {
-                "entity_id": 325
+                "entity_id": 244
               },
               {
-                "entity_id": 244
+                "entity_id": 325
               },
               {
                 "entity_id": 331
@@ -3453,8 +3453,8 @@
         "entity_number": 327,
         "name": "medium-electric-pole",
         "neighbours": [
-          312,
-          248
+          248,
+          312
         ],
         "position": {
           "x": 440.5,

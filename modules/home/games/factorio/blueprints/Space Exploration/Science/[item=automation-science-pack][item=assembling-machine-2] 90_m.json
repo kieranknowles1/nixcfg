@@ -542,8 +542,8 @@
         "name": "small-electric-pole",
         "neighbours": [
           29,
-          49,
           37,
+          49,
           108
         ],
         "position": {

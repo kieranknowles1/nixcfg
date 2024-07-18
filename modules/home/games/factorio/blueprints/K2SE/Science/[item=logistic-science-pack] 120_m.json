@@ -1301,8 +1301,8 @@
         "entity_number": 142,
         "name": "small-electric-pole",
         "neighbours": [
-          133,
           92,
+          133,
           151,
           227
         ],
@@ -1387,8 +1387,8 @@
         "entity_number": 151,
         "name": "small-electric-pole",
         "neighbours": [
-          142,
           99,
+          142,
           160,
           238
         ],
@@ -1473,8 +1473,8 @@
         "entity_number": 160,
         "name": "small-electric-pole",
         "neighbours": [
-          151,
           106,
+          151,
           249
         ],
         "position": {
@@ -1969,8 +1969,8 @@
         "entity_number": 216,
         "name": "small-electric-pole",
         "neighbours": [
-          207,
           133,
+          207,
           227
         ],
         "position": {
@@ -2070,8 +2070,8 @@
         "entity_number": 227,
         "name": "small-electric-pole",
         "neighbours": [
-          216,
           142,
+          216,
           238
         ],
         "position": {
@@ -2171,8 +2171,8 @@
         "entity_number": 238,
         "name": "small-electric-pole",
         "neighbours": [
-          227,
           151,
+          227,
           249
         ],
         "position": {
@@ -2272,8 +2272,8 @@
         "entity_number": 249,
         "name": "small-electric-pole",
         "neighbours": [
-          238,
-          160
+          160,
+          238
         ],
         "position": {
           "x": 222.5,

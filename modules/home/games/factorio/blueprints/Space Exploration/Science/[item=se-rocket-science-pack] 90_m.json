@@ -2950,8 +2950,8 @@
         "entity_number": 330,
         "name": "substation",
         "neighbours": [
-          311,
-          63
+          63,
+          311
         ],
         "position": {
           "x": 630,

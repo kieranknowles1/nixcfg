@@ -1593,8 +1593,8 @@
         "entity_number": 172,
         "name": "small-electric-pole",
         "neighbours": [
-          167,
           88,
+          167,
           177,
           211
         ],
@@ -1645,8 +1645,8 @@
         "entity_number": 177,
         "name": "small-electric-pole",
         "neighbours": [
-          172,
           92,
+          172,
           182,
           220
         ],

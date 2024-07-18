@@ -2,463 +2,317 @@
   "blueprint": {
     "entities": [
       {
+        "direction": 2,
         "entity_number": 1,
-        "name": "storage-tank",
+        "name": "pipe-to-ground",
         "position": {
-          "x": 249.5,
-          "y": 224.5
+          "x": 392.5,
+          "y": 127.5
         }
       },
       {
-        "connections": {
-          "1": {
-            "red": [
-              {
-                "entity_id": 10
-              }
-            ]
-          }
-        },
-        "direction": 2,
         "entity_number": 2,
-        "name": "storage-tank",
+        "name": "pipe",
         "position": {
-          "x": 249.5,
-          "y": 227.5
+          "x": 393.5,
+          "y": 127.5
         }
       },
       {
         "entity_number": 3,
         "name": "pipe",
         "position": {
-          "x": 251.5,
-          "y": 226.5
+          "x": 395.5,
+          "y": 127.5
         }
       },
       {
         "entity_number": 4,
         "name": "pipe",
         "position": {
-          "x": 253.5,
-          "y": 227.5
+          "x": 394.5,
+          "y": 127.5
         }
       },
       {
         "entity_number": 5,
         "name": "pipe",
         "position": {
-          "x": 253.5,
-          "y": 226.5
-        }
-      },
-      {
-        "entity_number": 6,
-        "name": "pipe",
-        "position": {
-          "x": 252.5,
-          "y": 226.5
+          "x": 396.5,
+          "y": 127.5
         }
       },
       {
         "connections": {
           "1": {
-            "red": [
-              {
-                "entity_id": 10
-              }
-            ]
-          },
-          "2": {
             "green": [
               {
-                "entity_id": 15
+                "entity_id": 8
               }
             ]
-          }
-        },
-        "control_behavior": {
-          "arithmetic_conditions": {
-            "first_signal": {
-              "name": "light-oil",
-              "type": "fluid"
-            },
-            "operation": "-",
-            "output_signal": {
-              "name": "signal-D",
-              "type": "virtual"
-            },
-            "second_signal": {
-              "name": "petroleum-gas",
-              "type": "fluid"
-            }
           }
         },
         "direction": 2,
-        "entity_number": 7,
-        "name": "arithmetic-combinator",
+        "entity_number": 6,
+        "name": "storage-tank",
         "position": {
-          "x": 252,
-          "y": 228.5
+          "x": 390.5,
+          "y": 130.5
         }
       },
       {
-        "direction": 4,
-        "entity_number": 8,
-        "name": "chemical-plant",
+        "entity_number": 7,
+        "name": "pipe-to-ground",
         "position": {
-          "x": 254.5,
-          "y": 229.5
-        },
-        "recipe": "light-oil-cracking"
-      },
-      {
-        "entity_number": 9,
-        "name": "medium-electric-pole",
-        "neighbours": [
-          12,
-          28
-        ],
-        "position": {
-          "x": 248.5,
-          "y": 230.5
+          "x": 393.5,
+          "y": 128.5
         }
       },
       {
         "connections": {
           "1": {
-            "red": [
+            "green": [
               {
-                "entity_id": 2
-              },
-              {
-                "circuit_id": 1,
-                "entity_id": 7
+                "entity_id": 6
               }
             ]
           }
         },
-        "entity_number": 10,
-        "name": "storage-tank",
+        "direction": 2,
+        "entity_number": 8,
+        "name": "pump",
         "position": {
-          "x": 249.5,
-          "y": 232.5
+          "x": 393,
+          "y": 129.5
+        }
+      },
+      {
+        "entity_number": 9,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 394.5,
+          "y": 128.5
+        }
+      },
+      {
+        "entity_number": 10,
+        "name": "pipe",
+        "position": {
+          "x": 395.5,
+          "y": 129.5
         }
       },
       {
         "entity_number": 11,
         "name": "pipe",
         "position": {
-          "x": 253.5,
-          "y": 231.5
+          "x": 394.5,
+          "y": 129.5
         }
       },
       {
         "entity_number": 12,
-        "name": "medium-electric-pole",
-        "neighbours": [
-          9,
-          25
-        ],
+        "name": "pipe",
         "position": {
-          "x": 254.5,
-          "y": 231.5
+          "x": 396.5,
+          "y": 129.5
         }
       },
       {
         "entity_number": 13,
-        "name": "pipe",
+        "name": "textplate-small-iron",
         "position": {
-          "x": 255.5,
-          "y": 231.5
-        }
+          "x": 387.5,
+          "y": 131.5
+        },
+        "variation": 10
       },
       {
+        "direction": 4,
         "entity_number": 14,
-        "name": "pipe",
+        "name": "pipe-to-ground",
         "position": {
-          "x": 256.5,
-          "y": 231.5
+          "x": 388.5,
+          "y": 130.5
         }
       },
       {
-        "connections": {
-          "1": {
-            "green": [
-              {
-                "circuit_id": 2,
-                "entity_id": 7
-              }
-            ]
-          }
-        },
-        "control_behavior": {
-          "circuit_condition": {
-            "comparator": ">",
-            "constant": 5000,
-            "first_signal": {
-              "name": "signal-D",
-              "type": "virtual"
-            }
-          }
-        },
-        "direction": 2,
         "entity_number": 15,
-        "name": "pump",
+        "name": "pipe",
         "position": {
-          "x": 252,
-          "y": 233.5
+          "x": 388.5,
+          "y": 131.5
         }
       },
       {
         "entity_number": 16,
-        "name": "pipe",
+        "name": "medium-electric-pole",
+        "neighbours": [
+          41
+        ],
         "position": {
-          "x": 253.5,
-          "y": 232.5
+          "x": 393.5,
+          "y": 131.5
         }
       },
       {
+        "direction": 4,
         "entity_number": 17,
-        "name": "pipe",
+        "name": "pipe-to-ground",
         "position": {
-          "x": 253.5,
-          "y": 233.5
+          "x": 394.5,
+          "y": 130.5
         }
       },
       {
         "entity_number": 18,
-        "name": "pipe",
+        "name": "chemical-plant",
         "position": {
-          "x": 256.5,
-          "y": 232.5
-        }
+          "x": 395.5,
+          "y": 132.5
+        },
+        "recipe": "heavy-oil-cracking"
       },
       {
         "entity_number": 19,
         "name": "pipe",
         "position": {
-          "x": 256.5,
-          "y": 233.5
+          "x": 396.5,
+          "y": 130.5
         }
       },
       {
-        "connections": {
-          "1": {
-            "red": [
-              {
-                "entity_id": 33
-              }
-            ]
-          }
-        },
-        "direction": 2,
+        "direction": 4,
         "entity_number": 20,
-        "name": "storage-tank",
+        "name": "pipe-to-ground",
         "position": {
-          "x": 249.5,
-          "y": 235.5
+          "x": 387.5,
+          "y": 135.5
         }
       },
       {
         "entity_number": 21,
         "name": "pipe",
         "position": {
-          "x": 251.5,
-          "y": 234.5
+          "x": 389.5,
+          "y": 134.5
         }
       },
       {
+        "direction": 6,
         "entity_number": 22,
-        "name": "pipe",
+        "name": "pipe-to-ground",
         "position": {
-          "x": 251.5,
-          "y": 235.5
+          "x": 390.5,
+          "y": 134.5
         }
       },
       {
+        "direction": 4,
         "entity_number": 23,
-        "name": "pipe",
+        "name": "pipe-to-ground",
         "position": {
-          "x": 252.5,
-          "y": 235.5
+          "x": 393.5,
+          "y": 135.5
         }
       },
       {
+        "direction": 2,
         "entity_number": 24,
-        "name": "pipe",
+        "name": "pipe-to-ground",
         "position": {
-          "x": 253.5,
-          "y": 235.5
+          "x": 393.5,
+          "y": 134.5
         }
       },
       {
         "entity_number": 25,
-        "name": "medium-electric-pole",
-        "neighbours": [
-          12,
-          28
-        ],
+        "name": "pipe",
         "position": {
-          "x": 254.5,
-          "y": 235.5
+          "x": 394.5,
+          "y": 134.5
         }
       },
       {
         "entity_number": 26,
-        "name": "pipe",
+        "name": "textplate-small-iron",
         "position": {
-          "x": 256.5,
-          "y": 235.5
-        }
+          "x": 387.5,
+          "y": 137.5
+        },
+        "variation": 14
       },
       {
         "entity_number": 27,
         "name": "pipe",
         "position": {
-          "x": 256.5,
-          "y": 234.5
+          "x": 387.5,
+          "y": 136.5
         }
       },
       {
         "entity_number": 28,
-        "name": "medium-electric-pole",
-        "neighbours": [
-          9,
-          25
-        ],
+        "name": "pipe",
         "position": {
-          "x": 248.5,
-          "y": 237.5
+          "x": 388.5,
+          "y": 136.5
         }
       },
       {
         "connections": {
           "1": {
-            "red": [
-              {
-                "entity_id": 33
-              }
-            ]
-          },
-          "2": {
             "green": [
               {
-                "entity_id": 39
+                "entity_id": 35
               }
             ]
           }
         },
-        "control_behavior": {
-          "arithmetic_conditions": {
-            "first_signal": {
-              "name": "heavy-oil",
-              "type": "fluid"
-            },
-            "operation": "-",
-            "output_signal": {
-              "name": "signal-D",
-              "type": "virtual"
-            },
-            "second_signal": {
-              "name": "light-oil",
-              "type": "fluid"
-            }
-          }
-        },
-        "direction": 2,
         "entity_number": 29,
-        "name": "arithmetic-combinator",
+        "name": "storage-tank",
         "position": {
-          "x": 252,
-          "y": 236.5
+          "x": 390.5,
+          "y": 137.5
         }
       },
       {
-        "direction": 4,
         "entity_number": 30,
-        "name": "chemical-plant",
+        "name": "pipe",
         "position": {
-          "x": 254.5,
-          "y": 237.5
-        },
-        "recipe": "heavy-oil-cracking"
+          "x": 393.5,
+          "y": 136.5
+        }
       },
       {
         "entity_number": 31,
         "name": "pipe",
         "position": {
-          "x": 256.5,
-          "y": 236.5
+          "x": 395.5,
+          "y": 136.5
         }
       },
       {
         "entity_number": 32,
         "name": "pipe",
         "position": {
-          "x": 256.5,
-          "y": 237.5
+          "x": 394.5,
+          "y": 136.5
         }
       },
       {
-        "connections": {
-          "1": {
-            "red": [
-              {
-                "entity_id": 20
-              },
-              {
-                "circuit_id": 1,
-                "entity_id": 29
-              }
-            ]
-          }
-        },
         "entity_number": 33,
-        "name": "storage-tank",
+        "name": "pipe-to-ground",
         "position": {
-          "x": 249.5,
-          "y": 239.5
+          "x": 394.5,
+          "y": 137.5
         }
       },
       {
         "entity_number": 34,
         "name": "pipe",
         "position": {
-          "x": 253.5,
-          "y": 239.5
-        }
-      },
-      {
-        "entity_number": 35,
-        "name": "pipe",
-        "position": {
-          "x": 255.5,
-          "y": 239.5
-        }
-      },
-      {
-        "entity_number": 36,
-        "name": "pipe",
-        "position": {
-          "x": 256.5,
-          "y": 238.5
-        }
-      },
-      {
-        "entity_number": 37,
-        "name": "pipe",
-        "position": {
-          "x": 256.5,
-          "y": 239.5
-        }
-      },
-      {
-        "direction": 2,
-        "entity_number": 38,
-        "name": "storage-tank",
-        "position": {
-          "x": 249.5,
-          "y": 242.5
+          "x": 396.5,
+          "y": 136.5
         }
       },
       {
@@ -466,7 +320,6 @@
           "1": {
             "green": [
               {
-                "circuit_id": 2,
                 "entity_id": 29
               }
             ]
@@ -475,43 +328,171 @@
         "control_behavior": {
           "circuit_condition": {
             "comparator": ">",
-            "constant": 5000,
+            "constant": 20000,
             "first_signal": {
-              "name": "signal-D",
-              "type": "virtual"
+              "name": "light-oil",
+              "type": "fluid"
             }
           }
         },
         "direction": 2,
-        "entity_number": 39,
+        "entity_number": 35,
         "name": "pump",
         "position": {
-          "x": 252,
-          "y": 240.5
+          "x": 393,
+          "y": 138.5
+        }
+      },
+      {
+        "entity_number": 36,
+        "name": "pipe",
+        "position": {
+          "x": 394.5,
+          "y": 138.5
+        }
+      },
+      {
+        "entity_number": 37,
+        "name": "pipe",
+        "position": {
+          "x": 395.5,
+          "y": 138.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 38,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 394.5,
+          "y": 139.5
+        }
+      },
+      {
+        "entity_number": 39,
+        "name": "pipe",
+        "position": {
+          "x": 396.5,
+          "y": 138.5
         }
       },
       {
         "entity_number": 40,
         "name": "pipe",
         "position": {
-          "x": 253.5,
-          "y": 240.5
+          "x": 396.5,
+          "y": 139.5
         }
       },
       {
         "entity_number": 41,
-        "name": "pipe",
+        "name": "medium-electric-pole",
+        "neighbours": [
+          16
+        ],
         "position": {
-          "x": 256.5,
-          "y": 240.5
+          "x": 393.5,
+          "y": 140.5
         }
       },
       {
         "entity_number": 42,
+        "name": "chemical-plant",
+        "position": {
+          "x": 395.5,
+          "y": 141.5
+        },
+        "recipe": "light-oil-cracking"
+      },
+      {
+        "direction": 2,
+        "entity_number": 43,
+        "name": "storage-tank",
+        "position": {
+          "x": 390.5,
+          "y": 144.5
+        }
+      },
+      {
+        "entity_number": 44,
+        "name": "pipe",
+        "position": {
+          "x": 393.5,
+          "y": 143.5
+        }
+      },
+      {
+        "entity_number": 45,
+        "name": "pipe",
+        "position": {
+          "x": 392.5,
+          "y": 143.5
+        }
+      },
+      {
+        "entity_number": 46,
+        "name": "pipe",
+        "position": {
+          "x": 395.5,
+          "y": 143.5
+        }
+      },
+      {
+        "entity_number": 47,
+        "name": "pipe",
+        "position": {
+          "x": 394.5,
+          "y": 143.5
+        }
+      },
+      {
+        "entity_number": 48,
+        "name": "pipe",
+        "position": {
+          "x": 396.5,
+          "y": 143.5
+        }
+      },
+      {
+        "entity_number": 49,
+        "name": "textplate-small-iron",
+        "position": {
+          "x": 387.5,
+          "y": 144.5
+        },
+        "variation": 18
+      },
+      {
+        "direction": 4,
+        "entity_number": 50,
         "name": "pipe-to-ground",
         "position": {
-          "x": 256.5,
-          "y": 241.5
+          "x": 386.5,
+          "y": 144.5
+        }
+      },
+      {
+        "entity_number": 51,
+        "name": "pipe",
+        "position": {
+          "x": 386.5,
+          "y": 145.5
+        }
+      },
+      {
+        "entity_number": 52,
+        "name": "pipe",
+        "position": {
+          "x": 387.5,
+          "y": 145.5
+        }
+      },
+      {
+        "entity_number": 53,
+        "name": "pipe",
+        "position": {
+          "x": 388.5,
+          "y": 145.5
         }
       }
     ],

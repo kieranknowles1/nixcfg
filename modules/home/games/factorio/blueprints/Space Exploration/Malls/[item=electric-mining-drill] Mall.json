@@ -482,8 +482,8 @@
         "entity_number": 53,
         "name": "small-electric-pole",
         "neighbours": [
-          37,
           33,
+          37,
           63
         ],
         "position": {
@@ -572,8 +572,8 @@
         "entity_number": 63,
         "name": "small-electric-pole",
         "neighbours": [
-          53,
-          42
+          42,
+          53
         ],
         "position": {
           "x": 106.5,
