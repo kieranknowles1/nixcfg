@@ -69,7 +69,6 @@ pub fn wrap_in_commit<Func, Error>(
     func: Func,
 ) -> WrapStatus<Error> where
     Func: FnOnce() -> Result<String, Error>,
-    Error: std::error::Error,
 {
     match make_staging_commit() {
         Err(e) => return WrapStatus::GitError(e),
