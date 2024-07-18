@@ -1358,8 +1358,8 @@
         "entity_number": 149,
         "name": "medium-electric-pole",
         "neighbours": [
-          144,
           21,
+          144,
           154,
           187
         ],
@@ -1410,8 +1410,8 @@
         "entity_number": 154,
         "name": "medium-electric-pole",
         "neighbours": [
-          149,
           22,
+          149,
           159,
           198
         ],

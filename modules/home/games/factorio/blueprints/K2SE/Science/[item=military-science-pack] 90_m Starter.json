@@ -1937,8 +1937,8 @@
         "entity_number": 216,
         "name": "medium-electric-pole",
         "neighbours": [
-          202,
           155,
+          202,
           223,
           284
         ],
@@ -2003,8 +2003,8 @@
         "entity_number": 223,
         "name": "medium-electric-pole",
         "neighbours": [
-          216,
           148,
+          216,
           264
         ],
         "position": {

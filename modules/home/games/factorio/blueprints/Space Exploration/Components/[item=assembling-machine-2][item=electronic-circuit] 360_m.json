@@ -910,8 +910,8 @@
         "entity_number": 101,
         "name": "medium-electric-pole",
         "neighbours": [
-          92,
           65,
+          92,
           115
         ],
         "position": {

@@ -823,8 +823,8 @@
         "entity_number": 91,
         "name": "medium-electric-pole",
         "neighbours": [
-          82,
           55,
+          82,
           100,
           163
         ],
@@ -909,8 +909,8 @@
         "entity_number": 100,
         "name": "medium-electric-pole",
         "neighbours": [
-          91,
           62,
+          91,
           109,
           174
         ],
@@ -995,8 +995,8 @@
         "entity_number": 109,
         "name": "medium-electric-pole",
         "neighbours": [
-          100,
           64,
+          100,
           178
         ],
         "position": {
@@ -1472,8 +1472,8 @@
         "entity_number": 163,
         "name": "medium-electric-pole",
         "neighbours": [
-          152,
           91,
+          152,
           174
         ],
         "position": {
@@ -1573,8 +1573,8 @@
         "entity_number": 174,
         "name": "medium-electric-pole",
         "neighbours": [
-          163,
           100,
+          163,
           178
         ],
         "position": {
@@ -1613,8 +1613,8 @@
         "entity_number": 178,
         "name": "medium-electric-pole",
         "neighbours": [
-          174,
-          109
+          109,
+          174
         ],
         "position": {
           "x": 439.5,

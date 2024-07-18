@@ -280,8 +280,8 @@
         "entity_number": 31,
         "name": "small-electric-pole",
         "neighbours": [
-          25,
-          17
+          17,
+          25
         ],
         "position": {
           "x": 268.5,

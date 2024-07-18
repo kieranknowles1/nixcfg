@@ -492,8 +492,8 @@
         "entity_number": 54,
         "name": "medium-electric-pole",
         "neighbours": [
-          47,
           35,
+          47,
           58,
           77
         ],
@@ -531,8 +531,8 @@
         "entity_number": 58,
         "name": "medium-electric-pole",
         "neighbours": [
-          54,
           40,
+          54,
           89
         ],
         "position": {
@@ -707,8 +707,8 @@
         "entity_number": 77,
         "name": "medium-electric-pole",
         "neighbours": [
-          54,
           30,
+          54,
           89,
           95
         ],

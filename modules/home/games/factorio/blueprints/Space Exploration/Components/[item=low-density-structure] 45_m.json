@@ -654,8 +654,8 @@
         "entity_number": 72,
         "name": "medium-electric-pole",
         "neighbours": [
-          67,
           35,
+          67,
           77,
           167
         ],
@@ -704,8 +704,8 @@
         "entity_number": 77,
         "name": "medium-electric-pole",
         "neighbours": [
-          72,
           41,
+          72,
           173
         ],
         "position": {
@@ -1491,8 +1491,8 @@
         "entity_number": 167,
         "name": "medium-electric-pole",
         "neighbours": [
-          158,
           72,
+          158,
           173
         ],
         "position": {
@@ -1548,8 +1548,8 @@
         "entity_number": 173,
         "name": "medium-electric-pole",
         "neighbours": [
-          167,
-          77
+          77,
+          167
         ],
         "position": {
           "x": 545.5,

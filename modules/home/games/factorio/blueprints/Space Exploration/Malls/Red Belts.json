@@ -901,9 +901,9 @@
         "entity_number": 98,
         "name": "medium-electric-pole",
         "neighbours": [
-          96,
+          71,
           91,
-          71
+          96
         ],
         "position": {
           "x": 321.5,
