@@ -31,17 +31,25 @@ in {
       name = "default";
       isDefault = true;
 
-      # NOTE: Extensions here still have to be enabled manually
       extensions = with inputs.firefox-addons.packages."${hostConfig.nixpkgs.hostPlatform.system}"; [
-        bitwarden
-        darkreader
-        privacy-badger
-        return-youtube-dislikes
-        indie-wiki-buddy
-        sponsorblock
-        ublock-origin
-        youtube-shorts-block
+        bitwarden # Password manager. Available everywhere
+        darkreader # Midnight flashbang blocker
+        privacy-badger # My activity is none of your business
+        return-youtube-dislikes # The news doesn't want you to know what other people think
+        indie-wiki-buddy # Redirect *.fandom.com to non-fandom wikis
+        sponsorblock # This configuration is sponsored by Raid: Sha... oh no, it's spreading
+        ublock-origin # HAVE YOU HEARD OF THIS PRODUCT YOU WANT TO BUY? BUY IT NOW
+        youtube-shorts-block # No TikTok in this house
       ];
+
+      settings = {
+        # Enable extensions automatically
+        "extensions.autoDisableScopes" = 0;
+
+        # Disable built-in advertising
+        "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+      };
     };
   };
 
