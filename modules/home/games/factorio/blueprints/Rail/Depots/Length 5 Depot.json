@@ -1,0 +1,454 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "inventory": null,
+        "name": "cargo-wagon",
+        "orientation": 0.25,
+        "position": {
+          "x": 414,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "straight-rail",
+        "position": {
+          "x": 411,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "straight-rail",
+        "position": {
+          "x": 413,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "straight-rail",
+        "position": {
+          "x": 415,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 5,
+        "name": "straight-rail",
+        "position": {
+          "x": 417,
+          "y": -127
+        }
+      },
+      {
+        "entity_number": 6,
+        "inventory": null,
+        "name": "cargo-wagon",
+        "orientation": 0.25,
+        "position": {
+          "x": 421,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 7,
+        "name": "straight-rail",
+        "position": {
+          "x": 419,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "straight-rail",
+        "position": {
+          "x": 421,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 9,
+        "name": "straight-rail",
+        "position": {
+          "x": 423,
+          "y": -127
+        }
+      },
+      {
+        "entity_number": 10,
+        "inventory": null,
+        "name": "cargo-wagon",
+        "orientation": 0.25,
+        "position": {
+          "x": 428,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 11,
+        "name": "straight-rail",
+        "position": {
+          "x": 425,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 12,
+        "name": "straight-rail",
+        "position": {
+          "x": 427,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 13,
+        "name": "straight-rail",
+        "position": {
+          "x": 429,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 14,
+        "name": "straight-rail",
+        "position": {
+          "x": 431,
+          "y": -127
+        }
+      },
+      {
+        "entity_number": 15,
+        "inventory": null,
+        "name": "cargo-wagon",
+        "orientation": 0.25,
+        "position": {
+          "x": 435,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 16,
+        "name": "straight-rail",
+        "position": {
+          "x": 433,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 17,
+        "name": "straight-rail",
+        "position": {
+          "x": 435,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 18,
+        "name": "straight-rail",
+        "position": {
+          "x": 437,
+          "y": -127
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "locomotive",
+        "orientation": 0.25,
+        "position": {
+          "x": 442,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 20,
+        "name": "straight-rail",
+        "position": {
+          "x": 439,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 21,
+        "name": "straight-rail",
+        "position": {
+          "x": 441,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 22,
+        "name": "straight-rail",
+        "position": {
+          "x": 443,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 23,
+        "name": "straight-rail",
+        "position": {
+          "x": 445,
+          "y": -127
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 24,
+        "name": "straight-rail",
+        "position": {
+          "x": 447,
+          "y": -127
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 25,
+        "name": "rail-signal",
+        "position": {
+          "x": 410.5,
+          "y": -125.5
+        }
+      },
+      {
+        "entity_number": 26,
+        "name": "medium-electric-pole",
+        "position": {
+          "x": 439.5,
+          "y": -125.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 27,
+        "name": "underground-belt",
+        "position": {
+          "x": 438.5,
+          "y": -125.5
+        },
+        "type": "output"
+      },
+      {
+        "direction": 4,
+        "entity_number": 28,
+        "name": "splitter",
+        "position": {
+          "x": 439,
+          "y": -124.5
+        }
+      },
+      {
+        "entity_number": 29,
+        "name": "transport-belt",
+        "position": {
+          "x": 440.5,
+          "y": -124.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 30,
+        "name": "fast-inserter",
+        "position": {
+          "x": 440.5,
+          "y": -125.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 33
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "filters": [
+            {
+              "count": 1,
+              "index": 1,
+              "signal": {
+                "name": "ltn-depot",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 5,
+              "index": 2,
+              "signal": {
+                "name": "ltn-min-train-length",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 5,
+              "index": 3,
+              "signal": {
+                "name": "ltn-max-train-length",
+                "type": "virtual"
+              }
+            }
+          ]
+        },
+        "direction": 4,
+        "entity_number": 31,
+        "name": "constant-combinator",
+        "position": {
+          "x": 442.5,
+          "y": -125.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 32,
+        "name": "logistic-train-stop-output",
+        "position": {
+          "x": 445.5,
+          "y": -125.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 31
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": ">",
+            "constant": 0,
+            "first_signal": {
+              "name": "signal-anything",
+              "type": "virtual"
+            }
+          },
+          "use_colors": true
+        },
+        "entity_number": 33,
+        "name": "logistic-train-stop-input",
+        "position": {
+          "x": 445.5,
+          "y": -124.5
+        }
+      },
+      {
+        "control_behavior": {
+          "read_from_train": true,
+          "train_stopped_signal": {
+            "name": "signal-T",
+            "type": "virtual"
+          }
+        },
+        "direction": 2,
+        "entity_number": 34,
+        "name": "logistic-train-stop",
+        "position": {
+          "x": 445,
+          "y": -125
+        },
+        "station": "Depot"
+      },
+      {
+        "direction": 6,
+        "entity_number": 35,
+        "name": "rail-signal",
+        "position": {
+          "x": 447.5,
+          "y": -125.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 36,
+        "name": "underground-belt",
+        "position": {
+          "x": 438.5,
+          "y": -123.5
+        },
+        "type": "input"
+      },
+      {
+        "direction": 2,
+        "entity_number": 37,
+        "name": "transport-belt",
+        "position": {
+          "x": 439.5,
+          "y": -123.5
+        }
+      },
+      {
+        "entity_number": 38,
+        "name": "transport-belt",
+        "position": {
+          "x": 440.5,
+          "y": -123.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "ltn-depot",
+          "type": "virtual"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "signal-5",
+          "type": "virtual"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Length 5 Depot",
+    "schedules": [
+      {
+        "locomotives": [
+          19
+        ],
+        "schedule": [
+          {
+            "station": "Depot",
+            "wait_conditions": [
+              {
+                "compare_type": "and",
+                "ticks": 300,
+                "type": "inactivity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "version": 281479278821376
+  },
+  "index": 3
+}

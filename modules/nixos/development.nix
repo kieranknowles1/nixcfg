@@ -1,8 +1,5 @@
 # Install tools needed for a development environment
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   options.custom = {
     development = {
       enable = lib.mkEnableOption "development tools";

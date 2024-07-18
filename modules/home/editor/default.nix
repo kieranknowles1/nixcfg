@@ -5,6 +5,6 @@
   # I guess it also supports tree-sitter, which is cool.
   imports = [
     ./vscode
-    ./neovim
+    ./neovim.nix
   ];
 }
