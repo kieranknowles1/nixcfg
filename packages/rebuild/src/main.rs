@@ -8,7 +8,7 @@ mod git;
 mod nix;
 mod process;
 
-use git::{WrapStatus, wrap_in_commit};
+use git::{WrapError, wrap_in_commit};
 
 /// Configuration derived from the environment.
 struct Config {
@@ -38,6 +38,15 @@ enum Opt {
     },
 }
 
+fn build_and_switch(repo_path: &str, message: &str) -> Result<String, Box<dyn std::error::Error>> {
+    let diff = nix::fancy_build(repo_path)?;
+    let meta = nix::apply_configuration(repo_path)?;
+
+    let commit_message = meta.to_commit_message(&diff, message);
+
+    Ok(commit_message)
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = Config::new()?;
     let opt = Opt::parse();
@@ -50,26 +59,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     };
 
-    let status: WrapStatus<std::io::Error> = wrap_in_commit(|| {
-        let diff = nix::fancy_build(&config.repo_path)?;
-        let meta = nix::apply_configuration(&config.repo_path)?;
-
-        Ok(meta.to_commit_message(&diff, &commit_message))
-    });
-        // || build_and_switch(&config.repo_path, &commit_message),
-    // );
+    let status = wrap_in_commit(|| build_and_switch(&config.repo_path, &commit_message));
 
     match status {
-        WrapStatus::Ok => {
+        Ok(_) => {
             println!("Successfully built, applied, and committed configuration");
             Ok(())
         },
-        WrapStatus::GitError(e) => {
-            eprintln!("A Git command failed. The repository may have been altered by this script. Please check the repository and fix any issues manually.");
-            Err(Box::new(e))
+        Err(WrapError::WrappedError(e)) => {
+            eprintln!("Failed to build or apply configuration: {}", e);
+            Err(e)
         },
-        WrapStatus::WrappedError(e) => {
-            eprintln!("Failed to build and apply configuration: {}", e);
+        Err(WrapError::GitError(e)) => {
+            eprintln!("A Git command failed. The repository may have been altered by this script. Please check the repository and fix any issues manually.");
             Err(Box::new(e))
         },
     }
