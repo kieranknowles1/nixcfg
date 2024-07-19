@@ -83,3 +83,14 @@ pub fn wrap_in_commit<Func, Error>(
         Err(e) => Err(WrapError::GitError(e)),
     }
 }
+
+/// Pull the latest changes from the remote.
+/// This is a simple wrapper around `git pull`.
+/// It does not handle conflicts.
+pub fn pull(repo_path: &str) -> std::io::Result<()> {
+    let status = Command::new("git")
+        .current_dir(repo_path)
+        .arg("pull")
+        .status()?;
+    check_ok(status, "git pull")
+}
