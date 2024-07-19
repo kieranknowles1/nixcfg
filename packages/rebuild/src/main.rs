@@ -28,14 +28,36 @@ impl Config {
 #[derive(Parser)]
 enum Opt {
     /// Build the system from source and commit the changes.
-    Build {
-        message: String,
-    },
+    Build(BuildOpt),
     /// Update flake inputs and commit the changes.
-    Update {
-        #[arg(default_value = "Update flake inputs")]
-        message: String,
-    },
+    Update(UpdateOpt),
+}
+
+#[derive(Parser)]
+struct BuildOpt {
+    message: String,
+}
+
+#[derive(Parser)]
+struct UpdateOpt {
+    #[arg(default_value = "Update flake inputs")]
+    message: String,
+}
+
+impl BuildOpt {
+    fn run(&self, config: &Config) -> Result<(), WrapError<Box<dyn std::error::Error>>> {
+        wrap_in_commit(|| build_and_switch(&config.repo_path, &self.message))
+    }
+}
+
+impl UpdateOpt {
+    fn run(&self, config: &Config) -> Result<(), WrapError<Box<dyn std::error::Error>>> {
+        match nix::update_flake_inputs() {
+            Ok(_) => (),
+            Err(e) => return Err(WrapError::WrappedError(Box::new(e))),
+        }
+        wrap_in_commit(|| build_and_switch(&config.repo_path, &self.message))
+    }
 }
 
 fn build_and_switch(repo_path: &str, message: &str) -> Result<String, Box<dyn std::error::Error>> {
@@ -51,15 +73,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = Config::new()?;
     let opt = Opt::parse();
 
-    let commit_message = match opt {
-        Opt::Build { message } => message,
-        Opt::Update { message } => {
-            nix::update_flake_inputs()?;
-            message
-        }
+    let status = match opt {
+        Opt::Build(value) => value.run(&config),
+        Opt::Update(value) => value.run(&config),
     };
-
-    let status = wrap_in_commit(|| build_and_switch(&config.repo_path, &commit_message));
 
     match status {
         Ok(_) => {
