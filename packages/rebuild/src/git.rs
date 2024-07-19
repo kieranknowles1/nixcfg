@@ -47,46 +47,39 @@ fn reset_commit() -> Result<(), std::io::Error> {
     check_ok(status, "git reset --soft HEAD^")
 }
 
-
-pub enum WrapStatus<Error> {
-    /// The function ran successfully
-    Ok,
+pub enum WrapError<WrappedError> {
     /// There was an error with git, and manual intervention is advised
     GitError(std::io::Error),
     /// There was an error with the wrapped function
-    WrappedError(Error),
+    WrappedError(WrappedError),
 }
 
 /// Commit all unstaged changes and run a function.
 /// If the function returns an error, the commit is reverted.
 /// If the function returns Ok, the commit is finalized with the returned message.
 /// Intended for Nix commands as Nix complains if the repository is dirty.
-/// # Returns
-/// * `Ok` if the function ran successfully
-/// * `GitError` if there was an error with Git
-/// * `WrappedError` if there was an error with the wrapped function
 pub fn wrap_in_commit<Func, Error>(
     func: Func,
-) -> WrapStatus<Error> where
+) -> Result<(), WrapError<Error>> where
     Func: FnOnce() -> Result<String, Error>,
 {
     match make_staging_commit() {
-        Err(e) => return WrapStatus::GitError(e),
+        Err(e) => return Err(WrapError::GitError(e)),
         Ok(_) => (),
     }
 
-    match func() {
-        Ok(message) => {
-            match finalize_commit(&message) {
-                Ok(_) => WrapStatus::Ok,
-                Err(e) => WrapStatus::GitError(e),
-            }
-        },
+    let message = match func() {
+        Ok(message) => message,
         Err(e) => {
             match reset_commit() {
-                Ok(_) => WrapStatus::WrappedError(e),
-                Err(e) => WrapStatus::GitError(e),
+                Ok(_) => return Err(WrapError::WrappedError(e)),
+                Err(e) => return Err(WrapError::GitError(e)),
             }
         }
+    };
+
+    match finalize_commit(&message) {
+        Ok(_) => Ok(()),
+        Err(e) => Err(WrapError::GitError(e)),
     }
 }
