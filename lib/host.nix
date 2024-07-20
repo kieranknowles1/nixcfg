@@ -36,7 +36,7 @@
         inputs.stylix.nixosModules.stylix
         # TODO: Why does importing home-manager in a module not work? Why does it need to be imported here?
         inputs.home-manager.nixosModules.home-manager
-        ../modules/nixos
+        flake.nixosModules.default
         ../hosts/${name}/configuration.nix
         ../hosts/${name}/hardware-configuration.nix
         ({

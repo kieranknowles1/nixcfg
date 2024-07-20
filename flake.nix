@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "The NixOS configuration for my systems";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
@@ -96,6 +96,9 @@
       pkgs = import nixpkgs {system = "x86_64-linux";};
       flakeLib = lib;
     };
+
+    nixosModules.default = import ./modules/nixos;
+    homeManagerModules.default = import ./modules/home;
 
     devShells.x86_64-linux = import ./shells {
       pkgs = import nixpkgs {system = "x86_64-linux";};

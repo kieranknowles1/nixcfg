@@ -30,12 +30,10 @@ in {
         for the specification of these files.
       '';
 
-      example = ''
-        {
-          "application/x-foo" = ./definitions/application-x-foo.xml;
-          "application/x-bar" = ./definitions/application-x-bar.xml;
-        }
-      '';
+      example = {
+        "application/x-foo" = "./definitions/application-x-foo.xml";
+        "application/x-bar" = "./definitions/application-x-bar.xml";
+      };
 
       type = lib.types.attrsOf lib.types.path;
       # No definitions is valid, so default to an empty set
