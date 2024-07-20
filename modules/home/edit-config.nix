@@ -9,6 +9,7 @@
   combinedConfig =
     config.custom.edit-config
     // {
+      editor = config.custom.editor.default;
       repository = hostConfig.custom.repoPath;
     };
 in {
@@ -16,17 +17,6 @@ in {
     enable = lib.mkEnableOption "edit-config script.";
 
     package = lib.mkPackageOption flake.packages.${hostConfig.nixpkgs.hostPlatform.system} "edit-config" {};
-
-    # TODO: Remove this and just use config.custom.editor
-    editor = lib.mkOption {
-      description = ''
-        The editor to use when editing configuration files. May be GUI or CLI, so long
-        as it accepts a directory as an argument.
-      '';
-
-      type = lib.types.str;
-      default = "nvim";
-    };
 
     programs = lib.mkOption {
       # TODO: Treeitter hightlighting for MarkDown, try to automate for all descriptions/doc comments
