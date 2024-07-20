@@ -5,8 +5,9 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
 
-    # Used to generate schemas for config files. This lets
-    # our language server provide completions, type checking, and documentation by linking to the schema.
+    # Used to generate schemas for config files. This lets a JSON/YAML/TOML/whatever the next format is
+    # language server provide completions, type checking, and documentation by linking to the schema.
+    # We prefer TOML as it allows comments and has a nix-like syntax, but YAML could have its uses.
     # See [[./lib/docs.nix]] for more information. This is a much more convenient way to find options than generated markdown.
     clan-core = {
       url = "git+https://git.clan.lol/clan/clan-core";

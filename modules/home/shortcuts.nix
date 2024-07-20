@@ -78,6 +78,7 @@ in {
     };
 
     # Autostart sxhkd
+    # TODO: Restart when rebuilding, try something similar to the MIME database update
     home.file."${config.xdg.configHome}/autostart/sxhkd.desktop".text = flake.lib.package.mkDesktopEntry {
       name = "sxhkd";
       description = "Simple X Hotkey Daemon";

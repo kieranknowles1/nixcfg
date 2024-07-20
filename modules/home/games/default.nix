@@ -6,7 +6,7 @@
 }: {
   imports = [
     ./factorio
-    ./skyrim.nix
+    ./skyrim
   ];
 
   config = lib.mkIf hostConfig.custom.games.enable {
