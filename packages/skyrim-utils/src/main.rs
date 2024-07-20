@@ -156,7 +156,10 @@ fn main() -> Result<()> {
     // God that's a mouthful, I blame Windows for not using the Unix file structure
     let data_dir = shellexpand::tilde("~/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My Games/Skyrim Special Edition").to_string();
 
-    let save_dir = PathBuf::from(&data_dir).join("Saves");
+    // let save_dir = PathBuf::from(&data_dir).join("Saves");
+    // /home/kieran/Documents/src/dotfiles/configs/games/skyrim/profile/saves
+    let save_dir = shellexpand::tilde("~/Documents/src/dotfiles/configs/games/skyrim/profile/saves").to_string();
+    let save_dir = PathBuf::from(&save_dir);
     let log_dir = PathBuf::from(&data_dir).join("SKSE");
 
     match args {
