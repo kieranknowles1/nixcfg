@@ -11,7 +11,7 @@
 
   config.custom =
     {
-      user.kieran = import ../../users/kieran.nix {inherit pkgs config;};
+      user.kieran = import ../../users/kieran {inherit pkgs config;};
     }
     // builtins.fromTOML (builtins.readFile ./config.toml);
 }
