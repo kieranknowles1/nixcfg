@@ -93,7 +93,7 @@
       users =
         lib.attrsets.mapAttrs (name: user: {
           imports = [
-            ../home
+            flake.homeManagerModules.default
             user.home
           ];
 
