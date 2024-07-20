@@ -20,9 +20,7 @@ in {
       workingDirectory = "/home/kieran/Games/modding-tools/resaver/target";
     };
 
-    # Associate our mime types with the desktop file. See [[../mime/default.nix]]
-    # TODO: Handle the definitions here where they're used, rather than globally
-    # even if games.enable is false.
+    # Associate our mime types with the desktop file. See [[../../mime/default.nix]]
     xdg.mimeApps = {
       enable = true;
 
@@ -30,6 +28,11 @@ in {
         "application/x-skyrimsave" = resaverDesktopFileName;
         "application/x-fallout4save" = resaverDesktopFileName;
       };
+    };
+
+    custom.mime.definition = {
+      "application/x-skyrimsave" = ./mime/application-x-skyrimsave.xml;
+      "application/x-fallout4save" = ./mime/application-x-fallout4save.xml;
     };
   };
 }
