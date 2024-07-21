@@ -10,7 +10,6 @@
   # - Python
   # - Toml
   # - Yaml
-
   # List of languages to enable
   # Format: server = "language-server"; tsgrammar = tree-sitter-grammar; serverConfig = {options = "here"};
   # See https://nix-community.github.io/nixvim/plugins/lsp/index.html for a list of available servers
@@ -117,12 +116,16 @@ in
               # - Arrows/jk to go up/down list
               # - <CR>/<Tab> to confirm
               # - <Ctrl_Space> to show completion menu
-              confirm = /*lua*/ ''
-                cmp.mapping.confirm({
-                  behavior = cmp.ConfirmBehavior.replace,
-                  select = true,
-                })
-              '';
+              confirm =
+                /*
+                lua
+                */
+                ''
+                  cmp.mapping.confirm({
+                    behavior = cmp.ConfirmBehavior.replace,
+                    select = true,
+                  })
+                '';
             in {
               "<CR>" = confirm;
               "<Tab>" = confirm;

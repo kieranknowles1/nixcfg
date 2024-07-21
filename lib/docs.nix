@@ -126,4 +126,60 @@ in {
     schemaJson = builtins.toJSON schemaNix;
   in
     pkgs.writeText "schema.json" schemaJson;
+
+  /*
+  *
+  Generate documentation for the packages in the given set.
+  Note that all packages must have a `meta` attribute. This function will error if any package is missing it.
+
+  # Example
+  ```nix
+  mkPackageDocs flake.packages.${hostConfig.nixpkgs.hostPlatform.system}
+  => Markdown file
+  ```
+  */
+  mkPackageDocs = packages: let
+    values = builtins.attrValues packages;
+
+    # Nix combines pname with version to create the package name if pname is present.
+    getName = package:
+      if package ? pname
+      then package.pname
+      else package.name;
+
+    createTocEntry = package: let
+      name = getName package;
+    in ''
+      - [${name}](#${pkgs.lib.strings.toLower name})
+    '';
+
+    createEntry = package: let
+      name = getName package;
+      version = package.version or "unknown";
+      shortDescription = package.meta.description or "";
+      # TODO: Add an extra 2 hashes to headers to make them fit in with the one we generate.
+      longDescription = package.meta.longDescription or "";
+
+      noDescription = shortDescription == "" && longDescription == "";
+    in ''
+      ## ${name}
+      version: ${version}
+
+      ${shortDescription}
+
+      ${longDescription}
+      ${
+        if noDescription
+        then "No description provided."
+        else ""
+      }
+    '';
+  in
+    pkgs.writeText "packages.md" ''
+      # Packages
+
+      ${builtins.concatStringsSep "" (map createTocEntry values)}
+
+      ${builtins.concatStringsSep "\n" (map createEntry values)}
+    '';
 }
