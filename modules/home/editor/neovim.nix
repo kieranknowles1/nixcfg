@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   flake,
@@ -10,15 +9,7 @@
     enable = lib.mkEnableOption "NeoVim";
   };
 
-  # TODO: Configure all the language servers I use
-  # - Rust
-  # - Nix
-  # - Python
-  # - Yaml
-  # - Nu
-  # - Toml
   config = lib.mkIf config.custom.editor.neovim.enable {
-    # TODO: Replace ./config with our nixvim derivation
     home.packages = [
       flake.packages.${hostConfig.nixpkgs.hostPlatform.system}.nixvim
     ];

@@ -44,16 +44,16 @@ return {
 	{
   	'nvim-telescope/telescope.nvim',
 		-- FIXME: This doesn't work on NixOS
-	-- 	dependencies = {
-	-- 		{
-	-- 		-- Native implementation that is faster. Needs gcc/clang to build
- --   		'nvim-telescope/telescope-fzf-native.nvim',
-	-- 			build = 'make',
-	-- 			config = function()
-	-- 				require("telescope").load_extension("fzf")
-	-- 			end,
-	-- 		},
- --  	},
+		dependencies = {
+			{
+			-- Native implementation that is faster. Needs gcc/clang to build
+   		'nvim-telescope/telescope-fzf-native.nvim',
+				build = 'make',
+				config = function()
+					require("telescope").load_extension("fzf")
+				end,
+			},
+  	},
 	},
 	-- Improved code highlighting
 	{
