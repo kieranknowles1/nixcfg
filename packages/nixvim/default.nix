@@ -59,6 +59,7 @@ in
 
       plugins = {
         treesitter = {
+          # TODO: How do I get inline code highlighting?
           enable = true;
           grammarPackages = builtins.map (language: language.tsgrammar) languages;
         };
@@ -93,9 +94,6 @@ in
             languages);
         };
 
-        # Language server inception
-        # otter.enable = true;
-
         # Snippets (not specific to Lua)
         luasnip.enable = true;
         friendly-snippets.enable = true;
@@ -119,8 +117,15 @@ in
               # - Arrows/jk to go up/down list
               # - <CR>/<Tab> to confirm
               # - <Ctrl_Space> to show completion menu
+              confirm = /*lua*/ ''
+                cmp.mapping.confirm({
+                  behavior = cmp.ConfirmBehavior.replace,
+                  select = true,
+                })
+              '';
             in {
-
+              "<CR>" = confirm;
+              "<Tab>" = confirm;
             };
           };
         };
