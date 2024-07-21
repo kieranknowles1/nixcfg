@@ -29,9 +29,18 @@ in {
         "server"
       ];
     };
+
+    systemType = lib.mkOption {
+      description = "The architecture of the system.";
+
+      type = lib.types.str;
+      example = "x86_64-linux";
+    };
   };
 
   config = {
+    nixpkgs.hostPlatform = config.custom.systemType;
+
     # Enable flakes
     nix.settings.experimental-features = [
       "nix-command"
