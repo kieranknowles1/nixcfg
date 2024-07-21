@@ -12,18 +12,22 @@
   # Convert a MIME type to a definition file name
   toFileName = type: "${builtins.replaceStrings ["/"] ["-"] type}.xml";
 
-  parseConfigEntry = name: value: {
+  toHomeFileEntry = name: value: {
     name = "${mimeDirectory}/packages/${toFileName name}";
     value = {
-      source = value;
+      source = value.definitionFile;
     };
+  };
+
+  toXdgAssociation = name: value: {
+    inherit name; # Name is the MIME type
+    value = value.defaultApp;
   };
 in {
   options.custom.mime = {
-    # TODO: This could handle associations as well
     definition = lib.mkOption {
       description = ''
-        A list of MIME definitions files to install.
+        A list of MIME definitions and associated default applications.
 
         The key is the MIME type being defined, and the value is its definition
         file. See http://www.freedesktop.org/standards/shared-mime-info
@@ -31,11 +35,26 @@ in {
       '';
 
       example = {
-        "application/x-foo" = "./definitions/application-x-foo.xml";
-        "application/x-bar" = "./definitions/application-x-bar.xml";
+        "application/x-foo" = {
+          definitionFile = "./definitions/application-x-foo.xml";
+          defaultApp = "myapp.desktop";
+        };
       };
 
-      type = lib.types.attrsOf lib.types.path;
+      type = lib.types.attrsOf (lib.types.submodule {
+        options = {
+          definitionFile = lib.mkOption {
+            description = "The path to the MIME definition file";
+            type = lib.types.path;
+            example = "./definitions/application-x-foo.xml";
+          };
+          defaultApp = lib.mkOption {
+            description = "The name of the *.desktop file to use as the default application";
+            type = lib.types.str;
+            example = "myapp.desktop";
+          };
+        };
+      });
       # No definitions is valid, so default to an empty set
       default = {};
     };
@@ -43,7 +62,13 @@ in {
 
   config = {
     # Copy definitions into the user's mime directory
-    home.file = lib.attrsets.mapAttrs' parseConfigEntry config.custom.mime.definition;
+    home.file = lib.attrsets.mapAttrs' toHomeFileEntry config.custom.mime.definition;
+
+    xdg.mimeApps = {
+      enable = true;
+
+      associations.added = lib.attrsets.mapAttrs' toXdgAssociation config.custom.mime.definition;
+    };
 
     # Update the user's mime database when rebuilding
     home.activation.update-mime-database = lib.hm.dag.entryAfter ["writeBoundary"] ''
