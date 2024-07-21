@@ -7,13 +7,15 @@ This repository contains the NixOS configuration for my systems.
     - [System Usage](#system-usage)
       - [Key Bindings](#key-bindings)
       - [Dev Shells](#dev-shells)
-  - [Documentation and Development Notes](#documentation-and-development-notes)
+  - [Documentation](#documentation)
+    - [Host Definition](#host-definition)
     - [Library](#library)
     - [Options](#options)
+      - [Error Handling](#error-handling)
     - [Packages](#packages)
     - [Repository Structure](#repository-structure)
-    - [Essential Resources](#essential-resources)
-    - [Todo List](#todo-list)
+  - [Essential Resources](#essential-resources)
+  - [Todo List](#todo-list)
   - [Lessons Learned](#lessons-learned)
     - [Don't Use Wayland Yet](#dont-use-wayland-yet)
     - [Make Sure You Have a User](#make-sure-you-have-a-user)
@@ -38,7 +40,28 @@ Key bindings are managed by sxhkd. Documentation is generated during build and c
 Dev shells are provided for development of various languages/projects. These can be entered with `develop <shell>`.
 To list available shells, run `nix flake show`.
 
-## Documentation and Development Notes
+## Documentation
+
+### Host Definition
+
+By convention, each host is a subdirectory of the `hosts` directory. Each has the following files:
+
+- `configuration.nix` - The host's configuration. This:
+  - Imports `hardware-configuration.nix` to define the hardware.
+  - Defines users under `config.custom.users`.
+  - Concatenates `config.toml` with `config.custom` to define the host's configuration.
+- `hardware-configuration.nix` - The host's hardware configuration.
+- `config.toml` - The host's configuration, containing all options under `config.custom`.
+  - The `#:schema` directive is used to link to the generated JSON schema in [docs/host-options.schema.json](docs/host-options.schema.json).
+
+A host should not define any options not in the `custom` key. This means that only options exposed by the flake itself
+should be used. This is to ensure that all hosts have the same software available with the same config, only differing
+where explicitly defined.
+
+This does have the downside of making host definitions tightly coupled to the flake, but this is a trade-off I'm willing
+to make for the sake of consistency.
+
+See [hosts/desktop](hosts/desktop/configuration.nix) for my desktop configuration, which is my most frequently used host.
 
 ### Library
 
@@ -62,6 +85,15 @@ A more recent addition is the use of `clan-core` to generate JSON schemas for th
 to configure modules with TOML files for better feedback during development. This is generated during the build process and
 dumped to [docs/host-options.schema.json](docs/host-options.schema.json) and [docs/user-options.schema.json](docs/user-options.schema.json).
 
+#### Error Handling
+
+Error handling is done with `config.assertions`, which is a list of assertions that must be true for the configuration
+to be applied. This gives a more readable error message than with `throw` and collects all errors rather than stopping
+at the first one.
+
+Where possible, assertions should be in place where a certain option or combination of options is non-sensical, such as
+the default editor not being installed or a GUI app being enabled on a headless server.
+
 ### Packages
 
 A few packages are provided in the [packages](packages/) directory. These are built with `nix build`, or included in a
@@ -84,7 +116,7 @@ high overlap between people who use it, and people who use NixOS.
 - [flake.nix](flake.nix) is the entry point for the repository.
 - [rebuild.py](rebuild.py) script to update from the repository and commit changes.
 
-### Essential Resources
+## Essential Resources
 
 The following resources were essential in setting up this repository and served as frequent references. Other resources
 used are linked as-and-when they were used.
@@ -95,7 +127,7 @@ used are linked as-and-when they were used.
 - [Sphinx NixOS Manual](https://nlewo.github.io/nixos-manual-sphinx/development/option-types.xml.html) - The official NixOS manual in a format that doesn't freeze with 32GB of RAM.
 - [Teu5us' Nix Library](https://teu5us.github.io/nix-lib.html) - Documentation for what the Nix library does and, more importantly, that the functions exist.
 
-### Todo List
+## Todo List
 
 Tasks I want to complete in the future. I'm tracking these here rather than in issues so
 I can do all my work in one place.
