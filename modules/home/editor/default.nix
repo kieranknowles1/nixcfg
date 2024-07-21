@@ -34,10 +34,11 @@
         code = vscode.enable;
         nvim = neovim.enable;
       };
-    in commandToOption.${command};
+    in
+      commandToOption.${command};
 
     defaultEditor = config.custom.editor.default;
-  in{
+  in {
     # Make sure our default editor is installed
     assertions = [
       {

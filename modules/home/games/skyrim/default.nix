@@ -40,27 +40,27 @@ in {
       };
 
       shortcuts = let
-          utilsBin = "${flakePackages.skyrim-utils}/bin/skyrim-utils";
-          zenity = "${pkgs.zenity}/bin/zenity";
+        utilsBin = "${flakePackages.skyrim-utils}/bin/skyrim-utils";
+        zenity = "${pkgs.zenity}/bin/zenity";
 
-          # Couldn't find an easy way to do a select dialog in Rust,
-          # So I'm using Zenity to create a dialog.
-          selectAction = pkgs.writeShellScriptBin "skyrim-utils-select" ''
-            set -e
+        # Couldn't find an easy way to do a select dialog in Rust,
+        # So I'm using Zenity to create a dialog.
+        selectAction = pkgs.writeShellScriptBin "skyrim-utils-select" ''
+          set -e
 
-            choice=$(${zenity} --list --column=Action --column=Description --hide-header --title="Skyrim Utils" --text="Select an action" \
-              latest "Open the latest save in ReSaver" \
-              crash "Open the most recent crash log" \
-              clean "Clean orphaned SKSE co-save files" \
-            )
+          choice=$(${zenity} --list --column=Action --column=Description --hide-header --title="Skyrim Utils" --text="Select an action" \
+            latest "Open the latest save in ReSaver" \
+            crash "Open the most recent crash log" \
+            clean "Clean orphaned SKSE co-save files" \
+          )
 
-            stdout=$(${utilsBin} "$choice")
+          stdout=$(${utilsBin} "$choice")
 
-            # Display the output of the command in a dialog if any
-            if [ ! -z "$stdout" ]; then
-              ${zenity} --info --text="$stdout"
-            fi
-          '';
+          # Display the output of the command in a dialog if any
+          if [ ! -z "$stdout" ]; then
+            ${zenity} --info --text="$stdout"
+          fi
+        '';
       in {
         "alt + shift + s" = {
           description = "Run a Skyrim utility";

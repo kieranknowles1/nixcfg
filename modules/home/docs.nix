@@ -99,35 +99,42 @@ in {
     };
   };
 
-  config = lib.mkIf config.custom.docs-generate.enable {
-    assertions = [repoPathAssert];
+  config = let
+    flakePackages = flake.packages.${hostConfig.nixpkgs.hostPlatform.system};
+  in
+    lib.mkIf config.custom.docs-generate.enable {
+      assertions = [repoPathAssert];
 
-    custom.docs-generate.file = {
-      "lib.md" = {
-        description = "flake.lib library";
-        source = flake.lib.docs.mkFunctionDocs ../../lib;
+      custom.docs-generate.file = {
+        "lib.md" = {
+          description = "flake.lib library";
+          source = flake.lib.docs.mkFunctionDocs ../../lib;
+        };
+        "host-options.md" = {
+          description = "NixOS options";
+          source = flake.lib.docs.mkOptionDocs ../nixos/default.nix;
+        };
+        "host-options.schema.json" = {
+          description = "NixOS options schema";
+          source = flake.lib.docs.mkJsonSchema ../nixos/default.nix (opts: opts.custom);
+        };
+        "user-options.md" = {
+          description = "home-manager options";
+          source = flake.lib.docs.mkOptionDocs ./default.nix;
+        };
+        "user-options.schema.json" = {
+          description = "home-manager options schema";
+          source = flake.lib.docs.mkJsonSchema ./default.nix (opts: opts.custom);
+        };
+        "packages.md" = {
+          description = "Flake packages";
+          source = flake.lib.docs.mkPackageDocs flakePackages;
+        };
       };
-      "host-options.md" = {
-        description = "NixOS options";
-        source = flake.lib.docs.mkOptionDocs ../nixos/default.nix;
-      };
-      "host-options.schema.json" = {
-        description = "NixOS options schema";
-        source = flake.lib.docs.mkJsonSchema ../nixos/default.nix (opts: opts.custom);
-      };
-      "user-options.md" = {
-        description = "home-manager options";
-        source = flake.lib.docs.mkOptionDocs ./default.nix;
-      };
-      "user-options.schema.json" = {
-        description = "home-manager options schema";
-        source = flake.lib.docs.mkJsonSchema ./default.nix (opts: opts.custom);
+
+      home.file.${docsPath} = {
+        source = mkDocs config.custom.docs-generate.file;
+        recursive = true;
       };
     };
-
-    home.file.${docsPath} = {
-      source = mkDocs config.custom.docs-generate.file;
-      recursive = true;
-    };
-  };
 }
