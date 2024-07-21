@@ -41,14 +41,30 @@ in {
 
       shortcuts = let
           utilsBin = "${flakePackages.skyrim-utils}/bin/skyrim-utils";
+          zenity = "${pkgs.zenity}/bin/zenity";
+
+          # Couldn't find an easy way to do a select dialog in Rust,
+          # So I'm using Zenity to create a dialog.
+          selectAction = pkgs.writeShellScriptBin "skyrim-utils-select" ''
+            set -e
+
+            choice=$(${zenity} --list --column=Action --column=Description --hide-header --title="Skyrim Utils" --text="Select an action" \
+              latest "Open the latest save in ReSaver" \
+              crash "Open the most recent crash log" \
+              clean "Clean orphaned SKSE co-save files" \
+            )
+
+            stdout=$(${utilsBin} "$choice")
+
+            # Display the output of the command in a dialog if any
+            if [ ! -z "$stdout" ]; then
+              ${zenity} --info --text="$stdout"
+            fi
+          '';
       in {
         "alt + shift + s" = {
-          action = "${utilsBin} latest";
-          description = "Open the latest Skyrim save in ReSaver";
-        };
-        "alt + shift + c" = {
-          action = "${utilsBin} crash";
-          description = "Open the most recent Skyrim crash log";
+          description = "Run a Skyrim utility";
+          action = "${selectAction}/bin/skyrim-utils-select";
         };
       };
     };
