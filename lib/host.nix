@@ -40,14 +40,6 @@
         inputs.home-manager.nixosModules.home-manager
         flake.nixosModules.default
         rootConfig
-        ({
-          pkgs,
-          config,
-          ...
-        }: {
-          # Base nixos for all hosts
-          nixpkgs.hostPlatform = system;
-        })
       ];
     };
 }

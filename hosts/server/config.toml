@@ -2,6 +2,7 @@
 
 deviceType = "server"
 repoPath = "/home/kieran/nixcfg"
+systemType = "x86_64-linux"
 
 [networking]
 hostName = "server"
