@@ -24,7 +24,7 @@ in {
       edit-config.enable = isDesktop;
 
       editor = {
-        default = "code";
+        default = if isDesktop then "code" else "nvim";
 
         neovim.enable = true;
         vscode.enable = isDesktop;
