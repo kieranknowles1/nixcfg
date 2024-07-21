@@ -33,8 +33,9 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim?ref=nixos-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim";
+      # NOTE: Nixvim master requires nixpkgs-unstable and will not work with nixpkgs-24.05
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager";
     };
 
