@@ -54,9 +54,8 @@ in {
   };
 
   # Open PDFs in Firefox
+  # TODO: Do this in ./mime/default.nix, need to support setting association without defining a new MIME type
   xdg.mimeApps = {
-    enable = isDesktop;
-
     associations.added = {
       "application/pdf" = "firefox.desktop";
     };
