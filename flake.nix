@@ -76,15 +76,15 @@
 
     nixosConfigurations = {
       desktop = lib.host.mkHost {
-        name = "desktop";
+        rootConfig = ./hosts/desktop/configuration.nix;
         system = "x86_64-linux";
       };
       laptop = lib.host.mkHost {
-        name = "laptop";
+        rootConfig = ./hosts/laptop/configuration.nix;
         system = "x86_64-linux";
       };
       server = lib.host.mkHost {
-        name = "server";
+        rootConfig = ./hosts/server/configuration.nix;
         system = "x86_64-linux"; # TODO: Should be arm, but I can't cross-compile directly. Try mounting the flake in a minimal ARM NixOS VM and building it there.
       };
     };

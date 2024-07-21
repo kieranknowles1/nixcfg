@@ -6,6 +6,10 @@
   config,
   ...
 }: {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
   # Enable everything needed for this configuration
   config.custom =
     {

@@ -1,11 +1,23 @@
 {
-  pkgs,
   lib,
+  config,
   ...
 }: {
+  options.custom.networking = {
+    hostName = lib.mkOption {
+      type = lib.types.str;
+      description = ''
+        The hostname of the machine. Note that Nix uses this as the default target when
+        building the OS. This is also available to avahi-enabled machines via `hostname.local`.
+      '';
+    };
+  };
+
   config = {
     # Enable networking
     networking = {
+      hostName = config.custom.networking.hostName;
+
       networkmanager.enable = true;
       # This is handled by NetworkManager
       wireless.enable = false;
