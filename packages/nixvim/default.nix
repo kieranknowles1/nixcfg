@@ -5,25 +5,54 @@
   pkgs,
   inputs,
 }: let
+  # TODO: Configure all the language servers I use
+  # - Nu
+  # - Python
+  # - Toml
+  # - Yaml
+
   # List of languages to enable
-  # Format: server = "language-server"; tsgrammar = tree-sitter-grammar;
+  # Format: server = "language-server"; tsgrammar = tree-sitter-grammar; serverConfig = {options = "here"};
+  # See https://nix-community.github.io/nixvim/plugins/lsp/index.html for a list of available servers
+  # See https://search.nixos.org/packages?&type=packages&query=vimPlugins.nvim-treesitter-parsers for a list of available grammars
   languages = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+    {
+      server = "lua-ls";
+      tsgrammar = lua;
+    }
     {
       server = "nil-ls";
       tsgrammar = nix;
+    }
+    {
+      server = "rust-analyzer";
+      tsgrammar = rust;
+
+      # rust-analyzer complains if it can't find rustc or cargo on the path
+      serverConfig = {
+        installCargo = true;
+        installRustc = true;
+      };
     }
   ];
 in
   inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
     module = {
       opts = {
+        # Show line numbers
         number = true;
 
         # Use two spaces for tabs
         shiftwidth = 2;
 
-        # Insert spaces on new lines
+        # Insert spaces when pressing <Tab>
+        # TODO: Way to find and replace all tabs with spaces
         expandtab = true;
+
+        # Add a column to show errors/warnings
+        # gitsigns uses this to show untracked changes, and if we don't enable it
+        # the contents shift when making our first change
+        signcolumn = "yes";
       };
 
       colorschemes.gruvbox.enable = true;
@@ -59,10 +88,13 @@ in
           enable = true;
           servers = builtins.listToAttrs (builtins.map (language: {
               name = language.server;
-              value = {enable = true;};
+              value = {enable = true;} // (language.serverConfig or {});
             })
             languages);
         };
+
+        # Language server inception
+        # otter.enable = true;
 
         # Snippets (not specific to Lua)
         luasnip.enable = true;
@@ -81,6 +113,15 @@ in
             sources = [
               {name = "nvim_lsp";}
             ];
+
+            mapping = let
+              # TODO: Mappings:
+              # - Arrows/jk to go up/down list
+              # - <CR>/<Tab> to confirm
+              # - <Ctrl_Space> to show completion menu
+            in {
+
+            };
           };
         };
       };
