@@ -13,12 +13,14 @@
   to home-manager as `hostConfig`.
 
   # Arguments
-  name :: String : The host name. Should match the key in nixosConfigurations for rebuilds to detect it automatically
+
+  rootConfig :: Path : The path to the root `configuration.nix` file, which will be imported and is responsible for
+  applying all host-specific configuration.
 
   system :: String : System type. Usually x86_64-linux
   */
   mkHost = {
-    name, # TODO: Make this a directory and configure hostname in options
+    rootConfig,
     system, # TODO: Remove this. Last usage is currently the pkgs-unstable import
   }: let
     pkgs-unstable = import nixpkgs-unstable {
@@ -37,16 +39,13 @@
         # TODO: Why does importing home-manager in a module not work? Why does it need to be imported here?
         inputs.home-manager.nixosModules.home-manager
         flake.nixosModules.default
-        ../hosts/${name}/configuration.nix
-        ../hosts/${name}/hardware-configuration.nix
+        rootConfig
         ({
           pkgs,
           config,
           ...
         }: {
           # Base nixos for all hosts
-          networking.hostName = name; # The hostname is used as the default target of nixos-rebuild switch
-
           nixpkgs.hostPlatform = system;
         })
       ];

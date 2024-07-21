@@ -6,5 +6,8 @@ repoPath = "/home/kieran/Documents/src/nixcfg"
 office.enable = true
 printing.enable = true
 
+[networking]
+hostName = "laptop"
+
 [development]
 enable = true
