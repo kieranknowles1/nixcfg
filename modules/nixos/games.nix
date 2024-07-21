@@ -3,12 +3,8 @@
   config,
   lib,
   pkgs-unstable,
-  pkgs,
-  flake,
   ...
-}: let
-  flakePackages = flake.packages.${config.nixpkgs.hostPlatform.system};
-in {
+}: {
   options = {
     custom.games.enable = lib.mkEnableOption "games";
   };
@@ -27,9 +23,6 @@ in {
       protontricks # Proton itself is installed by steam
 
       openmw # TODO: Get my own version building. May be time to learn dev shells
-
-      # Game tools
-      flakePackages.skyrim-utils
 
       # Launcher for Epic Games Store
       heroic
