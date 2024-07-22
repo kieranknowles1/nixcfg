@@ -3,7 +3,7 @@
     "entities": [
       {
         "entity_number": 1,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 161.5
@@ -12,7 +12,7 @@
       {
         "direction": 2,
         "entity_number": 2,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 160.5
@@ -21,7 +21,7 @@
       {
         "direction": 2,
         "entity_number": 3,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 406.5,
           "y": 160.5
@@ -30,7 +30,7 @@
       {
         "direction": 2,
         "entity_number": 4,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 407.5,
           "y": 160.5
@@ -39,7 +39,7 @@
       {
         "direction": 2,
         "entity_number": 5,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 408.5,
           "y": 160.5
@@ -48,7 +48,7 @@
       {
         "direction": 2,
         "entity_number": 6,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 409.5,
           "y": 160.5
@@ -57,7 +57,7 @@
       {
         "direction": 2,
         "entity_number": 7,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 410.5,
           "y": 160.5
@@ -66,7 +66,7 @@
       {
         "direction": 2,
         "entity_number": 8,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 411.5,
           "y": 160.5
@@ -75,7 +75,7 @@
       {
         "direction": 2,
         "entity_number": 9,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 412.5,
           "y": 160.5
@@ -84,7 +84,7 @@
       {
         "direction": 2,
         "entity_number": 10,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 413.5,
           "y": 160.5
@@ -93,7 +93,7 @@
       {
         "direction": 2,
         "entity_number": 11,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 414.5,
           "y": 160.5
@@ -102,7 +102,7 @@
       {
         "direction": 2,
         "entity_number": 12,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 160.5
@@ -111,7 +111,7 @@
       {
         "direction": 2,
         "entity_number": 13,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 161.5
@@ -120,7 +120,7 @@
       {
         "direction": 2,
         "entity_number": 14,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 417.5,
           "y": 160.5
@@ -130,7 +130,7 @@
         "direction": 2,
         "entity_number": 15,
         "filter": "plastic-bar",
-        "name": "splitter",
+        "name": "fast-splitter",
         "output_priority": "left",
         "position": {
           "x": 416.5,
@@ -139,7 +139,7 @@
       },
       {
         "entity_number": 16,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 163.5
@@ -147,7 +147,7 @@
       },
       {
         "entity_number": 17,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 162.5
@@ -227,7 +227,7 @@
       },
       {
         "entity_number": 26,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 162.5
@@ -235,7 +235,7 @@
       },
       {
         "entity_number": 27,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 163.5
@@ -243,7 +243,7 @@
       },
       {
         "entity_number": 28,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 165.5
@@ -251,7 +251,7 @@
       },
       {
         "entity_number": 29,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 164.5
@@ -319,7 +319,7 @@
       },
       {
         "entity_number": 36,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 164.5
@@ -327,7 +327,7 @@
       },
       {
         "entity_number": 37,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 165.5
@@ -335,7 +335,7 @@
       },
       {
         "entity_number": 38,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 167.5
@@ -343,7 +343,7 @@
       },
       {
         "entity_number": 39,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 166.5
@@ -403,7 +403,7 @@
       },
       {
         "entity_number": 46,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 166.5
@@ -411,7 +411,7 @@
       },
       {
         "entity_number": 47,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 167.5
@@ -419,7 +419,7 @@
       },
       {
         "entity_number": 48,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 169.5
@@ -427,7 +427,7 @@
       },
       {
         "entity_number": 49,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 168.5
@@ -489,7 +489,7 @@
       },
       {
         "entity_number": 56,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 168.5
@@ -497,7 +497,7 @@
       },
       {
         "entity_number": 57,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 169.5
@@ -505,7 +505,7 @@
       },
       {
         "entity_number": 58,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 171.5
@@ -513,7 +513,7 @@
       },
       {
         "entity_number": 59,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 170.5
@@ -593,7 +593,7 @@
       },
       {
         "entity_number": 68,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 170.5
@@ -601,7 +601,7 @@
       },
       {
         "entity_number": 69,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 171.5
@@ -609,7 +609,7 @@
       },
       {
         "entity_number": 70,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 173.5
@@ -617,7 +617,7 @@
       },
       {
         "entity_number": 71,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 172.5
@@ -683,7 +683,7 @@
       },
       {
         "entity_number": 78,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 172.5
@@ -691,7 +691,7 @@
       },
       {
         "entity_number": 79,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 173.5
@@ -699,7 +699,7 @@
       },
       {
         "entity_number": 80,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 175.5
@@ -707,7 +707,7 @@
       },
       {
         "entity_number": 81,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 174.5
@@ -769,7 +769,7 @@
       },
       {
         "entity_number": 88,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 174.5
@@ -777,7 +777,7 @@
       },
       {
         "entity_number": 89,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 175.5
@@ -786,7 +786,7 @@
       {
         "direction": 2,
         "entity_number": 90,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 404.5,
           "y": 177.5
@@ -794,7 +794,7 @@
       },
       {
         "entity_number": 91,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 177.5
@@ -802,7 +802,7 @@
       },
       {
         "entity_number": 92,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 405.5,
           "y": 176.5
@@ -820,7 +820,7 @@
       {
         "direction": 6,
         "entity_number": 94,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 406.5,
           "y": 177.5
@@ -829,7 +829,7 @@
       {
         "direction": 6,
         "entity_number": 95,
-        "name": "underground-belt",
+        "name": "fast-underground-belt",
         "position": {
           "x": 407.5,
           "y": 177.5
@@ -847,7 +847,7 @@
       {
         "direction": 6,
         "entity_number": 97,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 413.5,
           "y": 177.5
@@ -856,7 +856,7 @@
       {
         "direction": 6,
         "entity_number": 98,
-        "name": "underground-belt",
+        "name": "fast-underground-belt",
         "position": {
           "x": 412.5,
           "y": 177.5
@@ -875,7 +875,7 @@
       {
         "direction": 2,
         "entity_number": 100,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 414.5,
           "y": 177.5
@@ -883,7 +883,7 @@
       },
       {
         "entity_number": 101,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 176.5
@@ -891,7 +891,7 @@
       },
       {
         "entity_number": 102,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 415.5,
           "y": 177.5
@@ -900,7 +900,7 @@
       {
         "direction": 6,
         "entity_number": 103,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 416.5,
           "y": 177.5
@@ -944,7 +944,7 @@
       },
       {
         "entity_number": 108,
-        "name": "splitter",
+        "name": "fast-splitter",
         "position": {
           "x": 414,
           "y": 178.5
@@ -952,7 +952,7 @@
       },
       {
         "entity_number": 109,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 414.5,
           "y": 179.5
@@ -960,7 +960,7 @@
       },
       {
         "entity_number": 110,
-        "name": "transport-belt",
+        "name": "fast-transport-belt",
         "position": {
           "x": 414.5,
           "y": 180.5

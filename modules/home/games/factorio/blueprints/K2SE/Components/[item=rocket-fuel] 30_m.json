@@ -1,0 +1,768 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -98.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "kr-atmospheric-condenser",
+        "position": {
+          "x": 590.5,
+          "y": -95.5
+        },
+        "recipe": "oxygen"
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "kr-atmospheric-condenser",
+        "position": {
+          "x": 596.5,
+          "y": -95.5
+        },
+        "recipe": "oxygen"
+      },
+      {
+        "entity_number": 4,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -97.5
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -96.5
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          27
+        ],
+        "position": {
+          "x": 593.5,
+          "y": -95.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -94.5
+        }
+      },
+      {
+        "entity_number": 8,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -95.5
+        }
+      },
+      {
+        "entity_number": 9,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -94.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 10,
+        "name": "kr-atmospheric-condenser",
+        "position": {
+          "x": 590.5,
+          "y": -90.5
+        },
+        "recipe": "oxygen"
+      },
+      {
+        "entity_number": 11,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -93.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -92.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 13,
+        "name": "kr-atmospheric-condenser",
+        "position": {
+          "x": 596.5,
+          "y": -90.5
+        },
+        "recipe": "oxygen"
+      },
+      {
+        "entity_number": 14,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -93.5
+        }
+      },
+      {
+        "entity_number": 15,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -92.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -91.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -90.5
+        }
+      },
+      {
+        "entity_number": 18,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -91.5
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -90.5
+        }
+      },
+      {
+        "entity_number": 20,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -89.5
+        }
+      },
+      {
+        "entity_number": 21,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -88.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 22,
+        "name": "inserter",
+        "position": {
+          "x": 602.5,
+          "y": -88.5
+        }
+      },
+      {
+        "entity_number": 23,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -89.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 24,
+        "name": "inserter",
+        "position": {
+          "x": 603.5,
+          "y": -88.5
+        }
+      },
+      {
+        "bar": 4,
+        "entity_number": 25,
+        "name": "logistic-chest-passive-provider",
+        "position": {
+          "x": 603.5,
+          "y": -89.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 26,
+        "name": "kr-atmospheric-condenser",
+        "position": {
+          "x": 590.5,
+          "y": -84.5
+        },
+        "recipe": "oxygen"
+      },
+      {
+        "entity_number": 27,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          6,
+          33,
+          69
+        ],
+        "position": {
+          "x": 592.5,
+          "y": -87.5
+        }
+      },
+      {
+        "entity_number": 28,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -87.5
+        }
+      },
+      {
+        "entity_number": 29,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -86.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 30,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 594.5,
+          "y": -87.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 31,
+        "name": "kr-atmospheric-condenser",
+        "position": {
+          "x": 596.5,
+          "y": -84.5
+        },
+        "recipe": "oxygen"
+      },
+      {
+        "entity_number": 32,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -86.5
+        }
+      },
+      {
+        "entity_number": 33,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          27,
+          37
+        ],
+        "position": {
+          "x": 599.5,
+          "y": -87.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 34,
+        "name": "inserter",
+        "position": {
+          "x": 600.5,
+          "y": -86.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 35,
+        "name": "kr-fuel-refinery",
+        "position": {
+          "x": 602.5,
+          "y": -86.5
+        },
+        "recipe": "rocket-fuel"
+      },
+      {
+        "direction": 2,
+        "entity_number": 36,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 600.5,
+          "y": -87.5
+        }
+      },
+      {
+        "entity_number": 37,
+        "name": "substation",
+        "neighbours": [
+          33
+        ],
+        "position": {
+          "x": 607,
+          "y": -86
+        }
+      },
+      {
+        "entity_number": 38,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -84.5
+        }
+      },
+      {
+        "entity_number": 39,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -85.5
+        }
+      },
+      {
+        "entity_number": 40,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -84.5
+        }
+      },
+      {
+        "entity_number": 41,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -85.5
+        }
+      },
+      {
+        "entity_number": 42,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 600.5,
+          "y": -84.5
+        }
+      },
+      {
+        "entity_number": 43,
+        "name": "pipe",
+        "position": {
+          "x": 600.5,
+          "y": -85.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 44,
+        "name": "stack-inserter",
+        "position": {
+          "x": 601.5,
+          "y": -84.5
+        }
+      },
+      {
+        "entity_number": 45,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -82.5
+        }
+      },
+      {
+        "entity_number": 46,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -83.5
+        }
+      },
+      {
+        "entity_number": 47,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -82.5
+        }
+      },
+      {
+        "entity_number": 48,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 49,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 601.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 50,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 602.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 51,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 603.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 52,
+        "name": "inserter",
+        "position": {
+          "x": 603.5,
+          "y": -82.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 53,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 604.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 54,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 605.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 55,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 606.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 56,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 607.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 57,
+        "name": "inserter",
+        "position": {
+          "x": 606.5,
+          "y": -82.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 58,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 608.5,
+          "y": -83.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 59,
+        "name": "inserter",
+        "position": {
+          "x": 608.5,
+          "y": -82.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 60,
+        "name": "kr-atmospheric-condenser",
+        "position": {
+          "x": 590.5,
+          "y": -79.5
+        },
+        "recipe": "oxygen"
+      },
+      {
+        "entity_number": 61,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -80.5
+        }
+      },
+      {
+        "entity_number": 62,
+        "name": "pipe",
+        "position": {
+          "x": 593.5,
+          "y": -81.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 63,
+        "name": "kr-atmospheric-condenser",
+        "position": {
+          "x": 596.5,
+          "y": -79.5
+        },
+        "recipe": "oxygen"
+      },
+      {
+        "entity_number": 64,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -80.5
+        }
+      },
+      {
+        "entity_number": 65,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -81.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 66,
+        "name": "kr-fuel-refinery",
+        "position": {
+          "x": 603.5,
+          "y": -80.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "direction": 4,
+        "entity_number": 67,
+        "name": "kr-fuel-refinery",
+        "position": {
+          "x": 606.5,
+          "y": -80.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "direction": 4,
+        "entity_number": 68,
+        "name": "kr-fuel-refinery",
+        "position": {
+          "x": 609.5,
+          "y": -80.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "entity_number": 69,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          27
+        ],
+        "position": {
+          "x": 593.5,
+          "y": -79.5
+        }
+      },
+      {
+        "entity_number": 70,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 71,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -79.5
+        }
+      },
+      {
+        "entity_number": 72,
+        "name": "pipe",
+        "position": {
+          "x": 601.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 73,
+        "name": "pipe",
+        "position": {
+          "x": 600.5,
+          "y": -78.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 74,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 600.5,
+          "y": -79.5
+        }
+      },
+      {
+        "entity_number": 75,
+        "name": "pipe",
+        "position": {
+          "x": 603.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 76,
+        "name": "pipe",
+        "position": {
+          "x": 602.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 77,
+        "name": "pipe",
+        "position": {
+          "x": 605.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 78,
+        "name": "pipe",
+        "position": {
+          "x": 604.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 79,
+        "name": "pipe",
+        "position": {
+          "x": 607.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 80,
+        "name": "pipe",
+        "position": {
+          "x": 606.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 81,
+        "name": "pipe",
+        "position": {
+          "x": 608.5,
+          "y": -78.5
+        }
+      },
+      {
+        "entity_number": 82,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -76.5
+        }
+      },
+      {
+        "entity_number": 83,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -77.5
+        }
+      },
+      {
+        "entity_number": 84,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 602.5,
+          "y": -77.5
+        }
+      },
+      {
+        "entity_number": 85,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -74.5
+        }
+      },
+      {
+        "entity_number": 86,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 599.5,
+          "y": -75.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "rocket-fuel",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "[item=rocket-fuel] 30/m",
+    "version": 281479278821376
+  },
+  "index": 2
+}
