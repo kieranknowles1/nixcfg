@@ -15,11 +15,18 @@
   src :: String : The path to the script to package or the script itself
 
   version :: String : The version of the script.
+
+  meta :: AttrSet : Metadata for the package. See [Meta-attributes](https://ryantm.github.io/nixpkgs/stdenv/meta/) for more information.
   */
-  packagePythonScript = name: src: version:
+  packagePythonScript = {
+    name,
+    src,
+    version,
+    meta,
+  }:
     pkgs.stdenv.mkDerivation rec {
       pname = name;
-      inherit version src;
+      inherit version src meta;
 
       dontUnpack = true; # This is a text file, unpacking is only applicable to archives
       installPhase = ''

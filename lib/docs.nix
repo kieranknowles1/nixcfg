@@ -150,7 +150,7 @@ in {
     createTocEntry = package: let
       name = getName package;
     in ''
-      - [${name}](#${pkgs.lib.strings.toLower name})
+      - [${name}](#${pkgs.lib.strings.toLower name}) - ${package.meta.description or ""}
     '';
 
     createEntry = package: let
@@ -164,6 +164,8 @@ in {
     in ''
       ## ${name}
       version: ${version}
+
+      ${if package.meta ? homepage then "Homepage: " + package.meta.homepage else ""}
 
       ${shortDescription}
 
