@@ -1,0 +1,375 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 2,
+        "entity_number": 1,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 1.5,
+          "y": 0.5
+        }
+      },
+      {
+        "entity_number": 2,
+        "name": "pipe",
+        "position": {
+          "x": 2.5,
+          "y": 0.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 3,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 3.5,
+          "y": 0.5
+        }
+      },
+      {
+        "entity_number": 4,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 1.5
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": 1.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 6,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 4.5,
+          "y": 1.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 7,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 6.5,
+          "y": 1.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 0.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 9,
+        "name": "pipe",
+        "position": {
+          "x": 1.5,
+          "y": 3.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 10,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 11,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 5.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "pipe",
+        "position": {
+          "x": 7.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 7.5,
+          "y": 3.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 14,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 6.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 15,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 8.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 1.5,
+          "y": 4.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 17,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 1.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 18,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 0.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 19,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 3.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 20,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 2.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 21,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 5.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 22,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 4.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 23,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 24,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 25,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 8.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 26,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 9.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 27,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 10.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 28,
+        "name": "se-pulveriser",
+        "position": {
+          "x": 6.5,
+          "y": 10.5
+        },
+        "recipe": "se-core-fragment-omni"
+      },
+      {
+        "entity_number": 29,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          38
+        ],
+        "position": {
+          "x": 4.5,
+          "y": 6.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 30,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 5.5,
+          "y": 6.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 31,
+        "name": "stack-inserter",
+        "position": {
+          "x": 6.5,
+          "y": 6.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 32,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 7.5,
+          "y": 6.5
+        }
+      },
+      {
+        "entity_number": 33,
+        "name": "pipe",
+        "position": {
+          "x": 2.5,
+          "y": 9.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 34,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 8.5
+        }
+      },
+      {
+        "entity_number": 35,
+        "name": "pipe",
+        "position": {
+          "x": 1.5,
+          "y": 11.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 36,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 1.5,
+          "y": 10.5
+        }
+      },
+      {
+        "entity_number": 37,
+        "name": "pipe",
+        "position": {
+          "x": 2.5,
+          "y": 11.5
+        }
+      },
+      {
+        "entity_number": 38,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          29
+        ],
+        "position": {
+          "x": 3.5,
+          "y": 14.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 39,
+        "name": "fast-inserter",
+        "position": {
+          "x": 6.5,
+          "y": 14.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "se-pulveriser",
+          "type": "item"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "se-core-fragment-omni",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Core Fragment Processor",
+    "snap-to-grid": {
+      "x": 11,
+      "y": 15
+    },
+    "version": 281479278821376
+  },
+  "index": 7
+}
