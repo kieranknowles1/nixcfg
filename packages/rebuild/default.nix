@@ -7,7 +7,7 @@ pkgs.rustPlatform.buildRustPackage {
   cargoHash = "sha256-E8zazeja//VwXJGaFsIIzSorAOgS3jYdeLzHb1n2qaI=";
 
   meta = {
-    description = "A tool to rebuild the system and commit the changes";
+    description = "Wrapper for common Nix build workflows";
     longDescription = ''
       Rebuild the system and commit the changes to the repository.
 
