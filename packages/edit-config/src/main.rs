@@ -41,21 +41,30 @@ struct BackupPath {
     system_path: PathBuf,
 }
 
-/// Collect a list of paths to back up so that they will be editable
-fn collect_backup_paths(program: &AbsoluteProgramConfig) -> Vec<BackupPath> {
-    WalkDir::new(&program.system_path)
-        .into_iter()
-        .flatten() // TODO: This discards errors, which is bad
-        .filter(|entry| !program.is_ignored(entry.path()))
-        .filter(|entry| !entry.file_type().is_dir())
-        .map(|entry| {
-            let system_path = entry.path().to_path_buf();
-            // An error means the path is not in system_path, which should never happen
-            let repo_path = program.to_repo_path(&system_path).unwrap();
+/// Collect a list of file paths to back up so that they will be editable
+fn collect_backup_paths(program: &AbsoluteProgramConfig) -> io::Result<Vec<BackupPath>> {
+    let mut paths = Vec::new();
 
-            BackupPath { repo_path, system_path }
-        })
-        .collect()
+    for entry in WalkDir::new(&program.system_path) {
+        let entry = entry?;
+
+        // Ignore paths that are explicitly marked as ignored
+        if program.is_ignored(entry.path()) {
+            continue;
+        }
+        // We only care about files, not directories
+        if entry.file_type().is_dir() {
+            continue;
+        }
+
+        let system_path = entry.path().to_path_buf();
+        // An error means the path we're iterating over is not in system_path, which should never happen
+        let repo_path = program.to_repo_path(&system_path).unwrap();
+
+        paths.push(BackupPath { repo_path, system_path });
+    }
+
+    Ok(paths)
 }
 
 struct SwappedLink {
@@ -142,7 +151,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         None => Err(ProgramNotFoundError { program: args.program })?,
     };
 
-    let paths = collect_backup_paths(&program);
+    let paths = collect_backup_paths(&program)?;
 
     let swapped_links = swap_links_with_repo(paths, args.dry_run)?;
     open_editor(&config.editor, &program.system_path)?;
