@@ -1,10 +1,10 @@
 {pkgs}:
 pkgs.rustPlatform.buildRustPackage {
   pname = "edit-config";
-  version = "4.0.0";
+  version = "4.1.0";
   src = ./.;
 
-  cargoHash = "sha256-PfU/jT3RWmmXluYAESHgW98bH8OwTjaOXP+foCH6hjE=";
+  cargoHash = "sha256-USN7E0ZmwaD7pVbLdxAuILIQNHBN3Tdintlvc1JqGSk=";
 
   meta = {
     description = "A tool to edit configuration files";
