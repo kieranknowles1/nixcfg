@@ -7,10 +7,6 @@
   pkgs-unstable,
   ...
 }: {
-  # TODO: Replace mkUser with this, that way
-  # we can have other options depend on it
-  # mkHost's home-manager can also be handled here
-
   options.custom.user = lib.mkOption {
     description = ''
       A user to create that can log in.
