@@ -166,6 +166,7 @@ in {
       version: ${version}
 
       ${if package.meta ? homepage then "Homepage: " + package.meta.homepage else ""}
+      ${if package.meta ? license then "License: " + package.meta.license.fullName else ""}
 
       ${shortDescription}
 
