@@ -102,6 +102,9 @@ shell or configuration. These are quite specific to my use case and may or may n
 These are written in Python, although some have been oxidized as I'm trying to learn Rust, the language with a suspiciously
 high overlap between people who use it, and people who use NixOS.
 
+The packages provided are a combination of scripts written for this repo, and packaged versions of other software that
+is unavailable in the Nixpkgs repository.
+
 ### Repository Structure
 
 - [docs (gitignored)](docs/readme.md) contains documentation generated during the build process.

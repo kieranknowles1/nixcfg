@@ -64,4 +64,43 @@ in {
   rebuild = import ./rebuild {inherit pkgs;};
 
   skyrim-utils = import ./skyrim-utils {inherit pkgs;};
+
+  # Packaging something with NuGet dependencies is tricky, so just fetch the
+  # prebuilt binary.
+  spriggit = pkgs.stdenv.mkDerivation rec {
+    pname = "spriggit";
+    version = "0.25";
+
+    src = pkgs.fetchzip {
+      url = "https://github.com/Mutagen-Modding/Spriggit/releases/download/${version}/SpriggitLinuxCLI.zip";
+      hash = "sha256-5Kbx7lgT0qs5fIYmzRCUerRcksKD0vRgH0RtSXv33EQ=";
+      stripRoot = false; # The archive doesn't have a root directory
+    };
+
+    # Bit of a hack to build the binary. For some reason,
+    # the executable loses its execute permission when unpacked from the zip.
+    # We instead copy the build artifacts to the output directory, and chmod +x it.
+    # $src is read-only, outputs can refer to it, but not modify it.
+    installPhase = ''
+      mkdir -p $out/share/spriggit
+      mkdir -p $out/bin
+      cp --recursive $src/* $out/share/spriggit
+
+      chmod +x $out/share/spriggit/Spriggit.CLI
+      ln --symbolic $out/share/spriggit/Spriggit.CLI $out/bin/spriggit
+    '';
+
+    meta = with pkgs.lib; {
+      description = "A tool for converting Bethesda plugin files to text and back";
+
+      longDescription = ''
+        A tool to convert Bethesda plugin files (Skyrim, Fallout, Starfield) to text
+        and back so that they can be effectively stored in Git repositories.
+      '';
+
+      homepage = "https://github.com/Mutagen-Modding/Spriggit";
+
+      licence = licenses.gpl3;
+    };
+  };
 }
