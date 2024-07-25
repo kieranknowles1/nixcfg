@@ -13,7 +13,7 @@
   };
   homeRelativeRepoPath = lib.strings.removePrefix config.home.homeDirectory hostConfig.custom.repoPath;
 
-  docsPath = "${homeRelativeRepoPath}/docs";
+  docsPath = "${homeRelativeRepoPath}/docs/generated";
 
   /*
    *
