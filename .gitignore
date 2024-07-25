@@ -2,7 +2,7 @@
 result
 
 # Generated during the build process
-/docs
+/docs/generated
 
 # Rust compiler output
 target/
