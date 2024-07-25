@@ -77,10 +77,9 @@ in {
       stripRoot = false; # The archive doesn't have a root directory
     };
 
-    # Bit of a hack to build the binary. For some reason,
-    # the executable loses its execute permission when unpacked from the zip.
-    # We instead copy the build artifacts to the output directory, and chmod +x it.
-    # $src is read-only, outputs can refer to it, but not modify it.
+    # Bit of a hack to add execute permissions to the binary
+    # $src is read-only, so we need to copy to $out first, then chmod
+    # Copy everything as the binary relies on other files in the archive
     installPhase = ''
       mkdir -p $out/share/spriggit
       mkdir -p $out/bin
@@ -96,6 +95,9 @@ in {
       longDescription = ''
         A tool to convert Bethesda plugin files (Skyrim, Fallout, Starfield) to text
         and back so that they can be effectively stored in Git repositories.
+
+        NOTE: Spriggit fetches libraries at runtime, so it doesn't follow the
+        Nix philosophy of reproducibility.
       '';
 
       homepage = "https://github.com/Mutagen-Modding/Spriggit";
