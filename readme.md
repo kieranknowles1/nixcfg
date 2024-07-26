@@ -3,16 +3,7 @@
 This repository contains the NixOS configuration for my systems.
 
 - [Readme](#readme)
-  - [Usage](#usage)
-    - [System Usage](#system-usage)
-      - [Key Bindings](#key-bindings)
-      - [Dev Shells](#dev-shells)
   - [Documentation](#documentation)
-    - [Host Definition](#host-definition)
-    - [Library](#library)
-    - [Options](#options)
-      - [Error Handling](#error-handling)
-    - [Packages](#packages)
     - [Repository Structure](#repository-structure)
   - [Essential Resources](#essential-resources)
   - [Todo List](#todo-list)
@@ -20,94 +11,14 @@ This repository contains the NixOS configuration for my systems.
     - [Don't Use Wayland Yet](#dont-use-wayland-yet)
     - [Make Sure You Have a User](#make-sure-you-have-a-user)
 
-## Usage
-
-To rebuild the system, run `rebuild build <commit message>`.
-This will update and switch to the current changes, then commit them if it was successful.
-For more information, run `rebuild --help`.
-
-`nix-tree` is a useful tool for visualizing what derivations are included and their dependencies.
-
-### System Usage
-
-#### Key Bindings
-
-Key bindings are managed by sxhkd. Documentation is generated during build and can be found in
-[docs/shortcuts.md](docs/shortcuts.md).
-
-#### Dev Shells
-
-Dev shells are provided for development of various languages/projects. These can be entered with `develop <shell>`.
-To list available shells, run `nix flake show`.
-
 ## Documentation
 
-### Host Definition
-
-By convention, each host is a subdirectory of the `hosts` directory. Each has the following files:
-
-- `configuration.nix` - The host's configuration. This:
-  - Imports `hardware-configuration.nix` to define the hardware.
-  - Defines users under `config.custom.users`.
-  - Concatenates `config.toml` with `config.custom` to define the host's configuration.
-- `hardware-configuration.nix` - The host's hardware configuration.
-- `config.toml` - The host's configuration, containing all options under `config.custom`.
-  - The `#:schema` directive is used to link to the generated JSON schema in [docs/host-options.schema.json](docs/host-options.schema.json).
-
-A host should not define any options not in the `custom` key. This means that only options exposed by the flake itself
-should be used. This is to ensure that all hosts have the same software available with the same config, only differing
-where explicitly defined.
-
-This does have the downside of making host definitions tightly coupled to the flake, but this is a trade-off I'm willing
-to make for the sake of consistency.
-
-See [hosts/desktop](hosts/desktop/configuration.nix) for my desktop configuration, which is my most frequently used host.
-
-### Library
-
-An extension to the standard nixpkgs library is provided in the `flake.lib` attribute set. Documentation is generated
-during the build process and can be found in [docs/lib.md](docs/lib.md).
-
-This is generated with [nixdoc](https://github.com/nix-community/nixdoc) and uses the [CommonMark](https://commonmark.org/)
-flavour of Markdown.
-
-### Options
-
-Several options are available to customize the configuration on top of what the flake's inputs provide, although
-it is preferred to only use the newly provided options in the `configuration.nix` file. All newly provided options
-are under the `custom` key. This is generated during the build process. Host options are documented in [docs/host-options.md](docs/host-options.md)
-while user-specific options are in [docs/user-options.md](docs/user-options.md). These can be used as any other NixOS option would be.
-
-This is generated with `nixosOptionsDoc` and I wouldn't have known about it or how to use it without Brian McGee's
-[blog post](https://bmcgee.ie/posts/2023/03/til-how-to-generate-nixos-module-docs/).
-
-A more recent addition is the use of `clan-core` to generate JSON schemas for the options. This is in turn used
-to configure modules with TOML files for better feedback during development. This is generated during the build process and
-dumped to [docs/host-options.schema.json](docs/host-options.schema.json) and [docs/user-options.schema.json](docs/user-options.schema.json).
-
-#### Error Handling
-
-Error handling is done with `config.assertions`, which is a list of assertions that must be true for the configuration
-to be applied. This gives a more readable error message than with `throw` and collects all errors rather than stopping
-at the first one.
-
-Where possible, assertions should be in place where a certain option or combination of options is non-sensical, such as
-the default editor not being installed or a GUI app being enabled on a headless server.
-
-### Packages
-
-A few packages are provided in the [packages](packages/) directory. These are built with `nix build`, or included in a
-shell or configuration. These are quite specific to my use case and may or may not be useful to others.
-
-These are written in Python, although some have been oxidized as I'm trying to learn Rust, the language with a suspiciously
-high overlap between people who use it, and people who use NixOS.
-
-The packages provided are a combination of scripts written for this repo, and packaged versions of other software that
-is unavailable in the Nixpkgs repository.
+Documentation for the repository is available at [docs/](docs/readme.md) and details how to develop in
+the repository, and use systems configured with it.
 
 ### Repository Structure
 
-- [docs (gitignored)](docs/readme.md) contains documentation generated during the build process.
+- [docs](docs/readme.md) contains documentation generated during the build process.
 - [hosts](hosts/) contains the configuration for each host.
 - [media](media/) contains media used throughout the repository.
 - [modules](modules/) modules included by the hosts.
