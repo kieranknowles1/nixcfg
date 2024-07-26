@@ -67,13 +67,15 @@ in {
 
   config = {
     # Copy definitions into the user's mime directory
-    home.file = lib.attrsets.mapAttrs' toHomeFileEntry
+    home.file =
+      lib.attrsets.mapAttrs' toHomeFileEntry
       (lib.attrsets.filterAttrs (name: value: value.definitionFile != null) config.custom.mime.definition);
 
     xdg.mimeApps = {
       enable = true;
 
-      associations.added = lib.attrsets.mapAttrs' toXdgAssociation
+      associations.added =
+        lib.attrsets.mapAttrs' toXdgAssociation
         (lib.attrsets.filterAttrs (name: value: value.defaultApp != null) config.custom.mime.definition);
     };
 
