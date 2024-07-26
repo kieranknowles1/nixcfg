@@ -1,10 +1,10 @@
-ERROR: skipping blueprint 'Core Resource Depot' due to exception: expected 0x00 but got 0x75 at position 525502 (0x804be)
+ERROR: skipping blueprint 'Core Resource Depot' due to exception: expected 0x00 but got 0x75 at position 550484 (0x86654)
 Traceback (most recent call last):
-  File "/nix/store/dczbfyp69284a0arh0fddv47lkmxakq1-factorio-blueprint-decoder/bin/factorio-blueprint-decoder", line 2699, in parse_blueprint
+  File "/nix/store/kv177m01wdb0awcp6dn19fdp1j5m8qzj-factorio-blueprint-decoder-unstable/bin/factorio-blueprint-decoder", line 2698, in parse_blueprint
     parse_schedules(stream, index, result)
-  File "/nix/store/dczbfyp69284a0arh0fddv47lkmxakq1-factorio-blueprint-decoder/bin/factorio-blueprint-decoder", line 2458, in parse_schedules
+  File "/nix/store/kv177m01wdb0awcp6dn19fdp1j5m8qzj-factorio-blueprint-decoder-unstable/bin/factorio-blueprint-decoder", line 2457, in parse_schedules
     stream.expect(0x00, 0x00)
-  File "/nix/store/dczbfyp69284a0arh0fddv47lkmxakq1-factorio-blueprint-decoder/bin/factorio-blueprint-decoder", line 346, in expect
+  File "/nix/store/kv177m01wdb0awcp6dn19fdp1j5m8qzj-factorio-blueprint-decoder-unstable/bin/factorio-blueprint-decoder", line 345, in expect
     raise ParseError(f"expected {expected:#04x} but got {actual:#04x} at position {position} ({position:#x})")
-ParseError: expected 0x00 but got 0x75 at position 525502 (0x804be)
+ParseError: expected 0x00 but got 0x75 at position 550484 (0x86654)
 ERROR - summary: skipped 1 unreadable blueprints.
