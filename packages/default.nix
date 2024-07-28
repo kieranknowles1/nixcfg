@@ -18,6 +18,8 @@ in {
     };
   };
 
+  command-palette = pkgs.writeShellScriptBin "command-palette" (builtins.readFile ./command-palette.sh);
+
   edit-config = import ./edit-config {inherit pkgs;};
 
   export-blueprints = packagePythonScript {
