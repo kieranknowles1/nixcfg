@@ -13,6 +13,7 @@ in {
   # Some of this depends on the host, so I'm not configuring it as toml
   # otherwise it would be a bit messy to have some toml and some nix
   home = {
+    # TODO: Use TOML for this, have separate "desktopOnly" and "allSystems" files that are conditionally imporI'm
     custom = {
       userDetails = {
         email = "kieranknowles11@hotmail.co.uk";
@@ -22,6 +23,8 @@ in {
 
       docs-generate.enable = isDesktop;
       edit-config.enable = isDesktop;
+
+      shortcuts.enable = isDesktop;
 
       editor = {
         default =

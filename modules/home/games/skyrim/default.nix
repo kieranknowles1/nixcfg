@@ -39,12 +39,13 @@ in {
         };
       };
 
-      shortcuts = let
+      shortcuts.hotkeys.keys = let
         utilsBin = "${flakePackages.skyrim-utils}/bin/skyrim-utils";
         zenity = "${pkgs.zenity}/bin/zenity";
 
         # Couldn't find an easy way to do a select dialog in Rust,
         # So I'm using Zenity to create a dialog.
+        # TODO: Move this to a generic command palette option
         selectAction = pkgs.writeShellScriptBin "skyrim-utils-select" ''
           set -e
 

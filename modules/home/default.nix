@@ -12,6 +12,6 @@
     ./games
     ./mime
     ./nushell
-    ./shortcuts.nix
+    ./shortcuts
   ];
 }

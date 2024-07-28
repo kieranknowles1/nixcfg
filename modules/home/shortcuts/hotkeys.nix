@@ -23,8 +23,10 @@
     ${lib.strings.concatStringsSep "\n" bindingList}
   '';
 in {
-  options.custom = {
-    shortcuts = lib.mkOption {
+  options.custom.shortcuts = {
+    enable = lib.mkEnableOption "keyboard shortcuts and command palettes";
+
+    hotkeys.keys = lib.mkOption {
       description = ''
         A set of keyboard shortcuts to be managed by sxhkd.
         The key in the set is the binding, and the value contains the action to be executed and
@@ -46,9 +48,18 @@ in {
     };
   };
 
-  config = lib.mkIf (hostConfig.custom.deviceType == "desktop") {
+  config = let
+    cfg = config.custom.shortcuts;
+  in lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = hostConfig.custom.deviceType == "desktop";
+        message = "Keyboard shortcuts are only available on desktop devices";
+      }
+    ];
+
     # Default shortcuts
-    custom.shortcuts = {
+    custom.shortcuts.hotkeys.keys = {
       "alt + t" = {
         action = "kgx";
         description = "Open terminal";
@@ -66,7 +77,7 @@ in {
     # Generate documentation
     custom.docs-generate.file."shortcuts.md" = {
       description = "Keyboard shortcuts";
-      source = builtins.toFile "shortcuts.md" (mkDocs config.custom.shortcuts);
+      source = builtins.toFile "shortcuts.md" (mkDocs cfg.hotkeys.keys);
     };
 
     # Apply options
@@ -74,7 +85,7 @@ in {
       enable = true;
       package = sxhkd;
 
-      keybindings = builtins.mapAttrs (name: value: value.action) config.custom.shortcuts;
+      keybindings = builtins.mapAttrs (name: value: value.action) cfg.hotkeys.keys;
     };
 
     # Autostart sxhkd
