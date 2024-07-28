@@ -51,52 +51,53 @@ in {
 
   config = let
     cfg = config.custom.shortcuts;
-  in lib.mkIf cfg.enable {
-    # TODO: Do this in default.nix
-    assertions = [
-      {
-        assertion = hostConfig.custom.deviceType == "desktop";
-        message = "Keyboard shortcuts are only available on desktop devices";
-      }
-    ];
+  in
+    lib.mkIf cfg.enable {
+      # TODO: Do this in default.nix
+      assertions = [
+        {
+          assertion = hostConfig.custom.deviceType == "desktop";
+          message = "Keyboard shortcuts are only available on desktop devices";
+        }
+      ];
 
-    # Default shortcuts
-    custom.shortcuts.hotkeys.keys = {
-      "alt + t" = {
-        action = "kgx";
-        description = "Open terminal";
+      # Default shortcuts
+      custom.shortcuts.hotkeys.keys = {
+        "alt + t" = {
+          action = "kgx";
+          description = "Open terminal";
+        };
+        "ctrl + alt + e" = {
+          action = "fsearch";
+          description = "Open FSearch (Everything clone)";
+        };
+        "ctrl + shift + Escape" = {
+          action = "resources";
+          description = "Open task manager.";
+        };
       };
-      "ctrl + alt + e" = {
-        action = "fsearch";
-        description = "Open FSearch (Everything clone)";
+
+      # Generate documentation
+      custom.docs-generate.file."shortcuts.md" = {
+        description = "Keyboard shortcuts";
+        source = builtins.toFile "shortcuts.md" (mkDocs cfg.hotkeys.keys);
       };
-      "ctrl + shift + Escape" = {
-        action = "resources";
-        description = "Open task manager.";
+
+      # Apply options
+      services.sxhkd = {
+        enable = true;
+        package = sxhkd;
+
+        keybindings = builtins.mapAttrs (name: value: value.action) cfg.hotkeys.keys;
+      };
+
+      # Autostart sxhkd
+      # TODO: Restart when rebuilding, try something similar to the MIME database update
+      home.file."${config.xdg.configHome}/autostart/sxhkd.desktop".text = flake.lib.package.mkDesktopEntry {
+        name = "sxhkd";
+        description = "Simple X Hotkey Daemon";
+        command = "sxhkd";
+        version = sxhkd.version;
       };
     };
-
-    # Generate documentation
-    custom.docs-generate.file."shortcuts.md" = {
-      description = "Keyboard shortcuts";
-      source = builtins.toFile "shortcuts.md" (mkDocs cfg.hotkeys.keys);
-    };
-
-    # Apply options
-    services.sxhkd = {
-      enable = true;
-      package = sxhkd;
-
-      keybindings = builtins.mapAttrs (name: value: value.action) cfg.hotkeys.keys;
-    };
-
-    # Autostart sxhkd
-    # TODO: Restart when rebuilding, try something similar to the MIME database update
-    home.file."${config.xdg.configHome}/autostart/sxhkd.desktop".text = flake.lib.package.mkDesktopEntry {
-      name = "sxhkd";
-      description = "Simple X Hotkey Daemon";
-      command = "sxhkd";
-      version = sxhkd.version;
-    };
-  };
 }
