@@ -24,6 +24,7 @@
   '';
 in {
   options.custom.shortcuts = {
+    # TODO: Move to default.nix
     enable = lib.mkEnableOption "keyboard shortcuts and command palettes";
 
     hotkeys.keys = lib.mkOption {
