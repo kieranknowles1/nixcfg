@@ -43,47 +43,18 @@ in {
 
       shortcuts.palette.actions = [
         {
-          command = "${utilsBin} latest";
-          description = "Open the latest save in ReSaver";
+          action = "${utilsBin} latest";
+          description = "Skyrim: Open the latest save in ReSaver";
         }
         {
-          command = "${utilsBin} crash";
-          description = "Open the most recent crash log";
+          action = "${utilsBin} crash";
+          description = "Skyrim: Open the most recent crash log";
         }
         {
-          command = "${utilsBin} clean";
-          description = "Clean orphaned SKSE co-save files";
+          action = "${utilsBin} clean";
+          description = "Skyrim: Clean orphaned SKSE co-save files";
         }
       ];
-      # shortcuts.hotkeys.keys = let
-      #   utilsBin = "${flakePackages.skyrim-utils}/bin/skyrim-utils";
-      #   zenity = "${pkgs.zenity}/bin/zenity";
-
-      #   # Couldn't find an easy way to do a select dialog in Rust,
-      #   # So I'm using Zenity to create a dialog.
-      #   # TODO: Move this to a generic command palette option
-      #   selectAction = pkgs.writeShellScriptBin "skyrim-utils-select" ''
-      #     set -e
-
-      #     choice=$(${zenity} --list --column=Action --column=Description --hide-header --title="Skyrim Utils" --text="Select an action" \
-      #       latest "Open the latest save in ReSaver" \
-      #       crash "Open the most recent crash log" \
-      #       clean "Clean orphaned SKSE co-save files" \
-      #     )
-
-      #     stdout=$(${utilsBin} "$choice")
-
-      #     # Display the output of the command in a dialog if any
-      #     if [ ! -z "$stdout" ]; then
-      #       ${zenity} --info --text="$stdout"
-      #     fi
-      #   '';
-      # in {
-      #   "alt + shift + s" = {
-      #     description = "Run a Skyrim utility";
-      #     action = "${selectAction}/bin/skyrim-utils-select";
-      #   };
-      # };
     };
   };
 }
