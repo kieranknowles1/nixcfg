@@ -9,7 +9,7 @@
   package = "command-palette";
 
   toArgs = action: let
-    command = lib.strings.escapeShellArg action.command;
+    command = lib.strings.escapeShellArg action.action;
     description = lib.strings.escapeShellArg action.description;
   in "${command} ${description}";
 
@@ -22,8 +22,21 @@ in {
         A list of actions to be displayed in the command palette.
         Each action is a set containing a command to be executed and a description of the action.
       '';
-      # TODO: Use a more specific type
-      type = lib.types.listOf lib.types.attrs;
+
+      default = [];
+
+      type = lib.types.listOf (lib.types.submodule {
+        options = {
+          action = lib.mkOption {
+            type = lib.types.str;
+            description = "The command to be executed when the action is selected";
+          };
+          description = lib.mkOption {
+            type = lib.types.str;
+            description = "A brief description of the action";
+          };
+        };
+      });
     };
   };
 
@@ -33,6 +46,7 @@ in {
     ];
 
     custom.shortcuts.hotkeys.keys = {
+      # TODO: Make the binding configurable
       "alt + shift + p" = {
         description = "Open the command palette";
         action = "${package} ${actions}";

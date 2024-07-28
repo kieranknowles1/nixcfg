@@ -52,6 +52,7 @@ in {
   config = let
     cfg = config.custom.shortcuts;
   in lib.mkIf cfg.enable {
+    # TODO: Do this in default.nix
     assertions = [
       {
         assertion = hostConfig.custom.deviceType == "desktop";
