@@ -5,8 +5,7 @@
   flake,
   ...
 }: let
-  # TODO: Proper option for this
-  package = "command-palette";
+  package = lib.meta.getExe config.custom.shortcuts.palette.package;
 
   toArgs = action: let
     command = lib.strings.escapeShellArg action.action;
@@ -17,6 +16,17 @@
   actions = builtins.concatStringsSep " " actionArgs;
 in {
   options.custom.shortcuts.palette = {
+    package = lib.mkPackageOption flake.packages.${hostConfig.nixpkgs.hostPlatform.system} "command-palette" {};
+
+    binding = lib.mkOption {
+      description = ''
+        The keybinding to open the command palette.
+      '';
+
+      type = lib.types.str;
+      default = "alt + shift + p";
+    };
+
     actions = lib.mkOption {
       description = ''
         A list of actions to be displayed in the command palette.
@@ -41,13 +51,8 @@ in {
   };
 
   config = lib.mkIf config.custom.shortcuts.enable {
-    home.packages = [
-      flake.packages.${hostConfig.nixpkgs.hostPlatform.system}.command-palette
-    ];
-
     custom.shortcuts.hotkeys.keys = {
-      # TODO: Make the binding configurable
-      "alt + shift + p" = {
+      "${config.custom.shortcuts.palette.binding}" = {
         description = "Open the command palette";
         action = "${package} ${actions}";
       };
