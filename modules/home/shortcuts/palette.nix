@@ -53,13 +53,15 @@
       description = lib.strings.escapeShellArg action.description;
     in "${command} ${description}";
 
-    actions = builtins.concatStringsSep " " (builtins.map toArgs cfg.palette.actions);
+    sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
+
+    actionsArg = builtins.concatStringsSep " " (builtins.map toArgs sortedActions);
   in
     lib.mkIf cfg.enable {
       custom.shortcuts.hotkeys.keys = {
         "${cfg.palette.binding}" = {
           description = "Open the command palette";
-          action = "${palette} ${actions}";
+          action = "${palette} ${actionsArg}";
         };
       };
     };
