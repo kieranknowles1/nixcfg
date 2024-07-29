@@ -44,7 +44,7 @@
   config = let
     cfg = config.custom.shortcuts;
 
-    package = cfg.palette.package;
+    palette = lib.getExe cfg.palette.package;
 
     # Why didn't this work the first time? What did I change when doing git reset and rewriting the file?
     # Was it because it's 00:46 and I'm tired? Maybe. Maybe I just angered the Nix gods.
@@ -59,7 +59,7 @@
       custom.shortcuts.hotkeys.keys = {
         "${cfg.palette.binding}" = {
           description = "Open the command palette";
-          action = "${package} ${actions}";
+          action = "${palette} ${actions}";
         };
       };
     };
