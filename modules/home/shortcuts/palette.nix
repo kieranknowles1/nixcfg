@@ -4,17 +4,7 @@
   hostConfig,
   flake,
   ...
-}: let
-  package = lib.meta.getExe config.custom.shortcuts.palette.package;
-
-  toArgs = action: let
-    command = lib.strings.escapeShellArg action.action;
-    description = lib.strings.escapeShellArg action.description;
-  in "${command} ${description}";
-
-  actionArgs = builtins.map toArgs config.custom.shortcuts.palette.actions;
-  actions = builtins.concatStringsSep " " actionArgs;
-in {
+}: {
   options.custom.shortcuts.palette = {
     package = lib.mkPackageOption flake.packages.${hostConfig.nixpkgs.hostPlatform.system} "command-palette" {};
 
@@ -33,6 +23,7 @@ in {
         Each action is a set containing a command to be executed and a description of the action.
       '';
 
+      # TODO: Don't enable the palette if it has nothing to show
       default = [];
 
       type = lib.types.listOf (lib.types.submodule {
@@ -50,12 +41,26 @@ in {
     };
   };
 
-  config = lib.mkIf config.custom.shortcuts.enable {
-    custom.shortcuts.hotkeys.keys = {
-      "${config.custom.shortcuts.palette.binding}" = {
-        description = "Open the command palette";
-        action = "${package} ${actions}";
+  config = let
+    cfg = config.custom.shortcuts;
+
+    package = cfg.palette.package;
+
+    # Why didn't this work the first time? What did I change when doing git reset and rewriting the file?
+    # Was it because it's 00:46 and I'm tired? Maybe. Maybe I just angered the Nix gods.
+    toArgs = action: let
+      command = lib.strings.escapeShellArg action.action;
+      description = lib.strings.escapeShellArg action.description;
+    in "${command} ${description}";
+
+    actions = builtins.concatStringsSep " " (builtins.map toArgs cfg.palette.actions);
+  in
+    lib.mkIf cfg.enable {
+      custom.shortcuts.hotkeys.keys = {
+        "${cfg.palette.binding}" = {
+          description = "Open the command palette";
+          action = "${package} ${actions}";
+        };
       };
     };
-  };
 }
