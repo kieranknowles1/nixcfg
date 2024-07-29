@@ -31,6 +31,7 @@ commands=("$@")
 # Run zenity to get the user's choice
 # We hide the first column, which is the command to run. When selected, this
 # hidden column is printed to stdout which we capture in $choice
+status=0
 choice=$(zenity --list --hide-column=1 --print-column=1 \
     --title="Command Palette" --text="Choose an action" \
     --column="Action" --column="Description" "${commands[@]}"
@@ -49,6 +50,7 @@ fi
 # to show the output, we'll capture it and display it in a notification
 # Bash doesn't have a clean way to capture both stdout and stderr into
 # separate variables, so we'll combine them into a single variable
+status=0
 output=$($choice 2>&1) || status=$?
 
 if [ "$status" -ne 0 ]; then
