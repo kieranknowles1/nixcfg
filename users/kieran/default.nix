@@ -1,4 +1,5 @@
 {
+  flake,
   pkgs,
   config,
 }: let
@@ -9,6 +10,11 @@
     if isDesktop
     then builtins.fromTOML (builtins.readFile ./config-desktop.toml)
     else {};
+
+  # Values that can't be configured in the TOML files
+  nixOnlyConfig = {
+    theme.wallpaper = flake.lib.image.fromHeif ./wallpaper.heic;
+  };
 
   # TODO: Put this in our library
   /*
@@ -55,7 +61,7 @@ in {
   };
 
   home = {
-    custom = deepMergeSets [desktopConfig baseConfig];
+    custom = deepMergeSets [nixOnlyConfig desktopConfig baseConfig];
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release

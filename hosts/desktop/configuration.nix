@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
+  flake,
   config,
   ...
 }: {
@@ -13,7 +14,7 @@
   # Enable everything needed for this configuration
   config.custom =
     {
-      user.kieran = import ../../users/kieran {inherit pkgs config;};
+      user.kieran = import ../../users/kieran {inherit pkgs config flake;};
     }
     // builtins.fromTOML (builtins.readFile ./config.toml);
 }
