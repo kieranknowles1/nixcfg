@@ -1,0 +1,13 @@
+#:schema ../../docs/generated/user-options.schema.json
+
+# Config to enable on all hosts
+
+[userDetails]
+email = "kieranknowles11@hotmail.co.uk"
+firstName = "Kieran"
+surName = "Knowles"
+
+[editor]
+default = "nvim"
+
+neovim.enable = true

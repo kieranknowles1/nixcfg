@@ -1,0 +1,12 @@
+#:schema ../../docs/generated/user-options.schema.json
+
+# Overrides to enable on desktop hosts
+
+docs-generate.enable = true
+edit-config.enable = true
+shortcuts.enable = true
+
+[editor]
+default = "code"
+
+vscode.enable = true
