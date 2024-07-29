@@ -18,7 +18,25 @@ in {
     };
   };
 
-  command-palette = pkgs.writeShellScriptBin "command-palette" (builtins.readFile ./command-palette.sh);
+  # We use writeShellApplication instead of writeShellScriptBin as it enables
+  # static analysis of the script, and patches PATH to include runtimeInputs.
+  command-palette = pkgs.writeShellApplication {
+    name = "command-palette";
+    runtimeInputs = with pkgs; [
+      gnome.zenity
+    ];
+    text = builtins.readFile ./command-palette.sh;
+
+    meta = {
+      description = "A simple command palette for running scripts";
+      longDescription = ''
+        Show a list of options in a dialog box, and run the script associated with
+        the selected option. This is intended to be used with scripts that are
+        run occasionally from a GUI, but not frequently enough to warrant a dedicated
+        binding or menu item.
+      '';
+    };
+  };
 
   edit-config = import ./edit-config {inherit pkgs;};
 

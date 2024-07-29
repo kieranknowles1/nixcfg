@@ -5,13 +5,16 @@
 # rare enough for a CLI, but not common enough to warrant a dedicated binding.
 # Intended to be bound to a key
 
-if [[ -z "$1" || "$1" == "-h" || "$1" == "--help" ]]; then
-  echo "Usage: $0 [action, description]..."
-  echo "  action: The command to run"
-  echo "  description: A description of the command"
-  echo ""
-  echo "Presents the list of actions to the user, then runs the selected one."
-  echo "If the command has output, it will be shown in a notification."
+if [[ "$#" -eq 0 || "$1" == "-h" || "$1" == "--help" ]]; then
+  cat <<EOF
+Usage: $0 [action, description]...
+  action: The command to run
+  description: A description of the command
+
+Presents the list of actions to the user, then runs the selected one.
+If the command has output, it will be shown in a notification.
+EOF
+
   exit 0
 fi
 
@@ -31,20 +34,22 @@ commands=("$@")
 choice=$(zenity --list --hide-column=1 --print-column=1 \
     --title="Command Palette" --text="Choose an action" \
     --column="Action" --column="Description" "${commands[@]}"
-)
-status=$?
+) || status=$?
+# https://stackoverflow.com/questions/11231937/bash-ignoring-error-for-a-particular-command
+# || status=$? is a trick to capture the exit status of the zenity command, without
+# exiting a script with set -e
 
-# If the user cancelled, exit
+# If the user cancelled, exit. Not considered an error as it's a valid action
 if [ "$status" -ne 0 ]; then
-  exit 1
+  echo "User cancelled"
+  exit
 fi
 
 # $choice is the action we want to run. Since we don't have a terminal
 # to show the output, we'll capture it and display it in a notification
 # Bash doesn't have a clean way to capture both stdout and stderr into
 # separate variables, so we'll combine them into a single variable
-output=$($choice 2>&1)
-status=$?
+output=$($choice 2>&1) || status=$?
 
 if [ "$status" -ne 0 ]; then
   # Something went wrong, show an error dialog
