@@ -90,11 +90,11 @@
     };
 
     # Formatter for all Nix files in this flake. Run using `nix fmt`.
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+    formatter.x86_64-linux = defaultNixpkgs.legacyPackages.x86_64-linux.alejandra;
 
     packages.x86_64-linux = import ./packages {
       inherit inputs;
-      pkgs = import nixpkgs {system = "x86_64-linux";};
+      pkgs = import defaultNixpkgs {system = "x86_64-linux";};
       flakeLib = lib;
     };
 
@@ -102,7 +102,7 @@
     homeManagerModules.default = import ./modules/home;
 
     devShells.x86_64-linux = import ./shells {
-      pkgs = import nixpkgs {system = "x86_64-linux";};
+      pkgs = import defaultNixpkgs {system = "x86_64-linux";};
       flakeLib = lib;
       flakePkgs = packages.x86_64-linux;
     };
