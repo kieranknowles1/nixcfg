@@ -28,6 +28,7 @@
       gedit # Replaced by vscode, but that is managed by home-manager
       gnome-connections # I have no need for remote desktop
       gnome-tour # Basic intro to GNOME
+      gnome-text-editor # Use an IDE instead
       # NOTE: This is a dependency of gnome-control-center, so it isn't really removed.
       # While removing it would be the Nix way, it's too useful for finding what to do in the first place.
       cheese # I don't have a webcam.
