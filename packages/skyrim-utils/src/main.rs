@@ -30,10 +30,11 @@ impl CleanArgs {
         match orphans.is_empty() {
             true => println!("Nothing to do"),
             false => for skse in &orphans {
-                println!("Deleting {:?}", skse.file_name().unwrap_or_default());
                 fs::remove_file(skse)?;
             },
         };
+
+        println!("Deleted {} orphaned .skse files", orphans.len());
 
         Ok(())
     }
