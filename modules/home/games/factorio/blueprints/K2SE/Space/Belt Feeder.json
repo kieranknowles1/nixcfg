@@ -1,0 +1,109 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 2,
+        "entity_number": 1,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -155.5,
+          "y": 31.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 2,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -154.5,
+          "y": 31.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 3,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -152.5,
+          "y": 30.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 4,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -153.5,
+          "y": 31.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 5,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -153.5,
+          "y": 30.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 6,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -152.5,
+          "y": 31.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 7,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -151.5,
+          "y": 30.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 8,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -154.5,
+          "y": 32.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 9,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -152.5,
+          "y": 32.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 10,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -153.5,
+          "y": 32.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "se-space-transport-belt",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Belt Feeder",
+    "version": 281479278821376
+  },
+  "index": 1
+}
