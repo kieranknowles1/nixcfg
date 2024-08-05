@@ -65,6 +65,15 @@ in
         signcolumn = "yes";
       };
 
+      autoCmd = [
+        {
+          desc = "Trim trailing whitespace";
+          event = ["BufWritePre"];
+          # Run sed on the buffer
+          command = ":%s/\\s\\+$//e";
+        }
+      ];
+
       colorschemes.gruvbox.enable = true;
 
       plugins = {
