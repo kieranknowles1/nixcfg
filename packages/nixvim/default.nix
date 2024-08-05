@@ -4,8 +4,9 @@
 {
   pkgs,
   inputs,
-  # Enable optimization to try and reduce startup time
-  optimize ? true,
+  # Enable optimization to try and reduce startup time at the cost of increased build time
+  # British spelling. You may have won the battle of colour, but you will always be English (Simplified) to me.
+  optimise ? false,
 }: let
   # TODO: Configure all the language servers I use
   # - Nu
@@ -38,10 +39,10 @@
   ];
 in
   inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
-    module = {
+    module.config = {
       performance = {
         byteCompileLua = {
-          enable = optimize;
+          enable = optimise;
           configs = true;
           initLua = true;
           nvimRuntime = true;
