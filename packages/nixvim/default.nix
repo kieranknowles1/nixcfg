@@ -56,7 +56,6 @@ in
         shiftwidth = 2;
 
         # Insert spaces when pressing <Tab>
-        # TODO: Way to find and replace all tabs with spaces
         expandtab = true;
 
         # Add a column to show errors/warnings
@@ -136,11 +135,7 @@ in
               # - Arrows/jk to go up/down list
               # - <CR>/<Tab> to confirm
               # - <Ctrl_Space> to show completion menu
-              confirm =
-                /*
-                lua
-                */
-                ''
+              confirm = ''
                   cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.replace,
                     select = true,

@@ -6,24 +6,24 @@
 -- luasnip.config.setup {}
 
 -- local confirm = cmp.mapping.confirm({
--- 	behaviour = cmp.ConfirmBehavior.replace,
--- 	select = true,
+--     behaviour = cmp.ConfirmBehavior.replace,
+--     select = true,
 -- })
 
 -- cmp.setup {
--- 	snippet = {
--- 		expand = function(args)
--- 			luasnip.lsp_expand(args.body)
--- 		end,
--- 	},
--- 	mapping = cmp.mapping.preset.insert {
--- 		['<C-n>'] = cmp.mapping.select_next_item(),
--- 		['<C-Space>'] = cmp.mapping.complete(),
--- 		['<CR>'] = confirm,
--- 		['<Tab>'] = confirm,
--- 	},
--- 	sources = {
--- 		{ name = 'nvim_lsp' },
--- 		{ name = 'luasnip' },
--- 	},
+--     snippet = {
+--         expand = function(args)
+--             luasnip.lsp_expand(args.body)
+--         end,
+--     },
+--     mapping = cmp.mapping.preset.insert {
+--         ['<C-n>'] = cmp.mapping.select_next_item(),
+--         ['<C-Space>'] = cmp.mapping.complete(),
+--         ['<CR>'] = confirm,
+--         ['<Tab>'] = confirm,
+--     },
+--     sources = {
+--         { name = 'nvim_lsp' },
+--         { name = 'luasnip' },
+--     },
 -- }
