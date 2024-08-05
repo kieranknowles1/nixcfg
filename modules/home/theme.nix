@@ -20,6 +20,5 @@
       base16Scheme = hostConfig.stylix.base16Scheme;
       image = config.custom.theme.wallpaper;
     };
-
   };
 }

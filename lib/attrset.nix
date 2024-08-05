@@ -1,7 +1,5 @@
 # Utility functions for working with attribute sets.
-{
-
-}: rec {
+{}: rec {
   /*
   Deeply merges a list of sets into a single set.
   If a key is present in multiple sets, the values are merged with the following rules:
@@ -37,5 +35,6 @@
       else if builtins.isList first
       then builtins.concatLists values # Concatenate lists
       else first) # We don't want to merge other types, so give the first value precedence
+    
     sets;
 }
