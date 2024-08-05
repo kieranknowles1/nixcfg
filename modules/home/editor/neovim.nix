@@ -4,14 +4,16 @@
   flake,
   hostConfig,
   ...
-}: {
+}: let
+  nixvim = flake.packages.${hostConfig.nixpkgs.hostPlatform.system}.nixvim;
+in {
   options.custom.editor.neovim = {
     enable = lib.mkEnableOption "NeoVim";
   };
 
   config = lib.mkIf config.custom.editor.neovim.enable {
     home.packages = [
-      flake.packages.${hostConfig.nixpkgs.hostPlatform.system}.nixvim
+      (nixvim.override { optimise = true; })
     ];
     # programs.neovim = {
     #   enable = true;

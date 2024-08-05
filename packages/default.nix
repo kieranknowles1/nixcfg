@@ -79,7 +79,9 @@ in {
       };
     };
 
-  nixvim = import ./nixvim {inherit pkgs inputs;};
+  # TODO: Use callPackage everywhere
+  # TODO: Use an overlay to remove the need for the `inputs` argument and others
+  nixvim = pkgs.callPackage ./nixvim {inherit inputs;};
 
   rebuild = import ./rebuild {inherit pkgs;};
 
