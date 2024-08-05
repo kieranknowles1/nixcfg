@@ -13,7 +13,7 @@ in {
 
   config = lib.mkIf config.custom.editor.neovim.enable {
     home.packages = [
-      (nixvim.override { optimise = true; })
+      (nixvim.extend {custom.optimise = true;})
     ];
     # programs.neovim = {
     #   enable = true;
