@@ -1,12 +1,12 @@
 # Package to build our nixvim environment
 # We use a package rather than nix module to allow for rapid iteration,
 # as we only need to rebuild the package rather than the entire system
+# This can be further specialised with `nixvim.extend` to adjust
+# options as needed
 {
   pkgs,
   inputs,
-  # Enable optimization to try and reduce startup time at the cost of increased build time
-  # British spelling. You may have won the battle of colour, but you will always be English (Simplified) to me.
-  optimise ? false,
+  lib,
 }: let
   # TODO: Configure all the language servers I use
   # - Nu
@@ -39,124 +39,131 @@
   ];
 in
   inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
-    module.config = {
-      performance = {
-        byteCompileLua = {
-          enable = optimise;
-          configs = true;
-          initLua = true;
-          nvimRuntime = true;
-          plugins = true;
-        };
-      };
-      opts = {
-        # Show line numbers
-        number = true;
-
-        # Use two spaces for tabs
-        shiftwidth = 2;
-
-        # Insert spaces when pressing <Tab>
-        expandtab = true;
-
-        # Add a column to show errors/warnings
-        # gitsigns uses this to show untracked changes, and if we don't enable it
-        # the contents shift when making our first change
-        signcolumn = "yes";
+    module = {config, ...}: {
+      options.custom = {
+        optimise = lib.mkEnableOption "optimisations to reduce startup time";
       };
 
-      autoCmd = [
-        {
-          desc = "Trim trailing whitespace";
-          event = ["BufWritePre"];
-          # Run sed on the buffer
-          command = ":%s/\\s\\+$//e";
-        }
-      ];
-
-      colorschemes.gruvbox.enable = true;
-
-      plugins = {
-        treesitter = {
-          # TODO: How do I get inline code highlighting?
-          enable = true;
-          grammarPackages = builtins.map (language: language.tsgrammar) languages;
-        };
-        lualine.enable = true;
-
-        # Bracket pair color/highlight
-        rainbow-delimiters.enable = true;
-
-        # File browser
-        oil.enable = true;
-
-        # Show untracked changes
-        gitsigns.enable = true;
-
-        # Search
-        telescope = {
-          enable = true;
-
-          keymaps = {
-            "<C-f>" = "current_buffer_fuzzy_find";
-            # TODO: Search for all files in workspace
+      config = {
+        performance = {
+          byteCompileLua = {
+            enable = config.custom.optimise;
+            configs = true;
+            initLua = true;
+            nvimRuntime = true;
+            plugins = true;
           };
         };
+        opts = {
+          # Show line numbers
+          number = true;
 
-        # Language servers
-        lsp = {
-          enable = true;
-          servers = builtins.listToAttrs (builtins.map (language: {
-              name = language.server;
-              value = {enable = true;} // (language.serverConfig or {});
-            })
-            languages);
+          # Use two spaces for tabs
+          shiftwidth = 2;
+
+          # Insert spaces when pressing <Tab>
+          expandtab = true;
+
+          # Add a column to show errors/warnings
+          # gitsigns uses this to show untracked changes, and if we don't enable it
+          # the contents shift when making our first change
+          signcolumn = "yes";
         };
 
-        # Snippets (not specific to Lua)
-        luasnip.enable = true;
-        friendly-snippets.enable = true;
+        autoCmd = [
+          {
+            desc = "Trim trailing whitespace";
+            event = ["BufWritePre"];
+            # Run sed on the buffer
+            command = ":%s/\\s\\+$//e";
+          }
+        ];
 
-        # Completions
-        cmp = {
-          enable = true;
-          settings = {
-            autoEnableSources = true;
+        colorschemes.gruvbox.enable = true;
 
-            experimental = {
-              ghost_text = true;
+        plugins = {
+          treesitter = {
+            # TODO: How do I get inline code highlighting?
+            enable = true;
+            grammarPackages = builtins.map (language: language.tsgrammar) languages;
+          };
+          lualine.enable = true;
+
+          # Bracket pair color/highlight
+          rainbow-delimiters.enable = true;
+
+          # File browser
+          oil.enable = true;
+
+          # Show untracked changes
+          gitsigns.enable = true;
+
+          # Search
+          telescope = {
+            enable = true;
+
+            keymaps = {
+              "<C-f>" = "current_buffer_fuzzy_find";
+              # TODO: Search for all files in workspace
             };
+          };
 
-            sources = [
-              {name = "nvim_lsp";}
-            ];
+          # Language servers
+          lsp = {
+            enable = true;
+            servers = builtins.listToAttrs (builtins.map (language: {
+                name = language.server;
+                value = {enable = true;} // (language.serverConfig or {});
+              })
+              languages);
+          };
 
-            mapping = let
-              # TODO: Mappings:
-              # - Arrows/jk to go up/down list
-              # - <CR>/<Tab> to confirm
-              # - <Ctrl_Space> to show completion menu
-              confirm = ''
+          # Snippets (not specific to Lua)
+          luasnip.enable = true;
+          friendly-snippets.enable = true;
+
+          # Completions
+          cmp = {
+            enable = true;
+            settings = {
+              autoEnableSources = true;
+
+              experimental = {
+                ghost_text = true;
+              };
+
+              sources = [
+                {name = "nvim_lsp";}
+              ];
+
+              mapping = let
+                # TODO: Mappings:
+                # - Arrows/jk to go up/down list
+                # - <CR>/<Tab> to confirm
+                # - <Ctrl_Space> to show completion menu
+                # TODO: All mappings should be managed by which-key.nvim, so they'll be well documented
+                confirm = ''
                   cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.replace,
                     select = true,
                   })
                 '';
-            in {
-              "<CR>" = confirm;
-              "<Tab>" = confirm;
+              in {
+                "<CR>" = confirm;
+                "<Tab>" = confirm;
+              };
             };
           };
         };
-      };
 
-      # TODO: Remove this once the plugins are properly configured
-      extraConfigLua = builtins.concatStringsSep "\n" (builtins.map (file: builtins.readFile file) [
-        ./config/lua/options.lua
-        ./config/after/plugin/cmp.lua
-        ./config/after/plugin/lsp.lua
-        ./config/after/plugin/telescope.lua
-        ./config/after/plugin/treesitter.lua
-      ]);
+        # TODO: Remove this once the plugins are properly configured
+        extraConfigLua = builtins.concatStringsSep "\n" (builtins.map (file: builtins.readFile file) [
+          ./config/lua/options.lua
+          ./config/after/plugin/cmp.lua
+          ./config/after/plugin/lsp.lua
+          ./config/after/plugin/telescope.lua
+          ./config/after/plugin/treesitter.lua
+        ]);
+      };
     };
   }
