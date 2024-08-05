@@ -4,6 +4,8 @@
 {
   pkgs,
   inputs,
+  # Enable optimization to try and reduce startup time
+  optimize ? true,
 }: let
   # TODO: Configure all the language servers I use
   # - Nu
@@ -37,6 +39,15 @@
 in
   inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
     module = {
+      performance = {
+        byteCompileLua = {
+          enable = optimize;
+          configs = true;
+          initLua = true;
+          nvimRuntime = true;
+          plugins = true;
+        };
+      };
       opts = {
         # Show line numbers
         number = true;
