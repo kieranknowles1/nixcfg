@@ -2,6 +2,7 @@
 # Modules can be enabled or disabled by giving them options in their own files
 {...}: {
   imports = [
+    ./backup.nix
     ./core.nix
     ./desktop
     ./development.nix

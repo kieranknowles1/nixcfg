@@ -17,6 +17,7 @@
       user.kieran = import ../../users/kieran {inherit pkgs config flake;};
 
       secrets = {
+        ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
         file = ./secrets.yaml;
       };
     }
