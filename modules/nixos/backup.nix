@@ -86,7 +86,6 @@
     # Create a backup for each source
     services.restic.backups = builtins.mapAttrs (name: value: {
       user = value.owner;
-      # TODO: Schedule backups using systemd timers
       repository = value.destination;
       paths = [ value.source ];
 
