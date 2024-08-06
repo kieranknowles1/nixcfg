@@ -23,7 +23,7 @@ in {
   command-palette = pkgs.writeShellApplication {
     name = "command-palette";
     runtimeInputs = with pkgs; [
-      gnome.zenity
+      zenity
     ];
     text = builtins.readFile ./command-palette.sh;
 
