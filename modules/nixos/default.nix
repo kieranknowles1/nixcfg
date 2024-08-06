@@ -13,6 +13,7 @@
     ./office.nix
     ./printing.nix
     ./ssh
+    ./secrets.nix
     ./theme.nix
     ./thunderbird.nix
     ./users.nix

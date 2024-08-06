@@ -2,6 +2,7 @@
 
 deviceType = "desktop"
 repoPath = "/home/kieran/Documents/src/nixcfg"
+secrets.ageKeyFile = "/home/kieran/.config/sops/age/keys.txt"
 systemType = "x86_64-linux"
 
 games.enable = true

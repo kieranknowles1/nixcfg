@@ -122,7 +122,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "sops-nix": "sops-nix",
+        "sops-nix": [
+          "sops-nix"
+        ],
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
@@ -587,6 +589,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
+        "sops-nix": "sops-nix",
         "src-factorio-blueprint-decoder": "src-factorio-blueprint-decoder",
         "stylix": "stylix",
         "vscode-extensions": "vscode-extensions"
@@ -595,19 +598,18 @@
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
-          "clan-core",
-          "nixpkgs"
+          "nixpkgs-unstable"
         ],
         "nixpkgs-stable": [
-          "clan-core"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1721531171,
-        "narHash": "sha256-AsvPw7T0tBLb53xZGcUC3YPqlIpdxoSx56u8vPCr6gU=",
+        "lastModified": 1722897572,
+        "narHash": "sha256-3m/iyyjCdRBF8xyehf59QlckIcmShyTesymSb+N4Ap4=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "909e8cfb60d83321d85c8d17209d733658a21c95",
+        "rev": "8ae477955dfd9cbf5fa4eb82a8db8ddbb94e79d9",
         "type": "github"
       },
       "original": {

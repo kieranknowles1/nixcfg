@@ -35,10 +35,11 @@
       # Include the host's configuration and all modules
       # The host configuration.nix can configure the modules
       modules = [
-        inputs.stylix.nixosModules.stylix
-        # TODO: Why does importing home-manager in a module not work? Why does it need to be imported here?
-        inputs.home-manager.nixosModules.home-manager
+        # We need to import flake inputs here, otherwise we'll get infinite recursion
         flake.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
+        inputs.sops-nix.nixosModules.sops
+        inputs.stylix.nixosModules.stylix
         rootConfig
       ];
     };

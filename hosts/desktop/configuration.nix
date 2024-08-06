@@ -12,9 +12,14 @@
   ];
 
   # Enable everything needed for this configuration
-  config.custom =
+  config.custom = flake.lib.attrset.deepMergeSets [
     {
       user.kieran = import ../../users/kieran {inherit pkgs config flake;};
+
+      secrets = {
+        file = ./secrets.yaml;
+      };
     }
-    // builtins.fromTOML (builtins.readFile ./config.toml);
+    (builtins.fromTOML (builtins.readFile ./config.toml))
+  ];
 }
