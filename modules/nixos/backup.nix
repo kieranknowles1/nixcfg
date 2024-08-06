@@ -12,6 +12,8 @@
         Backups to manage with Restic
 
         The backup is encrypted using the password found in the host's secrets file.
+
+        Backups run automatically at midnight, every night.
       '';
       default = {};
 
@@ -93,6 +95,14 @@
         "--keep-weekly" (toString value.keep.weekly)
         "--keep-monthly" (toString value.keep.monthly)
       ];
+
+      # This is the default, but it's good to be explicit
+      timerConfig = {
+        # Run at midnight, every night
+        OnCalendar = "daily";
+        # If the system is offline at midnight, run soon after the next boot
+        Persistent = true;
+      };
 
       passwordFile = config.sops.secrets.${mkPasswordPath name}.path;
     }) cfg.repositories;
