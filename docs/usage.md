@@ -7,7 +7,8 @@
 ## Backups
 
 Backups can be configured per-host and are encrypted with a password, stored in the host's `secrets.yaml`
-file, which is itself encrypted based on the user's private SSH key.
+file, which is itself encrypted based on the user's private SSH key. Backups run automatically on a daily
+basis, and run on boot if the last backup was missed.
 
 A wrapper script for each repository is provided on the `PATH` as `restic-<repo>` and can be used the
 same as the regular `restic` command, but with the repository and password pre-configured.
