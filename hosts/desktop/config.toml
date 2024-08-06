@@ -1,13 +1,20 @@
-#:schema ../../docs/host-options.schema.json
+#:schema ../../docs/generated/host-options.schema.json
 
 deviceType = "desktop"
 repoPath = "/home/kieran/Documents/src/nixcfg"
-secrets.ageKeyFile = "/home/kieran/.config/sops/age/keys.txt"
 systemType = "x86_64-linux"
 
 games.enable = true
 
 nvidia.enable = true
+
+backup.enable = true
+[backup.repositories.documents]
+password = "backup/password"
+owner = "kieran"
+source = "/home/kieran/Documents"
+# TODO: Also backup to my borgbase account. Are repo URLs sensitive, we may need to encrypt them.
+destination = "/home/kieran/Backups/Documents"
 
 [networking]
 hostName = "desktop"

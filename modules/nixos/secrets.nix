@@ -1,8 +1,6 @@
 # Provision secrets using SOPS
 # These will be available in the `/run/secrets` directory and owned by root
 {
-  pkgs,
-  inputs,
   config,
   lib,
   ...
@@ -28,8 +26,6 @@
       defaultSopsFormat = "yaml";
 
       age.keyFile = cfg.ageKeyFile;
-
-      secrets."backup/password" = {};
     };
   };
 }
