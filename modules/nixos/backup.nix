@@ -13,7 +13,12 @@
 
         The backup is encrypted using the password found in the host's secrets file.
 
-        Backups run automatically at midnight, every night.
+        Backups run automatically at midnight, every night. They can be manually triggered
+        with `systemctl start restic-backups<name>.service` and managed with
+        `restic-<name> ...`.
+
+        See [Restic's documentation](https://restic.readthedocs.io/en/latest/) for more information.
+        You do not need to set environment variables, the wrapper scripts handle this for you.
       '';
       default = {};
 
@@ -32,7 +37,7 @@
             description = ''
               A list of patterns to exclude from the backup.
 
-              See https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files for more information.
+              See [Backing up - Excluding Files](https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files) for more information.
             '';
 
             type = lib.types.listOf lib.types.str;
