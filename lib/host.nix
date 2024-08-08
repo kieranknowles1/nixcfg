@@ -48,8 +48,7 @@
       inputs.stylix.nixosModules.stylix
       config.config
       {
-        # TODO: Don't expose these in config.custom, set them directly
-        custom.systemType = system;
+        nixpkgs.hostPlatform = system;
       }
     ];
   };
