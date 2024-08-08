@@ -14,33 +14,42 @@
 
   # Arguments
 
-  rootConfig :: Path : The path to the root `configuration.nix` file, which will be imported and is responsible for
-  applying all host-specific configuration.
+  rootConfig :: Path : The path to the root `configuration.nix` file, which is responsible for setting everything else.
 
-  system :: String : System type. Usually x86_64-linux
+  rootConfig.nix format:
+  ```nix
+  {
+    system = system_type # e.g. "x86_64-linux"
+
+    config = {pkgs, ...}: {
+      # A Nix module that configures the system
+    }
+  }
+  ```
   */
-  mkHost = {
-    rootConfig,
-    system, # TODO: Remove this. Last usage is currently the pkgs-unstable import
-  }: let
+  mkHost = rootConfig: let
+    config = import rootConfig;
+    system = config.system;
     pkgs-unstable = import nixpkgs-unstable {
       inherit system;
       config.allowUnfree = true;
     };
-  in
-    nixpkgs.lib.nixosSystem {
-      # Pass the flake's inputs and the system type to the module
-      specialArgs = {inherit flake inputs pkgs-unstable;};
+  in nixpkgs.lib.nixosSystem {
+    # Pass the flake's inputs and pkgs-unstable to the module
+    # TODO: Import more packages here, and remove the scattered imports in modules
+    specialArgs = {inherit flake inputs pkgs-unstable;};
 
-      # Include the host's configuration and all modules
-      # The host configuration.nix can configure the modules
-      modules = [
-        # We need to import flake inputs here, otherwise we'll get infinite recursion
-        flake.nixosModules.default
-        inputs.home-manager.nixosModules.home-manager
-        inputs.sops-nix.nixosModules.sops
-        inputs.stylix.nixosModules.stylix
-        rootConfig
-      ];
-    };
+    # Include the host's configuration and all modules
+    modules = [
+      # We need to import flake inputs here, otherwise we'll get infinite recursion
+      flake.nixosModules.default
+      inputs.home-manager.nixosModules.home-manager
+      inputs.sops-nix.nixosModules.sops
+      inputs.stylix.nixosModules.stylix
+      config.config
+      {
+        nixpkgs.hostPlatform = system;
+      }
+    ];
+  };
 }

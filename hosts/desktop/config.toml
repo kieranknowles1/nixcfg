@@ -2,7 +2,6 @@
 
 deviceType = "desktop"
 repoPath = "/home/kieran/Documents/src/nixcfg"
-systemType = "x86_64-linux"
 
 games.enable = true
 
