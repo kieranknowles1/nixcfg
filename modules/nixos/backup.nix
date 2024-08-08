@@ -37,6 +37,14 @@
             type = lib.types.str;
             example = "/mnt/backup";
           };
+          destinationIsSecret = lib.mkOption {
+            description = ''
+              Whether the destination points to a secret, or is a plain connection string.
+            '';
+
+            type = lib.types.bool;
+            default = false;
+          };
 
           owner = lib.mkOption {
             description = ''
@@ -72,21 +80,36 @@
   config = let
     cfg = config.custom.backup;
 
-    mkPasswordPath = name: "backup/${name}";
-  in lib.mkIf cfg.enable {
-    # Make our passwords available in files
-    sops.secrets = lib.attrsets.mapAttrs' (name: value: {
+    mkPasswordPath = name: "backup/${name}/password";
+    mkDestinationPath = name: "backup/${name}/destination";
+
+    mkBackupSecrets = name: let
+      value = cfg.repositories.${name};
+    in (lib.lists.singleton  {
       name = mkPasswordPath name;
       value = {
         key = value.password;
         owner = value.owner;
       };
-    }) cfg.repositories;
+      }) ++ (lib.optional value.destinationIsSecret {
+      name = mkDestinationPath name;
+      value = {
+        key = value.destination;
+        owner = value.owner;
+      };
+    });
+
+    backups = builtins.attrNames cfg.repositories;
+    secrets = lib.lists.concatMap (name: mkBackupSecrets name) backups;
+  in lib.mkIf cfg.enable {
+    # Make our passwords available in files
+
+    # Make any secrets available in files to the owner of the backup
+    sops.secrets = builtins.listToAttrs secrets;
 
     # Create a backup for each source
     services.restic.backups = builtins.mapAttrs (name: value: {
       user = value.owner;
-      repository = value.destination;
       paths = [ value.source ];
 
       pruneOpts = [
@@ -103,6 +126,10 @@
         Persistent = true;
       };
 
+      # It's easier to make the repository always stored in a file, rather than maybe a file, maybe a plain string
+      repositoryFile = if value.destinationIsSecret
+        then config.sops.secrets.${mkDestinationPath name}.path
+        else builtins.toFile "${name}-destination-path" value.destination;
       passwordFile = config.sops.secrets.${mkPasswordPath name}.path;
     }) cfg.repositories;
   };
