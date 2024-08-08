@@ -82,18 +82,9 @@
     inherit lib; # Expose the lib module to configurations
 
     nixosConfigurations = {
-      desktop = lib.host.mkHost {
-        rootConfig = ./hosts/desktop/configuration.nix;
-        system = "x86_64-linux";
-      };
-      laptop = lib.host.mkHost {
-        rootConfig = ./hosts/laptop/configuration.nix;
-        system = "x86_64-linux";
-      };
-      server = lib.host.mkHost {
-        rootConfig = ./hosts/server/configuration.nix;
-        system = "x86_64-linux"; # TODO: Should be arm, but I can't cross-compile directly. Try mounting the flake in a minimal ARM NixOS VM and building it there.
-      };
+      desktop = lib.host.mkHost ./hosts/desktop/configuration.nix;
+      laptop = lib.host.mkHost ./hosts/laptop/configuration.nix;
+      server = lib.host.mkHost ./hosts/server/configuration.nix;
     };
 
     # Formatter for all Nix files in this flake. Run using `nix fmt`.
