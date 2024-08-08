@@ -28,6 +28,22 @@
             example = "/home/bob/Documents";
           };
 
+          exclude = lib.mkOption {
+            description = ''
+              A list of patterns to exclude from the backup.
+
+              See https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files for more information.
+            '';
+
+            type = lib.types.listOf lib.types.str;
+            default = [];
+            example = [
+              ".git"
+              "node_modules"
+              "already-in-git"
+            ];
+          };
+
           # TODO: Allow multiple destinations (i.e., local and remote)
           destination = lib.mkOption {
             description = ''
