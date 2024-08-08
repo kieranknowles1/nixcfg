@@ -132,6 +132,7 @@
     services.restic.backups = builtins.mapAttrs (name: value: {
       user = value.owner;
       paths = [ value.source ];
+      exclude = value.exclude;
 
       pruneOpts = [
         "--keep-daily" (toString value.keep.daily)
