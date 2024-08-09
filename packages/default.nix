@@ -1,5 +1,6 @@
 {
   pkgs,
+  callPackage,
   flakeLib,
   inputs,
 }: let
@@ -81,9 +82,11 @@ in {
 
   # TODO: Use callPackage everywhere
   # TODO: Use an overlay to remove the need for the `inputs` argument and others
-  nixvim = pkgs.callPackage ./nixvim {inherit inputs;};
+  nixvim = callPackage ./nixvim {inherit inputs;};
 
   rebuild = import ./rebuild {inherit pkgs;};
+
+  set-led-state = callPackage ./set-led-state {};
 
   skyrim-utils = import ./skyrim-utils {inherit pkgs;};
 
