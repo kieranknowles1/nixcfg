@@ -23,7 +23,6 @@
         Each action is a set containing a command to be executed and a description of the action.
       '';
 
-      # TODO: Don't enable the palette if it has nothing to show
       default = [];
 
       type = lib.types.listOf (lib.types.submodule {
@@ -57,7 +56,7 @@
 
     actionsArg = builtins.concatStringsSep " " (builtins.map toArgs sortedActions);
   in
-    lib.mkIf cfg.enable {
+    lib.mkIf (cfg.enable && (builtins.length cfg.palette.actions > 0)) {
       custom.shortcuts.hotkeys.keys = {
         "${cfg.palette.binding}" = {
           description = "Open the command palette";
