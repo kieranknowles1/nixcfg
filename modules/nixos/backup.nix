@@ -74,13 +74,14 @@
           };
 
           keep = let
-            mkKeepOption = name: default: lib.mkOption {
-              description = ''
-                The number of ${name} backups to keep.
-              '';
-              type = lib.types.int;
-              default = default;
-            };
+            mkKeepOption = name: default:
+              lib.mkOption {
+                description = ''
+                  The number of ${name} backups to keep.
+                '';
+                type = lib.types.int;
+                default = default;
+              };
           in {
             daily = mkKeepOption "daily" 7;
             weekly = mkKeepOption "weekly" 4;
@@ -106,53 +107,59 @@
 
     mkBackupSecrets = name: let
       value = cfg.repositories.${name};
-    in (lib.lists.singleton  {
-      name = mkPasswordPath name;
-      value = {
-        key = value.password;
-        owner = value.owner;
-      };
-      }) ++ (lib.optional value.destinationIsSecret {
-      name = mkDestinationPath name;
-      value = {
-        key = value.destination;
-        owner = value.owner;
-      };
-    });
+    in
+      (lib.lists.singleton {
+        name = mkPasswordPath name;
+        value = {
+          key = value.password;
+          owner = value.owner;
+        };
+      })
+      ++ (lib.optional value.destinationIsSecret {
+        name = mkDestinationPath name;
+        value = {
+          key = value.destination;
+          owner = value.owner;
+        };
+      });
 
     backups = builtins.attrNames cfg.repositories;
     secrets = lib.lists.concatMap (name: mkBackupSecrets name) backups;
-  in lib.mkIf cfg.enable {
-    # Make our passwords available in files
+  in
+    lib.mkIf cfg.enable {
+      # Make our passwords available in files
 
-    # Make any secrets available in files to the owner of the backup
-    sops.secrets = builtins.listToAttrs secrets;
+      # Make any secrets available in files to the owner of the backup
+      sops.secrets = builtins.listToAttrs secrets;
 
-    # Create a backup for each source
-    services.restic.backups = builtins.mapAttrs (name: value: {
-      user = value.owner;
-      paths = [ value.source ];
-      exclude = value.exclude;
+      # Create a backup for each source
+      services.restic.backups =
+        builtins.mapAttrs (name: value: {
+          user = value.owner;
+          paths = [value.source];
+          exclude = value.exclude;
 
-      pruneOpts = [
-        "--keep-daily" (toString value.keep.daily)
-        "--keep-weekly" (toString value.keep.weekly)
-        "--keep-monthly" (toString value.keep.monthly)
-      ];
+          pruneOpts = [
+            "--keep-daily ${toString value.keep.daily}"
+            "--keep-weekly ${toString value.keep.weekly}"
+            "--keep-monthly ${toString value.keep.monthly}"
+          ];
 
-      # This is the default, but it's good to be explicit
-      timerConfig = {
-        # Run at midnight, every night
-        OnCalendar = "daily";
-        # If the system is offline at midnight, run soon after the next boot
-        Persistent = true;
-      };
+          # This is the default, but it's good to be explicit
+          timerConfig = {
+            # Run at midnight, every night
+            OnCalendar = "daily";
+            # If the system is offline at midnight, run soon after the next boot
+            Persistent = true;
+          };
 
-      # It's easier to make the repository always stored in a file, rather than maybe a file, maybe a plain string
-      repositoryFile = if value.destinationIsSecret
-        then config.sops.secrets.${mkDestinationPath name}.path
-        else builtins.toFile "${name}-destination-path" value.destination;
-      passwordFile = config.sops.secrets.${mkPasswordPath name}.path;
-    }) cfg.repositories;
-  };
+          # It's easier to make the repository always stored in a file, rather than maybe a file, maybe a plain string
+          repositoryFile =
+            if value.destinationIsSecret
+            then config.sops.secrets.${mkDestinationPath name}.path
+            else builtins.toFile "${name}-destination-path" value.destination;
+          passwordFile = config.sops.secrets.${mkPasswordPath name}.path;
+        })
+        cfg.repositories;
+    };
 }
