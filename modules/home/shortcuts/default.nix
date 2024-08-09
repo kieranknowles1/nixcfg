@@ -1,4 +1,9 @@
-{lib, config, hostConfig, ...}: {
+{
+  lib,
+  config,
+  hostConfig,
+  ...
+}: {
   imports = [
     ./hotkeys.nix
     ./palette.nix
@@ -10,12 +15,13 @@
 
   config = let
     cfg = config.custom.shortcuts;
-  in lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = hostConfig.custom.deviceType == "desktop";
-        message = "Keyboard shortcuts are only available on desktop devices";
-      }
-    ];
-  };
+  in
+    lib.mkIf cfg.enable {
+      assertions = [
+        {
+          assertion = hostConfig.custom.deviceType == "desktop";
+          message = "Keyboard shortcuts are only available on desktop devices";
+        }
+      ];
+    };
 }

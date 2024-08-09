@@ -34,22 +34,23 @@
       inherit system;
       config.allowUnfree = true;
     };
-  in nixpkgs.lib.nixosSystem {
-    # Pass the flake's inputs and pkgs-unstable to the module
-    # TODO: Import more packages here, and remove the scattered imports in modules
-    specialArgs = {inherit flake inputs pkgs-unstable;};
+  in
+    nixpkgs.lib.nixosSystem {
+      # Pass the flake's inputs and pkgs-unstable to the module
+      # TODO: Import more packages here, and remove the scattered imports in modules
+      specialArgs = {inherit flake inputs pkgs-unstable;};
 
-    # Include the host's configuration and all modules
-    modules = [
-      # We need to import flake inputs here, otherwise we'll get infinite recursion
-      flake.nixosModules.default
-      inputs.home-manager.nixosModules.home-manager
-      inputs.sops-nix.nixosModules.sops
-      inputs.stylix.nixosModules.stylix
-      config.config
-      {
-        nixpkgs.hostPlatform = system;
-      }
-    ];
-  };
+      # Include the host's configuration and all modules
+      modules = [
+        # We need to import flake inputs here, otherwise we'll get infinite recursion
+        flake.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
+        inputs.sops-nix.nixosModules.sops
+        inputs.stylix.nixosModules.stylix
+        config.config
+        {
+          nixpkgs.hostPlatform = system;
+        }
+      ];
+    };
 }
