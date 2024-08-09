@@ -1,7 +1,6 @@
 # Keyboard shortcuts managed by sxhkd
 {
   config,
-  hostConfig,
   lib,
   flake,
   pkgs,
@@ -24,9 +23,6 @@
   '';
 in {
   options.custom.shortcuts = {
-    # TODO: Move to default.nix
-    enable = lib.mkEnableOption "keyboard shortcuts and command palettes";
-
     hotkeys.keys = lib.mkOption {
       description = ''
         A set of keyboard shortcuts to be managed by sxhkd.
@@ -53,14 +49,6 @@ in {
     cfg = config.custom.shortcuts;
   in
     lib.mkIf cfg.enable {
-      # TODO: Do this in default.nix
-      assertions = [
-        {
-          assertion = hostConfig.custom.deviceType == "desktop";
-          message = "Keyboard shortcuts are only available on desktop devices";
-        }
-      ];
-
       # Default shortcuts
       custom.shortcuts.hotkeys.keys = {
         "alt + t" = {
