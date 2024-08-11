@@ -49,7 +49,6 @@
             ];
           };
 
-          # TODO: Allow multiple destinations (i.e., local and remote)
           destination = lib.mkOption {
             description = ''
               The absolute path to the directory to store the backup.
