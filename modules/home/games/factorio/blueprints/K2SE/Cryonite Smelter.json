@@ -1,0 +1,416 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 2,
+        "entity_number": 1,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 0.5
+        }
+      },
+      {
+        "entity_number": 2,
+        "name": "pipe",
+        "position": {
+          "x": 3.5,
+          "y": 0.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 3,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 4.5,
+          "y": 0.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 0.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 5,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 1.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 6,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 3.5,
+          "y": 1.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 7,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 2.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 3.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 9,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 5.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 10,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 4.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 11,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 12,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 3.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "items": {
+          "productivity-module-2": 5
+        },
+        "name": "industrial-furnace",
+        "position": {
+          "x": 4.5,
+          "y": 6.5
+        },
+        "recipe": "se-cryonite-rod"
+      },
+      {
+        "entity_number": 14,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          20
+        ],
+        "position": {
+          "x": 5.5,
+          "y": 3.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 15,
+        "name": "inserter",
+        "position": {
+          "x": 4.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "pipe",
+        "position": {
+          "x": 1.5,
+          "y": 10.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 17,
+        "items": {
+          "productivity-module-2": 3
+        },
+        "name": "chemical-plant",
+        "position": {
+          "x": 3.5,
+          "y": 11.5
+        },
+        "recipe": "se-cryonite-crystal"
+      },
+      {
+        "direction": 4,
+        "entity_number": 18,
+        "name": "inserter",
+        "position": {
+          "x": 2.5,
+          "y": 9.5
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": 10.5
+        }
+      },
+      {
+        "entity_number": 20,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          14
+        ],
+        "position": {
+          "x": 4.5,
+          "y": 9.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 21,
+        "name": "inserter",
+        "position": {
+          "x": 6.5,
+          "y": 9.5
+        }
+      },
+      {
+        "entity_number": 22,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 10.5
+        }
+      },
+      {
+        "entity_number": 23,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 1.5,
+          "y": 11.5
+        }
+      },
+      {
+        "entity_number": 24,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 5.5,
+          "y": 11.5
+        }
+      },
+      {
+        "entity_number": 25,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 11.5
+        }
+      },
+      {
+        "entity_number": 26,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 12.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 27,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 0.5,
+          "y": 14.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 28,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 1.5,
+          "y": 14.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 29,
+        "name": "inserter",
+        "position": {
+          "x": 2.5,
+          "y": 13.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 30,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 3.5,
+          "y": 14.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 31,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 2.5,
+          "y": 14.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 32,
+        "name": "express-splitter",
+        "position": {
+          "x": 5.5,
+          "y": 14
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 33,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 4.5,
+          "y": 14.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 34,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 14.5
+        }
+      },
+      {
+        "entity_number": 35,
+        "name": "express-transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 13.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 36,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 5.5,
+          "y": 16.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 37,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 1.5,
+          "y": 18.5
+        }
+      },
+      {
+        "entity_number": 38,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": 17.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 39,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 4.5,
+          "y": 17.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 40,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 6.5,
+          "y": 17.5
+        }
+      },
+      {
+        "entity_number": 41,
+        "name": "pipe",
+        "position": {
+          "x": 1.5,
+          "y": 19.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 42,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 0.5,
+          "y": 19.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 43,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 19.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "industrial-furnace",
+          "type": "item"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "se-cryonite-rod",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Cryonite Smelter",
+    "snap-to-grid": {
+      "x": 7,
+      "y": 20
+    },
+    "version": 281479278821376
+  },
+  "index": 13
+}
