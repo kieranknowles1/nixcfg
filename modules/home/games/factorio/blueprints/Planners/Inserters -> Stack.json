@@ -1,0 +1,43 @@
+{
+  "index": 12,
+  "upgrade_planner": {
+    "item": "upgrade-planner",
+    "label": "Inserters -> Stack",
+    "settings": {
+      "icons": [
+        {
+          "index": 1,
+          "signal": {
+            "name": "stack-inserter",
+            "type": "item"
+          }
+        }
+      ],
+      "mappers": [
+        {
+          "from": {
+            "name": "fast-inserter",
+            "type": "entity"
+          },
+          "index": 0,
+          "to": {
+            "name": "stack-inserter",
+            "type": "entity"
+          }
+        },
+        {
+          "from": {
+            "name": "inserter",
+            "type": "entity"
+          },
+          "index": 4,
+          "to": {
+            "name": "stack-inserter",
+            "type": "entity"
+          }
+        }
+      ]
+    },
+    "version": 281479278821376
+  }
+}

@@ -1,0 +1,518 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 6,
+        "entity_number": 1,
+        "name": "se-space-splitter",
+        "position": {
+          "x": -150.5,
+          "y": 56
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 5
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": "<",
+            "first_signal": {
+              "name": "space-science-pack",
+              "type": "item"
+            },
+            "second_signal": {
+              "name": "signal-T",
+              "type": "virtual"
+            }
+          },
+          "circuit_contents_read_mode": 0,
+          "circuit_enable_disable": true,
+          "circuit_read_hand_contents": true
+        },
+        "direction": 6,
+        "entity_number": 2,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -149.5,
+          "y": 55.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 3,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -149.5,
+          "y": 54.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "textplate-small-plastic",
+        "position": {
+          "x": -148.5,
+          "y": 54.5
+        },
+        "variation": 21
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 2
+              },
+              {
+                "entity_id": 12
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": "<",
+            "first_signal": {
+              "name": "se-rocket-science-pack",
+              "type": "item"
+            },
+            "second_signal": {
+              "name": "signal-T",
+              "type": "virtual"
+            }
+          },
+          "circuit_contents_read_mode": 0,
+          "circuit_enable_disable": true,
+          "circuit_read_hand_contents": true
+        },
+        "direction": 6,
+        "entity_number": 5,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -146.5,
+          "y": 55.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 6,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -146.5,
+          "y": 54.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 7,
+        "name": "se-space-splitter",
+        "position": {
+          "x": -147.5,
+          "y": 56
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "textplate-small-plastic",
+        "position": {
+          "x": -145.5,
+          "y": 54.5
+        },
+        "variation": 27
+      },
+      {
+        "direction": 6,
+        "entity_number": 9,
+        "name": "se-space-splitter",
+        "position": {
+          "x": -144.5,
+          "y": 56
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 10,
+        "name": "textplate-small-plastic",
+        "position": {
+          "x": -142.5,
+          "y": 54.5
+        },
+        "variation": 15
+      },
+      {
+        "direction": 4,
+        "entity_number": 11,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -143.5,
+          "y": 54.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 5
+              },
+              {
+                "entity_id": 14
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": "<",
+            "first_signal": {
+              "name": "military-science-pack",
+              "type": "item"
+            },
+            "second_signal": {
+              "name": "signal-T",
+              "type": "virtual"
+            }
+          },
+          "circuit_contents_read_mode": 0,
+          "circuit_enable_disable": true,
+          "circuit_read_hand_contents": true
+        },
+        "direction": 6,
+        "entity_number": 12,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -143.5,
+          "y": 55.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 13,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -140.5,
+          "y": 54.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 12
+              },
+              {
+                "entity_id": 20
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": "<",
+            "first_signal": {
+              "name": "chemical-science-pack",
+              "type": "item"
+            },
+            "second_signal": {
+              "name": "signal-T",
+              "type": "virtual"
+            }
+          },
+          "circuit_contents_read_mode": 0,
+          "circuit_enable_disable": true,
+          "circuit_read_hand_contents": true
+        },
+        "direction": 6,
+        "entity_number": 14,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -140.5,
+          "y": 55.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 15,
+        "name": "se-space-splitter",
+        "position": {
+          "x": -141.5,
+          "y": 56
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 16,
+        "name": "textplate-small-plastic",
+        "position": {
+          "x": -139.5,
+          "y": 54.5
+        },
+        "variation": 4
+      },
+      {
+        "direction": 6,
+        "entity_number": 17,
+        "name": "se-space-splitter",
+        "position": {
+          "x": -138.5,
+          "y": 56
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 18,
+        "name": "textplate-small-plastic",
+        "position": {
+          "x": -136.5,
+          "y": 54.5
+        },
+        "variation": 9
+      },
+      {
+        "direction": 4,
+        "entity_number": 19,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -137.5,
+          "y": 54.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 14
+              },
+              {
+                "entity_id": 22
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": "<",
+            "first_signal": {
+              "name": "logistic-science-pack",
+              "type": "item"
+            },
+            "second_signal": {
+              "name": "signal-T",
+              "type": "virtual"
+            }
+          },
+          "circuit_contents_read_mode": 0,
+          "circuit_enable_disable": true,
+          "circuit_read_hand_contents": true
+        },
+        "direction": 6,
+        "entity_number": 20,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -137.5,
+          "y": 55.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 21,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -134.5,
+          "y": 54.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 20
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": "<",
+            "first_signal": {
+              "name": "automation-science-pack",
+              "type": "item"
+            },
+            "second_signal": {
+              "name": "signal-T",
+              "type": "virtual"
+            }
+          },
+          "circuit_contents_read_mode": 0,
+          "circuit_enable_disable": true,
+          "circuit_read_hand_contents": true
+        },
+        "direction": 6,
+        "entity_number": 22,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -134.5,
+          "y": 55.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 23,
+        "name": "se-space-splitter",
+        "position": {
+          "x": -135.5,
+          "y": 56
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 24,
+        "name": "textplate-small-plastic",
+        "position": {
+          "x": -133.5,
+          "y": 54.5
+        },
+        "variation": 20
+      },
+      {
+        "direction": 6,
+        "entity_number": 25,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -149.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 26,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -148.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 27,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -146.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 28,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -145.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 29,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -142.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 30,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -143.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 31,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -140.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 32,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -139.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 33,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -137.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 34,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -136.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 35,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -134.5,
+          "y": 56.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 36,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -133.5,
+          "y": 56.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "biusart-lab",
+          "type": "item"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "arithmetic-combinator",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Sushi Lab Controller",
+    "version": 281479278821376
+  },
+  "index": 3
+}

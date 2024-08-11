@@ -3,7 +3,7 @@
     "entities": [
       {
         "entity_number": 1,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 373.5,
           "y": -244.5
@@ -11,7 +11,7 @@
       },
       {
         "entity_number": 2,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 375.5,
           "y": -244.5
@@ -19,7 +19,7 @@
       },
       {
         "entity_number": 3,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 374.5,
           "y": -244.5
@@ -27,7 +27,7 @@
       },
       {
         "entity_number": 4,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 377.5,
           "y": -244.5
@@ -35,7 +35,7 @@
       },
       {
         "entity_number": 5,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 376.5,
           "y": -244.5
@@ -43,7 +43,7 @@
       },
       {
         "entity_number": 6,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 378.5,
           "y": -244.5
@@ -51,7 +51,7 @@
       },
       {
         "entity_number": 7,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 380.5,
           "y": -244.5
@@ -59,7 +59,7 @@
       },
       {
         "entity_number": 8,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 381.5,
           "y": -244.5
@@ -67,7 +67,7 @@
       },
       {
         "entity_number": 9,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 382.5,
           "y": -244.5
@@ -75,7 +75,7 @@
       },
       {
         "entity_number": 10,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 383.5,
           "y": -244.5
@@ -83,7 +83,7 @@
       },
       {
         "entity_number": 11,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 384.5,
           "y": -244.5
@@ -91,7 +91,7 @@
       },
       {
         "entity_number": 12,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 385.5,
           "y": -244.5
@@ -128,7 +128,7 @@
       },
       {
         "entity_number": 15,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 373.5,
           "y": -242.5
@@ -176,7 +176,7 @@
       },
       {
         "entity_number": 18,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 375.5,
           "y": -242.5
@@ -184,7 +184,7 @@
       },
       {
         "entity_number": 19,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 374.5,
           "y": -242.5
@@ -232,7 +232,7 @@
       },
       {
         "entity_number": 22,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 377.5,
           "y": -242.5
@@ -240,7 +240,7 @@
       },
       {
         "entity_number": 23,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 376.5,
           "y": -242.5
@@ -268,7 +268,7 @@
       },
       {
         "entity_number": 25,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 378.5,
           "y": -242.5
@@ -329,7 +329,7 @@
       },
       {
         "entity_number": 29,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 381.5,
           "y": -242.5
@@ -337,7 +337,7 @@
       },
       {
         "entity_number": 30,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 380.5,
           "y": -242.5
@@ -385,7 +385,7 @@
       },
       {
         "entity_number": 33,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 383.5,
           "y": -242.5
@@ -393,7 +393,7 @@
       },
       {
         "entity_number": 34,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 382.5,
           "y": -242.5
@@ -441,7 +441,7 @@
       },
       {
         "entity_number": 37,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 385.5,
           "y": -242.5
@@ -449,7 +449,7 @@
       },
       {
         "entity_number": 38,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 384.5,
           "y": -242.5
@@ -598,7 +598,7 @@
       {
         "direction": 4,
         "entity_number": 53,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 373.5,
           "y": -239.5
@@ -647,7 +647,7 @@
       {
         "direction": 4,
         "entity_number": 56,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 374.5,
           "y": -239.5
@@ -656,7 +656,7 @@
       {
         "direction": 4,
         "entity_number": 57,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 375.5,
           "y": -239.5
@@ -705,7 +705,7 @@
       {
         "direction": 4,
         "entity_number": 60,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 376.5,
           "y": -239.5
@@ -714,7 +714,7 @@
       {
         "direction": 4,
         "entity_number": 61,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 377.5,
           "y": -239.5
@@ -743,7 +743,7 @@
       {
         "direction": 4,
         "entity_number": 63,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 378.5,
           "y": -239.5
@@ -805,7 +805,7 @@
       {
         "direction": 4,
         "entity_number": 67,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 380.5,
           "y": -239.5
@@ -814,7 +814,7 @@
       {
         "direction": 4,
         "entity_number": 68,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 381.5,
           "y": -239.5
@@ -863,7 +863,7 @@
       {
         "direction": 4,
         "entity_number": 71,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 383.5,
           "y": -239.5
@@ -872,7 +872,7 @@
       {
         "direction": 4,
         "entity_number": 72,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 382.5,
           "y": -239.5
@@ -924,7 +924,7 @@
       {
         "direction": 4,
         "entity_number": 75,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 384.5,
           "y": -239.5
@@ -933,7 +933,7 @@
       {
         "direction": 4,
         "entity_number": 76,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 385.5,
           "y": -239.5
@@ -1057,7 +1057,7 @@
       {
         "direction": 4,
         "entity_number": 82,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 373.5,
           "y": -237.5
@@ -1066,7 +1066,7 @@
       {
         "direction": 4,
         "entity_number": 83,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 374.5,
           "y": -237.5
@@ -1075,7 +1075,7 @@
       {
         "direction": 4,
         "entity_number": 84,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 375.5,
           "y": -237.5
@@ -1084,7 +1084,7 @@
       {
         "direction": 4,
         "entity_number": 85,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 376.5,
           "y": -237.5
@@ -1093,7 +1093,7 @@
       {
         "direction": 4,
         "entity_number": 86,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 377.5,
           "y": -237.5
@@ -1102,7 +1102,7 @@
       {
         "direction": 4,
         "entity_number": 87,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 378.5,
           "y": -237.5
@@ -1111,7 +1111,7 @@
       {
         "direction": 4,
         "entity_number": 88,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 380.5,
           "y": -237.5
@@ -1120,7 +1120,7 @@
       {
         "direction": 4,
         "entity_number": 89,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 381.5,
           "y": -237.5
@@ -1129,7 +1129,7 @@
       {
         "direction": 4,
         "entity_number": 90,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 382.5,
           "y": -237.5
@@ -1138,7 +1138,7 @@
       {
         "direction": 4,
         "entity_number": 91,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 383.5,
           "y": -237.5
@@ -1147,7 +1147,7 @@
       {
         "direction": 4,
         "entity_number": 92,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 384.5,
           "y": -237.5
@@ -1156,7 +1156,7 @@
       {
         "direction": 4,
         "entity_number": 93,
-        "name": "fast-inserter",
+        "name": "stack-inserter",
         "position": {
           "x": 385.5,
           "y": -237.5
