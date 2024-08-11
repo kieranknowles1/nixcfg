@@ -40,6 +40,7 @@
     defaultEditor = config.custom.editor.default;
   in {
     # Make sure our default editor is installed
+    # TODO: Allow for no editors to be selected. We need to detect if editor.default is unset without throwing an error.
     assertions = [
       {
         assertion = editorEnabled defaultEditor;
