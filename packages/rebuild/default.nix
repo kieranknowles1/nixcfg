@@ -1,7 +1,7 @@
 {pkgs}:
 pkgs.rustPlatform.buildRustPackage {
   pname = "rebuild";
-  version = "2.0.0";
+  version = "2.1.0";
   src = ./.;
 
   cargoHash = "sha256-E8zazeja//VwXJGaFsIIzSorAOgS3jYdeLzHb1n2qaI=";
@@ -14,5 +14,7 @@ pkgs.rustPlatform.buildRustPackage {
       The commit message contains metadata such as a generation number, the
       builder's hostname, and a diff of packages.
     '';
+
+    mainProgram = "rebuild";
   };
 }
