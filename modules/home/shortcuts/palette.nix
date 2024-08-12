@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   hostConfig,
   flake,
@@ -45,22 +46,28 @@
 
     palette = lib.getExe cfg.palette.package;
 
-    # Why didn't this work the first time? What did I change when doing git reset and rewriting the file?
-    # Was it because it's 00:46 and I'm tired? Maybe. Maybe I just angered the Nix gods.
-    toArgs = action: let
-      command = lib.strings.escapeShellArg action.action;
-      description = lib.strings.escapeShellArg action.description;
-    in "${command} ${description}";
+    # TODO: Reimplement sorting
+    toArgs = action: "${action.action}\n${action.description}";
 
-    sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
+    actionsFile = pkgs.writeText "actions.txt"
+      (builtins.concatStringsSep "\n" (builtins.map toArgs cfg.palette.actions));
 
-    actionsArg = builtins.concatStringsSep " " (builtins.map toArgs sortedActions);
+    # # Why didn't this work the first time? What did I change when doing git reset and rewriting the file?
+    # # Was it because it's 00:46 and I'm tired? Maybe. Maybe I just angered the Nix gods.
+    # toArgs = action: let
+    #   command = lib.strings.escapeShellArg action.action;
+    #   description = lib.strings.escapeShellArg action.description;
+    # in "${command} ${description}";
+
+    # sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
+
+    # actionsArg = builtins.concatStringsSep " " (builtins.map toArgs sortedActions);
   in
     lib.mkIf (cfg.enable && (builtins.length cfg.palette.actions > 0)) {
       custom.shortcuts.hotkeys.keys = {
         "${cfg.palette.binding}" = {
           description = "Open the command palette";
-          action = "${palette} ${actionsArg}";
+          action = "${palette} ${actionsFile}";
         };
       };
     };
