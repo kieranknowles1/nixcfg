@@ -1,6 +1,6 @@
 // cSpell: words gethostname nixos
 
-use clap::Parser;
+use clap::{Parser, Subcommand};
 use core::str;
 use std::env;
 
@@ -13,20 +13,30 @@ use git::{WrapError, wrap_in_commit};
 /// Configuration derived from the environment.
 struct Config {
     /// The path to the flake repository.
-    repo_path: String,
+    flake: String,
 }
 
 impl Config {
     fn new() -> Result<Self, env::VarError> {
         Ok(Self {
-            repo_path: env::var("FLAKE")?,
+            flake: env::var("FLAKE")?,
         })
     }
 }
 
 /// Command-line options.
 #[derive(Parser)]
-enum Opt {
+struct Opt {
+    #[clap(short, long)]
+    /// The path to the flake repository. If not provided, the FLAKE environment variable is used.
+    flake: Option<String>,
+
+    #[clap(subcommand)]
+    action: Action,
+}
+
+#[derive(Subcommand)]
+enum Action {
     /// Build the system from source and commit the changes.
     Build(BuildOpt),
     /// Update flake inputs and commit the changes.
@@ -50,28 +60,28 @@ struct UpdateOpt {
 struct PullOpt {}
 
 impl BuildOpt {
-    fn run(&self, config: &Config) -> Result<(), WrapError<std::io::Error>> {
-        wrap_in_commit(|| build_and_switch(&config.repo_path, &self.message))
+    fn run(&self, flake: &str) -> Result<(), WrapError<std::io::Error>> {
+        wrap_in_commit(|| build_and_switch(&flake, &self.message))
     }
 }
 
 impl UpdateOpt {
-    fn run(&self, config: &Config) -> Result<(), WrapError<std::io::Error>> {
+    fn run(&self, flake: &str) -> Result<(), WrapError<std::io::Error>> {
         match nix::update_flake_inputs() {
             Ok(_) => (),
             Err(e) => return Err(WrapError::WrappedError(e)),
         }
-        wrap_in_commit(|| build_and_switch(&config.repo_path, &self.message))
+        wrap_in_commit(|| build_and_switch(&flake, &self.message))
     }
 }
 
 impl PullOpt {
-    fn run(&self, config: &Config) -> Result<(), WrapError<std::io::Error>> {
-        match git::pull(&config.repo_path) {
+    fn run(&self, flake: &str) -> Result<(), WrapError<std::io::Error>> {
+        match git::pull(&flake) {
             Ok(_) => (),
             Err(e) => return Err(WrapError::GitError(e)),
         }
-        match build_and_switch(&config.repo_path, "Pull latest changes") {
+        match build_and_switch(&flake, "Pull latest changes") {
             Ok(_) => Ok(()),
             Err(e) => Err(WrapError::WrappedError(e)),
         }
@@ -88,13 +98,22 @@ fn build_and_switch(repo_path: &str, message: &str) -> std::io::Result<String> {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let config = Config::new()?;
     let opt = Opt::parse();
 
-    let status = match opt {
-        Opt::Build(value) => value.run(&config),
-        Opt::Update(value) => value.run(&config),
-        Opt::Pull(value) => value.run(&config),
+    let flake = match opt.flake {
+        Some(value) => value,
+        None => {
+            let config = Config::new()?;
+            config.flake
+        }
+    };
+
+    print!("Using flake repository at '{}'. ", flake);
+
+    let status = match opt.action {
+        Action::Build(value) => value.run(&flake),
+        Action::Update(value) => value.run(&flake),
+        Action::Pull(value) => value.run(&flake),
     };
 
     match status {
