@@ -7,9 +7,13 @@
 
 if [[ "$#" -eq 0 || "$1" == "-h" || "$1" == "--help" ]]; then
   cat <<EOF
-Usage: $0 [action, description]...
-  action: The command to run
-  description: A description of the command
+Usage: $0 actions_file
+  Where actions_file is a text file in the format:
+  action1
+  description1
+  action2
+  description2
+  ...
 
 Presents the list of actions to the user, then runs the selected one.
 If the command has output, it will be shown in a notification.
@@ -17,16 +21,13 @@ EOF
 
   exit 0
 fi
+actions_file=$1
 
-# Check that we have an even number of arguments
-if [ $(($# % 2)) -ne 0 ]; then
-  echo "Error: Must provide an even number of arguments"
-  exit 1
-fi
-
-# Get a list of commands, excluding argv[0] which is the script itself
-# Each is a tuple of action and description
-commands=("$@")
+# Read the actions file into an array
+# Yes, this is a terrible format, but this script is pushing the limits of
+# what bash should be used for.
+# TODO: Rust IV - A new Crate
+readarray -t commands < "$actions_file"
 
 # Run zenity to get the user's choice
 # We hide the first column, which is the command to run. When selected, this
