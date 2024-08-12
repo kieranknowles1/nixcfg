@@ -2,7 +2,9 @@
 {
   pkgs,
   config,
+  hostConfig,
   lib,
+  flake,
   ...
 }: {
   options.custom = {
@@ -27,5 +29,18 @@
     home.packages = [
       config.custom.terminal.package
     ];
+
+    # Add a command palette entry to rebuild while pulling,
+    # this is a fairly common operation for me.
+    custom.shortcuts.palette.actions = let
+      flakePkgs = flake.packages.${hostConfig.nixpkgs.hostPlatform.system};
+
+      terminal = lib.getExe config.custom.terminal.package;
+      rebuild = lib.getExe flakePkgs.rebuild;
+    in lib.singleton {
+      # We run in a terminal emulator to show output while running
+      action = "${terminal} ${rebuild} --flake ${hostConfig.custom.repoPath} pull";
+      description = "Update system from remote repository";
+    };
   };
 }

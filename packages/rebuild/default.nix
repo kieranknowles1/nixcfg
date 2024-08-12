@@ -4,7 +4,7 @@ pkgs.rustPlatform.buildRustPackage {
   version = "2.1.0";
   src = ./.;
 
-  cargoHash = "sha256-E8zazeja//VwXJGaFsIIzSorAOgS3jYdeLzHb1n2qaI=";
+  cargoHash = "sha256-xvv5LJcZ5FF+LIuEktVvQQwqVXBfa/yBH2q66WLn7OM=";
 
   meta = {
     description = "Wrapper for common Nix build workflows";
