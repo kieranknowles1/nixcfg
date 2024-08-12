@@ -1,5 +1,6 @@
 # Options that are used in multiple modules
 {
+  pkgs,
   config,
   lib,
   ...
@@ -12,11 +13,19 @@
         default = "DejaVuSansMono";
       };
     };
+
+    terminal.package = lib.mkPackageOption pkgs "terminal" {
+      default = "gnome-terminal";
+    };
   };
 
   config = {
     fonts.fontconfig.defaultFonts = {
       monospace = [config.custom.fonts.defaultMono];
     };
+
+    home.packages = [
+      config.custom.terminal.package
+    ];
   };
 }

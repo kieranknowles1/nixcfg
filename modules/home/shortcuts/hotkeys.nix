@@ -52,7 +52,7 @@ in {
       # Default shortcuts
       custom.shortcuts.hotkeys.keys = {
         "alt + t" = {
-          action = "kgx";
+          action = lib.getExe config.custom.terminal.package;
           description = "Open terminal";
         };
         "ctrl + alt + e" = {

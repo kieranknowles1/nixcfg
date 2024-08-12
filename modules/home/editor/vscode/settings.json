@@ -3,6 +3,8 @@
     //  Core
     // ======
 
+    // TODO: Add a fromJsonComments function and use it to provision this file
+    // TODO: Remove edit-config as it's not that useful after some more thought
     "terminal.external.linuxExec": "kgx", // The default code looks for isn't installed, and fails silently
     "telemetry.telemetryLevel": "off", // Don't send telemetry data to Microsoft
     "redhat.telemetry.enabled": false, // I'm installing this automatically, so technically I never consented and enabling by default is a GDPR violation
@@ -59,6 +61,7 @@
     //  Nix
     // =====
     "nix.enableLanguageServer": true,
+    // TODO: Set this to the nix store path
     "nix.serverPath": "nil",
 
     // ========
