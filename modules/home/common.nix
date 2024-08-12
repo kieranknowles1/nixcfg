@@ -17,7 +17,7 @@
     };
 
     terminal.package = lib.mkPackageOption pkgs "terminal" {
-      default = "gnome-terminal";
+      default = "gnome-console";
     };
   };
 
