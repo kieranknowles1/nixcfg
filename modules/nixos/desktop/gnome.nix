@@ -20,9 +20,11 @@
       gnome-initial-setup.enable = false; # Redundant with NixOS
     };
 
+    # TODO: Consider not having any of GNOME's default apps installed, and be explicit about what I want.
     environment.gnome.excludePackages = with pkgs; [
       # GNOME's built-in browser
       epiphany
+      gnome-terminal # Managed by home-manager
       # GNOME's document viewer. Firefox does a better job at this
       evince
       gedit # Replaced by vscode, but that is managed by home-manager
