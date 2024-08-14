@@ -37,13 +37,14 @@
 
       terminal = lib.getExe config.custom.terminal.package;
       rebuild = lib.getExe flakePkgs.rebuild;
-    in lib.singleton {
-      # We run in a terminal emulator to show output while running and
-      # allow input for when sudo is required.
-      # At least for kgx, passing additional arguments creates a one-off
-      # terminal that only runs the command and goes read-only.
-      action = [terminal "--" rebuild "--flake" hostConfig.custom.repoPath "pull"];
-      description = "Update system from remote repository";
-    };
+    in
+      lib.singleton {
+        # We run in a terminal emulator to show output while running and
+        # allow input for when sudo is required.
+        # At least for kgx, passing additional arguments creates a one-off
+        # terminal that only runs the command and goes read-only.
+        action = [terminal "--" rebuild "--flake" hostConfig.custom.repoPath "pull"];
+        description = "Update system from remote repository";
+      };
   };
 }
