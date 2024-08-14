@@ -11,6 +11,14 @@
       },
       {
         "entity_number": 2,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 0.5,
+          "y": 1.5
+        }
+      },
+      {
+        "entity_number": 3,
         "name": "pipe",
         "position": {
           "x": 1.5,
@@ -18,18 +26,10 @@
         }
       },
       {
-        "entity_number": 3,
-        "name": "pipe",
-        "position": {
-          "x": 2.5,
-          "y": 0.5
-        }
-      },
-      {
         "entity_number": 4,
         "name": "pipe",
         "position": {
-          "x": 4.5,
+          "x": 2.5,
           "y": 0.5
         }
       },
@@ -45,68 +45,12 @@
         "entity_number": 6,
         "name": "pipe",
         "position": {
-          "x": 6.5,
+          "x": 4.5,
           "y": 0.5
         }
       },
       {
         "entity_number": 7,
-        "name": "pipe",
-        "position": {
-          "x": 5.5,
-          "y": 0.5
-        }
-      },
-      {
-        "entity_number": 8,
-        "name": "pipe",
-        "position": {
-          "x": 7.5,
-          "y": 0.5
-        }
-      },
-      {
-        "entity_number": 9,
-        "name": "pipe",
-        "position": {
-          "x": 8.5,
-          "y": 0.5
-        }
-      },
-      {
-        "entity_number": 10,
-        "name": "pipe",
-        "position": {
-          "x": 0.5,
-          "y": 2.5
-        }
-      },
-      {
-        "entity_number": 11,
-        "name": "pipe-to-ground",
-        "position": {
-          "x": 0.5,
-          "y": 1.5
-        }
-      },
-      {
-        "entity_number": 12,
-        "name": "pipe",
-        "position": {
-          "x": 2.5,
-          "y": 2.5
-        }
-      },
-      {
-        "entity_number": 13,
-        "name": "pipe",
-        "position": {
-          "x": 1.5,
-          "y": 2.5
-        }
-      },
-      {
-        "entity_number": 14,
         "name": "pipe-to-ground",
         "position": {
           "x": 3.5,
@@ -114,18 +58,10 @@
         }
       },
       {
-        "entity_number": 15,
-        "name": "pipe",
-        "position": {
-          "x": 4.5,
-          "y": 2.5
-        }
-      },
-      {
-        "entity_number": 16,
+        "entity_number": 8,
         "name": "medium-electric-pole",
         "neighbours": [
-          40
+          50
         ],
         "position": {
           "x": 4.5,
@@ -133,31 +69,23 @@
         }
       },
       {
-        "entity_number": 17,
-        "name": "pipe",
-        "position": {
-          "x": 3.5,
-          "y": 2.5
-        }
-      },
-      {
-        "entity_number": 18,
-        "name": "pipe",
-        "position": {
-          "x": 5.5,
-          "y": 2.5
-        }
-      },
-      {
-        "entity_number": 19,
+        "entity_number": 9,
         "name": "pipe",
         "position": {
           "x": 6.5,
-          "y": 2.5
+          "y": 0.5
         }
       },
       {
-        "entity_number": 20,
+        "entity_number": 10,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": 0.5
+        }
+      },
+      {
+        "entity_number": 11,
         "name": "pipe-to-ground",
         "position": {
           "x": 6.5,
@@ -165,15 +93,122 @@
         }
       },
       {
-        "entity_number": 21,
+        "entity_number": 12,
+        "name": "pipe",
+        "position": {
+          "x": 8.5,
+          "y": 0.5
+        }
+      },
+      {
+        "entity_number": 13,
         "name": "pipe",
         "position": {
           "x": 7.5,
+          "y": 0.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "pipe",
+        "position": {
+          "x": 0.5,
           "y": 2.5
         }
       },
       {
+        "direction": 4,
+        "entity_number": 15,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 0.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "pipe",
+        "position": {
+          "x": 1.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "pipe",
+        "position": {
+          "x": 2.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 18,
+        "name": "pipe",
+        "position": {
+          "x": 2.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "pipe",
+        "position": {
+          "x": 3.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 20,
+        "name": "pipe",
+        "position": {
+          "x": 4.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 21,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 3.5,
+          "y": 3.5
+        }
+      },
+      {
         "entity_number": 22,
+        "name": "pipe",
+        "position": {
+          "x": 6.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 23,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 24,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 6.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 25,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 26,
         "name": "pipe",
         "position": {
           "x": 8.5,
@@ -181,7 +216,26 @@
         }
       },
       {
-        "entity_number": 23,
+        "entity_number": 27,
+        "name": "pipe",
+        "position": {
+          "x": 7.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 28,
+        "name": "pipe",
+        "position": {
+          "x": 8.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 29,
+        "items": {
+          "effectivity-module": 2
+        },
         "name": "chemical-plant",
         "position": {
           "x": 1.5,
@@ -190,33 +244,10 @@
         "recipe": "heavy-oil-cracking"
       },
       {
-        "direction": 4,
-        "entity_number": 24,
-        "name": "pipe-to-ground",
-        "position": {
-          "x": 0.5,
-          "y": 3.5
-        }
-      },
-      {
-        "entity_number": 25,
-        "name": "pipe",
-        "position": {
-          "x": 2.5,
-          "y": 3.5
-        }
-      },
-      {
-        "direction": 4,
-        "entity_number": 26,
-        "name": "pipe-to-ground",
-        "position": {
-          "x": 3.5,
-          "y": 3.5
-        }
-      },
-      {
-        "entity_number": 27,
+        "entity_number": 30,
+        "items": {
+          "effectivity-module": 2
+        },
         "name": "chemical-plant",
         "position": {
           "x": 4.5,
@@ -225,38 +256,16 @@
         "recipe": "heavy-oil-cracking"
       },
       {
-        "direction": 4,
-        "entity_number": 28,
-        "name": "pipe-to-ground",
-        "position": {
-          "x": 6.5,
-          "y": 3.5
-        }
-      },
-      {
-        "entity_number": 29,
-        "name": "pipe",
-        "position": {
-          "x": 5.5,
-          "y": 3.5
-        }
-      },
-      {
-        "entity_number": 30,
+        "entity_number": 31,
+        "items": {
+          "effectivity-module": 2
+        },
         "name": "chemical-plant",
         "position": {
           "x": 7.5,
           "y": 5.5
         },
         "recipe": "heavy-oil-cracking"
-      },
-      {
-        "entity_number": 31,
-        "name": "pipe",
-        "position": {
-          "x": 8.5,
-          "y": 3.5
-        }
       },
       {
         "entity_number": 32,
@@ -284,17 +293,17 @@
       },
       {
         "entity_number": 35,
-        "name": "pipe-to-ground",
+        "name": "pipe",
         "position": {
           "x": 0.5,
-          "y": 10.5
+          "y": 9.5
         }
       },
       {
         "entity_number": 36,
         "name": "pipe",
         "position": {
-          "x": 0.5,
+          "x": 1.5,
           "y": 9.5
         }
       },
@@ -302,7 +311,7 @@
         "entity_number": 37,
         "name": "pipe",
         "position": {
-          "x": 1.5,
+          "x": 2.5,
           "y": 9.5
         }
       },
@@ -310,34 +319,31 @@
         "entity_number": 38,
         "name": "pipe",
         "position": {
-          "x": 2.5,
+          "x": 4.5,
           "y": 9.5
         }
       },
       {
         "entity_number": 39,
-        "name": "pipe-to-ground",
+        "name": "pipe",
         "position": {
           "x": 3.5,
-          "y": 10.5
+          "y": 9.5
         }
       },
       {
         "entity_number": 40,
-        "name": "medium-electric-pole",
-        "neighbours": [
-          16
-        ],
+        "name": "pipe",
         "position": {
-          "x": 4.5,
-          "y": 10.5
+          "x": 6.5,
+          "y": 9.5
         }
       },
       {
         "entity_number": 41,
         "name": "pipe",
         "position": {
-          "x": 4.5,
+          "x": 5.5,
           "y": 9.5
         }
       },
@@ -345,7 +351,7 @@
         "entity_number": 42,
         "name": "pipe",
         "position": {
-          "x": 3.5,
+          "x": 8.5,
           "y": 9.5
         }
       },
@@ -353,7 +359,7 @@
         "entity_number": 43,
         "name": "pipe",
         "position": {
-          "x": 6.5,
+          "x": 7.5,
           "y": 9.5
         }
       },
@@ -361,7 +367,7 @@
         "entity_number": 44,
         "name": "pipe-to-ground",
         "position": {
-          "x": 6.5,
+          "x": 0.5,
           "y": 10.5
         }
       },
@@ -369,53 +375,12 @@
         "entity_number": 45,
         "name": "pipe",
         "position": {
-          "x": 5.5,
-          "y": 9.5
-        }
-      },
-      {
-        "entity_number": 46,
-        "name": "pipe",
-        "position": {
-          "x": 7.5,
-          "y": 9.5
-        }
-      },
-      {
-        "entity_number": 47,
-        "name": "pipe",
-        "position": {
-          "x": 8.5,
-          "y": 9.5
-        }
-      },
-      {
-        "entity_number": 48,
-        "name": "pipe",
-        "position": {
           "x": 0.5,
           "y": 11.5
         }
       },
       {
-        "direction": 4,
-        "entity_number": 49,
-        "name": "pipe-to-ground",
-        "position": {
-          "x": 0.5,
-          "y": 12.5
-        }
-      },
-      {
-        "entity_number": 50,
-        "name": "pipe",
-        "position": {
-          "x": 2.5,
-          "y": 12.5
-        }
-      },
-      {
-        "entity_number": 51,
+        "entity_number": 46,
         "name": "pipe",
         "position": {
           "x": 1.5,
@@ -423,7 +388,7 @@
         }
       },
       {
-        "entity_number": 52,
+        "entity_number": 47,
         "name": "pipe",
         "position": {
           "x": 2.5,
@@ -431,7 +396,7 @@
         }
       },
       {
-        "entity_number": 53,
+        "entity_number": 48,
         "name": "pipe",
         "position": {
           "x": 4.5,
@@ -439,19 +404,61 @@
         }
       },
       {
-        "direction": 4,
-        "entity_number": 54,
+        "entity_number": 49,
+        "name": "pipe",
+        "position": {
+          "x": 3.5,
+          "y": 11.5
+        }
+      },
+      {
+        "entity_number": 50,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          8
+        ],
+        "position": {
+          "x": 4.5,
+          "y": 10.5
+        }
+      },
+      {
+        "entity_number": 51,
         "name": "pipe-to-ground",
         "position": {
           "x": 3.5,
-          "y": 12.5
+          "y": 10.5
+        }
+      },
+      {
+        "entity_number": 52,
+        "name": "pipe",
+        "position": {
+          "x": 6.5,
+          "y": 11.5
+        }
+      },
+      {
+        "entity_number": 53,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 6.5,
+          "y": 10.5
+        }
+      },
+      {
+        "entity_number": 54,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": 11.5
         }
       },
       {
         "entity_number": 55,
         "name": "pipe",
         "position": {
-          "x": 3.5,
+          "x": 8.5,
           "y": 11.5
         }
       },
@@ -459,61 +466,15 @@
         "entity_number": 56,
         "name": "pipe",
         "position": {
-          "x": 5.5,
-          "y": 12.5
-        }
-      },
-      {
-        "entity_number": 57,
-        "name": "pipe",
-        "position": {
-          "x": 6.5,
-          "y": 11.5
-        }
-      },
-      {
-        "entity_number": 58,
-        "name": "pipe",
-        "position": {
-          "x": 5.5,
-          "y": 11.5
-        }
-      },
-      {
-        "direction": 4,
-        "entity_number": 59,
-        "name": "pipe-to-ground",
-        "position": {
-          "x": 6.5,
-          "y": 12.5
-        }
-      },
-      {
-        "entity_number": 60,
-        "name": "pipe",
-        "position": {
           "x": 7.5,
           "y": 11.5
         }
       },
       {
-        "entity_number": 61,
-        "name": "pipe",
-        "position": {
-          "x": 8.5,
-          "y": 12.5
-        }
-      },
-      {
-        "entity_number": 62,
-        "name": "pipe",
-        "position": {
-          "x": 8.5,
-          "y": 11.5
-        }
-      },
-      {
-        "entity_number": 63,
+        "entity_number": 57,
+        "items": {
+          "effectivity-module": 2
+        },
         "name": "chemical-plant",
         "position": {
           "x": 1.5,
@@ -522,7 +483,27 @@
         "recipe": "light-oil-cracking"
       },
       {
-        "entity_number": 64,
+        "direction": 4,
+        "entity_number": 58,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 0.5,
+          "y": 12.5
+        }
+      },
+      {
+        "entity_number": 59,
+        "name": "pipe",
+        "position": {
+          "x": 2.5,
+          "y": 12.5
+        }
+      },
+      {
+        "entity_number": 60,
+        "items": {
+          "effectivity-module": 2
+        },
         "name": "chemical-plant",
         "position": {
           "x": 4.5,
@@ -531,13 +512,50 @@
         "recipe": "light-oil-cracking"
       },
       {
-        "entity_number": 65,
+        "direction": 4,
+        "entity_number": 61,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 3.5,
+          "y": 12.5
+        }
+      },
+      {
+        "entity_number": 62,
+        "items": {
+          "effectivity-module": 2
+        },
         "name": "chemical-plant",
         "position": {
           "x": 7.5,
           "y": 14.5
         },
         "recipe": "light-oil-cracking"
+      },
+      {
+        "direction": 4,
+        "entity_number": 63,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 6.5,
+          "y": 12.5
+        }
+      },
+      {
+        "entity_number": 64,
+        "name": "pipe",
+        "position": {
+          "x": 5.5,
+          "y": 12.5
+        }
+      },
+      {
+        "entity_number": 65,
+        "name": "pipe",
+        "position": {
+          "x": 8.5,
+          "y": 12.5
+        }
       },
       {
         "entity_number": 66,
@@ -567,7 +585,7 @@
         "entity_number": 69,
         "name": "pipe",
         "position": {
-          "x": 3.5,
+          "x": 4.5,
           "y": 16.5
         }
       },
@@ -575,7 +593,7 @@
         "entity_number": 70,
         "name": "pipe",
         "position": {
-          "x": 4.5,
+          "x": 3.5,
           "y": 16.5
         }
       },
