@@ -11,8 +11,6 @@
   resaverDesktopFileName = "nixcfg-resaver.desktop";
 
   flakePackages = flake.packages.${hostConfig.nixpkgs.hostPlatform.system};
-
-  utilsBin = "${flakePackages.skyrim-utils}/bin/skyrim-utils";
 in {
   config = lib.mkIf hostConfig.custom.games.enable {
     # Install the desktop file to ~/.local/share/applications
@@ -24,10 +22,6 @@ in {
       command = "${pkgs.jdk21}/bin/java -jar /home/kieran/Games/modding-tools/resaver/target/ReSaver.jar %u";
       workingDirectory = "/home/kieran/Games/modding-tools/resaver/target";
     };
-
-    home.packages = with flakePackages; [
-      skyrim-utils
-    ];
 
     custom = {
       mime.definition = {
@@ -41,17 +35,20 @@ in {
         };
       };
 
-      shortcuts.palette.actions = [
+      shortcuts.palette.actions = let
+        utilsBin = lib.getExe flakePackages.skyrim-utils;
+        utils = command: [utilsBin command];
+      in [
         {
-          action = "${utilsBin} latest";
+          action = utils "open";
           description = "Skyrim: Open the latest save in ReSaver";
         }
         {
-          action = "${utilsBin} crash";
+          action = utils "clean";
           description = "Skyrim: Open the most recent crash log";
         }
         {
-          action = "${utilsBin} clean";
+          action = utils "clean";
           description = "Skyrim: Clean orphaned SKSE co-save files";
         }
       ];
