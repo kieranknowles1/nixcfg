@@ -40,11 +40,11 @@ in {
         utils = command: [utilsBin command];
       in [
         {
-          action = utils "open";
+          action = utils "latest";
           description = "Skyrim: Open the latest save in ReSaver";
         }
         {
-          action = utils "clean";
+          action = utils "crash";
           description = "Skyrim: Open the most recent crash log";
         }
         {
