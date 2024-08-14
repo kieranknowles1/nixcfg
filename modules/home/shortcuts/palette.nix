@@ -29,8 +29,8 @@
       type = lib.types.listOf (lib.types.submodule {
         options = {
           action = lib.mkOption {
-            type = lib.types.str;
-            description = "The command to be executed when the action is selected";
+            type = lib.types.listOf lib.types.str;
+            description = "The command to be executed when the action is selected. The first element is the command, the rest are arguments.";
           };
           description = lib.mkOption {
             type = lib.types.str;
@@ -47,10 +47,8 @@
     palette = lib.getExe cfg.palette.package;
 
     # TODO: Reimplement sorting
-    toArgs = action: "${action.action}\n${action.description}";
-
-    actionsFile = pkgs.writeText "actions.txt"
-      (builtins.concatStringsSep "\n" (builtins.map toArgs cfg.palette.actions));
+    actionsFile = pkgs.writeText "actions.json"
+      (builtins.toJSON cfg.palette.actions);
 
     # # Why didn't this work the first time? What did I change when doing git reset and rewriting the file?
     # # Was it because it's 00:46 and I'm tired? Maybe. Maybe I just angered the Nix gods.

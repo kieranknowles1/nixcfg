@@ -19,25 +19,7 @@ in {
     };
   };
 
-  # We use writeShellApplication instead of writeShellScriptBin as it enables
-  # static analysis of the script, and patches PATH to include runtimeInputs.
-  command-palette = pkgs.writeShellApplication {
-    name = "command-palette";
-    runtimeInputs = with pkgs; [
-      zenity
-    ];
-    text = builtins.readFile ./command-palette.sh;
-
-    meta = {
-      description = "A simple command palette for running scripts";
-      longDescription = ''
-        Show a list of options in a dialog box, and run the script associated with
-        the selected option. This is intended to be used with scripts that are
-        run occasionally from a GUI, but not frequently enough to warrant a dedicated
-        binding or menu item.
-      '';
-    };
-  };
+  command-palette = callPackage ./command-palette {};
 
   edit-config = import ./edit-config {inherit pkgs;};
 
@@ -88,7 +70,7 @@ in {
 
   set-led-state = callPackage ./set-led-state {};
 
-  skyrim-utils = import ./skyrim-utils {inherit pkgs;};
+  skyrim-utils = callPackage ./skyrim-utils {};
 
   spriggit = import ./spriggit.nix {inherit pkgs;};
 }
