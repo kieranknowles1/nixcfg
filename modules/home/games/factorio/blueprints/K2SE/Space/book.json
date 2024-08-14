@@ -1,5 +1,6 @@
 {
   "blueprint_book": {
+    "description": "Negative [item=red-wire] signals are used as a request for cannons",
     "icons": [
       {
         "index": 1,

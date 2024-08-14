@@ -1,0 +1,5689 @@
+{
+  "blueprint": {
+    "description": "Requests water, lube, and oil\nProduces cosmic water\nRecycles contaminated cosmic water",
+    "entities": [
+      {
+        "direction": 6,
+        "entity_number": 1,
+        "name": "se-recycling-facility",
+        "position": {
+          "x": -211.5,
+          "y": -31.5
+        },
+        "recipe": "se-empty-barrel-reprocessing"
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -218.5,
+          "y": -28.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -217.5,
+          "y": -28.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -216.5,
+          "y": -28.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 5,
+        "name": "inserter",
+        "position": {
+          "x": -215.5,
+          "y": -28.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 6,
+        "name": "fast-inserter",
+        "position": {
+          "x": -207.5,
+          "y": -29.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "logistic-chest-passive-provider",
+        "position": {
+          "x": -206.5,
+          "y": -29.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "inserter",
+        "position": {
+          "x": -207.5,
+          "y": -28.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 9,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -206.5,
+          "y": -28.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 10,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -204.5,
+          "y": -28.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 11,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -205.5,
+          "y": -28.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "substation",
+        "neighbours": [
+          20
+        ],
+        "position": {
+          "x": -230,
+          "y": -26
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -219.5,
+          "y": -26.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -218.5,
+          "y": -26.5
+        }
+      },
+      {
+        "entity_number": 15,
+        "name": "se-space-underground-belt",
+        "position": {
+          "x": -218.5,
+          "y": -27.5
+        },
+        "type": "output"
+      },
+      {
+        "entity_number": 16,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -217.5,
+          "y": -26.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 17,
+        "name": "inserter",
+        "position": {
+          "x": -217.5,
+          "y": -27.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 18,
+        "name": "se-space-assembling-machine",
+        "position": {
+          "x": -215.5,
+          "y": -26.5
+        },
+        "recipe": "empty-lubricant-barrel"
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 20
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "filters": [
+            {
+              "count": -20,
+              "index": 1,
+              "signal": {
+                "name": "water-barrel",
+                "type": "item"
+              }
+            },
+            {
+              "count": -20,
+              "index": 2,
+              "signal": {
+                "name": "lubricant-barrel",
+                "type": "item"
+              }
+            },
+            {
+              "count": -20,
+              "index": 3,
+              "signal": {
+                "name": "petroleum-gas-barrel",
+                "type": "item"
+              }
+            },
+            {
+              "count": -20,
+              "index": 4,
+              "signal": {
+                "name": "heavy-oil-barrel",
+                "type": "item"
+              }
+            },
+            {
+              "count": -20,
+              "index": 5,
+              "signal": {
+                "name": "light-oil-barrel",
+                "type": "item"
+              }
+            }
+          ]
+        },
+        "direction": 4,
+        "entity_number": 19,
+        "name": "constant-combinator",
+        "position": {
+          "x": -211.5,
+          "y": -26.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 19
+              },
+              {
+                "entity_id": 27
+              }
+            ]
+          }
+        },
+        "entity_number": 20,
+        "name": "substation",
+        "neighbours": [
+          12
+        ],
+        "position": {
+          "x": -210,
+          "y": -27
+        }
+      },
+      {
+        "entity_number": 21,
+        "name": "se-space-assembling-machine",
+        "position": {
+          "x": -207.5,
+          "y": -26.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 22,
+        "name": "inserter",
+        "position": {
+          "x": -205.5,
+          "y": -27.5
+        }
+      },
+      {
+        "entity_number": 23,
+        "name": "se-space-underground-belt",
+        "position": {
+          "x": -204.5,
+          "y": -27.5
+        },
+        "type": "output"
+      },
+      {
+        "entity_number": 24,
+        "name": "se-space-pipe-to-ground",
+        "position": {
+          "x": -219.5,
+          "y": -25.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 25,
+        "name": "se-space-assembling-machine",
+        "position": {
+          "x": -215.5,
+          "y": -23.5
+        },
+        "recipe": "empty-water-barrel"
+      },
+      {
+        "direction": 2,
+        "entity_number": 26,
+        "name": "fast-inserter",
+        "position": {
+          "x": -213.5,
+          "y": -25.5
+        }
+      },
+      {
+        "bar": 40,
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 20
+              }
+            ]
+          }
+        },
+        "entity_number": 27,
+        "name": "se-delivery-cannon-chest",
+        "position": {
+          "x": -211.5,
+          "y": -24.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 28,
+        "name": "fast-inserter",
+        "position": {
+          "x": -209.5,
+          "y": -25.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 29,
+        "name": "se-space-assembling-machine",
+        "position": {
+          "x": -207.5,
+          "y": -23.5
+        },
+        "recipe": "empty-heavy-oil-barrel"
+      },
+      {
+        "direction": 2,
+        "entity_number": 30,
+        "name": "se-space-decontamination-facility",
+        "position": {
+          "x": -237,
+          "y": -20
+        },
+        "recipe": "se-bio-sludge-decontamination"
+      },
+      {
+        "entity_number": 31,
+        "name": "se-space-decontamination-facility",
+        "position": {
+          "x": -230,
+          "y": -20
+        },
+        "recipe": "se-space-water-decontamination"
+      },
+      {
+        "entity_number": 32,
+        "name": "se-space-decontamination-facility",
+        "position": {
+          "x": -223,
+          "y": -20
+        },
+        "recipe": "se-space-water"
+      },
+      {
+        "entity_number": 33,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -221.5,
+          "y": -23.5
+        }
+      },
+      {
+        "entity_number": 34,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -220.5,
+          "y": -23.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 35,
+        "name": "se-space-pipe-to-ground",
+        "position": {
+          "x": -219.5,
+          "y": -22.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 36,
+        "name": "se-space-pipe-long-j-3",
+        "position": {
+          "x": -218.5,
+          "y": -23.5
+        }
+      },
+      {
+        "entity_number": 37,
+        "name": "se-space-underground-belt",
+        "position": {
+          "x": -218.5,
+          "y": -22.5
+        },
+        "type": "input"
+      },
+      {
+        "direction": 2,
+        "entity_number": 38,
+        "name": "inserter",
+        "position": {
+          "x": -217.5,
+          "y": -22.5
+        }
+      },
+      {
+        "entity_number": 39,
+        "name": "fast-inserter",
+        "position": {
+          "x": -212.5,
+          "y": -22.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 40,
+        "name": "fast-inserter",
+        "position": {
+          "x": -213.5,
+          "y": -23.5
+        }
+      },
+      {
+        "entity_number": 41,
+        "name": "fast-inserter",
+        "position": {
+          "x": -210.5,
+          "y": -22.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 42,
+        "name": "fast-inserter",
+        "position": {
+          "x": -209.5,
+          "y": -23.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 43,
+        "name": "inserter",
+        "position": {
+          "x": -205.5,
+          "y": -22.5
+        }
+      },
+      {
+        "entity_number": 44,
+        "name": "se-space-underground-belt",
+        "position": {
+          "x": -204.5,
+          "y": -22.5
+        },
+        "type": "input"
+      },
+      {
+        "entity_number": 45,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -219.5,
+          "y": -21.5
+        }
+      },
+      {
+        "entity_number": 46,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -218.5,
+          "y": -21.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 47,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -217.5,
+          "y": -21.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 48,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -216.5,
+          "y": -21.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 49,
+        "name": "inserter",
+        "position": {
+          "x": -215.5,
+          "y": -21.5
+        }
+      },
+      {
+        "entity_number": 50,
+        "name": "se-space-assembling-machine",
+        "position": {
+          "x": -213.5,
+          "y": -20.5
+        },
+        "recipe": "empty-petroleum-gas-barrel"
+      },
+      {
+        "entity_number": 51,
+        "name": "se-space-assembling-machine",
+        "position": {
+          "x": -209.5,
+          "y": -20.5
+        },
+        "recipe": "empty-light-oil-barrel"
+      },
+      {
+        "direction": 6,
+        "entity_number": 52,
+        "name": "inserter",
+        "position": {
+          "x": -207.5,
+          "y": -21.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 53,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -206.5,
+          "y": -21.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 54,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -205.5,
+          "y": -21.5
+        }
+      },
+      {
+        "entity_number": 55,
+        "name": "se-space-transport-belt",
+        "position": {
+          "x": -204.5,
+          "y": -21.5
+        }
+      },
+      {
+        "entity_number": 56,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -233.5,
+          "y": -18.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 58
+              }
+            ]
+          }
+        },
+        "entity_number": 57,
+        "name": "storage-tank",
+        "position": {
+          "x": -227.5,
+          "y": -15.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 57
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": "<",
+            "constant": 5000,
+            "first_signal": {
+              "name": "se-space-water",
+              "type": "fluid"
+            }
+          }
+        },
+        "direction": 4,
+        "entity_number": 58,
+        "name": "pump",
+        "position": {
+          "x": -224.5,
+          "y": -16
+        }
+      },
+      {
+        "entity_number": 59,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -225.5,
+          "y": -14.5
+        }
+      },
+      {
+        "entity_number": 60,
+        "name": "se-space-pipe",
+        "position": {
+          "x": -224.5,
+          "y": -14.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "water-barrel",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Fluid Preparation",
+    "tiles": [
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -241,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -240,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -239,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -238,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -237,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -236,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -235,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -234,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -233,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -232,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -231,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -230,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -229,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -228,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -227,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -226,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -225,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -224,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -223,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -222,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -221,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -220,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -219,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -218,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -217,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -216,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -215,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -214,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -213,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -212,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -211,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -210,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -209,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -208,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -207,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -206,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -205,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -204,
+          "y": -14
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -36
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -35
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -34
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -33
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -32
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -31
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -30
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -29
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -28
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -27
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -26
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -25
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -24
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -23
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -22
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -21
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -20
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -19
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -18
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -17
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -16
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -15
+        }
+      },
+      {
+        "name": "se-space-platform-scaffold",
+        "position": {
+          "x": -203,
+          "y": -14
+        }
+      }
+    ],
+    "version": 281479278821376
+  },
+  "index": 5
+}
