@@ -3,11 +3,13 @@
 # prebuilt binary.
 pkgs.stdenv.mkDerivation rec {
   pname = "spriggit";
-  version = "0.25";
+  version = "0.26";
 
   src = pkgs.fetchzip {
     url = "https://github.com/Mutagen-Modding/Spriggit/releases/download/${version}/SpriggitLinuxCLI.zip";
-    hash = "sha256-5Kbx7lgT0qs5fIYmzRCUerRcksKD0vRgH0RtSXv33EQ=";
+    # NOTE: Nix seems to cache files by hash, even if the URL changes, so we
+    # need to temporarily change the hash to force a redownload
+    hash = "sha256-PmxQ9GXwKrgNBwGzdIh/vaZdt89O86HdO0cvrXQG4Iw=";
     stripRoot = false; # The archive doesn't have a root directory
   };
 
