@@ -34,7 +34,8 @@
     # doing anything lossy without being explicit about it.
     convert = pkgs.runCommand "heif-to-png" {} ''
       mkdir -p $out
-      ${pkgs.libheif}/bin/heif-dec "${source}" "$out/output.png"
+      # NOTE: This will need to be changed to heif-dec once 1.18 is on stable
+      ${pkgs.libheif}/bin/heif-convert "${source}" "$out/output.png"
     '';
     # We only care about the image, not the directory it's in.
   in "${convert}/output.png";

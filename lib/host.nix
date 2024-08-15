@@ -21,6 +21,10 @@
   {
     system = system_type # e.g. "x86_64-linux"
 
+    # The branch of nixpkgs to use. Can be "stable" for the latest release branch,
+    # or "unstable" for the latest unstable branch.
+    branch = "stable" | "unstable"
+
     config = {pkgs, ...}: {
       # A Nix module that configures the system
     }
@@ -28,6 +32,11 @@
   ```
   */
   mkHost = rootConfig: let
+    branches = {
+      stable = nixpkgs;
+      unstable = nixpkgs-unstable;
+    };
+
     config = import rootConfig;
     system = config.system;
     pkgs-unstable = import nixpkgs-unstable {
@@ -35,7 +44,7 @@
       config.allowUnfree = true;
     };
   in
-    nixpkgs.lib.nixosSystem {
+    branches.${config.branch}.lib.nixosSystem {
       # Pass the flake's inputs and pkgs-unstable to the module
       # TODO: Import more packages here, and remove the scattered imports in modules
       specialArgs = {inherit flake inputs pkgs-unstable;};
