@@ -4,6 +4,7 @@
   lib,
   pkgs-unstable,
   inputs,
+  pkgs,
   ...
 }: let
   userSettingsDir = "${config.xdg.configHome}/Code/User";
@@ -56,8 +57,18 @@ in {
       ];
     };
 
-    home.file."${userSettingsDir}/settings.json" = {
-      source = ./settings.json;
+    home.file."${userSettingsDir}/settings.json" = let
+      raw = builtins.readFile ./settings.json;
+      replaceOriginals = [
+        "__nil__"
+        "__terminal__"
+      ];
+      replacements = [
+        (lib.getExe pkgs.nil)
+        (lib.getExe config.custom.terminal.package)
+      ];
+    in {
+      text = builtins.replaceStrings replaceOriginals replacements raw;
     };
     home.file."${userSettingsDir}/snippets" = {
       source = ./snippets;
