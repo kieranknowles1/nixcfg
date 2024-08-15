@@ -68,14 +68,8 @@
     nixpkgs-unstable,
     ...
   } @ inputs: let
-    # The default branch to use for nixpkgs. Individual packages can request
-    # the unstable branch by referencing `pkgs-unstable` instead of `pkgs`.
-    # If we're feeling brave, we can point everything at unstable.
-    defaultNixpkgs = nixpkgs-unstable;
-
     lib = import ./lib {
-      inherit nixpkgs-unstable inputs;
-      nixpkgs = defaultNixpkgs;
+      inherit nixpkgs nixpkgs-unstable inputs;
       flake = self;
     };
   in rec {
@@ -88,11 +82,11 @@
     };
 
     # Formatter for all Nix files in this flake. Run using `nix fmt`.
-    formatter.x86_64-linux = defaultNixpkgs.legacyPackages.x86_64-linux.alejandra;
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
     packages.x86_64-linux = import ./packages rec {
       inherit inputs;
-      pkgs = import defaultNixpkgs {system = "x86_64-linux";};
+      pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
       callPackage = pkgs.callPackage;
       flakeLib = lib;
     };
@@ -101,7 +95,7 @@
     homeManagerModules.default = import ./modules/home;
 
     devShells.x86_64-linux = import ./shells {
-      pkgs = import defaultNixpkgs {system = "x86_64-linux";};
+      pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
       flakeLib = lib;
       flakePkgs = packages.x86_64-linux;
     };

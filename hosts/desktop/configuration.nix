@@ -4,6 +4,8 @@
 {
   system = "x86_64-linux";
 
+  branch = "unstable";
+
   config = {
     pkgs,
     flake,

@@ -8,7 +8,7 @@
 in {
   attrset = import ./attrset.nix {};
   docs = import ./docs.nix {inherit pkgs flake inputs;};
-  # This needs nixpkgs for `nixpkgs.lib.nixosSystem`, which is not available from `pkgs`.
+  # We need to import nixpkgs and nixpkgs-unstable for the host's system type
   host = import ./host.nix {inherit nixpkgs nixpkgs-unstable flake inputs;};
   image = import ./image.nix {inherit pkgs;};
   package = import ./package.nix {inherit pkgs;};
