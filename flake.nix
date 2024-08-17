@@ -76,9 +76,9 @@
     inherit lib; # Expose the lib module to configurations
 
     nixosConfigurations = {
-      desktop = lib.host.mkHost ./hosts/desktop/configuration.nix;
-      laptop = lib.host.mkHost ./hosts/laptop/configuration.nix;
-      server = lib.host.mkHost ./hosts/server/configuration.nix;
+      rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
+      canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
+      razorback = lib.host.mkHost ./hosts/server/razorback.nix;
     };
 
     # Formatter for all Nix files in this flake. Run using `nix fmt`.

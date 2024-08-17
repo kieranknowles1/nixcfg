@@ -25,7 +25,7 @@ exclude = [ ".git", "src" ]
 destinationIsSecret = true
 
 [networking]
-hostName = "desktop"
+hostName = "rocinante"
 
 [development]
 enable = true
