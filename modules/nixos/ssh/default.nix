@@ -22,6 +22,7 @@
     # Accept any of my public keys, read from [[./keys]]
     # TODO: Secret management to automatically add the private keys
     # TODO: Should this be in the user's config? authorized_keys is a user-level setting
+    # TODO: Update keys/hosts for new hostnames
     users.users =
       lib.attrsets.mapAttrs (name: user: {
         openssh.authorizedKeys.keyFiles =

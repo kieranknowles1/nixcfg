@@ -7,7 +7,7 @@ office.enable = true
 printing.enable = true
 
 [networking]
-hostName = "laptop"
+hostName = "canterbury"
 
 [development]
 enable = true
