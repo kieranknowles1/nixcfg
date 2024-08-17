@@ -103,8 +103,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let flake = match opt.flake {
         Some(value) => value,
         None => {
-            let config = Config::new()?;
-            config.flake
+            match Config::new() {
+                Ok(config) => config.flake,
+                Err(e) => {
+                    eprintln!("FLAKE environment variable not set. Use the --flake option or set the FLAKE environment variable.");
+                    return Err(Box::new(e));
+                },
+            }
         }
     };
 

@@ -21,6 +21,7 @@ pub fn fancy_build(repo_path: &str) -> std::io::Result<String> {
     let build_status = Command::new("nh")
         .arg("os")
         .arg("build")
+        .arg(repo_path)
         .status()?;
 
     // We put build and diff in the same function as the diff only works after a build but
