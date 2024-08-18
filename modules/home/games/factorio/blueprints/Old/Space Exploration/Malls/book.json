@@ -4,13 +4,13 @@
       {
         "index": 1,
         "signal": {
-          "name": "steam-engine",
+          "name": "assembling-machine-2",
           "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Power",
+    "label": "Malls",
     "version": 281479278821376
   },
   "index": 1
