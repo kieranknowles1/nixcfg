@@ -78,7 +78,7 @@
     nixosConfigurations = {
       rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
       canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
-      razorback = lib.host.mkHost ./hosts/server/razorback.nix;
+      razorback = lib.host.mkHost ./hosts/razorback/configuration.nix;
     };
 
     # Formatter for all Nix files in this flake. Run using `nix fmt`.
