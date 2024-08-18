@@ -2,8 +2,40 @@
   description = "The NixOS configuration for my systems";
 
   inputs = {
+    # /// Core ///
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
+
+    home-manager = {
+      url = "github:nix-community/home-manager?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    # /// Extensions ///
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # This is a much more complete set of extensions than the ones in nixpkgs
+    vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # /// Utilities ///
 
     # Used to generate schemas for config files. This lets a JSON/YAML/TOML/whatever the next format is
     # language server provide completions, type checking, and documentation by linking to the schema.
@@ -15,30 +47,7 @@
       inputs.sops-nix.follows = "sops-nix";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager?ref=master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # We want to be on the latest versions here
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Again, we want to be on the latest versions
-    # This is a much more complete set of extensions than the ones in nixpkgs
-    vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions?ref=master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    # /// Applications ///
     nixvim = {
       url = "github:nix-community/nixvim";
       # NOTE: Nixvim master requires nixpkgs-unstable and will not work with nixpkgs-24.05
@@ -46,14 +55,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    # Source code that will updated along with the rest of the flake
-    # This saves us from having to manually update hashes
+    # Using flake inputs for source lets us be on master without needing to manually update
+    # hashes.
     src-factorio-blueprint-decoder = {
       # Branch name is a bit misleading, it represents the original repo with all
       # PRs merged in. I use it so I have the latest without waiting for the PR
