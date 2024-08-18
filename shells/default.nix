@@ -1,12 +1,15 @@
 {
   pkgs,
-  flakeLib,
-  flakePkgs,
-}: {
-  openmw = import ./openmw.nix {inherit pkgs flakeLib;};
+  flake,
+  system,
+}: let
+  callPackage = pkgs.callPackage;
+  flakePkgs = flake.packages.${system};
+in {
+  openmw = callPackage ./openmw.nix {inherit flake;};
 
   # `default.nix` is already used for this file, so use a different name
-  default = import ./defaultShell.nix {inherit pkgs flakePkgs flakeLib;};
+  default = callPackage ./defaultShell.nix {inherit flakePkgs flake;};
 
-  rust = import ./rust.nix {inherit pkgs flakeLib;};
+  rust = callPackage ./rust.nix {inherit flake;};
 }

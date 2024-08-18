@@ -1,11 +1,15 @@
-{pkgs}:
+{
+  stdenv,
+  fetchzip,
+  lib,
+}:
 # Packaging something with NuGet dependencies is tricky, so just fetch the
 # prebuilt binary.
-pkgs.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "spriggit";
   version = "0.26";
 
-  src = pkgs.fetchzip {
+  src = fetchzip {
     url = "https://github.com/Mutagen-Modding/Spriggit/releases/download/${version}/SpriggitLinuxCLI.zip";
     # NOTE: Nix seems to cache files by hash, even if the URL changes, so we
     # need to temporarily change the hash to force a redownload
@@ -25,7 +29,7 @@ pkgs.stdenv.mkDerivation rec {
     ln --symbolic $out/share/spriggit/Spriggit.CLI $out/bin/Spriggit.CLI
   '';
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "A tool for converting Bethesda plugin files to text and back";
 
     longDescription = ''
