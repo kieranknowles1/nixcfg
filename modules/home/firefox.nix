@@ -20,6 +20,9 @@ in {
       ExtensionUpdate = false;
       # I use Bitwarden for this
       PasswordManagerEnabled = false;
+      # Don't use this
+      DisablePocket = true;
+      DisableFirefoxAccounts = true;
     };
 
     # Firefix updates frequently and takes a long time to build, so we use the
