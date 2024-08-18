@@ -4,14 +4,14 @@
       {
         "index": 1,
         "signal": {
-          "name": "steam-engine",
+          "name": "gun-turret",
           "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Power",
+    "label": "Military",
     "version": 281479278821376
   },
-  "index": 1
+  "index": 7
 }

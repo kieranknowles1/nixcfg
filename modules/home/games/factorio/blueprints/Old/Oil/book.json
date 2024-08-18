@@ -1,16 +1,17 @@
 {
   "blueprint_book": {
+    "description": "FOR DEMOCRACY!",
     "icons": [
       {
         "index": 1,
         "signal": {
-          "name": "steam-engine",
-          "type": "item"
+          "name": "crude-oil",
+          "type": "fluid"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Power",
+    "label": "Oil",
     "version": 281479278821376
   },
   "index": 1

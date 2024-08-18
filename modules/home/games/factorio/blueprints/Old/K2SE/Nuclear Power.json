@@ -1,0 +1,1402 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          10
+        ],
+        "position": {
+          "x": -738.5,
+          "y": 1464.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "heat-exchanger",
+        "position": {
+          "x": -736,
+          "y": 1466.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 4
+              },
+              {
+                "entity_id": 17
+              }
+            ]
+          }
+        },
+        "entity_number": 3,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -732.5,
+          "y": 1466.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 3
+              }
+            ]
+          }
+        },
+        "entity_number": 4,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -727.5,
+          "y": 1466.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 5,
+        "name": "steam-turbine",
+        "position": {
+          "x": -722.5,
+          "y": 1466.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 6,
+        "name": "steam-turbine",
+        "position": {
+          "x": -717.5,
+          "y": 1466.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 7,
+        "name": "steam-turbine",
+        "position": {
+          "x": -712.5,
+          "y": 1466.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "steam-turbine",
+        "position": {
+          "x": -707.5,
+          "y": 1466.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 9,
+        "name": "steam-turbine",
+        "position": {
+          "x": -702.5,
+          "y": 1466.5
+        }
+      },
+      {
+        "entity_number": 10,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          1,
+          21
+        ],
+        "position": {
+          "x": -738.5,
+          "y": 1467.5
+        }
+      },
+      {
+        "entity_number": 11,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1466.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1467.5
+        }
+      },
+      {
+        "entity_number": 13,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1468.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1469.5
+        }
+      },
+      {
+        "entity_number": 15,
+        "name": "kr-steel-pipe",
+        "position": {
+          "x": -736.5,
+          "y": 1468.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "kr-steel-pipe",
+        "position": {
+          "x": -736.5,
+          "y": 1469.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 3
+              },
+              {
+                "entity_id": 18
+              },
+              {
+                "entity_id": 38
+              }
+            ]
+          }
+        },
+        "entity_number": 17,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -732.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 17
+              }
+            ]
+          }
+        },
+        "entity_number": 18,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -727.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "entity_number": 19,
+        "name": "substation",
+        "neighbours": [
+          20,
+          67
+        ],
+        "position": {
+          "x": -717,
+          "y": 1469
+        }
+      },
+      {
+        "entity_number": 20,
+        "name": "substation",
+        "neighbours": [
+          19,
+          68
+        ],
+        "position": {
+          "x": -706,
+          "y": 1469
+        }
+      },
+      {
+        "entity_number": 21,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          10,
+          45
+        ],
+        "position": {
+          "x": -740.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 22,
+        "name": "heat-exchanger",
+        "position": {
+          "x": -736,
+          "y": 1471.5
+        }
+      },
+      {
+        "entity_number": 23,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "entity_number": 24,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1470.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 25,
+        "name": "steam-turbine",
+        "position": {
+          "x": -722.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 26,
+        "name": "steam-turbine",
+        "position": {
+          "x": -717.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 27,
+        "name": "steam-turbine",
+        "position": {
+          "x": -712.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 28,
+        "name": "steam-turbine",
+        "position": {
+          "x": -707.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 29,
+        "name": "steam-turbine",
+        "position": {
+          "x": -702.5,
+          "y": 1471.5
+        }
+      },
+      {
+        "entity_number": 30,
+        "name": "logistic-chest-passive-provider",
+        "position": {
+          "x": -741.5,
+          "y": 1472.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 31,
+        "name": "inserter",
+        "position": {
+          "x": -741.5,
+          "y": 1473.5
+        }
+      },
+      {
+        "entity_number": 32,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1473.5
+        }
+      },
+      {
+        "entity_number": 33,
+        "name": "kr-steel-pipe",
+        "position": {
+          "x": -736.5,
+          "y": 1473.5
+        }
+      },
+      {
+        "entity_number": 34,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1472.5
+        }
+      },
+      {
+        "entity_number": 35,
+        "name": "nuclear-reactor",
+        "position": {
+          "x": -739.5,
+          "y": 1476.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 36,
+        "name": "heat-exchanger",
+        "position": {
+          "x": -736,
+          "y": 1476.5
+        }
+      },
+      {
+        "entity_number": 37,
+        "name": "kr-steel-pipe",
+        "position": {
+          "x": -736.5,
+          "y": 1474.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 17
+              },
+              {
+                "entity_id": 39
+              },
+              {
+                "entity_id": 46
+              },
+              {
+                "entity_id": 50
+              }
+            ]
+          }
+        },
+        "entity_number": 38,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -732.5,
+          "y": 1476.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 38
+              }
+            ]
+          }
+        },
+        "entity_number": 39,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -727.5,
+          "y": 1476.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 40,
+        "name": "steam-turbine",
+        "position": {
+          "x": -722.5,
+          "y": 1476.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 41,
+        "name": "steam-turbine",
+        "position": {
+          "x": -717.5,
+          "y": 1476.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 42,
+        "name": "steam-turbine",
+        "position": {
+          "x": -712.5,
+          "y": 1476.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 43,
+        "name": "steam-turbine",
+        "position": {
+          "x": -707.5,
+          "y": 1476.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 44,
+        "name": "steam-turbine",
+        "position": {
+          "x": -702.5,
+          "y": 1476.5
+        }
+      },
+      {
+        "entity_number": 45,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          21
+        ],
+        "position": {
+          "x": -740.5,
+          "y": 1479.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 38
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": "<",
+            "constant": 100000,
+            "first_signal": {
+              "name": "steam",
+              "type": "fluid"
+            }
+          }
+        },
+        "direction": 4,
+        "entity_number": 46,
+        "name": "inserter",
+        "override_stack_size": 1,
+        "position": {
+          "x": -739.5,
+          "y": 1479.5
+        }
+      },
+      {
+        "entity_number": 47,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1479.5
+        }
+      },
+      {
+        "entity_number": 48,
+        "name": "kr-steel-pipe",
+        "position": {
+          "x": -736.5,
+          "y": 1479.5
+        }
+      },
+      {
+        "entity_number": 49,
+        "name": "kr-steel-pipe",
+        "position": {
+          "x": -736.5,
+          "y": 1478.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 38
+              },
+              {
+                "entity_id": 51
+              },
+              {
+                "entity_id": 75
+              }
+            ]
+          }
+        },
+        "entity_number": 50,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -732.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 50
+              }
+            ]
+          }
+        },
+        "entity_number": 51,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -727.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "entity_number": 52,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "entity_number": 53,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1480.5
+        }
+      },
+      {
+        "entity_number": 54,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 55,
+        "name": "heat-exchanger",
+        "position": {
+          "x": -736,
+          "y": 1481.5
+        }
+      },
+      {
+        "entity_number": 56,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1480.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 57,
+        "name": "steam-turbine",
+        "position": {
+          "x": -722.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 58,
+        "name": "steam-turbine",
+        "position": {
+          "x": -717.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 59,
+        "name": "steam-turbine",
+        "position": {
+          "x": -712.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 60,
+        "name": "steam-turbine",
+        "position": {
+          "x": -707.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 61,
+        "name": "steam-turbine",
+        "position": {
+          "x": -702.5,
+          "y": 1481.5
+        }
+      },
+      {
+        "entity_number": 62,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1483.5
+        }
+      },
+      {
+        "entity_number": 63,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1482.5
+        }
+      },
+      {
+        "entity_number": 64,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1483.5
+        }
+      },
+      {
+        "entity_number": 65,
+        "name": "kr-steel-pipe",
+        "position": {
+          "x": -736.5,
+          "y": 1483.5
+        }
+      },
+      {
+        "entity_number": 66,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1482.5
+        }
+      },
+      {
+        "entity_number": 67,
+        "name": "substation",
+        "neighbours": [
+          19,
+          68
+        ],
+        "position": {
+          "x": -717,
+          "y": 1484
+        }
+      },
+      {
+        "entity_number": 68,
+        "name": "substation",
+        "neighbours": [
+          20,
+          67
+        ],
+        "position": {
+          "x": -706,
+          "y": 1484
+        }
+      },
+      {
+        "entity_number": 69,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1485.5
+        }
+      },
+      {
+        "entity_number": 70,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1484.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 71,
+        "name": "heat-exchanger",
+        "position": {
+          "x": -736,
+          "y": 1486.5
+        }
+      },
+      {
+        "entity_number": 72,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1485.5
+        }
+      },
+      {
+        "entity_number": 73,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1484.5
+        }
+      },
+      {
+        "entity_number": 74,
+        "name": "kr-steel-pipe",
+        "position": {
+          "x": -736.5,
+          "y": 1484.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 50
+              },
+              {
+                "entity_id": 76
+              }
+            ]
+          }
+        },
+        "entity_number": 75,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -732.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "green": [
+              {
+                "entity_id": 75
+              }
+            ]
+          }
+        },
+        "entity_number": 76,
+        "name": "kr-fluid-storage-2",
+        "position": {
+          "x": -727.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 77,
+        "name": "steam-turbine",
+        "position": {
+          "x": -722.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 78,
+        "name": "steam-turbine",
+        "position": {
+          "x": -717.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 79,
+        "name": "steam-turbine",
+        "position": {
+          "x": -712.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 80,
+        "name": "steam-turbine",
+        "position": {
+          "x": -707.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 81,
+        "name": "steam-turbine",
+        "position": {
+          "x": -702.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "entity_number": 82,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1487.5
+        }
+      },
+      {
+        "entity_number": 83,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "entity_number": 84,
+        "name": "heat-pipe",
+        "position": {
+          "x": -737.5,
+          "y": 1486.5
+        }
+      },
+      {
+        "entity_number": 85,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1489.5
+        }
+      },
+      {
+        "entity_number": 86,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1488.5
+        }
+      },
+      {
+        "entity_number": 87,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1491.5
+        }
+      },
+      {
+        "entity_number": 88,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1490.5
+        }
+      },
+      {
+        "entity_number": 89,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1493.5
+        }
+      },
+      {
+        "entity_number": 90,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1492.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 91,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -738.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "entity_number": 92,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -739.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 93,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -736.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 94,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -737.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 95,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -734.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 96,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -735.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 97,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -732.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 98,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -733.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 99,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -730.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 100,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -731.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 101,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -728.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 102,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -729.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 103,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -726.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 104,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -727.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 105,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -724.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 106,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -725.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 107,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -722.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 108,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -723.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 109,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -720.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 110,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -721.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 111,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -718.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 112,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -719.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 113,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -716.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 114,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -717.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 115,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -714.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 116,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -715.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 117,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -712.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 118,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -713.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 119,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -710.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 120,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -711.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 121,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -708.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 122,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -709.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 123,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -706.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 124,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -707.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 125,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -704.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 126,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -705.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 127,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -703.5,
+          "y": 1494.5
+        }
+      },
+      {
+        "entity_number": 128,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -703.5,
+          "y": 1495.5
+        }
+      },
+      {
+        "entity_number": 129,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -703.5,
+          "y": 1496.5
+        }
+      },
+      {
+        "entity_number": 130,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -703.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 131,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -702.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 132,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -701.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 133,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -700.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 134,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -699.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 135,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -698.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 136,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -697.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 137,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -696.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 138,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -695.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 139,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -694.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 140,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -693.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 141,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -692.5,
+          "y": 1497.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 142,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -691.5,
+          "y": 1497.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "nuclear-reactor",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Nuclear Power",
+    "version": 281479278821376
+  },
+  "index": 5
+}

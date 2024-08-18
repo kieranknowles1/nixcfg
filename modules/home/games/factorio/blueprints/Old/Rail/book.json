@@ -1,17 +1,18 @@
 {
   "blueprint_book": {
+    "description": "LTN rails on a 32x32 grid. Drive on the left",
     "icons": [
       {
         "index": 1,
         "signal": {
-          "name": "steam-engine",
+          "name": "rail",
           "type": "item"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Power",
+    "label": "Rail",
     "version": 281479278821376
   },
-  "index": 1
+  "index": 8
 }
