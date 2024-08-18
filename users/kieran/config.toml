@@ -6,8 +6,3 @@
 email = "kieranknowles11@hotmail.co.uk"
 firstName = "Kieran"
 surName = "Knowles"
-
-[editor]
-default = "nvim"
-
-neovim.enable = true

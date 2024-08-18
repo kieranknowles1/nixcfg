@@ -91,6 +91,14 @@
       flakeLib = lib;
     };
 
+    # TODO: Use flake-utils forEachSystem to generate these
+    packages.aarch64-linux = import ./packages rec {
+      inherit inputs;
+      pkgs = import nixpkgs-unstable {system = "aarch64-linux";};
+      callPackage = pkgs.callPackage;
+      flakeLib = lib;
+    };
+
     nixosModules.default = import ./modules/nixos;
     homeManagerModules.default = import ./modules/home;
 

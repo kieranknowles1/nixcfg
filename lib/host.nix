@@ -28,7 +28,6 @@
   ```
   */
   mkHost = rootConfig: let
-
     config = import rootConfig;
     system = config.system;
     pkgs-unstable = import nixpkgs-unstable {
