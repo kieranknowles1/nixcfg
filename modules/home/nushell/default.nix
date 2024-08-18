@@ -1,5 +1,6 @@
-# Home Manager module to enable Nushell and make it the default shell
-# https://nixos.wiki/wiki/Nushell
+# Home Manager module to enable and configure Nushell
+# The login shell can only be set by nixos itself, not home-manager.
+# A hacky workaround would be to `exec nu` inside bashrc, but I'd rather not do that.
 {
   pkgs,
   config,
