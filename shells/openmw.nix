@@ -1,6 +1,6 @@
 {
   pkgs,
-  flakeLib,
+  flake,
 }: let
   GL = "GLVND"; # TODO: What does this do?
 
@@ -35,7 +35,7 @@
     patches = [];
   });
 in
-  flakeLib.shell.mkShellEx {
+  flake.lib.shell.mkShellEx {
     name = "openmw";
 
     # TODO: Sort package lists

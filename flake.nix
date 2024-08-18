@@ -27,12 +27,14 @@
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     # This is a much more complete set of extensions than the ones in nixpkgs
     vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     # /// Utilities ///
@@ -45,6 +47,16 @@
       url = "git+https://git.clan.lol/clan/clan-core";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.sops-nix.follows = "sops-nix";
+      inputs.systems.follows = "systems";
+    };
+
+    # Generate package sets for x86_64-linux and aarch64-linux. This can be
+    # overridden by another flake that consumes this one.
+    systems.url = "github:nix-systems/default-linux";
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
 
     # /// Applications ///
@@ -71,44 +83,40 @@
     nixpkgs-unstable,
     ...
   } @ inputs: let
+    flake = self; # More explicit than an argument named `self`
+    eachDefaultSystem = inputs.flake-utils.lib.eachDefaultSystem;
+
     lib = import ./lib {
       inherit nixpkgs nixpkgs-unstable inputs;
       flake = self;
     };
-  in rec {
-    inherit lib; # Expose the lib module to configurations
+  in
+    eachDefaultSystem (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
+      # Run this using `nix fmt`. Applied to all .nix files in the flake.
+      formatter = pkgs.alejandra;
 
-    nixosConfigurations = {
-      rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
-      canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
-      razorback = lib.host.mkHost ./hosts/razorback/configuration.nix;
+      # We can't use `callPackage` here as Nix expects all values to be derivations,
+      # and callPackage generates functions to override the returned value.
+      packages = import ./packages {
+        inherit flake inputs pkgs;
+      };
+
+      devShells = import ./shells {
+        inherit flake pkgs system;
+      };
+    })
+    // {
+      inherit lib; # Expose our lib module to the rest of the flake
+
+      nixosConfigurations = {
+        rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
+        canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
+        razorback = lib.host.mkHost ./hosts/razorback/configuration.nix;
+      };
+
+      nixosModules.default = import ./modules/nixos;
+      homeManagerModules.default = import ./modules/home;
     };
-
-    # Formatter for all Nix files in this flake. Run using `nix fmt`.
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-
-    packages.x86_64-linux = import ./packages rec {
-      inherit inputs;
-      pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
-      callPackage = pkgs.callPackage;
-      flakeLib = lib;
-    };
-
-    # TODO: Use flake-utils forEachSystem to generate these
-    packages.aarch64-linux = import ./packages rec {
-      inherit inputs;
-      pkgs = import nixpkgs-unstable {system = "aarch64-linux";};
-      callPackage = pkgs.callPackage;
-      flakeLib = lib;
-    };
-
-    nixosModules.default = import ./modules/nixos;
-    homeManagerModules.default = import ./modules/home;
-
-    devShells.x86_64-linux = import ./shells {
-      pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
-      flakeLib = lib;
-      flakePkgs = packages.x86_64-linux;
-    };
-  };
 }
