@@ -10,3 +10,4 @@ shortcuts.enable = true
 default = "code"
 
 vscode.enable = true
+neovim.enable = true

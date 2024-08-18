@@ -41,11 +41,11 @@
   in {
     # Make sure our default editor is installed
     # TODO: Allow for no editors to be selected. We need to detect if editor.default is unset without throwing an error.
-    assertions = [
-      {
-        assertion = editorEnabled defaultEditor;
-        message = "The default editor is set to ${defaultEditor}, but it is not enabled.";
-      }
-    ];
+    # assertions = [
+    #   {
+    #     assertion = editorEnabled defaultEditor;
+    #     message = "The default editor is set to ${defaultEditor}, but it is not enabled.";
+    #   }
+    # ];
   };
 }
