@@ -4,6 +4,7 @@
   pkgs,
   pkgs-unstable,
   lib,
+  flake,
   ...
 }: let
   # Helper to activate a dev shell
@@ -36,6 +37,10 @@ in {
     nix.settings.experimental-features = [
       "nix-command"
       "flakes"
+    ];
+
+    nixpkgs.overlays = [
+      flake.overlays.default
     ];
 
     # Bootloader.

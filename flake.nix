@@ -118,5 +118,17 @@
 
       nixosModules.default = import ./modules/nixos;
       homeManagerModules.default = import ./modules/home;
+
+      # Extend nixpkgs with our own packages and lib
+      # TODO: Replace the *.packages.${system} pattern with overlays
+      overlays.default = final: prev: let
+        system = prev.stdenv.hostPlatform.system;
+        flakePkgs = self.packages.${system};
+      in {
+        # Expose our pkgs and lib as an overlay
+        flake = flakePkgs // {
+          inherit lib;
+        };
+      };
     };
 }
