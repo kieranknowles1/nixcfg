@@ -5,7 +5,6 @@
     ./common.nix
     ./desktop
     ./docs.nix
-    ./edit-config.nix
     ./editor
     ./espanso
     ./firefox.nix
