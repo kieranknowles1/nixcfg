@@ -136,34 +136,36 @@
     # Generate a backup configuration
     mkBackup = name: pairName: config: repoOrRepoFile: {
       inherit name;
-      value = {
-        user = config.owner;
-        paths = [config.source];
-        exclude = config.exclude;
+      value =
+        {
+          user = config.owner;
+          paths = [config.source];
+          exclude = config.exclude;
 
-        pruneOpts = [
-          "--keep-daily ${toString config.keep.daily}"
-          "--keep-weekly ${toString config.keep.weekly}"
-          "--keep-monthly ${toString config.keep.monthly}"
-        ];
+          pruneOpts = [
+            "--keep-daily ${toString config.keep.daily}"
+            "--keep-weekly ${toString config.keep.weekly}"
+            "--keep-monthly ${toString config.keep.monthly}"
+          ];
 
-        # This is the default, but it's good to be explicit
-        timerConfig = {
-          # Run at midnight, every night
-          OnCalendar = "daily";
-          # If the system is offline at midnight, run soon after the next boot
-          Persistent = true;
-        };
+          # This is the default, but it's good to be explicit
+          timerConfig = {
+            # Run at midnight, every night
+            OnCalendar = "daily";
+            # If the system is offline at midnight, run soon after the next boot
+            Persistent = true;
+          };
 
-        passwordFile = getSecret (mkPasswordPath pairName);
-      } // repoOrRepoFile;
+          passwordFile = getSecret (mkPasswordPath pairName);
+        }
+        // repoOrRepoFile;
     };
 
     mkBackupPair = name: let
       thisRepo = cfg.repositories.${name};
     in [
-      (mkBackup name name thisRepo { repository = thisRepo.destination.local; })
-      (mkBackup "${name}-remote" name thisRepo { repositoryFile = getSecret (mkRemotePath name); })
+      (mkBackup name name thisRepo {repository = thisRepo.destination.local;})
+      (mkBackup "${name}-remote" name thisRepo {repositoryFile = getSecret (mkRemotePath name);})
     ];
   in
     lib.mkIf cfg.enable {

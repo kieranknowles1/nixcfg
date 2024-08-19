@@ -21,6 +21,7 @@
   };
 
   config = {
+    # Inherit any overlays from the host to avoid duplication
     nixpkgs.overlays = hostConfig.nixpkgs.overlays;
 
     fonts.fontconfig.defaultFonts = {
