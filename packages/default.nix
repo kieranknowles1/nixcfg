@@ -21,8 +21,6 @@ in {
 
   command-palette = callPackage ./command-palette {};
 
-  edit-config = import ./edit-config {inherit pkgs;};
-
   export-blueprints = packagePythonScript {
     name = "export-blueprints";
     src = ./export-blueprints.py;

@@ -8,7 +8,6 @@
     //  Core
     // ======
 
-    // TODO: Remove edit-config as it's not that useful after some more thought
     "terminal.external.linuxExec": "__terminal__", // The default code looks for isn't installed, and fails silently
     "telemetry.telemetryLevel": "off", // Don't send telemetry data to Microsoft
     "redhat.telemetry.enabled": false, // I'm installing this automatically, so technically I never consented and enabling by default is a GDPR violation

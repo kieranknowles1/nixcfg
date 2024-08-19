@@ -74,15 +74,5 @@ in {
       source = ./snippets;
       recursive = true;
     };
-
-    custom.edit-config.programs.code = {
-      system-path = userSettingsDir;
-      repo-path = "modules/home/editor/vscode/";
-      ignore-paths = [
-        "History"
-        "globalStorage"
-        "workspaceStorage"
-      ];
-    };
   };
 }
