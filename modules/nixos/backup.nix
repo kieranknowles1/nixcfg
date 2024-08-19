@@ -19,6 +19,10 @@
 
         See [Restic's documentation](https://restic.readthedocs.io/en/latest/) for more information.
         You do not need to set environment variables, the wrapper scripts handle this for you.
+
+        All backups exist in pairs: one local, and one remote. The path to the local backup is
+        plaintext, but the remote backup is considered sensitive and is stored in the secrets file.
+        Passwords, of course, are always sensitive.
       '';
       default = {};
 
@@ -49,21 +53,22 @@
             ];
           };
 
-          destination = lib.mkOption {
+          destination.local = lib.mkOption {
             description = ''
-              The absolute path to the directory to store the backup.
+              The absolute path to the local directory to store the backup.
             '';
 
             type = lib.types.str;
             example = "/mnt/backup";
           };
-          destinationIsSecret = lib.mkOption {
+
+          destination.remote = lib.mkOption {
             description = ''
-              Whether the destination points to a secret, or is a plain connection string.
+              The secret containing the connection string to the remote repository.
             '';
 
-            type = lib.types.bool;
-            default = false;
+            type = lib.types.str;
+            example = "backup/remote/repo";
           };
 
           owner = lib.mkOption {
@@ -102,63 +107,72 @@
     cfg = config.custom.backup;
 
     mkPasswordPath = name: "backup/${name}/password";
-    mkDestinationPath = name: "backup/${name}/destination";
+    mkRemotePath = name: "backup/${name}/remote";
+    getSecret = path: config.sops.secrets.${path}.path;
 
+    # Generate all the secrets needed for a backup
     mkBackupSecrets = name: let
       value = cfg.repositories.${name};
-    in
-      (lib.lists.singleton {
+    in [
+      {
         name = mkPasswordPath name;
         value = {
           key = value.password;
           owner = value.owner;
         };
-      })
-      ++ (lib.optional value.destinationIsSecret {
-        name = mkDestinationPath name;
+      }
+      {
+        name = mkRemotePath name;
         value = {
-          key = value.destination;
+          key = value.destination.remote;
           owner = value.owner;
         };
-      });
+      }
+    ];
 
     backups = builtins.attrNames cfg.repositories;
     secrets = lib.lists.concatMap (name: mkBackupSecrets name) backups;
+
+    # Generate a backup configuration
+    mkBackup = name: pairName: config: repoOrRepoFile: {
+      inherit name;
+      value = {
+        user = config.owner;
+        paths = [config.source];
+        exclude = config.exclude;
+
+        pruneOpts = [
+          "--keep-daily ${toString config.keep.daily}"
+          "--keep-weekly ${toString config.keep.weekly}"
+          "--keep-monthly ${toString config.keep.monthly}"
+        ];
+
+        # This is the default, but it's good to be explicit
+        timerConfig = {
+          # Run at midnight, every night
+          OnCalendar = "daily";
+          # If the system is offline at midnight, run soon after the next boot
+          Persistent = true;
+        };
+
+        passwordFile = getSecret (mkPasswordPath pairName);
+      } // repoOrRepoFile;
+    };
+
+    mkBackupPair = name: let
+      thisRepo = cfg.repositories.${name};
+    in [
+      (mkBackup name name thisRepo { repository = thisRepo.destination.local; })
+      (mkBackup "${name}-remote" name thisRepo { repositoryFile = getSecret (mkRemotePath name); })
+    ];
   in
     lib.mkIf cfg.enable {
-      # Make our passwords available in files
-
       # Make any secrets available in files to the owner of the backup
       sops.secrets = builtins.listToAttrs secrets;
 
-      # Create a backup for each source
-      services.restic.backups =
-        builtins.mapAttrs (name: value: {
-          user = value.owner;
-          paths = [value.source];
-          exclude = value.exclude;
-
-          pruneOpts = [
-            "--keep-daily ${toString value.keep.daily}"
-            "--keep-weekly ${toString value.keep.weekly}"
-            "--keep-monthly ${toString value.keep.monthly}"
-          ];
-
-          # This is the default, but it's good to be explicit
-          timerConfig = {
-            # Run at midnight, every night
-            OnCalendar = "daily";
-            # If the system is offline at midnight, run soon after the next boot
-            Persistent = true;
-          };
-
-          # It's easier to make the repository always stored in a file, rather than maybe a file, maybe a plain string
-          repositoryFile =
-            if value.destinationIsSecret
-            then config.sops.secrets.${mkDestinationPath name}.path
-            else builtins.toFile "${name}-destination-path" value.destination;
-          passwordFile = config.sops.secrets.${mkPasswordPath name}.path;
-        })
-        cfg.repositories;
+      # Configure a pair of backups for each repository
+      services.restic.backups = builtins.listToAttrs (
+        builtins.concatMap mkBackupPair backups
+      );
     };
 }
