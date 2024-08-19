@@ -14,15 +14,8 @@ owner = "kieran"
 source = "/home/kieran/Documents"
 # Exclude .git and src, as these are already tracked by git
 exclude = [ ".git", "src" ]
-destination = "/home/kieran/Backups/Documents"
-
-[backup.repositories.documents-remote]
-password = "backup/password"
-owner = "kieran"
-source = "/home/kieran/Documents"
-destination = "backup/remote"
-exclude = [ ".git", "src" ]
-destinationIsSecret = true
+destination.local = "/home/kieran/Backups/Documents"
+destination.remote = "backup/remote"
 
 [networking]
 hostName = "rocinante"
