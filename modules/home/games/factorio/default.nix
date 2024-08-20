@@ -1,12 +1,10 @@
 {
   pkgs,
   lib,
-  config,
-  flake,
   hostConfig,
   ...
 }: let
-  combine-blueprints = "${flake.packages.x86_64-linux.combine-blueprints}/bin/combine-blueprints";
+  combine-blueprints = lib.getExe pkgs.flake.combine-blueprints;
 
   blueprintString = let
     result = pkgs.runCommand "blueprintString" {} ''

@@ -2,12 +2,10 @@
   lib,
   pkgs,
   config,
-  hostConfig,
-  flake,
   ...
 }: {
   options.custom.shortcuts.palette = {
-    package = lib.mkPackageOption flake.packages.${hostConfig.nixpkgs.hostPlatform.system} "command-palette" {};
+    package = lib.mkPackageOption pkgs.flake "command-palette" {};
 
     binding = lib.mkOption {
       description = ''

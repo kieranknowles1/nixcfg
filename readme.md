@@ -74,6 +74,7 @@ I can do all my work in one place.
   - [x] Build ISO [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
   - [ ] Remove anything not needed for a server
 - [ ] Allow home-manager to be used independently of NixOS
+  - [ ] Minimise usage of `hostConfig`, then pass it in as an argument (overlays should help with this)
   - [ ] Put this on the server until we can run full NixOS on it
 - [ ] Automate running checks on the repo. Do these in nix's `checkPhase`?
   - [ ] Links in Markdown

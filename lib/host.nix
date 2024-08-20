@@ -11,6 +11,7 @@
 
   All configuration should be done in the host's configuration.nix file, which is available
   to home-manager as `hostConfig`.
+  Note that usage of `hostConfig` should be minimised, as it makes the configuration less portable.
 
   # Arguments
 

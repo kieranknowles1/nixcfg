@@ -9,8 +9,6 @@
   applicationsDir = "${config.xdg.dataHome}/applications";
 
   resaverDesktopFileName = "nixcfg-resaver.desktop";
-
-  flakePackages = flake.packages.${hostConfig.nixpkgs.hostPlatform.system};
 in {
   config = lib.mkIf hostConfig.custom.games.enable {
     # Install the desktop file to ~/.local/share/applications
@@ -36,7 +34,7 @@ in {
       };
 
       shortcuts.palette.actions = let
-        utilsBin = lib.getExe flakePackages.skyrim-utils;
+        utilsBin = lib.getExe pkgs.flake.skyrim-utils;
         utils = command: [utilsBin command];
       in [
         {
