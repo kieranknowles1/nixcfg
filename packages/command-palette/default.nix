@@ -1,10 +1,10 @@
 {rustPlatform}:
 rustPlatform.buildRustPackage {
   pname = "command-palette";
-  version = "2.0.1";
+  version = "2.0.2";
   src = ./.;
 
-  cargoHash = "sha256-sU/9sQDyhLSR4oLRnelQBZEa1KdenigO6FRoTKI/lRw=";
+  cargoHash = "sha256-Gp4SHHspAxZU31oYlFQJXprV8hd5XUIhN1QNvpgAYAE=";
 
   meta = {
     description = "A simple command palette for running scripts";
