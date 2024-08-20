@@ -2,6 +2,7 @@
   pkgs,
   flake,
   inputs,
+  lib,
 }: let
   evalModules = importer:
     pkgs.lib.evalModules {
@@ -134,12 +135,13 @@ in {
 
   # Example
   ```nix
-  mkPackageDocs flake.packages.${hostConfig.nixpkgs.hostPlatform.system}
+  mkPackageDocs pkgs.flake
   => Markdown file
   ```
   */
   mkPackageDocs = packages: let
-    values = builtins.attrValues packages;
+    # pkgs may contain other attributes, such as `nixpkgs.lib`, so we need to filter them out.
+    values = builtins.filter lib.attrsets.isDerivation (builtins.attrValues packages);
 
     # Nix combines pname with version to create the package name if pname is present.
     getName = package:
