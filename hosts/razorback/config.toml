@@ -1,7 +1,0 @@
-#:schema ../../docs/generated/host-options.schema.json
-
-deviceType = "server"
-repoPath = "/home/kieran/nixcfg"
-
-[networking]
-hostName = "razorback"
