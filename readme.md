@@ -40,8 +40,6 @@ they are named after ships from The Expanse.
   Primary system for just about any task. Fast, powerful, and has a lot of storage.
 - [canterbury](hosts/canterbury/configuration.nix) - My laptop.<br>
   Portable, lightweight, good battery life, and fast enough for what it does.
-- [razorback](hosts/razorback/configuration.nix) - My server.<br>
-  A raspberry pi used to self-host various services. Small, low-power, and surprisingly capable.
 
 ## Essential Resources
 
@@ -72,9 +70,11 @@ I can do all my work in one place.
 - [x] Associate file types with programs
   - [x] PDFs with Firefox, overriding  LibreOffice
   - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
-- [ ] Port my server to NixOS
+- ❎ Port my server to NixOS. (Raspberry Pi 5 is currently unsupported. Putting this on hold for now)
   - [x] Build ISO [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
   - [ ] Remove anything not needed for a server
+- [ ] Allow home-manager to be used independently of NixOS
+  - [ ] Put this on the server until we can run full NixOS on it
 - [ ] Automate running checks on the repo. Do these in nix's `checkPhase`?
   - [ ] Links in Markdown
   - [ ] Links in comments [extension](https://marketplace.visualstudio.com/items?itemName=Isotechnics.commentlinks)
