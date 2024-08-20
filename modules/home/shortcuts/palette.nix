@@ -47,18 +47,10 @@
     palette = lib.getExe cfg.palette.package;
     zenity = lib.getExe pkgs.zenity;
 
-    # TODO: Reimplement sorting
+    sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
     actionsFile =
       pkgs.writeText "actions.json"
-      (builtins.toJSON cfg.palette.actions);
-    # # Why didn't this work the first time? What did I change when doing git reset and rewriting the file?
-    # # Was it because it's 00:46 and I'm tired? Maybe. Maybe I just angered the Nix gods.
-    # toArgs = action: let
-    #   command = lib.strings.escapeShellArg action.action;
-    #   description = lib.strings.escapeShellArg action.description;
-    # in "${command} ${description}";
-    # sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
-    # actionsArg = builtins.concatStringsSep " " (builtins.map toArgs sortedActions);
+      (builtins.toJSON sortedActions);
   in
     lib.mkIf (cfg.enable && (builtins.length cfg.palette.actions > 0)) {
       custom.shortcuts.hotkeys.keys = {

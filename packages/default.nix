@@ -1,10 +1,10 @@
 {
   pkgs,
-  callPackage,
-  flakeLib,
+  flake,
   inputs,
 }: let
-  packagePythonScript = flakeLib.package.packagePythonScript;
+  packagePythonScript = flake.lib.package.packagePythonScript;
+  callPackage = pkgs.callPackage;
 in {
   combine-blueprints = packagePythonScript {
     name = "combine-blueprints";
@@ -20,8 +20,6 @@ in {
   };
 
   command-palette = callPackage ./command-palette {};
-
-  edit-config = import ./edit-config {inherit pkgs;};
 
   export-blueprints = packagePythonScript {
     name = "export-blueprints";
@@ -66,11 +64,11 @@ in {
   # TODO: Use an overlay to remove the need for the `inputs` argument and others
   nixvim = callPackage ./nixvim {inherit inputs;};
 
-  rebuild = import ./rebuild {inherit pkgs;};
+  rebuild = callPackage ./rebuild {};
 
   set-led-state = callPackage ./set-led-state {};
 
   skyrim-utils = callPackage ./skyrim-utils {};
 
-  spriggit = import ./spriggit.nix {inherit pkgs;};
+  spriggit = callPackage ./spriggit.nix {};
 }

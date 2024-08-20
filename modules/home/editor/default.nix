@@ -6,10 +6,15 @@
   options.custom.editor = {
     # TODO: This should set $EDITOR
     default = lib.mkOption {
-      type = lib.types.enum [
-        "code"
-        "nvim"
-      ];
+      # Trying to access an unset option will throw an error,
+      # so we need to use `null` to represent unset.
+      type = with lib.types;
+        nullOr (enum [
+          "code"
+          "nvim"
+        ]);
+
+      default = null;
 
       description = ''
         The default editor to use.
@@ -40,12 +45,11 @@
     defaultEditor = config.custom.editor.default;
   in {
     # Make sure our default editor is installed
-    # TODO: Allow for no editors to be selected. We need to detect if editor.default is unset without throwing an error.
-    assertions = [
+    assertions =
+      lib.optional (defaultEditor != null)
       {
         assertion = editorEnabled defaultEditor;
         message = "The default editor is set to ${defaultEditor}, but it is not enabled.";
-      }
-    ];
+      };
   };
 }

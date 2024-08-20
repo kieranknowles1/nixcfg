@@ -1,3 +1,7 @@
+# SSH configuration
+# To add a known host, run `ssh-keyscan ${hostname}` and place the output in ./hosts/${hostname} (the file name is the full domain name)
+# The file should contain the remainder of the `ssh-ed25519` line
+# Similarly, public keys should be copied from ~/.ssh/id_ed25519.pub to ./keys/${hostname}.pub
 {
   config,
   lib,
@@ -22,7 +26,6 @@
     # Accept any of my public keys, read from [[./keys]]
     # TODO: Secret management to automatically add the private keys
     # TODO: Should this be in the user's config? authorized_keys is a user-level setting
-    # TODO: Update keys/hosts for new hostnames
     users.users =
       lib.attrsets.mapAttrs (name: user: {
         openssh.authorizedKeys.keyFiles =

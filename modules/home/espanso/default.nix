@@ -79,14 +79,5 @@ in {
       source = ./config;
       recursive = true;
     };
-
-    # Link to our edit-config script
-    custom.edit-config.programs.espanso = {
-      system-path = configDir;
-      repo-path = "modules/home/espanso/config";
-      ignore-paths = [
-        "match/base.yml" # Managed by espanso.matches.base
-      ];
-    };
   };
 }

@@ -2,8 +2,42 @@
   description = "The NixOS configuration for my systems";
 
   inputs = {
+    # /// Core ///
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
+
+    home-manager = {
+      url = "github:nix-community/home-manager?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    # /// Extensions ///
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    # This is a much more complete set of extensions than the ones in nixpkgs
+    vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    # /// Utilities ///
 
     # Used to generate schemas for config files. This lets a JSON/YAML/TOML/whatever the next format is
     # language server provide completions, type checking, and documentation by linking to the schema.
@@ -13,32 +47,19 @@
       url = "git+https://git.clan.lol/clan/clan-core";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.sops-nix.follows = "sops-nix";
+      inputs.systems.follows = "systems";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
+    # Generate package sets for x86_64-linux and aarch64-linux. This can be
+    # overridden by another flake that consumes this one.
+    systems.url = "github:nix-systems/default-linux";
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager?ref=master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # We want to be on the latest versions here
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Again, we want to be on the latest versions
-    # This is a much more complete set of extensions than the ones in nixpkgs
-    vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions?ref=master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    # /// Applications ///
     nixvim = {
       url = "github:nix-community/nixvim";
       # NOTE: Nixvim master requires nixpkgs-unstable and will not work with nixpkgs-24.05
@@ -46,14 +67,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    # Source code that will updated along with the rest of the flake
-    # This saves us from having to manually update hashes
+    # Using flake inputs for source lets us be on master without needing to manually update
+    # hashes.
     src-factorio-blueprint-decoder = {
       # Branch name is a bit misleading, it represents the original repo with all
       # PRs merged in. I use it so I have the latest without waiting for the PR
@@ -68,36 +83,44 @@
     nixpkgs-unstable,
     ...
   } @ inputs: let
+    flake = self; # More explicit than an argument named `self`
+    eachDefaultSystem = inputs.flake-utils.lib.eachDefaultSystem;
+
     lib = import ./lib {
       inherit nixpkgs nixpkgs-unstable inputs;
       flake = self;
     };
-  in rec {
-    inherit lib; # Expose the lib module to configurations
+  in
+    eachDefaultSystem (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
+      # Run this using `nix fmt`. Applied to all .nix files in the flake.
+      formatter = pkgs.alejandra;
 
-    nixosConfigurations = {
-      rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
-      canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
-      razorback = lib.host.mkHost ./hosts/server/razorback.nix;
+      # We can't use `callPackage` here as Nix expects all values to be derivations,
+      # and callPackage generates functions to override the returned value.
+      packages = import ./packages {
+        inherit flake inputs pkgs;
+      };
+
+      devShells = import ./shells {
+        inherit flake pkgs system;
+      };
+    })
+    // {
+      inherit lib; # Expose our lib module to the rest of the flake
+
+      nixosConfigurations = {
+        rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
+        canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
+        razorback = lib.host.mkHost ./hosts/razorback/configuration.nix;
+      };
+
+      nixosModules.default = import ./modules/nixos;
+      homeManagerModules.default = import ./modules/home;
+
+      # Extend nixpkgs with our own packages and lib
+      # TODO: Replace the *.packages.${system} pattern with overlays
+      overlays.default = import ./overlay.nix flake;
     };
-
-    # Formatter for all Nix files in this flake. Run using `nix fmt`.
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-
-    packages.x86_64-linux = import ./packages rec {
-      inherit inputs;
-      pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
-      callPackage = pkgs.callPackage;
-      flakeLib = lib;
-    };
-
-    nixosModules.default = import ./modules/nixos;
-    homeManagerModules.default = import ./modules/home;
-
-    devShells.x86_64-linux = import ./shells {
-      pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
-      flakeLib = lib;
-      flakePkgs = packages.x86_64-linux;
-    };
-  };
 }

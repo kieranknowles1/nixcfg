@@ -4,7 +4,6 @@
   config,
   hostConfig,
   lib,
-  flake,
   ...
 }: {
   options.custom = {
@@ -22,6 +21,9 @@
   };
 
   config = {
+    # Inherit any overlays from the host to avoid duplication
+    nixpkgs.overlays = hostConfig.nixpkgs.overlays;
+
     fonts.fontconfig.defaultFonts = {
       monospace = [config.custom.fonts.defaultMono];
     };
@@ -33,10 +35,8 @@
     # Add a command palette entry to rebuild while pulling,
     # this is a fairly common operation for me.
     custom.shortcuts.palette.actions = let
-      flakePkgs = flake.packages.${hostConfig.nixpkgs.hostPlatform.system};
-
       terminal = lib.getExe config.custom.terminal.package;
-      rebuild = lib.getExe flakePkgs.rebuild;
+      rebuild = lib.getExe pkgs.flake.rebuild;
     in
       lib.singleton {
         # We run in a terminal emulator to show output while running and

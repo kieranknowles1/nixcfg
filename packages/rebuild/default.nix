@@ -1,5 +1,5 @@
-{pkgs}:
-pkgs.rustPlatform.buildRustPackage {
+{rustPlatform}:
+rustPlatform.buildRustPackage {
   pname = "rebuild";
   version = "2.1.0";
   src = ./.;
