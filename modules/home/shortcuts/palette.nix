@@ -45,6 +45,7 @@
     cfg = config.custom.shortcuts;
 
     palette = lib.getExe cfg.palette.package;
+    zenity = lib.getExe pkgs.zenity;
 
     # TODO: Reimplement sorting
     actionsFile =
@@ -63,7 +64,7 @@
       custom.shortcuts.hotkeys.keys = {
         "${cfg.palette.binding}" = {
           description = "Open the command palette";
-          action = "${palette} ${actionsFile}";
+          action = "${palette} --zenity ${zenity} --file ${actionsFile}";
         };
       };
     };

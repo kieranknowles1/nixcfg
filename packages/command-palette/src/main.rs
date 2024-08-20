@@ -6,7 +6,11 @@ mod dialog;
 #[derive(Parser)]
 struct Opts {
     /// A JSON file containing the options to display.
+    #[clap(long)]
     file: String,
+    /// The path to the Zenity executable.
+    #[clap(long)]
+    zenity: String,
 }
 
 struct CommandOutput {
@@ -49,17 +53,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opts = Opts::parse();
     let commands = data::from_file(&opts.file)?;
 
-    let choice = dialog::show_choices(&commands)?;
+    let choice = dialog::show_choices(&opts.zenity, &commands)?;
 
     let output = run_command(&choice)?;
 
     if output.code != Some(0) {
         // An error occurred, show a dialog box even if we don't have any output.
         let message = format!("Error running command {}", output.combine().unwrap_or_default());
-        dialog::show_message(&message, dialog::MessageKind::Error)?;
+        dialog::show_message(&opts.zenity, &message, dialog::MessageKind::Error)?;
     } else if let Some(combined) = output.combine() {
         // The command ran successfully. Show the output if we have any.
-        dialog::show_message(&combined, dialog::MessageKind::Info)?;
+        dialog::show_message(&opts.zenity, &combined, dialog::MessageKind::Info)?;
     }
     // Don't show anything if there was no output and the command ran successfully.
 

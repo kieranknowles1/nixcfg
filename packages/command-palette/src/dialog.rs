@@ -16,8 +16,8 @@ pub enum Error {
 
 /// Show a dialog box with the given commands.
 /// Returns the selected command.
-pub fn show_choices(commands: &CommandList) -> Result<data::Command> {
-    let mut zenity = Command::new("zenity");
+pub fn show_choices(zenity: &str, commands: &CommandList) -> Result<data::Command> {
+    let mut zenity = Command::new(zenity);
     zenity
         .arg("--list")
         .arg("--width=450").arg("--height=500")
@@ -61,8 +61,8 @@ impl MessageKind {
     }
 }
 
-pub fn show_message(message: &str, kind: MessageKind) -> std::io::Result<()> {
-    Command::new("zenity")
+pub fn show_message(zenity: &str, message: &str, kind: MessageKind) -> std::io::Result<()> {
+    Command::new(zenity)
         .arg(kind.as_arg()).arg("--text").arg(message)
         .status()
         .map(|_| ()) // Don't care about the status.
