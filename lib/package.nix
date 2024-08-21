@@ -24,9 +24,9 @@
     version,
     meta,
   }:
-    pkgs.stdenv.mkDerivation rec {
+    pkgs.stdenv.mkDerivation {
       pname = name;
-      inherit version src meta;
+      inherit version src;
 
       dontUnpack = true; # This is a text file, unpacking is only applicable to archives
       installPhase = ''
@@ -34,10 +34,15 @@
 
         shebang="#!${pkgs.python3}/bin/python3"
 
-        echo "$shebang" > $out/bin/${pname}
-        cat $src >> $out/bin/${pname}
-        chmod +x $out/bin/${pname}
+        echo "$shebang" > $out/bin/${name}
+        cat $src >> $out/bin/${name}
+        chmod +x $out/bin/${name}
       '';
+
+      meta = meta // {
+        # lib.getExe expects this to be set, and raises a warning if it isn't
+        mainProgram = name;
+      };
     };
 
   /*
