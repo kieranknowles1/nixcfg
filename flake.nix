@@ -67,6 +67,13 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    # nixpkgs doesn't include the dependencies for master, so we override a separate flake
+    # The source code could also be a flake input, but doing so would take a long time to update
+    openmw = {
+      url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Using flake inputs for source lets us be on master without needing to manually update
     # hashes.
     src-factorio-blueprint-decoder = {
@@ -92,7 +99,10 @@
     };
   in
     eachDefaultSystem (system: let
-      pkgs = import nixpkgs {inherit system;};
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [self.overlays.default];
+      };
     in {
       # Run this using `nix fmt`. Applied to all .nix files in the flake.
       formatter = pkgs.alejandra;
@@ -104,7 +114,7 @@
       };
 
       devShells = import ./shells {
-        inherit flake pkgs system;
+        inherit pkgs;
       };
     })
     // {

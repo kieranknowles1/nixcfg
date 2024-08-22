@@ -5,6 +5,7 @@
 }: let
   packagePythonScript = flake.lib.package.packagePythonScript;
   callPackage = pkgs.callPackage;
+  system = pkgs.stdenv.hostPlatform.system;
 in {
   combine-blueprints = packagePythonScript {
     name = "combine-blueprints";
@@ -63,6 +64,20 @@ in {
   # TODO: Use callPackage everywhere
   # TODO: Use an overlay to remove the need for the `inputs` argument and others
   nixvim = callPackage ./nixvim {inherit inputs;};
+
+  openmw-dev = let
+    latestSrc = pkgs.fetchFromGitLab {
+      owner = "OpenMW";
+      repo = "openmw";
+      # Master as of 22-08-2024
+      rev = "03e8b8db0df9bfd97f4db22ead770568c6e8d206";
+      hash = "sha256-HTPyQz9e6HCsrPab0Wbi7FZJwoQvt8jJNqComYkWIWs=";
+    };
+
+    devPkg = inputs.openmw.packages.${system}.openmw-dev;
+  in devPkg.overrideAttrs (oldAttrs: {
+    src = latestSrc;
+  });
 
   rebuild = callPackage ./rebuild {};
 
