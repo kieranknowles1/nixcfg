@@ -1,6 +1,7 @@
 mod constants;
 mod reader;
 mod value;
+mod writer;
 
 use clap::Parser;
 use thiserror::Error;
@@ -49,8 +50,9 @@ fn main() -> Result<()> {
             let input = std::fs::File::open(&input)?;
             let data: value::Value = serde_json::from_reader(input)?;
 
-            // TODO: Encode the data to binary
-            println!("{:?}", data);
+            let mut output = std::fs::File::create(&output)?;
+            writer::encode(data, &mut output)?;
+            output.sync_all()?;
         }
     }
 
