@@ -5,6 +5,7 @@ use std::string::FromUtf8Error;
 use thiserror::Error;
 
 use crate::value::{Table, Value};
+use crate::constants::*;
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -25,8 +26,6 @@ impl Error {
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
-
-pub const FORMAT_VERSION: u8 = 0x00;
 
 /// Decode a lua storage file in OpenMW's format
 /// NOTE: Assumes that values are encoded in little-endian
@@ -123,14 +122,6 @@ impl<T: Read> PrimitiveReader<T> {
     }
 }
 
-const T_NUMBER: u8 = 0x00;
-const T_LONG_STRING: u8 = 0x01;
-const T_BOOLEAN: u8 = 0x02;
-const T_TABLE_START: u8 = 0x03;
-const T_TABLE_END: u8 = 0x04;
-const T_VEC2: u8 = 0x10;
-
-const MASK_SHORT_STRING: u8 = 0x1F;
 
 /// Decode a value from the reader
 /// Consumes as much data as needed to decode the value
