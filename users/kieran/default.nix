@@ -14,6 +14,9 @@
   # Values that can't be configured in the TOML files
   nixOnlyConfig = {
     theme.wallpaper = flake.lib.image.fromHeif ./wallpaper.heic;
+
+    secrets.ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
+    secrets.file = ./secrets.yaml;
   };
 
   deepMergeSets = flake.lib.attrset.deepMergeSets;

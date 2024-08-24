@@ -12,6 +12,7 @@
     ./mime
     ./nushell
     ./shortcuts
+    ./secrets.nix
     ./theme.nix
   ];
 }
