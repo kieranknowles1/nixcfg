@@ -1,5 +1,5 @@
 {rustPlatform}:
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   pname = "command-palette";
   version = "2.0.2";
   src = ./.;
@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage {
       with 1.0, as input is now a JSON array, rather than a newline-separated list.
     '';
 
-    mainProgram = "command-palette";
+    mainProgram = pname;
   };
 }
