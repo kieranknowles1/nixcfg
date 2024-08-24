@@ -588,10 +588,10 @@
       },
       {
         "entity_number": 65,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          71,
           91,
+          71,
           102
         ],
         "position": {
@@ -645,7 +645,7 @@
       },
       {
         "entity_number": 71,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           65,
           104
@@ -708,7 +708,7 @@
       },
       {
         "entity_number": 78,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           83,
           111
@@ -756,7 +756,7 @@
       },
       {
         "entity_number": 83,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           78,
           91
@@ -829,10 +829,10 @@
       },
       {
         "entity_number": 91,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          65,
           83,
+          65,
           118
         ],
         "position": {
@@ -930,7 +930,7 @@
       },
       {
         "entity_number": 102,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           65,
           104,
@@ -953,10 +953,10 @@
       },
       {
         "entity_number": 104,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          71,
-          102
+          102,
+          71
         ],
         "position": {
           "x": 221.5,
@@ -974,7 +974,7 @@
       },
       {
         "entity_number": 106,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           111,
           134
@@ -1022,10 +1022,10 @@
       },
       {
         "entity_number": 111,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          78,
           106,
+          78,
           140
         ],
         "position": {
@@ -1087,10 +1087,10 @@
       },
       {
         "entity_number": 118,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          91,
           102,
+          91,
           144
         ],
         "position": {
@@ -1231,7 +1231,7 @@
       },
       {
         "entity_number": 134,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           106,
           140
@@ -1288,10 +1288,10 @@
       },
       {
         "entity_number": 140,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          111,
-          134
+          134,
+          111
         ],
         "position": {
           "x": 202.5,
@@ -1327,7 +1327,7 @@
       },
       {
         "entity_number": 144,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           118,
           153
@@ -1407,10 +1407,10 @@
       },
       {
         "entity_number": 153,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          102,
-          144
+          144,
+          102
         ],
         "position": {
           "x": 216.5,

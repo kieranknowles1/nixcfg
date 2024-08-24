@@ -204,7 +204,7 @@
       },
       {
         "entity_number": 23,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           26,
           60
@@ -234,7 +234,7 @@
       },
       {
         "entity_number": 26,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           23,
           62
@@ -450,10 +450,10 @@
       },
       {
         "entity_number": 50,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          53,
           55,
+          53,
           82
         ],
         "position": {
@@ -481,7 +481,7 @@
       },
       {
         "entity_number": 53,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           50,
           57,
@@ -502,7 +502,7 @@
       },
       {
         "entity_number": 55,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           50,
           57,
@@ -523,11 +523,11 @@
       },
       {
         "entity_number": 57,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          53,
           55,
           60,
+          53,
           100
         ],
         "position": {
@@ -555,11 +555,11 @@
       },
       {
         "entity_number": 60,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          23,
           57,
           62,
+          23,
           88
         ],
         "position": {
@@ -577,10 +577,10 @@
       },
       {
         "entity_number": 62,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          26,
           60,
+          26,
           92
         ],
         "position": {
@@ -758,7 +758,7 @@
       },
       {
         "entity_number": 82,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           50,
           98,
@@ -815,7 +815,7 @@
       },
       {
         "entity_number": 88,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           60,
           92,
@@ -853,10 +853,10 @@
       },
       {
         "entity_number": 92,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          62,
           88,
+          62,
           177
         ],
         "position": {
@@ -910,11 +910,11 @@
       },
       {
         "entity_number": 98,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          53,
-          55,
           82,
+          55,
+          53,
           100
         ],
         "position": {
@@ -933,10 +933,10 @@
       },
       {
         "entity_number": 100,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          57,
           98,
+          57,
           167
         ],
         "position": {
@@ -1539,11 +1539,11 @@
       },
       {
         "entity_number": 167,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          82,
           100,
           172,
+          82,
           202
         ],
         "position": {
@@ -1591,11 +1591,11 @@
       },
       {
         "entity_number": 172,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          88,
           167,
           177,
+          88,
           211
         ],
         "position": {
@@ -1643,11 +1643,11 @@
       },
       {
         "entity_number": 177,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          92,
           172,
           182,
+          92,
           220
         ],
         "position": {
@@ -1695,7 +1695,7 @@
       },
       {
         "entity_number": 182,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           177,
           187,
@@ -1746,7 +1746,7 @@
       },
       {
         "entity_number": 187,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           182,
           239
@@ -1885,7 +1885,7 @@
       },
       {
         "entity_number": 202,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           167,
           211,
@@ -1970,11 +1970,11 @@
       },
       {
         "entity_number": 211,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          172,
           202,
           220,
+          172,
           282
         ],
         "position": {
@@ -2056,11 +2056,11 @@
       },
       {
         "entity_number": 220,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          177,
           211,
           229,
+          177,
           291
         ],
         "position": {
@@ -2142,11 +2142,11 @@
       },
       {
         "entity_number": 229,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          182,
           220,
           239,
+          182,
           300
         ],
         "position": {
@@ -2237,10 +2237,10 @@
       },
       {
         "entity_number": 239,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          187,
           229,
+          187,
           309
         ],
         "position": {
@@ -2528,7 +2528,7 @@
       },
       {
         "entity_number": 271,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           202,
           282
@@ -2628,10 +2628,10 @@
       },
       {
         "entity_number": 282,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          211,
           271,
+          211,
           291
         ],
         "position": {
@@ -2711,10 +2711,10 @@
       },
       {
         "entity_number": 291,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          220,
           282,
+          220,
           300
         ],
         "position": {
@@ -2794,10 +2794,10 @@
       },
       {
         "entity_number": 300,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          229,
           291,
+          229,
           309
         ],
         "position": {
@@ -2877,10 +2877,10 @@
       },
       {
         "entity_number": 309,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          239,
-          300
+          300,
+          239
         ],
         "position": {
           "x": 192.5,

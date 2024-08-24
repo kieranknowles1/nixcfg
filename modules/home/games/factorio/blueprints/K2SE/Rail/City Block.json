@@ -687,18 +687,18 @@
           "1": {
             "green": [
               {
-                "entity_id": 201
+                "entity_id": 79
               },
               {
-                "entity_id": 79
+                "entity_id": 201
               }
             ],
             "red": [
               {
-                "entity_id": 201
+                "entity_id": 79
               },
               {
-                "entity_id": 79
+                "entity_id": 201
               }
             ]
           }
@@ -706,8 +706,8 @@
         "entity_number": 77,
         "name": "big-electric-pole",
         "neighbours": [
-          201,
-          79
+          79,
+          201
         ],
         "position": {
           "x": 0,
@@ -875,18 +875,18 @@
           "1": {
             "green": [
               {
-                "entity_id": 204
+                "entity_id": 83
               },
               {
-                "entity_id": 83
+                "entity_id": 204
               }
             ],
             "red": [
               {
-                "entity_id": 204
+                "entity_id": 83
               },
               {
-                "entity_id": 83
+                "entity_id": 204
               }
             ]
           }
@@ -894,8 +894,8 @@
         "entity_number": 85,
         "name": "big-electric-pole",
         "neighbours": [
-          204,
-          83
+          83,
+          204
         ],
         "position": {
           "x": 112,
@@ -1980,8 +1980,8 @@
         "name": "big-electric-pole",
         "neighbours": [
           85,
-          234,
-          197
+          197,
+          234
         ],
         "position": {
           "x": 112,
@@ -2909,8 +2909,8 @@
         "name": "big-electric-pole",
         "neighbours": [
           275,
-          422,
-          318
+          318,
+          422
         ],
         "position": {
           "x": 0,
@@ -4129,8 +4129,8 @@
         "name": "big-electric-pole",
         "neighbours": [
           428,
-          432,
-          319
+          319,
+          432
         ],
         "position": {
           "x": 80,
