@@ -547,13 +547,6 @@
     ],
     "icons": [
       {
-        "index": 1,
-        "signal": {
-          "name": "assembling-machine-1",
-          "type": "item"
-        }
-      },
-      {
         "index": 2,
         "signal": {
           "name": "transport-belt",

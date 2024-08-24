@@ -45,7 +45,7 @@
       },
       {
         "entity_number": 6,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           24
         ],
@@ -146,7 +146,7 @@
       },
       {
         "entity_number": 17,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           31
         ],
@@ -209,7 +209,7 @@
       },
       {
         "entity_number": 24,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           6,
           25
@@ -221,7 +221,7 @@
       },
       {
         "entity_number": 25,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
           24,
           31
@@ -278,10 +278,10 @@
       },
       {
         "entity_number": 31,
-        "name": "small-electric-pole",
+        "name": "small-iron-electric-pole",
         "neighbours": [
-          17,
-          25
+          25,
+          17
         ],
         "position": {
           "x": 268.5,
@@ -982,5 +982,5 @@
     "label": "[item=assembling-machine-2] Mall",
     "version": 281479278821376
   },
-  "index": 6
+  "index": 3
 }
