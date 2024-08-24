@@ -79,6 +79,8 @@ in {
     src = latestSrc;
   });
 
+  openmw-luadata = callPackage ./openmw-luadata {};
+
   rebuild = callPackage ./rebuild {};
 
   set-led-state = callPackage ./set-led-state {};
