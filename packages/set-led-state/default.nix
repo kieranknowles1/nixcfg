@@ -1,5 +1,5 @@
 {rustPlatform}:
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   pname = "set-led-state";
   version = "1.0.0";
   src = ./.;
@@ -13,5 +13,7 @@ rustPlatform.buildRustPackage {
 
       Is writing this in Rust overkill? Yes. But you can't stop me.
     '';
+
+    mainProgram = pname;
   };
 }
