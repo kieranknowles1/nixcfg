@@ -101,7 +101,7 @@
     eachDefaultSystem (system: let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [self.overlays.default];
+        overlays = builtins.attrValues self.overlays;
       };
     in {
       # Run this using `nix fmt`. Applied to all .nix files in the flake.
@@ -128,8 +128,8 @@
       nixosModules.default = import ./modules/nixos;
       homeManagerModules.default = import ./modules/home;
 
-      # Extend nixpkgs with our own packages and lib
-      # TODO: Replace the *.packages.${system} pattern with overlays
+      # Extend nixpkgs with flake-specific overlays, for this
+      # flake and its dependencies
       overlays = import ./overlays.nix flake;
     };
 }

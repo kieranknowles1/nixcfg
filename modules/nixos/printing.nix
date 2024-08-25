@@ -1,13 +1,10 @@
 # Enable printers, I.e., the spawn of the devil or "let's just go to the library"
 {
-  inputs,
+  pkgs,
   lib,
   config,
   ...
-}: let
-  # Force this module to use the stable nixpkgs, even if the system is running unstable
-  packagesStable = inputs.nixpkgs.legacyPackages.${config.nixpkgs.hostPlatform.system};
-in {
+}: {
   options.custom = {
     printing.enable = lib.mkEnableOption "printing";
   };
@@ -19,9 +16,10 @@ in {
 
         # CUPS seems to be borked on unstable, so let's use the old version
         # When adding a printer, the connection input field is garbage data
-        package = packagesStable.cups;
+        # Printing is cursed enough as it is, so let's not take any chances
+        package = pkgs.stable.cups;
 
-        drivers = with packagesStable; [
+        drivers = with pkgs.stable; [
           # Drivers for various printers
           gutenprint
           gutenprintBin

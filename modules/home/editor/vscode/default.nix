@@ -3,15 +3,10 @@
   hostConfig,
   lib,
   pkgs-unstable,
-  inputs,
   pkgs,
   ...
 }: let
   userSettingsDir = "${config.xdg.configHome}/Code/User";
-
-  hostDevelopment = hostConfig.custom.development;
-
-  extensionsRepo = inputs.vscode-extensions.extensions.${hostConfig.nixpkgs.hostPlatform.system};
 in {
   options.custom.editor.vscode = {
     enable = lib.mkEnableOption "VS Code";
@@ -33,7 +28,7 @@ in {
       # Use the latest version of VSCode from the unstable channel
       package = pkgs-unstable.vscode;
 
-      extensions = with extensionsRepo.vscode-marketplace; [
+      extensions = with pkgs.vscode-marketplace; [
         # Must-have extensions
         github.copilot
         github.copilot-chat
