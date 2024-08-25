@@ -130,6 +130,6 @@
 
       # Extend nixpkgs with our own packages and lib
       # TODO: Replace the *.packages.${system} pattern with overlays
-      overlays.default = import ./overlay.nix flake;
+      overlays = import ./overlays.nix flake;
     };
 }
