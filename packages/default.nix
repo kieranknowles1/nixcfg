@@ -75,9 +75,10 @@ in {
     };
 
     devPkg = inputs.openmw.packages.${system}.openmw-dev;
-  in devPkg.overrideAttrs (oldAttrs: {
-    src = latestSrc;
-  });
+  in
+    devPkg.overrideAttrs (oldAttrs: {
+      src = latestSrc;
+    });
 
   openmw-luadata = callPackage ./openmw-luadata {};
 

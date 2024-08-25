@@ -1,6 +1,4 @@
-{
-  pkgs,
-}: let
+{pkgs}: let
   callPackage = pkgs.callPackage;
 in {
   # `default.nix` is already used for this file, so use a different name

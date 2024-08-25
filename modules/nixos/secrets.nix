@@ -1,9 +1,6 @@
 # Provision secrets using SOPS
 # These will be available in the `/run/secrets` directory and owned by root
-{
-  inputs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     ../shared/secrets.nix
   ];
