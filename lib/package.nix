@@ -39,10 +39,12 @@
         chmod +x $out/bin/${name}
       '';
 
-      meta = meta // {
-        # lib.getExe expects this to be set, and raises a warning if it isn't
-        mainProgram = name;
-      };
+      meta =
+        meta
+        // {
+          # lib.getExe expects this to be set, and raises a warning if it isn't
+          mainProgram = name;
+        };
     };
 
   /*
