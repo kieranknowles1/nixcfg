@@ -1,12 +1,10 @@
 # Per-user Firefox settings
 {
   hostConfig,
-  inputs,
+  pkgs,
   ...
 }: let
   isDesktop = hostConfig.custom.deviceType == "desktop";
-
-  pkgs-stable = inputs.nixpkgs.legacyPackages.${hostConfig.nixpkgs.hostPlatform.system};
 in {
   programs.firefox = {
     enable = isDesktop;
@@ -27,14 +25,14 @@ in {
 
     # Firefix updates frequently and takes a long time to build, so we use the
     # stable channel here.
-    package = pkgs-stable.firefox;
+    package = pkgs.stable.firefox;
 
     profiles.default = {
       id = 0;
       name = "default";
       isDefault = true;
 
-      extensions = with inputs.firefox-addons.packages."${hostConfig.nixpkgs.hostPlatform.system}"; [
+      extensions = with pkgs.firefox-addons; [
         bitwarden # Password manager. Available everywhere
         darkreader # Midnight flashbang blocker
         privacy-badger # My activity is none of your business

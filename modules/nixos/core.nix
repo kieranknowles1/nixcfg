@@ -39,9 +39,8 @@ in {
       "flakes"
     ];
 
-    nixpkgs.overlays = [
-      flake.overlays.default
-    ];
+    # Apply all of the flake's overlays, as we need them for the system
+    nixpkgs.overlays = builtins.attrValues flake.overlays;
 
     # Bootloader.
     boot.loader.systemd-boot.enable = true;
