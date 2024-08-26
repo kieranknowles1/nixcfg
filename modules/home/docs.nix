@@ -4,16 +4,9 @@
   pkgs,
   lib,
   config,
-  hostConfig,
   ...
 }: let
-  repoPathAssert = {
-    assertion = lib.strings.hasPrefix config.home.homeDirectory hostConfig.custom.repoPath;
-    message = "config.custom.repoPath must be a subdirectory of the home directory.";
-  };
-  homeRelativeRepoPath = lib.strings.removePrefix config.home.homeDirectory hostConfig.custom.repoPath;
-
-  docsPath = "${homeRelativeRepoPath}/docs/generated";
+  docsPath = "${config.custom.repoPath}/docs/generated";
 
   /*
    *
@@ -100,8 +93,6 @@ in {
   };
 
   config = lib.mkIf config.custom.docs-generate.enable {
-    assertions = [repoPathAssert];
-
     custom.docs-generate.file = {
       "lib.md" = {
         description = "flake.lib library";
