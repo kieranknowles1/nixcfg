@@ -1,15 +1,15 @@
 flake: let
   /*
-    Helper to create a namespace for a set of packages.
+  Helper to create a namespace for a set of packages.
 
-    # Arguments
-    - `name`: The name to put packages under. Will be overlaid onto nixpkgs.
-    - `packages`: The packages to put under the namespace. Should be a flake's outputs before system types.
-    - `extra`: Anything extra to add to the namespace, such as a `lib` module.
+  # Arguments
+  - `name`: The name to put packages under. Will be overlaid onto nixpkgs.
+  - `packages`: The packages to put under the namespace. Should be a flake's outputs before system types.
+  - `extra`: Anything extra to add to the namespace, such as a `lib` module.
 
-    # Returns
-    An overlay function that adds the namespace to nixpkgs.
-   */
+  # Returns
+  An overlay function that adds the namespace to nixpkgs.
+  */
   mkNamespace = name: packages: extra: (final: prev: let
     system = prev.stdenv.hostPlatform.system;
     namespacePkgs = packages.${system};
