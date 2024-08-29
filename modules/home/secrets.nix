@@ -5,7 +5,4 @@
   imports = [
     ../shared/secrets.nix
   ];
-
-  # TODO: Remove this once we have some actual secrets
-  sops.secrets.test.key = "test";
 }
