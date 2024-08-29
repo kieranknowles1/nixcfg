@@ -44,10 +44,12 @@
       hostRepoPath = hostConfig.custom.repoPath;
       homeDirectory = config.home.homeDirectory;
 
-      homeRelativePath = if (lib.strings.hasPrefix homeDirectory hostRepoPath)
+      homeRelativePath =
+        if (lib.strings.hasPrefix homeDirectory hostRepoPath)
         then lib.strings.removePrefix homeDirectory hostRepoPath
         else builtins.throw "The repository path must be within the home directory";
-    in lib.mkDefault homeRelativePath;
+    in
+      lib.mkDefault homeRelativePath;
     custom.fullRepoPath = "${config.home.homeDirectory}${config.custom.repoPath}";
 
     # Inherit any overlays from the host to avoid duplication

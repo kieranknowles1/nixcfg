@@ -101,10 +101,11 @@
     };
   in
     eachDefaultSystem (system: let
-      importNixpkgs = branch: import branch {
-        inherit system;
-        overlays = builtins.attrValues self.overlays;
-      };
+      importNixpkgs = branch:
+        import branch {
+          inherit system;
+          overlays = builtins.attrValues self.overlays;
+        };
 
       pkgs = importNixpkgs nixpkgs;
       pkgs-unstable = importNixpkgs nixpkgs-unstable;

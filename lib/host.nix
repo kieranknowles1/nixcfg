@@ -38,7 +38,6 @@
   in
     nixpkgs-unstable.lib.nixosSystem {
       # Pass the flake's inputs and pkgs-unstable to the module
-      # TODO: Import more packages here, and remove the scattered imports in modules
       specialArgs = {inherit flake inputs pkgs-unstable;};
 
       # Include the host's configuration and all modules
