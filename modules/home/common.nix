@@ -48,7 +48,7 @@
         then lib.strings.removePrefix homeDirectory hostRepoPath
         else builtins.throw "The repository path must be within the home directory";
     in lib.mkDefault homeRelativePath;
-    custom.fullRepoPath = "${config.home.homeDirectory}/${config.custom.repoPath}";
+    custom.fullRepoPath = "${config.home.homeDirectory}${config.custom.repoPath}";
 
     # Inherit any overlays from the host to avoid duplication
     nixpkgs.overlays = hostConfig.nixpkgs.overlays;
