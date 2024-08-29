@@ -6,3 +6,6 @@
 email = "kieranknowles11@hotmail.co.uk"
 firstName = "Kieran"
 surName = "Knowles"
+
+[games]
+nexusModsKey = "nexusmods/apikey"
