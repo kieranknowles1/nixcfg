@@ -5,6 +5,7 @@
   pkgs,
   config,
   hostConfig,
+  lib,
   ...
 }: let
   defaultMonoFont = config.custom.fonts.defaultMono;
@@ -22,7 +23,7 @@ in {
 
     # Give us an environment variable for our flake path
     environmentVariables = {
-      FLAKE = config.custom.fullRepoPath;
+      FLAKE = lib.strings.escapeShellArg config.custom.fullRepoPath;
     };
 
     # Append my custom config to the default
