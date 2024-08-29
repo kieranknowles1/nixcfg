@@ -101,18 +101,24 @@
     };
   in
     eachDefaultSystem (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = builtins.attrValues self.overlays;
-      };
+      importNixpkgs = branch:
+        import branch {
+          inherit system;
+          overlays = builtins.attrValues self.overlays;
+        };
+
+      pkgs = importNixpkgs nixpkgs;
+      pkgs-unstable = importNixpkgs nixpkgs-unstable;
     in {
       # Run this using `nix fmt`. Applied to all .nix files in the flake.
       formatter = pkgs.alejandra;
 
       # We can't use `callPackage` here as Nix expects all values to be derivations,
       # and callPackage generates functions to override the returned value.
+      # We use pkgs-unstable as the OS is running unstable, and this avoids duplication of dependencies.
       packages = import ./packages {
-        inherit flake inputs pkgs;
+        inherit flake inputs;
+        pkgs = pkgs-unstable;
       };
 
       devShells = import ./shells {

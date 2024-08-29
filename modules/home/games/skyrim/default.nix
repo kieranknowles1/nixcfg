@@ -15,10 +15,8 @@ in {
     home.file."${applicationsDir}/${resaverDesktopFileName}".text = flake.lib.package.mkDesktopEntry {
       name = "ReSaver";
       description = "Skyrim and Fallout 4 savegame editor";
-      # TODO: Don't hardcode the path to the executable and working directory
-      # TODO: Fetch from Nexus with my API key (use SOPS to encrypt it)
-      command = "${pkgs.jdk21}/bin/java -jar /home/kieran/Games/modding-tools/resaver/target/ReSaver.jar %u";
-      workingDirectory = "/home/kieran/Games/modding-tools/resaver/target";
+      # %u is a placeholder. When double-clicking a file, it will be replaced with the file's path
+      command = "${lib.getExe pkgs.flake.resaver} %u";
     };
 
     custom = {
