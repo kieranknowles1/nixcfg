@@ -84,6 +84,32 @@ in {
 
   rebuild = callPackage ./rebuild {};
 
+  resaver = pkgs.writeShellApplication {
+    name = "resaver";
+    runtimeInputs = with pkgs; [
+      jq
+      jdk21
+    ];
+
+    text = builtins.readFile ./resaver.sh;
+
+    meta = {
+      description = "Skyrim and Fallout 4 savegame editor";
+      longDescription = ''
+        A savegame editor for Skyrim and Fallout 4, wrapped to be fetched automatically
+        from Nexus Mods with an API key.
+
+        The first time the script is run, it will download the JAR file from Nexus Mods. Subsequent
+        calls will use the cached file.
+
+        # Prerequisites
+        The API key of a premium Nexus Mods account must be stored at `~/.config/sops-nix/secrets/nexusmods/apikey`.
+      '';
+
+      mainProgra = "resaver";
+    };
+  };
+
   set-led-state = callPackage ./set-led-state {};
 
   skyrim-utils = callPackage ./skyrim-utils {};
