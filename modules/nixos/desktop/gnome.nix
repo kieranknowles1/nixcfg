@@ -36,15 +36,15 @@
       cheese # I don't have a webcam.
       file-roller # Nautilus can handle archives
       gnome-calendar # I use my phone for calendar
-      gnome.gnome-clocks # I use my phone for alarms
-      gnome.gnome-contacts # I use my phone for contacts
-      # gnome.gnome-control-center # Settings are managed by NixOS
+      gnome-clocks # I use my phone for alarms
+      gnome-contacts # I use my phone for contacts
+      # gnome-control-center # Settings are managed by NixOS, but this is good for discovery
       gnome-font-viewer # I just use the font dialog in apps
-      gnome.gnome-maps # I use my phone for maps
-      gnome.gnome-music # Not using this
-      gnome.gnome-shell-extensions # Not using any of these
+      gnome-maps # I use my phone for maps
+      gnome-music # Not using this
+      gnome-shell-extensions # Not using any of these
       gnome-system-monitor # I use Resouces
-      gnome.gnome-weather # I use my phone for weather
+      gnome-weather # I use my phone for weather
       simple-scan # I have no scanner
       totem # Video player. Use VLC instead
       yelp # I use the web for documentation
