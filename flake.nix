@@ -122,7 +122,7 @@
       };
 
       devShells = import ./shells {
-        inherit pkgs;
+        pkgs = pkgs-unstable;
       };
     })
     // {
