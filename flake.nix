@@ -25,6 +25,13 @@
       inputs.systems.follows = "systems";
     };
 
+    # Prebuilt nix-index database, as building it takes a long time
+    # Updates every week
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # /// Extensions ///
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";

@@ -63,11 +63,14 @@ in {
         pkgs-unstable.nh # Nix helper, not in stable yet but useful to generate diffs before applying changes
         file
         p7zip
-        nix-index # Good for searching packages
       ]
       ++ (lib.optionals (config.custom.deviceType == "desktop") [
         fsearch # Everything clone. GUI only
       ]);
+
+    # Wrapper for `nix run` that detects the source package automatically
+    # Prefix command with `,` to use this
+    programs.nix-index-database.comma.enable = true;
 
     # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
     # a bad superblock, try mounting it in the terminal instead.
