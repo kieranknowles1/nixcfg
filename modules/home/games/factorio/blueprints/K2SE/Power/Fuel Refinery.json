@@ -1,0 +1,285 @@
+{
+  "blueprint": {
+    "description": "Produces 40MW worth of solid fuel from 20 [fluid=light-oil]/s. Can use petrolium at half efficiency",
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "fuel-processor",
+        "position": {
+          "x": 122.5,
+          "y": 156.5
+        },
+        "recipe": "fuel-processing"
+      },
+      {
+        "entity_number": 2,
+        "name": "fast-splitter",
+        "position": {
+          "x": 128,
+          "y": 155.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 125.5,
+          "y": 156.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 4,
+        "name": "inserter",
+        "position": {
+          "x": 124.5,
+          "y": 156.5
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "fuel-processor",
+        "position": {
+          "x": 125.5,
+          "y": 158.5
+        },
+        "recipe": "fuel-processing"
+      },
+      {
+        "direction": 2,
+        "entity_number": 6,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 126.5,
+          "y": 156.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 127.5,
+          "y": 156.5
+        }
+      },
+      {
+        "entity_number": 8,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 157.5
+        }
+      },
+      {
+        "entity_number": 9,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 156.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 10,
+        "name": "kr-fuel-refinery",
+        "position": {
+          "x": 121.5,
+          "y": 160.5
+        },
+        "recipe": "solid-fuel-from-light-oil"
+      },
+      {
+        "direction": 4,
+        "entity_number": 11,
+        "name": "inserter",
+        "position": {
+          "x": 122.5,
+          "y": 158.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 12,
+        "name": "inserter",
+        "position": {
+          "x": 123.5,
+          "y": 159.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 13,
+        "name": "inserter",
+        "position": {
+          "x": 127.5,
+          "y": 158.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 159.5
+        }
+      },
+      {
+        "entity_number": 15,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 158.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 16,
+        "name": "inserter",
+        "position": {
+          "x": 123.5,
+          "y": 161.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "medium-electric-pole",
+        "position": {
+          "x": 125.5,
+          "y": 160.5
+        }
+      },
+      {
+        "entity_number": 18,
+        "name": "fuel-processor",
+        "position": {
+          "x": 125.5,
+          "y": 162.5
+        },
+        "recipe": "fuel-processing"
+      },
+      {
+        "direction": 6,
+        "entity_number": 19,
+        "name": "inserter",
+        "position": {
+          "x": 127.5,
+          "y": 160.5
+        }
+      },
+      {
+        "entity_number": 20,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 161.5
+        }
+      },
+      {
+        "entity_number": 21,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 160.5
+        }
+      },
+      {
+        "entity_number": 22,
+        "name": "fuel-processor",
+        "position": {
+          "x": 122.5,
+          "y": 164.5
+        },
+        "recipe": "fuel-processing"
+      },
+      {
+        "entity_number": 23,
+        "name": "inserter",
+        "position": {
+          "x": 122.5,
+          "y": 162.5
+        }
+      },
+      {
+        "entity_number": 24,
+        "name": "fast-splitter",
+        "position": {
+          "x": 128,
+          "y": 163.5
+        }
+      },
+      {
+        "entity_number": 25,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 162.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 26,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 125.5,
+          "y": 164.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 27,
+        "name": "inserter",
+        "position": {
+          "x": 124.5,
+          "y": 164.5
+        }
+      },
+      {
+        "entity_number": 28,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 127.5,
+          "y": 164.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 29,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 126.5,
+          "y": 164.5
+        }
+      },
+      {
+        "entity_number": 30,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 165.5
+        }
+      },
+      {
+        "entity_number": 31,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 128.5,
+          "y": 164.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "processed-fuel",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Fuel Refinery",
+    "version": 281479278886912
+  },
+  "index": 1
+}

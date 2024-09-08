@@ -4,14 +4,14 @@
       {
         "index": 1,
         "signal": {
-          "name": "automation-science-pack",
-          "type": "item"
+          "name": "steam",
+          "type": "fluid"
         }
       }
     ],
     "item": "blueprint-book",
-    "label": "Science",
+    "label": "Power",
     "version": 281479278886912
   },
-  "index": 3
+  "index": 1
 }
