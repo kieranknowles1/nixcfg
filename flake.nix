@@ -146,5 +146,10 @@
       # Extend nixpkgs with flake-specific overlays, for this
       # flake and its dependencies
       overlays = import ./overlays.nix flake;
+
+      templates.default = {
+        path = ./template;
+        description = "A Nix flake with access to this flake's packages, utilities, and lib module";
+      };
     };
 }
