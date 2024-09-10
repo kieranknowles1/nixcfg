@@ -21,31 +21,32 @@
     self,
     nixpkgs,
     ...
-  }@inputs: let
+  } @ inputs: let
     eachDefaultSystem = inputs.flake-utils.lib.eachDefaultSystem;
     cfgLib = inputs.nixcfg.lib;
-  in eachDefaultSystem (system: let
-    pkgs = import inputs.nixpkgs { inherit system; };
-  in {
-    # Per system type
-    packages = {
-
-    };
-
-    devShells = {
-      # Wrapper that sets the magic DEVSHELL variable, and preserves the user's default shell
-      default = cfgLib.shell.mkShellEx {
-        name = "dev";
-        packages = with pkgs; [
-          hello
-        ];
-
-        shellHook = ''
-          hello
-        '';
+  in
+    eachDefaultSystem (system: let
+      pkgs = import inputs.nixpkgs {inherit system;};
+    in {
+      # Per system type
+      packages = {
       };
+
+      devShells = {
+        # Wrapper that sets the magic DEVSHELL variable, and preserves the user's default shell
+        default = cfgLib.shell.mkShellEx {
+          name = "dev";
+          packages = with pkgs; [
+            hello
+          ];
+
+          shellHook = ''
+            hello
+          '';
+        };
+      };
+    })
+    // {
+      # Shared across all systems
     };
-  }) // {
-    # Shared across all systems
-  };
 }
