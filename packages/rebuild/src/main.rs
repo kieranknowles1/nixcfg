@@ -113,7 +113,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     };
 
-    print!("Using flake repository at '{}'. ", flake);
+    println!("Using flake repository at '{}'. ", flake);
 
     let status = match opt.action {
         Action::Build(value) => value.run(&flake),
