@@ -29,7 +29,7 @@
     },
 
     "files.exclude": {
-        "**__pycache__": true, // Hide Python cache folders
+        "**/__pycache__": true, // Hide Python cache folders
     },
 
     "editor.showFoldingControls": "always", // Always show folding controls, so it's clear what's foldable
