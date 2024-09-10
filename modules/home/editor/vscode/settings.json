@@ -28,6 +28,10 @@
         "flake.lock": "json", // Nix flakes
     },
 
+    "files.exclude": {
+        "**__pycache__": true, // Hide Python cache folders
+    },
+
     "editor.showFoldingControls": "always", // Always show folding controls, so it's clear what's foldable
     "editor.renderWhitespace": "trailing", // Highlight if there's trailing whitespace
 
