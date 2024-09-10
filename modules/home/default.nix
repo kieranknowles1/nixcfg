@@ -11,6 +11,7 @@
     ./games
     ./mime
     ./nushell
+    ./office
     ./shortcuts
     ./secrets.nix
     ./theme.nix

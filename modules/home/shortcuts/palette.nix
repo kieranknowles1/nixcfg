@@ -13,6 +13,7 @@
       '';
 
       type = lib.types.str;
+      # Use alt + shift + p as it's similar to the standard "ctrl + shift + p", but doesn't conflict with other palletes
       default = "alt + shift + p";
     };
 
