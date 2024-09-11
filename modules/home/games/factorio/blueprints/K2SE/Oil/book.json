@@ -1,0 +1,17 @@
+{
+  "blueprint_book": {
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "crude-oil",
+          "type": "fluid"
+        }
+      }
+    ],
+    "item": "blueprint-book",
+    "label": "Oil",
+    "version": 281479278886912
+  },
+  "index": 5
+}

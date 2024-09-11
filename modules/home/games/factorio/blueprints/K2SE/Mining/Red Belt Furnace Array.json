@@ -1,0 +1,2211 @@
+{
+  "blueprint": {
+    "description": "Smelts 1 red belt of unprocessed ore",
+    "entities": [
+      {
+        "direction": 2,
+        "entity_number": 1,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -36.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -37.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -35.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 5,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -34.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 6,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -33.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 7,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -32.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -31.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 9,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -30.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 10,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -29.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 11,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -28.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 12,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -27.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 13,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -26.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 14,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -25.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 15,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -24.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 16,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -23.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 17,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -22.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 18,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -20.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 19,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -21.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 20,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -19.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 21,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -18.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 22,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -17.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 23,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -16.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 24,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -15.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 25,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -14.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 26,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -12.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 27,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -13.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 28,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -11.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 29,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -10.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 30,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -9.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 31,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -8.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 32,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -7.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 33,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -6.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 34,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -5.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 35,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -4.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 36,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -3.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 37,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -2.5,
+          "y": 95.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 38,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -1.5,
+          "y": 95.5
+        }
+      },
+      {
+        "entity_number": 39,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 40,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 97.5
+        }
+      },
+      {
+        "entity_number": 41,
+        "name": "steel-furnace",
+        "position": {
+          "x": -35,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 42,
+        "name": "inserter",
+        "position": {
+          "x": -35.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 43,
+        "name": "steel-furnace",
+        "position": {
+          "x": -33,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 44,
+        "name": "inserter",
+        "position": {
+          "x": -33.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 45,
+        "name": "steel-furnace",
+        "position": {
+          "x": -31,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 46,
+        "name": "inserter",
+        "position": {
+          "x": -31.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 47,
+        "name": "steel-furnace",
+        "position": {
+          "x": -29,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 48,
+        "name": "inserter",
+        "position": {
+          "x": -29.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 49,
+        "name": "steel-furnace",
+        "position": {
+          "x": -27,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 50,
+        "name": "inserter",
+        "position": {
+          "x": -27.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 51,
+        "name": "steel-furnace",
+        "position": {
+          "x": -25,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 52,
+        "name": "inserter",
+        "position": {
+          "x": -25.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 53,
+        "name": "inserter",
+        "position": {
+          "x": -23.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 54,
+        "name": "steel-furnace",
+        "position": {
+          "x": -23,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 55,
+        "name": "steel-furnace",
+        "position": {
+          "x": -21,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 56,
+        "name": "inserter",
+        "position": {
+          "x": -21.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 57,
+        "name": "steel-furnace",
+        "position": {
+          "x": -19,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 58,
+        "name": "inserter",
+        "position": {
+          "x": -19.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 59,
+        "name": "inserter",
+        "position": {
+          "x": -17.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 60,
+        "name": "steel-furnace",
+        "position": {
+          "x": -17,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 61,
+        "name": "steel-furnace",
+        "position": {
+          "x": -15,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 62,
+        "name": "inserter",
+        "position": {
+          "x": -15.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 63,
+        "name": "inserter",
+        "position": {
+          "x": -13.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 64,
+        "name": "steel-furnace",
+        "position": {
+          "x": -13,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 65,
+        "name": "inserter",
+        "position": {
+          "x": -11.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 66,
+        "name": "steel-furnace",
+        "position": {
+          "x": -11,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 67,
+        "name": "inserter",
+        "position": {
+          "x": -9.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 68,
+        "name": "steel-furnace",
+        "position": {
+          "x": -9,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 69,
+        "name": "inserter",
+        "position": {
+          "x": -7.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 70,
+        "name": "steel-furnace",
+        "position": {
+          "x": -7,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 71,
+        "name": "inserter",
+        "position": {
+          "x": -5.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 72,
+        "name": "steel-furnace",
+        "position": {
+          "x": -5,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 73,
+        "name": "inserter",
+        "position": {
+          "x": -3.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 74,
+        "name": "steel-furnace",
+        "position": {
+          "x": -3,
+          "y": 98
+        }
+      },
+      {
+        "entity_number": 75,
+        "name": "inserter",
+        "position": {
+          "x": -1.5,
+          "y": 96.5
+        }
+      },
+      {
+        "entity_number": 76,
+        "name": "steel-furnace",
+        "position": {
+          "x": -1,
+          "y": 98
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 77,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -40.5,
+          "y": 98.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 78,
+        "name": "fast-underground-belt",
+        "position": {
+          "x": -39.5,
+          "y": 98.5
+        },
+        "type": "input"
+      },
+      {
+        "entity_number": 79,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 98.5
+        }
+      },
+      {
+        "entity_number": 80,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 99.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 81,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -36.5,
+          "y": 99.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 82,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -36.5,
+          "y": 98.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 83,
+        "name": "fast-underground-belt",
+        "position": {
+          "x": -37.5,
+          "y": 98.5
+        },
+        "type": "output"
+      },
+      {
+        "entity_number": 84,
+        "name": "inserter",
+        "position": {
+          "x": -34.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 85,
+        "name": "inserter",
+        "position": {
+          "x": -32.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 86,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          91,
+          193
+        ],
+        "position": {
+          "x": -31.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 87,
+        "name": "inserter",
+        "position": {
+          "x": -30.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 88,
+        "name": "inserter",
+        "position": {
+          "x": -28.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 89,
+        "name": "inserter",
+        "position": {
+          "x": -26.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 90,
+        "name": "inserter",
+        "position": {
+          "x": -24.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 91,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          86,
+          96,
+          206
+        ],
+        "position": {
+          "x": -23.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 92,
+        "name": "inserter",
+        "position": {
+          "x": -22.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 93,
+        "name": "inserter",
+        "position": {
+          "x": -20.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 94,
+        "name": "inserter",
+        "position": {
+          "x": -18.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 95,
+        "name": "inserter",
+        "position": {
+          "x": -16.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 96,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          91,
+          101,
+          219
+        ],
+        "position": {
+          "x": -15.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 97,
+        "name": "inserter",
+        "position": {
+          "x": -14.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 98,
+        "name": "inserter",
+        "position": {
+          "x": -12.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 99,
+        "name": "inserter",
+        "position": {
+          "x": -10.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 100,
+        "name": "inserter",
+        "position": {
+          "x": -8.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 101,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          96,
+          105,
+          232
+        ],
+        "position": {
+          "x": -7.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 102,
+        "name": "inserter",
+        "position": {
+          "x": -6.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 103,
+        "name": "inserter",
+        "position": {
+          "x": -4.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 104,
+        "name": "inserter",
+        "position": {
+          "x": -2.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 105,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          101,
+          242
+        ],
+        "position": {
+          "x": -1.5,
+          "y": 99.5
+        }
+      },
+      {
+        "entity_number": 106,
+        "name": "inserter",
+        "position": {
+          "x": -0.5,
+          "y": 99.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 107,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -40.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 108,
+        "name": "fast-splitter",
+        "position": {
+          "x": -39.5,
+          "y": 101
+        }
+      },
+      {
+        "entity_number": 109,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 110,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 111,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -36.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 112,
+        "name": "fast-splitter",
+        "position": {
+          "x": -37.5,
+          "y": 101
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 113,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -34.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 114,
+        "name": "inserter",
+        "position": {
+          "x": -34.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 115,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -32.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 116,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -33.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 117,
+        "name": "inserter",
+        "position": {
+          "x": -32.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 118,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -31.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 119,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -30.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 120,
+        "name": "inserter",
+        "position": {
+          "x": -30.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 121,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -28.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 122,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -29.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 123,
+        "name": "inserter",
+        "position": {
+          "x": -28.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 124,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -26.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 125,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -27.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 126,
+        "name": "inserter",
+        "position": {
+          "x": -26.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 127,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -24.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 128,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -25.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 129,
+        "name": "inserter",
+        "position": {
+          "x": -24.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 130,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -22.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 131,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -23.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 132,
+        "name": "inserter",
+        "position": {
+          "x": -22.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 133,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -21.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 134,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -20.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 135,
+        "name": "inserter",
+        "position": {
+          "x": -20.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 136,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -18.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 137,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -19.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 138,
+        "name": "inserter",
+        "position": {
+          "x": -18.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 139,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -16.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 140,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -17.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 141,
+        "name": "inserter",
+        "position": {
+          "x": -16.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 142,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -14.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 143,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -15.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 144,
+        "name": "inserter",
+        "position": {
+          "x": -14.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 145,
+        "name": "inserter",
+        "position": {
+          "x": -12.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 146,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -12.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 147,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -13.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 148,
+        "name": "inserter",
+        "position": {
+          "x": -10.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 149,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -10.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 150,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -11.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 151,
+        "name": "inserter",
+        "position": {
+          "x": -8.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 152,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -8.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 153,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -9.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 154,
+        "name": "inserter",
+        "position": {
+          "x": -6.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 155,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -6.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 156,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -7.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 157,
+        "name": "inserter",
+        "position": {
+          "x": -4.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 158,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -4.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 159,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -5.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 160,
+        "name": "inserter",
+        "position": {
+          "x": -2.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 161,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -2.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 162,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -3.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 163,
+        "name": "inserter",
+        "position": {
+          "x": -0.5,
+          "y": 101.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 164,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -0.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 165,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -1.5,
+          "y": 100.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 166,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 103.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 167,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 102.5
+        }
+      },
+      {
+        "entity_number": 168,
+        "name": "steel-furnace",
+        "position": {
+          "x": -35,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 169,
+        "name": "steel-furnace",
+        "position": {
+          "x": -33,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 170,
+        "name": "steel-furnace",
+        "position": {
+          "x": -31,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 171,
+        "name": "steel-furnace",
+        "position": {
+          "x": -29,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 172,
+        "name": "steel-furnace",
+        "position": {
+          "x": -27,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 173,
+        "name": "steel-furnace",
+        "position": {
+          "x": -25,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 174,
+        "name": "steel-furnace",
+        "position": {
+          "x": -23,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 175,
+        "name": "steel-furnace",
+        "position": {
+          "x": -21,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 176,
+        "name": "steel-furnace",
+        "position": {
+          "x": -19,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 177,
+        "name": "steel-furnace",
+        "position": {
+          "x": -17,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 178,
+        "name": "steel-furnace",
+        "position": {
+          "x": -15,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 179,
+        "name": "steel-furnace",
+        "position": {
+          "x": -13,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 180,
+        "name": "steel-furnace",
+        "position": {
+          "x": -11,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 181,
+        "name": "steel-furnace",
+        "position": {
+          "x": -9,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 182,
+        "name": "steel-furnace",
+        "position": {
+          "x": -7,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 183,
+        "name": "steel-furnace",
+        "position": {
+          "x": -5,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 184,
+        "name": "steel-furnace",
+        "position": {
+          "x": -3,
+          "y": 103
+        }
+      },
+      {
+        "entity_number": 185,
+        "name": "steel-furnace",
+        "position": {
+          "x": -1,
+          "y": 103
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 186,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 187,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -38.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 188,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -36.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 189,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -37.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 190,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -35.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 191,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -34.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 192,
+        "name": "inserter",
+        "position": {
+          "x": -35.5,
+          "y": 104.5
+        }
+      },
+      {
+        "entity_number": 193,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          86,
+          206
+        ],
+        "position": {
+          "x": -32.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 194,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -33.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 195,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -32.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 196,
+        "name": "inserter",
+        "position": {
+          "x": -33.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 197,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -31.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 198,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -30.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 199,
+        "name": "inserter",
+        "position": {
+          "x": -31.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 200,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -29.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 201,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -28.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 202,
+        "name": "inserter",
+        "position": {
+          "x": -29.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 203,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -27.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 204,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -26.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 205,
+        "name": "inserter",
+        "position": {
+          "x": -27.5,
+          "y": 104.5
+        }
+      },
+      {
+        "entity_number": 206,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          91,
+          193,
+          219
+        ],
+        "position": {
+          "x": -24.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 207,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -25.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 208,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -24.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 209,
+        "name": "inserter",
+        "position": {
+          "x": -25.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 210,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -23.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 211,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -22.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 212,
+        "name": "inserter",
+        "position": {
+          "x": -23.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 213,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -21.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 214,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -20.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 215,
+        "name": "inserter",
+        "position": {
+          "x": -21.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 216,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -19.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 217,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -18.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 218,
+        "name": "inserter",
+        "position": {
+          "x": -19.5,
+          "y": 104.5
+        }
+      },
+      {
+        "entity_number": 219,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          96,
+          206,
+          232
+        ],
+        "position": {
+          "x": -16.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 220,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -17.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 221,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -16.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 222,
+        "name": "inserter",
+        "position": {
+          "x": -17.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 223,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -15.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 224,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -14.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 225,
+        "name": "inserter",
+        "position": {
+          "x": -15.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 226,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -13.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 227,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -12.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 228,
+        "name": "inserter",
+        "position": {
+          "x": -13.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 229,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -11.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 230,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -10.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 231,
+        "name": "inserter",
+        "position": {
+          "x": -11.5,
+          "y": 104.5
+        }
+      },
+      {
+        "entity_number": 232,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          101,
+          219,
+          242
+        ],
+        "position": {
+          "x": -8.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 233,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -9.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 234,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -8.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 235,
+        "name": "inserter",
+        "position": {
+          "x": -9.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 236,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -7.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 237,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -6.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 238,
+        "name": "inserter",
+        "position": {
+          "x": -7.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 239,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -5.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 240,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -4.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 241,
+        "name": "inserter",
+        "position": {
+          "x": -5.5,
+          "y": 104.5
+        }
+      },
+      {
+        "entity_number": 242,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          105,
+          232
+        ],
+        "position": {
+          "x": -2.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 243,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -3.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 244,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -2.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 245,
+        "name": "inserter",
+        "position": {
+          "x": -3.5,
+          "y": 104.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 246,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": -1.5,
+          "y": 105.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 247,
+        "name": "inserter",
+        "position": {
+          "x": -1.5,
+          "y": 104.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "fast-transport-belt",
+          "type": "item"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "steel-furnace",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Red Belt Furnace Array",
+    "version": 281479278886912
+  },
+  "index": 6
+}
