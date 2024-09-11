@@ -1,0 +1,76 @@
+{
+  "index": 0,
+  "upgrade_planner": {
+    "item": "upgrade-planner",
+    "label": "Electric 1 -> Electric 2",
+    "settings": {
+      "icons": [
+        {
+          "index": 1,
+          "signal": {
+            "name": "assembling-machine-2",
+            "type": "item"
+          }
+        }
+      ],
+      "mappers": [
+        {
+          "from": {
+            "name": "assembling-machine-1",
+            "type": "entity"
+          },
+          "index": 0,
+          "to": {
+            "name": "assembling-machine-2",
+            "type": "entity"
+          }
+        },
+        {
+          "from": {
+            "name": "stone-furnace",
+            "type": "entity"
+          },
+          "index": 1,
+          "to": {
+            "name": "steel-furnace",
+            "type": "entity"
+          }
+        },
+        {
+          "from": {
+            "name": "transport-belt",
+            "type": "entity"
+          },
+          "index": 4,
+          "to": {
+            "name": "fast-transport-belt",
+            "type": "entity"
+          }
+        },
+        {
+          "from": {
+            "name": "underground-belt",
+            "type": "entity"
+          },
+          "index": 8,
+          "to": {
+            "name": "fast-underground-belt",
+            "type": "entity"
+          }
+        },
+        {
+          "from": {
+            "name": "splitter",
+            "type": "entity"
+          },
+          "index": 12,
+          "to": {
+            "name": "fast-splitter",
+            "type": "entity"
+          }
+        }
+      ]
+    },
+    "version": 281479278886912
+  }
+}

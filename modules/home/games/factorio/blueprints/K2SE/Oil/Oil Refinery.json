@@ -1,0 +1,230 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "medium-electric-pole",
+        "position": {
+          "x": 2.5,
+          "y": 0.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 0.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 1.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 4,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 5,
+        "name": "pipe",
+        "position": {
+          "x": 1.5,
+          "y": 2.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 6,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 4.5,
+          "y": 1.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "pipe",
+        "position": {
+          "x": 3.5,
+          "y": 2.5
+        }
+      },
+      {
+        "entity_number": 8,
+        "name": "pipe",
+        "position": {
+          "x": 3.5,
+          "y": 1.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 9,
+        "name": "oil-refinery",
+        "position": {
+          "x": 2.5,
+          "y": 5.5
+        },
+        "recipe": "advanced-oil-processing"
+      },
+      {
+        "entity_number": 10,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 0.5,
+          "y": 8.5
+        }
+      },
+      {
+        "entity_number": 11,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 8.5
+        }
+      },
+      {
+        "entity_number": 12,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 4.5,
+          "y": 8.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 13,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 0.5,
+          "y": 10.5
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "pipe",
+        "position": {
+          "x": 0.5,
+          "y": 11.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 15,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": -0.5,
+          "y": 11.5
+        }
+      },
+      {
+        "entity_number": 16,
+        "name": "pipe",
+        "position": {
+          "x": 2.5,
+          "y": 12.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 17,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 1.5,
+          "y": 12.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 18,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 1.5,
+          "y": 11.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 19,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 2.5,
+          "y": 11.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 20,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 3.5,
+          "y": 12.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 21,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 4.5,
+          "y": 12.5
+        }
+      },
+      {
+        "entity_number": 22,
+        "name": "pipe",
+        "position": {
+          "x": 4.5,
+          "y": 13.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 23,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 3.5,
+          "y": 13.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 24,
+        "name": "pipe-to-ground",
+        "position": {
+          "x": 5.5,
+          "y": 13.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "oil-refinery",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Oil Refinery",
+    "snap-to-grid": {
+      "x": 5,
+      "y": 14
+    },
+    "version": 281479278886912
+  },
+  "index": 0
+}
