@@ -49,6 +49,10 @@ in {
         ms-python.vscode-pylance
 
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
+
+        # Godot
+        geequlim.godot-tools
+        mrorz.language-gettext # Used for translations
       ];
     };
 
