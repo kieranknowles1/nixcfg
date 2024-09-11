@@ -81,7 +81,7 @@ in {
 
     # Update the user's mime database when rebuilding
     home.activation.update-mime-database = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      ${pkgs.shared-mime-info}/bin/update-mime-database "${mimeDirectory}"
+      run ${pkgs.shared-mime-info}/bin/update-mime-database "${mimeDirectory}"
     '';
   };
 }
