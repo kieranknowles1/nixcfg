@@ -1,0 +1,177 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 4,
+        "entity_number": 1,
+        "name": "kr-electric-mining-drill-mk2",
+        "position": {
+          "x": 1.5,
+          "y": 1.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 2,
+        "name": "kr-electric-mining-drill-mk2",
+        "position": {
+          "x": 4.5,
+          "y": 1.5
+        }
+      },
+      {
+        "entity_number": 3,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          17
+        ],
+        "position": {
+          "x": 4.5,
+          "y": -0.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 4,
+        "name": "kr-electric-mining-drill-mk2",
+        "position": {
+          "x": 7.5,
+          "y": 1.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 5,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 1.5,
+          "y": 3.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 6,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 0.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 7,
+        "name": "kr-electric-mining-drill-mk2",
+        "position": {
+          "x": 1.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 8,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 3.5,
+          "y": 3.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 9,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 2.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 10,
+        "name": "kr-electric-mining-drill-mk2",
+        "position": {
+          "x": 4.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 11,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 5.5,
+          "y": 3.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 12,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 4.5,
+          "y": 3.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 13,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 7.5,
+          "y": 3.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 14,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 6.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 15,
+        "name": "kr-electric-mining-drill-mk2",
+        "position": {
+          "x": 7.5,
+          "y": 5.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 16,
+        "name": "fast-transport-belt",
+        "position": {
+          "x": 8.5,
+          "y": 3.5
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          3
+        ],
+        "position": {
+          "x": 4.5,
+          "y": 7.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "kr-electric-mining-drill-mk2",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Drill Array 2",
+    "snap-to-grid": {
+      "x": 9,
+      "y": 8
+    },
+    "version": 281479278886912
+  },
+  "index": 4
+}
