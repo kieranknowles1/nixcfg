@@ -7,6 +7,10 @@
 # This should be in the format of `&<hostname> <public key>`, which will start with `age1`
 # DO NOT allow the private key to leave your machine
 
+# To encrypt an existing file for a new key:
+# Run `sops updatekeys <path to file>`
+# This must run on a machine that already has access to the file
+
 keys:
   - &canterbury age18klvxktm23sxs8fa8xts3kzzp8rwh9x037e98ym3sj2yuquqqs6sj3wy76
   - &rocinante age1ghp0654a5yrzgmyspanyvgp5lmz8tn4yqxjaa57kgejc8uuwh9fqnelusr
