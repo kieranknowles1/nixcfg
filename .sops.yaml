@@ -11,21 +11,28 @@
 # Run `sops updatekeys <path to file>`
 # This must run on a machine that already has access to the file
 
+# When assigning key groups, be sure to follow the principle of least privilege
+# That is, machine-specific secrets should only be accessible by that machine
+# User-specific secrets should only be accessible by that user
+# (if I had machines with multiple users, I would use different keys for the user and machine)
+
 keys:
+  # Public keys, generated from SSH keys
+  # The matching private keys are stored at ~/.config/sops/age/keys.txt, outside of anything that may be shared
   - &canterbury age18klvxktm23sxs8fa8xts3kzzp8rwh9x037e98ym3sj2yuquqqs6sj3wy76
   - &rocinante age1ghp0654a5yrzgmyspanyvgp5lmz8tn4yqxjaa57kgejc8uuwh9fqnelusr
 creation_rules:
-  # Hosts
-  - path_regex: hosts/rocinante/secrets.yaml$
-    key_groups:
-      - age:
-          - *rocinante
+  # Hosts - Secrets should only be accessible by the machine they are for
   - path_regex: hosts/canterbury/secrets.yaml$
     key_groups:
       - age:
           - *canterbury
+  - path_regex: hosts/rocinante/secrets.yaml$
+    key_groups:
+      - age:
+          - *rocinante
 
-  # Users
+  # Users - Secrets should be accessible on any of the user's machines
   - path_regex: users/kieran/secrets.yaml$
     key_groups:
       - age:
