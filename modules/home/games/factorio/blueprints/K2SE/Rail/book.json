@@ -1,0 +1,17 @@
+{
+  "blueprint_book": {
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "rail",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint-book",
+    "label": "Rail",
+    "version": 281479278886912
+  },
+  "index": 6
+}
