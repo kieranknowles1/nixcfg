@@ -1,0 +1,410 @@
+{
+  "blueprint": {
+    "entities": [
+      {
+        "direction": 5,
+        "entity_number": 1,
+        "name": "curved-rail",
+        "position": {
+          "x": 150,
+          "y": 268
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 2,
+        "name": "rail-signal",
+        "position": {
+          "x": 152.5,
+          "y": 264.5
+        }
+      },
+      {
+        "entity_number": 3,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 155.5,
+          "y": 264.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 4,
+        "name": "curved-rail",
+        "position": {
+          "x": 158,
+          "y": 268
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 5,
+        "name": "curved-rail",
+        "position": {
+          "x": 150,
+          "y": 270
+        }
+      },
+      {
+        "direction": 3,
+        "entity_number": 6,
+        "name": "curved-rail",
+        "position": {
+          "x": 158,
+          "y": 270
+        }
+      },
+      {
+        "direction": 7,
+        "entity_number": 7,
+        "name": "straight-rail",
+        "position": {
+          "x": 147,
+          "y": 273
+        }
+      },
+      {
+        "direction": 3,
+        "entity_number": 8,
+        "name": "straight-rail",
+        "position": {
+          "x": 147,
+          "y": 271
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 9,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 154.5,
+          "y": 270.5
+        }
+      },
+      {
+        "direction": 5,
+        "entity_number": 10,
+        "name": "straight-rail",
+        "position": {
+          "x": 161,
+          "y": 271
+        }
+      },
+      {
+        "direction": 1,
+        "entity_number": 11,
+        "name": "straight-rail",
+        "position": {
+          "x": 161,
+          "y": 273
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 12,
+        "name": "curved-rail",
+        "position": {
+          "x": 142,
+          "y": 276
+        }
+      },
+      {
+        "direction": 1,
+        "entity_number": 13,
+        "name": "curved-rail",
+        "position": {
+          "x": 144,
+          "y": 276
+        }
+      },
+      {
+        "direction": 3,
+        "entity_number": 14,
+        "name": "straight-rail",
+        "position": {
+          "x": 145,
+          "y": 273
+        }
+      },
+      {
+        "direction": 5,
+        "entity_number": 15,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 147.5,
+          "y": 273.5
+        }
+      },
+      {
+        "direction": 7,
+        "entity_number": 16,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 160.5,
+          "y": 273.5
+        }
+      },
+      {
+        "direction": 5,
+        "entity_number": 17,
+        "name": "straight-rail",
+        "position": {
+          "x": 163,
+          "y": 273
+        }
+      },
+      {
+        "entity_number": 18,
+        "name": "curved-rail",
+        "position": {
+          "x": 164,
+          "y": 276
+        }
+      },
+      {
+        "direction": 7,
+        "entity_number": 19,
+        "name": "curved-rail",
+        "position": {
+          "x": 166,
+          "y": 276
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 20,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 138.5,
+          "y": 278.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 21,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 144.5,
+          "y": 279.5
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 22,
+        "name": "rail-signal",
+        "position": {
+          "x": 169.5,
+          "y": 278.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 23,
+        "name": "rail-signal",
+        "position": {
+          "x": 138.5,
+          "y": 281.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 24,
+        "name": "curved-rail",
+        "position": {
+          "x": 144,
+          "y": 284
+        }
+      },
+      {
+        "direction": 5,
+        "entity_number": 25,
+        "name": "curved-rail",
+        "position": {
+          "x": 164,
+          "y": 284
+        }
+      },
+      {
+        "entity_number": 26,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 163.5,
+          "y": 280.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 27,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 169.5,
+          "y": 281.5
+        }
+      },
+      {
+        "direction": 3,
+        "entity_number": 28,
+        "name": "curved-rail",
+        "position": {
+          "x": 142,
+          "y": 284
+        }
+      },
+      {
+        "direction": 6,
+        "entity_number": 29,
+        "name": "curved-rail",
+        "position": {
+          "x": 166,
+          "y": 284
+        }
+      },
+      {
+        "direction": 1,
+        "entity_number": 30,
+        "name": "straight-rail",
+        "position": {
+          "x": 145,
+          "y": 287
+        }
+      },
+      {
+        "direction": 7,
+        "entity_number": 31,
+        "name": "straight-rail",
+        "position": {
+          "x": 163,
+          "y": 287
+        }
+      },
+      {
+        "direction": 5,
+        "entity_number": 32,
+        "name": "straight-rail",
+        "position": {
+          "x": 147,
+          "y": 287
+        }
+      },
+      {
+        "direction": 3,
+        "entity_number": 33,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 147.5,
+          "y": 286.5
+        }
+      },
+      {
+        "direction": 1,
+        "entity_number": 34,
+        "name": "straight-rail",
+        "position": {
+          "x": 147,
+          "y": 289
+        }
+      },
+      {
+        "direction": 7,
+        "entity_number": 35,
+        "name": "curved-rail",
+        "position": {
+          "x": 150,
+          "y": 290
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 36,
+        "name": "curved-rail",
+        "position": {
+          "x": 158,
+          "y": 290
+        }
+      },
+      {
+        "direction": 7,
+        "entity_number": 37,
+        "name": "straight-rail",
+        "position": {
+          "x": 161,
+          "y": 289
+        }
+      },
+      {
+        "direction": 1,
+        "entity_number": 38,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 160.5,
+          "y": 286.5
+        }
+      },
+      {
+        "direction": 3,
+        "entity_number": 39,
+        "name": "straight-rail",
+        "position": {
+          "x": 161,
+          "y": 287
+        }
+      },
+      {
+        "entity_number": 40,
+        "name": "curved-rail",
+        "position": {
+          "x": 150,
+          "y": 292
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 41,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 153.5,
+          "y": 289.5
+        }
+      },
+      {
+        "direction": 1,
+        "entity_number": 42,
+        "name": "curved-rail",
+        "position": {
+          "x": 158,
+          "y": 292
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 43,
+        "name": "rail-chain-signal",
+        "position": {
+          "x": 152.5,
+          "y": 295.5
+        }
+      },
+      {
+        "entity_number": 44,
+        "name": "rail-signal",
+        "position": {
+          "x": 155.5,
+          "y": 295.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "rail",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "Roundabout",
+    "version": 281479278886912
+  },
+  "index": 1
+}
