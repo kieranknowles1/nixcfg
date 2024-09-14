@@ -2,7 +2,6 @@
 
 deviceType = "desktop"
 repoPath = "/home/kieran/Documents/src/nixcfg"
-
 games.enable = true
 
 nvidia.enable = true
