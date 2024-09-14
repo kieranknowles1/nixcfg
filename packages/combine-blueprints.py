@@ -14,9 +14,11 @@ import zlib
 BOOK_META_FILE = "book.json"
 VERSION_IDENTIFIER = "0"
 
+
 def read_json(file_path: str):
     with open(file_path, "r") as f:
         return json.load(f)
+
 
 def read_book(book_dir: str):
     """
@@ -39,6 +41,7 @@ def read_book(book_dir: str):
     data["blueprint_book"]["blueprints"] = blueprints
 
     return data
+
 
 def encode_blueprint_string(data: Any):
     """
@@ -65,6 +68,7 @@ def main():
     blueprint_string = encode_blueprint_string(book)
 
     print(blueprint_string)
+
 
 if __name__ == "__main__":
     main()
