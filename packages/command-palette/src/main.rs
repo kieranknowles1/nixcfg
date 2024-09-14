@@ -16,7 +16,7 @@ struct Opts {
 struct CommandOutput {
     stdout: String,
     stderr: String,
-    code: Option<i32>
+    code: Option<i32>,
 }
 
 impl CommandOutput {
@@ -59,7 +59,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     if output.code != Some(0) {
         // An error occurred, show a dialog box even if we don't have any output.
-        let message = format!("Error running command {}", output.combine().unwrap_or_default());
+        let message = format!(
+            "Error running command {}",
+            output.combine().unwrap_or_default()
+        );
         dialog::show_message(&opts.zenity, &message, dialog::MessageKind::Error)?;
     } else if let Some(combined) = output.combine() {
         // The command ran successfully. Show the output if we have any.

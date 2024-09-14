@@ -1,7 +1,7 @@
 // Utilities for running subprocesses
 
+use std::io::{Error, ErrorKind, Result};
 use std::process::ExitStatus;
-use std::io::{Result, Error, ErrorKind};
 
 /// Check that a command ran successfully
 /// Defined as "the command ran to completion and returned a 0 exit status"
@@ -16,7 +16,10 @@ pub fn check_ok(status: ExitStatus, command: &str) -> Result<()> {
         )),
         None => Err(Error::new(
             ErrorKind::Other,
-            format!("Command '{}' was terminated abnormally. Did you press Ctrl+C?", command),
+            format!(
+                "Command '{}' was terminated abnormally. Did you press Ctrl+C?",
+                command
+            ),
         )),
     }
 }

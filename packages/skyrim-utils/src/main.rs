@@ -1,12 +1,12 @@
 // cSpell: words skse shellexpand skyrim
 
+use clap::{Args, Parser};
+use regex::Regex;
+use shellexpand;
+use std::collections::HashSet;
 use std::fs::{self, DirEntry};
 use std::io::Result;
 use std::path::PathBuf;
-use std::collections::HashSet;
-use shellexpand;
-use clap::{Args, Parser};
-use regex::Regex;
 
 #[derive(Parser)]
 enum Arguments {
@@ -29,9 +29,11 @@ impl CleanArgs {
 
         match orphans.is_empty() {
             true => println!("Nothing to do"),
-            false => for skse in &orphans {
-                fs::remove_file(skse)?;
-            },
+            false => {
+                for skse in &orphans {
+                    fs::remove_file(skse)?;
+                }
+            }
         };
 
         println!("Deleted {} orphaned .skse files", orphans.len());
@@ -93,7 +95,10 @@ fn extension_plain_str(path: &PathBuf) -> Option<&str> {
     }
 }
 
-fn latest_file_matching_predicate(dir: &PathBuf, predicate: impl Fn(&DirEntry) -> bool) -> Result<Option<DirEntry>> {
+fn latest_file_matching_predicate(
+    dir: &PathBuf,
+    predicate: impl Fn(&DirEntry) -> bool,
+) -> Result<Option<DirEntry>> {
     fn get_modified_time(file: &DirEntry) -> Option<std::time::SystemTime> {
         match file.metadata() {
             Ok(metadata) => metadata.modified().ok(),
@@ -131,10 +136,9 @@ impl SaveFiles {
     }
 
     fn get_latest(dir: &PathBuf) -> Result<Option<PathBuf>> {
-        let latest = latest_file_matching_predicate(
-            dir,
-            |file| extension_plain_str(&file.path()) == Some("ess")
-        );
+        let latest = latest_file_matching_predicate(dir, |file| {
+            extension_plain_str(&file.path()) == Some("ess")
+        });
 
         match latest {
             Ok(Some(file)) => Ok(Some(file.path())),
@@ -145,7 +149,8 @@ impl SaveFiles {
 
     /// Get all .skse files that do not have a corresponding .ess file
     fn get_orphans(self) -> Vec<PathBuf> {
-        self.skse_files.into_iter()
+        self.skse_files
+            .into_iter()
             .filter(|skse| !self.ess_files.contains(&skse.with_extension("ess")))
             .collect()
     }
@@ -159,7 +164,9 @@ fn main() -> Result<()> {
 
     // let save_dir = PathBuf::from(&data_dir).join("Saves");
     // /home/kieran/Documents/src/dotfiles/configs/games/skyrim/profile/saves
-    let save_dir = shellexpand::tilde("~/Documents/src/dotfiles/configs/games/skyrim/profile/saves").to_string();
+    let save_dir =
+        shellexpand::tilde("~/Documents/src/dotfiles/configs/games/skyrim/profile/saves")
+            .to_string();
     let save_dir = PathBuf::from(&save_dir);
     let log_dir = PathBuf::from(&data_dir).join("SKSE");
 

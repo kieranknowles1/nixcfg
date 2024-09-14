@@ -9,10 +9,7 @@ use crate::process::check_ok;
 fn make_staging_commit() -> std::io::Result<()> {
     // This could be done with git2, but it's easier to just shell out
 
-    let add_status = Command::new("git")
-        .arg("add")
-        .arg(".")
-        .status()?;
+    let add_status = Command::new("git").arg("add").arg(".").status()?;
     check_ok(add_status, "git add")?;
 
     let commit_status = Command::new("git")
@@ -40,10 +37,7 @@ fn finalize_commit(message: &str) -> Result<(), std::io::Error> {
 /// meaning that the changes exist but are not staged.
 /// Useful for cleaning up after a failed build.
 fn reset_commit() -> Result<(), std::io::Error> {
-    let status = Command::new("git")
-        .arg("reset")
-        .arg("HEAD~")
-        .status()?;
+    let status = Command::new("git").arg("reset").arg("HEAD~").status()?;
     check_ok(status, "git reset --soft HEAD^")
 }
 
@@ -58,9 +52,8 @@ pub enum WrapError<WrappedError> {
 /// If the function returns an error, the commit is reverted.
 /// If the function returns Ok, the commit is finalized with the returned message.
 /// Intended for Nix commands as Nix complains if the repository is dirty.
-pub fn wrap_in_commit<Func, Error>(
-    func: Func,
-) -> Result<(), WrapError<Error>> where
+pub fn wrap_in_commit<Func, Error>(func: Func) -> Result<(), WrapError<Error>>
+where
     Func: FnOnce() -> Result<String, Error>,
 {
     match make_staging_commit() {
@@ -70,12 +63,10 @@ pub fn wrap_in_commit<Func, Error>(
 
     let message = match func() {
         Ok(message) => message,
-        Err(e) => {
-            match reset_commit() {
-                Ok(_) => return Err(WrapError::WrappedError(e)),
-                Err(e) => return Err(WrapError::GitError(e)),
-            }
-        }
+        Err(e) => match reset_commit() {
+            Ok(_) => return Err(WrapError::WrappedError(e)),
+            Err(e) => return Err(WrapError::GitError(e)),
+        },
     };
 
     match finalize_commit(&message) {

@@ -1,7 +1,7 @@
 use std::io::Write;
 
-use crate::value::{Table, Value};
 use crate::constants::*;
+use crate::value::{Table, Value};
 
 type Result<T> = std::io::Result<T>;
 

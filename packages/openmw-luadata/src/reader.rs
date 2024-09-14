@@ -4,8 +4,8 @@ use std::string::FromUtf8Error;
 
 use thiserror::Error;
 
-use crate::value::{Table, Value};
 use crate::constants::*;
+use crate::value::{Table, Value};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -39,9 +39,10 @@ pub fn decode(file: &str) -> Result<Value> {
 
     let version = reader.u8()?;
     if version != FORMAT_VERSION {
-        Err(Error::data(
-            &format!("Invalid format version: 0x{:02X}, expected 0x{:02X}", version, FORMAT_VERSION))
-        )?;
+        Err(Error::data(&format!(
+            "Invalid format version: 0x{:02X}, expected 0x{:02X}",
+            version, FORMAT_VERSION
+        )))?;
     }
 
     let value = read_value(&mut reader)?;
@@ -122,7 +123,6 @@ impl<T: Read> PrimitiveReader<T> {
     }
 }
 
-
 /// Decode a value from the reader
 /// Consumes as much data as needed to decode the value
 /// Recurses into tables
@@ -133,34 +133,32 @@ fn read_value<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
         T_NUMBER => {
             let number = reader.f64()?;
             Ok(Value::Number(number))
-        },
+        }
         T_LONG_STRING => {
             let length = reader.u32()? as usize;
             let string = reader.string(length)?;
             Ok(Value::String(string))
-        },
+        }
         T_BOOLEAN => {
             let value = reader.u8()?;
             Ok(Value::Boolean(value != 0))
-        },
+        }
         T_TABLE_START => {
             let table = read_table(reader)?;
             Ok(Value::Table(table))
-        },
+        }
         T_VEC2 => {
             let x = reader.f64()?;
             let y = reader.f64()?;
             Ok(Value::Vec2(x, y))
-        },
+        }
         // Every bit after the flag is part of the length, so we can use a range and mask
         0x20..=0x3F => {
             let length = (tag & MASK_SHORT_STRING) as usize;
             let string = reader.string(length)?;
             Ok(Value::String(string))
-        },
-        _ => {
-            Err(Error::data(&format!("Unknown tag: 0x{:02X}", tag)))
         }
+        _ => Err(Error::data(&format!("Unknown tag: 0x{:02X}", tag))),
     }
 }
 
