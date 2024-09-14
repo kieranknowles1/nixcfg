@@ -192,8 +192,12 @@
       pkgs = importNixpkgs nixpkgs;
       pkgs-unstable = importNixpkgs nixpkgs-unstable;
     in {
-      # Run this using `nix fmt`. Applied to all .nix files in the flake.
-      formatter = pkgs.alejandra;
+      # Format all file types in the flake
+      # TODO: Automate running this as a check
+      formatter = let
+        eval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      in
+        eval.config.build.wrapper;
 
       # We can't use `callPackage` here as Nix expects all values to be derivations,
       # and callPackage generates functions to override the returned value.
