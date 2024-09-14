@@ -7,6 +7,8 @@
   programs = {
     alejandra.enable = true; # Nix
 
+    black.enable = true; # Python
+
     rustfmt.enable = true;
   };
 }
