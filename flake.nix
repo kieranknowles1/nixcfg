@@ -25,6 +25,13 @@
       inputs.systems.follows = "systems";
     };
 
+    # TODO: Use the official Cosmic once https://github.com/NixOS/nixpkgs/pull/330167 is merged
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # Prebuilt nix-index database, as building it takes a long time
     # Updates every week
     nix-index-database = {
