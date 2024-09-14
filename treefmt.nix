@@ -5,6 +5,8 @@
   projectRootFile = "flake.nix";
 
   programs = {
-    alejandra.enable = true;
+    alejandra.enable = true; # Nix
+
+    rustfmt.enable = true;
   };
 }

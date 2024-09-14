@@ -7,8 +7,7 @@ pub type Table = BTreeMap<String, Value>;
 /// A value in the storage file. When serializing to JSON, values will be tagged with their type
 /// to allow for round-tripping.
 /// Serde handles all of this for us, and automagically generates code to serialize and deserialize
-#[derive(Serialize, Deserialize)]
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum Value {
     Number(f64),
     Boolean(bool),

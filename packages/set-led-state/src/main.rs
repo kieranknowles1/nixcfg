@@ -1,5 +1,5 @@
-use std::{fs, io};
 use clap::{Parser, ValueEnum};
+use std::{fs, io};
 
 #[derive(Parser)]
 struct Opts {
