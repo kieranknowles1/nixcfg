@@ -41,8 +41,9 @@ in {
         run cp --force "${path}" "${config.xdg.userDirs.templates}/${name}"
       '';
       files = lib.attrsets.mapAttrsToList toCopyCommand config.custom.desktop.templates;
-    in lib.hm.dag.entryAfter ["writeBoundary"]''
-      ${lib.concatStringsSep "\n" files}
-    '';
+    in
+      lib.hm.dag.entryAfter ["writeBoundary"] ''
+        ${lib.concatStringsSep "\n" files}
+      '';
   };
 }
