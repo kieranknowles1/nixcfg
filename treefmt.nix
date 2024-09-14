@@ -4,11 +4,24 @@
 {...}: {
   projectRootFile = "flake.nix";
 
+  settings.global = {
+    excludes = [
+      "**/Cargo.toml" # Managed by the Cargo command
+      "**/espanso/config/match/packages/**" # Externally sourced
+      "**/factorio/blueprints/**" # Generated from blueprint-storage.dat, not meant to be edited
+      # Plain text from ~/.ssh
+      "**/ssh/hosts/**"
+      "**/ssh/keys/**"
+    ];
+  };
+
   programs = {
     alejandra.enable = true; # Nix
 
-    black.enable = true; # Python
+    black.enable = false; # Python
 
-    rustfmt.enable = true;
+    rustfmt.enable = true; # Rust
+
+    stylua.enable = true; # Lua
   };
 }

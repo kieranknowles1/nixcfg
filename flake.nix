@@ -195,7 +195,7 @@
       # Format all file types in the flake
       # TODO: Automate running this as a check
       formatter = let
-        eval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+        eval = inputs.treefmt-nix.lib.evalModule pkgs-unstable ./treefmt.nix;
       in
         eval.config.build.wrapper;
 
