@@ -18,4 +18,4 @@ months. This can be overridden per-repository.
 
 ## Dev Shells
 
-Dev shells are provided for development of various languages/projects. These can be entered with `develop <shell>`. A list of available shells can be found with `nix flake show`.
+Dev shells are provided for development of various languages/projects. These can be entered with `devr <shell>`. A list of available shells can be found with `nix flake show`.
