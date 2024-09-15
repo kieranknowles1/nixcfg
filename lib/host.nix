@@ -39,7 +39,7 @@
     nixpkgs-unstable.lib.nixosSystem {
       # Pass the flake's inputs and pkgs-unstable to the module
       # TODO: See if we can remove this entirely, would remove the assumption that we're passing certain arguments
-      specialArgs = { inherit self inputs pkgs-unstable; };
+      specialArgs = {inherit self inputs pkgs-unstable;};
 
       # Include the host's configuration and all modules
       modules = [
