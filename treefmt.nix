@@ -24,9 +24,9 @@
 
   programs = {
     alejandra.enable = true; # Nix
+    beautysh.enable = true; # Bash
     black.enable = true; # Python
     rustfmt.enable = true; # Rust
-    shellcheck.enable = true; # Bash
     stylua.enable = true; # Lua
 
     prettier = {
