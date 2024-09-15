@@ -29,7 +29,7 @@ the repository, and use systems configured with it.
 - [shells](shells/) contains dev shells for use with `nix develop`.
 - [users](users/) contains user configurations.
 - [flake.nix](flake.nix) is the entry point for the repository.
-- [rebuild.py](rebuild.py) script to update from the repository and commit changes.
+- [treefmt.nix](treefmt.nix) configuration for Treefmt, a tool to unify formatters for all languages in a project.
 
 ### Hosts
 
