@@ -1,6 +1,6 @@
 {
   pkgs,
-  flake,
+  self,
   inputs,
   lib,
 }: let
