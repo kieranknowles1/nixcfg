@@ -48,5 +48,8 @@
     })
     // {
       # Shared across all systems
+
+      # Format all files the same way as in the nixcfg repo via treefmt
+      formatter = inputs.nixcfg.formatter;
     };
 }
