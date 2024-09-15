@@ -86,6 +86,11 @@
       inputs.systems.follows = "systems";
     };
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # /// Applications ///
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -136,13 +141,6 @@
     flake-utils-plus = {
       url = "github:gytis-ivaskevicius/flake-utils-plus";
       inputs.flake-utils.follows = "flake-utils";
-    };
-
-    # TODO: This could be useful for formatting Nix, Rust, and any other language that
-    # ends up in the flake.
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # TODO: Seems very useful for viewing documentation. Could set it up to cover
