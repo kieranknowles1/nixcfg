@@ -1,6 +1,6 @@
 # Module to include generated documentation for the flake and its options
 {
-  flake,
+  self,
   pkgs,
   lib,
   config,
@@ -96,27 +96,27 @@ in {
     custom.docs-generate.file = {
       "lib.md" = {
         description = "flake.lib library";
-        source = flake.lib.docs.mkFunctionDocs ../../lib;
+        source = self.lib.docs.mkFunctionDocs ../../lib;
       };
       "host-options.md" = {
         description = "NixOS options";
-        source = flake.lib.docs.mkOptionDocs flake.nixosModules.default;
+        source = self.lib.docs.mkOptionDocs self.nixosModules.default;
       };
       "host-options.schema.json" = {
         description = "NixOS options schema";
-        source = flake.lib.docs.mkJsonSchema flake.nixosModules.default (opts: opts.custom);
+        source = self.lib.docs.mkJsonSchema self.nixosModules.default (opts: opts.custom);
       };
       "user-options.md" = {
         description = "home-manager options";
-        source = flake.lib.docs.mkOptionDocs flake.homeManagerModules.default;
+        source = self.lib.docs.mkOptionDocs self.homeManagerModules.default;
       };
       "user-options.schema.json" = {
         description = "home-manager options schema";
-        source = flake.lib.docs.mkJsonSchema flake.homeManagerModules.default (opts: opts.custom);
+        source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: opts.custom);
       };
       "packages.md" = {
         description = "Flake packages";
-        source = flake.lib.docs.mkPackageDocs pkgs.flake;
+        source = self.lib.docs.mkPackageDocs pkgs.flake;
       };
     };
 

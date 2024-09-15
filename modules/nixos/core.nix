@@ -4,7 +4,7 @@
   pkgs,
   pkgs-unstable,
   lib,
-  flake,
+  self,
   ...
 }: let
   # Generate a halper script for activating dev shells in a flake
@@ -41,7 +41,7 @@ in {
     ];
 
     # Apply all of the flake's overlays, as we need them for the system
-    nixpkgs.overlays = builtins.attrValues flake.overlays;
+    nixpkgs.overlays = builtins.attrValues self.overlays;
 
     # Bootloader.
     boot.loader.systemd-boot.enable = true;
