@@ -7,7 +7,7 @@
   config = {
     pkgs,
     config,
-    flake,
+    self,
     ...
   }: {
     imports = [
@@ -17,7 +17,7 @@
     # Enable everything needed for this configuration
     config.custom =
       {
-        user.kieran = import ../../users/kieran {inherit pkgs config flake;};
+        user.kieran = import ../../users/kieran {inherit pkgs config self;};
       }
       // builtins.fromTOML (builtins.readFile ./config.toml);
   };
