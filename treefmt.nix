@@ -1,7 +1,7 @@
 # Config for treefmt. This is a Nix module, and as such has all
 # the features of one.
 # See https://flake.parts/options/treefmt-nix for a list of options
-{...}: {
+{lib, ...}: {
   projectRootFile = "flake.nix";
 
   settings.global = {
@@ -18,10 +18,19 @@
   programs = {
     alejandra.enable = true; # Nix
 
-    black.enable = false; # Python
+    black.enable = true; # Python
 
     rustfmt.enable = true; # Rust
 
     stylua.enable = true; # Lua
+
+    prettier = {
+      enable = true;
+
+      includes = lib.mkForce [
+        "*.md"
+        "*.json"
+      ];
+    };
   };
 }

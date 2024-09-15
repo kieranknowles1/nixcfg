@@ -68,7 +68,7 @@ I can do all my work in one place.
   - [x] `Ctrl+Alt+E` to open FSearch
   - [ ] Some way to disable keyboard LEDs
 - [x] Associate file types with programs
-  - [x] PDFs with Firefox, overriding  LibreOffice
+  - [x] PDFs with Firefox, overriding LibreOffice
   - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
 - ❎ Port my server to NixOS. (Raspberry Pi 5 is currently unsupported. Putting this on hold for now)
   - [x] Build ISO [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
@@ -98,7 +98,7 @@ It's completely valid syntax to have a system without any usable users. Make sur
 generates at least one and that they have a password set and are in the `wheel` group to use
 `sudo`.
 
-If you f**ked up and can't log in, boot into a live NixOS environment and mount both the root
+If you f\*\*ked up and can't log in, boot into a live NixOS environment and mount both the root
 and boot partitions. Then, run `nixos-enter` to chroot into the system. You can then fix the
 configuration and rebuild. If applying the config fails, try setting your user's password anyway
 with `passwd <username>` and rebooting into your main OS.
