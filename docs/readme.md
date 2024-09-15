@@ -6,6 +6,7 @@
   Note that generated docs only include details that are enabled on the host. For example, the
   `Alt+Shift+S` keybinding is only used for hosts with `custom.games.enabled` set to `true` as
   it is only enabled if the `games` module is active.
+
 - [Development](./development.md)<br>
   Information on how to develop this repository.
 - [Usage](./usage.md)<br>

@@ -1,85 +1,86 @@
 {
-    // settings.json for VSCode. This is provisioned directly by
-    // home-manager instead of using Nix to manage it, in order to
-    // make the syntax the same as the normal settings.json file.
-    // __var__ is used for placeholders that are replaced by Nix store paths.
+  // settings.json for VSCode. This is provisioned directly by
+  // home-manager instead of using Nix to manage it, in order to
+  // make the syntax the same as the normal settings.json file.
+  // __var__ is used for placeholders that are replaced by Nix store paths.
 
-    // ======
-    //  Core
-    // ======
+  // ======
+  //  Core
+  // ======
 
-    "terminal.external.linuxExec": "__terminal__", // The default code looks for isn't installed, and fails silently
-    "telemetry.telemetryLevel": "off", // Don't send telemetry data to Microsoft
-    "redhat.telemetry.enabled": false, // I'm installing this automatically, so technically I never consented and enabling by default is a GDPR violation
+  "terminal.external.linuxExec": "__terminal__", // The default code looks for isn't installed, and fails silently
+  "telemetry.telemetryLevel": "off", // Don't send telemetry data to Microsoft
+  "redhat.telemetry.enabled": false, // I'm installing this automatically, so technically I never consented and enabling by default is a GDPR violation
 
-    // VSCode and extensions are managed by Nix, so don't auto-update or even check for updates
-    "extensions.autoCheckUpdates": false,
-    "extensions.autoUpdate": false,
-    "update.mode": "none",
+  // VSCode and extensions are managed by Nix, so don't auto-update or even check for updates
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false,
+  "update.mode": "none",
 
-    "files.insertFinalNewline": true, // Makes some tools happier
-    "files.trimTrailingWhitespace": true, // Trailing whitespace is bad practice
+  "files.insertFinalNewline": true, // Makes some tools happier
+  "files.trimTrailingWhitespace": true, // Trailing whitespace is bad practice
 
-    "git.autofetch": true, // Keep the repo up to date, but don't pull unless I say so
-    "git.confirmSync": false, // Don't tell me what pushing does, I know what I'm doing
+  "git.autofetch": true, // Keep the repo up to date, but don't pull unless I say so
+  "git.confirmSync": false, // Don't tell me what pushing does, I know what I'm doing
 
-    // Associate some files with the correct language to make them look nice
-    "files.associations": {
-        "flake.lock": "json", // Nix flakes
-    },
+  // Associate some files with the correct language to make them look nice
+  "files.associations": {
+    "flake.lock": "json" // Nix flakes
+  },
 
-    "files.exclude": {
-        "**/__pycache__": true, // Hide Python cache folders
-    },
+  "files.exclude": {
+    "**/__pycache__": true // Hide Python cache folders
+  },
 
-    "editor.showFoldingControls": "always", // Always show folding controls, so it's clear what's foldable
-    "editor.renderWhitespace": "trailing", // Highlight if there's trailing whitespace
+  "editor.showFoldingControls": "always", // Always show folding controls, so it's clear what's foldable
+  "editor.renderWhitespace": "trailing", // Highlight if there's trailing whitespace
 
-    // =================
-    //  Core Extensions
-    // =================
+  // =================
+  //  Core Extensions
+  // =================
 
-    // The default limits are a bit low for large files, so increase them to be practically unlimited
-    "cSpell.maxNumberOfProblems": 99999,
-    "cSpell.checkLimit": 99999,
-    "cSpell.language": "en-GB", // American English is simplified English
+  // The default limits are a bit low for large files, so increase them to be practically unlimited
+  "cSpell.maxNumberOfProblems": 99999,
+  "cSpell.checkLimit": 99999,
+  "cSpell.language": "en-GB", // American English is simplified English
 
-    "todo-tree.tree.expanded": true,
-    "todo-tree.tree.showCountsInTree": true,
-    "todo-tree.general.tags": [
-        "BUG",
-        "HACK",
-        "FIXME",
-        "TODO",
-        "XXX",
-        "[ ]",
-        // "[x]" // Disable this as it represents a completed task.
-    ],
+  "todo-tree.tree.expanded": true,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "[ ]"
+    // "[x]" // Disable this as it represents a completed task.
+  ],
 
-    // Enable copilot everywhere
-    "github.copilot.enable": {
-        "*": true,
-        "plaintext": true,
-        "markdown": true,
-        "scminput": false, // Copilot gives very poor quality suggestions for commit messages
-    },
+  // Enable copilot everywhere
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": false // Copilot gives very poor quality suggestions for commit messages
+  },
 
-    // =====
-    //  Nix
-    // =====
-    "nix.enableLanguageServer": true,
-    "nix.serverPath": "__nil__",
+  // =====
+  //  Nix
+  // =====
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "__nil__",
 
-    // ========
-    //  Python
-    // ========
-    "python.analysis.diagnosticMode": "workspace", // Check the whole project, not just open files
-    "python.analysis.typeCheckingMode": "strict", // Be strict about type checking, good for catching bugs
-    "python.analysis.inlayHints.functionReturnTypes": true, // Show return types in function signatures, useful for understanding code
-    "python.analysis.diagnosticSeverityOverrides": { // Configure Pylance to be stricter than usual
-        "reportUnusedClass": "warning",
-        "reportUnusedExpression": "warning",
-        "reportUnusedFunction": "warning",
-        "reportUnusedVariable": "warning",
-    },
+  // ========
+  //  Python
+  // ========
+  "python.analysis.diagnosticMode": "workspace", // Check the whole project, not just open files
+  "python.analysis.typeCheckingMode": "strict", // Be strict about type checking, good for catching bugs
+  "python.analysis.inlayHints.functionReturnTypes": true, // Show return types in function signatures, useful for understanding code
+  "python.analysis.diagnosticSeverityOverrides": {
+    // Configure Pylance to be stricter than usual
+    "reportUnusedClass": "warning",
+    "reportUnusedExpression": "warning",
+    "reportUnusedFunction": "warning",
+    "reportUnusedVariable": "warning"
+  }
 }

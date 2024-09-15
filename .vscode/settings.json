@@ -1,25 +1,23 @@
 {
-    // File Types
-    "files.associations": {
-        "**/vscode/snippets/*.json": "jsonc",
-    },
+  // File Types
+  "files.associations": {
+    "**/vscode/snippets/*.json": "jsonc"
+  },
 
-    "yaml.schemas": {
-        "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/config.schema.json": "modules/home/espanso/config/config/**/*.yml",
-        "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json": "modules/home/espanso/config/match/**/*.yml",
-    },
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/config.schema.json": "modules/home/espanso/config/config/**/*.yml",
+    "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json": "modules/home/espanso/config/match/**/*.yml"
+  },
 
-    // Language Settings
-    "python.analysis.exclude": [
-        "**/result/**", // Ignore Nix's result symlink, otherwise Pylance will report 200k errors.
-    ],
+  // Language Settings
+  "python.analysis.exclude": [
+    "**/result/**" // Ignore Nix's result symlink, otherwise Pylance will report 200k errors.
+  ],
 
-    "rust-analyzer.linkedProjects": [
-        "packages/rebuild",
-    ],
+  "rust-analyzer.linkedProjects": ["packages/rebuild"],
 
-    // Schemas change on every rebuild, so we need to effectively disable the cache.
-    // TODO: Is there any way to just disable the cache for a specific schema or purge it manually?
-    "evenBetterToml.schema.cache.diskExpiration": 1,
-    "evenBetterToml.schema.cache.memoryExpiration": 1,
+  // Schemas change on every rebuild, so we need to effectively disable the cache.
+  // TODO: Is there any way to just disable the cache for a specific schema or purge it manually?
+  "evenBetterToml.schema.cache.diskExpiration": 1,
+  "evenBetterToml.schema.cache.memoryExpiration": 1
 }
