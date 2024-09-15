@@ -76,9 +76,11 @@
       useGlobalPkgs = true;
 
       # Pass flake inputs plus host configuration
-      extraSpecialArgs = specialArgs // {
-        hostConfig = config;
-      };
+      extraSpecialArgs =
+        specialArgs
+        // {
+          hostConfig = config;
+        };
 
       # If a file to be provisioned already exists, back it up
       backupFileExtension = "backup";
