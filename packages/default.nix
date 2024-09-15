@@ -1,9 +1,9 @@
 {
   pkgs,
-  flake,
+  self,
   inputs,
 }: let
-  packagePythonScript = flake.lib.package.packagePythonScript;
+  packagePythonScript = self.lib.package.packagePythonScript;
   callPackage = pkgs.callPackage;
   system = pkgs.stdenv.hostPlatform.system;
 in {

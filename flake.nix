@@ -172,15 +172,9 @@
     nixpkgs-unstable,
     ...
   } @ inputs: let
-    flake = self; # More explicit than an argument named `self`
-    eachDefaultSystem = inputs.flake-utils.lib.eachDefaultSystem;
-
-    lib = import ./lib {
-      inherit nixpkgs nixpkgs-unstable inputs;
-      flake = self;
-    };
+    lib = import ./lib inputs;
   in
-    eachDefaultSystem (system: let
+    inputs.flake-utils.lib.eachDefaultSystem (system: let
       importNixpkgs = branch:
         import branch {
           inherit system;
@@ -199,9 +193,9 @@
 
       # We can't use `callPackage` here as Nix expects all values to be derivations,
       # and callPackage generates functions to override the returned value.
-      # We use pkgs-unstable as the OS is running unstable, and this avoids duplication of dependencies.
       packages = import ./packages {
-        inherit flake inputs;
+        inherit self inputs;
+        # Base libraries off unstable to match the rest of the OS
         pkgs = pkgs-unstable;
       };
 
@@ -222,7 +216,7 @@
 
       # Extend nixpkgs with flake-specific overlays, for this
       # flake and its dependencies
-      overlays = import ./overlays.nix flake;
+      overlays = import ./overlays.nix self;
 
       templates.default = {
         path = ./template;

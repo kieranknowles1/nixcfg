@@ -1,7 +1,7 @@
 {
   nixpkgs,
   nixpkgs-unstable,
-  flake,
+  self,
   inputs,
 }: {
   /*
@@ -38,13 +38,13 @@
   in
     nixpkgs-unstable.lib.nixosSystem {
       # Pass the flake's inputs and pkgs-unstable to the module
-      specialArgs = {inherit flake inputs pkgs-unstable;};
+      specialArgs = {inherit  inputs pkgs-unstable;flake = self;};
 
       # Include the host's configuration and all modules
       modules = [
         # We need to import flake inputs here, otherwise we'll get infinite recursion
         # Don't even try debugging, the Nix module system is dark magic
-        flake.nixosModules.default
+        self.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         inputs.nix-index-database.nixosModules.nix-index
         inputs.sops-nix.nixosModules.sops
