@@ -2,7 +2,7 @@
   config,
   hostConfig,
   pkgs,
-  flake,
+  self,
   lib,
   ...
 }: let
@@ -12,7 +12,7 @@
 in {
   config = lib.mkIf hostConfig.custom.games.enable {
     # Install the desktop file to ~/.local/share/applications
-    home.file."${applicationsDir}/${resaverDesktopFileName}".text = flake.lib.package.mkDesktopEntry {
+    home.file."${applicationsDir}/${resaverDesktopFileName}".text = self.lib.package.mkDesktopEntry {
       name = "ReSaver";
       description = "Skyrim and Fallout 4 savegame editor";
       # %u is a placeholder. When double-clicking a file, it will be replaced with the file's path

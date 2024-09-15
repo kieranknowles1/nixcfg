@@ -2,7 +2,7 @@
 {
   config,
   lib,
-  flake,
+  self,
   pkgs,
   ...
 }: let
@@ -82,7 +82,7 @@ in {
       # Autostart sxhkd
       # TODO: Restart when rebuilding. Need to send SIGUSR1 to the process. activation scripts run on boot
       # before sxhkd, which makes systemd sad that the command failed.
-      home.file."${config.xdg.configHome}/autostart/sxhkd.desktop".text = flake.lib.package.mkDesktopEntry {
+      home.file."${config.xdg.configHome}/autostart/sxhkd.desktop".text = self.lib.package.mkDesktopEntry {
         name = "sxhkd";
         description = "Simple X Hotkey Daemon";
         command = "sxhkd";

@@ -1,7 +1,6 @@
 # Theme settings for the system
 {
   pkgs,
-  flake,
   config,
   ...
 }: {
