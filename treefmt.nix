@@ -12,16 +12,21 @@
       # Plain text from ~/.ssh
       "**/ssh/hosts/**"
       "**/ssh/keys/**"
+
+      # Binary files
+      "*.heic"
+      "*.jpg"
+      "*.odp"
+      "*.ods"
+      "*.odt"
     ];
   };
 
   programs = {
     alejandra.enable = true; # Nix
-
     black.enable = true; # Python
-
     rustfmt.enable = true; # Rust
-
+    shellcheck.enable = true; # Bash
     stylua.enable = true; # Lua
 
     prettier = {
