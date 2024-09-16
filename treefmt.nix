@@ -37,5 +37,8 @@
         "*.json"
       ];
     };
+
+    # Static analysis
+    deadnix.enable = true; # Nix
   };
 }
