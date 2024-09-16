@@ -6,8 +6,8 @@
 
   config = {
     pkgs,
-    flake,
     config,
+    self,
     ...
   }: {
     imports = [
@@ -15,9 +15,9 @@
     ];
 
     # Enable everything needed for this configuration
-    config.custom = flake.lib.attrset.deepMergeSets [
+    config.custom = self.lib.attrset.deepMergeSets [
       {
-        user.kieran = import ../../users/kieran {inherit pkgs config flake;};
+        user.kieran = import ../../users/kieran {inherit pkgs config self;};
 
         secrets = {
           ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";

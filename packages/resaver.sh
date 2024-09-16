@@ -13,19 +13,19 @@ API_URL="https://api.nexusmods.com/v1/games/$GAME_ID/mods/$MOD_ID/files/$FILE_ID
 
 # Check if Resaver is installed
 if [ ! -d "$RESAVER_DIR" ]; then
-    echo "Resaver not found. Downloading"
+  echo "Resaver not found. Downloading"
 
-    api_key=$(cat "$API_KEY_FILE")
-    # Get the first download link. Other links are for regional mirrors which we don't care about.
-    download_link=$(curl -X GET -H "accept: application/json" -H "apikey: $api_key" "$API_URL" | jq --raw-output '.[0].URI')
-    # The provided link will contain spaces, which must be url-encoded
-    download_link=${download_link// /%20}
+  api_key=$(cat "$API_KEY_FILE")
+  # Get the first download link. Other links are for regional mirrors which we don't care about.
+  download_link=$(curl -X GET -H "accept: application/json" -H "apikey: $api_key" "$API_URL" | jq --raw-output '.[0].URI')
+  # The provided link will contain spaces, which must be url-encoded
+  download_link=${download_link// /%20}
 
-    outfile="$(mktemp).7z"
-    curl -o "$outfile" "$download_link"
+  outfile="$(mktemp).7z"
+  curl -o "$outfile" "$download_link"
 
-    mkdir -p "$RESAVER_DIR"
-    7z x "$outfile" -o"$RESAVER_DIR"
+  mkdir -p "$RESAVER_DIR"
+  7z x "$outfile" -o"$RESAVER_DIR"
 fi
 
 # Run Resaver

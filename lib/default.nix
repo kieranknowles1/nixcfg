@@ -3,7 +3,7 @@
   nixpkgs-unstable,
   self,
   ...
-}@inputs: let
+} @ inputs: let
   pkgs = import nixpkgs {system = "x86_64-linux";};
 in {
   attrset = import ./attrset.nix {};

@@ -1,10 +1,8 @@
 {
   lib,
-  pkgs,
   config,
-  flake,
-  inputs,
-  pkgs-unstable,
+  self,
+  specialArgs,
   ...
 }: {
   options.custom.user = lib.mkOption {
@@ -78,10 +76,11 @@
       useGlobalPkgs = true;
 
       # Pass flake inputs plus host configuration
-      extraSpecialArgs = {
-        inherit flake inputs pkgs-unstable;
-        hostConfig = config;
-      };
+      extraSpecialArgs =
+        specialArgs
+        // {
+          hostConfig = config;
+        };
 
       # If a file to be provisioned already exists, back it up
       backupFileExtension = "backup";
@@ -89,7 +88,7 @@
       users =
         lib.attrsets.mapAttrs (name: user: {
           imports = [
-            flake.homeManagerModules.default
+            self.homeManagerModules.default
             user.home
           ];
 
