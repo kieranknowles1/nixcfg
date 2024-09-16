@@ -27,7 +27,7 @@
   */
   deepMergeSets = sets:
     builtins.zipAttrsWith
-    (name: values: let
+    (_name: values: let
       first = builtins.elemAt values 0;
     in
       if builtins.isAttrs first

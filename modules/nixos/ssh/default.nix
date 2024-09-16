@@ -17,7 +17,7 @@
       # Install signatures of all my hosts and some common remotes (e.g., github.com)
       # These are read from [[./hosts]] where the file name is the hostname and the content is the ed25519 signature
       # To get the signature of a host, run `ssh-keyscan ${hostname}` which will work for both local and remote hosts
-      knownHosts = builtins.mapAttrs (name: value: {
+      knownHosts = builtins.mapAttrs (name: _value: {
         hostNames = [name];
         publicKeyFile = ./hosts/${name};
       }) (builtins.readDir ./hosts);
@@ -27,7 +27,7 @@
     # TODO: Secret management to automatically add the private keys
     # TODO: Should this be in the user's config? authorized_keys is a user-level setting
     users.users =
-      lib.attrsets.mapAttrs (name: user: {
+      lib.attrsets.mapAttrs (_name: _user: {
         openssh.authorizedKeys.keyFiles =
           builtins.map
           (name: ./keys/${name})

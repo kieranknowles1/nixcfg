@@ -76,7 +76,7 @@ in {
         enable = true;
         package = sxhkd;
 
-        keybindings = builtins.mapAttrs (name: value: value.action) cfg.hotkeys.keys;
+        keybindings = builtins.mapAttrs (_name: value: value.action) cfg.hotkeys.keys;
       };
 
       # Autostart sxhkd

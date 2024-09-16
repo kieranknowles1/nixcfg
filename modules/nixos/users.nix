@@ -100,7 +100,7 @@
     };
 
     users.users =
-      lib.attrsets.mapAttrs (name: user: {
+      lib.attrsets.mapAttrs (_name: user: {
         # A normal user is one that can log in, as opposed to a system user used for services
         isNormalUser = true;
         # User's full name
