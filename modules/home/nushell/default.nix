@@ -5,7 +5,6 @@
   pkgs,
   config,
   hostConfig,
-  lib,
   ...
 }: let
   defaultMonoFont = config.custom.fonts.defaultMono;

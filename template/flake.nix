@@ -17,11 +17,7 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: let
+  outputs = {nixpkgs, ...} @ inputs: let
     eachDefaultSystem = inputs.flake-utils.lib.eachDefaultSystem;
     cfgLib = inputs.nixcfg.lib;
   in
