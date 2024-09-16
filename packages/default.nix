@@ -76,7 +76,7 @@ in {
 
     devPkg = inputs.openmw.packages.${system}.openmw-dev;
   in
-    devPkg.overrideAttrs (oldAttrs: {
+    devPkg.overrideAttrs (_oldAttrs: {
       src = latestSrc;
     });
 

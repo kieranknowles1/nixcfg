@@ -10,7 +10,7 @@ self: let
   # Returns
   An overlay function that adds the namespace to nixpkgs.
   */
-  mkNamespace = name: packages: extra: (final: prev: let
+  mkNamespace = name: packages: extra: (_final: prev: let
     system = prev.stdenv.hostPlatform.system;
     namespacePkgs = packages.${system};
   in {
