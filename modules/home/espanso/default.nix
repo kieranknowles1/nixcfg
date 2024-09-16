@@ -61,7 +61,7 @@ in {
           # type to define them.
           # This is a helper as the syntax is a bit verbose
           mkGlobalVar = name: value: {
-            name = name;
+            inherit name;
             type = "echo";
             params.echo = value;
           };

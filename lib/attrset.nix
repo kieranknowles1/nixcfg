@@ -1,5 +1,5 @@
 # Utility functions for working with attribute sets.
-{}: rec {
+rec {
   /*
   Deeply merges a list of sets into a single set.
   If a key is present in multiple sets, the values are merged with the following rules:

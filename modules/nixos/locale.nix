@@ -1,5 +1,5 @@
 # Locale and timezone settings module
-{...}: let
+let
   keymap = "gb";
   locale = "en_GB.UTF-8";
   timezone = "Europe/London";
