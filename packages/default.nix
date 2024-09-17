@@ -61,6 +61,8 @@ in {
       };
     };
 
+  nix-utils = callPackage ./nix-utils {};
+
   # TODO: Use callPackage everywhere
   # TODO: Use an overlay to remove the need for the `inputs` argument and others
   nixvim = callPackage ./nixvim {inherit inputs;};
