@@ -79,6 +79,8 @@ I can do all my work in one place.
 - [ ] Automate running checks on the repo. Do these in nix's `checkPhase`?
   - [ ] Links in Markdown
   - [ ] Links in comments [extension](https://marketplace.visualstudio.com/items?itemName=Isotechnics.commentlinks)
+- [ ] Pre-commit hooks
+  - [ ] Check that `nix fmt` doesn't change anything
 
 ## Lessons Learned
 

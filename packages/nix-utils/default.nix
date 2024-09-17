@@ -1,6 +1,5 @@
-{
-  stdenv
-}: stdenv.mkDerivation {
+{stdenv}:
+stdenv.mkDerivation {
   pname = "nix-utils";
   version = "1.0.0";
 
