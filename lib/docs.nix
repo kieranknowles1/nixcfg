@@ -155,8 +155,13 @@ in {
       name = getName package;
       version = package.version or "unknown";
       shortDescription = package.meta.description or "";
-      # TODO: Add an extra 2 hashes to headers to make them fit in with the one we generate.
-      longDescription = package.meta.longDescription or "";
+
+      # Add 2 levels of headers to any in the long description.
+      # We reserve heading 1 for the file header, and heading 2 for the package name,
+      # so descriptions need to start at heading 3.
+      longDescription = let
+        original = package.meta.longDescription or "";
+      in builtins.replaceStrings ["\n#"] ["\n###"] original;
 
       noDescription = shortDescription == "" && longDescription == "";
     in ''

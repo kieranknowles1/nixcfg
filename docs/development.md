@@ -1,5 +1,14 @@
 # Development Information
 
+- [Development Information](#development-information)
+  - [Building](#building)
+  - [Dependencies](#dependencies)
+  - [Host Definition](#host-definition)
+  - [User Definition](#user-definition)
+  - [Best Practices](#best-practices)
+    - [Error Handling](#error-handling)
+    - [Code Style](#code-style)
+
 ## Building
 
 A `rebuild` utility is provided for common build workflows, such as updating packages or rebuilding then
