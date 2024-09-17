@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Avoid passing an empty argument if no arguments are given
+if [ "$?" -le 2 ]; then
+    args=()
+else
+    args=(-- "${@:2}")
+fi
+
+exec nix run ".#$1" "${args[@]}"

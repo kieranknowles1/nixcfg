@@ -6,13 +6,7 @@
   lib,
   self,
   ...
-}: let
-  # Generate a halper script for activating dev shells in a flake
-  devHelper = name: flake: pkgs.writeShellScriptBin name "nix develop ${flake}#$1";
-  # Helpers to activate dev shells
-  devr = devHelper "devr" "$FLAKE"; # NixOS repository
-  dev = devHelper "dev" "."; # Current repository
-in {
+}: {
   options.custom = {
     # Flakes run as pure functions, and as such can't
     # find the repository path on their own. This option
@@ -57,9 +51,7 @@ in {
     # $ nix search wget
     environment.systemPackages = with pkgs;
       [
-        # Helpers to activate dev shells
-        dev
-        devr
+        flake.nix-utils
         git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
 
         nvd # Generate diffs between generations
