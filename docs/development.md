@@ -49,3 +49,10 @@ Use the `config.assertions` list to check for invalid options or combinations of
 [installing VS Code on a headless server](../modules/home/editor/vscode/default.nix).
 
 This gives a nicely formatted error message and collects all errors rather than stopping at the first one.
+
+### Code Style
+
+Run `nix fmt` before committing to ensure consistent code style.
+
+An apostrophe (`'`) after a variable name is used to indicate that it is an overridden package (See the [reddit question](https://www.reddit.com/r/NixOS/comments/ttaw5u/what_is_the_purpose_of_single_quotes_after/), TL;DR: it's from the prime symbol meaning a derivative in mathematics).
+This is not strictly required, but is included for consistency with Nixpkgs.
