@@ -18,6 +18,11 @@
     config.custom =
       {
         user.kieran = import ../../users/kieran {inherit pkgs config self;};
+
+        secrets = {
+          ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
+          file = ./secrets.yaml;
+        };
       }
       // builtins.fromTOML (builtins.readFile ./config.toml);
   };

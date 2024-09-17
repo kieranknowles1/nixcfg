@@ -6,6 +6,16 @@ repoPath = "/home/kieran/Documents/src/nixcfg"
 office.enable = true
 printing.enable = true
 
+backup.enable = true
+[backup.repositories.documents]
+password = "backup/password" # Path to the secret
+owner = "kieran"
+source = "/home/kieran/Documents"
+# Exclude .git and src, as these are already tracked by git
+exclude = [ ".git", "src" ]
+destination.local = "/home/kieran/Backups/Documents" # Local path
+destination.remote = "backup/remote" # Path to the secret
+
 [networking]
 hostName = "canterbury"
 
