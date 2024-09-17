@@ -80,11 +80,11 @@
           keep = let
             mkKeepOption = name: default:
               lib.mkOption {
+                inherit default;
                 description = ''
                   The number of ${name} backups to keep.
                 '';
                 type = lib.types.int;
-                default = default;
               };
           in {
             daily = mkKeepOption "daily" 7;
@@ -131,7 +131,7 @@
     ];
 
     backups = builtins.attrNames cfg.repositories;
-    secrets = lib.lists.concatMap (name: mkBackupSecrets name) backups;
+    secrets = lib.lists.concatMap mkBackupSecrets backups;
 
     # Generate a backup configuration
     mkBackup = name: pairName: config: repoOrRepoFile: {

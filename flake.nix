@@ -168,7 +168,6 @@
 
   outputs = {
     self,
-    nixpkgs,
     nixpkgs-unstable,
     ...
   } @ inputs: let
@@ -181,7 +180,6 @@
           overlays = builtins.attrValues self.overlays;
         };
 
-      pkgs = importNixpkgs nixpkgs;
       pkgs-unstable = importNixpkgs nixpkgs-unstable;
     in {
       # Format all file types in the flake

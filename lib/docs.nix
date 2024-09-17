@@ -1,8 +1,7 @@
 {
   pkgs,
-  self,
-  inputs,
   lib,
+  clan-core,
 }: let
   evalModules = importer:
     pkgs.lib.evalModules {
@@ -17,7 +16,7 @@
       ];
     };
 
-  jsonLib = inputs.clan-core.lib.jsonschema {
+  jsonLib = clan-core.lib.jsonschema {
     # Options can be overridden here.
   };
 in {
@@ -144,10 +143,7 @@ in {
     values = builtins.filter lib.attrsets.isDerivation (builtins.attrValues packages);
 
     # Nix combines pname with version to create the package name if pname is present.
-    getName = package:
-      if package ? pname
-      then package.pname
-      else package.name;
+    getName = package: package.pname or package.name;
 
     createTocEntry = package: let
       name = getName package;

@@ -69,14 +69,14 @@ in {
     # Copy definitions into the user's mime directory
     home.file =
       lib.attrsets.mapAttrs' toHomeFileEntry
-      (lib.attrsets.filterAttrs (name: value: value.definitionFile != null) config.custom.mime.definition);
+      (lib.attrsets.filterAttrs (_name: value: value.definitionFile != null) config.custom.mime.definition);
 
     xdg.mimeApps = {
       enable = true;
 
       associations.added =
         lib.attrsets.mapAttrs' toXdgAssociation
-        (lib.attrsets.filterAttrs (name: value: value.defaultApp != null) config.custom.mime.definition);
+        (lib.attrsets.filterAttrs (_name: value: value.defaultApp != null) config.custom.mime.definition);
     };
 
     # Update the user's mime database when rebuilding

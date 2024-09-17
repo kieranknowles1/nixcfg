@@ -37,5 +37,20 @@
         "*.json"
       ];
     };
+
+    # Static analysis
+    deadnix.enable = true; # Nix
+    statix = {
+      # Nix
+      enable = true;
+
+      disabled-lints = [
+        # Don't replace `a = attrs.a` with `inherit (attrs) a;`
+        # as I find the assignment more readable
+        # We still prefer `inherit a;` over `a = a` though
+        # as I find the inheritance more readable
+        "manual_inherit_from"
+      ];
+    };
   };
 }
