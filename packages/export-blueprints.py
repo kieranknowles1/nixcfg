@@ -31,12 +31,16 @@ def export_bin():
     )
     print(result.stderr, file=stderr)
 
+    # Return code:
+    # 0: Ok
+    # 2: One or more blueprints could not be decoded, described by stderr
+    # Other: Fatal error
     skipped_any = result.returncode == 2
     if result.returncode != 0:
         if skipped_any:
             print("Warning: Some blueprints could not be decoded", file=stderr)
         else:
-            print("Error: Failed to decode blueprints", file=stderr)
+            raise Exception("Failed to decode blueprints")
 
     return (json.loads(result.stdout), result.stderr if skipped_any else None)
 
