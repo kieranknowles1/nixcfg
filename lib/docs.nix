@@ -161,7 +161,8 @@ in {
       # so descriptions need to start at heading 3.
       longDescription = let
         original = package.meta.longDescription or "";
-      in builtins.replaceStrings ["\n#"] ["\n###"] original;
+      in
+        builtins.replaceStrings ["\n#"] ["\n###"] original;
 
       noDescription = shortDescription == "" && longDescription == "";
     in ''
