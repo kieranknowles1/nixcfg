@@ -2,12 +2,14 @@
 
 - [Development Information](#development-information)
   - [Building](#building)
-  - [Dependencies](#dependencies)
   - [Host Definition](#host-definition)
   - [User Definition](#user-definition)
   - [Best Practices](#best-practices)
     - [Error Handling](#error-handling)
     - [Code Style](#code-style)
+  - [Useful Tools](#useful-tools)
+    - [`nix-tree`](#nix-tree)
+    - [`nix repl`](#nix-repl)
 
 ## Building
 
@@ -15,12 +17,6 @@ A `rebuild` utility is provided for common build workflows, such as updating pac
 committing changes. This is enabled in the `default` [Dev Shell](usage.md#dev-shells).
 
 For more information, run `rebuild --help`.
-
-## Dependencies
-
-The `nix-tree` utility can be useful for visualizing what derivations are included and why. This is
-not included in any configuration/shell, but can be run with `nix run nixpkgs#nix-tree`. This can
-be useful to find why a package is included when you didn't expect it to be.
 
 ## Host Definition
 
@@ -65,3 +61,24 @@ Run `nix fmt` before committing to ensure consistent code style.
 
 An apostrophe (`'`) after a variable name is used to indicate that it is an overridden package (See the [reddit question](https://www.reddit.com/r/NixOS/comments/ttaw5u/what_is_the_purpose_of_single_quotes_after/), TL;DR: it's from the prime symbol meaning a derivative in mathematics).
 This is not strictly required, but is included for consistency with Nixpkgs.
+
+## Useful Tools
+
+### `nix-tree`
+
+The `nix-tree` utility can be useful for visualizing what derivations are included and why. This is
+not included in any configuration/shell, but can be run with `nix run nixpkgs#nix-tree`. This can
+be useful to find why a package is included when you didn't expect it to be.
+
+### `nix repl`
+
+The `:lf` command in `nix repl` can be used to load a flake's outputs into the repl, allowing you to
+interactively explore its outputs and test out functions. For example:
+
+```nix
+# Load the flake from $PWD
+:lf .
+
+# Now you can access the flake's outputs
+builtins.readFile (lib.docs.mkPackageDocs packages.x86_64-linux)
+```
