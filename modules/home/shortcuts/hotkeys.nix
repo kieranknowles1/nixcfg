@@ -28,6 +28,8 @@ in {
         A set of keyboard shortcuts to be managed by sxhkd.
         The key in the set is the binding, and the value contains the action to be executed and
         a description for documentation purposes.
+
+        See [man sxhkd (1)](https://manpages.org/sxhkd) for more information on the syntax of keybindings.
       '';
 
       type = lib.types.attrsOf (lib.types.submodule {
