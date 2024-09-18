@@ -39,6 +39,8 @@
     };
 
     # Static analysis
+    shellcheck.enable = true; # Bash
+
     deadnix.enable = true; # Nix
     statix = {
       # Nix
