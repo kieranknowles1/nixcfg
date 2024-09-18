@@ -2,9 +2,9 @@
 
 # Avoid passing an empty argument if no arguments are given
 if [ "$#" -lt 2 ]; then
-    args=()
+  args=()
 else
-    args=(-- "${@:2}")
+  args=(-- "${@:2}")
 fi
 
 exec nix run ".#$1" "${args[@]}"

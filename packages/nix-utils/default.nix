@@ -5,15 +5,18 @@ stdenv.mkDerivation {
 
   src = ./.;
 
-  # Everything in this directory apart from default.nix is
-  # a bash script. Simply copy them to the bin directory.
   # Nix automatically patches the shebangs to point to the
   # store.
+  # Iterate over all files, copy them to $out/bin, and remove
+  # the .sh extension, excluding the default.nix file.
   buildPhase = ''
     mkdir -p $out/bin
 
-    cp -r $src/. $out/bin/
-    rm $out/bin/default.nix
+    for file in $(ls $src); do
+      if [ "$file" != "default.nix" ]; then
+        cp "$src/$file" "$out/bin/$(basename $file .sh)"
+      fi
+    done
   '';
 
   meta = {
