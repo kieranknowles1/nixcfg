@@ -9,6 +9,7 @@
     ./espanso
     ./firefox.nix
     ./games
+    ./ledstate.nix
     ./mime
     ./nushell
     ./office

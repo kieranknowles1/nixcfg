@@ -66,7 +66,7 @@ I can do all my work in one place.
   - [x] `Alt+T` to open terminal
   - [x] `Ctrl+Shift+Escape` to open System Monitor
   - [x] `Ctrl+Alt+E` to open FSearch
-  - [ ] Some way to disable keyboard LEDs
+  - [x] Some way to disable keyboard LEDs
 - [x] Associate file types with programs
   - [x] PDFs with Firefox, overriding LibreOffice
   - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just need to set the program)
