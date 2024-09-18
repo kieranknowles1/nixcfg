@@ -1,0 +1,469 @@
+{
+  "blueprint": {
+    "description": "Set input combinator to requested fluid",
+    "entities": [
+      {
+        "direction": 2,
+        "entity_number": 1,
+        "name": "straight-rail",
+        "position": {
+          "x": -365,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 2,
+        "name": "straight-rail",
+        "position": {
+          "x": -363,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 3,
+        "name": "straight-rail",
+        "position": {
+          "x": -361,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 4,
+        "name": "straight-rail",
+        "position": {
+          "x": -359,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 5,
+        "name": "straight-rail",
+        "position": {
+          "x": -357,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 6,
+        "name": "straight-rail",
+        "position": {
+          "x": -355,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 7,
+        "name": "straight-rail",
+        "position": {
+          "x": -353,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 8,
+        "name": "straight-rail",
+        "position": {
+          "x": -351,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 9,
+        "name": "straight-rail",
+        "position": {
+          "x": -349,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 10,
+        "name": "straight-rail",
+        "position": {
+          "x": -347,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 11,
+        "name": "straight-rail",
+        "position": {
+          "x": -345,
+          "y": -233
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 12,
+        "name": "straight-rail",
+        "position": {
+          "x": -343,
+          "y": -233
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 13,
+        "name": "pump",
+        "position": {
+          "x": -364.5,
+          "y": -231
+        }
+      },
+      {
+        "entity_number": 14,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          17
+        ],
+        "position": {
+          "x": -361.5,
+          "y": -230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 15,
+        "name": "pump",
+        "position": {
+          "x": -359.5,
+          "y": -231
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 16,
+        "name": "pump",
+        "position": {
+          "x": -357.5,
+          "y": -231
+        }
+      },
+      {
+        "entity_number": 17,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          14,
+          20
+        ],
+        "position": {
+          "x": -354.5,
+          "y": -230.5
+        }
+      },
+      {
+        "direction": 4,
+        "entity_number": 18,
+        "name": "pump",
+        "position": {
+          "x": -352.5,
+          "y": -231
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 29
+              }
+            ]
+          },
+          "2": {
+            "red": [
+              {
+                "entity_id": 22
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "arithmetic_conditions": {
+            "first_signal": {
+              "name": "signal-each",
+              "type": "virtual"
+            },
+            "operation": "*",
+            "output_signal": {
+              "name": "signal-each",
+              "type": "virtual"
+            },
+            "second_constant": -75000
+          }
+        },
+        "direction": 2,
+        "entity_number": 19,
+        "name": "arithmetic-combinator",
+        "position": {
+          "x": -348,
+          "y": -230.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 22
+              },
+              {
+                "entity_id": 28
+              }
+            ]
+          }
+        },
+        "entity_number": 20,
+        "name": "medium-electric-pole",
+        "neighbours": [
+          17
+        ],
+        "position": {
+          "x": -346.5,
+          "y": -230.5
+        }
+      },
+      {
+        "direction": 2,
+        "entity_number": 21,
+        "name": "logistic-train-stop-output",
+        "position": {
+          "x": -344.5,
+          "y": -231.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 20
+              },
+              {
+                "circuit_id": 2,
+                "entity_id": 19
+              },
+              {
+                "entity_id": 30
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "circuit_condition": {
+            "comparator": ">",
+            "constant": 0,
+            "first_signal": {
+              "name": "signal-anything",
+              "type": "virtual"
+            }
+          },
+          "use_colors": true
+        },
+        "entity_number": 22,
+        "name": "logistic-train-stop-input",
+        "position": {
+          "x": -344.5,
+          "y": -230.5
+        }
+      },
+      {
+        "control_behavior": {
+          "read_from_train": true,
+          "train_stopped_signal": {
+            "name": "signal-T",
+            "type": "virtual"
+          }
+        },
+        "direction": 2,
+        "entity_number": 23,
+        "name": "logistic-train-stop",
+        "position": {
+          "x": -345,
+          "y": -231
+        },
+        "station": "TheCyborg"
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 25
+              }
+            ]
+          }
+        },
+        "entity_number": 24,
+        "name": "storage-tank",
+        "position": {
+          "x": -363.5,
+          "y": -228.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 24
+              },
+              {
+                "entity_id": 27
+              }
+            ]
+          }
+        },
+        "direction": 2,
+        "entity_number": 25,
+        "name": "storage-tank",
+        "position": {
+          "x": -360.5,
+          "y": -228.5
+        }
+      },
+      {
+        "entity_number": 26,
+        "name": "pipe",
+        "position": {
+          "x": -358.5,
+          "y": -229.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 25
+              },
+              {
+                "entity_id": 28
+              }
+            ]
+          }
+        },
+        "entity_number": 27,
+        "name": "storage-tank",
+        "position": {
+          "x": -356.5,
+          "y": -228.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 27
+              },
+              {
+                "entity_id": 20
+              }
+            ]
+          }
+        },
+        "direction": 2,
+        "entity_number": 28,
+        "name": "storage-tank",
+        "position": {
+          "x": -353.5,
+          "y": -228.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "circuit_id": 1,
+                "entity_id": 19
+              }
+            ]
+          }
+        },
+        "direction": 4,
+        "entity_number": 29,
+        "name": "constant-combinator",
+        "position": {
+          "x": -348.5,
+          "y": -229.5
+        }
+      },
+      {
+        "connections": {
+          "1": {
+            "red": [
+              {
+                "entity_id": 22
+              }
+            ]
+          }
+        },
+        "control_behavior": {
+          "filters": [
+            {
+              "count": 1,
+              "index": 1,
+              "signal": {
+                "name": "ltn-max-trains",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 3,
+              "index": 2,
+              "signal": {
+                "name": "ltn-max-train-length",
+                "type": "virtual"
+              }
+            },
+            {
+              "count": 50000,
+              "index": 3,
+              "signal": {
+                "name": "ltn-requester-threshold",
+                "type": "virtual"
+              }
+            }
+          ]
+        },
+        "direction": 4,
+        "entity_number": 30,
+        "name": "constant-combinator",
+        "position": {
+          "x": -346.5,
+          "y": -229.5
+        }
+      }
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "ltn-requester-threshold",
+          "type": "virtual"
+        }
+      },
+      {
+        "index": 2,
+        "signal": {
+          "name": "storage-tank",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint",
+    "label": "1-2 Fluid Requester",
+    "version": 281479278886912
+  },
+  "index": 10
+}
