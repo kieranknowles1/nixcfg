@@ -1,13 +1,15 @@
 # Repository Documentation
 
-- [Generated](./generated/readme.md)<br>
-  Wherever possible, documentation is generated from the repository itself rather than being written manually. This avoids duplication, puts the documentation closer to the code, and ensures that it is up-to-date.
+- [Generated](./generated/readme.md)<br> Wherever possible, documentation is
+  generated from the repository itself rather than being written manually. This
+  avoids duplication, puts the documentation closer to the code, and ensures
+  that it is up-to-date.
 
-  Note that generated docs only include details that are enabled on the host. For example, the
-  `Alt+Shift+S` keybinding is only used for hosts with `custom.games.enabled` set to `true` as
-  it is only enabled if the `games` module is active.
+  Note that generated docs only include details that are enabled on the host.
+  For example, the `Alt+Shift+S` keybinding is only used for hosts with
+  `custom.games.enabled` set to `true` as it is only enabled if the `games`
+  module is active.
 
-- [Development](./development.md)<br>
-  Information on how to develop this repository.
-- [Usage](./usage.md)<br>
-  How to use systems configured with this repository.
+- [Development](./development.md)<br> Information on how to develop this
+  repository.
+- [Usage](./usage.md)<br> How to use systems configured with this repository.
