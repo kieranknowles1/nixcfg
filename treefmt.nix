@@ -29,7 +29,7 @@
     rustfmt.enable = true; # Rust
     stylua.enable = true; # Lua
 
-    prettier = {
+    deno = {
       enable = true;
 
       includes = lib.mkForce [
