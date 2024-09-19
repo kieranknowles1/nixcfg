@@ -79,26 +79,32 @@
         code = "code.desktop";
         nvim = "nvim.desktop";
       };
-    in dict.${name};
+    in
+      dict.${name};
 
     defaultEditor = cfg.default;
 
-    defaultGui = if cfg.defaultGui != null then cfg.defaultGui else defaultEditor;
+    defaultGui =
+      if cfg.defaultGui != null
+      then cfg.defaultGui
+      else defaultEditor;
 
     checkEditorEnabled = type: editor:
       lib.optional (editor != null) {
         assertion = editorEnabled editor;
         message = "The default ${type} editor is set to ${editor}, but it is not enabled.";
       };
-  in {
-    # Make sure our default editor is installed
-    assertions =
-      (checkEditorEnabled "CLI" defaultEditor) ++
-      (checkEditorEnabled "GUI" defaultGui);
-  } // (lib.mkIf (defaultGui != null)) {
-    # Assign the default GUI editor to handle text files
-    custom.mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (type: {
-      defaultApp = toDesktopFile defaultGui;
-    });
-  };
+  in
+    {
+      # Make sure our default editor is installed
+      assertions =
+        (checkEditorEnabled "CLI" defaultEditor)
+        ++ (checkEditorEnabled "GUI" defaultGui);
+    }
+    // (lib.mkIf (defaultGui != null)) {
+      # Assign the default GUI editor to handle text files
+      custom.mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
+        defaultApp = toDesktopFile defaultGui;
+      });
+    };
 }
