@@ -54,5 +54,10 @@
         "manual_inherit_from"
       ];
     };
+
+    # Other Repositories
+    # These languages are not used in this repository, but their formatters are included
+    # to let me use the same config everywhere
+    gdformat.enable = true; # GDScript
   };
 }
