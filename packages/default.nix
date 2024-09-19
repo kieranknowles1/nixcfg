@@ -68,6 +68,8 @@ in {
   nixvim = callPackage ./nixvim {inherit inputs;};
 
   openmw-dev = let
+    # This could be a flake input, but it would take a long time to compile
+    # when upgrading inputs
     latestSrc = pkgs.fetchFromGitLab {
       owner = "OpenMW";
       repo = "openmw";
