@@ -25,6 +25,7 @@
   };
 in {
   options.custom.mime = {
+    # TODO: Rename this to something more general, like `types` or `associations`
     definition = lib.mkOption {
       description = ''
         A list of MIME definitions and associated default applications.
@@ -53,7 +54,17 @@ in {
             example = "./definitions/application-x-foo.xml";
           };
           defaultApp = lib.mkOption {
-            description = "The name of the *.desktop file to use as the default application";
+            description = ''
+              The name of the *.desktop file to use as the default application
+
+              This must be a *.desktop file in one of the [Standard Directories](https://unix.stackexchange.com/a/615323).
+              On NixOS, these are:
+              - /run/current-system/sw/share/applications
+              - ~/.local/share/applications
+              - ~/.nix-profile/share/applications
+
+              This is not checked, so should be the first thing you verify if things aren't working as expected.
+            '';
             type = lib.types.nullOr lib.types.str;
             default = null;
             example = "myapp.desktop";
@@ -72,7 +83,7 @@ in {
       (lib.attrsets.filterAttrs (_name: value: value.definitionFile != null) config.custom.mime.definition);
 
     xdg.mimeApps = {
-      enable = true;
+      enable = config.custom.mime.definition != {};
 
       associations.added =
         lib.attrsets.mapAttrs' toXdgAssociation
