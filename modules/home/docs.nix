@@ -110,9 +110,20 @@ in {
         description = "home-manager options";
         source = self.lib.docs.mkOptionDocs self.homeManagerModules.default;
       };
-      "user-options.schema.json" = {
+      "user-options.schema.json" = let
+        filterCustom = opts: opts.custom;
+        # TODO: This is a bit of a hack, would like to have a proper way of disabling options
+        # in JSON.
+        filterNotHidden = opts:
+          builtins.removeAttrs opts [
+            # These are derived from the host's config and usually don't need to be set.
+            # TODO: Can we just make them not required?
+            "repoPath"
+            "fullRepoPath"
+          ];
+      in {
         description = "home-manager options schema";
-        source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: opts.custom);
+        source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: filterNotHidden (filterCustom opts));
       };
       "packages.md" = {
         description = "Flake packages";
