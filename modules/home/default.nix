@@ -10,7 +10,7 @@
     ./firefox.nix
     ./games
     ./ledstate.nix
-    ./mime
+    ./mime.nix
     ./nushell
     ./office
     ./shortcuts
