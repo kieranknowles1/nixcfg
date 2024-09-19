@@ -5,6 +5,8 @@
   projectRootFile = "flake.nix";
 
   settings.global = {
+    # Treefmt raises warnings for all files not covered by a formatter,
+    # so we explicitly skip files that are not meant to be formatted
     excludes = [
       "**/Cargo.toml" # Managed by the Cargo command
       "**/espanso/config/match/packages/**" # Externally sourced
@@ -13,12 +15,19 @@
       "**/ssh/hosts/**"
       "**/ssh/keys/**"
 
+      # Godot scenes/resources. Managed by the editor
+      "*.tscn"
+      "*.tres"
+
       # Binary files
       "*.heic"
       "*.jpg"
       "*.odp"
       "*.ods"
       "*.odt"
+      "*.png"
+      "*.ttf"
+      "*.wav"
     ];
   };
 
