@@ -11,7 +11,6 @@
     # Flakes run as pure functions, and as such can't
     # find the repository path on their own. This option
     # is used instead.
-    # TODO: Also substitute store references in docs
     repoPath = lib.mkOption {
       description = "Absolute path to the repository on disk";
       type = lib.types.str;
