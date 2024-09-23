@@ -84,18 +84,21 @@ in {
     modulesEval = evalModules importer;
 
     # File containing options documentation
-    optionsDoc = (pkgs.nixosOptionsDoc {
-      options = modulesEval.options;
-    }).optionsCommonMark;
+    optionsDoc =
+      (pkgs.nixosOptionsDoc {
+        options = modulesEval.options;
+      })
+      .optionsCommonMark;
 
     sed = lib.getExe pkgs.gnused;
     # Nix regexes only support complete matches, so we can't easily match the store path.
     # Instead, we'll remove it with sed.
     # Use pipe as a delimiter so we don't have to escape slashes.
     # TODO: Can we make the link point to the repository?
-  in pkgs.runCommand "option-docs.md" {} ''
-    cat ${optionsDoc} | ${sed} --regexp-extended 's|\/nix/store/[a-z0-9]{32}-source/||g' > $out
-  '';
+  in
+    pkgs.runCommand "option-docs.md" {} ''
+      cat ${optionsDoc} | ${sed} --regexp-extended 's|\/nix/store/[a-z0-9]{32}-source/||g' > $out
+    '';
 
   /*
   *
