@@ -31,7 +31,6 @@ creation_rules:
     key_groups:
       - age:
           - *rocinante
-
   # Users - Secrets should be accessible on any of the user's machines
   - path_regex: users/kieran/secrets.yaml$
     key_groups:

@@ -47,6 +47,8 @@
       ];
     };
 
+    yamlfmt.enable = true; # YAML
+
     # Static analysis
     shellcheck.enable = true; # Bash
 
