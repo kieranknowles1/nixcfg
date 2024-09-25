@@ -5,7 +5,6 @@
 }: let
   openmw-luadata = lib.getExe flake.openmw-luadata;
 
-  # TODO: Encode during build
   export-openmw = pkgs.writeShellScriptBin "export-openmw" ''
     config_dir="$HOME/.config/openmw"
 

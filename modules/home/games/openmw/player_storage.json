@@ -1,0 +1,173 @@
+{
+  "Table": {
+    "SettingsOMWCameraHeadBobbing": {
+      "Table": {
+        "enabled": {
+          "Boolean": false
+        },
+        "height": {
+          "Number": 3.0
+        },
+        "roll": {
+          "Number": 0.2
+        },
+        "step": {
+          "Number": 90.0
+        }
+      }
+    },
+    "SettingsOMWCameraHeadBobbingArguments": {
+      "Table": {
+        "height": {
+          "Table": {
+            "disabled": {
+              "Boolean": true
+            }
+          }
+        },
+        "roll": {
+          "Table": {
+            "disabled": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 90.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "step": {
+          "Table": {
+            "disabled": {
+              "Boolean": true
+            },
+            "min": {
+              "Number": 1.0
+            }
+          }
+        }
+      }
+    },
+    "SettingsOMWCameraThirdPerson": {
+      "Table": {
+        "autoSwitchShoulder": {
+          "Boolean": true
+        },
+        "deferredPreviewRotation": {
+          "Boolean": true
+        },
+        "ignoreNC": {
+          "Boolean": false
+        },
+        "move360": {
+          "Boolean": true
+        },
+        "move360TurnSpeed": {
+          "Number": 5.0
+        },
+        "povAutoSwitch": {
+          "Boolean": false
+        },
+        "previewIfStandStill": {
+          "Boolean": true
+        },
+        "shoulderOffsetX": {
+          "Number": 30.0
+        },
+        "shoulderOffsetY": {
+          "Number": -10.0
+        },
+        "slowViewChange": {
+          "Boolean": false
+        },
+        "viewOverShoulder": {
+          "Boolean": true
+        },
+        "zoomOutWhenMoveCoef": {
+          "Number": 20.0
+        }
+      }
+    },
+    "SettingsOMWCameraThirdPersonArguments": {
+      "Table": {
+        "autoSwitchShoulder": {
+          "Table": {
+            "disabled": {
+              "Boolean": false
+            }
+          }
+        },
+        "move360TurnSpeed": {
+          "Table": {
+            "disabled": {
+              "Boolean": false
+            }
+          }
+        },
+        "shoulderOffsetX": {
+          "Table": {
+            "disabled": {
+              "Boolean": false
+            }
+          }
+        },
+        "shoulderOffsetY": {
+          "Table": {
+            "disabled": {
+              "Boolean": false
+            }
+          }
+        },
+        "zoomOutWhenMoveCoef": {
+          "Table": {
+            "disabled": {
+              "Boolean": false
+            }
+          }
+        }
+      }
+    },
+    "SettingsOMWControls": {
+      "Table": {
+        "alwaysRun": {
+          "Boolean": true
+        },
+        "smoothControllerMovement": {
+          "Boolean": true
+        },
+        "toggleSneak": {
+          "Boolean": true
+        }
+      }
+    },
+    "SettingsOMWMusic": {
+      "Table": {
+        "CombatMusicEnabled": {
+          "Boolean": true
+        }
+      }
+    },
+    "Settings_openmw_dynamic_music_1000_general": {
+      "Table": {
+        "GENERAL_USE_DEFAULT_SOUNDBANK": {
+          "Boolean": true
+        }
+      }
+    },
+    "Settings_openmw_dynamic_music_2000_combat": {
+      "Table": {
+        "COMBAT_MIN_ENEMY_LEVEL": {
+          "Number": 1.0
+        },
+        "COMBAT_MIN_LEVEL_DIFFERENCE": {
+          "Number": 999.0
+        },
+        "COMBAT_PLAY_COMBAT_MUSIC": {
+          "Boolean": true
+        }
+      }
+    }
+  }
+}
