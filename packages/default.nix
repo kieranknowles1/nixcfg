@@ -71,11 +71,11 @@ in {
     # This could be a flake input, but it would take a long time to compile
     # when upgrading inputs
     latestSrc = pkgs.fetchFromGitLab {
-      owner = "OpenMW";
+      owner = "kieranjohn1";
       repo = "openmw";
-      # Master as of 22-08-2024
-      rev = "03e8b8db0df9bfd97f4db22ead770568c6e8d206";
-      hash = "sha256-HTPyQz9e6HCsrPab0Wbi7FZJwoQvt8jJNqComYkWIWs=";
+      # My fork, based on master as of 25-09-2024
+      rev = "4a087abb1def76f96873eccb4d4eeac5ffd9c62c";
+      hash = "sha256-KAVCbBHp69cmZP1LnWowH+LpzFxQrZXtmQXkJWURjPY=";
     };
 
     devPkg = inputs.openmw.packages.${system}.openmw-dev;

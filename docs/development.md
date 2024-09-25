@@ -2,6 +2,7 @@
 
 - [Development Information](#development-information)
   - [Building](#building)
+    - [Packages](#packages)
   - [Host Definition](#host-definition)
   - [User Definition](#user-definition)
   - [Best Practices](#best-practices)
@@ -18,6 +19,14 @@ packages or rebuilding then committing changes. This is enabled in the `default`
 [Dev Shell](usage.md#dev-shells).
 
 For more information, run `rebuild --help`.
+
+### Packages
+
+When updating hashes for packages, replace the old hash with an empty string
+first to force a download, otherwise Nix will see the old hash and treat it as
+pointing to the cached download.
+
+<!-- TODO: Can this be automated? -->
 
 ## Host Definition
 
