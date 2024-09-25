@@ -134,11 +134,15 @@ in {
     schemaNix = jsonLib.parseOptions filtered {};
 
     # Allow the `$schema` key to be used, as additionalProperties is false.
-    schemaWithExtra = schemaNix // {
-      properties = schemaNix.properties // {
-        "$schema" = { type = "string"; };
+    schemaWithExtra =
+      schemaNix
+      // {
+        properties =
+          schemaNix.properties
+          // {
+            "$schema" = {type = "string";};
+          };
       };
-    };
 
     # Convert the Nix object to JSON to be consistent with the other docs-related functions.
     schemaJson = builtins.toJSON schemaWithExtra;
