@@ -16,6 +16,6 @@ in {
   # There's currently no way to create a blueprint binary directly, so we provide a string
   # that can be imported into Factorio.
   config = lib.mkIf hostConfig.custom.games.enable {
-    home.file."Games/factorio-blueprints.txt".source = blueprintString;
+    home.file."Games/configs/factorio-blueprints.txt".source = blueprintString;
   };
 }
