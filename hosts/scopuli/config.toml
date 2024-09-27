@@ -1,0 +1,11 @@
+#:schema ../../docs/generated/host-options.schema.json
+
+deviceType = "server"
+repoPath = "/home/kieran/nixcfg"
+networking.hostName = "scopuli"
+
+# TODO: Enable this
+backup.enable = false
+
+# TODO: Once we are booting, find a way to prune everything we don't need
+# TODO: Nix build requires a lot of memory. Could I cross compile from my desktop and push to rpi? Would shrink the image a bit

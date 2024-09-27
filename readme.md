@@ -43,6 +43,9 @@ they are named after ships from The Expanse.
   system for just about any task. Fast, powerful, and has a lot of storage.
 - [canterbury](hosts/canterbury/configuration.nix) - My laptop.<br> Portable,
   lightweight, good battery life, and fast enough for what it does.
+- [scopuli](hosts/scopuli/configuration.nix) - My server.<br> A Raspberry Pi 5
+  used as a home lab. Highly work-in-progress and currently in an experimental
+  state.
 
 ## Essential Resources
 
@@ -81,9 +84,9 @@ issues so I can do all my work in one place.
   - [x] PDFs with Firefox, overriding LibreOffice
   - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just
         need to set the program)
-- ❎ Port my server to NixOS. (Raspberry Pi 5 is currently unsupported. Putting
+- [ ] Port my server to NixOS. (Raspberry Pi 5 is currently unsupported. Putting
   this on hold for now)
-  - [x] Build ISO
+  - [ ] Build ISO
         [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
   - [ ] Remove anything not needed for a server
 - [ ] Allow home-manager to be used independently of NixOS

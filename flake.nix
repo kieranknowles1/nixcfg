@@ -204,10 +204,7 @@
     // {
       inherit lib; # Expose our lib module to the rest of the flake
 
-      nixosConfigurations = {
-        rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
-        canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
-      };
+      nixosConfigurations = import ./hosts lib.host.mkHost;
 
       nixosModules.default = import ./modules/nixos;
       homeManagerModules.default = import ./modules/home;
