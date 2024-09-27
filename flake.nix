@@ -177,57 +177,58 @@
     lib = import ./lib inputs;
 
     # TODO: Replace all this with flake-parts
-    old = inputs.flake-utils.lib.eachDefaultSystem (system: let
-      importNixpkgs = branch:
-        import branch {
-          inherit system;
-          overlays = builtins.attrValues self.overlays;
+    old =
+      inputs.flake-utils.lib.eachDefaultSystem (system: let
+        importNixpkgs = branch:
+          import branch {
+            inherit system;
+            overlays = builtins.attrValues self.overlays;
+          };
+
+        pkgs-unstable = importNixpkgs nixpkgs-unstable;
+      in {
+        # Format all file types in the flake
+        # TODO: Automate running this as a check
+        formatter = let
+          eval = inputs.treefmt-nix.lib.evalModule pkgs-unstable ./treefmt.nix;
+        in
+          eval.config.build.wrapper;
+
+        devShells = import ./shells {
+          pkgs = pkgs-unstable;
+        };
+      })
+      // {
+        inherit lib; # Expose our lib module to the rest of the flake
+
+        nixosConfigurations = {
+          rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
+          canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
         };
 
-      pkgs-unstable = importNixpkgs nixpkgs-unstable;
-    in {
-      # Format all file types in the flake
-      # TODO: Automate running this as a check
-      formatter = let
-        eval = inputs.treefmt-nix.lib.evalModule pkgs-unstable ./treefmt.nix;
-      in
-        eval.config.build.wrapper;
+        nixosModules.default = import ./modules/nixos;
+        homeManagerModules.default = import ./modules/home;
 
-      # We can't use `callPackage` here as Nix expects all values to be derivations,
-      # and callPackage generates functions to override the returned value.
-      packages = import ./packages {
-        inherit self inputs;
-        # Base libraries off unstable to match the rest of the OS
-        pkgs = pkgs-unstable;
+        # Extend nixpkgs with flake-specific overlays, for this
+        # flake and its dependencies
+        overlays = import ./overlays.nix self;
+
+        templates.default = {
+          path = ./template;
+          description = "A Nix flake with access to this flake's packages, utilities, and lib module";
+        };
       };
+  in
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = import inputs.systems;
 
-      devShells = import ./shells {
-        pkgs = pkgs-unstable;
-      };
-    })
-    // {
-      inherit lib; # Expose our lib module to the rest of the flake
+      flake = old;
 
-      nixosConfigurations = {
-        rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
-        canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
-      };
+      imports = [
+        ./packages
+      ];
 
-      nixosModules.default = import ./modules/nixos;
-      homeManagerModules.default = import ./modules/home;
-
-      # Extend nixpkgs with flake-specific overlays, for this
-      # flake and its dependencies
-      overlays = import ./overlays.nix self;
-
-      templates.default = {
-        path = ./template;
-        description = "A Nix flake with access to this flake's packages, utilities, and lib module";
+      perSystem = _: {
       };
     };
-  in flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = import inputs.systems;
-
-    flake = old;
-  };
 }
