@@ -194,14 +194,6 @@
       // {
         inherit lib; # Expose our lib module to the rest of the flake
 
-        nixosConfigurations = {
-          rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
-          canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
-        };
-
-        nixosModules.default = import ./modules/nixos;
-        homeManagerModules.default = import ./modules/home;
-
         # Extend nixpkgs with flake-specific overlays, for this
         # flake and its dependencies
         overlays = import ./overlays.nix self;
@@ -218,6 +210,8 @@
       flake = old;
 
       imports = [
+        ./hosts
+        ./modules
         ./packages
         # Format all file types in this flake and others
         # TODO: Automate running this as a check
