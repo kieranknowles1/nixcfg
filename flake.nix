@@ -4,7 +4,8 @@
   inputs = {
     # /// Core ///
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=master";
+    # This isn't quite the bleeding edge, but packages on master are not always cached
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
@@ -34,7 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
 
       inputs.flake-compat.follows = "flake-compat";
-      inputs.nix-update.follows = "nix-update";
     };
 
     # Prebuilt nix-index database, as building it takes a long time
@@ -53,7 +53,7 @@
 
     # This is a much more complete set of extensions than the ones in nixpkgs
     vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions?ref=master";
+      url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
 
@@ -109,7 +109,8 @@
     # TODO: Remove this once 0.48 is building on nixpkgs
     openmw = {
       url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Keep this locked to avoid rebuilding whenever libs are updated
+      inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=759537f06e6999e141588ff1c9be7f3a5c060106";
 
       inputs.snowfall-lib.follows = "snowfall-lib";
     };
@@ -158,12 +159,13 @@
       inputs.flake-utils-plus.follows = "flake-utils-plus";
     };
 
-    nix-update = {
-      url = "github:lilyinstarlight/nix-update";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-    };
+    # TODO: Could be useful for updating package inputs
+    # nix-update = {
+    #   url = "github:lilyinstarlight/nix-update";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.flake-parts.follows = "flake-parts";
+    #   inputs.treefmt-nix.follows = "treefmt-nix";
+    # };
   };
 
   outputs = {
