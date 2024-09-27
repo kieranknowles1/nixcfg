@@ -187,13 +187,6 @@
 
         pkgs = importNixpkgs nixpkgs;
       in {
-        # Format all file types in the flake
-        # TODO: Automate running this as a check
-        formatter = let
-          eval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-        in
-          eval.config.build.wrapper;
-
         devShells = import ./shells {
           inherit pkgs;
         };
@@ -226,6 +219,10 @@
 
       imports = [
         ./packages
+        # Format all file types in this flake and others
+        # TODO: Automate running this as a check
+        inputs.treefmt-nix.flakeModule
+        ./treefmt.nix
       ];
     };
 }
