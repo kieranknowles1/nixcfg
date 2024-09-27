@@ -5,11 +5,7 @@
 }: let
   packagePythonScript = self.lib.package.packagePythonScript;
 in {
-  perSystem = {
-    system,
-    ...
-  }: let
-    pkgs = import inputs.nixpkgs-unstable {inherit system;};
+  perSystem = {system, pkgs, ...}: let
     callPackage = pkgs.callPackage;
   in {
     packages = {

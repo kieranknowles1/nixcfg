@@ -21,7 +21,7 @@ in {
     lib = self.lib;
   };
 
-  nixpkgs-stable = mkNamespace "stable" self.inputs.nixpkgs.legacyPackages {};
+  nixpkgs-stable = mkNamespace "stable" self.inputs.nixpkgs-stable.legacyPackages {};
   nixpkgs-unstable = mkNamespace "unstable" self.inputs.nixpkgs.legacyPackages {};
 
   firefox-addons = mkNamespace "firefox-addons" self.inputs.firefox-addons.packages {};

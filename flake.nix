@@ -3,9 +3,9 @@
 
   inputs = {
     # /// Core ///
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
     # This isn't quite the bleeding edge, but packages on master are not always cached
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
@@ -14,7 +14,7 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
@@ -32,7 +32,7 @@
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
 
       inputs.flake-compat.follows = "flake-compat";
     };
@@ -94,7 +94,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       # NOTE: Nixvim master requires nixpkgs-unstable and will not work with nixpkgs-24.05
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
 
       inputs.flake-parts.follows = "flake-parts";
@@ -170,7 +170,7 @@
 
   outputs = {
     self,
-    nixpkgs-unstable,
+    nixpkgs,
     flake-parts,
     ...
   } @ inputs: let
@@ -185,17 +185,17 @@
             overlays = builtins.attrValues self.overlays;
           };
 
-        pkgs-unstable = importNixpkgs nixpkgs-unstable;
+        pkgs = importNixpkgs nixpkgs;
       in {
         # Format all file types in the flake
         # TODO: Automate running this as a check
         formatter = let
-          eval = inputs.treefmt-nix.lib.evalModule pkgs-unstable ./treefmt.nix;
+          eval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
         in
           eval.config.build.wrapper;
 
         devShells = import ./shells {
-          pkgs = pkgs-unstable;
+          inherit pkgs;
         };
       })
       // {
@@ -227,8 +227,5 @@
       imports = [
         ./packages
       ];
-
-      perSystem = _: {
-      };
     };
 }
