@@ -2,7 +2,6 @@
   config,
   hostConfig,
   lib,
-  pkgs-unstable,
   pkgs,
   ...
 }: let
@@ -24,9 +23,6 @@ in {
 
     programs.vscode = {
       enable = true;
-
-      # Use the latest version of VSCode from the unstable channel
-      package = pkgs-unstable.vscode;
 
       extensions = with pkgs.vscode-marketplace; [
         # Must-have extensions

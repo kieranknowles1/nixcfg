@@ -2,7 +2,7 @@
 {
   config,
   lib,
-  pkgs-unstable,
+  pkgs,
   ...
 }: {
   options = {
@@ -12,7 +12,7 @@
   config = lib.mkIf config.custom.games.enable {
     programs.steam.enable = true;
 
-    environment.systemPackages = with pkgs-unstable; [
+    environment.systemPackages = with pkgs; [
       zenity # Need this for MO2 installer
 
       # Windows dependencies can be installed to a wine prefix using winetricks.
