@@ -81,9 +81,8 @@
     # overridden by another flake that consumes this one.
     systems.url = "github:nix-systems/default-linux";
 
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
     };
 
     treefmt-nix = {
@@ -135,8 +134,9 @@
 
     # TODO: Maybe migrate to this from flake-utils
     # Also look at snowfall-lib and flake-utils-plus
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
 
     flake-utils-plus = {
@@ -171,11 +171,13 @@
   outputs = {
     self,
     nixpkgs-unstable,
+    flake-parts,
     ...
   } @ inputs: let
     lib = import ./lib inputs;
-  in
-    inputs.flake-utils.lib.eachDefaultSystem (system: let
+
+    # TODO: Replace all this with flake-parts
+    old = inputs.flake-utils.lib.eachDefaultSystem (system: let
       importNixpkgs = branch:
         import branch {
           inherit system;
@@ -223,4 +225,9 @@
         description = "A Nix flake with access to this flake's packages, utilities, and lib module";
       };
     };
+  in flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = import inputs.systems;
+
+    flake = old;
+  };
 }
