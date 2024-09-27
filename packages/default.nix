@@ -5,7 +5,11 @@
 }: let
   packagePythonScript = self.lib.package.packagePythonScript;
 in {
-  perSystem = {system, pkgs, ...}: let
+  perSystem = {
+    system,
+    pkgs,
+    ...
+  }: let
     callPackage = pkgs.callPackage;
   in {
     packages = {

@@ -96,6 +96,9 @@ issues so I can do all my work in one place.
         [extension](https://marketplace.visualstudio.com/items?itemName=Isotechnics.commentlinks)
 - [ ] Pre-commit hooks
   - [ ] Check that `nix fmt` doesn't change anything
+- [ ] Convert to `flake-parts` for better modularity
+  - [ ] `flake.nix`
+  - [ ] Template
 
 ## Lessons Learned
 
