@@ -194,10 +194,6 @@
       // {
         inherit lib; # Expose our lib module to the rest of the flake
 
-        # Extend nixpkgs with flake-specific overlays, for this
-        # flake and its dependencies
-        overlays = import ./overlays.nix self;
-
         templates.default = {
           path = ./template;
           description = "A Nix flake with access to this flake's packages, utilities, and lib module";
@@ -213,6 +209,9 @@
         ./hosts
         ./modules
         ./packages
+        # Extend nixpkgs with flake-specific overlays, for this
+        # flake and its dependencies
+        ./overlays.nix
         # Format all file types in this flake and others
         # TODO: Automate running this as a check
         inputs.treefmt-nix.flakeModule
