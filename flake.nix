@@ -168,36 +168,13 @@
     # };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-parts,
-    ...
-  } @ inputs: let
-    lib = import ./lib inputs;
-
-    # TODO: Replace all this with flake-parts
-    old =
-      inputs.flake-utils.lib.eachDefaultSystem (system: let
-        importNixpkgs = branch:
-          import branch {
-            inherit system;
-            overlays = builtins.attrValues self.overlays;
-          };
-
-        pkgs = importNixpkgs nixpkgs;
-      in {
-        devShells = import ./shells {
-          inherit pkgs;
-        };
-      });
-  in
+  outputs = {flake-parts, ...} @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import inputs.systems;
 
-      flake = old // {
+      flake = {
         # Expose our lib module to the rest of the flake
-        inherit lib;
+        lib = import ./lib inputs;
 
         templates.default = {
           path = ./template;
@@ -209,6 +186,7 @@
         ./hosts
         ./modules
         ./packages
+        ./shells
         # Extend nixpkgs with flake-specific overlays, for this
         # flake and its dependencies
         ./overlays.nix
