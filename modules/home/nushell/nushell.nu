@@ -17,7 +17,7 @@ def --env mkcd [
 # === Welcome Message ===
 def __get_nixpkgs_last_update [] {
     let flake = $env.FLAKE + "/flake.lock"
-    let nixpkgs_utc_time = open $flake | from json | get nodes.nixpkgs-unstable.locked.lastModified
+    let nixpkgs_utc_time = open $flake | from json | get nodes.nixpkgs.locked.lastModified
 
     # NuShell uses nanoseconds since epoch, while flake.lock uses seconds since epoch
     let nixpkgs_utc_nano = $nixpkgs_utc_time * 1_000_000_000

@@ -3,9 +3,9 @@
 
   inputs = {
     # /// Core ///
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
     # This isn't quite the bleeding edge, but packages on master are not always cached
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
@@ -14,7 +14,7 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
@@ -32,7 +32,7 @@
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
 
       inputs.flake-compat.follows = "flake-compat";
     };
@@ -81,9 +81,8 @@
     # overridden by another flake that consumes this one.
     systems.url = "github:nix-systems/default-linux";
 
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
     };
 
     treefmt-nix = {
@@ -95,7 +94,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       # NOTE: Nixvim master requires nixpkgs-unstable and will not work with nixpkgs-24.05
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
 
       inputs.flake-parts.follows = "flake-parts";
@@ -135,8 +134,9 @@
 
     # TODO: Maybe migrate to this from flake-utils
     # Also look at snowfall-lib and flake-utils-plus
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
 
     flake-utils-plus = {
@@ -168,59 +168,32 @@
     # };
   };
 
-  outputs = {
-    self,
-    nixpkgs-unstable,
-    ...
-  } @ inputs: let
-    lib = import ./lib inputs;
-  in
-    inputs.flake-utils.lib.eachDefaultSystem (system: let
-      importNixpkgs = branch:
-        import branch {
-          inherit system;
-          overlays = builtins.attrValues self.overlays;
+  outputs = {flake-parts, ...} @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = import inputs.systems;
+
+      flake = {
+        # Expose our lib module to the rest of the flake
+        lib = import ./lib inputs;
+
+        templates.default = {
+          path = ./template;
+          description = "A Nix flake with access to this flake's packages, utilities, and lib module";
         };
-
-      pkgs-unstable = importNixpkgs nixpkgs-unstable;
-    in {
-      # Format all file types in the flake
-      # TODO: Automate running this as a check
-      formatter = let
-        eval = inputs.treefmt-nix.lib.evalModule pkgs-unstable ./treefmt.nix;
-      in
-        eval.config.build.wrapper;
-
-      # We can't use `callPackage` here as Nix expects all values to be derivations,
-      # and callPackage generates functions to override the returned value.
-      packages = import ./packages {
-        inherit self inputs;
-        # Base libraries off unstable to match the rest of the OS
-        pkgs = pkgs-unstable;
       };
 
-      devShells = import ./shells {
-        pkgs = pkgs-unstable;
-      };
-    })
-    // {
-      inherit lib; # Expose our lib module to the rest of the flake
-
-      nixosConfigurations = {
-        rocinante = lib.host.mkHost ./hosts/rocinante/configuration.nix;
-        canterbury = lib.host.mkHost ./hosts/canterbury/configuration.nix;
-      };
-
-      nixosModules.default = import ./modules/nixos;
-      homeManagerModules.default = import ./modules/home;
-
-      # Extend nixpkgs with flake-specific overlays, for this
-      # flake and its dependencies
-      overlays = import ./overlays.nix self;
-
-      templates.default = {
-        path = ./template;
-        description = "A Nix flake with access to this flake's packages, utilities, and lib module";
-      };
+      imports = [
+        ./hosts
+        ./modules
+        ./packages
+        ./shells
+        # Extend nixpkgs with flake-specific overlays, for this
+        # flake and its dependencies
+        ./overlays.nix
+        # Format all file types in this flake and others
+        # TODO: Automate running this as a check
+        inputs.treefmt-nix.flakeModule
+        ./treefmt.nix
+      ];
     };
 }

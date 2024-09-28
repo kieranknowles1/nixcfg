@@ -1,6 +1,5 @@
 {
   nixpkgs,
-  nixpkgs-unstable,
   self,
   inputs,
 }: {
@@ -31,15 +30,11 @@
   mkHost = rootConfig: let
     config = import rootConfig;
     system = config.system;
-    pkgs-unstable = import nixpkgs-unstable {
-      inherit system;
-      config.allowUnfree = true;
-    };
   in
-    nixpkgs-unstable.lib.nixosSystem {
+    nixpkgs.lib.nixosSystem {
       # Pass the flake's inputs and pkgs-unstable to the module
       # TODO: See if we can remove this entirely, would remove the assumption that we're passing certain arguments
-      specialArgs = {inherit self inputs pkgs-unstable;};
+      specialArgs = {inherit self inputs;};
 
       # Include the host's configuration and all modules
       modules = [

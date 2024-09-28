@@ -1,4 +1,8 @@
-self: let
+{
+  self,
+  inputs,
+  ...
+}: let
   /*
   Helper to create a namespace for a set of packages.
 
@@ -17,17 +21,19 @@ self: let
     "${name}" = namespacePkgs // extra;
   });
 in {
-  default = mkNamespace "flake" self.packages {
-    lib = self.lib;
+  flake.overlays = {
+    default = mkNamespace "flake" self.packages {
+      lib = self.lib;
+    };
+
+    nixpkgs-stable = mkNamespace "stable" inputs.nixpkgs-stable.legacyPackages {};
+    nixpkgs-unstable = mkNamespace "unstable" inputs.nixpkgs.legacyPackages {};
+
+    firefox-addons = mkNamespace "firefox-addons" inputs.firefox-addons.packages {};
+
+    # Also add overlays needed by the flake
+    # TODO: nixvim requires nixpkgs-unstable
+    # nixvim = flake.inputs.nixvim.overlays.default;
+    vscode-extensions = inputs.vscode-extensions.overlays.default;
   };
-
-  nixpkgs-stable = mkNamespace "stable" self.inputs.nixpkgs.legacyPackages {};
-  nixpkgs-unstable = mkNamespace "unstable" self.inputs.nixpkgs.legacyPackages {};
-
-  firefox-addons = mkNamespace "firefox-addons" self.inputs.firefox-addons.packages {};
-
-  # Also add overlays needed by the flake
-  # TODO: nixvim requires nixpkgs-unstable
-  # nixvim = flake.inputs.nixvim.overlays.default;
-  vscode-extensions = self.inputs.vscode-extensions.overlays.default;
 }
