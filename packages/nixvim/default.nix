@@ -4,8 +4,9 @@
 # This can be further specialised with `nixvim.extend` to adjust
 # options as needed
 {
-  pkgs,
-  inputs,
+  vimPlugins,
+  nixvim,
+  system,
   lib,
 }: let
   # TODO: Configure all the language servers I use
@@ -17,7 +18,7 @@
   # Format: server = "language-server"; tsgrammar = tree-sitter-grammar; serverConfig = {options = "here"};
   # See https://nix-community.github.io/nixvim/plugins/lsp/index.html for a list of available servers
   # See https://search.nixos.org/packages?&type=packages&query=vimPlugins.nvim-treesitter-parsers for a list of available grammars
-  languages = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+  languages = with vimPlugins.nvim-treesitter-parsers; [
     {
       server = "lua-ls";
       tsgrammar = lua;
@@ -38,7 +39,7 @@
     }
   ];
 in
-  inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
+  nixvim.legacyPackages.${system}.makeNixvimWithModule {
     module = {config, ...}: {
       options.custom = {
         optimise = lib.mkEnableOption "optimisations to reduce startup time";
