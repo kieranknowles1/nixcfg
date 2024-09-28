@@ -1,0 +1,17 @@
+{
+  "deconstruction_planner": {
+    "item": "deconstruction-planner",
+    "label": "Cliffs",
+    "settings": {
+      "entity_filters": [
+        {
+          "index": 0,
+          "name": "cliff"
+        }
+      ],
+      "tile_selection_mode": 2
+    },
+    "version": 281479278886912
+  },
+  "index": 3
+}
