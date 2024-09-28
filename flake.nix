@@ -190,20 +190,20 @@
         devShells = import ./shells {
           inherit pkgs;
         };
-      })
-      // {
-        inherit lib; # Expose our lib module to the rest of the flake
+      });
+  in
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = import inputs.systems;
+
+      flake = old // {
+        # Expose our lib module to the rest of the flake
+        inherit lib;
 
         templates.default = {
           path = ./template;
           description = "A Nix flake with access to this flake's packages, utilities, and lib module";
         };
       };
-  in
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = import inputs.systems;
-
-      flake = old;
 
       imports = [
         ./hosts
