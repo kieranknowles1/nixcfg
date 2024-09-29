@@ -12,8 +12,6 @@
       });
   in {
     packages = {
-      # TODO: Use a different .nix file for each package instead of inline descriptions/definitions
-      # TODO: Automatically list all packages rather than manually adding them to this file?
       combine-blueprints = callPackage ./combine-blueprints {};
       command-palette = callPackage ./command-palette {};
       export-blueprints = callPackage ./export-blueprints {};

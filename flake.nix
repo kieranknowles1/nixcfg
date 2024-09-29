@@ -84,9 +84,7 @@
     # overridden by another flake that consumes this one.
     systems.url = "github:nix-systems/default-linux";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -195,8 +193,6 @@
         # flake and its dependencies
         ./overlays.nix
         # Format all file types in this flake and others
-        # TODO: Automate running this as a check
-        inputs.treefmt-nix.flakeModule
         ./treefmt.nix
       ];
     };
