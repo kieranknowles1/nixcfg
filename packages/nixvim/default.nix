@@ -109,6 +109,8 @@ in
             };
           };
 
+          web-devicons.enable = config.plugins.telescope.enable;
+
           # Language servers
           lsp = {
             enable = true;
