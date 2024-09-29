@@ -1,7 +1,15 @@
 # Config for treefmt. This is a Nix module, and as such has all
 # the features of one.
 # See https://flake.parts/options/treefmt-nix for a list of options
-{lib, ...}: {
+{
+  lib,
+  inputs,
+  ...
+}: {
+  imports = [
+    inputs.treefmt-nix.flakeModule
+  ];
+
   perSystem.treefmt = {
     projectRootFile = "flake.nix";
 

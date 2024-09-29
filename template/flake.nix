@@ -5,47 +5,53 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     systems.url = "github:nix-systems/default-linux";
 
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixcfg = {
       url = "github:kieranknowles1/nixcfg";
-      inputs.nixpkgs-unstable.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
-    eachDefaultSystem = inputs.flake-utils.lib.eachDefaultSystem;
-    cfgLib = inputs.nixcfg.lib;
+  outputs = {
+    flake-parts,
+    nixcfg,
+    ...
+  } @ inputs: let
+    cfgLib = nixcfg.lib;
   in
-    eachDefaultSystem (system: let
-      pkgs = import inputs.nixpkgs {inherit system;};
-    in {
-      # Per system type
-      packages = {
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = import inputs.systems;
+
+      flake = {
+        # Shared across all systems
+
+        # Inherit formatters from nixcfg
+        formatter = nixcfg.formatter;
       };
 
-      devShells = {
-        # Wrapper that sets the magic DEVSHELL variable, and preserves the user's default shell
-        default = cfgLib.shell.mkShellEx {
-          name = "dev";
-          packages = with pkgs; [
-            hello
-          ];
+      perSystem = {pkgs, ...}: {
+        # Per system type
+        devShells = {
+          # Wrapper that sets the magic DEVSHELL variable, and preserves the user's default shell
+          # Usage: `nix develop [.#name=default]`
+          default = cfgLib.shell.mkShellEx {
+            name = "dev";
+            packages = with pkgs; [
+              hello
+            ];
 
-          shellHook = ''
-            hello
-          '';
+            shellHook = ''
+              echo "Hello, world!"
+            '';
+          };
+        };
+
+        packages = {
+          # Usage: `nix run [.#name=default]`
+          default = pkgs.hello;
         };
       };
-    })
-    // {
-      # Shared across all systems
-
-      # Format all files the same way as in the nixcfg repo via treefmt
-      formatter = inputs.nixcfg.formatter;
     };
 }
