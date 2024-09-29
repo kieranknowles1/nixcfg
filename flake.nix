@@ -1,6 +1,9 @@
 {
   description = "The NixOS configuration for my systems";
 
+  # Dependencies for the flake
+  # The syntax `inputs.xxx.follows = ""` removes the input from another flake, this is useful
+  # when the input is unused by us to avoid fetching unnecessary data.
   inputs = {
     # /// Core ///
     nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
@@ -25,7 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
 
-      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-compat.follows = "";
     };
 
     # TODO: Use the official Cosmic once https://github.com/NixOS/nixpkgs/pull/330167 is merged
@@ -34,7 +37,7 @@
       inputs.nixpkgs-stable.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
 
-      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-compat.follows = "";
     };
 
     # Prebuilt nix-index database, as building it takes a long time
@@ -57,7 +60,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
 
-      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-compat.follows = "";
     };
 
     # /// Utilities ///
@@ -95,12 +98,15 @@
       url = "github:nix-community/nixvim";
       # NOTE: Nixvim master requires nixpkgs-unstable and will not work with nixpkgs-24.05
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.home-manager.follows = "home-manager";
 
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-      inputs.nuschtosSearch.follows = "nuschtosSearch";
+      inputs.devshell.follows = "";
+      inputs.flake-compat.follows = "";
+      inputs.git-hooks.follows = "";
+      inputs.nix-darwin.follows = "";
+      inputs.nuschtosSearch.follows = "";
+      inputs.treefmt-nix.follows = "";
     };
 
     # nixpkgs doesn't include the dependencies for master, so we override a separate flake
@@ -128,9 +134,6 @@
     # duplicating inputs of other inputs.
     # TODO: See if we can detect if any of these are unnecessary and warn/error,
     # could also check for duplicate inputs in general.
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-    };
 
     # TODO: Maybe migrate to this from flake-utils
     # Also look at snowfall-lib and flake-utils-plus
@@ -146,17 +149,18 @@
 
     # TODO: Seems very useful for viewing documentation. Could set it up to cover
     # everything but nixpkgs.
-    nuschtosSearch = {
-      url = "github:NuschtOS/search";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+    # nuschtosSearch = {
+    #   url = "github:NuschtOS/search";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.flake-utils.follows = "flake-utils";
+    # };
 
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils-plus.follows = "flake-utils-plus";
+
+      inputs.flake-compat.follows = "";
     };
 
     # TODO: Could be useful for updating package inputs
