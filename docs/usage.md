@@ -3,6 +3,7 @@
 - [Usage Information](#usage-information)
   - [Backups](#backups)
   - [Dev Shells](#dev-shells)
+  - [Using in Another Flake](#using-in-another-flake)
 
 ## Backups
 
@@ -23,3 +24,11 @@ and monthly backups for 12 months. This can be overridden per-repository.
 Dev shells are provided for development of various languages/projects. These can
 be entered with `devr <shell>`. A list of available shells can be found with
 `nix flake show`.
+
+## Using in Another Flake
+
+This repository can be used as an input to another flake same as any other
+flake, components can then be used as needed. A template for this is provided
+and can be used with `nix flake init --template github:kieranknowles1/nixcfg`.
+Be warned that breaking changes can and will be introduced here without warning,
+so updating inputs may require changes to the consuming flake.
