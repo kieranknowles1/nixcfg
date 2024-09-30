@@ -110,10 +110,11 @@
     # nixpkgs doesn't include the dependencies for master, so we override a separate flake
     # The source code could also be a flake input, but doing so would take a long time to update
     # TODO: Remove this once 0.48 is building on nixpkgs
+    # Keep this locked to avoid rebuilding whenever libs are updated
+    nixpkgs-openmw.url = "github:nixos/nixpkgs?ref=759537f06e6999e141588ff1c9be7f3a5c060106";
     openmw = {
       url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
-      # Keep this locked to avoid rebuilding whenever libs are updated
-      inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=759537f06e6999e141588ff1c9be7f3a5c060106";
+      inputs.nixpkgs.follows = "nixpkgs-openmw";
 
       inputs.snowfall-lib.follows = "snowfall-lib";
     };
@@ -175,9 +176,6 @@
       systems = import inputs.systems;
 
       flake = {
-        # Expose our lib module to the rest of the flake
-        lib = import ./lib inputs;
-
         templates.default = {
           path = ./template;
           description = "A Nix flake with access to this flake's packages, utilities, and lib module";
@@ -186,6 +184,7 @@
 
       imports = [
         ./hosts
+        ./lib
         ./modules
         ./packages
         ./shells

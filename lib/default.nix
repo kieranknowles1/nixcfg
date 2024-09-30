@@ -1,17 +1,15 @@
-{
-  nixpkgs,
-  self,
-  ...
-} @ inputs: let
-  pkgs = import nixpkgs {system = "x86_64-linux";};
+{inputs, ...}: let
+  # TODO: lib shouldn't depend on system type
+  pkgs = import inputs.nixpkgs {system = "x86_64-linux";};
 
   callPackage = pkgs.lib.customisation.callPackageWith (pkgs // inputs);
 in {
-  attrset = import ./attrset.nix;
-  docs = callPackage ./docs.nix {};
-  # We need to import nixpkgs and nixpkgs-unstable for the host's system type
-  host = import ./host.nix {inherit nixpkgs self inputs;};
-  image = import ./image.nix {inherit pkgs;};
-  package = import ./package.nix {inherit pkgs;};
-  shell = import ./shell.nix {inherit pkgs;};
+  flake.lib = {
+    attrset = callPackage ./attrset.nix {};
+    docs = callPackage ./docs.nix {};
+    host = callPackage ./host.nix {inherit inputs;};
+    image = callPackage ./image.nix {};
+    package = callPackage ./package.nix {};
+    shell = callPackage ./shell.nix {};
+  };
 }
