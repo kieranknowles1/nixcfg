@@ -1,4 +1,4 @@
-#:schema ../../docs/generated/user-options.schema.json
+'$schema' = "../../docs/generated/user-options.schema.json"
 
 # Overrides to enable on desktop hosts
 
