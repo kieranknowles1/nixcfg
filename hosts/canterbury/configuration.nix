@@ -25,6 +25,6 @@
     ];
 
     # Enable everything needed for this configuration
-    config.custom = builtins.fromTOML (builtins.readFile ./config.toml);
+    config.custom = self.lib.host.readTomlFile ./config.toml;
   };
 }

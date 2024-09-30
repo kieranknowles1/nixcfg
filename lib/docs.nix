@@ -110,8 +110,8 @@ in {
   => JSON file
 
   # Toml is preferred for configuration files as it supports comments
-  # and has a more nix-like syntax.
-  config.foo = builtins.fromTOML (builtins.readFile ./config.toml)
+  # and has a more nix-like syntax, but JSON and YAML could also be used.
+  config.foo = lib.host.readTomlFile ./config.toml
 
   ```
 

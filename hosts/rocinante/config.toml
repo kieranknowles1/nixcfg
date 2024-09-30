@@ -1,4 +1,4 @@
-#:schema ../../docs/generated/host-options.schema.json
+'$schema' = "../../docs/generated/host-options.schema.json"
 
 deviceType = "desktop"
 repoPath = "/home/kieran/Documents/src/nixcfg"
