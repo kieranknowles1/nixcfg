@@ -12,19 +12,19 @@
   }: {
     imports = [
       ./hardware-configuration.nix
+      {
+        custom = {
+          user.kieran = import ../../users/kieran {inherit pkgs config self;};
+
+          secrets = {
+            ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
+            file = ./secrets.yaml;
+          };
+        };
+      }
     ];
 
     # Enable everything needed for this configuration
-    config.custom = self.lib.attrset.deepMergeSets [
-      {
-        user.kieran = import ../../users/kieran {inherit pkgs config self;};
-
-        secrets = {
-          ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
-          file = ./secrets.yaml;
-        };
-      }
-      (builtins.fromTOML (builtins.readFile ./config.toml))
-    ];
+    config.custom = builtins.fromTOML (builtins.readFile ./config.toml);
   };
 }

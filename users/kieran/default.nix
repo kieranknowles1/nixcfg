@@ -28,6 +28,8 @@ in {
   };
 
   home = {
+    # Use a dedicated deepMergeSets function to merge the TOML files, as this
+    # gives more easily understandable behaviour than options merging.
     custom = deepMergeSets [nixOnlyConfig desktopConfig baseConfig];
 
     # This value determines the Home Manager release that your configuration is
