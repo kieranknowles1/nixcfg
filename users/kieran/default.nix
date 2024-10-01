@@ -11,7 +11,7 @@
   baseConfig = readTomlFile ./config.toml;
   desktopConfig =
     if isDesktop
-    then readTomlFile ./config.toml
+    then readTomlFile ./config-desktop.toml
     else {};
 
   # Values that can't be configured in the TOML files
