@@ -19,8 +19,8 @@
     lib.mkIf cfg.enable {
       assertions = [
         {
-          assertion = hostConfig.custom.deviceType == "desktop";
-          message = "Keyboard shortcuts are only available on desktop devices";
+          assertion = hostConfig.custom.features.desktop;
+          message = "Keyboard shortcuts require a desktop environment.";
         }
       ];
     };

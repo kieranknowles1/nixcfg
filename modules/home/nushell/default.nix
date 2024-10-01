@@ -13,9 +13,6 @@
   minifiedNerdFonts = pkgs.nerdfonts.override {
     fonts = [defaultMonoFont];
   };
-
-  # TODO: Hacky way to get the build working.
-  isDesktop = hostConfig.custom.deviceType == "desktop";
 in {
   programs.nushell = {
     enable = true;
@@ -31,7 +28,8 @@ in {
 
   # Use Carapace to generate completions
   programs.carapace = {
-    enable = isDesktop;
+    # TODO: Is this necessary?
+    enable = hostConfig.custom.features.desktop;
     enableNushellIntegration = true;
   };
 
@@ -47,7 +45,8 @@ in {
     enableNushellIntegration = true;
   };
 
-  fonts.fontconfig.enable = isDesktop;
+  # fontconfig is not relevant on servers
+  fonts.fontconfig.enable = hostConfig.custom.features.desktop;
 
   # Starship uses icons from NerdFonts
   home.packages = [

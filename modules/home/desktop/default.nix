@@ -3,9 +3,7 @@
   config,
   hostConfig,
   ...
-}: let
-  isDesktop = hostConfig.custom.deviceType == "desktop";
-in {
+}: {
   imports = [
     ./gnome.nix
   ];
@@ -25,7 +23,7 @@ in {
     };
   };
 
-  config = lib.mkIf isDesktop {
+  config = lib.mkIf hostConfig.custom.features.desktop {
     custom.desktop.templates = {
       "Empty File" = builtins.toFile "empty.txt" "";
     };

@@ -6,22 +6,25 @@
   self,
   ...
 }: {
-  options.custom = {
+  options.custom = let
+    inherit (lib) mkOption types;
+  in {
     # Flakes run as pure functions, and as such can't
     # find the repository path on their own. This option
     # is used instead.
-    repoPath = lib.mkOption {
+    repoPath = mkOption {
       description = "Absolute path to the repository on disk";
-      type = lib.types.str;
+      type = types.str;
     };
 
-    deviceType = lib.mkOption {
-      description = "The type of device this configuration is for.";
-
-      type = lib.types.enum [
-        "desktop"
-        "server"
-      ];
+    features = let
+      mkFeatureOption = name: description: mkOption {
+        description = "Whether the system is a ${name} and should have ${description} enabled.";
+        type = types.bool;
+        default = false;
+      };
+    in {
+      desktop = mkFeatureOption "desktop" "a graphical environment";
     };
   };
 
@@ -57,7 +60,7 @@
         file
         p7zip
       ]
-      ++ (lib.optionals (config.custom.deviceType == "desktop") [
+      ++ (lib.optionals config.custom.features.desktop [
         fsearch # Everything clone. GUI only
       ]);
 

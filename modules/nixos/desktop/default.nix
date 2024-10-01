@@ -23,7 +23,7 @@
     ./gnome.nix
   ];
 
-  config = lib.mkIf (config.custom.deviceType == "desktop") {
+  config = lib.mkIf config.custom.features.desktop {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
 

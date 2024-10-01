@@ -16,8 +16,8 @@ in {
     # If code isn't enabled, the assertion will never be checked due to the mkIf.
     assertions = [
       {
-        assertion = hostConfig.custom.deviceType != "server";
-        message = "VS Code is not supported on servers. Use remote development instead.";
+        assertion = hostConfig.custom.features.desktop;
+        message = "VS Code requires a desktop environment. Use remote development instead.";
       }
     ];
 
