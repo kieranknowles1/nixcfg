@@ -3,6 +3,7 @@
 # Overrides to enable on desktop hosts
 
 docs-generate.enable = true
+discord.enable = true
 shortcuts.enable = true
 
 [editor]
