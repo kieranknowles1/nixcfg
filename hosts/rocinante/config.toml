@@ -1,6 +1,6 @@
 '$schema' = "../../docs/generated/host-options.schema.json"
 
-deviceType = "desktop"
+features.desktop = true
 repoPath = "/home/kieran/Documents/src/nixcfg"
 games.enable = true
 

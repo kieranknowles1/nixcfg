@@ -6,11 +6,9 @@
   inherit (self.lib.attrset) deepMergeSets;
   inherit (self.lib.host) readTomlFile;
 
-  isDesktop = config.custom.deviceType == "desktop";
-
   baseConfig = readTomlFile ./config.toml;
   desktopConfig =
-    if isDesktop
+    if config.custom.features.desktop
     then readTomlFile ./config-desktop.toml
     else {};
 

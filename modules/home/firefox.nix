@@ -3,11 +3,9 @@
   hostConfig,
   pkgs,
   ...
-}: let
-  isDesktop = hostConfig.custom.deviceType == "desktop";
-in {
+}: {
   programs.firefox = {
-    enable = isDesktop;
+    enable = hostConfig.custom.features.desktop;
 
     policies = {
       AutofillCreditCardEnabled = false;

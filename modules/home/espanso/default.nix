@@ -27,7 +27,7 @@ in {
   };
 
   # Espanso doesn't make sense on a headless server
-  config = lib.mkIf (hostConfig.custom.deviceType == "desktop") {
+  config = lib.mkIf hostConfig.custom.features.desktop {
     services.espanso = {
       enable = true;
       # Don't manage configs here, apart from the base match file
