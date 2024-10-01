@@ -4,6 +4,7 @@
   imports = [
     ./common.nix
     ./desktop
+    ./discord.nix
     ./docs.nix
     ./editor
     ./espanso
