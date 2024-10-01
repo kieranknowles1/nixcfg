@@ -2,7 +2,7 @@
   pkgs,
   flake,
 }:
-flake.lib.shell.mkShellEx {
+flake.lib.shell.mkShellEx pkgs.mkShellNoCC {
   name = "rust";
 
   # Packages to put on the PATH

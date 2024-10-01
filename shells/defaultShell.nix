@@ -12,7 +12,7 @@
     ${openmw-luadata} decode "$config_dir/player_storage.bin" > "$FLAKE/modules/home/games/openmw/player_storage.json"
   '';
 in
-  pkgs.flake.lib.shell.mkShellEx {
+  pkgs.flake.lib.shell.mkShellEx pkgs.mkShellNoCC {
     name = "meta";
 
     packages = with pkgs; [
