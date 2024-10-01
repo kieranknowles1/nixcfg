@@ -1,13 +1,19 @@
-{pkgs}: {
+_: {
   /*
   *
   Extended mkShell that uses the user's shell instead of bash
 
   # Arguments
-  Identical to mkShellNoCC. Note that shellHook is executed as Bash before exec'ing the user's shell.
+  builder :: Function
+  : The builder to use for the shell. Most commonly, `pkgs.mkShellNoCC` is used.
+
+  args :: AttrSet
+  : Arguments to pass to the shell builder
+
+  Note that shellHook is executed as Bash, before execing the user's shell.
   */
-  mkShellEx = args:
-    pkgs.mkShellNoCC (args
+  mkShellEx = builder: args:
+    builder (args
       // {
         # args // passes all arguments to mkShellNoCC, except those that are overridden below
 
