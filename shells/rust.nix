@@ -1,24 +1,28 @@
 {
-  pkgs,
+  cargo,
+  rustc,
+  mkShell,
+  openssl,
+  pkg-config,
+  rust,
   flake,
 }:
-flake.lib.shell.mkShellEx pkgs.mkShellNoCC {
+flake.lib.shell.mkShellEx mkShell {
   name = "rust";
 
   # Packages to put on the PATH
-  packages = with pkgs; [
+  packages = [
     cargo
     rustc
-    gcc # Rust needs a linker
     pkg-config # Needed for rust-analyzer
   ];
 
   # Libraries needed for building
-  buildInputs = with pkgs; [
+  buildInputs = [
     openssl
   ];
 
   # Rust-analyzer requires the standard library's source code to give
   # completions.
-  RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+  RUST_SRC_PATH = "${rust.packages.stable.rustPlatform.rustLibSrc}";
 }
