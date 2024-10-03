@@ -3,7 +3,8 @@
 
   # Dependencies for the flake
   # The syntax `inputs.xxx.follows = ""` removes the input from another flake, this is useful
-  # when the input is unused by us to avoid fetching unnecessary data.
+  # when the input is unused by us to avoid fetching unnecessary data. (I believe flake inputs
+  # are lazily fetched, but I'd rather be explicit)
   inputs = {
     # /// Core ///
     nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
@@ -29,6 +30,13 @@
       inputs.systems.follows = "systems";
 
       inputs.flake-compat.follows = "";
+      # Remove some inputs that are not used by this flake
+      inputs.base16-fish.follows = "";
+      inputs.base16-helix.follows = "";
+      inputs.base16-vim.follows = ""; # This is managed by nixvim
+      inputs.tinted-foot.follows = "";
+      inputs.tinted-kitty.follows = "";
+      inputs.tinted-tmux.follows = "";
     };
 
     # TODO: Use the official Cosmic once https://github.com/NixOS/nixpkgs/pull/330167 is merged
@@ -73,18 +81,24 @@
     clan-core = {
       url = "git+https://git.clan.lol/clan/clan-core";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.sops-nix.follows = "sops-nix";
       inputs.systems.follows = "systems";
-
       inputs.flake-parts.follows = "flake-parts";
       inputs.treefmt-nix.follows = "treefmt-nix";
+
+      inputs.disko.follows = "";
+      inputs.sops-nix.follows = "";
+      inputs.nixos-images.follows = "";
+      inputs.nixos-facter-modules.follows = "";
     };
 
     # Generate package sets for x86_64-linux and aarch64-linux. This can be
     # overridden by another flake that consumes this one.
     systems.url = "github:nix-systems/default-linux";
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
