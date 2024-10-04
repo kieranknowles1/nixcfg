@@ -11,12 +11,26 @@
         building the OS. This is also available to avahi-enabled machines via `hostname.local`.
       '';
     };
+
+    waitOnline = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Whether to wait for the network to be online before allowing login. This is recommended
+        for devices, such as laptops, that may not always have a network connection.
+
+        It is recommended to enable this if services that depend on the network are enabled, such as
+        on a server.
+      '';
+    };
   };
 
-  config = {
+  config = let
+    cfg = config.custom.networking;
+  in {
     # Enable networking
     networking = {
-      hostName = config.custom.networking.hostName;
+      hostName = cfg.hostName;
 
       networkmanager.enable = true;
       # This is handled by NetworkManager
@@ -51,5 +65,8 @@
         workstation = true;
       };
     };
+
+    # WARN: This assumes that only "multi-user.target" is wantedBy the network-online.target
+    systemd.units."network-online.target".wantedBy = if cfg.waitOnline then [] else lib.mkForce [];
   };
 }
