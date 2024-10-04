@@ -1,0 +1,17 @@
+{
+  "blueprint_book": {
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "se-delivery-cannon-capsule",
+          "type": "item"
+        }
+      }
+    ],
+    "item": "blueprint-book",
+    "label": "Cannons",
+    "version": 281479278886912
+  },
+  "index": 7
+}
