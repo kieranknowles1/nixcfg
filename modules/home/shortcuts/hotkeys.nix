@@ -2,7 +2,6 @@
 {
   config,
   lib,
-  self,
   pkgs,
   ...
 }: let
@@ -81,14 +80,21 @@ in {
         keybindings = builtins.mapAttrs (_name: value: value.action) cfg.hotkeys.keys;
       };
 
-      # Autostart sxhkd
-      # TODO: Restart when rebuilding. Need to send SIGUSR1 to the process. activation scripts run on boot
-      # before sxhkd, which makes systemd sad that the command failed.
-      home.file."${config.xdg.configHome}/autostart/sxhkd.desktop".text = self.lib.package.mkDesktopEntry {
-        name = "sxhkd";
-        description = "Simple X Hotkey Daemon";
-        command = "sxhkd";
-        version = sxhkd.version;
-      };
+      # Enable xsession which starts sxhkd
+      xsession.enable = true;
+
+      # Restart sxhkd when reloading the configuration
+      # Activation scripts are run on boot, and when switching to a new configuration
+      home.activation."restart-sxhkd" = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        restart_sxhkd() {
+          local pid=$(${pkgs.procps}/bin/pidof sxhkd)
+          if [ -n "$pid" ]; then
+            # Send SIGUSR1 to reload the configuration
+            ${pkgs.coreutils}/bin/kill -USR1 $pid
+          fi
+        }
+
+        run restart_sxhkd
+      '';
     };
 }
