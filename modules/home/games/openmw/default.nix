@@ -17,14 +17,15 @@
 in {
   # TODO: Store data with the user, as in Factorio
   options.custom.games.openmw = let
-    mkStorageOption = name: default: defaultText: lib.mkOption {
-      description = ''
-        The JSON file containing ${name} storage data,
-        as exported using the OpenMW LuaData tool.
-      '';
-      type = lib.types.path;
-      inherit default defaultText;
-    };
+    mkStorageOption = name: default: defaultText:
+      lib.mkOption {
+        description = ''
+          The JSON file containing ${name} storage data,
+          as exported using the OpenMW LuaData tool.
+        '';
+        type = lib.types.path;
+        inherit default defaultText;
+      };
   in {
     luaData.package = lib.mkPackageOption pkgs.flake "openmw-luadata" {};
 
@@ -34,18 +35,19 @@ in {
 
   config = let
     cfg = config.custom.games.openmw;
-  in lib.mkIf hostConfig.custom.games.enable {
-    home = {
-      packages = with pkgs; [
-        flake.openmw-dev
-      ];
+  in
+    lib.mkIf hostConfig.custom.games.enable {
+      home = {
+        packages = with pkgs; [
+          flake.openmw-dev
+        ];
 
-      # TODO: Use an impure provisioner to install Lua data files directly to ~/.config/openmw
-      # TODO: Consider syncing rest my openmw config
-      file = {
-        "Games/configs/openmw/global_storage.dat".source = toOmwData cfg.globalStorage;
-        "Games/configs/openmw/player_storage.dat".source = toOmwData cfg.playerStorage;
+        # TODO: Use an impure provisioner to install Lua data files directly to ~/.config/openmw
+        # TODO: Consider syncing rest my openmw config
+        file = {
+          "Games/configs/openmw/global_storage.dat".source = toOmwData cfg.globalStorage;
+          "Games/configs/openmw/player_storage.dat".source = toOmwData cfg.playerStorage;
+        };
       };
     };
-  };
 }

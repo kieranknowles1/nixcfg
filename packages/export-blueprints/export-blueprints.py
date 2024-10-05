@@ -4,12 +4,10 @@
 
 # Script to export Factorio blueprints to the repository
 
-OUTPUT_DIR = "modules/home/games/factorio/blueprints"
-
-from os import path, makedirs
+from os import path, makedirs, walk
 from shutil import rmtree
 from subprocess import run
-from sys import stderr
+from sys import stderr, argv
 from typing import Any, Optional
 import json
 
@@ -112,16 +110,40 @@ def dump_entry(entry: dict[str, Any], base_dir: str, *, is_root: bool):
         dump_generic(entry, base_dir)
 
 
+def check_output_dir(dir: str):
+    """
+    Check that no files exist in the output directory other than ones created by this script.
+
+    If any unexpected files are found, raise a ValueError.
+
+    Call before modifying the output directory.
+    """
+
+    for root, _dirs, files in walk(dir):
+        for file in files:
+            if not file.endswith(".json") and file != "errors.txt":
+                raise ValueError(
+                    f"Unexpected file in output directory: {path.join(root, file)}"
+                )
+
+
 def main():
+    if len(argv) < 2:
+        print(f"Usage: {argv[0]} <output_dir>", file=stderr)
+        exit(1)
+    out_dir = argv[1]
+
+    check_output_dir(out_dir)
+
     blob, errors = export_bin()
 
     # The raw JSON is a bit large for Git, so we'll split it into smaller files by blueprint
-    rmtree(OUTPUT_DIR)  # Clear out the old data
-    dump_entry(blob, OUTPUT_DIR, is_root=True)
+    rmtree(out_dir)  # Clear out the old data
+    dump_entry(blob, out_dir, is_root=True)
 
     # If there were any errors, write them to a file to track in the commit
     if errors:
-        with open(path.join(OUTPUT_DIR, "errors.txt"), "w") as f:
+        with open(path.join(out_dir, "errors.txt"), "w") as f:
             f.write(errors)
 
 

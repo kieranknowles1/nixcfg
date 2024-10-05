@@ -5,7 +5,7 @@
 packagePythonScript {
   name = "export-blueprints";
   src = ./export-blueprints.py;
-  version = "1.0.0";
+  version = "2.0.0";
   meta = {
     description = "Export Factorio blueprints to a directory";
     longDescription = ''
