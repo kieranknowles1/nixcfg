@@ -67,6 +67,9 @@
     };
 
     # WARN: This assumes that only "multi-user.target" is wantedBy the network-online.target
-    systemd.units."network-online.target".wantedBy = if cfg.waitOnline then [] else lib.mkForce [];
+    systemd.units."network-online.target".wantedBy =
+      if cfg.waitOnline
+      then []
+      else lib.mkForce [];
   };
 }
