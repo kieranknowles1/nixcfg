@@ -1,4 +1,7 @@
-{packagePythonScript}:
+{
+  packagePythonScript,
+  flake,
+}:
 packagePythonScript {
   name = "export-blueprints";
   src = ./export-blueprints.py;
@@ -16,4 +19,6 @@ packagePythonScript {
       on the PATH.
     '';
   };
+
+  runtimeInputs = [flake.factorio-blueprint-decoder];
 }
