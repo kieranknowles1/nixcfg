@@ -3,7 +3,13 @@
   inputs,
   ...
 }: {
-  perSystem = {pkgs, ...}: let
+  perSystem = {system, ...}: let
+    # TODO: Set overrides at the flake level once there's a proper way to do so
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      overlays = builtins.attrValues self.overlays;
+    };
+
     packagePythonScript = self.lib.package.packagePythonScript;
     callPackage = pkgs.lib.customisation.callPackageWith (pkgs
       // inputs

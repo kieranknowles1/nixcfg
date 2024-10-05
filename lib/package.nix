@@ -17,16 +17,21 @@
   version :: String : The version of the script.
 
   meta :: AttrSet : Metadata for the package. See [Meta-attributes](https://ryantm.github.io/nixpkgs/stdenv/meta/) for more information.
+
+  runtimeInputs :: List = null : A list of packages to include on the PATH when running the script.
   */
   packagePythonScript = {
     name,
     src,
     version,
     meta,
-  }:
-    pkgs.stdenv.mkDerivation {
-      pname = name;
-      inherit version src;
+    runtimeInputs ? null,
+  }: let
+    useWrapper = runtimeInputs != null;
+
+    script = pkgs.stdenv.mkDerivation {
+      pname = if useWrapper then "${name}-wrapped" else name;
+      inherit version src runtimeInputs;
 
       dontUnpack = true; # This is a text file, unpacking is only applicable to archives
       installPhase = ''
@@ -46,6 +51,17 @@
           mainProgram = name;
         };
     };
+
+    # If we need to include additional packages on the PATH, generate a wrapper
+    # that extends PATH with the runtime inputs.
+    wrapper = pkgs.writeShellScriptBin name ''
+      export PATH="$PATH:${pkgs.lib.strings.makeBinPath runtimeInputs}"
+      exec ${script}/bin/${name} "$@"
+    '';
+  in
+    if useWrapper
+    then wrapper
+    else script;
 
   /*
   *
