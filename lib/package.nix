@@ -30,7 +30,10 @@
     useWrapper = runtimeInputs != null;
 
     script = pkgs.stdenv.mkDerivation {
-      pname = if useWrapper then "${name}-wrapped" else name;
+      pname =
+        if useWrapper
+        then "${name}-wrapped"
+        else name;
       inherit version src runtimeInputs;
 
       dontUnpack = true; # This is a text file, unpacking is only applicable to archives
