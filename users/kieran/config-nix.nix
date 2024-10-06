@@ -7,9 +7,18 @@
       file = ./secrets.yaml;
     };
 
-    games.openmw = {
-      globalStorage = ./openmw/global_storage.json;
-      playerStorage = ./openmw/player_storage.json;
+    games = {
+      # TODO: Move this to its own repository, the files are quite large and add a download
+      # when using the flake as a dependency.
+      # Currently, including export-blueprints would cause a circular dependency, so we
+      # need to also move our packages/lib to its own repository, which would make maintaining
+      # the flake more difficult.
+      factorio.blueprints = ./factorio-blueprints;
+
+      openmw = {
+        globalStorage = ./openmw/global_storage.json;
+        playerStorage = ./openmw/player_storage.json;
+      };
     };
   };
 }
