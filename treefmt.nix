@@ -19,7 +19,7 @@
       excludes = [
         "**/Cargo.toml" # Managed by the Cargo command
         "**/espanso/config/match/packages/**" # Externally sourced
-        "**/factorio/blueprints/**" # Generated from blueprint-storage.dat, not meant to be edited
+        "**/factorio-blueprints/**" # Generated from blueprint-storage.dat, not meant to be edited
         # Plain text from ~/.ssh
         "**/ssh/hosts/**"
         "**/ssh/keys/**"
