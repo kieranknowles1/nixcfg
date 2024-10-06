@@ -85,7 +85,7 @@ in {
           source = lib.mkOption {
             description = "The file containing the content. Probably a derivation.";
             type = lib.types.path;
-            example = "./docs-generated/file-a.md";
+            example = lib.options.literalExpression "./docs-generated/file-a.md";
           };
         };
       });
