@@ -1,11 +1,11 @@
 {
-  pkgs,
   lib,
-  clan-core,
+  inputs,
+  withSystem,
   ...
 }: let
   evalModules = importer:
-    pkgs.lib.evalModules {
+    lib.evalModules {
       modules = [
         importer
         # Don't eval flake inputs, we don't want to generate documentation for them.
@@ -17,11 +17,12 @@
       ];
     };
 
-  jsonLib = clan-core.lib.jsonschema {
+  jsonLib = inputs.clan-core.lib.jsonschema {
     # Options can be overridden here.
   };
 in {
-  flake.lib.docs = {
+  # TODO: Don't use withSystem, it makes building on ARM harder
+  flake.lib.docs = withSystem "x86_64-linux" ({pkgs, ...}: {
     /*
     Generate documentation for the functions in the given directory.
 
@@ -218,5 +219,5 @@ in {
 
         ${builtins.concatStringsSep "\n" (map createEntry values)}
       '';
-  };
+  });
 }
