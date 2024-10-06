@@ -7,7 +7,7 @@
 }: {
   imports = [
     ./factorio
-    ./openmw
+    ./openmw.nix
     ./skyrim
   ];
 
