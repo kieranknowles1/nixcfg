@@ -6,19 +6,12 @@
   inherit (self.lib.attrset) deepMergeSets;
   inherit (self.lib.host) readTomlFile;
 
+  # We use TOML for host/user config, as they can be checked using schemas
   baseConfig = readTomlFile ./config.toml;
   desktopConfig =
     if config.custom.features.desktop
     then readTomlFile ./config-desktop.toml
     else {};
-
-  # Values that can't be configured in the TOML files
-  nixOnlyConfig = {
-    theme.wallpaper = self.lib.image.fromHeif ./wallpaper.heic;
-
-    secrets.ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
-    secrets.file = ./secrets.yaml;
-  };
 in {
   core = {
     displayName = "Kieran";
@@ -27,9 +20,14 @@ in {
   };
 
   home = {
+    # TOML configs can't specify packages or files, so use plain Nix for that
+    imports = [
+      ./config-nix.nix
+    ];
+
     # Use a dedicated deepMergeSets function to merge the TOML files, as this
     # gives more easily understandable behaviour than options merging.
-    custom = deepMergeSets [nixOnlyConfig desktopConfig baseConfig];
+    custom = deepMergeSets [desktopConfig baseConfig];
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
