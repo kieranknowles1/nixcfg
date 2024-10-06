@@ -18,10 +18,8 @@ in {
         A directory containing Factorio blueprints, as exported using `export-blueprints`.
       '';
       type = lib.types.path;
-      # TODO: Move this to its own repository, the files are quite large and add a download
-      # when using the flake as a dependency.
-      default = ./blueprints;
-      defaultText = "./blueprints";
+
+      example = lib.options.literalExpression "./blueprints";
     };
   };
 
