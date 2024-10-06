@@ -51,7 +51,7 @@ in {
             description = "The path to the MIME definition file";
             type = lib.types.nullOr lib.types.path;
             default = null;
-            example = "./definitions/application-x-foo.xml";
+            example = lib.options.literalExpression "./definitions/application-x-foo.xml";
           };
           defaultApp = lib.mkOption {
             description = ''
