@@ -44,7 +44,10 @@
     # Easier than doing a loop in bash
     linkDocs = lib.lists.forEach fileNames (name: let
       value = files.${name};
-    in "ln --symbolic ${value.source} $out/${name}");
+      source = if builtins.isString value.source
+        then pkgs.writeText "${name}" value.source
+        else value.source;
+    in "ln --symbolic ${source} $out/${name}");
   in
     pkgs.runCommand "merged-docs" {
       INDEX = mkIndex files;
@@ -83,8 +86,8 @@ in {
           };
 
           source = lib.mkOption {
-            description = "The file containing the content. Probably a derivation.";
-            type = lib.types.path;
+            description = "The file containing the content or a string literal.";
+            type = with lib.types; oneOf [ path str ];
             example = lib.options.literalExpression "./docs-generated/file-a.md";
           };
         };
@@ -96,7 +99,8 @@ in {
     custom.docs-generate.file = {
       "lib.md" = {
         description = "flake.lib library";
-        source = self.lib.docs.mkFunctionDocs ../../lib;
+        # FIXME: This isn't working, it's not finding the functions
+        source = self.lib.docs.mkFunctionDocs  "${self}/lib";
       };
       "host-options.md" = {
         description = "NixOS options";

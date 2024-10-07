@@ -69,7 +69,7 @@ in {
       # Generate documentation
       custom.docs-generate.file."shortcuts.md" = {
         description = "Keyboard shortcuts";
-        source = builtins.toFile "shortcuts.md" (mkDocs cfg.hotkeys.keys);
+        source = pkgs.writeText "shortcuts.md" (mkDocs cfg.hotkeys.keys);
       };
 
       # Apply options
