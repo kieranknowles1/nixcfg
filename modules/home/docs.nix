@@ -44,7 +44,8 @@
     # Easier than doing a loop in bash
     linkDocs = lib.lists.forEach fileNames (name: let
       value = files.${name};
-      source = if builtins.isString value.source
+      source =
+        if builtins.isString value.source
         then pkgs.writeText "${name}" value.source
         else value.source;
     in "ln --symbolic ${source} $out/${name}");
@@ -87,7 +88,7 @@ in {
 
           source = lib.mkOption {
             description = "The file containing the content or a string literal.";
-            type = with lib.types; oneOf [ path str ];
+            type = with lib.types; oneOf [path str];
             example = lib.options.literalExpression "./docs-generated/file-a.md";
           };
         };
@@ -100,7 +101,7 @@ in {
       "lib.md" = {
         description = "flake.lib library";
         # FIXME: This isn't working, it's not finding the functions
-        source = self.lib.docs.mkFunctionDocs  "${self}/lib";
+        source = self.lib.docs.mkFunctionDocs "${self}/lib";
       };
       "host-options.md" = {
         description = "NixOS options";

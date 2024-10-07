@@ -39,7 +39,8 @@ in {
     path :: Path
     : The directory containing the functions to document.
     */
-    mkFunctionDocs = path: pkgs.runCommand "function-docs.md" {} ''
+    mkFunctionDocs = path:
+      pkgs.runCommand "function-docs.md" {} ''
         for file in $(find "${path}" -type f -name '*.nix'); do
           # Skip default.nix files, including those in subdirectories via wildcards.
           if [[ $file == *default.nix ]]; then
@@ -137,11 +138,8 @@ in {
               "$schema" = {type = "string";};
             };
         };
-
-      # Convert the Nix object to JSON to be consistent with the other docs-related functions.
-      schemaJson = builtins.toJSON schemaWithExtra;
     in
-      pkgs.writeText "schema.json" schemaJson;
+      builtins.toJSON schemaWithExtra;
 
     /*
     Generate documentation for the packages in the given set.
@@ -204,13 +202,12 @@ in {
           else ""
         }
       '';
-    in
-      pkgs.writeText "packages.md" ''
-        # Packages
+    in ''
+      # Packages
 
-        ${builtins.concatStringsSep "" (map createTocEntry values)}
+      ${builtins.concatStringsSep "" (map createTocEntry values)}
 
-        ${builtins.concatStringsSep "\n" (map createEntry values)}
-      '';
+      ${builtins.concatStringsSep "\n" (map createEntry values)}
+    '';
   });
 }
