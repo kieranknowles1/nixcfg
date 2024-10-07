@@ -2,6 +2,7 @@
 {
   pkgs,
   config,
+  self,
   ...
 }: {
   stylix = {
@@ -13,7 +14,7 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-gray.yaml";
     # Stylix requires an image to be set, even if it's then overridden in home-manager
     # So grab Blank.jpg off Wikipedia to use as a dummy
-    image = ../../media/blank.jpg;
+    image = "${self}media/blank.jpg";
 
     polarity = "dark"; # Force a dark theme
 
