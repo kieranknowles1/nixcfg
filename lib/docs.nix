@@ -39,13 +39,7 @@ in {
     path :: Path
     : The directory containing the functions to document.
     */
-    mkFunctionDocs = path: let
-      nixdoc = "${pkgs.nixdoc}/bin/nixdoc";
-
-      docs = pkgs.runCommand "mkFunctionDocs" {} ''
-        mkdir -p $out
-        OUTPUT="$out/index.md"
-
+    mkFunctionDocs = path: pkgs.runCommand "function-docs.md" {} ''
         for file in $(find "${path}" -type f -name '*.nix'); do
           # Skip default.nix files, including those in subdirectories via wildcards.
           if [[ $file == *default.nix ]]; then
@@ -61,10 +55,9 @@ in {
 
           # TODO: Find a way to make links between functions.
           # TODO: Add extra hashes to make headers match the file
-          ${nixdoc} --category "$lib_name" --description "$human_name" --file "$file" >> $OUTPUT
+          ${lib.getExe pkgs.nixdoc} --category "$lib_name" --description "$human_name" --file "$file" >> $out
         done
       '';
-    in "${docs}/index.md";
 
     /*
     Generate documentation for the options in the given directory
