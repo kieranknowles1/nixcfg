@@ -5,8 +5,6 @@
   ...
 }: let
   userDetails = config.custom.userDetails;
-
-  configDir = "${config.xdg.configHome}/espanso";
 in {
   options.custom.userDetails = {
     email = lib.mkOption {
@@ -75,7 +73,7 @@ in {
 
     # Provision with home-manager so we can use yaml directly
     # This is linked to the schemas which gives us validation
-    home.file."${configDir}" = {
+    xdg.configFile."espanso" = {
       source = ./config;
       recursive = true;
     };
