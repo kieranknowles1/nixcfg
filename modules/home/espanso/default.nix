@@ -6,26 +6,76 @@
 }: let
   userDetails = config.custom.userDetails;
 in {
-  options.custom.userDetails = {
-    email = lib.mkOption {
-      description = "Email address";
-      type = lib.types.str;
-      example = "bob@example.com";
+  options.custom = let
+    inherit (lib) mkOption types;
+  in {
+    userDetails = {
+      email = mkOption {
+        description = "Email address";
+        type = types.str;
+        example = "bob@example.com";
+      };
+      firstName = mkOption {
+        description = "First name";
+        type = types.str;
+        example = "Bob";
+      };
+      surName = mkOption {
+        description = "Surname";
+        type = types.str;
+        example = "Smith";
+      };
     };
-    firstName = lib.mkOption {
-      description = "First name";
-      type = lib.types.str;
-      example = "Bob";
-    };
-    surName = lib.mkOption {
-      description = "Surname";
-      type = lib.types.str;
-      example = "Smith";
+
+    espanso = {
+      # TODO: Add enable option
+
+      packages = lib.mkOption {
+        description = ''
+          A list of Espanso packages to install.
+        '';
+
+        type = types.attrsOf (types.submodule {
+          options = {
+            url = mkOption {
+              description = "URL to a tarball of the package";
+              type = types.str;
+              example = "https://github.com/espanso/espanso-package/archive/refs/heads/master.tar.gz";
+            };
+            hash = mkOption {
+              description = "SHA256 hash of the package";
+              type = types.str;
+              default = ""; # Nix will use a placeholder and tell us the correct hash
+              example = "sha256-...";
+            };
+            dir = mkOption {
+              description = "If set, use a subdirectory of the package as the source";
+              type = types.nullOr types.str;
+              default = null;
+              example = "package-dir";
+            };
+          };
+        });
+      };
     };
   };
 
   # Espanso doesn't make sense on a headless server
   config = lib.mkIf hostConfig.custom.features.desktop {
+    # TODO: Move this to user config
+    custom.espanso.packages = {
+      misspell-en = {
+        url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz";
+        hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy";
+        dir = "misspell-en/0.1.2";
+      };
+      misspell-en-uk = {
+        url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz";
+        hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy";
+        dir = "misspell-en_UK/0.1.2";
+      };
+    };
+
     services.espanso = {
       enable = true;
       # Don't manage configs here, apart from the base match file
@@ -71,11 +121,24 @@ in {
       };
     };
 
-    # Provision with home-manager so we can use yaml directly
-    # This is linked to the schemas which gives us validation
-    xdg.configFile."espanso" = {
-      source = ./config;
-      recursive = true;
-    };
+    xdg.configFile = let
+      base = {
+        espanso = {
+          source = ./config;
+          recursive = true;
+        };
+      };
+
+      packages = lib.attrsets.mapAttrs' (name: package: {
+        name = "espanso-package-${name}";
+        value = {
+          source = let
+            file = builtins.fetchTarball { url = package.url; sha256 = package.hash; };
+          in if package.dir != null then "${file}/${package.dir}" else file;
+
+          target = "espanso/match/packages/${name}";
+        };
+      }) config.custom.espanso.packages;
+    in base // packages;
   };
 }
