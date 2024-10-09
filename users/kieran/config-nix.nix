@@ -1,4 +1,8 @@
-{pkgs, inputs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   config.custom = {
     theme.wallpaper = pkgs.flake.lib.image.fromHeif ./wallpaper.heic;
 

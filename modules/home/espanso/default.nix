@@ -113,16 +113,25 @@ in {
         };
       };
 
-      packages = lib.attrsets.mapAttrs' (name: package: {
-        name = "espanso-package-${name}";
-        value = {
-          source = let
-            file = builtins.fetchTarball { url = package.url; sha256 = package.hash; };
-          in if package.dir != null then "${file}/${package.dir}" else file;
+      packages =
+        lib.attrsets.mapAttrs' (name: package: {
+          name = "espanso-package-${name}";
+          value = {
+            source = let
+              file = builtins.fetchTarball {
+                url = package.url;
+                sha256 = package.hash;
+              };
+            in
+              if package.dir != null
+              then "${file}/${package.dir}"
+              else file;
 
-          target = "espanso/match/packages/${name}";
-        };
-      }) config.custom.espanso.packages;
-    in base // packages;
+            target = "espanso/match/packages/${name}";
+          };
+        })
+        config.custom.espanso.packages;
+    in
+      base // packages;
   };
 }
