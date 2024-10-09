@@ -51,6 +51,22 @@
         "url": "https://git.clan.lol/clan/clan-core"
       }
     },
+    "factorio-blueprints": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728506820,
+        "narHash": "sha256-UPJloucBzQqNRK86OvkIKLJE8BFclvj/x9vArEUsKyo=",
+        "owner": "kieranknowles1",
+        "repo": "factorio-blueprints",
+        "rev": "071b55995f3b6b8e2d2eab97f7ecee9a3b26cfe1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kieranknowles1",
+        "repo": "factorio-blueprints",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": [
@@ -359,6 +375,7 @@
     "root": {
       "inputs": {
         "clan-core": "clan-core",
+        "factorio-blueprints": "factorio-blueprints",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",

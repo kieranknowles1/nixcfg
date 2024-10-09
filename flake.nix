@@ -55,6 +55,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # /// Sub Repositories ///
+    # These are repositories not included in this repo due to their size but are needed
+    # to build some hosts.
+    factorio-blueprints = {
+      url = "github:kieranknowles1/factorio-blueprints";
+      # Importing as a flake would cause a circular dependency
+      flake = false;
+    };
+
     # /// Extensions ///
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
