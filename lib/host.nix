@@ -14,23 +14,11 @@
 
     # Arguments
 
-    rootConfig :: Path : The path to the root `configuration.nix` file, which is responsible for setting everything else.
-
-    rootConfig.nix format:
-    ```nix
-    {
-      system = system_type # e.g. "x86_64-linux"
-
-      config = {pkgs, ...}: {
-        # A Nix module that configures the system
-      }
-    }
+    rootConfig :: Module : The root configuration module for the host. This can be any Nix module, usually the path
+    to the host's configuration.nix file.
     ```
     */
-    mkHost = rootConfig: let
-      config = import rootConfig;
-      system = config.system;
-    in
+    mkHost = rootConfig:
       inputs.nixpkgs.lib.nixosSystem {
         # Pass the flake's inputs and pkgs-unstable to the module
         # TODO: See if we can remove this entirely, would remove the assumption that we're passing certain arguments
@@ -47,10 +35,7 @@
           inputs.stylix.nixosModules.stylix
           # TODO: Remove once Cosmic is merged into Nixpkgs
           inputs.nixos-cosmic.nixosModules.default
-          config.config
-          {
-            nixpkgs.hostPlatform = system;
-          }
+          rootConfig
         ];
       };
 
