@@ -1,13 +1,12 @@
 {
   config,
-  hostConfig,
   lib,
   ...
 }: let
   userDetails = config.custom.userDetails;
 in {
   options.custom = let
-    inherit (lib) mkOption types;
+    inherit (lib) mkOption mkEnableOption types;
   in {
     userDetails = {
       email = mkOption {
@@ -28,7 +27,7 @@ in {
     };
 
     espanso = {
-      # TODO: Add enable option
+      enable = mkEnableOption "Espanso";
 
       packages = lib.mkOption {
         description = ''
@@ -60,22 +59,7 @@ in {
     };
   };
 
-  # Espanso doesn't make sense on a headless server
-  config = lib.mkIf hostConfig.custom.features.desktop {
-    # TODO: Move this to user config
-    custom.espanso.packages = {
-      misspell-en = {
-        url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz";
-        hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy";
-        dir = "misspell-en/0.1.2";
-      };
-      misspell-en-uk = {
-        url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz";
-        hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy";
-        dir = "misspell-en_UK/0.1.2";
-      };
-    };
-
+  config = lib.mkIf config.custom.espanso.enable {
     services.espanso = {
       enable = true;
       # Don't manage configs here, apart from the base match file
