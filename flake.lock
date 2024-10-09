@@ -468,11 +468,11 @@
     "src-factorio-blueprint-decoder": {
       "flake": false,
       "locked": {
-        "lastModified": 1721133589,
-        "narHash": "sha256-MC4/87sUdC9WN1R6WuRtZ8r+Gxj7LbfFwmdftnL/7FY=",
+        "lastModified": 1728508168,
+        "narHash": "sha256-qU2MXz7S2/rJ80JCiu/kjpusY0qBk8M1K7RtaDJMl6g=",
         "owner": "kieranknowles1",
         "repo": "factorio-blueprint-decoder",
-        "rev": "6ac7ff494799b1fd24c30fba410ffd40ce3bbbb0",
+        "rev": "741959ae60f5e8b1a449365f58dcf7bc21f3ae1c",
         "type": "github"
       },
       "original": {
