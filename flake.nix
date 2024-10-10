@@ -154,8 +154,6 @@
     # /// Unused Libraries ///
     # These are libraries that aren't used in the flake, but are included to avoid
     # duplicating inputs of other inputs.
-    # TODO: See if we can detect if any of these are unnecessary and warn/error,
-    # could also check for duplicate inputs in general.
 
     # TODO: Maybe migrate to this from flake-utils
     # Also look at snowfall-lib and flake-utils-plus
@@ -206,6 +204,7 @@
       };
 
       imports = [
+        ./checks.nix
         ./hosts
         ./lib
         ./modules
