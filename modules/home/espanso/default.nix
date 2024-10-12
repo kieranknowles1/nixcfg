@@ -9,7 +9,7 @@
   fixupPackage = {
     package,
     replacements,
-    removeTriggers,
+    removals,
     name,
   }: let
     script = pkgs.flake.lib.package.packagePythonScript {
@@ -23,8 +23,7 @@
     src = package;
 
     FIXUP_CONFIG = builtins.toJSON {
-      replace = replacements;
-      remove = removeTriggers;
+      inherit replacements removals;
     };
 
     buildPhase = ''
@@ -83,8 +82,23 @@ in {
               default = null;
               example = "package-dir";
             };
-            # TODO: Option to substitute char `a` with `b` in replacements
-            # TODO: Option to remove certain triggers
+            replacements = mkOption {
+              description = ''
+                String replacements to apply to replacement values, in the form
+                original = replacement.
+              '';
+              type = types.attrsOf types.str;
+              default = {};
+              example = { "a" = "b"; "c" = "d"; };
+            };
+            removals = mkOption {
+              description = ''
+                Triggers to remove from the package.
+              '';
+              type = types.listOf types.str;
+              default = [];
+              example = [":trigger:"];
+            };
           };
         });
       };
@@ -158,9 +172,8 @@ in {
               fullPath = "${file}/${package.dir or ""}";
             in fixupPackage {
               inherit name;
+              inherit (package) replacements removals;
               package = fullPath;
-              replacements = {}; # TODO
-              removeTriggers = []; # TODO
             };
 
             target = "espanso/match/packages/${name}";

@@ -2,17 +2,6 @@
 
 # Config to enable on all hosts
 
-espanso.enable = true
-[espanso.packages.misspell-en]
-url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz"
-hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy"
-dir = "misspell-en/0.1.2"
-
-[espanso.packages.misspell-en-uk]
-url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz"
-hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy"
-dir = "misspell-en_UK/0.1.2"
-
 [editor]
 defaultGui = "code"
 
