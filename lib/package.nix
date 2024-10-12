@@ -31,8 +31,8 @@
     packagePythonScript = {
       name,
       src,
-      version,
-      meta,
+      version ? "1.0",
+      meta ? {},
       runtimeInputs ? null,
       python ? pkgs.python312,
     }: let

@@ -1,9 +1,39 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   userDetails = config.custom.userDetails;
+
+  fixupPackage = {
+    package,
+    replacements,
+    removeTriggers,
+    name,
+  }: let
+    script = pkgs.flake.lib.package.packagePythonScript {
+      name = "fixup-espanso-package";
+      src = ./patch-matches.py;
+      python = pkgs.python3.withPackages (ps: [ps.pyyaml]);
+    };
+
+  in pkgs.stdenv.mkDerivation {
+    name = "espanso-package-${name}";
+    src = package;
+
+    FIXUP_CONFIG = builtins.toJSON {
+      replace = replacements;
+      remove = removeTriggers;
+    };
+
+    buildPhase = ''
+      mkdir -p $out
+
+      # NOTE: This assumes all matches are in a single file. This seems to be the convention
+      ${lib.getExe script} "$FIXUP_CONFIG" $src/package.yml $out/package.yml
+    '';
+  };
 in {
   options.custom = let
     inherit (lib) mkOption mkEnableOption types;
@@ -53,6 +83,8 @@ in {
               default = null;
               example = "package-dir";
             };
+            # TODO: Option to substitute char `a` with `b` in replacements
+            # TODO: Option to remove certain triggers
           };
         });
       };
@@ -122,10 +154,14 @@ in {
                 url = package.url;
                 sha256 = package.hash;
               };
-            in
-              if package.dir != null
-              then "${file}/${package.dir}"
-              else file;
+
+              fullPath = "${file}/${package.dir or ""}";
+            in fixupPackage {
+              inherit name;
+              package = fullPath;
+              replacements = {}; # TODO
+              removeTriggers = []; # TODO
+            };
 
             target = "espanso/match/packages/${name}";
           };
