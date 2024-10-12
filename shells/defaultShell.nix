@@ -4,6 +4,7 @@
   mkShellNoCC,
   nil,
   flake,
+  python312,
 }: let
   openmw-luadata = lib.getExe flake.openmw-luadata;
 
@@ -23,6 +24,11 @@ in
       flake.rebuild
       nil
       export-openmw
+
+      # Used by [[../modules/home/espanso/patch-matches.py]]
+      (python312.withPackages (python-pkgs: [
+        python-pkgs.pyyaml
+      ]))
     ];
 
     shellHook = ''
