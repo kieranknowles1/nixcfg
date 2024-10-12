@@ -20,15 +20,15 @@
   # See https://search.nixos.org/packages?&type=packages&query=vimPlugins.nvim-treesitter-parsers for a list of available grammars
   languages = with vimPlugins.nvim-treesitter-parsers; [
     {
-      server = "lua-ls";
+      server = "lua_ls";
       tsgrammar = lua;
     }
     {
-      server = "nil-ls";
+      server = "nil_ls";
       tsgrammar = nix;
     }
     {
-      server = "rust-analyzer";
+      server = "rust_analyzer";
       tsgrammar = rust;
 
       # rust-analyzer complains if it can't find rustc or cargo on the path
