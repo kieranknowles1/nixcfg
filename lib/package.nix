@@ -1,4 +1,8 @@
-{withSystem, lib, ...}: {
+{
+  withSystem,
+  lib,
+  ...
+}: {
   # TODO: Don't use withSystem, it makes building on ARM harder
   flake.lib.package = withSystem "x86_64-linux" ({pkgs, ...}: {
     /*

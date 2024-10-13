@@ -17,22 +17,22 @@
       src = ./patch-matches.py;
       python = pkgs.python3.withPackages (ps: [ps.pyyaml]);
     };
+  in
+    pkgs.stdenv.mkDerivation {
+      name = "espanso-package-${name}";
+      src = package;
 
-  in pkgs.stdenv.mkDerivation {
-    name = "espanso-package-${name}";
-    src = package;
+      FIXUP_CONFIG = builtins.toJSON {
+        inherit replacements removals;
+      };
 
-    FIXUP_CONFIG = builtins.toJSON {
-      inherit replacements removals;
+      buildPhase = ''
+        mkdir -p $out
+
+        # NOTE: This assumes all matches are in a single file. This seems to be the convention
+        ${lib.getExe script} "$FIXUP_CONFIG" $src/package.yml $out/package.yml
+      '';
     };
-
-    buildPhase = ''
-      mkdir -p $out
-
-      # NOTE: This assumes all matches are in a single file. This seems to be the convention
-      ${lib.getExe script} "$FIXUP_CONFIG" $src/package.yml $out/package.yml
-    '';
-  };
 in {
   options.custom = let
     inherit (lib) mkOption mkEnableOption types;
@@ -89,7 +89,10 @@ in {
               '';
               type = types.attrsOf types.str;
               default = {};
-              example = { "a" = "b"; "c" = "d"; };
+              example = {
+                "a" = "b";
+                "c" = "d";
+              };
             };
             removals = mkOption {
               description = ''
@@ -170,11 +173,12 @@ in {
               };
 
               fullPath = "${file}/${package.dir or ""}";
-            in fixupPackage {
-              inherit name;
-              inherit (package) replacements removals;
-              package = fullPath;
-            };
+            in
+              fixupPackage {
+                inherit name;
+                inherit (package) replacements removals;
+                package = fullPath;
+              };
 
             target = "espanso/match/packages/${name}";
           };

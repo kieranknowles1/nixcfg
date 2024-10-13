@@ -155,8 +155,6 @@
     # These are libraries that aren't used in the flake, but are included to avoid
     # duplicating inputs of other inputs.
 
-    # TODO: Maybe migrate to this from flake-utils
-    # Also look at snowfall-lib and flake-utils-plus
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
