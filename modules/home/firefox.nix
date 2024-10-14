@@ -33,6 +33,8 @@
 
       search = {
         default = "Google--";
+        # Needed as Firefox overwrites the symlink on startup, which would cause activation to fail
+        force = true;
         engines = let
           mkSearch = icon: url: alias: {
             inherit icon;
