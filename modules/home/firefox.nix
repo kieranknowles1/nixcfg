@@ -2,6 +2,7 @@
 {
   hostConfig,
   pkgs,
+  lib,
   ...
 }: {
   programs.firefox = {
@@ -29,6 +30,35 @@
       id = 0;
       name = "default";
       isDefault = true;
+
+      search = {
+        default = "Google--";
+        engines = let
+          mkSearch = icon: url: alias: {
+            inherit icon;
+            urls = lib.singleton {
+              template = url;
+            };
+            definedAliases = [alias];
+          };
+          mkSearchNixIcon = mkSearch "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          nixosSearch = type: "https://search.nixos.org/${type}?query={searchTerms}&channel=unstable";
+        in {
+          "Google".metaData.hidden = true;
+          "Google--" = {
+            urls = lib.singleton {
+              # Disable Google's bullshit, use the slightly less bullshit version
+              # by removing AI
+              template = "https://www.google.com/search?q={searchTerms}&udm=14";
+              iconUpdateUrl = "https://www.google.com/favicon.ico";
+            };
+          };
+
+          "Nix Packages" = mkSearchNixIcon (nixosSearch "packages") "@n";
+          "Nix Options" = mkSearchNixIcon (nixosSearch "options") "@no";
+          "Home Manager" = mkSearchNixIcon "https://home-manager-options.extranix.com/?query={searchTerms}&release=master" "@hm";
+        };
+      };
 
       extensions = with pkgs.firefox-addons; [
         bitwarden # Password manager. Available everywhere

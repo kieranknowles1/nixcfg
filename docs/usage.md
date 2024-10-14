@@ -4,6 +4,7 @@
   - [Backups](#backups)
   - [Dev Shells](#dev-shells)
   - [Using in Another Flake](#using-in-another-flake)
+  - [Firefox](#firefox)
 
 ## Backups
 
@@ -32,3 +33,14 @@ flake, components can then be used as needed. A template for this is provided
 and can be used with `nix flake init --template github:kieranknowles1/nixcfg`.
 Be warned that breaking changes can and will be introduced here without warning,
 so updating inputs may require changes to the consuming flake.
+
+## Firefox
+
+Firefox along with a set of extensions aimed at usability is provisioned through
+`home-manager` in [modules/home/firefox.nix](../modules/home/firefox.nix).
+
+Additionally, the following search engines are added:
+
+- [NixOS Search](https://search.nixos.org/packages) `@n`
+- [NixOS Options](https://nixos.org/nixos/options.html) `@no`
+- [Home Manager Options](https://home-manager-options.extranix.com/) `@ho`
