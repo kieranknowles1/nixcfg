@@ -12,6 +12,7 @@
     ./games
     ./ledstate.nix
     ./mime.nix
+    ./mutable.nix
     ./nushell
     ./office
     ./shortcuts
