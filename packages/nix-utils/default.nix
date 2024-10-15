@@ -1,7 +1,7 @@
 {stdenv}:
 stdenv.mkDerivation {
   pname = "nix-utils";
-  version = "1.0.0";
+  version = "1.1.0";
 
   src = ./.;
 
@@ -20,12 +20,13 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Utilities for working with Nix";
+    description = "Miscellaneous shell utilities";
     longDescription = ''
-      Single-word commands for common Nix tasks, including:
+      Single-word commands for common tasks, including:
       - `dev`: Dev shell from the current repository
       - `devr`: Dev shell from the nixcfg repository
       - `run`: Run a Nix package from the current repository
+      - `venv`: Activate a Python virtual environment, shell-agnostic version
 
       All commands take the first argument as the target name, defaulting
       to `default` if not provided. When relevant, remaining arguments are
