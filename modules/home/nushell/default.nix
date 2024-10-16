@@ -5,6 +5,7 @@
   pkgs,
   config,
   hostConfig,
+  lib,
   ...
 }: let
   defaultMonoFont = config.custom.fonts.defaultMono;
@@ -14,6 +15,9 @@
     fonts = [defaultMonoFont];
   };
 in {
+  # TODO: Link to the shell set on the host side, a NuShell specific file isn't the best place for this
+  xdg.configFile."default-shell".source = lib.getExe config.programs.nushell.package;
+
   programs.nushell = {
     enable = true;
 
