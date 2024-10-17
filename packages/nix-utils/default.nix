@@ -14,6 +14,11 @@ stdenv.mkDerivation {
 
     for file in $(ls $src); do
       if [ "$file" != "default.nix" ]; then
+        if [[ ! -x "$src/$file" ]]; then
+          echo "Error: $file is not executable" >&2
+          exit 1
+        fi
+
         cp "$src/$file" "$out/bin/$(basename $file .sh)"
       fi
     done
