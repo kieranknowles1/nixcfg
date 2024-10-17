@@ -28,11 +28,13 @@
       "Empty File" = builtins.toFile "empty.txt" "";
     };
 
-    custom.mutable.file = lib.attrsets.mapAttrs' (name: value: {
-      name = "${config.xdg.userDirs.templates}/${name}";
-      value = {
-        source = value;
-      };
-    }) config.custom.desktop.templates;
+    custom.mutable.file =
+      lib.attrsets.mapAttrs' (name: value: {
+        name = "${config.xdg.userDirs.templates}/${name}";
+        value = {
+          source = value;
+        };
+      })
+      config.custom.desktop.templates;
   };
 }
