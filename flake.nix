@@ -202,7 +202,7 @@
       };
 
       imports = [
-        ./checks.nix
+        ./checks
         ./hosts
         ./lib
         ./modules
