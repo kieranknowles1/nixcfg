@@ -1,0 +1,41 @@
+# TODO: Script to generate up-to-date svgs from dot graphs
+# TODO: Decide on a tool to use for editing dot graphs
+strict digraph {
+    bgcolor=transparent
+    fillcolor=gray
+    node [style=filled]
+
+    # Start
+    Provision [color=lightblue]
+
+    Provision -> {
+        "Exist"
+        "Not Exist"
+    }
+
+    "Not Exist" -> "Copy New"
+
+    Exist -> {
+        "=Old"
+        "=New"
+        "Not in Old"
+        "Not new or Old"
+    }
+
+    "=Old" -> "Copy New"
+    "=New" -> "Do Nothing"
+    "Not in Old" -> "Log Warning"
+
+    "Not new or Old" -> {
+        "Warn"
+        "Replace"
+    }
+
+    "Warn" -> "Log Warning"
+    "Replace" -> "Copy New"
+
+    # End
+    "Copy New" [color=green]
+    "Do Nothing" [color=green]
+    "Log Warning" [color=orange]
+}
