@@ -47,6 +47,7 @@
           nixosSearch = type: "https://search.nixos.org/${type}?query={searchTerms}&channel=unstable";
         in {
           "Google".metaData.hidden = true;
+          # TODO: Use the AIBlock extension when it's available
           "Google--" = {
             urls = lib.singleton {
               # Disable Google's bullshit, use the slightly less bullshit version
@@ -62,6 +63,8 @@
         };
       };
 
+      # To search available extensions, run
+      # `nix flake show gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons | grep <search-term>`
       extensions = with pkgs.firefox-addons; [
         bitwarden # Password manager. Available everywhere
         darkreader # Midnight flashbang blocker
