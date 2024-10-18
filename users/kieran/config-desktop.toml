@@ -7,24 +7,22 @@ discord.enable = true
 shortcuts.enable = true
 
 espanso.enable = true
-[espanso.packages.misspell-en]
-url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz"
-hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy"
-dir = "misspell-en/0.1.2"
+[espanso.packages]
+misspell-en.url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz"
+misspell-en.hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy"
+misspell-en.dir = "misspell-en/0.1.2"
 
-[espanso.packages.misspell-en-uk]
-url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz"
-hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy"
-dir = "misspell-en_UK/0.1.2"
+misspell-en-uk.url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz"
+misspell-en-uk.hash = "sha256:1g3rd60jcqij5zhaicgcp73z31yfc3j4nbd29czapbmxjv3yi8yy"
+misspell-en-uk.dir = "misspell-en_UK/0.1.2"
 
-[espanso.packages.contractions-en]
-url = "https://github.com/sonofhypnos/espanso-contractions-en/archive/refs/heads/master.tar.gz"
-hash = "sha256:0pzizhp7p8xqjy1yprfjjyzdgjnsnkxrpv3gy1yrzx363gl0f3d5"
-dir = "contractions-en/0.1.0"
+contractions-en.url = "https://github.com/sonofhypnos/espanso-contractions-en/archive/refs/heads/master.tar.gz"
+contractions-en.hash = "sha256:0pzizhp7p8xqjy1yprfjjyzdgjnsnkxrpv3gy1yrzx363gl0f3d5"
+contractions-en.dir = "contractions-en/0.1.0"
 # This conflicts with the word "cause" and I've never seen "’cause" used.
-removals = [ "cause"]
+contractions-en.removals = [ "cause"]
 # Use the more common \u0027 apostrophe instead of \u2019 right single quotation mark
-replacements = { "’" = "'" }
+contractions-en.replacements."’" = "'"
 
 [editor]
 default = "code"
