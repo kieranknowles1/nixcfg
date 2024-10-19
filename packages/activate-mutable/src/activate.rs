@@ -105,8 +105,6 @@ fn apply_file(
     entry: &ConfigEntry,
     old_entry: Option<&ConfigEntry>,
 ) -> Result<()> {
-    println!("Applying {}", path.display());
-
     let new_hash = hash_file(&entry.source)?;
     let old_hash = match old_entry {
         Some(old) => Some(hash_file(&old.source)?),
@@ -115,15 +113,9 @@ fn apply_file(
     let home_hash = hash_file(path).ok();
 
     let state = MatchOutcome::from_hashes(old_hash, new_hash, home_hash, &entry.on_conflict);
-    println!("State: {:?}", state);
     match state {
-        MatchOutcome::DoNothing => {
-            println!("No changes needed.");
-            Ok(())
-        }
-        MatchOutcome::Conflict => {
-            Err(Error::Conflict { file: path.to_path_buf() })
-        },
+        MatchOutcome::DoNothing => Ok(()),
+        MatchOutcome::Conflict => Err(Error::Conflict { file: path.to_path_buf() }),
         MatchOutcome::CopyNew => {
             let dir = match path.parent() {
                 Some(dir) => dir,
