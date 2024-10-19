@@ -52,19 +52,12 @@ in {
       ];
     };
 
-    home.file."${userSettingsDir}/settings.json" = let
-      raw = builtins.readFile ./settings.json;
-      replaceOriginals = [
-        "__nil__"
-        "__terminal__"
-      ];
-      replacements = [
-        (lib.getExe pkgs.nil)
-        (lib.getExe config.custom.terminal.package)
-      ];
-    in {
-      text = builtins.replaceStrings replaceOriginals replacements raw;
-    };
+    # Required by the VS Code extension
+    home.packages = with pkgs; [
+      nil
+    ];
+
+    custom.mutable.file."${userSettingsDir}/settings.json".source = ./settings.json;
     home.file."${userSettingsDir}/snippets" = {
       source = ./snippets;
       recursive = true;

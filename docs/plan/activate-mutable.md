@@ -50,7 +50,8 @@ changes. Take default arguments from the environment.
 How to find the repo path? Make it an option, guess from store path, or
 calculate the path using Nix. Automatic would be more convenient.
 
-If the file needs preprocessing by Nix, what then?
+If the file needs preprocessing by Nix, what then? _Don't support this, code
+settings were easy enough to migrate_
 
 Current uses:
 

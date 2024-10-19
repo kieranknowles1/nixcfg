@@ -2,13 +2,12 @@
   // settings.json for VSCode. This is provisioned directly by
   // home-manager instead of using Nix to manage it, in order to
   // make the syntax the same as the normal settings.json file.
-  // __var__ is used for placeholders that are replaced by Nix store paths.
 
   // ======
   //  Core
   // ======
 
-  "terminal.external.linuxExec": "__terminal__", // The default code looks for isn't installed, and fails silently
+  "terminal.external.linuxExec": "kgx", // The default code looks for isn't installed, and fails silently
   "telemetry.telemetryLevel": "off", // Don't send telemetry data to Microsoft
   "redhat.telemetry.enabled": false, // I'm installing this automatically, so technically I never consented and enabling by default is a GDPR violation
 
@@ -68,7 +67,7 @@
   //  Nix
   // =====
   "nix.enableLanguageServer": true,
-  "nix.serverPath": "__nil__",
+  "nix.serverPath": "nil",
 
   // ========
   //  Python
