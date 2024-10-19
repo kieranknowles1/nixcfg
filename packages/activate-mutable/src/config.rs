@@ -1,8 +1,10 @@
-use std::{collections::HashMap, path::PathBuf};
+use std::collections::BTreeMap;
+use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
 
-pub type Config = HashMap<PathBuf, ConfigEntry>;
+// use a BTreeMap to keep the order predictable
+pub type Config = BTreeMap<PathBuf, ConfigEntry>;
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
