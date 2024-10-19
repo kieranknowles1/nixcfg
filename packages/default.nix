@@ -18,6 +18,7 @@
       });
   in {
     packages = {
+      activate-mutable = callPackage ./activate-mutable {};
       combine-blueprints = callPackage ./combine-blueprints {};
       command-palette = callPackage ./command-palette {};
       export-blueprints = callPackage ./export-blueprints {};

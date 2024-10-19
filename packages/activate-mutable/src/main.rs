@@ -7,6 +7,10 @@ use clap::Parser;
 
 type Result<T> = activate::Result<T>;
 
+// [[../../../docs/plan/activate-mutable.md]]
+// TODO: V2: Restore files to repo
+// TODO: V3: Support directories
+
 #[derive(Parser)]
 enum Opt {
     Activate(activate::Opt),
