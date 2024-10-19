@@ -130,6 +130,8 @@ in {
         description = "home-manager options schema";
         source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: filterNotHidden (filterCustom opts));
       };
+      # FIXME: home-manager lists a warning about packages.md not being a directory
+      # This option should probably be like home.file, with different keys for plaintext and file sources
       "packages.md" = {
         description = "Flake packages";
         source = self.lib.docs.mkPackageDocs pkgs.flake;
