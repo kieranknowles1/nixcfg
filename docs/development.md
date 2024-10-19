@@ -5,6 +5,7 @@
     - [Packages](#packages)
   - [Host Definition](#host-definition)
   - [User Definition](#user-definition)
+  - [Documenting](#documenting)
   - [Best Practices](#best-practices)
     - [Error Handling](#error-handling)
     - [Code Style](#code-style)
@@ -59,6 +60,20 @@ different hosts, something impossible to represent in TOML without a lot of
 additional complexity.
 
 See [users/kieran](../users/kieran/default.nix) for an example user definition.
+
+## Documenting
+
+Documentation should be generated wherever possible, as this makes them tightly
+coupled to their code and more likely to be up-to-date.
+
+For more general information, such as this document, Markdown in the `docs`
+directory is used.
+
+Graphs may be generated using `graphviz` and `dot` where appropriate then
+converted to SVG using `nix run .#generate-graphs` where they can be used as
+images in Markdown.
+
+<!-- TODO: Can we check for outdated svg files? -->
 
 ## Best Practices
 
