@@ -1,0 +1,7 @@
+[
+    {
+        "destination": "Test/file.txt",
+        "source": "/nix/store/abc123",
+        "on_conflict": "replace"
+    }
+]
