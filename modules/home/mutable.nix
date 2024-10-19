@@ -26,7 +26,7 @@
               - `warn`: Log a warning and keep the file as is.
             '';
 
-            type = types.enum [ "replace" "warn" ];
+            type = types.enum ["replace" "warn"];
             default = "warn";
           };
         };
@@ -53,11 +53,12 @@
       })
       cfg.file;
 
-    # TODO: Use this for VS code config and others described in the plan
+    # TODO: Use other files described in the plan
     home.activation.activate-mutable = let
       configFile = pkgs.writeText "activate-mutable-config.json" (builtins.toJSON cfg.file);
-    in lib.hm.dag.entryAfter ["writeBoundary"] ''
-      run ${lib.getExe cfg.package} activate ${configFile} ${config.home.homeDirectory}
-    '';
+    in
+      lib.hm.dag.entryAfter ["writeBoundary"] ''
+        run ${lib.getExe cfg.package} activate ${configFile} ${config.home.homeDirectory}
+      '';
   };
 }
