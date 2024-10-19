@@ -32,12 +32,6 @@ fn read_config(file: &Path) -> Result<Config> {
 
 type Hash = [u8; 32];
 
-fn get_hash(path: &Path) -> Result<Hash> {
-    let data = std::fs::read(path)?;
-    let digest = Sha256::digest(&data);
-    Ok(digest.into())
-}
-
 #[derive(Debug)]
 enum MatchOutcome {
     DoNothing,
@@ -156,7 +150,9 @@ fn write_previous_config(home: &Path, config: &Config) -> Result<()> {
     Ok(())
 }
 
-pub fn run(args: Opt) -> Result<()> {
+/// Run the activation process, copying files specified in the config to the home directory.
+/// Returns true if any non-fatal errors occurred.
+pub fn run(args: Opt) -> Result<bool> {
     println!(
         "Installing mutable files to {} using config {}",
         args.home_directory.display(),
@@ -174,16 +170,20 @@ pub fn run(args: Opt) -> Result<()> {
         Config::new()
     });
 
+    let mut any_errors = false;
     for (name, entry) in config.iter() {
         let old_entry = active_config.get(name);
         let full_path = args.home_directory.join(name);
         match apply_file(&full_path, entry, old_entry) {
             Ok(()) => (),
-            Err(e) => eprintln!("Error applying {}: {}", name.display(), e)
+            Err(e) => {
+                eprintln!("Error applying {}: {}", name.display(), e);
+                any_errors = true;
+            }
         }
     }
 
     write_previous_config(&args.home_directory, &config)?;
 
-    Ok(())
+    Ok(any_errors)
 }
