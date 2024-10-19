@@ -1,0 +1,1 @@
+{"Test/file.txt":{"source":"./testsrc/abc123","on_conflict":"warn"},"Test/test2.txt":{"source":"./testsrc/abc123","on_conflict":"replace"}}

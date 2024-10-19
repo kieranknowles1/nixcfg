@@ -20,6 +20,14 @@ interface ConfigEntry {
     source: string // Absolute
     onConflict: 'replace' | 'warn'
 }
+
+// impl note: The config format was changed to be the same as Nix
+config: Map<string, ConfigEntry>
+interface ConfigEntry {
+    // destination: string // Use the map key instead
+    source: string
+    on_conflict: 'replace' | 'warn'
+}
 ```
 
 Link previous config file after activation for future reference. If previous is

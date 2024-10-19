@@ -1,20 +1,19 @@
-use std::path::PathBuf;
+use std::{collections::HashMap, path::PathBuf};
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-pub type Config = Vec<ConfigEntry>;
+pub type Config = HashMap<PathBuf, ConfigEntry>;
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum ConflictStrategy {
     Replace,
     Warn,
 }
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ConfigEntry {
-    destination: String,
-    source: PathBuf,
-    on_conflict: ConflictStrategy,
+    pub source: PathBuf,
+    pub on_conflict: ConflictStrategy,
 }
