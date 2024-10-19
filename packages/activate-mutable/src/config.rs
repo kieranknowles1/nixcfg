@@ -17,5 +17,6 @@ pub enum ConflictStrategy {
 #[serde(deny_unknown_fields)]
 pub struct ConfigEntry {
     pub source: PathBuf,
+    #[serde(rename = "onConflict")]
     pub on_conflict: ConflictStrategy,
 }
