@@ -22,6 +22,7 @@
       command-palette = callPackage ./command-palette {};
       export-blueprints = callPackage ./export-blueprints {};
       factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
+      generate-graphs = callPackage ./generate-graphs {};
       nix-utils = callPackage ./nix-utils {};
       nixvim = callPackage ./nixvim {};
       openmw-dev = callPackage ./openmw-dev.nix {};
