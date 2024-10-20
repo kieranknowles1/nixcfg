@@ -43,5 +43,5 @@ pub struct ConfigEntry {
     // What to do when the file has changed locally.
     pub on_conflict: ConflictStrategy,
     // Path to the file in the repository, relative to the repository root.
-    pub repo_path: String,
+    pub repo_path: Option<String>,
 }
