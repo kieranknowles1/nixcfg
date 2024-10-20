@@ -57,10 +57,16 @@ in {
       nil
     ];
 
-    custom.mutable.file."${userSettingsDir}/settings.json" = {
-      source = ./settings.json;
-      repoPath = "modules/home/editor/vscode/settings.json";
+    custom.mutable.file = let
+      mkFile = file: {
+        source = ./${file};
+        repoPath = "modules/home/editor/vscode/${file}";
+      };
+    in {
+      "${userSettingsDir}/settings.json" = mkFile "settings.json";
+      "${userSettingsDir}/keybindings.json" = mkFile "keybindings.json";
     };
+    # TODO: Use mutable for this
     home.file."${userSettingsDir}/snippets" = {
       source = ./snippets;
       recursive = true;
