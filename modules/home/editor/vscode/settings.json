@@ -21,6 +21,7 @@
 
   "git.autofetch": true, // Keep the repo up to date, but don't pull unless I say so
   "git.confirmSync": false, // Don't tell me what pushing does, I know what I'm doing
+  "git.openRepositoryInParentFolders": "always", // Open a repo if there's one in a parent folder
 
   // Associate some files with the correct language to make them look nice
   "files.associations": {

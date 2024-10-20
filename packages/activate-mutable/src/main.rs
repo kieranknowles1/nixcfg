@@ -1,24 +1,36 @@
 mod activate;
 mod config;
+mod info;
+mod repo;
 
 use std::process::ExitCode;
 
 use clap::Parser;
 
-type Result<T> = activate::Result<T>;
-
 // [[../../../docs/plan/activate-mutable.md]]
-// TODO: V2: Restore files to repo
 // TODO: V3: Support directories
 
 #[derive(Parser)]
 enum Opt {
+    /// Deploy a set of files to the system.
     Activate(activate::Opt),
+    /// Copy local changes to the repository.
+    Repo(repo::Opt),
+    /// List currently deployed files.
+    Info(info::Opt),
 }
 
-fn main() -> Result<ExitCode> {
+fn main() -> Result<ExitCode, Box<dyn std::error::Error>> {
     let any_errors = match Opt::parse() {
         Opt::Activate(args) => activate::run(args)?,
+        Opt::Repo(args) => {
+            repo::run(args)?;
+            false
+        }
+        Opt::Info(args) => {
+            info::run(args)?;
+            false
+        }
     };
 
     // If any errors occurred, return a non-zero exit code.

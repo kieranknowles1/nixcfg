@@ -5,7 +5,7 @@ use clap::Parser;
 use sha2::{Digest, Sha256};
 use thiserror::Error;
 
-use crate::config::{Config, ConfigEntry, ConflictStrategy, get_previous_config_path, read_config};
+use crate::config::{get_previous_config_path, read_config, Config, ConfigEntry, ConflictStrategy};
 
 pub type Result<T> = std::result::Result<T, Error>;
 

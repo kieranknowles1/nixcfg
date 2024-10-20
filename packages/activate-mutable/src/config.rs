@@ -21,13 +21,24 @@ pub fn get_previous_config_path(home: &Path) -> PathBuf {
     home.join(".config/activate-mutable-config.json")
 }
 
+/// Return `value` if it is `Some`, otherwise use the value of the environment variable `name`.
+pub fn or_environ(
+    value: Option<PathBuf>,
+    name: &str,
+) -> std::result::Result<PathBuf, std::env::VarError> {
+    match value {
+        Some(value) => Ok(value),
+        None => Ok(std::env::var(name)?.into()),
+    }
+}
+
 pub fn read_config(file: &Path) -> Result<Config> {
     let file = std::fs::File::open(file)?;
     let json: Config = serde_json::from_reader(file)?;
     Ok(json)
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "lowercase")]
 pub enum ConflictStrategy {
     Replace,
@@ -43,6 +54,5 @@ pub struct ConfigEntry {
     // What to do when the file has changed locally.
     pub on_conflict: ConflictStrategy,
     // Path to the file in the repository, relative to the repository root.
-    // TODO: Should this be required?
     pub repo_path: Option<String>,
 }

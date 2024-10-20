@@ -57,7 +57,10 @@ in {
       nil
     ];
 
-    custom.mutable.file."${userSettingsDir}/settings.json".source = ./settings.json;
+    custom.mutable.file."${userSettingsDir}/settings.json" = {
+      source = ./settings.json;
+      repoPath = "modules/home/editor/vscode/settings.json";
+    };
     home.file."${userSettingsDir}/snippets" = {
       source = ./snippets;
       recursive = true;
