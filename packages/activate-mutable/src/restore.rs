@@ -45,10 +45,7 @@ impl FinalOpt {
     fn from(opt: Opt) -> Result<Self> {
         let home = or_environ(opt.home, "HOME")?;
         let repo = or_environ(opt.repo, "FLAKE")?;
-        Ok(Self {
-            home,
-            repo,
-        })
+        Ok(Self { home, repo })
     }
 }
 
@@ -89,7 +86,10 @@ pub fn run(args: Opt) -> Result<()> {
                 restore_file(&full_repo, &home_path)?;
             }
             None => {
-                eprintln!("No repository path specified for {:?}, cannot restore", home_path);
+                eprintln!(
+                    "No repository path specified for {:?}, cannot restore",
+                    home_path
+                );
             }
         };
     }
