@@ -23,7 +23,7 @@ in {
 
     # Give us an environment variable for our flake path
     environmentVariables = {
-      FLAKE = "\"${config.custom.fullRepoPath}\"";
+      FLAKE = config.custom.fullRepoPath;
     };
 
     # Append my custom config to the default
