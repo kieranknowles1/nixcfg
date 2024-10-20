@@ -72,6 +72,8 @@
       configFile = pkgs.writeText "activate-mutable-config.json" (builtins.toJSON cfg.file);
     in
       lib.hm.dag.entryAfter ["writeBoundary"] ''
+        # TODO: A file failing to be provisioned shouldn't stop the whole activation, how do
+        # we make it just a warning to the user?
         run ${lib.getExe cfg.package} activate ${configFile} ${config.home.homeDirectory}
       '';
   };

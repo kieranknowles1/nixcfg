@@ -5,6 +5,7 @@
   - [Dev Shells](#dev-shells)
   - [Using in Another Flake](#using-in-another-flake)
   - [Firefox](#firefox)
+  - [Mutable Files](#mutable-files)
 
 ## Backups
 
@@ -44,3 +45,16 @@ Additionally, the following search engines are added:
 - [NixOS Search](https://search.nixos.org/packages) `@n`
 - [NixOS Options](https://nixos.org/nixos/options.html) `@no`
 - [Home Manager Options](https://home-manager-options.extranix.com/) `@ho`
+
+## Mutable Files
+
+Files can be deployed to the user's home directory in a mutable way using the
+`config.mutable.file` home-manager option. This is useful for files that should
+be modifiable after deployment, such as configuration files for applications.
+
+The `activate-mutable` script is used to manage these files, and is configured
+on a per-file basis to either replace when there are local changes, or to raise
+a warning.
+
+The `restore` subcommand is provided to pull changes in `$HOME` back into the
+flake repository, where they can be used for future deployments.
