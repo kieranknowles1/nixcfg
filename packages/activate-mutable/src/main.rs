@@ -1,7 +1,7 @@
 mod activate;
 mod config;
-mod restore;
 mod info;
+mod restore;
 
 use std::process::ExitCode;
 
@@ -39,11 +39,11 @@ fn main() -> Result<ExitCode> {
         Opt::Restore(args) => {
             restore::run(args)?;
             false
-        },
+        }
         Opt::Info(args) => {
             info::run(args)?;
             false
-        },
+        }
     };
 
     // If any errors occurred, return a non-zero exit code.
