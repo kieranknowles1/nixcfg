@@ -5,7 +5,7 @@ use clap::Parser;
 use sha2::{Digest, Sha256};
 use thiserror::Error;
 
-use crate::config::{Config, ConfigEntry, ConflictStrategy};
+use crate::config::{Config, ConfigEntry, ConflictStrategy, get_previous_config_path, read_config};
 
 pub type Result<T> = std::result::Result<T, Error>;
 
@@ -17,18 +17,14 @@ pub enum Error {
     Json(#[from] serde_json::Error),
     #[error("File changed locally: {file}")]
     Conflict { file: PathBuf },
+    #[error("Error loading config: {0}")]
+    Config(#[from] crate::config::Error),
 }
 
 #[derive(Parser)]
 pub struct Opt {
     config_file: PathBuf,
     home_directory: PathBuf,
-}
-
-fn read_config(file: &Path) -> Result<Config> {
-    let file = File::open(file)?;
-    let json: Config = serde_json::from_reader(file)?;
-    Ok(json)
 }
 
 type Hash = [u8; 32];
@@ -126,10 +122,6 @@ fn apply_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>)
             Ok(())
         }
     }
-}
-
-fn get_previous_config_path(home: &Path) -> PathBuf {
-    home.join(".config/activate-mutable-config.json")
 }
 
 fn write_previous_config(home: &Path, config: &Config) -> Result<()> {
