@@ -29,6 +29,20 @@
             type = types.enum ["replace" "warn"];
             default = "warn";
           };
+          repoPath = mkOption {
+            # Not a path, as we don't want this to be in the Nix store
+            type = types.nullOr types.str;
+            # In theory, this could be guessed automatically by checking the source's store path.
+            # However, this would rely on the source being part of the same derivation, which assumes too
+            # much about Nix's internals. Implicit behaviour in the most explicit operating system is almost
+            # as bad as dynamic typing.
+            default = null;
+            description = ''
+              Path to the file relative to the flake's root.
+
+              If unset, this file will still be provisioned but changes cannot be restored.
+            '';
+          };
         };
       });
 

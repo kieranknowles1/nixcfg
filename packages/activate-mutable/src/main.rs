@@ -18,7 +18,6 @@ enum Error {
 type Result<T> = std::result::Result<T, Error>;
 
 // [[../../../docs/plan/activate-mutable.md]]
-// TODO: V2: Restore files to repo
 // TODO: V3: Support directories
 
 #[derive(Parser)]
@@ -30,7 +29,10 @@ enum Opt {
 fn main() -> Result<ExitCode> {
     let any_errors = match Opt::parse() {
         Opt::Activate(args) => activate::run(args)?,
-        Opt::Restore(args) => restore::run(args)?,
+        Opt::Restore(args) => {
+            restore::run(args)?;
+            false
+        }
     };
 
     // If any errors occurred, return a non-zero exit code.

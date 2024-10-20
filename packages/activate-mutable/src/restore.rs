@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 use clap::Parser;
 use thiserror::Error;
 
-use crate::config::{get_previous_config_path, read_config, ConfigEntry};
+use crate::config::{get_previous_config_path, read_config};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -52,8 +52,7 @@ impl FinalOpt {
     }
 }
 
-fn restore_file(entry: &ConfigEntry, home_path: &Path, repo: &Path) -> Result<()> {
-    let repo_path = repo.join(&entry.repo_path);
+fn restore_file(repo_path: &Path, home_path: &Path) -> Result<()> {
     println!("Restoring file {:?} to {:?}", home_path, repo_path);
 
     match std::fs::exists(&repo_path)? {
@@ -71,8 +70,7 @@ fn restore_file(entry: &ConfigEntry, home_path: &Path, repo: &Path) -> Result<()
 }
 
 /// Restore files to the repository.
-/// Like activate, returns true if any non-fatal errors occurred.
-pub fn run(args: Opt) -> Result<bool> {
+pub fn run(args: Opt) -> Result<()> {
     let opt = FinalOpt::from(args)?;
 
     println!(
@@ -85,8 +83,16 @@ pub fn run(args: Opt) -> Result<bool> {
 
     for (name, entry) in config.iter() {
         let home_path = opt.home.join(name);
-        restore_file(entry, &home_path, &opt.repo)?;
+        match &entry.repo_path {
+            Some(repo_relative) => {
+                let full_repo = opt.repo.join(repo_relative);
+                restore_file(&full_repo, &home_path)?;
+            }
+            None => {
+                eprintln!("No repository path specified for {:?}, cannot restore", home_path);
+            }
+        };
     }
 
-    Ok(false)
+    Ok(())
 }
