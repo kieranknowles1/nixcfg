@@ -22,7 +22,10 @@ pub fn get_previous_config_path(home: &Path) -> PathBuf {
 }
 
 /// Return `value` if it is `Some`, otherwise use the value of the environment variable `name`.
-pub fn or_environ(value: Option<PathBuf>, name: &str) -> std::result::Result<PathBuf, std::env::VarError> {
+pub fn or_environ(
+    value: Option<PathBuf>,
+    name: &str,
+) -> std::result::Result<PathBuf, std::env::VarError> {
     match value {
         Some(value) => Ok(value),
         None => Ok(std::env::var(name)?.into()),

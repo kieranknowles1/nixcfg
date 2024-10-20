@@ -55,11 +55,12 @@ settings were easy enough to migrate_
 
 Current uses:
 
-- XDG template files
-- VSCode config (preprocessed, put deps on `$PATH` instead?)
-- Espanso config (needs directory support)
-- Game config (still in old dotfiles repo)
-- VSCode snippets (needs directory support)
+- [x] XDG template files
+- [x] VSCode config (preprocessed, put deps on `$PATH` instead?)
+- [ ] VSCode bindings
+- [ ] Espanso config (needs directory support)
+- [ ] Game config (still in old dotfiles repo)
+- [ ] VSCode snippets (needs directory support)
 
 ## V3 - Handle Directories
 
