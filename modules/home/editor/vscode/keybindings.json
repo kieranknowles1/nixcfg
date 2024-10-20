@@ -1,0 +1,10 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    // Format document with Alt+Shift+F
+    // Only active when the document is focused
+    "key": "alt+shift+f",
+    "command": "editor.action.formatDocument",
+    "when": "editorTextFocus"
+  }
+]

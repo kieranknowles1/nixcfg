@@ -35,6 +35,9 @@
   "editor.showFoldingControls": "always", // Always show folding controls, so it's clear what's foldable
   "editor.renderWhitespace": "trailing", // Highlight if there's trailing whitespace
 
+  "editor.suggest.matchOnWordStartOnly": false, // Allow searching for words in the middle, without needing to know the start
+  "editor.wordBasedSuggestions": "off", // Don't clutter suggestions with every word in the document
+
   // =================
   //  Core Extensions
   // =================
