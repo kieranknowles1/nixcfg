@@ -56,7 +56,7 @@ The `activate-mutable` script is used to manage these files, and is configured
 on a per-file basis to either replace when there are local changes, or to raise
 a warning.
 
-The `restore` subcommand is provided to pull changes in `$HOME` back into the
+The `repo` subcommand is provided to pull changes in `$HOME` back into the
 flake repository, where they can be used for future deployments.
 
 The `info` subcommand can be used to list all mutable files, where they came
