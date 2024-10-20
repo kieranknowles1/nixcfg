@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 use clap::Parser;
 use thiserror::Error;
 
-use crate::config::{get_previous_config_path, read_config};
+use crate::config::{get_previous_config_path, or_environ, read_config};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -32,13 +32,6 @@ pub struct Opt {
 struct FinalOpt {
     home: PathBuf,
     repo: PathBuf,
-}
-
-fn or_environ(value: Option<PathBuf>, name: &str) -> Result<PathBuf> {
-    match value {
-        Some(value) => Ok(value),
-        None => Ok(std::env::var(name)?.into()),
-    }
 }
 
 impl FinalOpt {

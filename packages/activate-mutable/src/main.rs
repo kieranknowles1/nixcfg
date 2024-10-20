@@ -1,6 +1,7 @@
 mod activate;
 mod config;
 mod restore;
+mod info;
 
 use std::process::ExitCode;
 
@@ -13,6 +14,8 @@ enum Error {
     Activate(#[from] activate::Error),
     #[error("Restore error: {0}")]
     Restore(#[from] restore::Error),
+    #[error("Info error: {0}")]
+    Info(#[from] info::Error),
 }
 
 type Result<T> = std::result::Result<T, Error>;
@@ -22,8 +25,12 @@ type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Parser)]
 enum Opt {
+    /// Deploy a set of files to the system.
     Activate(activate::Opt),
+    /// Copy local changes to the repository.
     Restore(restore::Opt),
+    /// List currently deployed files.
+    Info(info::Opt),
 }
 
 fn main() -> Result<ExitCode> {
@@ -32,7 +39,11 @@ fn main() -> Result<ExitCode> {
         Opt::Restore(args) => {
             restore::run(args)?;
             false
-        }
+        },
+        Opt::Info(args) => {
+            info::run(args)?;
+            false
+        },
     };
 
     // If any errors occurred, return a non-zero exit code.

@@ -58,3 +58,15 @@ a warning.
 
 The `restore` subcommand is provided to pull changes in `$HOME` back into the
 flake repository, where they can be used for future deployments.
+
+The `info` subcommand can be used to list all mutable files, where they came
+from in the flake, and how they handle local changes.
+
+```sh
+$ activate-mutable info
+
+# example output
+# /home/user/some-file:
+#   Repository: modules/some-file
+#   On conflict: Warn
+```
