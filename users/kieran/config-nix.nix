@@ -18,6 +18,11 @@
         globalStorage = ./openmw/global_storage.json;
         playerStorage = ./openmw/player_storage.json;
       };
+
+      factorio.configFile = {
+        file = ./factorio.ini;
+        repoPath = "users/kieran/factorio.ini";
+      };
     };
   };
 }
