@@ -71,8 +71,8 @@ pub fn run(args: Opt) -> Result<()> {
 
     let config = read_config(&get_previous_config_path(&opt.home))?;
 
-    for (name, entry) in config.iter() {
-        let home_path = opt.home.join(name);
+    for entry in &config {
+        let home_path = opt.home.join(&entry.destination);
         match &entry.repo_path {
             Some(repo_relative) => {
                 let full_repo = opt.repo.join(repo_relative);
