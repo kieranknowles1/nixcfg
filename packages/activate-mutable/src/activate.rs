@@ -41,7 +41,6 @@ enum MatchOutcome {
 enum ExistingMatch {
     EqualNew,
     EqualOld,
-    NotInOld,
     Conflict,
 }
 
@@ -58,7 +57,7 @@ impl MatchOutcome {
             match status {
                 ExistingMatch::EqualNew => MatchOutcome::DoNothing,
                 ExistingMatch::EqualOld => MatchOutcome::CopyNew,
-                ExistingMatch::Conflict | ExistingMatch::NotInOld => match on_conflict {
+                ExistingMatch::Conflict => match on_conflict {
                     ConflictStrategy::Warn => MatchOutcome::Conflict,
                     ConflictStrategy::Replace => MatchOutcome::CopyNew,
                 },
@@ -74,17 +73,14 @@ impl MatchOutcome {
 impl ExistingMatch {
     // Compare existing, previous, and new files to determine what to do.
     fn from_hashes(old_hash: Option<Hash>, new_hash: Hash, home_hash: Hash) -> Self {
-        match old_hash {
-            None => ExistingMatch::NotInOld,
-            Some(old) => {
-                if new_hash == home_hash {
-                    ExistingMatch::EqualNew
-                } else if old == home_hash {
-                    ExistingMatch::EqualOld
-                } else {
-                    ExistingMatch::Conflict
-                }
-            }
+        if Some(new_hash) == old_hash {
+            ExistingMatch::EqualNew
+        } else if Some(home_hash) == old_hash {
+            ExistingMatch::EqualOld
+        } else {
+            // The files differ, or we have no previous file to compare to.
+            // A non-existent file is never identical to an existing file.
+            ExistingMatch::Conflict
         }
     }
 }
