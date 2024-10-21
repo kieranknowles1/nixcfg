@@ -12,14 +12,35 @@
       ${combine-blueprints} ${directory} > $out
     '';
 in {
-  options.custom.games.factorio = {
-    blueprints = lib.mkOption {
+  options.custom.games.factorio = let
+    inherit (lib) mkOption types options;
+  in {
+    blueprints = mkOption {
       description = ''
         A directory containing Factorio blueprints, as exported using `export-blueprints`.
       '';
-      type = lib.types.path;
+      type = types.nullOr types.path;
 
-      example = lib.options.literalExpression "./blueprints";
+      example = options.literalExpression "./blueprints";
+    };
+
+    configFile = {
+      file = mkOption {
+        description = ''
+          The Factorio configuration file.
+        '';
+        type = types.nullOr types.path;
+        default = null;
+        example = options.literalExpression "./factorio.ini";
+      };
+
+      repoPath = mkOption {
+        description = ''
+          The position of the config file relative to the repository root.
+        '';
+        type = types.str;
+        example = "users/bob/factorio.ini";
+      };
     };
   };
 
@@ -29,6 +50,13 @@ in {
     cfg = config.custom.games.factorio;
   in
     lib.mkIf hostConfig.custom.games.enable {
-      home.file."Games/configs/factorio-blueprints.txt".source = convert cfg.blueprints;
+      home.file."Games/configs/factorio-blueprints.txt" = lib.mkIf (cfg.blueprints != null) {
+        source = convert cfg.blueprints;
+      };
+
+      custom.mutable.file.".factorio/config/config.ini" = lib.mkIf (cfg.configFile != null) {
+        source = cfg.configFile.file;
+        repoPath = cfg.configFile.repoPath;
+      };
     };
 }
