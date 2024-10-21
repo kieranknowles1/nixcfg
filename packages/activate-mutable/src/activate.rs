@@ -19,6 +19,8 @@ pub enum Error {
     Conflict { file: PathBuf },
     #[error("Error loading config: {0}")]
     Config(#[from] crate::config::Error),
+    #[error("Directory traversal detected {file}")]
+    DirectoryTraversal { file: PathBuf },
 }
 
 #[derive(Parser)]
@@ -93,7 +95,7 @@ fn hash_file(path: &Path) -> Result<Hash> {
     Ok(digest.into())
 }
 
-fn apply_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
+fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
     let new_hash = hash_file(&entry.source)?;
     let old_hash = match old_entry {
         Some(old) => Some(hash_file(&old.source)?),
@@ -124,11 +126,25 @@ fn apply_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>)
     }
 }
 
+fn process_entry(home: &Path, path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
+    let full_path = home.join(path);
+
+    // Security check: Only allow writing to the home directory or its subdirectories.
+    match is_subdirectory(&home, &full_path) {
+        true => copy_file(&full_path, entry, old_entry),
+        false => Err(Error::DirectoryTraversal { file: full_path }),
+    }
+}
+
 fn write_previous_config(home: &Path, config: &Config) -> Result<()> {
     let path = get_previous_config_path(home);
     let file = File::create(path)?;
     serde_json::to_writer(file, config)?;
     Ok(())
+}
+
+pub fn is_subdirectory(parent: &Path, child: &Path) -> bool {
+    child.ancestors().any(|ancestor| ancestor == parent)
 }
 
 /// Run the activation process, copying files specified in the config to the home directory.
@@ -153,8 +169,8 @@ pub fn run(args: Opt) -> Result<bool> {
     let mut any_errors = false;
     for (name, entry) in config.iter() {
         let old_entry = active_config.get(name);
-        let full_path = args.home_directory.join(name);
-        match apply_file(&full_path, entry, old_entry) {
+
+        match process_entry(&args.home_directory, name, entry, old_entry) {
             Ok(()) => (),
             Err(e) => {
                 eprintln!("Error applying {}: {}", name.display(), e);

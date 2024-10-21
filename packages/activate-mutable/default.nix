@@ -1,10 +1,10 @@
 {rustPlatform}:
 rustPlatform.buildRustPackage rec {
   pname = "activate-mutable";
-  version = "2.0.0";
+  version = "2.0.1";
   src = ./.;
 
-  cargoHash = "sha256-N5Fu59mM0QwY286TG2sIATU8/mH5/+ZBgzHEko+5CjM=";
+  cargoHash = "sha256-pnlGid7fv6T6hfwRR48eEuQSXIm5hysv1hQEjJD3Tqo=";
 
   meta = {
     description = "Activate mutable files in the home directory";
