@@ -25,12 +25,12 @@ pub fn run(args: Opt) -> Result<()> {
     let home = or_environ(args.home, "HOME")?;
     let config = read_config(&get_previous_config_path(&home))?;
 
-    for (path, entry) in config {
-        let repo = match entry.repo_path {
+    for entry in &config {
+        let repo = match &entry.repo_path {
             Some(repo) => repo,
-            None => "<no repo path>".to_string(),
+            None => "<no repo path>",
         };
-        println!("{}", path.display());
+        println!("{}", entry.destination.display());
         println!("  Repository: {}", repo);
         println!("  On conflict: {:?}", entry.on_conflict);
     }

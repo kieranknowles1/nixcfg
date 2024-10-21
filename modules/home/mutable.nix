@@ -67,9 +67,12 @@
       })
       cfg.file;
 
-    # TODO: Use other files described in the plan
+    # TODO: Use for other files described in the plan
     home.activation.activate-mutable = let
-      configFile = pkgs.writeText "activate-mutable-config.json" (builtins.toJSON cfg.file);
+      configTransform = lib.attrsets.mapAttrsToList (name: value: {
+        destination = name;
+      } // value) cfg.file;
+      configFile = pkgs.writeText "activate-mutable-config.json" (builtins.toJSON configTransform);
     in
       lib.hm.dag.entryAfter ["writeBoundary"] ''
         # TODO: A file failing to be provisioned shouldn't stop the whole activation, how do

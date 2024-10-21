@@ -5,7 +5,7 @@ use clap::Parser;
 use sha2::{Digest, Sha256};
 use thiserror::Error;
 
-use crate::config::{get_previous_config_path, read_config, Config, ConfigEntry, ConflictStrategy};
+use crate::config::{find_entry, get_previous_config_path, read_config, Config, ConfigEntry, ConflictStrategy};
 
 pub type Result<T> = std::result::Result<T, Error>;
 
@@ -122,8 +122,8 @@ fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) 
     }
 }
 
-fn process_entry(home: &Path, path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
-    let full_path = home.join(path);
+fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
+    let full_path = home.join(&entry.destination);
 
     // Security check: Only allow writing to the home directory or its subdirectories.
     match is_subdirectory(&home, &full_path) {
@@ -139,7 +139,7 @@ fn write_previous_config(home: &Path, config: &Config) -> Result<()> {
     Ok(())
 }
 
-pub fn is_subdirectory(parent: &Path, child: &Path) -> bool {
+fn is_subdirectory(parent: &Path, child: &Path) -> bool {
     child.ancestors().any(|ancestor| ancestor == parent)
 }
 
@@ -163,13 +163,13 @@ pub fn run(args: Opt) -> Result<bool> {
         });
 
     let mut any_errors = false;
-    for (name, entry) in config.iter() {
-        let old_entry = active_config.get(name);
+    for entry in &config {
+        let old_entry = find_entry(&active_config, &entry.destination);
 
-        match process_entry(&args.home_directory, name, entry, old_entry) {
+        match process_entry(&args.home_directory, &entry, old_entry) {
             Ok(()) => (),
             Err(e) => {
-                eprintln!("Error applying {}: {}", name.display(), e);
+                eprintln!("Error applying {}: {}", entry.destination.display(), e);
                 any_errors = true;
             }
         }
