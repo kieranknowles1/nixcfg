@@ -67,6 +67,7 @@
       # `nix flake show gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons | grep <search-term>`
       extensions = with pkgs.firefox-addons; [
         bitwarden # Password manager. Available everywhere
+        # TODO: Manage config for extensions. How do we export?
         consent-o-matic # Do you consent to being tracked by 1000 companies? No? Too bad.
         darkreader # Midnight flashbang blocker
         privacy-badger # My activity is none of your business
