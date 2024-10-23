@@ -69,9 +69,12 @@
 
     # TODO: Use for other files described in the plan
     home.activation.activate-mutable = let
-      configTransform = lib.attrsets.mapAttrsToList (name: value: {
-        destination = name;
-      } // value) cfg.file;
+      configTransform = lib.attrsets.mapAttrsToList (name: value:
+        {
+          destination = name;
+        }
+        // value)
+      cfg.file;
       configFile = pkgs.writeText "activate-mutable-config.json" (builtins.toJSON configTransform);
     in
       lib.hm.dag.entryAfter ["writeBoundary"] ''
