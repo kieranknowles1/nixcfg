@@ -48,11 +48,13 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import inputs.systems;
 
+      imports = [
+        # Can be overridden with https://flake.parts/options/treefmt-nix options
+        nixcfg.flakeModules.treefmt
+      ];
+
       flake = {
         # Shared across all systems
-
-        # Inherit formatters from nixcfg
-        formatter = nixcfg.formatter;
       };
 
       perSystem = {pkgs, ...}: {
