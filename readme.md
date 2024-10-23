@@ -86,6 +86,8 @@ issues so I can do all my work in one place.
   - [x] Build ISO
         [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
   - [ ] Remove anything not needed for a server
+  - [ ] Update `rebuild update` as discussed in
+        [Nix Server](./docs/plan/nix-server.md)
 - [ ] Allow home-manager to be used independently of NixOS
   - [ ] Minimise usage of `hostConfig`, then pass it in as an argument (overlays
         should help with this)
@@ -99,6 +101,7 @@ issues so I can do all my work in one place.
 - [x] Convert to `flake-parts` for better modularity
   - [x] `flake.nix`
   - [x] Template
+- [ ] Get swap files working
 
 ## Lessons Learned
 
