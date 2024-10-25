@@ -93,7 +93,7 @@ issues so I can do all my work in one place.
         should help with this)
   - [ ] Put this on the server until we can run full NixOS on it
 - [ ] Automate running checks on the repo. Do these in nix's `checkPhase`?
-  - [ ] Links in Markdown
+  - [x] Links in Markdown
   - [ ] Links in comments
         [extension](https://marketplace.visualstudio.com/items?itemName=Isotechnics.commentlinks)
 - [ ] Pre-commit hooks
