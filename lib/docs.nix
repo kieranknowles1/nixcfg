@@ -4,6 +4,7 @@
   withSystem,
   ...
 }: let
+  # TODO: Can't we just do evalModules importer directly?
   evalModules = importer:
     lib.evalModules {
       modules = [
@@ -81,8 +82,9 @@ in {
 
       # File containing options documentation
       optionsDoc =
+        # TODO: Can we pass evalModules directly?
         (pkgs.nixosOptionsDoc {
-          options = modulesEval.options;
+          inherit (modulesEval) options;
         })
         .optionsCommonMark;
 

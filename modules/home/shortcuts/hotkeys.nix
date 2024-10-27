@@ -5,14 +5,14 @@
   pkgs,
   ...
 }: let
-  sxhkd = pkgs.sxhkd;
+  inherit (pkgs) sxhkd;
 
   mkDocs = bindings: let
     keys = builtins.attrNames bindings;
 
     bindingList = lib.lists.forEach keys (key: let
-      description = bindings.${key}.description;
-    in "- `${key}` - ${description}");
+      value = bindings.${key};
+    in "- `${key}` - ${value.description}");
   in ''
     # Keyboard shortcuts
 

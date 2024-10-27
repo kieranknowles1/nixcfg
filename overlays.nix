@@ -15,7 +15,7 @@
   An overlay function that adds the namespace to nixpkgs.
   */
   mkNamespace = name: packages: extra: (_final: prev: let
-    system = prev.stdenv.hostPlatform.system;
+    inherit (prev.stdenv.hostPlatform) system;
     namespacePkgs = packages.${system};
   in {
     "${name}" = namespacePkgs // extra;
@@ -23,7 +23,7 @@
 in {
   flake.overlays = {
     default = mkNamespace "flake" self.packages {
-      lib = self.lib;
+      inherit (self) lib;
     };
 
     nixpkgs-stable = mkNamespace "stable" inputs.nixpkgs-stable.legacyPackages {};

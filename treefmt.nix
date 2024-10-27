@@ -19,8 +19,6 @@
         # so we explicitly skip files that are not meant to be formatted
         excludes = [
           "**/Cargo.toml" # Managed by the Cargo command
-          "**/espanso/config/match/packages/**" # Externally sourced
-          "**/factorio-blueprints/**" # Generated from blueprint-storage.dat, not meant to be edited
           # Plain text from ~/.ssh
           "**/ssh/hosts/**"
           "**/ssh/keys/**"
@@ -63,18 +61,7 @@
         shellcheck.enable = true; # Bash
 
         deadnix.enable = true; # Nix
-        statix = {
-          # Nix
-          enable = true;
-
-          disabled-lints = [
-            # Don't replace `a = attrs.a` with `inherit (attrs) a;`
-            # as I find the assignment more readable
-            # We still prefer `inherit a;` over `a = a` though
-            # as I find the inheritance more readable
-            "manual_inherit_from"
-          ];
-        };
+        statix.enable = true; # Nix
 
         # Other Repositories
         # These languages are not used in this repository, but their formatters are included

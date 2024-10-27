@@ -101,6 +101,8 @@
 
     users.users =
       lib.attrsets.mapAttrs (_name: user: {
+        inherit (user.core) shell;
+
         # A normal user is one that can log in, as opposed to a system user used for services
         isNormalUser = true;
         # User's full name
@@ -110,8 +112,6 @@
         # Only sudoers get wheel membership so they can sudo
         extraGroups =
           ["networkmanager"] ++ (lib.optional user.core.isSudoer "wheel");
-
-        shell = user.core.shell;
       })
       config.custom.user;
   };

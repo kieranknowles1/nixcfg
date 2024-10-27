@@ -1,5 +1,5 @@
 {self, ...}: let
-  mkHost = self.lib.host.mkHost;
+  inherit (self.lib.host) mkHost;
 in {
   flake.nixosConfigurations = {
     canterbury = mkHost ./canterbury/configuration.nix;

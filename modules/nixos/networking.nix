@@ -30,7 +30,7 @@
   in {
     # Enable networking
     networking = {
-      hostName = cfg.hostName;
+      inherit (cfg) hostName;
 
       networkmanager.enable = true;
       # This is handled by NetworkManager
