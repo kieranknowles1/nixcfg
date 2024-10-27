@@ -117,15 +117,15 @@
       {
         name = mkPasswordPath name;
         value = {
+          inherit (value) owner;
           key = value.password;
-          owner = value.owner;
         };
       }
       {
         name = mkRemotePath name;
         value = {
+          inherit (value) owner;
           key = value.destination.remote;
-          owner = value.owner;
         };
       }
     ];
@@ -138,9 +138,9 @@
       inherit name;
       value =
         {
+          inherit (config) exclude;
           user = config.owner;
           paths = [config.source];
-          exclude = config.exclude;
 
           pruneOpts = [
             "--keep-daily ${toString config.keep.daily}"

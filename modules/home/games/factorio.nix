@@ -55,8 +55,8 @@ in {
       };
 
       custom.mutable.file.".factorio/config/config.ini" = lib.mkIf (cfg.configFile != null) {
+        inherit (cfg.configFile) repoPath;
         source = cfg.configFile.file;
-        repoPath = cfg.configFile.repoPath;
       };
     };
 }

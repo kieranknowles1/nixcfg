@@ -16,7 +16,7 @@
     stylix = {
       # base16Scheme isn't inherited if a wallpaper is set, so explicitly set it
       # to avoid one being generated
-      base16Scheme = hostConfig.stylix.base16Scheme;
+      inherit (hostConfig.stylix) base16Scheme;
       image = config.custom.theme.wallpaper;
     };
   };

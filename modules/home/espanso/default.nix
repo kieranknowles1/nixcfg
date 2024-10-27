@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  userDetails = config.custom.userDetails;
+  inherit (config.custom) userDetails;
 
   fixupPackage = {
     package,
@@ -168,7 +168,7 @@ in {
           value = {
             source = let
               file = builtins.fetchTarball {
-                url = package.url;
+                inherit (package) url;
                 sha256 = package.hash;
               };
 

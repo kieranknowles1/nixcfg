@@ -41,8 +41,8 @@
     # This allows the path to be defined either in the host, or in home-manager.
     # As Nix is lazy, the assertion will not be evaluated until the path is used.
     custom.repoPath = let
+      inherit (config.home) homeDirectory;
       hostRepoPath = hostConfig.custom.repoPath;
-      homeDirectory = config.home.homeDirectory;
 
       homeRelativePath =
         if (lib.strings.hasPrefix homeDirectory hostRepoPath)
