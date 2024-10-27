@@ -96,7 +96,6 @@
 
       inputs.disko.follows = "";
       inputs.sops-nix.follows = "";
-      inputs.nixos-images.follows = "";
       inputs.nixos-facter-modules.follows = "";
     };
 
