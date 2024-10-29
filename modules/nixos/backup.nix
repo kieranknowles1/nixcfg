@@ -4,10 +4,12 @@
   lib,
   ...
 }: {
-  options.custom.backup = {
-    enable = lib.mkEnableOption "backups";
+  options.custom.backup = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    enable = mkEnableOption "backups";
 
-    repositories = lib.mkOption {
+    repositories = mkOption {
       description = ''
         Backups to manage with Restic
 
@@ -26,25 +28,25 @@
       '';
       default = {};
 
-      type = lib.types.attrsOf (lib.types.submodule {
+      type = types.attrsOf (types.submodule {
         options = {
-          source = lib.mkOption {
+          sources = mkOption {
             description = ''
               The absolute path to the directory to backup.
             '';
 
-            type = lib.types.str;
-            example = "/home/bob/Documents";
+            type = types.listOf types.str;
+            example = ["/home/bob/Documents" "/home/bob/.homework"];
           };
 
-          exclude = lib.mkOption {
+          exclude = mkOption {
             description = ''
               A list of patterns to exclude from the backup.
 
               See [Backing up - Excluding Files](https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files) for more information.
             '';
 
-            type = lib.types.listOf lib.types.str;
+            type = types.listOf types.str;
             default = [];
             example = [
               ".git"
@@ -53,25 +55,25 @@
             ];
           };
 
-          destination.local = lib.mkOption {
+          destination.local = mkOption {
             description = ''
               The absolute path to the local directory to store the backup.
             '';
 
-            type = lib.types.str;
+            type = types.str;
             example = "/mnt/backup";
           };
 
-          destination.remote = lib.mkOption {
+          destination.remote = mkOption {
             description = ''
               The secret containing the connection string to the remote repository.
             '';
 
-            type = lib.types.str;
+            type = types.str;
             example = "backup/remote/repo";
           };
 
-          owner = lib.mkOption {
+          owner = mkOption {
             description = ''
               The user that owns the source files and backups.
             '';
@@ -79,12 +81,12 @@
 
           keep = let
             mkKeepOption = name: default:
-              lib.mkOption {
+              mkOption {
                 inherit default;
                 description = ''
                   The number of ${name} backups to keep.
                 '';
-                type = lib.types.int;
+                type = types.int;
               };
           in {
             daily = mkKeepOption "daily" 7;
@@ -92,7 +94,7 @@
             monthly = mkKeepOption "monthly" 12;
           };
 
-          password = lib.mkOption {
+          password = mkOption {
             description = ''
               The path to the password in the host's secrets file.
             '';
@@ -140,7 +142,7 @@
         {
           inherit (config) exclude;
           user = config.owner;
-          paths = [config.source];
+          paths = config.sources;
 
           pruneOpts = [
             "--keep-daily ${toString config.keep.daily}"
