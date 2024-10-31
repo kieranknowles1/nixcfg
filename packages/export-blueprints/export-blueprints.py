@@ -10,6 +10,8 @@ from subprocess import run
 from sys import stderr, argv
 from typing import Any, Optional
 import json
+import base64
+import zlib
 
 
 def write_json(data: Any, path: str):
@@ -42,6 +44,15 @@ def export_bin():
 
     return (json.loads(result.stdout), result.stderr if skipped_any else None)
 
+def decode_string(string: str):
+    if string[0] != "0":
+        raise ValueError("Invalid blueprint version")
+    compressed = base64.b64decode(string[1:])
+    unzip = zlib.decompress(compressed)
+
+    print(f"Decoded {len(string)/1024:.2f} KB into {len(unzip)/1024:.2f} KB", file=stderr)
+
+    return json.loads(unzip)
 
 def get_name(entry: dict[str, Any]) -> Optional[str]:
     if "blueprint" in entry:
@@ -129,13 +140,23 @@ def check_output_dir(dir: str):
 
 def main():
     if len(argv) < 2:
-        print(f"Usage: {argv[0]} <output_dir>", file=stderr)
+        print(f"Usage: {argv[0]} <output_dir> <text=decode ~/.factorio/blueprint-storage.dat>", file=stderr)
         exit(1)
     out_dir = argv[1]
 
     check_output_dir(out_dir)
 
-    blob, errors = export_bin()
+    if len(argv) < 3:
+        blob, errors = export_bin()
+    elif argv[2] == "text":
+        # Dirty hack to let us paste more than 4096 characters into the terminal
+        run(["nano", "/tmp/blueprint-string.txt"], check=True)
+        with open("/tmp/blueprint-string.txt") as f:
+            blob = decode_string(f.read())
+
+        errors = None
+    else:
+        raise ValueError(f"Unknown argument: {argv[2]}")
 
     # The raw JSON is a bit large for Git, so we'll split it into smaller files by blueprint
     rmtree(out_dir)  # Clear out the old data
