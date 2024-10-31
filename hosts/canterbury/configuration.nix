@@ -18,6 +18,11 @@
           file = ./secrets.yaml;
         };
       };
+
+      # TODO: Temp code until this is on a server
+      environment.systemPackages = [
+        pkgs.flake.trilium-next-desktop
+      ];
     }
   ];
 

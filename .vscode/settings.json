@@ -14,8 +14,6 @@
     "**/result/**" // Ignore Nix's result symlink, otherwise Pylance will report 200k errors.
   ],
 
-  "rust-analyzer.linkedProjects": ["packages/rebuild"],
-
   // Schemas change on every rebuild, so we need to effectively disable the cache.
   // TODO: Is there any way to just disable the cache for a specific schema or purge it manually?
   "evenBetterToml.schema.cache.diskExpiration": 1,
