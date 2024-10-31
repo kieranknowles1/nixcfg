@@ -1,6 +1,7 @@
 {
   packagePythonScript,
   flake,
+  nano
 }:
 packagePythonScript {
   name = "export-blueprints";
@@ -13,12 +14,13 @@ packagePythonScript {
       Each blueprint is saved as a separate file, should any fail to be exported,
       a list of failures and their traceback is saved to "errors.txt".
 
-      All paths are hardcoded, as this is intended for this specific repository.
-
-      Requires [factorio-blueprint-decoder](#factorio-blueprint-decoder) to be
-      on the PATH.
+      The script is able to decode blueprints from the blueprint-storage.dat file,
+      or from a string which must be pasted manually.
     '';
   };
 
-  runtimeInputs = [flake.factorio-blueprint-decoder];
+  runtimeInputs = [
+    flake.factorio-blueprint-decoder
+    nano
+  ];
 }
