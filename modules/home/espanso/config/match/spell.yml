@@ -1,0 +1,7 @@
+# Matches for spell correction
+
+matches:
+  - trigger: forgoe
+    replace: forgo
+    propagate_case: true
+    word: true
