@@ -41,8 +41,11 @@ enum MatchOutcome {
 }
 
 enum ExistingMatch {
+    // The home file is identical to the new file.
     EqualNew,
+    // The home file is identical to the old file.
     EqualOld,
+    // The home file differs from both the old and new files.
     Conflict,
 }
 
@@ -50,7 +53,7 @@ impl MatchOutcome {
     // See flow chart in plan.
     fn from_hashes(
         old_hash: Option<Hash>,
-        new_hash: Hash, // If this wasn't present, we're not touching the file.
+        new_hash: Hash, // If this wasn't present, we wouldn't be provisioning it.
         home_hash: Option<Hash>,
         on_conflict: &ConflictStrategy,
     ) -> Self {
@@ -73,9 +76,9 @@ impl MatchOutcome {
 }
 
 impl ExistingMatch {
-    // Compare existing, previous, and new files to determine what to do.
+    // Compare the current home file with the new and old files.
     fn from_hashes(old_hash: Option<Hash>, new_hash: Hash, home_hash: Hash) -> Self {
-        if Some(new_hash) == old_hash {
+        if new_hash == home_hash {
             ExistingMatch::EqualNew
         } else if Some(home_hash) == old_hash {
             ExistingMatch::EqualOld

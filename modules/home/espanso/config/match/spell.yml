@@ -5,3 +5,7 @@ matches:
     replace: forgo
     propagate_case: true
     word: true
+  - regex: "(?P<cap>[tT])ess?ell?at(?P<end>e|ion|or|ed|ing)"
+    replace: "{{cap}}essellat{{end}}"
+    propagate_case: true
+    word: true
