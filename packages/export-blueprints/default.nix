@@ -1,7 +1,7 @@
 {
   packagePythonScript,
   flake,
-  nano
+  nano,
 }:
 packagePythonScript {
   name = "export-blueprints";

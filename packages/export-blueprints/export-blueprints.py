@@ -44,15 +44,19 @@ def export_bin():
 
     return (json.loads(result.stdout), result.stderr if skipped_any else None)
 
+
 def decode_string(string: str):
     if string[0] != "0":
         raise ValueError("Invalid blueprint version")
     compressed = base64.b64decode(string[1:])
     unzip = zlib.decompress(compressed)
 
-    print(f"Decoded {len(string)/1024:.2f} KB into {len(unzip)/1024:.2f} KB", file=stderr)
+    print(
+        f"Decoded {len(string)/1024:.2f} KB into {len(unzip)/1024:.2f} KB", file=stderr
+    )
 
     return json.loads(unzip)
+
 
 def get_name(entry: dict[str, Any]) -> Optional[str]:
     if "blueprint" in entry:
@@ -140,7 +144,10 @@ def check_output_dir(dir: str):
 
 def main():
     if len(argv) < 2:
-        print(f"Usage: {argv[0]} <output_dir> <text=decode ~/.factorio/blueprint-storage.dat>", file=stderr)
+        print(
+            f"Usage: {argv[0]} <output_dir> <text=decode ~/.factorio/blueprint-storage.dat>",
+            file=stderr,
+        )
         exit(1)
     out_dir = argv[1]
 

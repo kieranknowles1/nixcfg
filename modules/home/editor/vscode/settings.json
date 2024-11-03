@@ -90,6 +90,6 @@
     "reportUnknownLambdaType": "information",
     "reportUnknownMemberType": "information",
     "reportUnknownParameterType": "information",
-    "reportUnknownVariableType": "information",
+    "reportUnknownVariableType": "information"
   }
 }
