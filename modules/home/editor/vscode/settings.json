@@ -84,6 +84,12 @@
     "reportUnusedClass": "warning",
     "reportUnusedExpression": "warning",
     "reportUnusedFunction": "warning",
-    "reportUnusedVariable": "warning"
+    "reportUnusedVariable": "warning",
+
+    "reportUnknownArgumentType": "information",
+    "reportUnknownLambdaType": "information",
+    "reportUnknownMemberType": "information",
+    "reportUnknownParameterType": "information",
+    "reportUnknownVariableType": "information",
   }
 }
