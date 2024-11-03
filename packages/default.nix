@@ -21,6 +21,7 @@
       activate-mutable = callPackage ./activate-mutable {};
       combine-blueprints = callPackage ./combine-blueprints {};
       command-palette = callPackage ./command-palette {};
+      export-notes = callPackage ./export-notes {};
       export-blueprints = callPackage ./export-blueprints {};
       factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
       generate-graphs = callPackage ./generate-graphs {};
