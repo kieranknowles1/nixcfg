@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-if [ "$#" -ne 1 ]; then
-  echo "Usage: $0 <src-file.zip>"
-  exit 1
-fi
-
-SRC_FILE=$1
+API_ROOT="http://127.0.0.1:37840/etapi"
+API_KEY=$(cat ~/.local/share/trilium-data/token)
 DST_DIR=~/Documents/notes-export
 META_FILE="$DST_DIR/!!!meta.json"
 
-echo "Unzipping $SRC_FILE to $DST_DIR"
-unzip -q -o "$SRC_FILE" -d "$DST_DIR"
+export_file=$(mktemp)
+echo "Feching notes from $API_ROOT to $export_file"
+curl --header "Authorization: $API_KEY" "$API_ROOT/notes/root/export" > "$export_file"
 
+echo "Unzipping $export_file to $DST_DIR"
+unzip -q -o "$export_file" -d "$DST_DIR"
+rm "$export_file"
 
-echo "Cleaning up $DST_DIR"
+echo "Cleaning up export"
+
 # Discard the isExpanded property from all notes, as it is part of the UI state
-# cat <<< "$(jq --indent 1 'walk(if type == "object" then del(.isExpanded) end)' "$META_FILE")" > "$META_FILE"
 tmp_file=$(mktemp)
 jq --indent 1 'walk(if type == "object" then del(.isExpanded) end)' "$META_FILE" > "$tmp_file"
 mv "$tmp_file" "$META_FILE"
