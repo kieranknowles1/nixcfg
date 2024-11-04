@@ -14,10 +14,11 @@ writeShellApplication rec {
   text = builtins.readFile ./export-notes.sh;
 
   meta = {
-    description = "Extract a Trilium export to a Git repository";
+    description = "Export notes from Trilium to Git";
     longDescription = ''
-      Extract a Trilium export passed as an argument to a Git repository,
-      and commit the changes with the current date and time.
+      Fetch notes from Trilium as HTML with metadata, then commit the changes to a Git repository.
+
+      Requires that an API key exists at ~/.local/share/trilium-data/token
     '';
 
     mainProgram = name;
