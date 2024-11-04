@@ -12,7 +12,7 @@ backup.enable = true
 [backup.repositories.documents]
 password = "backup/password"
 owner = "kieran"
-source = "/home/kieran/Documents"
+sources = [ "/home/kieran/Documents" ]
 # Exclude .git and src, as these are already tracked by git
 exclude = [ ".git", "src" ]
 destination.local = "/home/kieran/Backups/Documents"
