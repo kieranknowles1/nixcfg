@@ -24,7 +24,7 @@ mv "$tmp_file" "$META_FILE"
 echo "Committing changes to git"
 repo_clean=$(git -C "$DST_DIR" status --porcelain | wc -l)
 if [ "$repo_clean" -gt 0 ]; then
-  commit_message="Update from $(basename "$SRC_FILE") on $(date +'%Y-%m-%d %H:%M:%S')"
+  commit_message="Update on $(date +'%Y-%m-%d %H:%M:%S')"
   git -C "$DST_DIR" add .
   git -C "$DST_DIR" commit -m "$commit_message"
   # git -C "$DST_DIR" push
