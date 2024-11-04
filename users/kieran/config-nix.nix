@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  hostConfig,
   ...
 }: {
   config.custom = {
@@ -24,5 +25,7 @@
         repoPath = "users/kieran/factorio.ini";
       };
     };
+
+    trilium-client.enable = hostConfig.networking.hostName == "canterbury";
   };
 }

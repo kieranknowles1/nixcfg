@@ -18,5 +18,6 @@
     ./shortcuts
     ./secrets.nix
     ./theme.nix
+    ./trilium.nix
   ];
 }
