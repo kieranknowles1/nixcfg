@@ -7,7 +7,7 @@ META_FILE="$DST_DIR/!!!meta.json"
 
 export_file=$(mktemp)
 echo "Feching notes from $API_ROOT to $export_file"
-curl --header "Authorization: $API_KEY" "$API_ROOT/notes/root/export" > "$export_file"
+curl --header "Authorization: $API_KEY" "$API_ROOT/notes/root/export" > "$export_file" 2>/dev/null
 
 echo "Unzipping $export_file to $DST_DIR"
 unzip -q -o "$export_file" -d "$DST_DIR"
@@ -19,6 +19,14 @@ echo "Cleaning up export"
 tmp_file=$(mktemp)
 jq --indent 1 'walk(if type == "object" then del(.isExpanded) end)' "$META_FILE" > "$tmp_file"
 mv "$tmp_file" "$META_FILE"
+
+# Pass loose JSON through jq to format it nicely
+# Trilium dumps everything on one line, which is hard to read diffs of
+while IFS= read -r -d '' file; do
+  tmp_file=$(mktemp)
+  jq --indent 1 . "$file" > "$tmp_file"
+  mv "$tmp_file" "$file"
+done < <(find "$DST_DIR" -type f -name '*.json' -print0)
 
 
 echo "Committing changes to git"
