@@ -68,6 +68,11 @@
   },
 
   // =====
+  //  C++
+  // =====
+  "cmake.pinnedCommands": [], // The extension is aggressive about setting its defaults, so clear them out and hope it sticks
+
+  // =====
   //  Nix
   // =====
   "nix.enableLanguageServer": true,
