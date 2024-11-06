@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 API_ROOT="http://127.0.0.1:37840/etapi"
 API_KEY=$(cat ~/.local/share/trilium-data/token)
@@ -7,7 +8,7 @@ META_FILE="$DST_DIR/!!!meta.json"
 
 export_file=$(mktemp)
 echo "Feching notes from $API_ROOT to $export_file"
-curl --header "Authorization: $API_KEY" "$API_ROOT/notes/root/export" > "$export_file" 2>/dev/null
+curl --header "Authorization: $API_KEY" "$API_ROOT/notes/root/export" > "$export_file"
 
 echo "Unzipping $export_file to $DST_DIR"
 unzip -q -o "$export_file" -d "$DST_DIR"
@@ -33,7 +34,7 @@ echo "Committing changes to git"
 repo_clean=$(git -C "$DST_DIR" status --porcelain | wc -l)
 if [ "$repo_clean" -gt 0 ]; then
   git -C "$DST_DIR" add .
-  git -C "$DST_DIR" commit -m "Update on $(date +'%Y-%m-%d %H:%M:%S')"
+  git -C "$DST_DIR" commit -m "Update on $(date +'%Y-%m-%d %H:%M:%S')" > /dev/null
   # git -C "$DST_DIR" push
 else
   echo "No changes since last export"
