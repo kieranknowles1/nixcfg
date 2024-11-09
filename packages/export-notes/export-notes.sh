@@ -8,7 +8,7 @@ log() {
 
 API_ROOT="http://127.0.0.1:37840/etapi"
 API_KEY=$(cat ~/.local/share/trilium-data/token)
-DST_DIR=~/Documents/notes-export
+DST_DIR=$(cat ~/.local/share/trilium-data/export-dir)
 META_FILE="$DST_DIR/!!!meta.json"
 
 export_file=$(mktemp)

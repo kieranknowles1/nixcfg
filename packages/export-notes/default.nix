@@ -19,6 +19,8 @@ writeShellApplication rec {
       Fetch notes from Trilium as HTML with metadata, then commit the changes to a Git repository.
 
       Requires that an API key exists at ~/.local/share/trilium-data/token
+
+      Exports to the directory specified by the contents of ~/.local/share/trilium-data/export-dir
     '';
 
     mainProgram = name;
