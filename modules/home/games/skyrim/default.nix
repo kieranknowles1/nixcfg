@@ -33,20 +33,14 @@ in {
 
       shortcuts.palette.actions = let
         utilsBin = lib.getExe pkgs.flake.skyrim-utils;
-        utils = command: [utilsBin command];
+        mkAction = subcommand: description: {
+          action = [ utilsBin subcommand ];
+          description = "Skyrim: ${description}";
+        };
       in [
-        {
-          action = utils "latest";
-          description = "Skyrim: Open the latest save in ReSaver";
-        }
-        {
-          action = utils "crash";
-          description = "Skyrim: Open the most recent crash log";
-        }
-        {
-          action = utils "clean";
-          description = "Skyrim: Clean orphaned SKSE co-save files";
-        }
+        (mkAction "latest" "Open the latest save in ReSaver")
+        (mkAction "crash" "Open the most recent crash log")
+        (mkAction "clean" "Clean orphaned SKSE co-save files")
       ];
     };
   };

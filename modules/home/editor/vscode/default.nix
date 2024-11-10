@@ -46,15 +46,22 @@ in {
 
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
 
+        # GLSL
+        slevesque.shader
+        dtoplak.vscode-glsllint
+
         # Godot
         geequlim.godot-tools
         mrorz.language-gettext # Used for translations
       ];
     };
 
-    # Required by the VS Code extension
     home.packages = with pkgs; [
+      # Required by jnoortheen.nix-ide
       nil
+
+      # Required by dtoplak.vscode-glsllint
+      glslang
     ];
 
     custom.mutable.file = let
