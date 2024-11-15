@@ -42,7 +42,8 @@ they are named after ships from The Expanse.
 - [rocinante](hosts/rocinante/configuration.nix) - My main desktop.<br> Primary
   system for just about any task. Fast, powerful, and has a lot of storage.
 - [canterbury](hosts/canterbury/configuration.nix) - My laptop.<br> Portable,
-  lightweight, good battery life, and fast enough for what it does.
+  lightweight, fast enough for what it does, and incredible battery life thanks
+  to lacking ~~bloatware~~ Windows.
 
 ## Essential Resources
 
