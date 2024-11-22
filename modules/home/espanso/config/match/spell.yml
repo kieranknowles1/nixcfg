@@ -1,10 +1,18 @@
 # Matches for spell correction
+# cSpell:ignoreRegExp /trigger: \w+/
 
 matches:
+  # Basic matches, in alphabetical order
   - trigger: forgoe
     replace: forgo
     propagate_case: true
     word: true
+  - trigger: vertecies
+    replace: vertices
+    propagate_case: true
+    word: true
+
+  # Regex matches, in alphabetical order
   - regex: "(?P<cap>[tT])ess?ell?at(?P<end>e|ion|or|ed|ing)"
     replace: "{{cap}}essellat{{end}}"
     propagate_case: true
