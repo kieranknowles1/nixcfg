@@ -11,7 +11,6 @@ matches:
     replace: vertices
     propagate_case: true
     word: true
-
   # Regex matches, in alphabetical order
   - regex: "(?P<cap>[tT])ess?ell?at(?P<end>e|ion|or|ed|ing)"
     replace: "{{cap}}essellat{{end}}"
