@@ -13,18 +13,19 @@
 
   config = let
     cfg = config.custom.trilium-client;
-  in lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      flake.trilium-next-desktop
-    ];
+  in
+    lib.mkIf cfg.enable {
+      home.packages = with pkgs; [
+        flake.trilium-next-desktop
+      ];
 
-    custom.shortcuts.palette.actions = [
-      {
-        action = [
-          (lib.getExe pkgs.flake.export-notes)
-        ];
-        description = "Export Trilium notes";
-      }
-    ];
-  };
+      custom.shortcuts.palette.actions = [
+        {
+          action = [
+            (lib.getExe pkgs.flake.export-notes)
+          ];
+          description = "Export Trilium notes";
+        }
+      ];
+    };
 }

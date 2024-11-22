@@ -34,7 +34,7 @@ in {
       shortcuts.palette.actions = let
         utilsBin = lib.getExe pkgs.flake.skyrim-utils;
         mkAction = subcommand: description: {
-          action = [ utilsBin subcommand ];
+          action = [utilsBin subcommand];
           description = "Skyrim: ${description}";
         };
       in [
