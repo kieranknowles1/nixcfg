@@ -15,6 +15,14 @@
       DisableTelemetry = true;
       # Extensions are also managed
       ExtensionUpdate = false;
+      # My data is none of your business
+      EnableTrackingProtection = {
+        Value = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+        EmailTracking = true;
+        Locked = true;
+      };
       # I use Bitwarden for this
       PasswordManagerEnabled = false;
       # Don't use this
