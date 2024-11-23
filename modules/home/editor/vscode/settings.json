@@ -81,6 +81,15 @@
   // =====
   "nix.enableLanguageServer": true,
   "nix.serverPath": "nil",
+  "nix.serverSettings": {
+    "nil": {
+      "formatting": {
+        // Use whatever the workspace has set for nix files
+        "command": ["nix", "fmt", "--", "--stdin", ".nix"]
+      }
+    }
+  },
+  "nix.formatterPath": "nix fmt -- --stdin dummy.nix",
 
   // ========
   //  Python
