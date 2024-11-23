@@ -15,45 +15,49 @@
     fonts = [defaultMonoFont];
   };
 in {
-  # TODO: Link to the shell set on the host side, a NuShell specific file isn't the best place for this
-  xdg.configFile."default-shell".source = lib.getExe config.programs.nushell.package;
+  config = {
+    # TODO: Link to the shell set on the host side, a NuShell specific file isn't the best place for this
+    xdg.configFile."default-shell".source = lib.getExe config.programs.nushell.package;
 
-  programs.nushell = {
-    enable = true;
+    programs = {
+      nushell = {
+        enable = true;
 
-    # Give us an environment variable for our flake path
-    environmentVariables = {
-      FLAKE = config.custom.fullRepoPath;
+        # Give us an environment variable for our flake path
+        environmentVariables = {
+          FLAKE = config.custom.fullRepoPath;
+        };
+
+        # Append my custom config to the default
+        extraConfig = builtins.readFile ./nushell.nu;
+      };
+
+      # Use Carapace to generate completions
+      carapace = {
+        # TODO: Is this necessary?
+        enable = hostConfig.custom.features.desktop;
+        enableNushellIntegration = true;
+      };
+
+      # Use Starship as the prompt
+      starship = {
+        enable = true;
+        settings = builtins.fromTOML (builtins.readFile ./starship.toml);
+      };
+
+      # Smart cd
+      zoxide = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
     };
 
-    # Append my custom config to the default
-    extraConfig = builtins.readFile ./nushell.nu;
+    # fontconfig is not relevant on servers
+    fonts.fontconfig.enable = hostConfig.custom.features.desktop;
+
+    # Starship uses icons from NerdFonts
+    home.packages = [
+      minifiedNerdFonts
+    ];
   };
-
-  # Use Carapace to generate completions
-  programs.carapace = {
-    # TODO: Is this necessary?
-    enable = hostConfig.custom.features.desktop;
-    enableNushellIntegration = true;
-  };
-
-  # Use Starship as the prompt
-  programs.starship = {
-    enable = true;
-    settings = builtins.fromTOML (builtins.readFile ./starship.toml);
-  };
-
-  # Smart cd
-  programs.zoxide = {
-    enable = true;
-    enableNushellIntegration = true;
-  };
-
-  # fontconfig is not relevant on servers
-  fonts.fontconfig.enable = hostConfig.custom.features.desktop;
-
-  # Starship uses icons from NerdFonts
-  home.packages = [
-    minifiedNerdFonts
-  ];
 }
