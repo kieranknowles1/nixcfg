@@ -58,7 +58,9 @@
     fonts.fontconfig.defaultFonts = {
       monospace = lib.singleton (
         # FIXME: New nixpkgs doesn't list the font name in the package name
-        if config.custom.fonts.defaultMono == pkgs.nerd-fonts.dejavu-sans-mono then "DejaVuSansMono" else builtins.throw "Unknown default monospace font"
+        if config.custom.fonts.defaultMono == pkgs.nerd-fonts.dejavu-sans-mono
+        then "DejaVuSansMono"
+        else builtins.throw "Unknown default monospace font"
       );
     };
 

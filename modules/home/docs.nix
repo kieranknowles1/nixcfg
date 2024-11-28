@@ -58,10 +58,12 @@
       ${lib.strings.concatStringsSep "\n" linkDocs}
     '';
 in {
-  options.custom.docs-generate = {
-    enable = lib.mkEnableOption "generate documentation for the flake and its options.";
+  options.custom.docs-generate = let
+    inherit (lib) mkEnableOption mkOption types options;
+  in {
+    enable = mkEnableOption "generate documentation for the flake and its options.";
 
-    file = lib.mkOption {
+    file = mkOption {
       description = ''
         A file include in the generated documentation.
 
@@ -78,68 +80,88 @@ in {
         };
       };
 
-      type = lib.types.attrsOf (lib.types.submodule {
+      type = types.attrsOf (types.submodule {
         options = {
-          description = lib.mkOption {
+          description = mkOption {
             description = "A brief, one-line description of the file.";
-            type = lib.types.str;
+            type = types.str;
             example = "Options for home-manager";
           };
 
-          source = lib.mkOption {
+          source = mkOption {
             description = "The file containing the content or a string literal.";
-            type = with lib.types; oneOf [path str];
-            example = lib.options.literalExpression "./docs-generated/file-a.md";
+            type = with types; oneOf [path str];
+            example = options.literalExpression "./docs-generated/file-a.md";
           };
         };
       });
     };
+
+    build = {
+      generated = mkOption {
+        type = types.path;
+        readOnly = true;
+        description = "The path to the generated documentation.";
+      };
+      # TODO: Use this to generate HTML documentation
+      all = mkOption {
+        type = types.package;
+        readOnly = true;
+        description = "All documentation files, generated and static. In Markdown format.";
+      };
+    };
   };
 
   config = lib.mkIf config.custom.docs-generate.enable {
-    custom.docs-generate.file = {
-      "lib.md" = {
-        description = "flake.lib library";
-        # FIXME: This isn't working, it's not finding the functions
-        source = self.lib.docs.mkFunctionDocs "${self}/lib";
+    custom.docs-generate = {
+      file = {
+        "lib.md" = {
+          description = "flake.lib library";
+          # FIXME: This isn't working, it's not finding the functions
+          source = self.lib.docs.mkFunctionDocs "${self}/lib";
+        };
+        "host-options.md" = {
+          description = "NixOS options";
+          source = self.lib.docs.mkOptionDocs self.nixosModules.default;
+        };
+        "host-options.schema.json" = {
+          description = "NixOS options schema";
+          source = self.lib.docs.mkJsonSchema self.nixosModules.default (opts: opts.custom);
+        };
+        "user-options.md" = {
+          description = "home-manager options";
+          source = self.lib.docs.mkOptionDocs self.homeManagerModules.default;
+        };
+        "user-options.schema.json" = let
+          filterCustom = opts: opts.custom;
+          # TODO: This is a bit of a hack, would like to have a proper way of disabling options
+          # in JSON.
+          filterNotHidden = opts:
+            builtins.removeAttrs opts [
+              # These are derived from the host's config and usually don't need to be set.
+              # TODO: Can we just make them not required?
+              "repoPath"
+              "fullRepoPath"
+            ];
+        in {
+          description = "home-manager options schema";
+          source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: filterNotHidden (filterCustom opts));
+        };
+        # FIXME: home-manager lists a warning about packages.md not being a directory
+        # This option should probably be like home.file, with different keys for plaintext and file sources
+        "packages.md" = {
+          description = "Flake packages";
+          source = self.lib.docs.mkPackageDocs pkgs.flake;
+        };
       };
-      "host-options.md" = {
-        description = "NixOS options";
-        source = self.lib.docs.mkOptionDocs self.nixosModules.default;
-      };
-      "host-options.schema.json" = {
-        description = "NixOS options schema";
-        source = self.lib.docs.mkJsonSchema self.nixosModules.default (opts: opts.custom);
-      };
-      "user-options.md" = {
-        description = "home-manager options";
-        source = self.lib.docs.mkOptionDocs self.homeManagerModules.default;
-      };
-      "user-options.schema.json" = let
-        filterCustom = opts: opts.custom;
-        # TODO: This is a bit of a hack, would like to have a proper way of disabling options
-        # in JSON.
-        filterNotHidden = opts:
-          builtins.removeAttrs opts [
-            # These are derived from the host's config and usually don't need to be set.
-            # TODO: Can we just make them not required?
-            "repoPath"
-            "fullRepoPath"
-          ];
-      in {
-        description = "home-manager options schema";
-        source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: filterNotHidden (filterCustom opts));
-      };
-      # FIXME: home-manager lists a warning about packages.md not being a directory
-      # This option should probably be like home.file, with different keys for plaintext and file sources
-      "packages.md" = {
-        description = "Flake packages";
-        source = self.lib.docs.mkPackageDocs pkgs.flake;
+
+      build = {
+        generated = mkDocs config.custom.docs-generate.file;
       };
     };
 
     home.file.${docsPath} = {
-      source = mkDocs config.custom.docs-generate.file;
+      source = config.custom.docs-generate.build.generated;
       recursive = true;
     };
   };
