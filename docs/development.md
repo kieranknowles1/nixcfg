@@ -9,6 +9,7 @@
   - [Best Practices](#best-practices)
     - [Error Handling](#error-handling)
     - [Code Style](#code-style)
+  - [Debugging](#debugging)
   - [Useful Tools](#useful-tools)
     - [`nix-tree`](#nix-tree)
     - [`nix repl`](#nix-repl)
@@ -97,6 +98,34 @@ overridden package (See the
 [reddit question](https://www.reddit.com/r/NixOS/comments/ttaw5u/what_is_the_purpose_of_single_quotes_after/),
 TL;DR: it's from the prime symbol meaning a derivative in mathematics). This is
 not strictly required, but is included for consistency with Nixpkgs.
+
+## Debugging
+
+To debug a derivation generated during a build, use `nix build`. This accepts a
+path to any flake attribute, including the configs of hosts and users. To make a
+derivation easily debuggable, declare an option with `type = types.path` and set
+it to the path of the derivation, as is done in
+[docs.nix](../modules/home/docs.nix).
+
+The command to build a derivation takes one of the following forms, depending on
+if the attribute is per-host or per-user:
+
+```sh
+# Per-host
+# TODO: Helper script for this
+nix build .#nixosConfigurations.<host>.config.<config-path>
+
+# Per-user
+# TODO: Helper script for this
+nix build .#nixosConfigurations.<host>.home-manager.users.<user>.<config-path>
+```
+
+For example, to debug the aforementioned `docs` derivation, run:
+
+```sh
+# ----------------------------- |Host   | ------------------------- |User| |Config Path                      |
+nix build .#nixosConfigurations.rocinante.config.home-manager.users.kieran.custom.docs-generate.build.generated
+```
 
 ## Useful Tools
 
