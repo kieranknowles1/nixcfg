@@ -2,19 +2,11 @@
 # The login shell can only be set by nixos itself, not home-manager.
 # A hacky workaround would be to `exec nu` inside bashrc, but I'd rather not do that.
 {
-  pkgs,
   config,
   hostConfig,
   lib,
   ...
-}: let
-  defaultMonoFont = config.custom.fonts.defaultMono;
-
-  # NerdFonts is quite large, so only install what we need for the shell
-  minifiedNerdFonts = pkgs.nerdfonts.override {
-    fonts = [defaultMonoFont];
-  };
-in {
+}: {
   config = {
     # TODO: Link to the shell set on the host side, a NuShell specific file isn't the best place for this
     xdg.configFile."default-shell".source = lib.getExe config.programs.nushell.package;
@@ -57,7 +49,7 @@ in {
 
     # Starship uses icons from NerdFonts
     home.packages = [
-      minifiedNerdFonts
+      config.custom.fonts.defaultMono
     ];
   };
 }

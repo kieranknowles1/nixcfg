@@ -6,32 +6,32 @@
   lib,
   ...
 }: {
-  options.custom = {
+  options.custom = let
+    inherit (lib) mkOption mkPackageOption types;
+  in {
     fonts = {
-      defaultMono = lib.mkOption {
-        description = "Default monospace font";
-        type = lib.types.str;
-        default = "DejaVuSansMono";
+      defaultMono = mkPackageOption pkgs.nerd-fonts "dejavu-sans-mono" {
+        extraDescription = "Default monospace font";
       };
     };
 
-    terminal.package = lib.mkPackageOption pkgs "terminal" {
+    terminal.package = mkPackageOption pkgs "terminal" {
       default = "gnome-console";
     };
 
-    repoPath = lib.mkOption {
+    repoPath = mkOption {
       description = ''
         Path to the flake repository on disk, relative to the home directory.
       '';
-      type = lib.types.path;
+      type = types.path;
       example = "src/nixos";
     };
 
-    fullRepoPath = lib.mkOption {
+    fullRepoPath = mkOption {
       description = ''
         (Read-only, set automatically) The full path to the flake repository on disk.
       '';
-      type = lib.types.path;
+      type = types.path;
       readOnly = true;
     };
   };
@@ -56,7 +56,10 @@
     nixpkgs.overlays = hostConfig.nixpkgs.overlays;
 
     fonts.fontconfig.defaultFonts = {
-      monospace = [config.custom.fonts.defaultMono];
+      monospace = lib.singleton (
+        # FIXME: New nixpkgs doesn't list the font name in the package name
+        if config.custom.fonts.defaultMono == pkgs.nerd-fonts.dejavu-sans-mono then "DejaVuSansMono" else builtins.throw "Unknown default monospace font"
+      );
     };
 
     home.packages = [
