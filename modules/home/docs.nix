@@ -157,6 +157,15 @@ in {
 
       build = {
         generated = mkDocs config.custom.docs-generate.file;
+        all = pkgs.runCommand "all-docs" {
+          GENERATED = config.custom.docs-generate.build.generated;
+          STATIC = "${self}/docs";
+        } ''
+          mkdir -p $out
+          mkdir -p $out/generated
+          cp -r $STATIC/* $out
+          cp -r $GENERATED/* $out/generated
+        '';
       };
     };
 
