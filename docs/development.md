@@ -107,24 +107,21 @@ derivation easily debuggable, declare an option with `type = types.path` and set
 it to the path of the derivation, as is done in
 [docs.nix](../modules/home/docs.nix).
 
-The command to build a derivation takes one of the following forms, depending on
-if the attribute is per-host or per-user:
+The `confbuild` utility is provided to make this easier. Simply run the
+following for any config path under `custom`:
 
 ```sh
 # Per-host
-# TODO: Helper script for this
-nix build .#nixosConfigurations.<host>.config.<config-path>
+confbuild n <config-path>
 
 # Per-user
-# TODO: Helper script for this
-nix build .#nixosConfigurations.<host>.home-manager.users.<user>.<config-path>
+confbuild u <config-path>
 ```
 
 For example, to debug the aforementioned `docs` derivation, run:
 
 ```sh
-# ----------------------------- |Host   | ------------------------- |User| |Config Path                      |
-nix build .#nixosConfigurations.rocinante.config.home-manager.users.kieran.custom.docs-generate.build.generated
+confbuild n docs-generate.build.generated
 ```
 
 ## Useful Tools
