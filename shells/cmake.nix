@@ -1,6 +1,7 @@
 {
   cmake,
   clang,
+  gdb,
   flake,
   # Bring our own CC, I prefer clang to gcc
   mkShellNoCC,
@@ -13,7 +14,11 @@
 flake.lib.shell.mkShellEx mkShellNoCC {
   name = "cmake";
 
-  packages = [ cmake clang ] ++ libraries;
+  packages = [
+    cmake
+    clang
+    gdb
+  ] ++ libraries;
 
   CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=${buildType}";
 
