@@ -14,7 +14,7 @@
     devShells = {
       # `default.nix` is already used for this file, so use a different name
       default = callPackage ./defaultShell.nix {};
-      openmw = callPackage ./openmw.nix {};
+      cmake = callPackage ./cmake.nix {};
       rust = callPackage ./rust.nix {};
     };
   };
