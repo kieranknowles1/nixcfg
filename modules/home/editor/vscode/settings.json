@@ -32,6 +32,7 @@
     "**/__pycache__": true // Hide Python cache folders
   },
 
+  "editor.fontFamily": "'DejaVuSansM Nerd Font Mono', 'monospace'", // Nice font with icons to be extra fancy
   "editor.showFoldingControls": "always", // Always show folding controls, so it's clear what's foldable
   "editor.renderWhitespace": "trailing", // Highlight if there's trailing whitespace
 
