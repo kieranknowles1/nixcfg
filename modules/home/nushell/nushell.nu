@@ -6,6 +6,17 @@ $env.config = {
 alias __orig_nix-shell = nix-shell
 alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
+# Get the size of the current Git repository, excluding the .git directory
+def repodu [
+    repo: path = "."
+] {
+    let repo_size = du $repo | get 0.apparent
+    let git_size = du $"($repo)/.git" | get 0.apparent
+    $repo_size - $git_size
+}
+
+# alias repodu = (du . | get 0.apparent) - (du .git | get 0.apparent)
+
 # Create a new directory and cd into it
 def --env mkcd [
     name: string
