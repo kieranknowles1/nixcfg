@@ -9,6 +9,19 @@
 #  Global Options
 # ================
 
+# More obvious than the default
+continuation_prompt = "[▶▶](bright-black) "
+
+# Warning when battery is low, with a higher threshold than default
+[[battery.display]]
+threshold = 25
+discharging_symbol = '󱊢 '
+style = 'bold orange'
+[[battery.display]]
+threshold = 10
+discharging_symbol = '󱊡 '
+style = 'bold red'
+
 [character]
 # Display a cross if the last command failed (non-zero exit code)
 error_symbol = "[✗](bold red)"
@@ -16,17 +29,29 @@ error_symbol = "[✗](bold red)"
 [directory]
 truncation_length = 8
 
+# Warning if memory usage is too high
+[memory_usage]
+disabled = false
+symbol = "🐏 "
+
+# Icon when sudo credentials are not required
+[sudo]
+disabled = false
+
 # ===================
 #  Workload Specific
 # ===================
 
 [cmake]
 # CMake doesn't have an icon in nerd-fonts, so we'll use the plain
-# Makefile icon instead
-# nf-seti-makefile
+# Makefile icon instead. The cpp icons are too small to be legible
+# on a prompt
 symbol = " "
 # Orange-red, mirroring VSCode's icon for makefiles
 style = "bold bright-red"
+
+[git_metrics]
+disabled = false
 
 [git_status]
 # Show how far ahead/behind we are compared to origin
@@ -38,17 +63,14 @@ diverged = "⇡${ahead_count}⇣${behind_count}"
 # Use the Greek Delta to represent modified but unstaged files as this means "change"
 # Use the letter "U" instead of "?" to make it clear what it represents
 conflicted = "!${count}"
-# nf-cod-trash
 deleted = "${count}"
 modified = "Δ${count}"
 renamed = "»${count}"
 staged = "+${count}"
-# nf-fa-box_archive
 stashed = " ${count}"
 untracked = "U${count}"
 
 [nix_shell]
-# nf-linux-nixos
 symbol = " "
 # This gives us more contrast from other modules
 style = "bold cyan"
