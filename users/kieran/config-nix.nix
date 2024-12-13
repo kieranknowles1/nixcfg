@@ -13,16 +13,20 @@
     };
 
     games = {
-      factorio.blueprints = "${inputs.factorio-blueprints}/blueprints";
+      factorio = {
+        blueprints = "${inputs.factorio-blueprints}/blueprints";
+
+        blueprints-repo = "/home/kieran/Documents/src/factorio-blueprints";
+
+        configFile = {
+          file = ./factorio.ini;
+          repoPath = "users/kieran/factorio.ini";
+        };
+      };
 
       openmw = {
         globalStorage = ./openmw/global_storage.json;
         playerStorage = ./openmw/player_storage.json;
-      };
-
-      factorio.configFile = {
-        file = ./factorio.ini;
-        repoPath = "users/kieran/factorio.ini";
       };
     };
 
