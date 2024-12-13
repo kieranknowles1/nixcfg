@@ -5,7 +5,6 @@
   flake,
   # Bring our own CC, I prefer clang to gcc
   mkShellNoCC,
-
   # Best balance between speed and debuggability
   buildType ? "RelWithDebInfo",
   # Additional libraries and tools to include
@@ -14,11 +13,13 @@
 flake.lib.shell.mkShellEx mkShellNoCC {
   name = "cmake";
 
-  packages = [
-    cmake
-    clang
-    gdb
-  ] ++ libraries;
+  packages =
+    [
+      cmake
+      clang
+      gdb
+    ]
+    ++ libraries;
 
   CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=${buildType}";
 
