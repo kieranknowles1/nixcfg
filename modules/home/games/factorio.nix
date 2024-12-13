@@ -76,7 +76,7 @@ in {
       };
 
       custom.shortcuts.palette.actions = lib.singleton {
-        action = [ (lib.getExe config.custom.terminal.package) "--" (builtins.toString exportScript) ];
+        action = [(lib.getExe config.custom.terminal.package) "--" (builtins.toString exportScript)];
         description = "Export Factorio blueprints";
       };
     };
