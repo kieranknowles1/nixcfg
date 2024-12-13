@@ -4,7 +4,7 @@
 
 # Script to export Factorio blueprints to the repository
 
-from os import path, makedirs, walk
+from os import path, makedirs, walk, remove
 from shutil import rmtree
 from subprocess import run
 from sys import stderr, argv
@@ -157,8 +157,11 @@ def main():
         blob, errors = export_bin()
     elif argv[2] == "text":
         # Dirty hack to let us paste more than 4096 characters into the terminal
-        run(["nano", "/tmp/blueprint-string.txt"], check=True)
-        with open("/tmp/blueprint-string.txt") as f:
+        STRING_FILE = "/tmp/blueprint-string.txt"
+        if path.exists(STRING_FILE):
+            remove(STRING_FILE)
+        run(["nano", STRING_FILE], check=True)
+        with open(STRING_FILE) as f:
             blob = decode_string(f.read())
 
         errors = None
