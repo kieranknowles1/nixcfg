@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   options.custom.editor.neovim = {
@@ -16,6 +15,8 @@
       vimAlias = true;
       vimdiffAlias = true;
     };
+
+    # TODO: Provision configs
 
     # home.packages = [
     #   (pkgs.flake.nixvim.extend {custom.optimise = true;})

@@ -18,6 +18,11 @@
       # to avoid one being generated
       inherit (hostConfig.stylix) base16Scheme;
       image = config.custom.theme.wallpaper;
+
+      targets = {
+        # TODO: Can we set the neovim theme without writing init.lua
+        neovim.enable = false;
+      };
     };
   };
 }
