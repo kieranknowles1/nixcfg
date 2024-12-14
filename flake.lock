@@ -315,38 +315,6 @@
         "type": "github"
       }
     },
-    "nixvim": {
-      "inputs": {
-        "devshell": [],
-        "flake-compat": [],
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "git-hooks": [],
-        "home-manager": [
-          "home-manager"
-        ],
-        "nix-darwin": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nuschtosSearch": [],
-        "treefmt-nix": []
-      },
-      "locked": {
-        "lastModified": 1733326706,
-        "narHash": "sha256-lUX5R3HgfQ6qWj0pJ/vvtYAxtPU3n71y2OcjVTcCFYg=",
-        "owner": "nix-community",
-        "repo": "nixvim",
-        "rev": "d4ae1e362fa2deed663952e31c73f4d85fef6070",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixvim",
-        "type": "github"
-      }
-    },
     "openmw": {
       "inputs": {
         "mygui": "mygui",
@@ -385,7 +353,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-openmw": "nixpkgs-openmw",
         "nixpkgs-stable": "nixpkgs-stable",
-        "nixvim": "nixvim",
         "openmw": "openmw",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",

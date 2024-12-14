@@ -26,7 +26,8 @@
       factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
       generate-graphs = callPackage ./generate-graphs {};
       nix-utils = callPackage ./nix-utils {};
-      nixvim = callPackage ./nixvim {};
+      # TODO: Remove this
+      # nixvim = callPackage ./nixvim {};
       openmw-dev = callPackage ./openmw-dev.nix {};
       openmw-luadata = callPackage ./openmw-luadata {};
       rebuild = callPackage ./rebuild {};
