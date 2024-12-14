@@ -9,6 +9,14 @@
   };
 
   config = lib.mkIf config.custom.editor.neovim.enable {
+    programs.neovim = {
+      enable = true;
+
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+    };
+
     # home.packages = [
     #   (pkgs.flake.nixvim.extend {custom.optimise = true;})
     # ];

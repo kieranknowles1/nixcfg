@@ -61,7 +61,7 @@
   # TODO: Try Zed
   imports = [
     ./vscode
-    ./neovim.nix
+    ./neovim
   ];
 
   config = let
