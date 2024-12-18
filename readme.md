@@ -28,6 +28,7 @@ details how to develop in the repository, and use systems configured with it.
   - [shared](modules/shared/) - Modules common between home-manager and NixOS.
 - [packages](packages/) - Packages and scripts written for the repository.
 - [shells](shells/) - Dev shells for use with `nix develop`.
+- [static](static/) _Packages_ (used loosely) that require no build steps.
 - [users](users/) - User configurations.
 - [flake.nix](flake.nix) - The entry point for the repository.
 - [treefmt.nix](treefmt.nix) - Configuration for Treefmt, which unifies
