@@ -19,20 +19,19 @@ details how to develop in the repository, and use systems configured with it.
 
 ### Repository Structure
 
-- [docs](docs/readme.md) contains documentation generated during the build
-  process.
-- [hosts](hosts/) contains the configuration for each host.
-- [media](media/) contains media used throughout the repository.
-- [modules](modules/) modules included by the hosts.
-  - [home](modules/home/) modules used by home-manager.
-  - [nixos](modules/nixos/) modules used by NixOS.
-- [packages](packages/) contains packages and scripts written for the
-  repository.
-- [shells](shells/) contains dev shells for use with `nix develop`.
-- [users](users/) contains user configurations.
-- [flake.nix](flake.nix) is the entry point for the repository.
-- [treefmt.nix](treefmt.nix) configuration for Treefmt, a tool to unify
-  formatters for all languages in a project.
+- [docs](docs/readme.md) - Documentation generated during the build process.
+- [hosts](hosts/) - Configuration for each host.
+- [media](media/) - Media used throughout the repository.
+- [modules](modules/) - Modules included by the hosts.
+  - [home](modules/home/) - Modules for home-manager.
+  - [nixos](modules/nixos/) - Modules for NixOS.
+  - [shared](modules/shared/) - Modules common between home-manager and NixOS.
+- [packages](packages/) - Packages and scripts written for the repository.
+- [shells](shells/) - Dev shells for use with `nix develop`.
+- [users](users/) - User configurations.
+- [flake.nix](flake.nix) - The entry point for the repository.
+- [treefmt.nix](treefmt.nix) - Configuration for Treefmt, which unifies
+  formatters for all languages I use.
 
 ### Hosts
 
