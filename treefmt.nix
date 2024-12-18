@@ -19,9 +19,6 @@
         # so we explicitly skip files that are not meant to be formatted
         excludes = [
           "**/Cargo.toml" # Managed by the Cargo command
-          # Plain text from ~/.ssh
-          "**/ssh/hosts/**"
-          "**/ssh/keys/**"
 
           # Godot scenes/resources. Managed by the editor
           "*.tscn"
@@ -49,6 +46,7 @@
         deno = {
           enable = true;
 
+          # Be explicit about what Deno should format
           includes = lib.mkForce [
             "*.md"
             "*.json"
@@ -81,4 +79,13 @@ in {
   ];
 
   flake.flakeModules.treefmt = flakeModule;
+
+  perSystem.treefmt = {
+    # Excludes specific to this project
+    settings.global.excludes = [
+      # Plain text from ~/.ssh
+      "**/ssh/hosts/**"
+      "**/ssh/keys/**"
+    ];
+  };
 }
