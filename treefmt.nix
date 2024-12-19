@@ -48,8 +48,9 @@
 
           # Be explicit about what Deno should format
           includes = lib.mkForce [
-            "*.md"
+            "*.css"
             "*.json"
+            "*.md"
           ];
         };
 
