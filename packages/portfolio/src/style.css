@@ -6,3 +6,10 @@ article {
     border: thin solid gray;
     border-radius: 4pt;
 }
+
+/* Used for inline icons. Size the same as the text. */
+svg {
+    height: 1em;
+    width: 1em;
+    fill: currentColor;
+}

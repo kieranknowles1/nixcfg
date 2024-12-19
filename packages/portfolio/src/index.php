@@ -1,3 +1,22 @@
+<?php
+enum IconPack: string {
+    case MDI = __DIR__ . '/mdi-icons/';
+    case SI = __DIR__ . '/simple-icons/';
+}
+
+/**
+ * Get the SVG icon for the given pack and name.
+ */
+function getIcon(IconPack $pack, string $name): string {
+    $path = $pack->value . $name . '.svg';
+    $svg = file_get_contents($path);
+    if ($svg === false) {
+        throw new Exception('Icon not found');
+    }
+    return $svg;
+}
+
+?>
 <!DOCTYPE html>
 <head>
     <title>Portfolio</title>
@@ -12,6 +31,16 @@
             <li><a href="#csc8503">CSC8503 Advanced Game Technologies</a></li>
         </ul>
      </nav>
+
+     <header>
+        <h2>About Me</h2>
+        <!-- TODO: Fill this in -->
+        <section>
+            <h3>Contact</h3>
+            <p><?echo getIcon(IconPack::MDI, 'email')?> Email: </p> <!-- TODO -->
+            <p><?echo getIcon(IconPack::SI, 'github')?> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></p>
+        </section>
+     </header>
 
      <main>
         <h2>Projects</h2>
