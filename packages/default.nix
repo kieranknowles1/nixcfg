@@ -21,14 +21,15 @@
       activate-mutable = callPackage ./activate-mutable {};
       combine-blueprints = callPackage ./combine-blueprints {};
       command-palette = callPackage ./command-palette {};
-      export-notes = callPackage ./export-notes {};
       export-blueprints = callPackage ./export-blueprints {};
+      export-notes = callPackage ./export-notes {};
       factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
       generate-graphs = callPackage ./generate-graphs {};
       nix-utils = callPackage ./nix-utils {};
       nixvim = callPackage ./nixvim {};
       openmw-dev = callPackage ./openmw-dev.nix {};
       openmw-luadata = callPackage ./openmw-luadata {};
+      portfolio = callPackage ./portfolio {};
       rebuild = callPackage ./rebuild {};
       resaver = callPackage ./resaver {};
       set-led-state = callPackage ./set-led-state {};
