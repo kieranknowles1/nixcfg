@@ -2,11 +2,12 @@
   stdenv,
   fetchFromGitHub,
   php,
-}: stdenv.mkDerivation {
+}:
+stdenv.mkDerivation {
   name = "portfolio";
   src = ./src;
 
-  buildInputs = [ php ];
+  buildInputs = [php];
 
   buildPhase = let
     # Like these for generic icons
