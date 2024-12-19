@@ -53,6 +53,11 @@
           ];
         };
 
+        php-cs-fixer = {
+          enable = true;
+          configFile = ./.php-cs-fixer.php;
+        };
+
         yamlfmt.enable = true; # YAML
 
         # Static analysis
