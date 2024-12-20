@@ -31,9 +31,7 @@ stdenv.mkDerivation {
     ln -s ${mdi-icons}/svg ./mdi-icons
     ln -s ${simple-icons}/icons ./simple-icons
 
-    # Errors are printed to stdout, so redirect output to the output HTML
-    # and build log.
-    php -f index.php | tee $out/index.html
+    php -f index.php > $out/index.html
     cp $src/style.css $out/style.css
   '';
 

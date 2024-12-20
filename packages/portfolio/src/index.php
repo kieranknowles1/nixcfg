@@ -1,5 +1,11 @@
 <?php
+// Print errors to stderr and be strict about them
 declare(strict_types=1);
+ini_set('display_errors', 'stderr');
+error_reporting(E_ALL);
+set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline): void {
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
 
 // Can't use getenv with constants
 // $out is magically set by Nix. This build system is overkill, but I use NixOS anyway.
@@ -17,8 +23,8 @@ enum IconPack: string {
  * Make an icon available in the output directory.
  */
 function loadIcon(IconPack $pack, string $name): string {
-    /** @var string $OUT_DIR */ // TODO: PHPStan should
     global $OUT_DIR;
+    assert(is_string($OUT_DIR));
     $src = "{$pack->value}{$name}.svg";
     $dst = "icons/{$name}.svg";
 
