@@ -17,6 +17,7 @@ enum IconPack: string {
  * Make an icon available in the output directory.
  */
 function loadIcon(IconPack $pack, string $name): string {
+    /** @var string $OUT_DIR */ // TODO: PHPStan should
     global $OUT_DIR;
     $src = "{$pack->value}{$name}.svg";
     $dst = "icons/{$name}.svg";
@@ -92,21 +93,21 @@ function projectHeader(array $project): string {
      <main>
         <h2>Projects</h2>
         <article>
-            <? echo projectHeader([
+            <?php echo projectHeader([
                 'title' => 'CSC8502 Advanced Graphics for Games',
                 'id' => 'csc8502',
                 'videoId' => 'GKlL0EY-yHE',
-                'github' => 'https://github.com/kieranknowles1/csc8502-advanced-graphics'
+                'github' => 'https://github.com/kieranknowles1/csc8502-advanced-graphics',
             ]); ?>
             <!-- TODO: Link to the project, should I automate building to be extra fancy? -->
         </article>
 
         <article>
-            <? echo projectHeader([
+            <?php echo projectHeader([
                 'title' => 'CSC8503 Advanced Game Technologies',
                 'id' => 'csc8503',
                 'videoId' => '0JzQBoRjsA0',
-                'github' => 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/'
+                'github' => 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/',
             ]); ?>
             <!-- TODO: Link to the project -->
         </article>
