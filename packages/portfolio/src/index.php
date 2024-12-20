@@ -118,5 +118,10 @@ function projectHeader(array $project): string {
             <!-- TODO: Link to the project -->
         </article>
      </main>
+
+    <footer>
+        <p>Icons sourced from <a href="https://pictogrammers.com/">Material Design Icons</a> and <a href="https://simpleicons.org/">Simple Icons</a></p>
+        <p>© 2024 Kieran Knowles</p>
+    </footer>
 </body>
 </html>
