@@ -1,20 +1,45 @@
 <?php
+declare(strict_types=1);
+
+// Can't use getenv with constants
+// $out is magically set by Nix. This build system is overkill, but I use NixOS anyway.
+$OUT_DIR = getenv('out');
+if ($OUT_DIR === false) {
+    throw new Exception('Output directory not set');
+}
+
 enum IconPack: string {
     case MDI = __DIR__ . '/mdi-icons/';
     case SI = __DIR__ . '/simple-icons/';
 }
 
-// TODO: Reuse icons. Inlining is wasteful. <img> doesn't work since I can't style them.
+/**
+ * Make an icon available in the output directory.
+ */
+function loadIcon(IconPack $pack, string $name): string {
+    global $OUT_DIR;
+    $src = "{$pack->value}{$name}.svg";
+    $dst = "icons/{$name}.svg";
+
+    $svg = file_get_contents($src);
+    if ($svg === false) {
+        throw new Exception('Icon not found');
+    }
+
+    if (!copy($src, "{$OUT_DIR}/{$dst}")) {
+        throw new Exception('Failed to copy icon');
+    }
+    return $dst;
+}
+
 /**
  * Get the SVG icon for the given pack and name.
  */
 function getIcon(IconPack $pack, string $name): string {
-    $path = $pack->value . $name . '.svg';
-    $svg = file_get_contents($path);
-    if ($svg === false) {
-        throw new Exception('Icon not found');
-    }
-    return $svg;
+    $src = loadIcon($pack, $name);
+    // Alt text is empty to indicate that the icon is purely decorative
+    // The surrounding text is expected to repeat the icon's meaning
+    return "<img src='{$src}' alt='' class='icon'>";
 }
 
 /**
@@ -39,6 +64,7 @@ function projectHeader(array $project): string {
 
 ?>
 <!DOCTYPE html>
+<html lang="en-GB">
 <head>
     <title>Portfolio</title>
     <link rel="stylesheet" href="style.css">
@@ -86,3 +112,4 @@ function projectHeader(array $project): string {
         </article>
      </main>
 </body>
+</html>

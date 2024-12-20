@@ -27,7 +27,7 @@ stdenv.mkDerivation {
       hash = "sha256-hBb4jIGxdlNE/Om1cpPYHpw4YSD/kkYOdZpXr63wM+w=";
     };
   in ''
-    mkdir -p $out
+    mkdir -p $out $out/icons
     ln -s ${mdi-icons}/svg ./mdi-icons
     ln -s ${simple-icons}/icons ./simple-icons
 
@@ -47,15 +47,17 @@ stdenv.mkDerivation {
       # Features
 
       It's a static website. You don't need 566KB of JavaScript\[1\], 82
-      trackers\[2\], and God knows how many ads to display a simple portfolio.\[3\]
+      trackers\[2\], 8 elements per word\[3\], and God knows how many ads
+      to display a simple portfolio.\[4\]
 
       You don't need a static site generator that spits out 2000 lines of HTML. Just
-      use PHP, and make your code deterministic.\[4\]
+      use PHP, and make your code deterministic.\[5\]
 
       \[1\]: https://gist.github.com/Restuta/cda69e50a853aa64912d\
       \[2\]: https://pressgazette.co.uk/website-tracking-software/\
-      \[3\]: http://bettermotherfuckingwebsite.com/
-      \[4\]: https://rosswintle.uk/2021/12/hang-on-php-is-a-static-site-generator/
+      \[3\]: https://www.bbc.co.uk/news/technology-46508234
+      \[4\]: http://bettermotherfuckingwebsite.com/
+      \[5\]: https://rosswintle.uk/2021/12/hang-on-php-is-a-static-site-generator/
     '';
   };
 }
