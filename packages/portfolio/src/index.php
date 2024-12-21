@@ -91,7 +91,7 @@ function projectHeader(array $project): string {
         <!-- TODO: Fill this in -->
         <section>
             <h3>Contact</h3>
-            <p><?echo getIcon(IconPack::MDI, 'email')?> Email: </p> <!-- TODO -->
+            <p><?echo getIcon(IconPack::MDI, 'email')?> Email: <a href="mailto:contact@selwonk.uk">contact@selwonk.uk</a></p>
             <p><?echo getIcon(IconPack::SI, 'github')?> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></p>
         </section>
      </header>
