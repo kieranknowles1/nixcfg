@@ -70,11 +70,16 @@ coupled to their code and more likely to be up-to-date.
 For more general information, such as this document, Markdown in the `docs`
 directory is used.
 
-Graphs may be generated using `graphviz` and `dot` where appropriate then
-converted to SVG using `nix run .#generate-graphs` where they can be used as
-images in Markdown.
+Graphs may be generated using `graphviz` and `dot`, then converted to SVG with
+`run generate-graphs` for use as images in Markdown. While Mermaid is natively
+supported by GitHub, it is much less effective at preventing overlap and
+therefore unsuitable for my needs.
 
-<!-- TODO: Can we check for outdated svg files? -->
+`generate-graphs --check` will raise an error if any files would have been
+changed, intended to be used in CI to ensure that all graphs are up-to-date.
+
+<!-- TODO: Can we check for outdated svg files? Dot complains about fontconfig
+during a nix build -->
 
 ## Best Practices
 
@@ -91,14 +96,14 @@ stopping at the first one.
 
 ### Code Style
 
-Since I plan this to be a long-term project and always work-in-progress, I
-want to keep the codebase clean and easy to work with. The most important
-rule is: **keep it simple**. If you can't understand what a piece of code does
-after a few seconds, it's too complex. In addition:
+Since I plan this to be a long-term project and always work-in-progress, I want
+to keep the codebase clean and easy to work with. The most important rule is:
+**keep it simple**. If you can't understand what a piece of code does after a
+few seconds, it's too complex. In addition:
 
-Run `nix fmt` before committing to ensure consistent code style. This is
-also configured to run a set of static analysers on their strictest settings.
-If a static analyser says something is wrong, it's probably wrong.
+Run `nix fmt` before committing to ensure consistent code style. This is also
+configured to run a set of static analysers on their strictest settings. If a
+static analyser says something is wrong, it's probably wrong.
 
 An apostrophe (`'`) after a variable name is used to indicate that it is an
 overridden package (See the
