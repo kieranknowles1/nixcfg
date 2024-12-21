@@ -21,6 +21,9 @@
   imports = [
     ./cosmic.nix
     ./gnome.nix
+
+    # Share common settings between desktop environments
+    ./components.nix
   ];
 
   config = lib.mkIf config.custom.features.desktop {
