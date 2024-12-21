@@ -1,6 +1,5 @@
-{withSystem, ...}: {
-  # TODO: Don't use withSystem, it makes building on ARM harder
-  flake.lib.image = withSystem "x86_64-linux" ({pkgs, ...}: {
+{
+  perSystem = {pkgs, ...}: {
     /*
     Convert a HEIC image to a PNG.
 
@@ -24,9 +23,9 @@
     source :: Path
     : The path to the HEIC image to convert.
     */
-    fromHeif = source:
+    builders.fromHeif = source:
       pkgs.runCommand "image.png" {} ''
         ${pkgs.libheif}/bin/heif-dec "${source}" "$out"
       '';
-  });
+  };
 }
