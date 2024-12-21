@@ -1,0 +1,37 @@
+:root {
+  /* Declare a nice dark theme */
+  --foreground-text-color: #eee;
+  --background-color: #222;
+  --link-color: #4df;
+
+  /* Must be here to apply to the whole document */
+  background-color: var(--background-color);
+}
+
+body {
+  color: var(--foreground-text-color);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+article {
+  border: thin solid gray;
+  border-radius: 4pt;
+}
+
+img.icon {
+  height: 1em;
+  width: 1em;
+  /* The icons are black by default, invert them to work with the dark theme */
+  filter: invert(1);
+}

@@ -12,6 +12,10 @@
     ];
 
     perSystem.treefmt = {
+      pkgs,
+      config,
+      ...
+    }: {
       projectRootFile = "flake.nix";
 
       settings.global = {
@@ -19,9 +23,6 @@
         # so we explicitly skip files that are not meant to be formatted
         excludes = [
           "**/Cargo.toml" # Managed by the Cargo command
-          # Plain text from ~/.ssh
-          "**/ssh/hosts/**"
-          "**/ssh/keys/**"
 
           # Godot scenes/resources. Managed by the editor
           "*.tscn"
@@ -49,10 +50,17 @@
         deno = {
           enable = true;
 
+          # Be explicit about what Deno should format
           includes = lib.mkForce [
-            "*.md"
+            "*.css"
             "*.json"
+            "*.md"
           ];
+        };
+
+        php-cs-fixer = {
+          enable = true;
+          configFile = ./.php-cs-fixer.php;
         };
 
         yamlfmt.enable = true; # YAML
@@ -70,6 +78,18 @@
 
         clang-format.enable = true; # C++
       };
+
+      # Formatters not included in the treefmt-nix repo
+      settings.formatter.phpstan = {
+        command = lib.getExe pkgs.php84Packages.phpstan;
+        options = [
+          "analyze"
+          "--level=max"
+          "--no-interaction"
+          "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
+        ];
+        includes = ["*.php"];
+      };
     };
   };
 in {
@@ -81,4 +101,13 @@ in {
   ];
 
   flake.flakeModules.treefmt = flakeModule;
+
+  perSystem.treefmt = {
+    # Excludes specific to this project
+    settings.global.excludes = [
+      # Plain text from ~/.ssh
+      "**/ssh/hosts/**"
+      "**/ssh/keys/**"
+    ];
+  };
 }

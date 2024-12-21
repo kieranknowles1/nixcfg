@@ -21,6 +21,8 @@
   imports = [
     ./cosmic.nix
     ./gnome.nix
+
+    ./components.nix
   ];
 
   config = lib.mkIf config.custom.features.desktop {
