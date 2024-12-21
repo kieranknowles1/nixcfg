@@ -19,6 +19,8 @@ details how to develop in the repository, and use systems configured with it.
 
 ### Repository Structure
 
+- [builders](builders/) Helpers to build packages or transform files. Think of
+  it as `pkgs.stdenv` for `lib`.
 - [docs](docs/readme.md) - Documentation generated during the build process.
 - [hosts](hosts/) - Configuration for each host.
 - [media](media/) - Media used throughout the repository.

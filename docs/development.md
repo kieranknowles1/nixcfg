@@ -91,7 +91,14 @@ stopping at the first one.
 
 ### Code Style
 
-Run `nix fmt` before committing to ensure consistent code style.
+Since I plan this to be a long-term project and always work-in-progress, I
+want to keep the codebase clean and easy to work with. The most important
+rule is: **keep it simple**. If you can't understand what a piece of code does
+after a few seconds, it's too complex. In addition:
+
+Run `nix fmt` before committing to ensure consistent code style. This is
+also configured to run a set of static analysers on their strictest settings.
+If a static analyser says something is wrong, it's probably wrong.
 
 An apostrophe (`'`) after a variable name is used to indicate that it is an
 overridden package (See the
@@ -111,6 +118,9 @@ The `confbuild` utility is provided to make this easier. Simply run the
 following for any config path under `custom`:
 
 ```sh
+# TODO: Expand this to a more general confeval that, depending on the
+# type, will either build or evaluate the config. Should output as a Nushell
+# table.
 # Per-host
 confbuild n <config-path>
 

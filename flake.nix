@@ -200,6 +200,7 @@
       };
 
       imports = [
+        ./builders
         ./checks
         ./hosts
         ./lib

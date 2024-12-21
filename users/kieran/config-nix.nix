@@ -1,11 +1,12 @@
 {
+  self,
   pkgs,
   inputs,
   hostConfig,
   ...
 }: {
   config.custom = {
-    theme.wallpaper = pkgs.flake.lib.image.fromHeif ./wallpaper.heic;
+    theme.wallpaper = self.builders.${pkgs.stdenv.hostPlatform.system}.fromHeif ./wallpaper.heic;
 
     secrets = {
       ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
