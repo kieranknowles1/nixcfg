@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
 if [ "$#" -ne 2 ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
   echo "Usage: $0 [home|nixos] <option_path>"
   if [ "$1" != "-h" ] && [ "$1" != "--help" ]; then
