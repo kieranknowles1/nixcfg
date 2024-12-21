@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }: let
   inherit (config.custom) userDetails;
@@ -12,10 +13,12 @@
     removals,
     name,
   }: let
-    script = pkgs.flake.lib.package.packagePythonScript {
+    packagePythonScript = self.builders.${pkgs.hostPlatform.system}.packagePythonScript.override {
+      python3 = pkgs.python3.withPackages (ps: [ps.pyyaml]);
+    };
+    script = packagePythonScript {
       name = "fixup-espanso-package";
       src = ./patch-matches.py;
-      python = pkgs.python3.withPackages (ps: [ps.pyyaml]);
     };
   in
     pkgs.stdenv.mkDerivation {
