@@ -22,7 +22,6 @@
     ./cosmic.nix
     ./gnome.nix
 
-    # Share common settings between desktop environments
     ./components.nix
   ];
 
