@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 # This is meant to be used from the command palette, so keep stdout brief.
 log() {

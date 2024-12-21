@@ -44,6 +44,12 @@
           # Also ignore files in ./docs/generated, as they are assumed to be OK.
           args = [./markdown-link-config.json self];
         };
+
+      bash-sanity = mkCheck {
+        script = ./bash-sanity.sh;
+        name = "check-bash-sanity";
+        args = [self];
+      };
     };
   };
 }
