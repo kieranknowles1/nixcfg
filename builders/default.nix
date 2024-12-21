@@ -26,6 +26,7 @@
           inherit (pkgs) callPackage;
         in {
           fromHeif = callPackage ./fromHeif.nix {};
+          packagePythonScript = callPackage ./packagePythonScript.nix {};
         };
       };
     }
