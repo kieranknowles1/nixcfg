@@ -4,8 +4,8 @@
   ...
 }: {
   # TODO: Flake schemas once they're merged
-  # TODO: Is there a tidier way to do this?
   imports = [
+    # TODO: Is there a tidier way to declare the output?
     (flake-parts-lib.mkTransposedPerSystemModule {
       name = "builders";
       option = let
@@ -20,6 +20,14 @@
         };
       file = ./.;
     })
-    ./image.nix
+    {
+      perSystem = {pkgs, ...}: {
+        builders = let
+          inherit (pkgs) callPackage;
+        in {
+          fromHeif = callPackage ./fromHeif.nix {};
+        };
+      };
+    }
   ];
 }
