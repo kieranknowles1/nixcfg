@@ -114,7 +114,9 @@ in {
 
   config = lib.mkIf config.custom.docs-generate.enable {
     custom.docs-generate = {
-      file = {
+      file = let
+        inherit (self.builders.${pkgs.system}) mkOptionDocs;
+      in {
         # "lib.md" = {
         #   description = "flake.lib library";
         #   # FIXME: This isn't working, it's not finding the functions
@@ -122,7 +124,7 @@ in {
         # };
         "host-options.md" = {
           description = "NixOS options";
-          source = self.lib.docs.mkOptionDocs self.nixosModules.default;
+          source = mkOptionDocs self.nixosModules.default;
         };
         "host-options.schema.json" = {
           description = "NixOS options schema";
@@ -130,7 +132,7 @@ in {
         };
         "user-options.md" = {
           description = "home-manager options";
-          source = self.lib.docs.mkOptionDocs self.homeManagerModules.default;
+          source = mkOptionDocs self.homeManagerModules.default;
         };
         "user-options.schema.json" = let
           filterCustom = opts: opts.custom;
