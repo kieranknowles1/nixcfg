@@ -40,11 +40,13 @@ details how to develop in the repository, and use systems configured with it.
 The following hosts are configured in the repository. As I am a massive nerd,
 they are named after ships from The Expanse.
 
-- [rocinante](hosts/rocinante/configuration.nix) - My main desktop.<br> Primary
-  system for just about any task. Fast, powerful, and has a lot of storage.
 - [canterbury](hosts/canterbury/configuration.nix) - My laptop.<br> Portable,
   lightweight, fast enough for what it does, and incredible battery life thanks
   to lacking ~~bloatware~~ Windows.
+- [rocinante](hosts/rocinante/configuration.nix) - My main desktop.<br> Primary
+  system for just about any task. Fast, powerful, and has a lot of storage.
+- [tycho](hosts/tycho/configuration.nix) - My server.<br> Used to host a variety
+  of services.
 
 ## Essential Resources
 

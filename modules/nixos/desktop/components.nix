@@ -1,5 +1,10 @@
 # Common components shared between desktop environments
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   thunar-onedesktop = pkgs.xfce.thunar.overrideAttrs (_oldAttrs: {
     postFixup = ''
       # Remove the .desktop files for bulk rename and settings to reduce clutter
@@ -8,7 +13,7 @@
     '';
   });
 in {
-  config = {
+  config = lib.mkIf config.custom.features.desktop {
     # Nautilus has been acting up lately, plus it struggles with large directories
     # and isn't to my liking. Thunar meets my one requirement: it's fast. Nautilus
     # takes 1sec to open a directory with 150 files, Thunar can do 2000 in 100ms.
