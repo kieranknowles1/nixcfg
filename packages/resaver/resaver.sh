@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Wrapper for Resaver that lazily installs it if necessary.
 
 API_KEY_FILE="$HOME/.config/sops-nix/secrets/nexusmods/apikey"

@@ -1,20 +1,19 @@
 {
   self,
   inputs,
+  lib,
   ...
 }: {
   perSystem = {system, ...}: let
-    inherit (self.lib.package) packagePythonScript;
-
     # TODO: Set overrides at the flake level once there's a proper way to do so
     pkgs = import inputs.nixpkgs {
       inherit system;
       overlays = builtins.attrValues self.overlays;
     };
-    callPackage = pkgs.lib.customisation.callPackageWith (pkgs
+    callPackage = lib.customisation.callPackageWith (pkgs
       // inputs
       // {
-        inherit packagePythonScript;
+        inherit (self.builders.${system}) packagePythonScript;
       });
   in {
     packages = {
