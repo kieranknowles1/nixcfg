@@ -13,12 +13,17 @@ in {
     # and isn't to my liking. Thunar meets my one requirement: it's fast. Nautilus
     # takes 1sec to open a directory with 150 files, Thunar can do 2000 in 100ms.
     environment = {
-    gnome.excludePackages = with pkgs; [
-      nautilus
-    ];
-    systemPackages = with pkgs; [
+      gnome.excludePackages = with pkgs; [
+        nautilus
+      ];
+      systemPackages = with pkgs; [
         thunar-onedesktop
-      xfce.xfconf
-    ];
+        xfce.xfconf
+      ];
+    };
+
+    xdg.mime.addedAssociations = {
+      "inode/directory" = "thunar.desktop";
+    };
   };
 }
