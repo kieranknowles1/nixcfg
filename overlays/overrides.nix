@@ -10,4 +10,13 @@ final: prev: {
       '';
     });
   });
+
+  networkmanager = prev.networkmanager.override {
+    # I don't need openconnect VPN support, and
+    # having it brings in GTK as a dependency for my server
+    # via stoken.
+    # stoken can be built without GTK, but I'd rather remove it
+    # at the source.
+    openconnect = null;
+  };
 }
