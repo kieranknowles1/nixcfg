@@ -115,11 +115,11 @@ in {
   config = lib.mkIf config.custom.docs-generate.enable {
     custom.docs-generate = {
       file = {
-        "lib.md" = {
-          description = "flake.lib library";
-          # FIXME: This isn't working, it's not finding the functions
-          source = self.lib.docs.mkFunctionDocs "${self}/lib";
-        };
+        # "lib.md" = {
+        #   description = "flake.lib library";
+        #   # FIXME: This isn't working, it's not finding the functions
+        #   source = self.lib.docs.mkFunctionDocs "${self}/lib";
+        # };
         "host-options.md" = {
           description = "NixOS options";
           source = self.lib.docs.mkOptionDocs self.nixosModules.default;
