@@ -1,6 +1,7 @@
 {
   self,
   inputs,
+  lib,
   ...
 }: {
   perSystem = {system, ...}: let
@@ -9,7 +10,7 @@
       inherit system;
       overlays = builtins.attrValues self.overlays;
     };
-    callPackage = pkgs.lib.customisation.callPackageWith (pkgs
+    callPackage = lib.customisation.callPackageWith (pkgs
       // inputs
       // {
         inherit (self.builders.${system}) packagePythonScript;

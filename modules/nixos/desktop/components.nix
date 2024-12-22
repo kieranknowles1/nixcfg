@@ -1,6 +1,6 @@
 # Common components shared between desktop environments
 {pkgs, ...}: let
-  thunar-onedesktop = pkgs.xfce.thunar.overrideAttrs (oldAttrs: {
+  thunar-onedesktop = pkgs.xfce.thunar.overrideAttrs (_oldAttrs: {
     postFixup = ''
       # Remove the .desktop files for bulk rename and settings to reduce clutter
       rm $out/share/applications/thunar-bulk-rename.desktop

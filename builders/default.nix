@@ -1,6 +1,7 @@
 {
   flake-parts-lib,
   lib,
+  inputs,
   ...
 }: {
   # TODO: Flake schemas once they're merged
@@ -23,9 +24,10 @@
     {
       perSystem = {pkgs, ...}: {
         builders = let
-          inherit (pkgs) callPackage;
+          callPackage = lib.customisation.callPackageWith (pkgs // inputs);
         in {
           fromHeif = callPackage ./fromHeif.nix {};
+          mkOptionDocs = callPackage ./mkOptionDocs.nix {};
           packagePythonScript = callPackage ./packagePythonScript.nix {};
         };
       };

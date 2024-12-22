@@ -1,25 +1,23 @@
 {
   lib,
   inputs,
-  withSystem,
   ...
 }: let
-  evalModules = importer:
-    lib.evalModules {
-      modules = [
-        importer
-        # We aren't evaling flake inputs, as we don't want to generate documentation for them.
-        # Ignore any errors caused by this, as they will be caught during the build.
-        {config._module.check = false;}
-      ];
-    };
-
   jsonLib = inputs.clan-core.lib.jsonschema {
     # Options can be overridden here.
   };
 in {
-  # TODO: Don't use withSystem, it makes building on ARM harder
-  flake.lib.docs = withSystem "x86_64-linux" ({pkgs, ...}: {
+  flake.lib.docs = rec {
+    evalModules = importer:
+      lib.evalModules {
+        modules = [
+          importer
+          # We aren't evaling flake inputs, as we don't want to generate documentation for them.
+          # Ignore any errors caused by this, as they will be caught during the build.
+          {config._module.check = false;}
+        ];
+      };
+
     # FIXME: This hasn't been working since the switch to flake-parts
     # /*
     # Generate documentation for the functions in the given directory.
@@ -57,42 +55,6 @@ in {
     #       ${lib.getExe pkgs.nixdoc} --category "$lib_name" --description "$human_name" --file "$file" >> $out
     #     done
     #   '';
-
-    /*
-    Generate documentation for the given module's options. Does not include
-    options from its dependencies.
-    Generate documentation for the options in the given directory
-
-    # Example
-    ```nix
-    mkOptionDocs ./modules/nixos
-    => Markdown file
-    ```
-
-    # Type
-    mkOptionDocs :: Path -> Path
-
-    # Arguments
-    importer
-    : The file to import all modules containing options
-    */
-    mkOptionDocs = importer: let
-      # File containing options documentation
-      eval = evalModules importer;
-      optionsDoc = pkgs.nixosOptionsDoc {
-        inherit (eval) options;
-      };
-
-      # Nix regexes only support complete matches, so we can't easily match the store path.
-      # Instead, we'll remove it with sed.
-      # Use pipe as a delimiter to avoid confusion with slashes
-      # TODO: Can we make the link point to the repository?
-    in
-      pkgs.runCommand "option-docs.md" {
-        buildInputs = [pkgs.gnused];
-      } ''
-        cat ${optionsDoc.optionsCommonMark} | sed --regexp-extended 's|\/nix/store/[a-z0-9]{32}-source/||g' > $out
-      '';
 
     /*
     Generate a JSON schema for options in the given directory
@@ -159,7 +121,7 @@ in {
       createTocEntry = package: let
         name = getName package;
       in ''
-        - [${name}](#${pkgs.lib.strings.toLower name}) - ${package.meta.description or ""}
+        - [${name}](#${lib.strings.toLower name}) - ${package.meta.description or ""}
       '';
 
       createEntry = package: let
@@ -207,5 +169,5 @@ in {
 
       ${builtins.concatStringsSep "\n" (map createEntry values)}
     '';
-  });
+  };
 }
