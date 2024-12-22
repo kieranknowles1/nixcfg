@@ -2,6 +2,7 @@
   trilium-desktop,
   unzip,
 }:
+# TODO: Move to our overlay
 trilium-desktop.overrideAttrs (oldAttrs: rec {
   # TODO: Run this on a server
   version = "0.90.12";

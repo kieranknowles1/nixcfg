@@ -29,6 +29,7 @@ details how to develop in the repository, and use systems configured with it.
   - [nixos](modules/nixos/) - Modules for NixOS.
   - [shared](modules/shared/) - Modules common between home-manager and NixOS.
 - [packages](packages/) - Packages and scripts written for the repository.
+- [overlays](overlays/) - Overrides to nixpkgs and namespaces for external flakes.
 - [shells](shells/) - Dev shells for use with `nix develop`.
 - [users](users/) - User configurations.
 - [flake.nix](flake.nix) - The entry point for the repository.

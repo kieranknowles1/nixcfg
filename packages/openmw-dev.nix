@@ -15,6 +15,7 @@
 
   devPkg = openmw.packages.${system}.openmw-dev;
 in
+  # TODO: Move to our overlay
   devPkg.overrideAttrs (_oldAttrs: {
     src = latestSrc;
   })
