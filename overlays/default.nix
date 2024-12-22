@@ -35,5 +35,7 @@ in {
     # TODO: nixvim requires nixpkgs-unstable
     # nixvim = flake.inputs.nixvim.overlays.default;
     vscode-extensions = inputs.vscode-extensions.overlays.default;
+
+    overrides = import ./overrides.nix;
   };
 }

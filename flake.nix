@@ -209,7 +209,7 @@
         ./shells
         # Extend nixpkgs with flake-specific overlays, for this
         # flake and its dependencies
-        ./overlays.nix
+        ./overlays
         # Format all file types in this flake and others
         ./treefmt.nix
       ];
