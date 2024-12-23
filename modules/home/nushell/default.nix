@@ -26,8 +26,7 @@
 
       # Use Carapace to generate completions
       carapace = {
-        # TODO: Is this necessary?
-        enable = hostConfig.custom.features.desktop;
+        enable = true;
         enableNushellIntegration = true;
       };
 

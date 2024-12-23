@@ -1,15 +1,13 @@
 {
+  self,
+  hostPlatform,
   stdenv,
   fetchFromGitHub,
-  php,
 }:
-stdenv.mkDerivation {
+self.builders.${hostPlatform.system}.buildStaticPhp {
   name = "portfolio";
-  src = ./src;
 
-  buildInputs = [php];
-
-  buildPhase = let
+  src = let
     # Like these for generic icons
     mdi-icons = fetchFromGitHub {
       owner = "Templarian";
@@ -26,18 +24,19 @@ stdenv.mkDerivation {
       tag = "13.21.0";
       hash = "sha256-hBb4jIGxdlNE/Om1cpPYHpw4YSD/kkYOdZpXr63wM+w=";
     };
-  in ''
-    mkdir -p $out $out/icons
-    ln -s ${mdi-icons}/svg ./mdi-icons
-    ln -s ${simple-icons}/icons ./simple-icons
-
-    php -f index.php > $out/index.html
-    cp $src/style.css $out/style.css
-  '';
-
+  in
+    stdenv.mkDerivation {
+      name = "portfolio-src";
+      src = ./src;
+      buildPhase = ''
+        mkdir -p $out $out/.build-only
+        cp -r $src/* $out
+        ln -s ${mdi-icons}/svg $out/.build-only/mdi-icons
+        ln -s ${simple-icons}/icons $out/.build-only/simple-icons
+      '';
+    };
   meta = {
     description = "My personal portfolio";
-
     longDescription = ''
       My portfolio for job applications listing my projects and skills. As I'm in to
       self hosting, it is intended to be hosted on my own server.
