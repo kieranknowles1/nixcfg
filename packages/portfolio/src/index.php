@@ -1,22 +1,15 @@
 <?php
-// Print errors to stderr and be strict about them
-declare(strict_types=1);
-ini_set('display_errors', 'stderr');
-error_reporting(E_ALL);
-set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline): void {
-    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-});
-
 // Can't use getenv with constants
 // $out is magically set by Nix. This build system is overkill, but I use NixOS anyway.
 $OUT_DIR = getenv('out');
+mkdir("$OUT_DIR/icons");
 if ($OUT_DIR === false) {
     throw new Exception('Output directory not set');
 }
 
 enum IconPack: string {
-    case MDI = __DIR__ . '/mdi-icons/';
-    case SI = __DIR__ . '/simple-icons/';
+    case MDI = __DIR__ . '/.build-only/mdi-icons/';
+    case SI = __DIR__ . '/.build-only/simple-icons/';
 }
 
 /**

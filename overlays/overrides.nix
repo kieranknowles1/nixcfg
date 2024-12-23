@@ -1,6 +1,6 @@
 # Overrides to the default nixpkgs
-final: prev: {
-  xfce = prev.xfce.overrideScope (nfinal: nprev: {
+_final: prev: {
+  xfce = prev.xfce.overrideScope (_nfinal: nprev: {
     thunar = nprev.thunar.overrideAttrs (oldAttrs: {
       postFixup = ''
         ${oldAttrs.postFixup or ""}

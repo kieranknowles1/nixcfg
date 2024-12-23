@@ -26,6 +26,7 @@
         builders = let
           callPackage = lib.customisation.callPackageWith (pkgs // inputs);
         in {
+          buildStaticPhp = callPackage ./buildStaticPhp {};
           fromHeif = callPackage ./fromHeif.nix {};
           mkOptionDocs = callPackage ./mkOptionDocs.nix {};
           packagePythonScript = callPackage ./packagePythonScript.nix {};

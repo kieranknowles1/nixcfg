@@ -64,7 +64,8 @@
       );
     };
 
-    home.packages = lib.optional hostConfig.custom.features.desktop
+    home.packages =
+      lib.optional hostConfig.custom.features.desktop
       config.custom.terminal.package;
 
     # Add a command palette entry to rebuild while pulling,
