@@ -66,3 +66,14 @@ Current uses:
 
 Apply the usual rules on a per-file basis recursively. Still don't allow any
 symlinks.
+
+## V4 -  Custom Comparison
+
+Add a CompareScript to ConfigEntry. If set, run script with old and new as arguments.
+
+If script exits 0, files match. Anything else and they differ. Use in place of hash comparison.
+
+Use for OpenMW Lua data and more volatile ini files.
+
+Pull could use a similar script to discard/modify the file before copying to repo, such as excluding
+some sections of an ini file.
