@@ -34,7 +34,6 @@
       set-led-state = callPackage ./set-led-state {};
       skyrim-utils = callPackage ./skyrim-utils {};
       spriggit = callPackage ./spriggit.nix {};
-      trilium-next-desktop = callPackage ./trilium-next-desktop.nix {};
     };
   };
 }

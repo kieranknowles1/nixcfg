@@ -16,7 +16,7 @@
   in
     lib.mkIf cfg.enable {
       home.packages = with pkgs; [
-        flake.trilium-next-desktop
+        trilium-desktop
       ];
 
       custom.shortcuts.palette.actions = [
