@@ -67,6 +67,8 @@
 
     # Wrapper for `nix run` that detects the source package automatically
     # Prefix command with `,` to use this
+    # TODO: Remove once https://github.com/nix-community/nix-index-database/pull/132 is merged
+    programs.nix-index.enable = false;
     programs.nix-index-database.comma.enable = true;
 
     # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
