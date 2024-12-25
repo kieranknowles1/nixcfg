@@ -48,6 +48,7 @@
       simple-scan # I have no scanner
       totem # Video player. Use VLC instead
       yelp # I use the web for documentation
+      snapshot # I don't have a webcam
     ];
 
     environment.systemPackages = with pkgs; [
