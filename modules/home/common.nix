@@ -9,12 +9,6 @@
   options.custom = let
     inherit (lib) mkOption mkPackageOption types;
   in {
-    fonts = {
-      defaultMono = mkPackageOption pkgs.nerd-fonts "dejavu-sans-mono" {
-        extraDescription = "Default monospace font";
-      };
-    };
-
     terminal.package = mkPackageOption pkgs "terminal" {
       default = "gnome-console";
     };
@@ -54,15 +48,6 @@
 
     # Inherit any overlays from the host to avoid duplication
     nixpkgs.overlays = hostConfig.nixpkgs.overlays;
-
-    fonts.fontconfig.defaultFonts = {
-      monospace = lib.singleton (
-        # FIXME: New nixpkgs doesn't list the font name in the package name
-        if config.custom.fonts.defaultMono == pkgs.nerd-fonts.dejavu-sans-mono
-        then "DejaVuSansMono"
-        else builtins.throw "Unknown default monospace font"
-      );
-    };
 
     home.packages =
       lib.optional hostConfig.custom.features.desktop
