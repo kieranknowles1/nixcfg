@@ -8,4 +8,4 @@ else
   args=(-- "${@:2}")
 fi
 
-exec nix run ".#$1" "${args[@]}"
+exec nix run ".#${1:-default}" "${args[@]}"

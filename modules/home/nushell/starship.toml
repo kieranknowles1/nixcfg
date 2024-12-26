@@ -1,4 +1,5 @@
 "$schema" = 'https://starship.rs/config-schema.json'
+# Documentation: https://starship.rs/config/
 
 # Config for the Starship prompt
 # Can include icons from nerd-fonts: https://www.nerdfonts.com/cheat-sheet
@@ -51,6 +52,7 @@ symbol = " "
 style = "bold bright-red"
 
 [git_metrics]
+# Show number of added/deleted lines since the last commit
 disabled = false
 
 [git_status]
@@ -71,6 +73,8 @@ stashed = " ${count}"
 untracked = "U${count}"
 
 [nix_shell]
+# Don't care about the distinction between pure and impure
+format = "via [$symbol$name]($style) "
 symbol = " "
 # This gives us more contrast from other modules
 style = "bold cyan"
