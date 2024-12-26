@@ -1,6 +1,4 @@
-$env.config = {
-    show_banner: false,
-}
+$env.config.show_banner = false
 
 # === Commands and Aliases ===
 alias __orig_nix-shell = nix-shell
@@ -15,8 +13,6 @@ def repodu [
     $repo_size - $git_size
 }
 
-# alias repodu = (du . | get 0.apparent) - (du .git | get 0.apparent)
-
 # Create a new directory and cd into it
 def --env mkcd [
     name: string
@@ -24,6 +20,24 @@ def --env mkcd [
     mkdir $name
     cd $name
 }
+
+def __nix_path [
+    repo: string
+    target: string = "default"
+] {
+    $"($repo)#($target)"
+}
+
+# Enter a devshell for the specified repository
+def dev [
+    name: string = "default"
+    --repo: string = "."
+] {
+    nix develop (__nix_path $repo $name)
+}
+
+# Enter a dev shell for the nixcfg repository
+alias devr = dev --repo $env.FLAKE
 
 # === Welcome Message ===
 def __get_nixpkgs_last_update [] {

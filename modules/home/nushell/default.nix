@@ -25,6 +25,13 @@
     # TODO: Link to the shell set on the host side, a NuShell specific file isn't the best place for this
     xdg.configFile."default-shell".source = lib.getExe config.programs.nushell.package;
 
+    custom.mutable.file = {
+      "${config.xdg.configHome}/nushell/user-config.nu" = {
+        source = ./nushell.nu;
+        repoPath = "modules/home/nushell/nushell.nu";
+      };
+    };
+
     programs = {
       nushell = {
         enable = true;
@@ -34,8 +41,8 @@
           FLAKE = cfg.fullRepoPath;
         };
 
-        # Append my custom config to the default
-        extraConfig = builtins.readFile ./nushell.nu;
+        # Load my custom config
+        extraConfig = "source user-config.nu";
       };
 
       # Use Carapace to generate completions

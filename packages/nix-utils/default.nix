@@ -29,8 +29,6 @@ stdenv.mkDerivation {
     longDescription = ''
       Single-word commands for common tasks, including:
       - `confbuild`: Build a derivation specified as a Nix option
-      - `dev`: Dev shell from the current repository
-      - `devr`: Dev shell from the nixcfg repository
       - `run`: Run a Nix package from the current repository
       - `venv`: Activate a Python virtual environment, shell-agnostic version
 

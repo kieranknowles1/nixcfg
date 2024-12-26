@@ -81,6 +81,7 @@
   //  Nix
   // =====
   "nix.enableLanguageServer": true,
+  // TODO: Consider switching to nixd
   "nix.serverPath": "nil",
   "nix.serverSettings": {
     "nil": {
