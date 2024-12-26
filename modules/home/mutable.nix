@@ -36,6 +36,8 @@
             # However, this would rely on the source being part of the same derivation, which assumes too
             # much about Nix's internals. Implicit behaviour in the most explicit operating system is almost
             # as bad as dynamic typing.
+            # TODO: Throw a warning if repoPath is invalid. Use something like
+            # builtins.pathExists ${self}/${repoPath}
             default = null;
             description = ''
               Path to the file relative to the flake's root.
