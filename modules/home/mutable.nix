@@ -3,12 +3,20 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }: {
   options.custom.mutable = let
     inherit (lib) mkOption mkPackageOption types;
   in {
     package = mkPackageOption pkgs.flake "activate-mutable" {};
+
+    repository = mkOption {
+      type = types.path;
+      description = ''
+        Path of the flake's source directory. Used to check validity of repoPath.
+      '';
+    };
 
     file = mkOption {
       type = types.attrsOf (types.submodule {
@@ -62,12 +70,32 @@
   config = let
     cfg = config.custom.mutable;
   in {
-    assertions =
-      lib.attrsets.mapAttrsToList (name: value: {
+    custom.mutable.repository = lib.mkDefault self;
+
+    assertions = let
+      checkRegularFile = name: value: {
         assertion = lib.filesystem.pathIsRegularFile value.source;
         message = "Mutable file ${name} must be a regular file, not a directory or symlink";
-      })
-      cfg.file;
+      };
+
+      checkSameFile = name: value: let
+        srcHash = builtins.hashFile "sha256" value.source;
+        repoHash = builtins.hashFile "sha256" "${cfg.repository}/${value.repoPath}";
+      in {
+        # We need to use hashes rather than path equality, as the ./path syntax
+        # creates its own derivation, which will have a different path to ${self}/path
+
+        # This will also raise a build error if the file doesn't exist
+        assertion = value.repoPath == null || (srcHash == repoHash);
+        message = "repoPath for mutable file ${name} points to a different file";
+      };
+
+      checkAll = name: value: [
+        (checkRegularFile name value)
+        (checkSameFile name value)
+      ];
+    in
+      lib.lists.flatten (lib.attrsets.mapAttrsToList checkAll cfg.file);
 
     # TODO: Use for other files described in the plan
     home.activation.activate-mutable = let

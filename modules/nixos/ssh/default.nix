@@ -29,9 +29,7 @@
     users.users =
       lib.attrsets.mapAttrs (_name: _user: {
         openssh.authorizedKeys.keyFiles =
-          builtins.map
-          (name: ./keys/${name})
-          (builtins.attrNames (builtins.readDir ./keys));
+          map (name: ./keys/${name}) (builtins.attrNames (builtins.readDir ./keys));
       })
       config.custom.user;
   };

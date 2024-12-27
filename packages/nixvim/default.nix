@@ -86,7 +86,7 @@ in
           treesitter = {
             # TODO: How do I get inline code highlighting?
             enable = true;
-            grammarPackages = builtins.map (language: language.tsgrammar) languages;
+            grammarPackages = map (language: language.tsgrammar) languages;
           };
           lualine.enable = true;
 
@@ -114,7 +114,7 @@ in
           # Language servers
           lsp = {
             enable = true;
-            servers = builtins.listToAttrs (builtins.map (language: {
+            servers = builtins.listToAttrs (map (language: {
                 name = language.server;
                 value = {enable = true;} // (language.serverConfig or {});
               })
@@ -160,7 +160,7 @@ in
         };
 
         # TODO: Remove this once the plugins are properly configured
-        extraConfigLua = builtins.concatStringsSep "\n" (builtins.map (file: builtins.readFile file) [
+        extraConfigLua = builtins.concatStringsSep "\n" (map (file: builtins.readFile file) [
           ./config/lua/options.lua
           ./config/after/plugin/cmp.lua
           ./config/after/plugin/lsp.lua
