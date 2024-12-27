@@ -74,7 +74,10 @@
   // This is C++, using software developed by Microsoft. Microsoft doesn't use C++ very well, so we're in for a ride
   // of insane defaults, poor design, and the downright weird. For fun, I've marked the terrible defaults with WTF.
   "cmake.showOptionsMovedNotification": false, // WTF: I didn't even use the extension before this was added, why would I care?
-  "cmake.pinnedCommands": [], // WTF: The extension is aggressive about setting its defaults, so clear them out and hope it sticks
+  "cmake.pinnedCommands": [
+    "workbench.action.tasks.configureTaskRunner",
+    "workbench.action.tasks.runTask"
+  ], // WTF: The extension is aggressive about setting its defaults, and overwrites an explicit empty array
   "C_Cpp.autoAddFileAssociations": false, // WTF: Don't mess with my files, why are you even looking at them?
 
   // =====
