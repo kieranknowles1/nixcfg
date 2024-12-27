@@ -4,13 +4,17 @@ $env.config.show_banner = false
 alias __orig_nix-shell = nix-shell
 alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
-# Get the size of the current Git repository, excluding the .git directory
+# Split a string on newlines, like Bash's `read`
+def "from lines" []: string -> list<string> {
+    split row "\n"
+}
+
+# Get the size of the current Git checkout, excluding any ignored files
 def repodu [
     repo: path = "."
 ] {
-    let repo_size = du $repo | get 0.apparent
-    let git_size = du $"($repo)/.git" | get 0.apparent
-    $repo_size - $git_size
+    let tracked_files = git ls-files | from lines
+    ls **/* | where name in $tracked_files | get size | math sum
 }
 
 # Create a new directory and cd into it
