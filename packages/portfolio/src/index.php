@@ -99,6 +99,16 @@ function projectHeader(array $project): string {
                 'github' => 'https://github.com/kieranknowles1/csc8502-advanced-graphics',
             ]); ?>
             <!-- TODO: Link to the project, should I automate building to be extra fancy? -->
+            <p>
+                A 3D graphics engine based on OpenGL. Features include:
+            </p>
+            <ul>
+                <li>Deferred rendering capable of handling 500 lights at 1440p 60fps</li>
+                <li>Shadow mapping with projected textures and no hard limits</li>
+                <li>Tessellated terrain</li>
+                <li>Built-in video recording, capturing each frame as a PNG image</li>
+                <li>Linux support via SDL2</li>
+            </ul>
         </article>
 
         <article>
@@ -109,6 +119,17 @@ function projectHeader(array $project): string {
                 'github' => 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/',
             ]); ?>
             <!-- TODO: Link to the project -->
+            <p>
+                A game engine primarily focused on networking, including:
+            </p>
+            <ul>
+                <li>Client-server architecture with lazily sent delta states</li>
+                <li>UDP networking via the ENet library</li>
+                <li>AI agents controlled by nested state machines and A* pathfinding</li>
+                <li>Physics engine with support for OOBBs, constraints, and raycasting</li>
+                <li>Spatial partitioning using quadtrees</li>
+                <li>As before, Linux support</li>
+            </ul>
         </article>
      </main>
 
