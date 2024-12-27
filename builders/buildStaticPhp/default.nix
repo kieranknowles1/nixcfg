@@ -17,17 +17,22 @@ stdenv.mkDerivation (args
     buildPhase = ''
       mkdir -p $out
       while IFS= read -r -d "" file; do
+        relative=$(realpath --relative-to=$src $file)
+        out_relative=$out/$relative
+
         # Exclude files in .build-only
         if [[ $file == *"/.build-only/"* ]]; then
           continue
         fi
 
+        mkdir -p $(dirname $out_relative)
+
         if [[ $file == *.php ]]; then
           # Transform PHP to HTML
-          php -f ${./buildFile.php} $file > $out/$(basename $file .php).html
+          php -f ${./buildFile.php} $file > $out/$(basename $out_relative .php).html
         else
           # Copy all other files
-          cp $file $out
+          cp $file $out_relative
         fi
       done < <(find $src -type f -print0)
     '';
