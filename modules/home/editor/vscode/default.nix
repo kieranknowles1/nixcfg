@@ -65,18 +65,20 @@ in {
     ];
 
     custom.mutable.file = let
+      files = [
+        "settings.json"
+        "keybindings.json"
+        "snippets/cmake.json"
+        "snippets/python.json"
+      ];
       mkFile = file: {
-        source = ./${file};
-        repoPath = "modules/home/editor/vscode/${file}";
+        name = "${userSettingsDir}/${file}";
+        value = {
+          source = ./${file};
+          repoPath = "modules/home/editor/vscode/${file}";
+        };
       };
-    in {
-      "${userSettingsDir}/settings.json" = mkFile "settings.json";
-      "${userSettingsDir}/keybindings.json" = mkFile "keybindings.json";
-    };
-    # TODO: Use mutable for this
-    home.file."${userSettingsDir}/snippets" = {
-      source = ./snippets;
-      recursive = true;
-    };
+    in
+      builtins.listToAttrs (map mkFile files);
   };
 }
