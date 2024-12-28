@@ -56,6 +56,11 @@ in {
         type = types.str;
         example = "Smith";
       };
+      userName = mkOption {
+        description = "Username";
+        type = types.str;
+        example = "bob";
+      };
     };
 
     espanso = {

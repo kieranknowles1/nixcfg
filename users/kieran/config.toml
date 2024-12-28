@@ -9,6 +9,7 @@ defaultGui = "code"
 email = "kieranknowles11@hotmail.co.uk"
 firstName = "Kieran"
 surName = "Knowles"
+userName = "kieran"
 
 [games]
 nexusModsKey = "nexusmods/apikey"
