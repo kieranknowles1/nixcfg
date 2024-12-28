@@ -32,8 +32,6 @@ in {
     firefox-addons = mkNamespace "firefox-addons" inputs.firefox-addons.packages {};
 
     # Also add overlays needed by the flake
-    # TODO: nixvim requires nixpkgs-unstable
-    # nixvim = flake.inputs.nixvim.overlays.default;
     vscode-extensions = inputs.vscode-extensions.overlays.default;
 
     overrides = import ./overrides.nix;

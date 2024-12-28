@@ -28,7 +28,6 @@
       inputs.nixos-cosmic.follows = "";
       inputs.nixpkgs-openmw.follows = "";
       inputs.nixpkgs-stable.follows = "";
-      inputs.nixvim.follows = "";
       inputs.openmw.follows = "";
       inputs.snowfall-lib.follows = "";
       inputs.sops-nix.follows = "";

@@ -9,9 +9,9 @@
   };
 
   config = lib.mkIf config.custom.editor.neovim.enable {
-    home.packages = [
-      (pkgs.flake.nixvim.extend {custom.optimise = true;})
-    ];
+    # home.packages = [
+    #   (pkgs.flake.nixvim.extend {custom.optimise = true;})
+    # ];
     # programs.neovim = {
     #   enable = true;
 
