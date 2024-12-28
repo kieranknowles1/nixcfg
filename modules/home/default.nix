@@ -2,6 +2,8 @@
 # Modules can be enabled or disabled by giving them options in their own files
 {...}: {
   imports = [
+    ../shared
+
     ./common.nix
     ./desktop
     ./discord.nix
@@ -16,7 +18,6 @@
     ./nushell
     ./office
     ./shortcuts
-    ./secrets.nix
     ./theme.nix
     ./trilium.nix
   ];
