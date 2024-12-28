@@ -3,6 +3,7 @@
   config,
   self,
   specialArgs,
+  inputs,
   ...
 }: {
   options.custom.user = lib.mkOption {
@@ -84,6 +85,11 @@
 
       # If a file to be provisioned already exists, back it up
       backupFileExtension = "backup";
+
+      sharedModules = [
+        inputs.sops-nix.homeManagerModules.sops
+        self.homeManagerModules.default
+      ];
 
       users =
         lib.attrsets.mapAttrs (name: user: {

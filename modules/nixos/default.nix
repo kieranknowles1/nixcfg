@@ -2,6 +2,8 @@
 # Modules can be enabled or disabled by giving them options in their own files
 {...}: {
   imports = [
+    ../shared
+
     ./backup.nix
     ./core.nix
     ./desktop
@@ -15,7 +17,6 @@
     ./office.nix
     ./printing.nix
     ./ssh
-    ./secrets.nix
     ./theme.nix
     ./thunderbird.nix
     ./users.nix
