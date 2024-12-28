@@ -12,13 +12,13 @@
     # home.packages = [
     #   (pkgs.flake.nixvim.extend {custom.optimise = true;})
     # ];
-    # programs.neovim = {
-    #   enable = true;
+    programs.neovim = {
+      enable = true;
 
-    #   viAlias = true;
-    #   vimAlias = true;
-    #   vimdiffAlias = true;
-    # };
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+    };
 
     # # Don't manage anything with Nix for now
     # # TODO: Manage configs/plugins with Nix?
