@@ -5,59 +5,7 @@
   lib,
   config,
   ...
-}: let
-  docsPath = "${config.custom.repoPath}/docs/generated";
-
-  /*
-   *
-  * Generate an index of the documentation files.
-  */
-  mkIndex = files: let
-    # Get an alphabetically sorted list of the files
-    fileNames = builtins.attrNames files;
-
-    # Map the files to a markdown list of links
-    links = lib.lists.forEach fileNames (name: let
-      value = files.${name};
-    in "- [${name}](./${name}) - ${value.description}");
-    # Generate the index file
-    # This is done in pure Nix because it's easier than working with bash and jq
-    # This gives the same result as bash, but in a language that while I wouldn't call
-    # good, is at least better than bash, a very low bar to clear.
-  in ''
-    # Documentation index
-
-    This file is the index for all generated documentation files.
-
-    ## Files
-    ${lib.strings.concatStringsSep "\n" links}
-  '';
-
-  /*
-   *
-  * Combine all the documentation files into one. Generate the index file.
-  */
-  mkDocs = files: let
-    fileNames = builtins.attrNames files;
-
-    # Generate code to symlink the files
-    # Easier than doing a loop in bash
-    linkDocs = lib.lists.forEach fileNames (name: let
-      value = files.${name};
-      source =
-        if builtins.isString value.source
-        then pkgs.writeText "${name}" value.source
-        else value.source;
-    in "ln --symbolic ${source} $out/${name}");
-  in
-    pkgs.runCommand "merged-docs" {
-      INDEX = mkIndex files;
-    } ''
-      mkdir -p $out
-      echo "$INDEX" > $out/readme.md
-      ${lib.strings.concatStringsSep "\n" linkDocs}
-    '';
-in {
+}: {
   options.custom.docs-generate = let
     inherit (lib) mkEnableOption mkOption types options;
   in {
@@ -157,7 +105,55 @@ in {
         };
       };
 
-      build = {
+      build = let
+        /*
+        * Generate an index of the documentation files.
+        */
+        mkIndex = files: let
+          # Get an alphabetically sorted list of the files
+          fileNames = builtins.attrNames files;
+
+          # Map the files to a markdown list of links
+          links = lib.lists.forEach fileNames (name: let
+            value = files.${name};
+          in "- [${name}](./${name}) - ${value.description}");
+          # Generate the index file
+          # This is done in pure Nix because it's easier than working with bash and jq
+          # This gives the same result as bash, but in a language that while I wouldn't call
+          # good, is at least better than bash, a very low bar to clear.
+        in ''
+          # Documentation index
+
+          This file is the index for all generated documentation files.
+
+          ## Files
+          ${lib.strings.concatStringsSep "\n" links}
+        '';
+
+        /*
+        * Combine all the documentation files into one. Generate the index file.
+        */
+        mkDocs = files: let
+          fileNames = builtins.attrNames files;
+
+          # Generate code to symlink the files
+          # Easier than doing a loop in bash
+          linkDocs = lib.lists.forEach fileNames (name: let
+            value = files.${name};
+            source =
+              if builtins.isString value.source
+              then pkgs.writeText "${name}" value.source
+              else value.source;
+          in "ln --symbolic ${source} $out/${name}");
+        in
+          pkgs.runCommand "merged-docs" {
+            INDEX = mkIndex files;
+          } ''
+            mkdir -p $out
+            echo "$INDEX" > $out/readme.md
+            ${lib.strings.concatStringsSep "\n" linkDocs}
+          '';
+      in {
         generated = mkDocs config.custom.docs-generate.file;
         all =
           pkgs.runCommand "all-docs" {
@@ -172,7 +168,7 @@ in {
       };
     };
 
-    home.file.${docsPath} = {
+    home.file."${config.custom.repoPath}/docs/generated" = {
       source = config.custom.docs-generate.build.generated;
       recursive = true;
     };
