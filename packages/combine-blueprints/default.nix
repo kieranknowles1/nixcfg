@@ -1,5 +1,9 @@
-{packagePythonScript}:
-packagePythonScript {
+{
+  buildScript,
+  python3,
+}:
+buildScript {
+  runtime = python3;
   name = "combine-blueprints";
   src = ./combine-blueprints.py;
   version = "1.0.0";

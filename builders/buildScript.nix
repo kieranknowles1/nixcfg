@@ -1,16 +1,17 @@
 {
-  python3,
   stdenv,
   lib,
   writeShellScriptBin,
 }:
 /*
-Package a Python script as a standalone executable, similar to `pkgs.writeShellScriptBin`.
+Package a script as a standalone executable, similar to `pkgs.writeShellScriptBin`.
 
 Only works with simple scripts, that is, a single file with no dependencies
 outside of the standard library.
 
 # Arguments
+runtime :: String : The runtime the script requires, such as Python or Nushell.
+
 script :: String : The name of the output executable.
 
 src :: String : The path to the script to package or the script itself
@@ -27,6 +28,7 @@ python312.withPackages (python-pkgs: [
 ```
 */
 {
+  runtime,
   name,
   src,
   version ? "1.0",
@@ -46,7 +48,7 @@ python312.withPackages (python-pkgs: [
     installPhase = ''
       mkdir -p $out/bin
 
-      shebang="#!${lib.getExe python3}"
+      shebang="#!${lib.getExe runtime}"
 
       echo "$shebang" > $out/bin/${name}
       cat $src >> $out/bin/${name}

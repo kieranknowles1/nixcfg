@@ -12,9 +12,7 @@
     };
     callPackage = lib.customisation.callPackageWith (pkgs
       // inputs
-      // {
-        inherit (self.builders.${system}) packagePythonScript;
-      });
+      // self.builders.${system});
   in {
     packages = {
       activate-mutable = callPackage ./activate-mutable {};
