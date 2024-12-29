@@ -1,8 +1,10 @@
 {
-  packagePythonScript,
+  buildScript,
+  python3,
   src-factorio-blueprint-decoder,
 }:
-packagePythonScript {
+buildScript {
+  runtime = python3;
   name = "factorio-blueprint-decoder";
   src = "${src-factorio-blueprint-decoder}/decode";
   version = "unstable";

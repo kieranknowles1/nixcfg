@@ -13,10 +13,8 @@
     removals,
     name,
   }: let
-    packagePythonScript = self.builders.${pkgs.hostPlatform.system}.packagePythonScript.override {
-      python3 = pkgs.python3.withPackages (ps: [ps.pyyaml]);
-    };
-    script = packagePythonScript {
+    script = self.builders.${pkgs.hostPlatform.system}.buildScript {
+      runtime = pkgs.python3.withPackages (ps: [ps.pyyaml]);
       name = "fixup-espanso-package";
       src = ./patch-matches.py;
     };

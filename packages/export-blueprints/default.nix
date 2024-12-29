@@ -1,9 +1,11 @@
 {
-  packagePythonScript,
+  buildScript,
+  python3,
   flake,
   nano,
 }:
-packagePythonScript {
+buildScript {
+  runtime = python3;
   name = "export-blueprints";
   src = ./export-blueprints.py;
   version = "2.0.0";
