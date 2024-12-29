@@ -1,13 +1,17 @@
 {
   config,
   lib,
-  pkgs,
   hostConfig,
+  pkgs,
   ...
 }: {
   options.custom.editor.neovim = {
     enable = lib.mkEnableOption "NeoVim";
   };
+
+  imports = [
+    ./plugins.nix
+  ];
 
   config = lib.mkIf config.custom.editor.neovim.enable {
     # home.packages = [
@@ -19,6 +23,11 @@
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
+
+      extraPackages = with pkgs; [
+        # Recommended for and used by searching
+        ripgrep
+      ];
     };
 
     home.shellAliases = let

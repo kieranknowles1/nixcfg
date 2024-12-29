@@ -60,8 +60,8 @@
   # I guess it also supports tree-sitter, which is cool.
   # TODO: Try Zed
   imports = [
+    ./neovim
     ./vscode
-    ./neovim.nix
   ];
 
   config = let
