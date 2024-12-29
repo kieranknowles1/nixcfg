@@ -20,6 +20,7 @@
       command-palette = callPackage ./command-palette {};
       export-blueprints = callPackage ./export-blueprints {};
       export-notes = callPackage ./export-notes {};
+      extract = callPackage ./extract {};
       factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
       generate-graphs = callPackage ./generate-graphs {};
       nix-utils = callPackage ./nix-utils {};
