@@ -3,7 +3,8 @@
   stdenv,
 }:
 /*
-Build a static web app with PHP, transformed into HTML at build time.
+Build a truly static site with no runtime overhead. Files are transformed at
+into plain HTML.
 
 PHP files will be transformed to HTML. All others will be copied.
 Files can be made available to the builder but excluded from output by default
