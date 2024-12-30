@@ -1,8 +1,6 @@
 {
   php,
   stdenv,
-  # This is a more complex builder, so I think it justifies using Nu over Bash
-  nushell
 }:
 /*
 Build a truly static site with no runtime overhead. Files are transformed at
@@ -15,9 +13,28 @@ by placing then in a directory named `.build-only`.
 args:
 stdenv.mkDerivation (args
   // {
-    buildInputs = [php nushell];
+    buildInputs = [php];
 
     buildPhase = ''
-      nu ${./buildPhase.nu} "$src" "$out" --buildPhp ${./buildFile.php}
+      mkdir -p $out
+      while IFS= read -r -d "" file; do
+        relative=$(realpath --relative-to=$src $file)
+        out_relative=$out/$relative
+
+        # Exclude files in .build-only
+        if [[ $file == *"/.build-only/"* ]]; then
+          continue
+        fi
+
+        mkdir -p $(dirname $out_relative)
+
+        if [[ $file == *.php ]]; then
+          # Transform PHP to HTML
+          php -f ${./buildFile.php} $file > $out/$(basename $out_relative .php).html
+        else
+          # Copy all other files
+          cp $file $out_relative
+        fi
+      done < <(find $src -type f -print0)
     '';
   })
