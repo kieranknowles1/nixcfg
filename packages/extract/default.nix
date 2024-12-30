@@ -3,7 +3,8 @@
   nushell,
   unzip,
   p7zip,
-}: buildScript {
+}:
+buildScript {
   runtime = nushell;
   name = "extract";
   src = ./extract.nu;
