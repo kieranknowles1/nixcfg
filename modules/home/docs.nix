@@ -179,6 +179,12 @@
       };
     };
 
+    custom.shortcuts.palette.actions = lib.singleton {
+      description = "View documentation";
+      # These are built from markdown where the convention is `readme.md` rather than `index.html`
+      action = ["xdg-open" "${config.custom.docs-generate.build.html}/readme.html"];
+    };
+
     home.file."${config.custom.repoPath}/docs/generated" = {
       source = config.custom.docs-generate.build.generated;
       recursive = true;

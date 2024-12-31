@@ -36,6 +36,6 @@ in {
     # nixvim = flake.inputs.nixvim.overlays.default;
     vscode-extensions = inputs.vscode-extensions.overlays.default;
 
-    overrides = import ./overrides.nix { inherit inputs; };
+    overrides = import ./overrides.nix {inherit inputs;};
   };
 }
