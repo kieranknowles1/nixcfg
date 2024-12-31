@@ -19,10 +19,11 @@ mkOptionDocs ./modules/nixos
 mkOptionDocs :: Path -> Path
 
 # Arguments
-importer
-: The file to import all modules containing options
+importer : The file to import all modules containing options
+
+header : The header to include in the generated documentation
 */
-importer: let
+importer: header: let
   # File containing options documentation
   eval = self.lib.docs.evalModules importer;
   optionsDoc = nixosOptionsDoc {
@@ -36,5 +37,6 @@ in
   runCommand "option-docs.md" {
     buildInputs = [gnused];
   } ''
-    cat ${optionsDoc.optionsCommonMark} | sed --regexp-extended 's|\/nix/store/[a-z0-9]{32}-source/||g' > $out
+    echo "# ${header}" > $out
+    cat ${optionsDoc.optionsCommonMark} | sed --regexp-extended 's|\/nix/store/[a-z0-9]{32}-source/||g' >> $out
   ''
