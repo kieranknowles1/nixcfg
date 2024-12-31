@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2269
+# shellcheck disable=SC2154
 # Suppress shellcheck warnings, Nix sets its own variables
 set -euo pipefail
 
