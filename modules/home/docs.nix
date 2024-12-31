@@ -57,6 +57,12 @@
         readOnly = true;
         description = "All documentation files, generated and static. In Markdown format.";
       };
+
+      html = mkOption {
+        type = types.package;
+        readOnly = true;
+        description = "All documentation files, generated and static. In HTML format.";
+      };
     };
   };
 
@@ -165,6 +171,11 @@
             cp -r $STATIC/* $out
             cp -r $GENERATED/* $out/generated
           '';
+
+          html = self.builders.${pkgs.system}.buildStaticSite {
+            name = "html-docs";
+            src = config.custom.docs-generate.build.all;
+          };
       };
     };
 
