@@ -4,6 +4,12 @@ set -euo pipefail
 # For Pandoc reproducibility
 export SOURCE_DATE_EPOCH=0
 
+# Replace the given file's extension with HTML
+replaceExtension() {
+    file="$1"
+    echo "${file%.*}.html"
+}
+
 buildPandoc() {
   file="$1"
   out_relative="$2"
@@ -21,16 +27,17 @@ buildPandoc() {
     --css style.css \
     --metadata title="$title" \
     --fail-if-warnings \
-    "$tmpfile" --output "$out/$(basename $out_relative .md).html"
+    "$tmpfile" --output "$(replaceExtension $out_relative)"
   rm "$tmpfile"
 
   # Replace .md with .html in links. Assumes that .md is always followed by a quote for the end of href=""
-  sed -i 's|\.md"|\.html"|g' "$out/$(basename $out_relative .md).html"
+  sed -i 's|\.md"|\.html"|g' "$(replaceExtension $out_relative)"
 }
 
 mkdir -p $out
 while IFS= read -r -d "" file; do
   relative=$(realpath --no-symlinks --relative-to=$src $file)
+  # The equivalent input path in the output directory
   out_relative=$out/$relative
 
   # Exclude files in .build-only
@@ -40,10 +47,10 @@ while IFS= read -r -d "" file; do
 
   echo "Processing $file"
 
-  mkdir -p $(dirname $out_relative)
+  mkdir -p "$(dirname $out_relative)"
 
   if [[ "$file" == *.php ]]; then
-    php -f ${./buildFile.php} "$file" > "$out/$(basename $out_relative .php)".html
+    php -f ${./buildFile.php} "$file" > "$(replaceExtension $out_relative)"
   elif [[ "$file" == *.md ]]; then
     buildPandoc "$file" "$out_relative"
   else
