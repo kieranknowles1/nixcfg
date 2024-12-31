@@ -25,7 +25,6 @@
       generate-graphs = callPackage ./generate-graphs {};
       nix-utils = callPackage ./nix-utils {};
       nixvim = callPackage ./nixvim {};
-      openmw-dev = callPackage ./openmw-dev.nix {};
       openmw-luadata = callPackage ./openmw-luadata {};
       portfolio = callPackage ./portfolio {};
       rebuild = callPackage ./rebuild {};
