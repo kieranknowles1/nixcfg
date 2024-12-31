@@ -38,7 +38,7 @@ in {
     lib.mkIf hostConfig.custom.games.enable {
       home = {
         packages = with pkgs; [
-          flake.openmw-dev
+          openmw
         ];
 
         # TODO: Use an impure provisioner to install Lua data files directly to ~/.config/openmw
