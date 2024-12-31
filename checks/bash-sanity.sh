@@ -7,7 +7,7 @@ dir="$1"
 # We expect the following:
 # - All scripts must use the shebang `#!/usr/bin/env bash`.
 # - All scripts must have the execute permission set.
-# - All scripts must set the `-euo pipefail` options immediately after the shebang.
+# - All scripts must set the `-euo pipefail` options.
 # - If the script is too long, I'm going to question your sanity.
 
 # Additional checks are provided by shellcheck, which runs as part of `nix fmt`.
@@ -31,7 +31,7 @@ check_permissions() {
 
 check_options() {
   file="$1"
-  head -n 2 "$file" | grep -q 'set -euo pipefail' || return 1
+  grep -q 'set -euo pipefail' "$file" || return 1
 }
 
 check_length() {

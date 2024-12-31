@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2269
+# Suppress shellcheck warnings, Nix sets its own variables
 set -euo pipefail
-
-# Suppress shellcheck warnings, these variables are set by Nix
-# shellcheck disable=SC2269
-src="$src"
-# shellcheck disable=SC2269
-out="$out"
 
 # For Pandoc reproducibility
 export SOURCE_DATE_EPOCH=0
@@ -27,10 +23,15 @@ buildPandoc() {
   tmpfile=$(mktemp)
   tail -n +2 "$file" > "$tmpfile"
 
+  extraArgs=()
+  if [[ "$useCustomMarkdownStyle" == true ]]; then
+    extraArgs+=(--css "$BUILD_SRC/style.css")
+  fi
+
   pandoc \
+    "${extraArgs[@]}" \
     --standalone \
     --from markdown --to html \
-    --css style.css \
     --metadata title="$title" \
     --fail-if-warnings \
     "$tmpfile" --output "$out_html"
