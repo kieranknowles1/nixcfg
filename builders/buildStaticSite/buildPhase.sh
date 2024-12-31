@@ -6,8 +6,8 @@ export SOURCE_DATE_EPOCH=0
 
 # Replace the given file's extension with HTML
 replaceExtension() {
-    file="$1"
-    echo "${file%.*}.html"
+  file="$1"
+  echo "${file%.*}.html"
 }
 
 buildPandoc() {

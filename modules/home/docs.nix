@@ -78,7 +78,7 @@
         # };
         "host-options.md" = {
           description = "NixOS options";
-          source = mkOptionDocs self.nixosModules.default;
+          source = mkOptionDocs self.nixosModules.default "NixOS options";
         };
         "host-options.schema.json" = {
           description = "NixOS options schema";
@@ -86,7 +86,7 @@
         };
         "user-options.md" = {
           description = "home-manager options";
-          source = mkOptionDocs self.homeManagerModules.default;
+          source = mkOptionDocs self.homeManagerModules.default "Home Manager options";
         };
         "user-options.schema.json" = let
           filterCustom = opts: opts.custom;
