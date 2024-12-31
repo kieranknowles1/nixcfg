@@ -1,6 +1,4 @@
-{
-  inputs
-}:
+{inputs}:
 # Overrides to the default nixpkgs
 final: prev: {
   xfce = prev.xfce.overrideScope (_nfinal: nprev: {
@@ -33,9 +31,10 @@ final: prev: {
     };
 
     devPkg = inputs.openmw.packages.${final.system}.openmw-dev;
-  in devPkg.overrideAttrs (_oldAttrs: {
-    src = latestSrc;
-  });
+  in
+    devPkg.overrideAttrs (_oldAttrs: {
+      src = latestSrc;
+    });
 
   # Continuation of Trilium, not currently in nixpkgs
   trilium-desktop = prev.trilium-desktop.overrideAttrs (oldAttrs: rec {

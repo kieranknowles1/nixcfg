@@ -22,7 +22,7 @@ just I can't be bothered to work around Bash's quirks.
   # If true, the site will use its own `style.css` for Markdown instead of Pandoc's.
   useCustomMarkdownStyle ? false,
   ...
-}@args:
+} @ args:
 stdenv.mkDerivation (args
   // {
     buildInputs = [php pandoc];
