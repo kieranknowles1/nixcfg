@@ -172,10 +172,10 @@
             cp -r $GENERATED/* $out/generated
           '';
 
-          html = self.builders.${pkgs.system}.buildStaticSite {
-            name = "html-docs";
-            src = config.custom.docs-generate.build.all;
-          };
+        html = self.builders.${pkgs.system}.buildStaticSite {
+          name = "html-docs";
+          src = config.custom.docs-generate.build.all;
+        };
       };
     };
 
