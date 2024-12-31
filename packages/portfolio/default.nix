@@ -4,7 +4,7 @@
   stdenv,
   fetchFromGitHub,
 }:
-self.builders.${hostPlatform.system}.buildStaticPhp {
+self.builders.${hostPlatform.system}.buildStaticSite {
   name = "portfolio";
 
   src = let
