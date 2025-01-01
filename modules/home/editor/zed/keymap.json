@@ -1,0 +1,16 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Editor && mode == full && inline_completion",
+    "bindings": {
+      // Use VSCode's binding to accept one word of the completion
+      "ctrl-right": "editor::AcceptPartialInlineCompletion"
+    }
+  }
+]
