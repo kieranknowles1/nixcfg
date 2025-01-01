@@ -20,13 +20,11 @@ contractions-en.url = "https://github.com/sonofhypnos/espanso-contractions-en/ar
 contractions-en.hash = "sha256:0pzizhp7p8xqjy1yprfjjyzdgjnsnkxrpv3gy1yrzx363gl0f3d5"
 contractions-en.dir = "contractions-en/0.1.0"
 # This conflicts with the word "cause" and I've never seen "’cause" used.
-contractions-en.removals = [ "cause"]
+contractions-en.removals = ["cause"]
 # Use the more common \u0027 apostrophe instead of \u2019 right single quotation mark
 contractions-en.replacements."’" = "'"
 
 [editor]
-default = "code"
-
-vscode.enable = true
-neovim.enable = true
+default = "zeditor"
+defaultGui = "zeditor"
 zed.enable = true

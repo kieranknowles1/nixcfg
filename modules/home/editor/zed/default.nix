@@ -13,14 +13,15 @@
 
   config = let
     cfg = config.custom.editor.zed;
-  in lib.mkIf cfg.enable {
-    assertions = lib.singleton {
-      assertion = hostConfig.custom.features.desktop;
-      message = "Zed requires a desktop environment.";
-    };
+  in
+    lib.mkIf cfg.enable {
+      assertions = lib.singleton {
+        assertion = hostConfig.custom.features.desktop;
+        message = "Zed requires a desktop environment.";
+      };
 
-    home.packages = with pkgs; [
-      zed-editor
-    ];
-  };
+      home.packages = with pkgs; [
+        zed-editor
+      ];
+    };
 }
