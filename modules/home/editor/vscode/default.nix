@@ -63,6 +63,7 @@ in {
     ];
 
     custom.mutable.file = let
+      # TODO: Share this snippet with Zed
       files = [
         "settings.json"
         "keybindings.json"
