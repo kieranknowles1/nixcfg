@@ -22,6 +22,8 @@
 
       home.packages = with pkgs; [
         zed-editor
+        # Dependencies for language servers
+        nixd
       ];
     };
 }
