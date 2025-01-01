@@ -12,13 +12,12 @@
           nullOr (enum [
             "code"
             "nvim"
+            "zeditor"
           ]);
 
         description = ''
           The default ${type} editor to use.
         '';
-
-        default = null;
       };
   in {
     # TODO: This should set $EDITOR
@@ -71,6 +70,7 @@
       commandToOption = with cfg; {
         code = vscode.enable;
         nvim = neovim.enable;
+        zeditor = zed.enable;
       };
     in
       commandToOption.${command};
@@ -79,6 +79,7 @@
       dict = {
         code = "code.desktop";
         nvim = "nvim.desktop";
+        zeditor = "dev.zed.Zed.desktop";
       };
     in
       dict.${name};
@@ -95,16 +96,15 @@
         assertion = editorEnabled editor;
         message = "The default ${type} editor is set to ${editor}, but it is not enabled.";
       };
-  in
-    {
-      # Make sure our default editor is installed
-      assertions =
-        (checkEditorEnabled "CLI" defaultEditor)
-        ++ (checkEditorEnabled "GUI" defaultGui);
+  in {
+    # Make sure our default editor is installed
+    assertions =
+      (checkEditorEnabled "CLI" defaultEditor)
+      ++ (checkEditorEnabled "GUI" defaultGui);
 
-      # Assign the default GUI editor to handle text files
-      custom.mime.definition = lib.mkIf (defaultGui != null) (lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
-        defaultApp = toDesktopFile defaultGui;
-      }));
-    };
+    # Assign the default GUI editor to handle text files
+    custom.mime.definition = lib.mkIf (defaultGui != null) (lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
+      defaultApp = toDesktopFile defaultGui;
+    }));
+  };
 }
