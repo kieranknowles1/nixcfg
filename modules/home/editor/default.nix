@@ -58,10 +58,10 @@
   # https://helix-editor.com/
   # It's built in Rust, evalangism for which is demanded by our crustacean overlords.
   # I guess it also supports tree-sitter, which is cool.
-  # TODO: Try Zed
   imports = [
     ./vscode
     ./neovim.nix
+    ./zed
   ];
 
   config = let
@@ -101,11 +101,10 @@
       assertions =
         (checkEditorEnabled "CLI" defaultEditor)
         ++ (checkEditorEnabled "GUI" defaultGui);
-    }
-    // (lib.mkIf (defaultGui != null)) {
+
       # Assign the default GUI editor to handle text files
-      custom.mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
+      custom.mime.definition = lib.mkIf (defaultGui != null) (lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
         defaultApp = toDesktopFile defaultGui;
-      });
+      }));
     };
 }
