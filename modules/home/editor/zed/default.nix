@@ -20,10 +20,12 @@
         message = "Zed requires a desktop environment.";
       };
 
-      home.packages = with pkgs; [
-        zed-editor
-        # Dependencies for language servers
-        nixd
-      ];
+      programs.zed-editor = {
+        enable = true;
+        extraPackages = with pkgs; [
+          # Language servers
+          nixd
+        ];
+      };
     };
 }
