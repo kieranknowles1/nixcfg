@@ -7,6 +7,10 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  // ===================
+  // -- Core Settings --
+  // ===================
+
   // Managed by Nix
   "auto_update": true,
 
@@ -18,6 +22,10 @@
     "one-dark-pro-monokai-darker": true
   },
 
+  // ==============
+  // -- Theming --
+  // ==============
+
   // Got to have a dark theme
   "theme": "One Dark Pro Monokai Darker",
   "telemetry": {
@@ -25,6 +33,19 @@
     "diagnostics": false,
     "metrics": false
   },
+
+  // More accessible font size at 1440p
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+
+  // Keep the font consistent with the rest of my system
+  // We have a nerd font by default, no need to be explicit here
+  "ui_font_family": "DejaVu Sans",
+  "buffer_font_family": "DejaVu Sans Mono",
+
+  // =================
+  // -- Code Style --
+  // =================
 
   // Auto format using treefmt
   "format_on_save": "on",
@@ -36,14 +57,9 @@
     }
   },
 
-  // More accessible font size at 1440p
-  "ui_font_size": 16,
-  "buffer_font_size": 16,
-
-  // Keep the font consistent with the rest of my system
-  // We have a nerd font by default, no need to be explicit here
-  "ui_font_family": "DejaVu Sans",
-  "buffer_font_family": "DejaVu Sans Mono",
+  // ======================
+  // -- Language Servers --
+  // ======================
 
   "languages": {
     "Nix": {
