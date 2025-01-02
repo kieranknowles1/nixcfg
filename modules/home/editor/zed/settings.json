@@ -12,20 +12,29 @@
 
   // See https://github.com/zed-industries/extensions/tree/main/extensions
   // These will be fetched on first run, as they currently can't be installed via Nix
+  // Use the name listed in ~/.local/share/zed/extensions/installed
   "auto_install_extensions": {
-    "nix": true
+    "nix": true,
+    "one-dark-pro-monokai-darker": true
   },
 
   // Got to have a dark theme
-  "theme": "Andromeda",
+  "theme": "One Dark Pro Monokai Darker",
   "telemetry": {
     // Just no, don't track me
     "diagnostics": false,
     "metrics": false
   },
 
-  // Using treefmt for this
-  "format_on_save": "off",
+  // Auto format using treefmt
+  "format_on_save": "on",
+  "formatter": {
+    "external": {
+      // TODO: Expose treefmt on the PATH
+      "command": "nix",
+      "arguments": ["fmt", "--", "--stdin", "{buffer_path}"]
+    }
+  },
 
   // More accessible font size at 1440p
   "ui_font_size": 16,
