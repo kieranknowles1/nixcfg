@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   lib,
   config,
@@ -25,6 +26,9 @@
         extraPackages = with pkgs; [
           # Language servers
           nixd
+
+          # Universal formatter
+          self.formatter.${pkgs.system}
         ];
       };
 
