@@ -18,8 +18,12 @@
   // These will be fetched on first run, as they currently can't be installed via Nix
   // Use the name listed in ~/.local/share/zed/extensions/installed
   "auto_install_extensions": {
+    "html": true,
+    "log": true,
     "nix": true,
-    "one-dark-pro-monokai-darker": true
+    "nu": true,
+    "one-dark-pro-monokai-darker": true,
+    "toml": true
   },
 
   // ==============
@@ -51,7 +55,11 @@
   "format_on_save": "on",
   "formatter": {
     "external": {
-      "command": "treefmt",
+      // This is included on zed's PATH as running through Nix adds
+      // some significant latency
+      // Note: This requires that we're working in a flake as treefmt-nix's
+      // wrapper assumes the presence of a flake.nix
+      "command": "treefmt-nix",
       "arguments": ["--stdin", "{buffer_path}"]
     }
   },
