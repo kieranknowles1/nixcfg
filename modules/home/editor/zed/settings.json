@@ -7,6 +7,17 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  // Managed by Nix
+  "auto_update": true,
+
+  // See https://github.com/zed-industries/extensions/tree/main/extensions
+  // These will be fetched on first run, as they currently can't be installed via Nix
+  "auto_install_extensions": {
+    "nix": true
+  },
+
+  // Got to have a dark theme
+  "theme": "Andromeda",
   "telemetry": {
     // Just no, don't track me
     "diagnostics": false,
@@ -19,6 +30,11 @@
   // More accessible font size at 1440p
   "ui_font_size": 16,
   "buffer_font_size": 16,
+
+  // Keep the font consistent with the rest of my system
+  // We have a nerd font by default, no need to be explicit here
+  "ui_font_family": "DejaVu Sans",
+  "buffer_font_family": "DejaVu Sans Mono",
 
   "languages": {
     "Nix": {
