@@ -51,9 +51,8 @@
   "format_on_save": "on",
   "formatter": {
     "external": {
-      // TODO: Expose treefmt on the PATH
-      "command": "nix",
-      "arguments": ["fmt", "--", "--stdin", "{buffer_path}"]
+      "command": "treefmt",
+      "arguments": ["--stdin", "{buffer_path}"]
     }
   },
 
