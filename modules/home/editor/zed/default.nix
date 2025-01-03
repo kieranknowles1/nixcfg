@@ -33,6 +33,9 @@
           # Language servers
           nixd
 
+          php
+          phpactor
+
           # Universal formatter
           self.formatter.${pkgs.system}
         ];
