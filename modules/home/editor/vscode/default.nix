@@ -7,8 +7,16 @@
 }: let
   userSettingsDir = "${config.xdg.configHome}/Code/User";
 in {
-  options.custom.editor.vscode = {
-    enable = lib.mkEnableOption "VS Code";
+  options.custom.editor.vscode = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    enable = mkEnableOption "VS Code";
+    desktopFile = mkOption {
+      description = "Name of the .desktop file";
+      default = "code.desktop";
+      type = types.str;
+      readOnly = true;
+    };
   };
 
   config = lib.mkIf config.custom.editor.vscode.enable {

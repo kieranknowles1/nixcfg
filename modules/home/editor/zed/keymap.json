@@ -7,6 +7,13 @@
 // from the command palette.
 [
   {
+    "context": "Workspace",
+    "bindings": {
+      // From VSCode
+      "ctrl-r": "projects::OpenRecent"
+    }
+  },
+  {
     "context": "Editor && mode == full && inline_completion",
     "bindings": {
       // Use VSCode's binding to accept one word of the completion

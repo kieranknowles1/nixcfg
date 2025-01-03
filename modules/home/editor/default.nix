@@ -4,31 +4,26 @@
   ...
 }: {
   options.custom.editor = let
-    defaultEditorOption = type:
-      lib.mkOption {
-        # Trying to access an unset option will throw an error,
-        # so we need to use `null` to represent unset.
-        type = with lib.types;
-          nullOr (enum [
-            "code"
-            "nvim"
-            "zeditor"
-          ]);
-
-        description = ''
-          The default ${type} editor to use.
-        '';
-      };
+    inherit (lib) mkOption types;
   in {
     # TODO: This should set $EDITOR
-    default = defaultEditorOption "cli";
-    defaultGui = defaultEditorOption "gui";
-
-    textMimeTypes = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+    default = mkOption {
+      type = types.enum [
+        "vscode"
+        "neovim"
+        "zed"
+      ];
 
       description = ''
-        A list of MIME types that are considered to be text files, and should be opened in a text editor.
+        The default editor to use.
+      '';
+    };
+
+    textMimeTypes = mkOption {
+      type = types.listOf types.str;
+
+      description = ''
+        A list of MIME types that are considered to be plaintext, and should be opened in the default editor.
       '';
 
       # Taken from nvim.desktop
@@ -65,46 +60,21 @@
 
   config = let
     cfg = config.custom.editor;
-
-    editorEnabled = command: let
-      commandToOption = with cfg; {
-        code = vscode.enable;
-        nvim = neovim.enable;
-        zeditor = zed.enable;
-      };
-    in
-      commandToOption.${command};
-
-    toDesktopFile = name: let
-      dict = {
-        code = "code.desktop";
-        nvim = "nvim.desktop";
-        zeditor = "dev.zed.Zed.desktop";
-      };
-    in
-      dict.${name};
-
-    defaultEditor = cfg.default;
-
-    defaultGui =
-      if cfg.defaultGui != null
-      then cfg.defaultGui
-      else defaultEditor;
-
-    checkEditorEnabled = type: editor:
-      lib.optional (editor != null) {
-        assertion = editorEnabled editor;
-        message = "The default ${type} editor is set to ${editor}, but it is not enabled.";
-      };
+    # The config of the default editor
+    # All editors should have at least the following options:
+    # - `enable`
+    # - `desktopFile`
+    defaultConfig = cfg.${cfg.default};
   in {
     # Make sure our default editor is installed
-    assertions =
-      (checkEditorEnabled "CLI" defaultEditor)
-      ++ (checkEditorEnabled "GUI" defaultGui);
+    assertions = lib.singleton {
+      assertion = defaultConfig.enable;
+      message = "The default editor is set to ${cfg.default}, but it is not enabled.";
+    };
 
     # Assign the default GUI editor to handle text files
-    custom.mime.definition = lib.mkIf (defaultGui != null) (lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
-      defaultApp = toDesktopFile defaultGui;
-    }));
+    custom.mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
+      defaultApp = defaultConfig.desktopFile;
+    });
   };
 }

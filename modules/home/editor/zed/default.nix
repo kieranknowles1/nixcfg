@@ -7,9 +7,15 @@
   ...
 }: {
   options.custom.editor.zed = let
-    inherit (lib) mkEnableOption;
+    inherit (lib) mkOption mkEnableOption types;
   in {
     enable = mkEnableOption "Zed";
+    desktopFile = mkOption {
+      description = "Name of the .desktop file";
+      default = "dev.zed.Zed.desktop";
+      type = types.str;
+      readOnly = true;
+    };
   };
 
   config = let
