@@ -40,6 +40,18 @@ def dev [
     nix develop (__nix_path $repo $name)
 }
 
+# List all installed Zed extensions, in a form that can be
+# copied into the "auto_install_extensions" field of the Zed config
+def list-zed-extensions [] {
+    # Get extension names
+    ls ~/.local/share/zed/extensions/installed
+        | get name | path parse | get stem
+        # Transform from a list of strings to a JSON object
+        # in the form {"extension-name": true}
+        | each {{$in: true}} | into record
+        | to json
+}
+
 # Enter a dev shell for the nixcfg repository
 alias devr = dev --repo $env.FLAKE
 

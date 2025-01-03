@@ -2,9 +2,6 @@
 
 # Config to enable on all hosts
 
-[editor]
-defaultGui = "code"
-
 [userDetails]
 email = "kieranknowles11@hotmail.co.uk"
 firstName = "Kieran"

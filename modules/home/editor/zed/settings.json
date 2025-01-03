@@ -1,0 +1,113 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  // ===================
+  // -- Core Settings --
+  // ===================
+
+  // Managed by Nix
+  "auto_update": true,
+
+  "telemetry": {
+    // Just no, don't track me
+    "diagnostics": false,
+    "metrics": false
+  },
+
+  // See https://github.com/zed-industries/extensions/tree/main/extensions
+  // These will be fetched on first run, as they currently can't be installed via Nix
+  // Use the name listed in ~/.local/share/zed/extensions/installed
+  "auto_install_extensions": {
+    "html": true,
+    "log": true,
+    "nix": true,
+    "nu": true,
+    "one-dark-pro-monokai-darker": true,
+    "php": true,
+    "toml": true
+  },
+
+  // ===========
+  // -- Input --
+  // ===========
+  // Most of this is in keymap.json
+
+  // Nicer to navigate with a keyboard
+  "use_system_path_prompts": false,
+
+  // ==============
+  // -- Theming --
+  // ==============
+
+  // Got to have a dark theme
+  "theme": "One Dark Pro Monokai Darker",
+
+  // More accessible font size at 1440p
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+
+  // Keep the font consistent with the rest of my system
+  // We have a nerd font by default, no need to be explicit here
+  "ui_font_family": "DejaVu Sans",
+  "buffer_font_family": "DejaVu Sans Mono",
+
+  // =================
+  // -- Code Style --
+  // =================
+
+  "tab_size": 2,
+
+  // Auto format using treefmt
+  "format_on_save": "on",
+  "formatter": {
+    "external": {
+      // This is included on zed's PATH as running through Nix adds
+      // some significant latency
+      // Note: This requires that we're working in a flake as treefmt-nix's
+      // wrapper assumes the presence of a flake.nix
+      "command": "treefmt-nix",
+      "arguments": ["--stdin", "{buffer_path}"]
+    }
+  },
+
+  // ======================
+  // -- Language Servers --
+  // ======================
+
+  "languages": {
+    // https://github.com/zed-extensions/nix
+    "Nix": {
+      "language_servers": ["nixd"]
+    },
+    // https://zed.dev/docs/languages/php
+    "PHP": {
+      // intelephense is also available, but non-free
+      "language_servers": ["phpactor"]
+    }
+  },
+
+  "lsp": {
+    "nixd": {
+      // https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
+      "settings": {
+        "options": {
+          "nixos": {
+            // TODO: Select home-manager or nixos options set automatically depending on the file
+            // Zed LSP settings seem to only work in the global settings.json
+            // For now, manually switch between the two
+            // NixOS options set
+            // "expr": "(builtins.getFlake \"/home/kieran/Documents/src/nixcfg\").nixosConfigurations.rocinante.options"
+            // Home-manager options set
+            "expr": "(builtins.getFlake \"/home/kieran/Documents/src/nixcfg\").nixosConfigurations.rocinante.options.home-manager.users.value.kieran"
+          }
+        }
+      }
+    }
+  }
+}

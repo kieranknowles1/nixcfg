@@ -7,19 +7,25 @@
 }: let
   userSettingsDir = "${config.xdg.configHome}/Code/User";
 in {
-  options.custom.editor.vscode = {
-    enable = lib.mkEnableOption "VS Code";
+  options.custom.editor.vscode = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    enable = mkEnableOption "VS Code";
+    desktopFile = mkOption {
+      description = "Name of the .desktop file";
+      default = "code.desktop";
+      type = types.str;
+      readOnly = true;
+    };
   };
 
   config = lib.mkIf config.custom.editor.vscode.enable {
     # Rebuild will fail if any assertion is false. VSCode requires a desktop environment, so isn't useful on servers.
     # If code isn't enabled, the assertion will never be checked due to the mkIf.
-    assertions = [
-      {
-        assertion = hostConfig.custom.features.desktop;
-        message = "VS Code requires a desktop environment. Use remote development instead.";
-      }
-    ];
+    assertions = lib.singleton {
+      assertion = hostConfig.custom.features.desktop;
+      message = "VS Code requires a desktop environment.";
+    };
 
     programs.vscode = {
       enable = true;
@@ -65,6 +71,7 @@ in {
     ];
 
     custom.mutable.file = let
+      # TODO: Share this snippet with Zed
       files = [
         "settings.json"
         "keybindings.json"
