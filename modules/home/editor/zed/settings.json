@@ -47,6 +47,11 @@
 
   // Got to have a dark theme
   "theme": "One Dark Pro Monokai Darker",
+  "experimental.theme_overrides": {
+    // Default is bright green which doesn't fit the theme
+    // Use a bright-ish purple that stands out, but isn't too harsh
+    "editor.document_highlight.bracket_background": "#502040"
+  },
 
   // More accessible font size at 1440p
   "ui_font_size": 16,
@@ -89,6 +94,9 @@
     "PHP": {
       // intelephense is also available, but non-free
       "language_servers": ["phpactor"]
+    },
+    "TOML": {
+      "language_servers": ["taplo"]
     }
   },
 

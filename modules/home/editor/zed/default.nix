@@ -29,12 +29,15 @@
 
       programs.zed-editor = {
         enable = true;
+        # Zed will try to download language servers automatically, but will fail
+        # as NixOS doesn't like unpatched binaries without extra work.
         extraPackages = with pkgs; [
-          # Language servers
           nixd
 
           php
           phpactor
+
+          taplo # TOML
 
           # Universal formatter
           self.formatter.${pkgs.system}
