@@ -14,6 +14,12 @@
   // Managed by Nix
   "auto_update": true,
 
+  "telemetry": {
+    // Just no, don't track me
+    "diagnostics": false,
+    "metrics": false
+  },
+
   // See https://github.com/zed-industries/extensions/tree/main/extensions
   // These will be fetched on first run, as they currently can't be installed via Nix
   // Use the name listed in ~/.local/share/zed/extensions/installed
@@ -26,17 +32,20 @@
     "toml": true
   },
 
+  // ===========
+  // -- Input --
+  // ===========
+  // Most of this is in keymap.json
+
+  // Nicer to navigate with a keyboard
+  "use_system_path_prompts": false,
+
   // ==============
   // -- Theming --
   // ==============
 
   // Got to have a dark theme
   "theme": "One Dark Pro Monokai Darker",
-  "telemetry": {
-    // Just no, don't track me
-    "diagnostics": false,
-    "metrics": false
-  },
 
   // More accessible font size at 1440p
   "ui_font_size": 16,

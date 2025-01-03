@@ -4,8 +4,16 @@
   pkgs,
   ...
 }: {
-  options.custom.editor.neovim = {
-    enable = lib.mkEnableOption "NeoVim";
+  options.custom.editor.neovim = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    enable = mkEnableOption "NeoVim";
+    desktopFile = mkOption {
+      description = "Name of the .desktop file";
+      default = "nvim.desktop";
+      type = types.str;
+      readOnly = true;
+    };
   };
 
   config = lib.mkIf config.custom.editor.neovim.enable {

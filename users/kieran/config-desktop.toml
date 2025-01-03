@@ -25,6 +25,5 @@ contractions-en.removals = ["cause"]
 contractions-en.replacements."’" = "'"
 
 [editor]
-default = "zeditor"
-defaultGui = "zeditor"
+default = "zed"
 zed.enable = true
