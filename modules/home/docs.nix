@@ -45,24 +45,17 @@
       });
     };
 
-    build = {
-      generated = mkOption {
-        type = types.path;
-        readOnly = true;
-        description = "The path to the generated documentation.";
-      };
-      # TODO: Use this to generate HTML documentation
-      all = mkOption {
-        type = types.package;
-        readOnly = true;
-        description = "All documentation files, generated and static. In Markdown format.";
-      };
-
-      html = mkOption {
-        type = types.package;
-        readOnly = true;
-        description = "All documentation files, generated and static. In HTML format.";
-      };
+    build = let
+      mkBuildOption = name: format:
+        mkOption {
+          type = types.package;
+          readOnly = true;
+          description = "${name} documentation, in ${format} format";
+        };
+    in {
+      generated = mkBuildOption "Generated" "Markdown";
+      all = mkBuildOption "All" "Markdown";
+      html = mkBuildOption "All" "HTML";
     };
   };
 
