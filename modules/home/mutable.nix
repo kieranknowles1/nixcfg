@@ -11,6 +11,20 @@
   in {
     package = mkPackageOption pkgs.flake "activate-mutable" {};
 
+    provisionDir = mkOption {
+      type = types.anything;
+      readOnly = true;
+      description = ''
+        Helper to provision multiple files in the same directory.
+      '';
+
+      example = lib.literalExpression ''
+        custom.mutable.file = provisionDir
+          "modules/home/my-module"
+          ["file-1.txt" "file-2.txt"];
+      '';
+    };
+
     repository = mkOption {
       type = types.path;
       description = ''
@@ -68,6 +82,23 @@
   config = let
     cfg = config.custom.mutable;
   in {
+    # NOTE: This adds a dependency on the repo's source, but I consider that acceptable
+    # for cleaner code.
+    custom.mutable.provisionDir = {
+      baseRepoPath,
+      baseSystemPath,
+      files,
+    }: let
+      mkFile = file: {
+        name = "${baseSystemPath}/${file}";
+        value = {
+          source = "${self}/${baseRepoPath}/${file}";
+          repoPath = "${baseRepoPath}/${file}";
+        };
+      };
+    in
+      builtins.listToAttrs (map mkFile files);
+
     custom.mutable.repository = lib.mkDefault self;
 
     assertions = let

@@ -4,9 +4,7 @@
   lib,
   pkgs,
   ...
-}: let
-  userSettingsDir = "${config.xdg.configHome}/Code/User";
-in {
+}: {
   options.custom.editor.vscode = let
     inherit (lib) mkOption mkEnableOption types;
   in {
@@ -70,22 +68,15 @@ in {
       glslang
     ];
 
-    custom.mutable.file = let
-      # TODO: Share this snippet with Zed
+    custom.mutable.file = config.custom.mutable.provisionDir {
+      baseRepoPath = "modules/home/editor/vscode";
+      baseSystemPath = "${config.xdg.configHome}/Code/User";
       files = [
         "settings.json"
         "keybindings.json"
         "snippets/cmake.json"
         "snippets/python.json"
       ];
-      mkFile = file: {
-        name = "${userSettingsDir}/${file}";
-        value = {
-          source = ./${file};
-          repoPath = "modules/home/editor/vscode/${file}";
-        };
-      };
-    in
-      builtins.listToAttrs (map mkFile files);
+    };
   };
 }

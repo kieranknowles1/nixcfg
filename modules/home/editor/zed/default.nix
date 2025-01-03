@@ -42,20 +42,13 @@
       };
 
       # As normal, use our own activate-mutable so we can edit config in place
-      custom.mutable.file = let
-        # TODO: Share this snippet with VSCode
+      custom.mutable.file = config.custom.mutable.provisionDir {
+        baseRepoPath = "modules/home/editor/zed";
+        baseSystemPath = "${config.xdg.configHome}/zed";
         files = [
           "settings.json"
           "keymap.json"
         ];
-        mkFile = file: {
-          name = "${config.xdg.configHome}/zed/${file}";
-          value = {
-            source = ./${file};
-            repoPath = "modules/home/editor/zed/${file}";
-          };
-        };
-      in
-        builtins.listToAttrs (map mkFile files);
+      };
     };
 }
