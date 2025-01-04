@@ -1,6 +1,9 @@
 # Config for treefmt. This is a Nix module, and as such has all
 # the features of one.
 # See https://flake.parts/options/treefmt-nix for a list of options
+#
+# NOTE: After changing formatter options, run `nix fmt -- --clear-cache` to
+# force a reformat of all files
 {
   lib,
   inputs,
@@ -63,6 +66,8 @@
           configFile = ./.php-cs-fixer.php;
         };
 
+        taplo.enable = true; # TOML
+
         yamlfmt.enable = true; # YAML
 
         # Static analysis
@@ -80,15 +85,17 @@
       };
 
       # Formatters not included in the treefmt-nix repo
-      settings.formatter.phpstan = {
-        command = lib.getExe pkgs.php84Packages.phpstan;
-        options = [
-          "analyze"
-          "--level=max"
-          "--no-interaction"
-          "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
-        ];
-        includes = ["*.php"];
+      settings.formatter = {
+        phpstan = {
+          command = lib.getExe pkgs.php84Packages.phpstan;
+          options = [
+            "analyze"
+            "--level=max"
+            "--no-interaction"
+            "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
+          ];
+          includes = ["*.php"];
+        };
       };
     };
   };

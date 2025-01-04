@@ -11,14 +11,14 @@ backup.enable = true
 password = "backup/password" # Path to the secret
 owner = "kieran"
 sources = [
-    "/home/kieran/Documents",
-    # TODO: This should be on a server
-    "/home/kieran/.local/share/trilium-data/",
+  "/home/kieran/Documents",
+  # TODO: This should be on a server
+  "/home/kieran/.local/share/trilium-data/",
 ]
 # Exclude .git and src, as these are already tracked by git
-exclude = [ ".git", "src" ]
+exclude = [".git", "src"]
 destination.local = "/home/kieran/Backups/Documents" # Local path
-destination.remote = "backup/remote" # Path to the secret
+destination.remote = "backup/remote"                 # Path to the secret
 
 [networking]
 hostName = "canterbury"
