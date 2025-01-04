@@ -66,11 +66,11 @@ function projectHeader(array $project): string {
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-    <title>Portfolio</title>
+    <title>Kieran Knowles</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Portfolio</h1>
+    <h1>Kieran Knowles</h1>
     <!-- TODO: Work on the portfolio page -->
      <nav>
         <ul>
@@ -135,7 +135,7 @@ function projectHeader(array $project): string {
 
     <footer>
         <p>Icons sourced from <a href="https://pictogrammers.com/">Material Design Icons</a> and <a href="https://simpleicons.org/">Simple Icons</a></p>
-        <p>© 2024 Kieran Knowles</p>
+        <p>© 2025 Kieran Knowles</p>
     </footer>
 </body>
 </html>
