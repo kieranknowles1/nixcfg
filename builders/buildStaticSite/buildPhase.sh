@@ -49,11 +49,6 @@ while IFS= read -r -d "" file; do
   # $out_relative with any extension replaced with .html
   out_html=$(replaceExtension "$out_relative")
 
-  # Exclude files in .build-only
-  if [[ "$file" == *"/.build-only/"* ]]; then
-    continue
-  fi
-
   echo "Processing $file"
 
   mkdir -p "$(dirname "$out_relative")"
@@ -68,4 +63,5 @@ while IFS= read -r -d "" file; do
   # -L : Follow symlinks
   # -type f : Only files, not directories
   # -print0 : Separate with null bytes
-done < <(find -L "$src" -type f -print0)
+  # -not -path : Exclude .build-only
+done < <(find -L "$src" -type f -not -path '**/.build-only/*' -print0)
