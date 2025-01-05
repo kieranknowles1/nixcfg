@@ -53,7 +53,6 @@
     # $ nix search wget
     environment.systemPackages = with pkgs;
       [
-        flake.extract
         flake.nix-utils
         git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
 
