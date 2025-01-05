@@ -25,6 +25,6 @@ writeShellApplication rec {
       The API key of a premium Nexus Mods account must be stored at `~/.config/sops-nix/secrets/nexusmods/apikey`.
     '';
 
-    mainProgra = name;
+    mainProgram = name;
   };
 }

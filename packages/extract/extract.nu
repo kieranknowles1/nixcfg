@@ -15,14 +15,16 @@ def main [
     let out_dir = $path.parent | path join $path.stem
     mkdir $out_dir
 
-    match $path.extension {
-        "zip" => {
+    let mime = xdg-mime query filetype $file
+
+    match $mime {
+        "application/zip" => {
             unzip $file -d $out_dir
         }
-        "7z" => {
+        "application/x-7z-compressed" => {
             7z x $file $"-o($out_dir)"
         }
-        "rar" => {
+        "application/vnd.rar" => {
             # TODO: How to specify the output directory?
             unrar x $file
         }
