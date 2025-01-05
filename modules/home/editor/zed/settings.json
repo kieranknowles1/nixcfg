@@ -41,9 +41,9 @@
   // Nicer to navigate with a keyboard
   "use_system_path_prompts": false,
 
-  // ==============
-  // -- Theming --
-  // ==============
+  // ================
+  // -- Appearance --
+  // ================
 
   // Got to have a dark theme
   "theme": "One Dark Pro Monokai Darker",
@@ -61,6 +61,11 @@
   // We have a nerd font by default, no need to be explicit here
   "ui_font_family": "DejaVu Sans",
   "buffer_font_family": "DejaVu Sans Mono",
+
+  "inlay_hints": {
+    // TODO: Can these be shown in italics?
+    "enabled": true
+  },
 
   // =================
   // -- Code Style --
@@ -115,6 +120,15 @@
             "expr": "(builtins.getFlake \"/home/kieran/Documents/src/nixcfg\").nixosConfigurations.rocinante.options.home-manager.users.value.kieran"
           }
         }
+      }
+    },
+    "phpactor": {
+      // https://phpactor.readthedocs.io/en/master/reference/configuration.html
+      "initialization_options": {
+        // Enable all inlay hints, Zed can filter unwanted ones la
+        "language_server_worse_reflection.inlay_hints.enable": true,
+        "language_server_worse_reflection.inlay_hints.types": true,
+        "language_server_worse_reflection.inlay_hints.params": true,
       }
     }
   }
