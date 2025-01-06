@@ -14,17 +14,24 @@
         nautilus
       ];
       systemPackages = with pkgs; [
+        # TODO: Opening terminal doesn't work
+        # TODO: Why does this replace our removal of the extra .desktop files?
         (xfce.thunar.override {
           thunarPlugins = [
             xfce.thunar-archive-plugin
           ];
         })
+        # thunar-archive-plugin requires an archive manager
+        ark
         xfce.xfconf
       ];
     };
 
     xdg.mime.addedAssociations = {
       "inode/directory" = "thunar.desktop";
+      # Prism (Minecraft launcher) associates itself with zips
+      # Make sure our archive manager has priority
+      "application/zip" = "org.kde.ark.desktop";
     };
   };
 }
