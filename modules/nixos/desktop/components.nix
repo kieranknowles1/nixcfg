@@ -15,12 +15,8 @@
       ];
       systemPackages = with pkgs; [
         # TODO: Opening terminal doesn't work
-        # TODO: Why does this replace our removal of the extra .desktop files?
-        (xfce.thunar.override {
-          thunarPlugins = [
-            xfce.thunar-archive-plugin
-          ];
-        })
+        xfce.thunar
+        xfce.thunar-archive-plugin
         # thunar-archive-plugin requires an archive manager
         ark
         xfce.xfconf
