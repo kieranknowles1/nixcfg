@@ -28,7 +28,6 @@
     "log": true,
     "nix": true,
     "nu": true,
-    "one-dark-pro-monokai-darker": true,
     "php": true,
     "toml": true
   },
@@ -46,11 +45,19 @@
   // ================
 
   // Got to have a dark theme
-  "theme": "One Dark Pro Monokai Darker",
+  "theme": "Andromeda",
   "experimental.theme_overrides": {
     // Default is bright green which doesn't fit the theme
     // Use a bright-ish purple that stands out, but isn't too harsh
-    "editor.document_highlight.bracket_background": "#502040"
+    "editor.document_highlight.bracket_background": "#502040",
+
+    "syntax": {
+      // Comments should be green, not grey
+      // Exact shade copied from VSCode's dark theme
+      "comment": {
+        "color": "#6a9955"
+      }
+    }
   },
 
   // More accessible font size at 1440p
@@ -61,11 +68,6 @@
   // We have a nerd font by default, no need to be explicit here
   "ui_font_family": "DejaVu Sans",
   "buffer_font_family": "DejaVu Sans Mono",
-
-  "inlay_hints": {
-    // TODO: Can these be shown in italics?
-    "enabled": true
-  },
 
   // =================
   // -- Code Style --
@@ -79,8 +81,8 @@
     "external": {
       // This is included on zed's PATH as running through Nix adds
       // some significant latency
-      // Note: This requires that we're working in a flake as treefmt-nix's
-      // wrapper assumes the presence of a flake.nix
+      // Note: This requires that we're working in a flake as assumed
+      // by treefmt-nix's wrapper. This is the case in most of my projects
       "command": "treefmt-nix",
       "arguments": ["--stdin", "{buffer_path}"]
     }
@@ -90,6 +92,16 @@
   // -- Language Servers --
   // ======================
 
+  "inlay_hints": {
+    // TODO: Can these be shown in italics?
+    "enabled": true,
+    "show_other_hints": true,
+    "show_parameter_hints": false, // This is a bit much
+    "show_type_hints": true
+  },
+
+  // Overrides to the default settings for specific languages
+  // Mostly used to select an LSP
   "languages": {
     // https://github.com/zed-extensions/nix
     "Nix": {
@@ -105,6 +117,8 @@
     }
   },
 
+  // Settings for specific language servers
+  // These are not covered by the settings.json schema, see links for documentation
   "lsp": {
     "nixd": {
       // https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
@@ -125,10 +139,10 @@
     "phpactor": {
       // https://phpactor.readthedocs.io/en/master/reference/configuration.html
       "initialization_options": {
-        // Enable all inlay hints, Zed can filter unwanted ones la
+        // Enable all inlay hints, Zed can filter unwanted ones later
         "language_server_worse_reflection.inlay_hints.enable": true,
         "language_server_worse_reflection.inlay_hints.types": true,
-        "language_server_worse_reflection.inlay_hints.params": true,
+        "language_server_worse_reflection.inlay_hints.params": true
       }
     }
   }

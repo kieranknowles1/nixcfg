@@ -14,7 +14,6 @@
         nautilus
       ];
       systemPackages = with pkgs; [
-        # TODO: Opening terminal doesn't work
         xfce.thunar
         xfce.thunar-archive-plugin
         # thunar-archive-plugin requires an archive manager
