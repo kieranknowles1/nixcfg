@@ -53,12 +53,21 @@ function getIcon(IconPack $pack, string $name): string {
 function projectHeader(array $project): string {
     $gh = getIcon(IconPack::SI, 'github');
     $yt = getIcon(IconPack::SI, 'youtube');
+    $zip = getIcon(IconPack::MDI, 'folder-zip');
     // TODO: Find a middle ground between embeds with tracking and just linking to the video
     // Maybe an img that turns into an embed on click?
+    //
+    // TODO: Serve downloads from the server. How to include the builds?
+    // Serving only Windows builds is good enough, and builds made on NixOS are not portable
+    // Could just be lazy, include a zip in the repo and say "build it yourself" for Linux
+    // TODO: Can we display the icon in line with the bullet points below it?
     return <<<HTML
         <h3 id="{$project['id']}">{$project['title']}</h3>
-        <p>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></p>
-        <p>{$yt} YouTube: <a href="https://www.youtube.com/watch?v={$project['videoId']}">https://www.youtube.com/watch?v={$project['videoId']}</a></p>
+        <ul class="project-links">
+          <li>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></li>
+          <li>{$yt} YouTube: <a href="https://www.youtube.com/watch?v={$project['videoId']}">https://www.youtube.com/watch?v={$project['videoId']}</a></li>
+          <li>{$zip} Download: <a href="{$project['id']}.zip">{$project['id']}.zip</a></li>
+        </ul>
     HTML;
 }
 

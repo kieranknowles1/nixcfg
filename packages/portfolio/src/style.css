@@ -21,7 +21,7 @@
   /* Used for borders and other accents */
   --accent-color: #666;
 
-  /* Must be here to apply to the whole document */
+  /* Must be here to apply to unused space before the fold */
   background-color: var(--background-color);
 }
 
