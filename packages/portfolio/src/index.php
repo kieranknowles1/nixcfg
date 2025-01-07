@@ -60,7 +60,6 @@ function projectHeader(array $project): string {
     // TODO: Serve downloads from the server. How to include the builds?
     // Serving only Windows builds is good enough, and builds made on NixOS are not portable
     // Could just be lazy, include a zip in the repo and say "build it yourself" for Linux
-    // TODO: Can we display the icon in line with the bullet points below it?
     return <<<HTML
         <h3 id="{$project['id']}">{$project['title']}</h3>
         <ul class="project-links">
