@@ -44,8 +44,9 @@ buildPandoc() {
     "$tmpfile" --output "$out_html"
   rm "$tmpfile"
 
-  # Replace .md with .html in links. Assumes that .md is always followed by a quote for the end of href=""
-  sed -i 's|\.md"|\.html"|g' "$out_html"
+  # Replace .md with .html in links, such that href="<file>.md#<anchor>" becomes href="<file>.html#<anchor>"
+  # --regexp-extended - Removes the need for escaping parentheses (badly named option)
+  sed --regexp-extended --in-place 's|href="([^"]*).md([^"]*)|href="\1.html\2|g' "$out_html"
 }
 
 mkdir -p "$out"
