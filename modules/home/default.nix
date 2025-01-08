@@ -12,6 +12,7 @@
     ./espanso
     ./firefox.nix
     ./games
+    ./git.nix
     ./ledstate.nix
     ./mime.nix
     ./mutable.nix

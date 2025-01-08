@@ -38,6 +38,7 @@ in {
   options.custom = let
     inherit (lib) mkOption mkEnableOption types;
   in {
+    # TODO: Move these declarations to common.nix as they are also used for Git
     userDetails = {
       email = mkOption {
         description = "Email address";

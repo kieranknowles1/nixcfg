@@ -54,8 +54,6 @@
     environment.systemPackages = with pkgs;
       [
         flake.nix-utils
-        git # This configuration is in a git repository, so it's an essential tool even if not using a system for development
-
         nvd # Generate diffs between generations
         nh # Useful to generate diffs before applying changes
         file
