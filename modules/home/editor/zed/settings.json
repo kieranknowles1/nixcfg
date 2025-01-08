@@ -14,15 +14,15 @@
   // Managed by Nix
   "auto_update": true,
 
+  // Just no, don't track me
   "telemetry": {
-    // Just no, don't track me
     "diagnostics": false,
     "metrics": false
   },
 
   // See https://github.com/zed-industries/extensions/tree/main/extensions
   // These will be fetched on first run, as they currently can't be installed via Nix
-  // Use the name listed in ~/.local/share/zed/extensions/installed
+  // The `list-zed-extensions` command is provided to generate this list
   "auto_install_extensions": {
     "html": true,
     "log": true,
@@ -110,7 +110,9 @@
     // https://zed.dev/docs/languages/php
     "PHP": {
       // intelephense is also available, but non-free
-      "language_servers": ["phpactor"]
+      "language_servers": ["phpactor"],
+      // PSR12 requires 4 spaces, not 2
+      "tab_size": 4
     },
     "TOML": {
       "language_servers": ["taplo"]

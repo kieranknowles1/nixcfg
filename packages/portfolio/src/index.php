@@ -124,7 +124,6 @@ function projectHeader(array $project): string {
         <article id="csc8503">
             <?php echo projectHeader([
                 'title' => 'CSC8503 Advanced Game Technologies',
-                'id' => 'csc8503',
                 'videoId' => '0JzQBoRjsA0',
                 'github' => 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/',
             ]); ?>
