@@ -5,8 +5,6 @@
 
 ## Nerd Fonts not Working
 
-<!-- TODO: Once HTML docs are implemented they will also need to use a nerd font -->
-
 Issue: Nerd Fonts icons, such as the `` (git branch icon) in the prompt, are
 not displaying, instead showing as a box ▯.
 

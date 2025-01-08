@@ -2,10 +2,10 @@
 // Can't use getenv with constants
 // $out is magically set by Nix. This build system is overkill, but I use NixOS anyway.
 $OUT_DIR = getenv('out');
-mkdir("$OUT_DIR/icons");
 if ($OUT_DIR === false) {
     throw new Exception('Output directory not set');
 }
+mkdir("$OUT_DIR/icons");
 
 enum IconPack: string {
     case MDI = __DIR__ . '/.build-only/mdi-icons/';

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2154
-# Suppress shellcheck warnings, Nix sets its own variables
 set -euo pipefail
+src="$1"
+out="$2"
 
 # For Pandoc reproducibility
 export SOURCE_DATE_EPOCH=0
@@ -24,8 +24,15 @@ buildPandoc() {
   tail -n +2 "$file" > "$tmpfile"
 
   extraArgs=()
-  if [[ "$useCustomMarkdownStyle" == true ]]; then
-    extraArgs+=(--css "$BUILD_SRC/style.css")
+  if [[ "$CUSTOM_MARKDOWN_STYLE" == true ]]; then
+    extraArgs+=(--css "style.css")
+  else
+    # Tweak the default CSS to be more to my liking
+    extraArgs+=(
+      -V "maxwidth=40em"
+      -V "mainfont=DejaVuSansM Nerd Font"
+      -V "monofont=DejaVuSansM Nerd Font Mono"
+    )
   fi
 
   pandoc \
@@ -54,7 +61,7 @@ while IFS= read -r -d "" file; do
   mkdir -p "$(dirname "$out_relative")"
 
   if [[ "$file" == *.php ]]; then
-    php -f "$BUILD_SRC/buildFile.php" "$file" > "$out_html"
+    php -f "$BUILD_HELPERS/buildFile.php" "$file" > "$out_html"
   elif [[ "$file" == *.md ]]; then
     buildPandoc "$file" "$out_html"
   else

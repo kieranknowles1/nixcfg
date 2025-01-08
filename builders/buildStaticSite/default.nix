@@ -12,7 +12,10 @@ by placing then in a directory named `.build-only`.
 
 Supported file types and their transformations:
 - PHP: Executed with a safe mode enabled interpreter. Output is saved as HTML.
-- Markdown: Converted to HTML with Pandoc and optionally styled with `style.css`.
+- Markdown: Converted to HTML with Pandoc.
+  - If `useCustomMarkdownStyle` is true, the site will use its own `style.css`.
+  - Otherwise, a tweaked version of Pandoc's default style is used plus a nerd
+    font for icons. This is assumed to be available in the visitor's browser.
 - All other files: Copied to the output directory.
 
 Spaces are strongly discouraged and not guaranteed to work. No technical reason,
@@ -27,10 +30,10 @@ stdenv.mkDerivation (args
   // {
     buildInputs = [php pandoc];
 
-    inherit useCustomMarkdownStyle;
+    CUSTOM_MARKDOWN_STYLE = useCustomMarkdownStyle;
 
     buildPhase = ''
-      BUILD_SRC="${./.}"
-      ${builtins.readFile ./buildPhase.sh}
+      BUILD_HELPERS="${./.}"
+      bash ${./buildPhase.sh} "$src" "$out"
     '';
   })
