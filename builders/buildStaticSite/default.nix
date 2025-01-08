@@ -33,7 +33,7 @@ stdenv.mkDerivation (args
     CUSTOM_MARKDOWN_STYLE = useCustomMarkdownStyle;
 
     buildPhase = ''
-      BUILD_HELPERS="${./.}"
+      export BUILD_HELPERS="${./.}"
       bash ${./buildPhase.sh} "$src" "$out"
     '';
   })

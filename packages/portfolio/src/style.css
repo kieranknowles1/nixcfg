@@ -62,7 +62,8 @@ article {
   border-radius: 4pt;
 }
 
-ul.project-links li {
+/* An indented list of links, each is expected to have an icon */
+ul.links-list li {
   list-style-type: none;
   /*
   Shift left to align with a normal ul's bullets.

@@ -45,7 +45,6 @@ function getIcon(IconPack $pack, string $name): string {
 /**
  * @param array{
  *  title: string,
- *  id: string,
  *  videoId: string,
  *  github: string,
  * } $project
@@ -58,14 +57,14 @@ function projectHeader(array $project): string {
     // Maybe an img that turns into an embed on click?
     //
     // TODO: Serve downloads from the server. How to include the builds?
+    // Probably use itch.io
     // Serving only Windows builds is good enough, and builds made on NixOS are not portable
     // Could just be lazy, include a zip in the repo and say "build it yourself" for Linux
     return <<<HTML
-        <h3 id="{$project['id']}">{$project['title']}</h3>
-        <ul class="project-links">
+        <h3>{$project['title']}</h3>
+        <ul class="links-list">
           <li>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></li>
           <li>{$yt} YouTube: <a href="https://www.youtube.com/watch?v={$project['videoId']}">https://www.youtube.com/watch?v={$project['videoId']}</a></li>
-          <li>{$zip} Download: <a href="{$project['id']}.zip">{$project['id']}.zip</a></li>
         </ul>
     HTML;
 }
@@ -92,17 +91,20 @@ function projectHeader(array $project): string {
         <!-- TODO: Fill this in -->
         <section>
             <h3>Contact</h3>
-            <p><?echo getIcon(IconPack::MDI, 'email')?> Email: <a href="mailto:contact@selwonk.uk">contact@selwonk.uk</a></p>
-            <p><?echo getIcon(IconPack::SI, 'github')?> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></p>
+            <ul class="links-list">
+              <li><?echo getIcon(IconPack::MDI, 'email')?> Email: <a href="mailto:contact@selwonk.uk">contact@selwonk.uk</a></li>
+              <li><?echo getIcon(IconPack::SI, 'github')?> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></li>
+              <li><?echo getIcon(IconPack::MDI, 'domain')?> LinkedIn: <a href="https://www.linkedin.com/in/kieran-john-knowles/">https://www.linkedin.com/in/kieran-john-knowles/</a></li>
+              <li><?echo getIcon(IconPack::SI, 'itchdotio')?> itch.io: <a href="https://kieranknowles.itch.io/">https://kieranknowles.itch.io/</a></li>
+            </ul>
         </section>
      </header>
 
      <main>
         <h2>Projects</h2>
-        <article>
+        <article id="csc8502">
             <?php echo projectHeader([
                 'title' => 'CSC8502 Advanced Graphics for Games',
-                'id' => 'csc8502',
                 'videoId' => 'GKlL0EY-yHE',
                 'github' => 'https://github.com/kieranknowles1/csc8502-advanced-graphics',
             ]); ?>
@@ -119,7 +121,7 @@ function projectHeader(array $project): string {
             </ul>
         </article>
 
-        <article>
+        <article id="csc8503">
             <?php echo projectHeader([
                 'title' => 'CSC8503 Advanced Game Technologies',
                 'id' => 'csc8503',
