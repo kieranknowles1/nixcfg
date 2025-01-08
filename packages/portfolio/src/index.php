@@ -63,8 +63,8 @@ function projectHeader(array $project): string {
     return <<<HTML
         <h3>{$project['title']}</h3>
         <ul class="links-list">
-          <li>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></li>
-          <li>{$yt} YouTube: <a href="https://www.youtube.com/watch?v={$project['videoId']}">https://www.youtube.com/watch?v={$project['videoId']}</a></li>
+            <li>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></li>
+            <li>{$yt} YouTube: <a href="https://www.youtube.com/watch?v={$project['videoId']}">https://www.youtube.com/watch?v={$project['videoId']}</a></li>
         </ul>
     HTML;
 }
@@ -92,10 +92,10 @@ function projectHeader(array $project): string {
         <section>
             <h3>Contact</h3>
             <ul class="links-list">
-              <li><?echo getIcon(IconPack::MDI, 'email')?> Email: <a href="mailto:contact@selwonk.uk">contact@selwonk.uk</a></li>
-              <li><?echo getIcon(IconPack::SI, 'github')?> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></li>
-              <li><?echo getIcon(IconPack::MDI, 'domain')?> LinkedIn: <a href="https://www.linkedin.com/in/kieran-john-knowles/">https://www.linkedin.com/in/kieran-john-knowles/</a></li>
-              <li><?echo getIcon(IconPack::SI, 'itchdotio')?> itch.io: <a href="https://kieranknowles.itch.io/">https://kieranknowles.itch.io/</a></li>
+                <li><?echo getIcon(IconPack::MDI, 'email')?> Email: <a href="mailto:contact@selwonk.uk">contact@selwonk.uk</a></li>
+                <li><?echo getIcon(IconPack::SI, 'github')?> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></li>
+                <li><?echo getIcon(IconPack::MDI, 'domain')?> LinkedIn: <a href="https://www.linkedin.com/in/kieran-john-knowles/">https://www.linkedin.com/in/kieran-john-knowles/</a></li>
+                <li><?echo getIcon(IconPack::SI, 'itchdotio')?> itch.io: <a href="https://kieranknowles.itch.io/">https://kieranknowles.itch.io/</a></li>
             </ul>
         </section>
      </header>
@@ -141,7 +141,7 @@ function projectHeader(array $project): string {
                 <li>As before, Linux support</li>
             </ul>
         </article>
-     </main>
+    </main>
 
     <footer>
         <p>Icons sourced from <a href="https://pictogrammers.com/">Material Design Icons</a> and <a href="https://simpleicons.org/">Simple Icons</a></p>

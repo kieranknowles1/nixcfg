@@ -31,7 +31,7 @@ check_permissions() {
 
 check_options() {
   file="$1"
-  # shellcheck requires global disables to be immediately after
+  # shell check requires global disables to be immediately after
   # the shebang, the safe mode options must come after that.
   # Therefore we can't assert that the options are on the second line.
   grep -q 'set -euo pipefail' "$file" || return 1
