@@ -108,6 +108,8 @@ issues so I can do all my work in one place.
   - [x] `flake.nix`
   - [x] Template
 - [ ] Get swap files working
+- [ ] Port my Steam Deck to NixOS. Use
+      [Jovian NixOS](https://github.com/Jovian-Experiments/Jovian-NixOS)
 
 ## Lessons Learned
 
