@@ -83,7 +83,7 @@
       // some significant latency
       // Note: This requires that we're working in a flake as assumed
       // by treefmt-nix's wrapper. This is the case in most of my projects
-      "command": "treefmt-nix",
+      "command": "treefmt",
       "arguments": ["--stdin", "{buffer_path}"]
     }
   },
