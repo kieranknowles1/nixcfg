@@ -115,7 +115,7 @@
           # Map the files to a markdown list of links
           links = lib.lists.forEach fileNames (name: let
             value = files.${name};
-          in "- [${name}](./${name}) - ${value.description}");
+          in " - [${value.description}](./${name})");
           # Generate the index file
           # This is done in pure Nix because it's easier than working with bash and jq
           # This gives the same result as bash, but in a language that while I wouldn't call
