@@ -14,6 +14,7 @@
     ./games
     ./git.nix
     ./ledstate.nix
+    ./llm.nix
     ./mime.nix
     ./mutable.nix
     ./nushell

@@ -6,7 +6,18 @@
   options.custom.llm = let
     inherit (lib) mkOption mkEnableOption types;
   in {
-    enable = mkEnableOption "Large Language Model";
+    enable = mkEnableOption "large-language-models";
+
+    webui = {
+      port = mkOption {
+        description = ''
+          The port to run a web interface on.
+        '';
+        type = types.port;
+        # TODO: Some central/automatic way to assign ports
+        default = 3000;
+      };
+    };
 
     models = mkOption {
       description = ''
@@ -16,6 +27,7 @@
       '';
 
       type = types.listOf types.str;
+      # 8b parameters, comfortably runs on a 12GB GPU
       default = ["llama3"];
     };
   };
@@ -36,6 +48,11 @@
           else false;
 
         loadModels = cfg.models;
+      };
+
+      services.nextjs-ollama-llm-ui = {
+        enable = true;
+        inherit (cfg.webui) port;
       };
     };
 }
