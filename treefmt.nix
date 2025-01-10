@@ -74,7 +74,14 @@
         shellcheck.enable = true; # Bash
 
         deadnix.enable = true; # Nix
-        statix.enable = true; # Nix
+        statix = {
+          # Nix
+          enable = true;
+          disabled-lints = [
+            # !boolOrString is different to boolOrString != false
+            "bool_comparison"
+          ];
+        };
 
         # Other Repositories
         # These languages are not used in this repository, but their formatters are included
