@@ -10,7 +10,6 @@
     ./development.nix
     ./games.nix
     ./ledstate.nix
-    ./libraries.nix
     ./locale.nix
     ./networking.nix
     ./nvidia.nix
