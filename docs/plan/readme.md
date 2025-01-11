@@ -7,6 +7,7 @@ incomplete information. Consider them living documents.
 
 - [Activate Mutable](./activate-mutable.md)
 - [Nix Server](./nix-server.md)
+- [Todo List](./todo-list.md)
 
 ## Workflow
 
