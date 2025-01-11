@@ -1,7 +1,5 @@
 # TODO: Decide on a tool to use for editing dot graphs
 strict digraph {
-    node [style=filled]
-
     # Start
     Provision [color=lightblue]
 

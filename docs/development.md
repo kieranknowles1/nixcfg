@@ -70,16 +70,10 @@ coupled to their code and more likely to be up-to-date.
 For more general information, such as this document, Markdown in the `docs`
 directory is used.
 
-Graphs may be generated using `graphviz` and `dot`, then converted to SVG with
-`run generate-graphs` for use as images in Markdown. While Mermaid is natively
-supported by GitHub, it is much less effective at preventing overlap and
-therefore unsuitable for my needs.
-
-`generate-graphs --check` will raise an error if any files would have been
-changed, intended to be used in CI to ensure that all graphs are up-to-date.
-
-<!-- TODO: Can we check for outdated svg files? Dot complains about fontconfig
-during a nix build -->
+Graphs may be generated using `graphviz` and `dot`, these are automatically
+converted to SVGs by buildStaticSite. While Mermaid is natively supported by
+GitHub, it is much less effective at preventing overlap and therefore unsuitable
+for my needs.
 
 ## Best Practices
 
