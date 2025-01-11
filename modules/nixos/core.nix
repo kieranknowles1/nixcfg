@@ -54,6 +54,7 @@
     environment.systemPackages = with pkgs;
       [
         flake.nix-utils
+        flake.todos
         nvd # Generate diffs between generations
         nh # Useful to generate diffs before applying changes
         file

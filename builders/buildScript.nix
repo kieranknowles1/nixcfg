@@ -4,6 +4,7 @@
   writeShellScriptBin,
 }:
 /*
+// TODO: Replace this with pkgs.writeScriptBin, as this can take any interpreter
 Package a script as a standalone executable, similar to `pkgs.writeShellScriptBin`.
 
 Only works with simple scripts, that is, a single file with no dependencies
