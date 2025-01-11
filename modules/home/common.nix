@@ -10,7 +10,8 @@
     inherit (lib) mkOption mkPackageOption types;
   in {
     terminal.package = mkPackageOption pkgs "terminal" {
-      default = "gnome-console";
+      # Shorter startup time than kitty
+      default = "alacritty";
     };
 
     repoPath = mkOption {
