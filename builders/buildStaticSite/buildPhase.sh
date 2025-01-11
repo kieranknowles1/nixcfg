@@ -5,11 +5,13 @@ out="$2"
 
 # For Pandoc reproducibility
 export SOURCE_DATE_EPOCH=0
+FONT="DejaVuSansM Nerd Font"
+MONOFONT="$FONT Mono"
 
-# Replace the given file's extension with HTML
 replaceExtension() {
   file="$1"
-  echo "${file%.*}.html"
+  new_extension="$2"
+  echo "${file%.*}.$new_extension"
 }
 
 buildPandoc() {
@@ -30,8 +32,8 @@ buildPandoc() {
     # Tweak the default CSS to be more to my liking
     extraArgs+=(
       -V "maxwidth=40em"
-      -V "mainfont=DejaVuSansM Nerd Font"
-      -V "monofont=DejaVuSansM Nerd Font Mono"
+      -V "mainfont=$FONT"
+      -V "monofont=$MONOFONT"
       --include-after-body "$BUILD_HELPERS/markdownExtraEnd.html"
     )
   fi
@@ -55,20 +57,28 @@ while IFS= read -r -d "" file; do
   relative=$(realpath --no-symlinks --relative-to="$src" "$file")
   # The equivalent input path in the output directory
   out_relative="$out/$relative"
-  # $out_relative with any extension replaced with .html
-  out_html=$(replaceExtension "$out_relative")
 
   echo "Processing $file"
 
   mkdir -p "$(dirname "$out_relative")"
 
-  if [[ "$file" == *.php ]]; then
-    php -f "$BUILD_HELPERS/buildFile.php" "$file" > "$out_html"
-  elif [[ "$file" == *.md ]]; then
-    buildPandoc "$file" "$out_html"
-  else
-    cp "$file" "$out_relative"
-  fi
+  extension="${file##*.}"
+  case "$extension" in
+    dot)
+      dot \
+        -Gbgcolor=transparent -Gfillcolor=gray -Nfontname="$FONT" -Nstyle=filled \
+        -Tsvg "$file" -o "$(replaceExtension "$out_relative" "svg")"
+      ;;
+    md)
+      buildPandoc "$file" "$(replaceExtension "$out_relative" "html")"
+      ;;
+    php)
+      php -f "$BUILD_HELPERS/buildFile.php" "$file" > "$(replaceExtension "$out_relative" "html")"
+      ;;
+    *)
+      cp "$file" "$out_relative"
+      ;;
+  esac
   # -L : Follow symlinks
   # -type f : Only files, not directories
   # -print0 : Separate with null bytes

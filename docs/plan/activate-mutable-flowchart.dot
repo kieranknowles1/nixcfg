@@ -1,7 +1,5 @@
 # TODO: Decide on a tool to use for editing dot graphs
 strict digraph {
-    bgcolor=transparent
-    fillcolor=gray
     node [style=filled]
 
     # Start

@@ -1,6 +1,7 @@
 {
   php,
   pandoc,
+  graphviz,
   stdenv,
 }:
 /*
@@ -11,6 +12,7 @@ Files can be made available to the builder but excluded from output by default
 by placing then in a directory named `.build-only`.
 
 Supported file types and their transformations:
+- Dot: Rendered to SVG with Graphviz.
 - PHP: Executed with a safe mode enabled interpreter. Output is saved as HTML.
 - Markdown: Converted to HTML with Pandoc.
   - If `useCustomMarkdownStyle` is true, the site will use its own `style.css`.
@@ -28,7 +30,11 @@ just I can't be bothered to work around Bash's quirks.
 } @ args:
 stdenv.mkDerivation (args
   // {
-    buildInputs = [php pandoc];
+    buildInputs = [
+      php
+      pandoc
+      graphviz
+    ];
 
     CUSTOM_MARKDOWN_STYLE = useCustomMarkdownStyle;
 
