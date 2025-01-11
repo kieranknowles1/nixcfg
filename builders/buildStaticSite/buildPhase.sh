@@ -32,6 +32,7 @@ buildPandoc() {
       -V "maxwidth=40em"
       -V "mainfont=DejaVuSansM Nerd Font"
       -V "monofont=DejaVuSansM Nerd Font Mono"
+      --include-after-body "$BUILD_HELPERS/markdownExtraEnd.html"
     )
   fi
 

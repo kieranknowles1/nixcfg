@@ -50,6 +50,8 @@
         rustfmt.enable = true; # Rust
         stylua.enable = true; # Lua
 
+        # Like prettier, but written in memory-safe Rust
+        # rather than JavaScript with it's garbage collection (ew)
         deno = {
           enable = true;
 
