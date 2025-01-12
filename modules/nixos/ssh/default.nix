@@ -31,6 +31,6 @@
         openssh.authorizedKeys.keyFiles =
           map (name: ./keys/${name}) (builtins.attrNames (builtins.readDir ./keys));
       })
-      config.custom.user;
+      config.custom.users.users;
   };
 }

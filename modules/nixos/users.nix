@@ -6,7 +6,7 @@
   inputs,
   ...
 }: {
-  options.custom.user = lib.mkOption {
+  options.custom.users.users = lib.mkOption {
     description = ''
       A user to create that can log in.
 
@@ -71,11 +71,34 @@
     });
   };
 
-  config = {
-    home-manager = {
-      # Inherit the global pkgs
-      useGlobalPkgs = true;
+  config = let
+    cfg = config.custom.users;
 
+    mkHome = name: user: {
+      imports = [
+        self.homeManagerModules.default
+        user.home
+      ];
+
+      # Give home-manager some basic info about the user
+      home.username = name;
+      home.homeDirectory = "/home/${name}";
+    };
+
+    mkNixos = _name: user: {
+      inherit (user.core) shell;
+
+      isNormalUser = true;
+      description = user.core.displayName;
+
+      # Everyone can manage network connections, but only sudoers can use
+      # sudo
+      extraGroups =
+        ["networkmanager"] ++ (lib.optional user.core.isSudoer "wheel");
+    };
+  in {
+    home-manager = {
+      useGlobalPkgs = true; # Inherit any configuration to nixpkgs, such as allowUnfree
       # Pass flake inputs plus host configuration
       extraSpecialArgs =
         specialArgs
@@ -91,34 +114,9 @@
         self.homeManagerModules.default
       ];
 
-      users =
-        lib.attrsets.mapAttrs (name: user: {
-          imports = [
-            self.homeManagerModules.default
-            user.home
-          ];
-
-          # Give home-manager some basic info about the user
-          home.username = name;
-          home.homeDirectory = "/home/${name}";
-        })
-        config.custom.user;
+      users = lib.attrsets.mapAttrs mkHome cfg.users;
     };
 
-    users.users =
-      lib.attrsets.mapAttrs (_name: user: {
-        inherit (user.core) shell;
-
-        # A normal user is one that can log in, as opposed to a system user used for services
-        isNormalUser = true;
-        # User's full name
-        description = user.core.displayName;
-
-        # Everyone gets networkmanager membership so they can connect to networks
-        # Only sudoers get wheel membership so they can sudo
-        extraGroups =
-          ["networkmanager"] ++ (lib.optional user.core.isSudoer "wheel");
-      })
-      config.custom.user;
+    users.users = lib.attrsets.mapAttrs mkNixos cfg.users;
   };
 }
