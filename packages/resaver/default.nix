@@ -6,7 +6,7 @@
   jq,
   jdk21,
 }: let
-  resaver = writeShellApplication rec {
+  resaver = writeShellApplication {
     name = "resaver";
     runtimeInputs = [
       jq
