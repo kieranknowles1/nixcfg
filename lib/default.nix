@@ -21,7 +21,6 @@
     ./attrset.nix
     ./docs.nix
     ./host.nix
-    ./package.nix
     ./shell.nix
   ];
 }
