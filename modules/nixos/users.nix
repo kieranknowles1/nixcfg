@@ -6,69 +6,82 @@
   inputs,
   ...
 }: {
-  options.custom.users.users = lib.mkOption {
-    description = ''
-      A user to create that can log in.
+  options.custom.users = let
+    inherit (lib) mkOption types;
 
-      The key is the user's login name, and the value
-      is the user's configuration.
+    homeDescription = type: ''
+      Home-manager options for ${type}.
 
-      Recommended usage: Create a file for the user in users/$\{userName}.nix
-      This should be a function that takes pkgs, and returns a user configuration.
-      ```nix
-      pkgs: {
-        core = {
-          displayName = "YaBoiJonDoe";
-          isSudoer = true; # At least one user needs sudo for admin tasks
-          shell = pkgs.nushell;
-        };
-
-        home = {
-          # Your home-manager configuration
-        };
-      }
-      ```
+      See [home-manager's options](https://home-manager-options.extranix.com/) and
+      [the home options of this flake](./user-options.md) for more information.
     '';
 
-    type = lib.types.attrsOf (lib.types.submodule {
+    userType = types.submodule {
       options = {
         core = {
-          displayName = lib.mkOption {
+          displayName = mkOption {
             description = ''
               The user's name as shown on the login screen.
             '';
-            type = lib.types.str;
+            type = types.str;
           };
 
-          isSudoer = lib.mkOption {
+          isSudoer = mkOption {
             description = ''
               Whether the user should be able to sudo.
             '';
-            type = lib.types.bool;
+            type = types.bool;
             default = false;
           };
 
-          shell = lib.mkOption {
+          shell = mkOption {
             description = ''
               The user's shell. Will be the default shell for all terminals.
             '';
-            type = lib.types.package;
+            type = types.package;
           };
         };
 
-        home = lib.mkOption {
-          description = ''
-            Home-manager options for the user.
-
-            See [home-manager's options](https://home-manager-options.extranix.com/) and
-            [the home options of this flake](./user-options.md) for more information.
-          '';
-
-          # As stated above, this can be anything home-manager can handle, so can't be typed here
-          type = lib.types.attrs;
+        home = mkOption {
+          description = homeDescription "this user";
+          # This can be anything home-manager can handle, so can't be typed here
+          type = types.attrs;
         };
       };
-    });
+    };
+  in {
+    sharedConfig = mkOption {
+      description = homeDescription "all users of this system";
+      type = types.attrs;
+      default = {};
+    };
+
+    users = mkOption {
+      description = ''
+        A user to create that can log in.
+
+        The key is the user's login name, and the value
+        is the user's configuration.
+
+        Recommended usage: Create a file for the user in users/$\{userName}.nix
+        This should be a function that takes pkgs, and returns a user configuration.
+        ```nix
+        pkgs: {
+          core = {
+            displayName = "YaBoiJonDoe";
+            isSudoer = true; # At least one user needs sudo for admin tasks
+            shell = pkgs.nushell;
+          };
+
+          home = {
+            # Your home-manager configuration
+          };
+        }
+        ```
+      '';
+
+      type = types.attrsOf userType;
+    };
   };
 
   config = let
@@ -112,6 +125,7 @@
       sharedModules = [
         inputs.sops-nix.homeManagerModules.sops
         self.homeManagerModules.default
+        cfg.sharedConfig
       ];
 
       users = lib.attrsets.mapAttrs mkHome cfg.users;

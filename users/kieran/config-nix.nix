@@ -2,7 +2,6 @@
   self,
   pkgs,
   inputs,
-  hostConfig,
   ...
 }: {
   config.custom = {
@@ -30,7 +29,5 @@
         playerStorage = ./openmw/player_storage.json;
       };
     };
-
-    trilium-client.enable = hostConfig.networking.hostName == "canterbury";
   };
 }
