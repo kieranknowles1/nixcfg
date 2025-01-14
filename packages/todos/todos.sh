@@ -38,12 +38,12 @@ TODO_TAGS=(
   '\[ \]' # Markdown task list
 )
 
-# Join an array using a pipe delimiter
-join_pipe() {
+# Regex to match any of the provided strings
+any_of() {
   local IFS='|'
-  echo "$*"
+  echo "($*)"
 }
 
-query="($(join_pipe "${COMMENT_STARTS[@]}")).*($(join_pipe "${TODO_TAGS[@]}"))"
+query="$(any_of "${COMMENT_STARTS[@]}").*$(any_of "${TODO_TAGS[@]}")"
 
-rg "$query" "$directory" --sort modified
+rg "$query" "$directory" --sort modified --context 2

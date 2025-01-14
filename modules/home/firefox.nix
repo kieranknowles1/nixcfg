@@ -2,7 +2,6 @@
 {
   hostConfig,
   pkgs,
-  lib,
   ...
 }: {
   programs.firefox = {
@@ -39,38 +38,6 @@
       name = "default";
       isDefault = true;
 
-      search = {
-        default = "Google--";
-        # Needed as Firefox overwrites the symlink on startup, which would cause activation to fail
-        force = true;
-        engines = let
-          mkSearch = icon: url: alias: {
-            inherit icon;
-            urls = lib.singleton {
-              template = url;
-            };
-            definedAliases = [alias];
-          };
-          mkSearchNixIcon = mkSearch "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          nixosSearch = type: "https://search.nixos.org/${type}?query={searchTerms}&channel=unstable";
-        in {
-          "Google".metaData.hidden = true;
-          # TODO: Use the AIBlock extension when it's available
-          "Google--" = {
-            urls = lib.singleton {
-              # Disable Google's bullshit, use the slightly less bullshit version
-              # by removing AI
-              template = "https://www.google.com/search?q={searchTerms}&udm=14";
-              iconUpdateUrl = "https://www.google.com/favicon.ico";
-            };
-          };
-
-          "Nix Packages" = mkSearchNixIcon (nixosSearch "packages") "@n";
-          "Nix Options" = mkSearchNixIcon (nixosSearch "options") "@no";
-          "Home Manager" = mkSearchNixIcon "https://home-manager-options.extranix.com/?query={searchTerms}&release=master" "@hm";
-        };
-      };
-
       # To search available extensions, run
       # `nix flake show gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons | grep <search-term>`
       extensions = with pkgs.firefox-addons; [
@@ -82,6 +49,7 @@
         return-youtube-dislikes # The news doesn't want you to know what other people think
         indie-wiki-buddy # Redirect *.fandom.com to non-fandom wikis
         sponsorblock # This configuration is sponsored by Raid: Sha... oh no, it's spreading
+        # TODO: Auto install https://github.com/laylavish/uBlockOrigin-HUGE-AI-Blocklist
         ublock-origin # HAVE YOU HEARD OF THIS PRODUCT YOU WANT TO BUY? BUY IT NOW
         youtube-shorts-block # No TikTok in this house
       ];
