@@ -29,6 +29,7 @@
       inputs.systems.follows = "systems";
 
       inputs.flake-compat.follows = "";
+      inputs.git-hooks.follows = "";
       # Remove some inputs that are not used by this flake
       inputs.base16-fish.follows = "";
       inputs.base16-helix.follows = "";
@@ -171,6 +172,7 @@
     #   inputs.flake-utils.follows = "flake-utils";
     # };
 
+    # TODO: Remove once openmw is building on nixpkgs
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
