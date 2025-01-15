@@ -159,6 +159,7 @@
       inputs.systems.follows = "systems";
     };
 
+    # TODO: Remove once openmw is building on nixpkgs
     flake-utils-plus = {
       url = "github:gytis-ivaskevicius/flake-utils-plus";
       inputs.flake-utils.follows = "flake-utils";
