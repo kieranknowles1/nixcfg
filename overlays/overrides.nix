@@ -45,10 +45,10 @@ final: prev: {
   # Continuation of Trilium, not currently in nixpkgs
   trilium-desktop = prev.trilium-desktop.overrideAttrs (oldAttrs: rec {
     # TODO: Run this on a server
-    version = "0.90.12";
+    version = "0.91.2-beta";
     src = builtins.fetchurl {
       url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-v${version}-linux-x64.zip";
-      sha256 = "sha256:0ji28l60wyzhjbi6g5845dnm763bvg7535zfgzcmfgwjs6zr6nfq";
+      sha256 = "sha256:1h4rdifs7bzc3fl5rsnxpwvqvmbqbm8grmk5c8p5pqqya9s90kzj";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [final.unzip];
   });
