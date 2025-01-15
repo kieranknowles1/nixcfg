@@ -17,6 +17,8 @@ curl --header "Authorization: $API_KEY" "$API_ROOT/notes/root/export" > "$export
 
 log "Fetched $(du -k "$export_file" | cut -f1)KB of data"
 log "Unzipping $export_file to $DST_DIR"
+# Notes may have been moved or deleted. Remove the old notes directory to avoid stale data.
+rm --recursive "$DST_DIR/root"
 unzip -q -o "$export_file" -d "$DST_DIR"
 rm "$export_file"
 
