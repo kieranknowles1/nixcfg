@@ -61,49 +61,6 @@
 
   config = lib.mkIf config.custom.docs-generate.enable {
     custom.docs-generate = {
-      file = let
-        inherit (self.builders.${pkgs.system}) mkOptionDocs;
-      in {
-        # "lib.md" = {
-        #   description = "flake.lib library";
-        #   # FIXME: This isn't working, it's not finding the functions
-        #   source = self.lib.docs.mkFunctionDocs "${self}/lib";
-        # };
-        "host-options.md" = {
-          description = "NixOS options";
-          source = mkOptionDocs self.nixosModules.default "NixOS options";
-        };
-        "host-options.schema.json" = {
-          description = "NixOS options schema";
-          source = self.lib.docs.mkJsonSchema self.nixosModules.default (opts: opts.custom);
-        };
-        "user-options.md" = {
-          description = "home-manager options";
-          source = mkOptionDocs self.homeManagerModules.default "Home Manager options";
-        };
-        "user-options.schema.json" = let
-          filterCustom = opts: opts.custom;
-          # TODO: This is a bit of a hack, would like to have a proper way of disabling options
-          # in JSON.
-          filterNotHidden = opts:
-            builtins.removeAttrs opts [
-              # These are derived from the host's config and usually don't need to be set.
-              # TODO: Can we just make them not required?
-              "repoPath"
-              "fullRepoPath"
-            ];
-        in {
-          description = "home-manager options schema";
-          source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: filterNotHidden (filterCustom opts));
-        };
-        # FIXME: home-manager lists a warning about packages.md not being a directory
-        # This option should probably be like home.file, with different keys for plaintext and file sources
-        "packages.md" = {
-          description = "Flake packages";
-          source = self.lib.docs.mkPackageDocs pkgs.flake;
-        };
-      };
-
       build = let
         /*
         * Generate an index of the documentation files.
@@ -168,6 +125,49 @@
         html = self.builders.${pkgs.system}.buildStaticSite {
           name = "html-docs";
           src = config.custom.docs-generate.build.all;
+        };
+      };
+
+      file = let
+        inherit (self.builders.${pkgs.system}) mkOptionDocs;
+      in {
+        # "lib.md" = {
+        #   description = "flake.lib library";
+        #   # FIXME: This isn't working, it's not finding the functions
+        #   source = self.lib.docs.mkFunctionDocs "${self}/lib";
+        # };
+        "host-options.md" = {
+          description = "NixOS options";
+          source = mkOptionDocs self.nixosModules.default "NixOS options";
+        };
+        "host-options.schema.json" = {
+          description = "NixOS options schema";
+          source = self.lib.docs.mkJsonSchema self.nixosModules.default (opts: opts.custom);
+        };
+        "user-options.md" = {
+          description = "home-manager options";
+          source = mkOptionDocs self.homeManagerModules.default "Home Manager options";
+        };
+        "user-options.schema.json" = let
+          filterCustom = opts: opts.custom;
+          # TODO: This is a bit of a hack, would like to have a proper way of disabling options
+          # in JSON.
+          filterNotHidden = opts:
+            builtins.removeAttrs opts [
+              # These are derived from the host's config and usually don't need to be set.
+              # TODO: Can we just make them not required?
+              "repoPath"
+              "fullRepoPath"
+            ];
+        in {
+          description = "home-manager options schema";
+          source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: filterNotHidden (filterCustom opts));
+        };
+        # FIXME: home-manager lists a warning about packages.md not being a directory
+        # This option should probably be like home.file, with different keys for plaintext and file sources
+        "packages.md" = {
+          description = "Flake packages";
+          source = self.lib.docs.mkPackageDocs pkgs.flake;
         };
       };
     };
