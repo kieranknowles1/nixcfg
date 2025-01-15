@@ -8,6 +8,8 @@
 
       userName = details.firstName;
       userEmail = details.email;
+
+      lfs.enable = true;
     };
   };
 }
