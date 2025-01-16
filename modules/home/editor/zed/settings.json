@@ -150,6 +150,17 @@
         "language_server_worse_reflection.inlay_hints.types": true,
         "language_server_worse_reflection.inlay_hints.params": true
       }
+    },
+    "yaml-language-server": {
+      // https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#language-server-settings
+      "settings": {
+        "yaml": {
+          "schemas": {
+            "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/config.schema.json": "*/espanso/config/**/*.yml",
+            "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json": "*/espanso/match/**/*.yml"
+          }
+        }
+      }
     }
   }
 }

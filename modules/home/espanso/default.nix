@@ -136,8 +136,8 @@ in {
           }
         ];
 
-        # Variables that we expose to all match files. Used when cleaner
-        # than the Nix syntax or for app-specific match files
+        # Variables that we expose to all match files. Exposed to all
+        # files from base.yml
         global_vars = let
           # All variables in Espanso come from one of several sources.
           # We are only interested in constants here, so we use the echo
@@ -157,7 +157,7 @@ in {
     };
 
     custom.mutable.file = config.custom.mutable.provisionDir {
-      baseRepoPath = "modules/home/espanso/config";
+      baseRepoPath = "modules/home/espanso";
       baseSystemPath = "${config.xdg.configHome}/espanso";
       files = [
         "config/default.yml"
