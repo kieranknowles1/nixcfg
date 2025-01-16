@@ -14,7 +14,6 @@
     ./locale.nix
     ./networking.nix
     ./nvidia.nix
-    ./office.nix
     ./printing.nix
     ./ssh
     ./theme.nix

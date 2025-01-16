@@ -3,7 +3,6 @@
 features.desktop = true
 repoPath = "/home/kieran/Documents/src/nixcfg"
 
-office.enable = true
 printing.enable = true
 
 backup.enable = true

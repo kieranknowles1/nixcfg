@@ -1,3 +1,4 @@
 '$schema' = "../../docs/generated/user-options.schema.json"
 
+office.enable = true
 trilium-client.enable = true
