@@ -102,10 +102,14 @@
 
   // Overrides to the default settings for specific languages
   // Mostly used to select an LSP
+  // See https://zed.dev/docs/languages
   "languages": {
     // https://github.com/zed-extensions/nix
     "Nix": {
       "language_servers": ["nixd"]
+    },
+    "Nu": {
+      "language_servers": ["nu"]
     },
     // https://zed.dev/docs/languages/php
     "PHP": {

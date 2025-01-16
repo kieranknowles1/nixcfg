@@ -156,37 +156,38 @@ in {
       };
     };
 
-    xdg.configFile = let
-      base = {
-        espanso = {
-          source = ./config;
-          recursive = true;
+    custom.mutable.file = config.custom.mutable.provisionDir {
+      baseRepoPath = "modules/home/espanso/config";
+      baseSystemPath = "${config.xdg.configHome}/espanso";
+      files = [
+        "config/default.yml"
+        "config/email.yml"
+        "match/_email.yml"
+        "match/spell.yml"
+      ];
+    };
+
+    xdg.configFile =
+      lib.attrsets.mapAttrs' (name: package: {
+        name = "espanso-package-${name}";
+        value = {
+          source = let
+            file = builtins.fetchTarball {
+              inherit (package) url;
+              sha256 = package.hash;
+            };
+
+            fullPath = "${file}/${package.dir or ""}";
+          in
+            fixupPackage {
+              inherit name;
+              inherit (package) replacements removals;
+              package = fullPath;
+            };
+
+          target = "espanso/match/packages/${name}";
         };
-      };
-
-      packages =
-        lib.attrsets.mapAttrs' (name: package: {
-          name = "espanso-package-${name}";
-          value = {
-            source = let
-              file = builtins.fetchTarball {
-                inherit (package) url;
-                sha256 = package.hash;
-              };
-
-              fullPath = "${file}/${package.dir or ""}";
-            in
-              fixupPackage {
-                inherit name;
-                inherit (package) replacements removals;
-                package = fullPath;
-              };
-
-            target = "espanso/match/packages/${name}";
-          };
-        })
-        config.custom.espanso.packages;
-    in
-      base // packages;
+      })
+      config.custom.espanso.packages;
   };
 }

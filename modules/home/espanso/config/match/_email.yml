@@ -5,8 +5,6 @@ matches:
     form: |
       Hello [[recipient]],
 
-      [[text]]
-
       Kind regards,
       {{firstname}}
     form_fields:

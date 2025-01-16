@@ -11,6 +11,7 @@
   in {
     package = mkPackageOption pkgs.flake "activate-mutable" {};
 
+    # TODO: This is a placeholder until we can properly provision directories
     provisionDir = mkOption {
       type = types.anything;
       readOnly = true;
@@ -19,9 +20,14 @@
       '';
 
       example = lib.literalExpression ''
-        custom.mutable.file = provisionDir
-          "modules/home/my-module"
-          ["file-1.txt" "file-2.txt"];
+        custom.mutable.file = provisionDir {
+          baseRepoPath = "modules/home/foo";
+          baseSystemPath = ".config/foo";
+          files = [
+            "config.toml"
+            "config.yaml"
+          ];
+        };
       '';
     };
 
@@ -136,7 +142,7 @@
       cfg.file;
       configFile = pkgs.writeText "activate-mutable-config.json" (builtins.toJSON configTransform);
     in
-      lib.hm.dag.entryAfter ["writeBoundary"] ''
+      lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
         status=0
         run ${lib.getExe cfg.package} activate ${configFile} ${config.home.homeDirectory} || status=$?
 
