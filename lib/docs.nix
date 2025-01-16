@@ -8,10 +8,11 @@
   };
 in {
   flake.lib.docs = rec {
-    evalModules = importer:
+    # Evaluate a single module, ignoring any errors caused by missing inputs.
+    evalUnchecked = module:
       lib.evalModules {
         modules = [
-          importer
+          module
           # We aren't evaling flake inputs, as we don't want to generate documentation for them.
           # Ignore any errors caused by this, as they will be caught during the build.
           {config._module.check = false;}
@@ -83,7 +84,7 @@ in {
 
     */
     mkJsonSchema = importer: filter: let
-      modulesEval = evalModules importer;
+      modulesEval = evalUnchecked importer;
       filtered = filter modulesEval.options;
       # We can override a different set of options here.
       schemaNix = jsonLib.parseOptions filtered {};

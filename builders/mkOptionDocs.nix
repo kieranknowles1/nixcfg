@@ -1,8 +1,7 @@
 {
   self,
-  gnused,
-  runCommand,
   nixosOptionsDoc,
+  writeText,
 }:
 /*
 Generate documentation for the given module's options. Does not include
@@ -19,24 +18,17 @@ mkOptionDocs ./modules/nixos
 mkOptionDocs :: Path -> Path
 
 # Arguments
-importer : The file to import all modules containing options
+modules : The root module to generate documentation for. E.g., self.nixosModules.default
 
 header : The header to include in the generated documentation
 */
-importer: header: let
-  # File containing options documentation
-  eval = self.lib.docs.evalModules importer;
+module: title: let
+  eval = self.lib.docs.evalUnchecked module;
   optionsDoc = nixosOptionsDoc {
     inherit (eval) options;
   };
-  # Nix regexes only support complete matches, so we can't easily match the store path.
-  # Instead, we'll remove it with sed.
-  # Use pipe as a delimiter to avoid confusion with slashes
-  # TODO: Can we make the link point to the repository?
 in
-  runCommand "option-docs.md" {
-    buildInputs = [gnused];
-  } ''
-    echo "# ${header}" > $out
-    cat ${optionsDoc.optionsCommonMark} | sed --regexp-extended 's|\/nix/store/[a-z0-9]{32}-source/||g' >> $out
+  writeText "option-docs.md" ''
+    # ${title}
+    ${builtins.readFile optionsDoc.optionsCommonMark}
   ''

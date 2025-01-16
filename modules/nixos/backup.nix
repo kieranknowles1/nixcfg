@@ -77,6 +77,8 @@
             description = ''
               The user that owns the source files and backups.
             '';
+            type = types.str;
+            example = "bob";
           };
 
           keep = let
@@ -98,6 +100,7 @@
             description = ''
               The path to the password in the host's secrets file.
             '';
+            type = types.str;
             example = "backup/password";
           };
         };

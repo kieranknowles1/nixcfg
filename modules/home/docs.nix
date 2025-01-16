@@ -145,7 +145,7 @@
           source = self.lib.docs.mkJsonSchema self.nixosModules.default (opts: opts.custom);
         };
         "user-options.md" = {
-          description = "home-manager options";
+          description = "Home Manager options";
           source = mkOptionDocs self.homeManagerModules.default "Home Manager options";
         };
         "user-options.schema.json" = let
@@ -160,7 +160,7 @@
               "fullRepoPath"
             ];
         in {
-          description = "home-manager options schema";
+          description = "Home Manager options schema";
           source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: filterNotHidden (filterCustom opts));
         };
         # FIXME: home-manager lists a warning about packages.md not being a directory
