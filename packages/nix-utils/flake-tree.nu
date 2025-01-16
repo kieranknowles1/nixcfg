@@ -86,7 +86,18 @@ def to-svg [
   # Render the whole thing via graphviz
   let body = $nodes | each {graph-entry} | str join "\n"
 
-  let src = $"digraph {\n ($body) \n}"
+  # TODO: Standardise all graphviz formatting. Maybe override nixpkgs with a wrapped
+  # version that applies the standard settings, at least when building docs
+  let src = $"
+    digraph {
+      rankdir=LR;
+      bgcolor=transparent;
+      fillcolor=gray;
+      node [style=filled];
+      edge [color=white];
+      ($body)
+    }
+  "
 
   $src | dot -Tsvg
 }

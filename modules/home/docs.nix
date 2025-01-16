@@ -169,6 +169,13 @@
           description = "Flake packages";
           source = self.lib.docs.mkPackageDocs pkgs.flake;
         };
+
+        "flake-tree.svg" = {
+          description = "Flake input tree";
+          source = pkgs.runCommand "flake-tree.svg" {buildInputs = with pkgs; [nushell graphviz];} ''
+            nu ${self}/packages/nix-utils/flake-tree.nu --svg ${self}/flake.lock > $out
+          '';
+        };
       };
     };
 

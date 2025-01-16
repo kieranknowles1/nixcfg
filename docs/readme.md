@@ -1,5 +1,7 @@
 # Repository Documentation
 
+![Inputs of the flake, excluding the standard `nixpkgs` and `systems`.](./generated/flake-tree.svg)
+
 - [Generated](./generated/readme.md)<br> Wherever possible, documentation is
   generated from the repository itself rather than being written manually. This
   avoids duplication, puts the documentation closer to the code, and ensures
