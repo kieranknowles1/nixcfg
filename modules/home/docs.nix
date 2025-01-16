@@ -11,6 +11,24 @@
   in {
     enable = mkEnableOption "generate documentation for the flake and its options.";
 
+    jsonIgnoredOptions = let
+      mkIgnoredOptions = name:
+        mkOption {
+          description = ''
+            A list of ${name} options to ignore when generating a JSON schema.
+
+            NOTE: Only top-level options of options.custom are supported. I.e., options.custom.foo works,
+            but options.custom.foo.bar does not.
+          '';
+          type = types.listOf types.str;
+          example = ["foo" "bar"];
+          default = [];
+        };
+    in {
+      nixos = mkIgnoredOptions "NixOS";
+      home = mkIgnoredOptions "Home Manager";
+    };
+
     file = mkOption {
       description = ''
         A file include in the generated documentation.
@@ -59,135 +77,130 @@
     };
   };
 
-  config = lib.mkIf config.custom.docs-generate.enable {
-    custom.docs-generate = {
-      build = let
-        /*
-        * Generate an index of the documentation files.
-        */
-        mkIndex = files: let
-          # Get an alphabetically sorted list of the files
-          fileNames = builtins.attrNames files;
+  config = let
+    cfg = config.custom.docs-generate;
+  in
+    lib.mkIf cfg.enable {
+      custom.docs-generate = {
+        build = let
+          /*
+          * Generate an index of the documentation files.
+          */
+          mkIndex = files: let
+            # Get an alphabetically sorted list of the files
+            fileNames = builtins.attrNames files;
 
-          # Map the files to a markdown list of links
-          links = lib.lists.forEach fileNames (name: let
-            value = files.${name};
-          in " - [${value.description}](./${name})");
-          # Generate the index file
-          # This is done in pure Nix because it's easier than working with bash and jq
-          # This gives the same result as bash, but in a language that while I wouldn't call
-          # good, is at least better than bash, a very low bar to clear.
-        in ''
-          # Documentation index
+            # Map the files to a markdown list of links
+            links = lib.lists.forEach fileNames (name: let
+              value = files.${name};
+            in " - [${value.description}](./${name})");
+            # Generate the index file
+            # This is done in pure Nix because it's easier than working with bash and jq
+            # This gives the same result as bash, but in a language that while I wouldn't call
+            # good, is at least better than bash, a very low bar to clear.
+          in ''
+            # Documentation index
 
-          This file is the index for all generated documentation files.
+            This file is the index for all generated documentation files.
 
-          ## Files
-          ${lib.strings.concatStringsSep "\n" links}
-        '';
-
-        /*
-        * Combine all the documentation files into one. Generate the index file.
-        */
-        mkDocs = files: let
-          fileNames = builtins.attrNames files;
-
-          # Generate code to symlink the files
-          # Easier than doing a loop in bash
-          linkDocs = lib.lists.forEach fileNames (name: let
-            value = files.${name};
-            source =
-              if builtins.isString value.source
-              then pkgs.writeText "${name}" value.source
-              else value.source;
-          in "ln --symbolic ${source} $out/${name}");
-        in
-          pkgs.runCommand "merged-docs" {
-            INDEX = mkIndex files;
-          } ''
-            mkdir -p $out
-            echo "$INDEX" > $out/readme.md
-            ${lib.strings.concatStringsSep "\n" linkDocs}
-          '';
-      in {
-        generated = mkDocs config.custom.docs-generate.file;
-        all =
-          pkgs.runCommand "all-docs" {
-            GENERATED = config.custom.docs-generate.build.generated;
-            STATIC = "${self}/docs";
-          } ''
-            mkdir -p $out
-            mkdir -p $out/generated
-            cp -r $STATIC/* $out
-            cp -r $GENERATED/* $out/generated
+            ## Files
+            ${lib.strings.concatStringsSep "\n" links}
           '';
 
-        html = self.builders.${pkgs.system}.buildStaticSite {
-          name = "html-docs";
-          src = config.custom.docs-generate.build.all;
-        };
-      };
+          /*
+          * Combine all the documentation files into one. Generate the index file.
+          */
+          mkDocs = files: let
+            fileNames = builtins.attrNames files;
 
-      file = let
-        inherit (self.builders.${pkgs.system}) mkOptionDocs;
-      in {
-        # "lib.md" = {
-        #   description = "flake.lib library";
-        #   # FIXME: This isn't working, it's not finding the functions
-        #   source = self.lib.docs.mkFunctionDocs "${self}/lib";
-        # };
-        "host-options.md" = {
-          description = "NixOS options";
-          source = mkOptionDocs self.nixosModules.default "NixOS options";
-        };
-        "host-options.schema.json" = {
-          description = "NixOS options schema";
-          source = self.lib.docs.mkJsonSchema self.nixosModules.default (opts: opts.custom);
-        };
-        "user-options.md" = {
-          description = "Home Manager options";
-          source = mkOptionDocs self.homeManagerModules.default "Home Manager options";
-        };
-        "user-options.schema.json" = let
-          filterCustom = opts: opts.custom;
-          # TODO: This is a bit of a hack, would like to have a proper way of disabling options
-          # in JSON.
-          filterNotHidden = opts:
-            builtins.removeAttrs opts [
-              # These are derived from the host's config and usually don't need to be set.
-              # TODO: Can we just make them not required?
-              "repoPath"
-              "fullRepoPath"
-            ];
+            # Generate code to symlink the files
+            # Easier than doing a loop in bash
+            linkDocs = lib.lists.forEach fileNames (name: let
+              value = files.${name};
+              source =
+                if builtins.isString value.source
+                then pkgs.writeText "${name}" value.source
+                else value.source;
+            in "ln --symbolic ${source} $out/${name}");
+          in
+            pkgs.runCommand "merged-docs" {
+              INDEX = mkIndex files;
+            } ''
+              mkdir -p $out
+              echo "$INDEX" > $out/readme.md
+              ${lib.strings.concatStringsSep "\n" linkDocs}
+            '';
         in {
-          description = "Home Manager options schema";
-          source = self.lib.docs.mkJsonSchema self.homeManagerModules.default (opts: filterNotHidden (filterCustom opts));
-        };
-        # FIXME: home-manager lists a warning about packages.md not being a directory
-        # This option should probably be like home.file, with different keys for plaintext and file sources
-        "packages.md" = {
-          description = "Flake packages";
-          source = self.lib.docs.mkPackageDocs pkgs.flake;
+          generated = mkDocs cfg.file;
+          all =
+            pkgs.runCommand "all-docs" {
+              GENERATED = cfg.build.generated;
+              STATIC = "${self}/docs";
+            } ''
+              mkdir -p $out
+              mkdir -p $out/generated
+              cp -r $STATIC/* $out
+              cp -r $GENERATED/* $out/generated
+            '';
+
+          html = self.builders.${pkgs.system}.buildStaticSite {
+            name = "html-docs";
+            src = cfg.build.all;
+          };
         };
 
-        "flake-tree.svg" = {
-          description = "Flake input tree";
-          source = pkgs.runCommand "flake-tree.svg" {buildInputs = with pkgs; [nushell graphviz];} ''
-            nu ${self}/packages/nix-utils/flake-tree.nu --svg ${self}/flake.lock > $out
-          '';
+        file = let
+          inherit (self.builders.${pkgs.system}) mkOptionDocs;
+
+          mkSchema = name: module: hidden: let
+            filterCustom = opts: opts.custom;
+            filterNotHidden = opts: builtins.removeAttrs opts hidden;
+          in {
+            description = "${name} options schema";
+            source = self.lib.docs.mkJsonSchema module (opts: filterNotHidden (filterCustom opts));
+          };
+        in {
+          # "lib.md" = {
+          #   description = "flake.lib library";
+          #   # FIXME: This isn't working, it's not finding the functions
+          #   source = self.lib.docs.mkFunctionDocs "${self}/lib";
+          # };
+          "host-options.md" = {
+            description = "NixOS options";
+            source = mkOptionDocs self.nixosModules.default "NixOS options";
+          };
+          "host-options.schema.json" = mkSchema "NixOS" self.nixosModules.default cfg.jsonIgnoredOptions.nixos;
+          "user-options.md" = {
+            description = "Home Manager options";
+            source = mkOptionDocs self.homeManagerModules.default "Home Manager options";
+          };
+          "user-options.schema.json" = mkSchema "Home Manager" self.homeManagerModules.default cfg.jsonIgnoredOptions.home;
+
+          # FIXME: home-manager lists a warning about packages.md not being a directory
+          # This option should probably be like home.file, with different keys for plaintext and file sources
+          "packages.md" = {
+            description = "Flake packages";
+            source = self.lib.docs.mkPackageDocs pkgs.flake;
+          };
+
+          "flake-tree.svg" = {
+            description = "Flake input tree";
+            source = pkgs.runCommand "flake-tree.svg" {buildInputs = with pkgs; [nushell graphviz];} ''
+              nu ${self}/packages/nix-utils/flake-tree.nu --svg ${self}/flake.lock > $out
+            '';
+          };
         };
       };
-    };
 
-    custom.shortcuts.palette.actions = lib.singleton {
-      description = "View documentation";
-      # These are built from markdown where the convention is `readme.md` rather than `index.html`
-      action = ["xdg-open" "${config.custom.docs-generate.build.html}/readme.html"];
-    };
+      custom.shortcuts.palette.actions = lib.singleton {
+        description = "View documentation";
+        # These are built from markdown where the convention is `readme.md` rather than `index.html`
+        action = ["xdg-open" "${cfg.build.html}/readme.html"];
+      };
 
-    home.file."${config.custom.repoPath}/docs/generated" = {
-      source = config.custom.docs-generate.build.generated;
-      recursive = true;
+      home.file."${config.custom.repoPath}/docs/generated" = {
+        source = cfg.build.generated;
+        recursive = true;
+      };
     };
-  };
 }

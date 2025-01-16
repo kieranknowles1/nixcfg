@@ -32,6 +32,11 @@
   };
 
   config = {
+    custom.docs-generate.jsonIgnoredOptions.home = [
+      "repoPath"
+      "fullRepoPath"
+    ];
+
     # Use the repository path from the host, as long as it's within the home directory
     # This allows the path to be defined either in the host, or in home-manager.
     # As Nix is lazy, the assertion will not be evaluated until the path is used.
