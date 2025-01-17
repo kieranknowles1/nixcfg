@@ -27,3 +27,7 @@ contractions-en.replacements."’" = "'"
 [editor]
 default = "zed"
 zed.enable = true
+
+# The client itself is enaled per host
+[trilium-client]
+export.apiKeySecret = "trilium/apikey"

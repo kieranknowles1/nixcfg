@@ -5,6 +5,7 @@
   pkgs,
   ...
 }: {
+  # TODO: MOve to home-manager
   options = {
     custom.games.enable = lib.mkEnableOption "games";
   };
