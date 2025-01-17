@@ -113,31 +113,9 @@ in {
   config = lib.mkIf config.custom.espanso.enable {
     services.espanso = {
       enable = true;
-      # Don't manage configs here, apart from the base match file
-      # which we'll use for matches that use variables
+      # Don't manage configs here, apart from some global variables
       configs = {};
-      matches.base = {
-        matches = [
-          {
-            trigger = ":email:";
-            replace = userDetails.email;
-          }
-          {
-            trigger = ":name:";
-            replace = "${userDetails.firstName} ${userDetails.surName}";
-          }
-          {
-            triggers = [":firstname:" ":fname:"];
-            replace = userDetails.firstName;
-          }
-          {
-            triggers = [":surname:" ":sname:"];
-            replace = userDetails.surName;
-          }
-        ];
-
-        # Variables that we expose to all match files. Exposed to all
-        # files from base.yml
+      matches.nix-globals = {
         global_vars = let
           # All variables in Espanso come from one of several sources.
           # We are only interested in constants here, so we use the echo
@@ -163,6 +141,7 @@ in {
         "config/default.yml"
         "config/email.yml"
         "match/_email.yml"
+        "match/base.yml"
         "match/spell.yml"
       ];
     };
