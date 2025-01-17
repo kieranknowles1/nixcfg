@@ -2,6 +2,10 @@
   writeShellApplication,
   unzip,
   jq,
+  # runtimeEnv doesn't support shell expansions,
+  # need absolute paths
+  apiKeyFile ? "/home/kieran/.local/share/trilium-data/token",
+  destinationDir ? "/home/kieran/Documents/trilium-export",
 }:
 writeShellApplication rec {
   name = "export-notes";
@@ -10,6 +14,12 @@ writeShellApplication rec {
     unzip
     jq
   ];
+
+  runtimeEnv = {
+    # TODO: Set this with sops
+    API_KEY_FILE = apiKeyFile;
+    DST_DIR = destinationDir;
+  };
 
   text = builtins.readFile ./export-notes.sh;
 

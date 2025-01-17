@@ -1,4 +1,5 @@
 // Module for working with Git
+// TODO: Could gitoxide or something similar be used instead?
 
 use std::process::Command;
 
@@ -36,6 +37,7 @@ fn finalize_commit(message: &str) -> Result<(), std::io::Error> {
 /// Reset the repository to the previous commit. Does not touch the working directory
 /// meaning that the changes exist but are not staged.
 /// Useful for cleaning up after a failed build.
+/// TODO: Be less aggressive, just do `git add` then `git commit` at the end.
 fn reset_commit() -> Result<(), std::io::Error> {
     let status = Command::new("git").arg("reset").arg("HEAD~").status()?;
     check_ok(status, "git reset --soft HEAD^")

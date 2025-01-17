@@ -7,9 +7,13 @@ log() {
 }
 
 API_ROOT="http://127.0.0.1:37840/etapi"
-API_KEY=$(cat ~/.local/share/trilium-data/token)
-DST_DIR=$(cat ~/.local/share/trilium-data/export-dir)
+API_KEY=$(cat "$API_KEY_FILE")
 META_FILE="$DST_DIR/!!!meta.json"
+
+if [ ! -d "$DST_DIR/.git" ]; then
+  log "No git repository found at $DST_DIR, aborting"
+  exit 1
+fi
 
 export_file=$(mktemp)
 log "Feching notes from $API_ROOT to $export_file"
@@ -18,7 +22,9 @@ curl --header "Authorization: $API_KEY" "$API_ROOT/notes/root/export" > "$export
 log "Fetched $(du -k "$export_file" | cut -f1)KB of data"
 log "Unzipping $export_file to $DST_DIR"
 # Notes may have been moved or deleted. Remove the old notes directory to avoid stale data.
-rm --recursive "$DST_DIR/root"
+if [ -d "$DST_DIR/root" ]; then
+  rm -rf "$DST_DIR/root"
+fi
 unzip -q -o "$export_file" -d "$DST_DIR"
 rm "$export_file"
 

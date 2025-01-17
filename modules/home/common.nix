@@ -70,6 +70,7 @@
         # allow input for when sudo is required.
         # At least for kgx, passing additional arguments creates a one-off
         # terminal that only runs the command and goes read-only.
+        # TODO: Standardised way of running commands in a terminal
         action = [terminal "--" rebuild "--flake" config.custom.fullRepoPath "pull"];
         description = "Update system from remote repository";
       };
