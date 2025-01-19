@@ -1,5 +1,16 @@
 $env.config.show_banner = false
 
+# Suggest updating Nixpkgs at least this often
+const NIXPKGS_UPDATE_SUGGESION = 2wk
+
+def __log [color: string, type: string, message: string] {
+  print $"(ansi $color)($type)(ansi reset): ($message)"
+}
+
+alias "log info" = __log "blue" "Info"
+alias "log warn" = __log "yellow" "Warning"
+alias "log error" = __log "red" "Error"
+
 # === Commands and Aliases ===
 alias __orig_nix-shell = nix-shell
 alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
@@ -43,13 +54,20 @@ def dev [
 # List all installed Zed extensions, in a form that can be
 # copied into the "auto_install_extensions" field of the Zed config
 def list-zed-extensions [] {
-    # Get extension names
-    ls ~/.local/share/zed/extensions/installed
+  let installed = (ls ~/.local/share/zed/extensions/installed
         | get name | path parse | get stem
         # Transform from a list of strings to a JSON object
         # in the form {"extension-name": true}
-        | each {{$in: true}} | into record
-        | to json
+        | each {{$in: true}} | into record)
+
+  let desired = open ~/.config/zed/settings.json | get auto_install_extensions
+
+  if ($installed != $desired) {
+    log warn "Zed extensions do not match auto_install. Change value in settings.json to:"
+    print ($installed | to json)
+  } else {
+    log info "Zed extensions match auto_install"
+  }
 }
 
 # Enter a dev shell for the nixcfg repository
@@ -74,8 +92,14 @@ def __show_welcome_message [] {
     # Get a timestamp in the format "X days ago"
     let last_update_relative = $nixpkgs_timestamp | date humanize
 
+    let ago = (date now) - $nixpkgs_timestamp
+
     print $"Welcome to (ansi green)Nushell(ansi reset)!"
     print $"Nixpkgs was last updated (ansi cyan)($last_update_relative)(ansi reset)."
+
+    if ($ago > $NIXPKGS_UPDATE_SUGGESION) {
+      log info "It may be time to update your Nixpkgs!"
+    }
 }
 
 # Show a welcome message unless we're in a Nix shell
