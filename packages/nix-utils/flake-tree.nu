@@ -63,7 +63,7 @@ def graph-entry [] {
   $"\"($src)\" -> \"($target)\";"
 }
 
-def to-svg [
+def to-dot [
   --ignore: list<string>
 ] {
   let nodes = $in
@@ -86,20 +86,12 @@ def to-svg [
   # Render the whole thing via graphviz
   let body = $nodes | each {graph-entry} | str join "\n"
 
-  # TODO: Standardise all graphviz formatting. Maybe override nixpkgs with a wrapped
-  # version that applies the standard settings, at least when building docs
-  let src = $"
+  $"
     digraph {
       rankdir=LR;
-      bgcolor=transparent;
-      fillcolor=gray;
-      node [style=filled];
-      edge [color=white];
       ($body)
     }
   "
-
-  $src | dot -Tsvg
 }
 
 # Display a flake's lock file as a tree of inputs
@@ -109,18 +101,18 @@ def to-svg [
 # looks like
 export def main [
   file: string = "flake.lock"
-  # Whether to render the tree as an SVG on stdout
-  --svg
+  # Whether to render the tree as a graphviz dot file on stdout
+  --dot
   # If rendering as SVG, ignore these inputs. Useful for stripping out
   # standard inputs like nixpkgs and systems
   # FIXME: This doesn't work when calling from the CLI, only for Nu functions
   # --svg-ignore: list<string> = []
 ] {
-  let svg_ignore = [nixpkgs systems flake-utils]
+  let dot_ignore = [nixpkgs systems flake-utils]
   let nodes = open $file | from json | get nodes
 
-  if $svg {
-    $nodes | to-svg --ignore $svg_ignore
+  if $dot {
+    $nodes | to-dot --ignore $dot_ignore
   } else {
     $nodes.root | resolve-deps $nodes
   }

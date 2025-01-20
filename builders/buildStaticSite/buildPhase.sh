@@ -66,7 +66,8 @@ while IFS= read -r -d "" file; do
   case "$extension" in
     dot)
       dot \
-        -Gbgcolor=transparent -Gfillcolor=gray -Nfontname="$FONT" -Nstyle=filled -Ecolor=white \
+        -Gbgcolor=transparent -Nfillcolor=lightgrey -Nfontname="$FONT" \
+        -Nstyle=filled -Ecolor=white \
         -Tsvg "$file" -o "$(replaceExtension "$out_relative" "svg")"
       ;;
     md)

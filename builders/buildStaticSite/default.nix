@@ -8,11 +8,12 @@
 Build a truly static site with no runtime overhead. Files are transformed at
 into plain HTML.
 
-Files can be made available to the builder but excluded from output by default
-by placing then in a directory named `.build-only`.
+Files in a `.build-only` directory are available to the builder, but not
+built themselves. Intended for resources that may or may not be required.
 
 Supported file types and their transformations:
-- Dot: Rendered to SVG with Graphviz.
+- Dot: Rendered to SVG with Graphviz. Default style is overridden. to work
+  better in a dark theme.
 - PHP: Executed with a safe mode enabled interpreter. Output is saved as HTML.
 - Markdown: Converted to HTML with Pandoc.
   - If `useCustomMarkdownStyle` is true, the site will use its own `style.css`.
