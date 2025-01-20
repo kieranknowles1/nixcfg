@@ -16,7 +16,6 @@ writeShellApplication rec {
   ];
 
   runtimeEnv = {
-    # TODO: Set this with sops
     API_KEY_FILE = apiKeyFile;
     DST_DIR = destinationDir;
   };

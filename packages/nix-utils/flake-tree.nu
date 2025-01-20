@@ -1,8 +1,5 @@
 #!/usr/bin/env nu
 
-# TODO: Package this up. May want to load from config.nu to allow
-# completions
-
 # Given a value from the "inputs" field of a flake.lock entry,
 # get tge target key of "nodes" that it refers to
 def get-target [] {
@@ -48,12 +45,13 @@ def resolve-deps [
   let node = $in
 
   if ("inputs" in $node) {
+    # Recurse into children
     $node.inputs | transpose k v | each {|it|
       let target = $it.v | get-target
       [$target ($target | resolve-dep $nodes)]
-    } | where {$in.0 != null} | into record
+    } | where {$in.1 != null} | into record
   } else {
-    null
+    {} # Bottom of the tree
   }
 }
 
@@ -63,29 +61,26 @@ def graph-entry [] {
   $"\"($src)\" -> \"($target)\";"
 }
 
-def to-dot [
-  --ignore: list<string>
-] {
-  let nodes = $in
+def to-dot [] {
+  let include = $in | columns
 
-  # Get all inputs in the form src -> (name, target)
-  let flattened = $nodes | update cells {|it|
+  # Get all inputs in the form input -> [depends-on]
+  let deps = $in | update cells {|it|
     if ("inputs" in $it) {
-      $it.inputs | update cells {|it| $it | get-target} | transpose k v
+      $it.inputs | values | each {get-target} | where {$in in $include}
     } else {
-      null
+      []
     }
-  } | transpose k v | flatten
+  # `update cells` returns a single-row table for record inputs, so transform
+  # back to a record
+  } | get 0
 
-  # We only care about the target and don't care about nulls
-  let nodes = $flattened | where {$in.v != null and $in.v.v != null} | each {|it| {
-    src: $it.k,
-    target: $it.v.v
-  }} | where { not ($in.target in $ignore)}
 
-  # Render the whole thing via graphviz
-  let body = $nodes | each {graph-entry} | str join "\n"
+  # Transform inputs into a flat list of src -> target, where src is not unique
+  let flattened = $deps | transpose src target | flatten
+  $flattened
 
+  let body = $flattened | each {graph-entry} | str join "\n"
   $"
     digraph {
       rankdir=LR;
@@ -103,17 +98,15 @@ export def main [
   file: string = "flake.lock"
   # Whether to render the tree as a graphviz dot file on stdout
   --dot
-  # If rendering as SVG, ignore these inputs. Useful for stripping out
-  # standard inputs like nixpkgs and systems
-  # FIXME: This doesn't work when calling from the CLI, only for Nu functions
-  # --svg-ignore: list<string> = []
+  # List of input names to ignore
+  ...ignore: string
 ] {
-  let dot_ignore = [nixpkgs systems flake-utils]
   let nodes = open $file | from json | get nodes
+  let filtered = $nodes | transpose k v | where {not ($in.k in $ignore)} | transpose --as-record --header-row
 
   if $dot {
-    $nodes | to-dot --ignore $dot_ignore
+    $filtered | to-dot
   } else {
-    $nodes.root | resolve-deps $nodes
+    $filtered.root | resolve-deps $filtered
   }
 }
