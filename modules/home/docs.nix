@@ -186,7 +186,10 @@
           "flake-tree.dot" = {
             description = "Flake input tree. Converted to SVG when building HTML.";
             source = pkgs.runCommand "flake-tree.dot" {buildInputs = with pkgs; [nushell graphviz];} ''
-              nu ${self}/packages/nix-utils/flake-tree.nu --dot ${self}/flake.lock > $out
+              # Ignore standard inputs to avoid cluttering the graph
+              # Chosen mostly arbitrarily
+              nu ${self}/packages/nix-utils/flake-tree.nu --dot ${self}/flake.lock \
+                nixpkgs systems flake-utils > $out
             '';
           };
         };
