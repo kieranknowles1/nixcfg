@@ -42,6 +42,8 @@
 
           taplo # TOML
 
+          rust-analyzer
+
           # Universal formatter
           self.formatter.${pkgs.system}
         ];
