@@ -107,30 +107,17 @@ not strictly required, but is included for consistency with Nixpkgs.
 
 ## Debugging
 
-To debug a derivation generated during a build, use `nix build`. This accepts a
-path to any flake attribute, including the configs of hosts and users. To make a
-derivation easily debuggable, declare an option with `type = types.path` and set
-it to the path of the derivation, as is done in
+The `confbuild` and `confeval` commands are provided to build/display the value
+of a config path. To make a derivation debuggable, expose it as an option with
+`type = types.path` and set it to a derivation as is done in
 [docs.nix](../modules/home/docs.nix).
 
-The `confbuild` utility is provided to make this easier. Simply run the
-following for any config path under `custom`:
+```nu
+# Per-host. Can be converted to a Nushell table for easier reading.
+confeval n features | from json
 
-```sh
-# TODO: Expand this to a more general confeval that, depending on the
-# type, will either build or evaluate the config. Should output as a Nushell
-# table.
-# Per-host
-confbuild n <config-path>
-
-# Per-user
-confbuild u <config-path>
-```
-
-For example, to debug the aforementioned `docs` derivation, run:
-
-```sh
-confbuild n docs-generate.build.generated
+# Per-user. Builds are linked to ./result
+confbuild h docs-generate.build.generated
 ```
 
 ## Useful Tools
