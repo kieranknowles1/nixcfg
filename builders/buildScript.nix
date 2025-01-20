@@ -1,7 +1,7 @@
 {
   stdenv,
   lib,
-  writeShellScriptBin,
+  writeShellApplication,
 }:
 /*
 // TODO: Replace this with pkgs.writeScriptBin, as this can take any interpreter
@@ -38,6 +38,13 @@ python312.withPackages (python-pkgs: [
 }: let
   useWrapper = runtimeInputs != null;
 
+  finalMeta =
+    meta
+    // {
+      # lib.getExe expects this to be set, and raises a warning if it isn't
+      mainProgram = name;
+    };
+
   script = stdenv.mkDerivation {
     pname =
       if useWrapper
@@ -56,20 +63,19 @@ python312.withPackages (python-pkgs: [
       chmod +x $out/bin/${name}
     '';
 
-    meta =
-      meta
-      // {
-        # lib.getExe expects this to be set, and raises a warning if it isn't
-        mainProgram = name;
-      };
+    meta = finalMeta;
   };
 
   # If we need to include additional packages on the PATH, generate a wrapper
   # that extends PATH with the runtime inputs.
-  wrapper = writeShellScriptBin name ''
-    export PATH="$PATH:${lib.strings.makeBinPath runtimeInputs}"
-    exec ${script}/bin/${name} "$@"
-  '';
+  wrapper = writeShellApplication {
+    name = "${name}-wrapped";
+    meta = finalMeta;
+    text = ''
+      export PATH="$PATH:${lib.strings.makeBinPath runtimeInputs}"
+      exec ${script}/bin/${name} "$@"
+    '';
+  };
 in
   if useWrapper
   then wrapper
