@@ -8,7 +8,6 @@
     ./core.nix
     ./desktop
     ./development.nix
-    ./games.nix
     ./ledstate.nix
     ./llm.nix
     ./locale.nix

@@ -5,6 +5,7 @@
   - [Dev Shells](#dev-shells)
   - [Using in Another Flake](#using-in-another-flake)
   - [Firefox](#firefox)
+  - [Wine](#wine)
   - [Mutable Files](#mutable-files)
 
 ## Backups
@@ -45,6 +46,16 @@ Additionally, the following search engines are added:
 - [NixOS Search](https://search.nixos.org/packages) `@n`
 - [NixOS Options](https://nixos.org/nixos/options.html) `@no`
 - [Home Manager Options](https://home-manager-options.extranix.com/) `@ho`
+
+## Wine
+
+Wine is used to run Windows applications on Linux. As my only use case for this
+is run games, it is linked to `games.enable`.
+
+If an application requires a Windows dependency, this can be installed as though
+you were using a Windows machine, just select the correct prefix in
+protontricks. If an installer says it requires a reboot, just restarting Wine
+should be sufficient.
 
 ## Mutable Files
 

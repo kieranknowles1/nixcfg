@@ -1,6 +1,5 @@
 {
   pkgs,
-  hostConfig,
   lib,
   config,
   ...
@@ -35,7 +34,7 @@ in {
   config = let
     cfg = config.custom.games.openmw;
   in
-    lib.mkIf hostConfig.custom.games.enable {
+    lib.mkIf config.custom.games.enable {
       home = {
         packages = with pkgs; [
           openmw

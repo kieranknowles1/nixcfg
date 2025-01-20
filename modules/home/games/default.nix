@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  hostConfig,
   ...
 }: {
   imports = [
@@ -11,9 +10,13 @@
     ./skyrim
   ];
 
-  options.custom.games = {
-    nexusModsKey = lib.mkOption {
-      type = lib.types.str;
+  options.custom.games = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    enable = mkEnableOption "games";
+
+    nexusModsKey = mkOption {
+      type = types.str;
       description = ''
         Secret containing the API key for Nexus Mods.
       '';
@@ -21,12 +24,29 @@
     };
   };
 
-  config = lib.mkIf hostConfig.custom.games.enable {
-    home.packages = with pkgs; [
-      # Minecraft launcher
-      prismlauncher
-    ];
+  config = let
+    cfg = config.custom.games;
+  in
+    lib.mkIf cfg.enable {
+      home.packages = with pkgs; [
+        # Ignore do not use warning. We have the required dependencies
+        # enabled host-side.
+        steam
 
-    sops.secrets."nexusmods/apikey".key = config.custom.games.nexusModsKey;
-  };
+        # Need this for MO2 installer
+        zenity
+
+        wine
+        winetricks
+        protontricks # Proton itself is installed by steam
+
+        # Launcher for Epic Games Store
+        heroic
+
+        # Minecraft launcher
+        prismlauncher
+      ];
+
+      sops.secrets."nexusmods/apikey".key = cfg.nexusModsKey;
+    };
 }

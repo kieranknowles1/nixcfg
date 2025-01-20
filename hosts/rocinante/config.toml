@@ -2,7 +2,6 @@
 
 features.desktop = true
 repoPath = "/home/kieran/Documents/src/nixcfg"
-games.enable = true
 
 ledState.enable = true
 

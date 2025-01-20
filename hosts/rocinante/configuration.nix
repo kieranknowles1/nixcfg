@@ -11,7 +11,10 @@
     ./hardware-configuration.nix
     {
       custom = {
-        users.users.kieran = import "${self}/users/kieran" {inherit pkgs config self;};
+        users = {
+          users.kieran = import "${self}/users/kieran" {inherit pkgs config self;};
+          sharedConfig.custom = self.lib.host.readTomlFile ./user-config.toml;
+        };
 
         secrets = {
           ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";

@@ -1,12 +1,12 @@
 {
-  hostConfig,
+  config,
   pkgs,
   lib,
   ...
 }: let
   resaverDesktopFileName = "resaver.desktop";
 in {
-  config = lib.mkIf hostConfig.custom.games.enable {
+  config = lib.mkIf config.custom.games.enable {
     home.packages = [
       pkgs.flake.resaver
     ];

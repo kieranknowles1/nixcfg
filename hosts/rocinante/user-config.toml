@@ -1,0 +1,3 @@
+'$schema' = "../../docs/generated/user-options.schema.json"
+
+games.enable = true

@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  hostConfig,
   ...
 }: let
   combine-blueprints = lib.getExe pkgs.flake.combine-blueprints;
@@ -65,7 +64,7 @@ in {
       git push
     '';
   in
-    lib.mkIf hostConfig.custom.games.enable {
+    lib.mkIf config.custom.games.enable {
       home.file."Games/configs/factorio-blueprints.txt" = lib.mkIf (cfg.blueprints != null) {
         source = convert cfg.blueprints;
       };
