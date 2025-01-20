@@ -28,15 +28,26 @@
       type = lib.types.listOf (lib.types.submodule {
         options = {
           action = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
+            type = lib.types.listOf (lib.types.either lib.types.str lib.types.path);
             description = "The command to be executed when the action is selected. The first element is the command, the rest are arguments.";
           };
           description = lib.mkOption {
             type = lib.types.str;
             description = "A brief description of the action";
           };
+          useTerminal = lib.mkOption {
+            type = lib.types.bool;
+            description = "Whether the command should be run in a terminal";
+            default = false;
+          };
         };
       });
+    };
+
+    finalConfig = lib.mkOption {
+      type = lib.types.path;
+      description = "Built actions.json for the command palette";
+      readOnly = true;
     };
   };
 
@@ -47,15 +58,21 @@
     zenity = lib.getExe pkgs.zenity;
 
     sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
-    actionsFile =
-      pkgs.writeText "actions.json"
-      (builtins.toJSON sortedActions);
+    configFile = {
+      # TODO: Proper option for this
+      terminalArgs = ["alacritty" "--command"];
+      commands = sortedActions;
+    };
   in
     lib.mkIf (cfg.enable && (builtins.length cfg.palette.actions > 0)) {
+      custom.shortcuts.palette = {
+        finalConfig = pkgs.writeText "actions.json" (builtins.toJSON configFile);
+      };
+
       custom.shortcuts.hotkeys.keys = {
         "${cfg.palette.binding}" = {
           description = "Open the command palette";
-          action = "${palette} --zenity ${zenity} --file ${actionsFile}";
+          action = "${palette} --zenity ${zenity} --file ${cfg.palette.finalConfig}";
         };
       };
     };

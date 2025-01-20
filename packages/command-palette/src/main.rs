@@ -1,4 +1,7 @@
+use std::process::Command;
+
 use clap::Parser;
+use data::Config;
 
 mod data;
 mod dialog;
@@ -36,10 +39,15 @@ impl CommandOutput {
     }
 }
 
-fn run_command(command: &data::Command) -> std::io::Result<CommandOutput> {
-    let output = std::process::Command::new(&command.action[0])
-        .args(&command.action[1..])
-        .output()?;
+fn run_command(config: &Config, command: &data::Command) -> std::io::Result<CommandOutput> {
+    let mut argv = if command.use_terminal {
+        config.terminal_args.iter().chain(&command.action)
+    } else {
+        command.action.iter().chain(&[])
+    };
+
+    // argv should never be empty.
+    let output = Command::new(argv.next().unwrap()).args(argv).output()?;
 
     Ok(CommandOutput {
         // We assume the output is valid UTF-8 and unwrap here.
@@ -51,11 +59,11 @@ fn run_command(command: &data::Command) -> std::io::Result<CommandOutput> {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opts = Opts::parse();
-    let commands = data::from_file(&opts.file)?;
+    let config = data::from_file(&opts.file)?;
 
-    let choice = dialog::show_choices(&opts.zenity, &commands)?;
+    let choice = dialog::pick_command(&opts.zenity, &config.commands)?;
 
-    let output = run_command(&choice)?;
+    let output = run_command(&config, &choice)?;
 
     if output.code != Some(0) {
         // An error occurred, show a dialog box even if we don't have any output.

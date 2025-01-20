@@ -62,17 +62,12 @@
     # Add a command palette entry to rebuild while pulling,
     # this is a fairly common operation for me.
     custom.shortcuts.palette.actions = let
-      terminal = lib.getExe config.custom.terminal.package;
       rebuild = lib.getExe pkgs.flake.rebuild;
     in
       lib.singleton {
-        # We run in a terminal emulator to show output while running and
-        # allow input for when sudo is required.
-        # At least for kgx, passing additional arguments creates a one-off
-        # terminal that only runs the command and goes read-only.
-        # TODO: Standardised way of running commands in a terminal
-        action = [terminal "--" rebuild "--flake" config.custom.fullRepoPath "pull"];
+        action = [rebuild "--flake" config.custom.fullRepoPath "pull"];
         description = "Update system from remote repository";
+        useTerminal = true;
       };
   };
 }

@@ -1,8 +1,8 @@
-use std::process::Command;
+use std::process;
 
 use thiserror::Error;
 
-use crate::data::{self, CommandList};
+use crate::data;
 
 pub type Result<T> = std::result::Result<T, Error>;
 
@@ -16,14 +16,17 @@ pub enum Error {
 
 /// Show a dialog box with the given commands.
 /// Returns the selected command.
-pub fn show_choices(zenity: &str, commands: &CommandList) -> Result<data::Command> {
-    let mut zenity = Command::new(zenity);
+pub fn pick_command<'a>(
+    zenity: &str,
+    commands: &'a Vec<data::Command>,
+) -> Result<&'a data::Command> {
+    let mut zenity = process::Command::new(zenity);
     zenity
         .arg("--list")
         .arg("--width=450")
         .arg("--height=500")
         .arg("--title=Select a command")
-        // The first column is the action, print it but don't show it to the user.
+        // The first column is the index, print it but don't show it to the user.
         .arg("--hide-column=1")
         .arg("--print-column=1")
         .arg("--column=Index")
@@ -41,7 +44,7 @@ pub fn show_choices(zenity: &str, commands: &CommandList) -> Result<data::Comman
             let index = String::from_utf8(output.stdout).unwrap();
             let index = index.trim().parse::<usize>().unwrap();
 
-            Ok(commands[index].clone())
+            Ok(&commands[index])
         }
         false => {
             // Assume the user cancelled the dialog. No stderr expected.
@@ -65,7 +68,7 @@ impl MessageKind {
 }
 
 pub fn show_message(zenity: &str, message: &str, kind: MessageKind) -> std::io::Result<()> {
-    Command::new(zenity)
+    process::Command::new(zenity)
         .arg(kind.as_arg())
         .arg("--text")
         .arg(message)
