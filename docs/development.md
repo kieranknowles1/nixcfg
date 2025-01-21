@@ -17,8 +17,18 @@
 ## Building
 
 A `rebuild` utility is provided for common build workflows, such as updating
-packages or rebuilding then committing changes. This is enabled in the `default`
-[Dev Shell](usage.md#dev-shells).
+packages or rebuilding then committing changes. Use `run rebuild` while in the
+flake's directory to run this utility. Building and updating automatically
+commit changes including a diff of installed packages/versions in their
+messages.
+
+It is advised to use `rebuild build` when adding new packages or editing
+`config.toml` in order to track NixOS's generation number and when dependencies
+were introduced.
+
+`rebuild update` should be run at least once every two weeks to keep inputs up
+to date. NuShell will print a reminder if this is overdue. After an update, **do
+not** push changes until after a reboot to ensure that drivers were not broken.
 
 For more information, run `rebuild --help`.
 
