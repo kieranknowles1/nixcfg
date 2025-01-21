@@ -29,6 +29,10 @@ stdenv.mkDerivation {
     longDescription = ''
       Single-word commands for common tasks, including:
       - `confbuild`: Build a derivation specified as a Nix option
+      - `confeval`: Evaluate a Nix option's value, as JSON
+      - `check`: Build a check for the current flake
+      # FIXME: Remove .nu extension when building
+      - `flake-tree`: Print the dependency tree of a flake, either as a Nushell table or Graphviz dot file
       - `run`: Run a Nix package from the current repository
       - `venv`: Activate a Python virtual environment, shell-agnostic version
 
