@@ -6,7 +6,6 @@ repoPath = "/home/kieran/Documents/src/nixcfg"
 ledState.enable = true
 
 nvidia.enable = true
-llm.enable = true
 
 backup.enable = true
 [backup.repositories.documents]
