@@ -1,3 +1,5 @@
+# Library functions for generating documentation.
+# Note that these functions return strings, and need to be written to files before inclusion in docs-generate.
 {
   lib,
   inputs,
@@ -65,7 +67,7 @@ in {
     mkJsonSchema ./modules/nixos (opts: opts.foo)
     => JSON file
 
-    # Toml is preferred for configuration files as it supports comments
+    # TOML is preferred for configuration files as it supports comments
     # and has a more nix-like syntax, but JSON and YAML could also be used.
     config.foo = lib.host.readTomlFile ./config.toml
 

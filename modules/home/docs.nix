@@ -55,9 +55,8 @@
           };
 
           source = mkOption {
-            # TODO: Require using a path, disallowing strings
             description = "The file containing the content or a string literal.";
-            type = with types; oneOf [path str];
+            type = types.path;
             example = options.literalExpression "./docs-generated/file-a.md";
           };
         };
@@ -120,11 +119,7 @@
             # Easier than doing a loop in bash
             linkDocs = lib.lists.forEach fileNames (name: let
               value = files.${name};
-              source =
-                if builtins.isString value.source
-                then pkgs.writeText "${name}" value.source
-                else value.source;
-            in "ln --symbolic ${source} $out/${name}");
+            in "ln --symbolic ${value.source} $out/${name}");
           in
             pkgs.runCommand "merged-docs" {
               INDEX = mkIndex files;
@@ -158,9 +153,11 @@
           mkSchema = name: module: hidden: let
             filterCustom = opts: opts.custom;
             filterNotHidden = opts: builtins.removeAttrs opts hidden;
+
+            text = self.lib.docs.mkJsonSchema module (opts: filterNotHidden (filterCustom opts));
           in {
             description = "${name} options schema";
-            source = self.lib.docs.mkJsonSchema module (opts: filterNotHidden (filterCustom opts));
+            source = pkgs.writeText "options.schema.json" text;
           };
         in {
           # "lib.md" = {
@@ -181,9 +178,11 @@
 
           # FIXME: home-manager lists a warning about packages.md not being a directory
           # This option should probably be like home.file, with different keys for plaintext and file sources
-          "packages.md" = {
+          "packages.md" = let
+            text = self.lib.docs.mkPackageDocs pkgs.flake;
+          in {
             description = "Flake packages";
-            source = self.lib.docs.mkPackageDocs pkgs.flake;
+            source = pkgs.writeText "packages.md" text;
           };
 
           "flake-tree.dot" = {
