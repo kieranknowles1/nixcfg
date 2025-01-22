@@ -34,6 +34,9 @@
 
     programs = {
       nushell = {
+        # Shell aliases aren't mapped by default, so we need to do it ourselves
+        inherit (config.home) shellAliases;
+
         enable = true;
 
         # Give us an environment variable for our flake path
