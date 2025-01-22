@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Build the file specified in argv[1] and output it to stdout
  */
