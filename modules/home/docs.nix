@@ -55,6 +55,7 @@
           };
 
           source = mkOption {
+            # TODO: Require using a path, disallowing strings
             description = "The file containing the content or a string literal.";
             type = with types; oneOf [path str];
             example = options.literalExpression "./docs-generated/file-a.md";

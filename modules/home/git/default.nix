@@ -25,6 +25,6 @@
 
     # Such an essential tool as Git deserves a 2-character command
     # Just like `ls`, `cd`, and `sl`
-    home.shellAliases.lg = "lazygit";
+    custom.aliases.lg.exec = "lazygit";
   };
 }

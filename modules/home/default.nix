@@ -4,6 +4,7 @@
   imports = [
     ../shared
 
+    ./aliases.nix
     ./common.nix
     ./desktop
     ./discord.nix
