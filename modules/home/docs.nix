@@ -88,11 +88,13 @@
           * Generate an index of the documentation files.
           */
           mkIndex = files: let
-            # Get an alphabetically sorted list of the files
-            fileNames = builtins.attrNames files;
+            sortedNames = let
+              names = builtins.attrNames files;
+            in
+              lib.sort (a: b: files.${a}.description < files.${b}.description) names;
 
-            # Map the files to a markdown list of links
-            links = lib.lists.forEach fileNames (name: let
+            # # Map the files to a markdown list of links
+            links = lib.lists.forEach sortedNames (name: let
               value = files.${name};
             in " - [${value.description}](./${name})");
             # Generate the index file
