@@ -7,9 +7,6 @@
       "pattern": "^./generated/"
     },
     {
-      "pattern": "^#"
-    },
-    {
       "pattern": "\\.svg$"
     }
   ]

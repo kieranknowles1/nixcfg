@@ -1,13 +1,9 @@
 {
   self,
-  inputs,
+  lib,
   ...
 }: {
-  perSystem = {
-    system,
-    pkgs,
-    ...
-  }: {
+  perSystem = {pkgs, ...}: {
     checks = let
       # Make a check that will succeed if the script exits 0, and fail otherwise.
       mkCheck = {
@@ -30,20 +26,29 @@
       };
 
       markdown-links = let
-        # TODO: Use overlay at the flake level
-        # TODO: Workaround for regression in markdown-link-check
-        # https://github.com/tcort/markdown-link-check/issues/369
-        pkgs-stable = import inputs.nixpkgs-stable {inherit system;};
-      in
-        mkCheck {
-          nativeBuildInputs = with pkgs-stable; [nodePackages.markdown-link-check];
-          script = ./markdown-links.sh;
-          name = "check-markdown-links";
-          # Don't check links to external sites, as Nix builds are meant to be reproducible
-          # and external sites can change their content.
-          # Also ignore files in ./docs/generated, as they are assumed to be OK.
-          args = [./markdown-link-config.json self];
+        patch = pkgs.fetchurl {
+          # Appending ".patch" to a PR URL will give you a patch file. Once the PR is merged,
+          # The patch should fail to apply, and you can remove it.
+          url = "https://github.com/tcort/markdown-link-check/pull/372.patch";
+          sha256 = "sha256-Yx/NWUkYFR4Dein4UQs5NLqFp7Ys3mAnShjouwWorE0=";
         };
+
+        link-check = pkgs.nodePackages.markdown-link-check.overrideAttrs (old: {
+          patches = (old.patches or []) ++ [patch];
+        });
+      in
+        # https://github.com/tcort/markdown-link-check/pull/372
+        # When this assertion fails, see if the above PR has been merged, then either remove the patch or update the version.
+        assert lib.asserts.assertMsg (pkgs.markdown-link-check.version == "3.13.6") "Check if markdown-link-check patch is still needed";
+          mkCheck {
+            nativeBuildInputs = [link-check];
+            script = ./markdown-links.sh;
+            name = "check-markdown-links";
+            # Don't check links to external sites to keep the check as a pure function.
+            # Also ignore files in ./docs/generated, as they are assumed to be OK.
+            # TODO: Could we link the generated files into ./docs/generated, so that they are checked? Which host should they come from?
+            args = [./markdown-link-config.json self];
+          };
 
       bash-sanity = mkCheck {
         script = ./bash-sanity.sh;

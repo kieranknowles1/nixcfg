@@ -7,7 +7,6 @@ This repository contains the NixOS configuration for my systems.
     - [Repository Structure](#repository-structure)
     - [Hosts](#hosts)
   - [Essential Resources](#essential-resources)
-  - [Todo List](#todo-list)
   - [Lessons Learned](#lessons-learned)
     - [Don't Use Wayland Yet](#dont-use-wayland-yet)
     - [Make Sure You Have a User](#make-sure-you-have-a-user)
