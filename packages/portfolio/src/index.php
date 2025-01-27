@@ -44,13 +44,12 @@ function getIcon(IconPack $pack, string $name): string {
 
 /**
  * @param array{
- *  title: string,
  *  videoId?: string,
  *  github: string,
  *  itchio?: string,
  * } $project
  */
-function projectHeader(array $project): string {
+function projectLinks(array $project): string {
     $gh = getIcon(IconPack::SI, 'github');
     $yt = getIcon(IconPack::SI, 'youtube');
     $itch = getIcon(IconPack::SI, 'itchdotio');
@@ -70,7 +69,6 @@ function projectHeader(array $project): string {
     // Serving only Windows builds is good enough, and builds made on NixOS are not portable
     // Could just be lazy, include a zip in the repo and say "build it yourself" for Linux
     return <<<HTML
-        <h3>{$project['title']}</h3>
         <ul class="links-list">
             <li>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></li>
             $video
@@ -122,47 +120,85 @@ function projectHeader(array $project): string {
      <main>
         <h2>Projects</h2>
         <article id="csc8502">
-            <?php echo projectHeader([
-                'title' => 'CSC8502 Advanced Graphics for Games',
-                'videoId' => 'GKlL0EY-yHE',
-                'github' => 'https://github.com/kieranknowles1/csc8502-advanced-graphics',
-            ]); ?>
-            <!-- TODO: Link to the project, should I automate building to be extra fancy? -->
-            <p>
-                A 3D graphics engine based on OpenGL. Features include:
-            </p>
-            <ul>
-                <li>Deferred rendering capable of handling 500 lights at 1440p 60fps</li>
-                <li>Shadow mapping with projected textures and no hard limits</li>
-                <li>Tessellated terrain</li>
-                <li>Built-in video recording, capturing each frame as a PNG image</li>
-                <li>Linux support via SDL2</li>
-            </ul>
+            <h3>CSC8502 Advanced Graphics for Games</h3>
+            <div class="twopane">
+                <div>
+                  <?php echo projectLinks([
+                      'videoId' => 'GKlL0EY-yHE',
+                      'github' => 'https://github.com/kieranknowles1/csc8502-advanced-graphics',
+                  ]); ?>
+                  <!-- TODO: Link to the project, should I automate building to be extra fancy? -->
+                  <p>
+                      A 3D graphics engine based on OpenGL. Features include:
+                  </p>
+                  <ul>
+                      <li>Deferred rendering capable of handling 500 lights at 1440p 60fps</li>
+                      <li>Shadow mapping with projected textures and no hard limits</li>
+                      <li>Tessellated terrain</li>
+                      <li>Built-in video recording, capturing each frame as a PNG image</li>
+                      <li>Linux support via SDL2</li>
+                  </ul>
+                </div>
+                <div>
+                    <h4>Feedback</h4>
+                    <p>Marks: 94/100</p>
+                    <blockquote>
+                        Excellent piece of work showcasing multiple graphical techniques in a cohesive scene.
+                        All of the core concepts are in place and well integrated, with particularly good terrain.
+                        Many more advanced techniques are also included, with great use of lighting in general
+                        (including multiple shadow maps). Nice to see tessellation place as well as good
+                        understanding of the uses for frame buffers etc. An excellent addition to your portfolio.
+                    </blockquote>
+                    <cite>Dr G Ushaw</cite>
+                </div>
+            </div>
         </article>
 
         <article id="csc8503">
-            <?php echo projectHeader([
-                'title' => 'CSC8503 Advanced Game Technologies',
-                'videoId' => '0JzQBoRjsA0',
-                'github' => 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/',
-            ]); ?>
-            <!-- TODO: Link to the project -->
-            <p>
-                A game engine primarily focused on networking, including:
-            </p>
-            <ul>
-                <li>Client-server architecture with lazily sent delta states</li>
-                <li>UDP networking via the ENet library</li>
-                <li>AI agents controlled by nested state machines and A* pathfinding</li>
-                <li>Physics engine with support for OOBBs, constraints, and raycasting</li>
-                <li>Spatial partitioning using quadtrees</li>
-                <li>As before, Linux support</li>
-            </ul>
+            <h3>CSC8503 Advanced Game Technologies</h3>
+            <div class="twopane">
+                <div>
+                    <?php echo projectLinks([
+                        'videoId' => '0JzQBoRjsA0',
+                        'github' => 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/',
+                    ]); ?>
+                    <!-- TODO: Link to the project -->
+                    <p>
+                        A game engine primarily focused on networking, including:
+                    </p>
+                    <ul>
+                        <li>Client-server architecture with lazily sent delta states</li>
+                        <li>UDP networking via the ENet library</li>
+                        <li>AI agents controlled by nested state machines and A* pathfinding</li>
+                        <li>Physics engine with support for OOBBs, constraints, and raycasting</li>
+                        <li>Spatial partitioning using quadtrees</li>
+                        <li>As before, Linux support</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Feedback</h4>
+                    <p>Marks: 95/100</p>
+                    <blockquote>
+                        A nice game world, with some strong additions throughout. There's added elasticity and some
+                        new collision volume code, along with separate static and dynamic collision lists for performance.
+                        There's some extra work on constraints to add some additional expressiveness to the physics system.
+                        Good use of raycasting to keep the camera in a useful position relative to the player.
+                        <br>
+                        There's a lot of network code implemented, and it is well integrated into the gameplay. The AI
+                        makes good use of hierarchical state machines, and implements both pathfinding itself, and moving
+                        through the world to reach waypoints well.
+                        <br>
+                        While more could have been done on the physics side, there's been a lot of thought put into making
+                        an effective networking solution, that maintains the consistency of the game world.
+                    </blockquote>
+                    <cite>Dr RG Davison</cite>
+                </div>
+            </div>
         </article>
 
         <article id="game-jam">
-            <?php echo projectHeader([
-                'title' => 'Game Jam - A Shot in the Dark',
+            <h3>Game Jam - A Shot in the Dark</h3>
+            <?php echo projectLinks([
                 'github' => 'https://github.com/WJConnors/Team3ShotInTheDark',
                 'itchio' => 'https://kieranknowles.itch.io/a-shot-in-the-dark',
             ]); ?>

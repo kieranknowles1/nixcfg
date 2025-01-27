@@ -62,6 +62,43 @@ article {
   border-radius: 4pt;
 }
 
+/*
+Two panes shown either side-by-side or vertically depending on orientation
+
++-------+
+|Title  |
++---+---+
+| A | B |
++-------+
+
++-----
+|Title|
++-----|
+| A   |
++-----+
+| B   |
++-----+
+
+*/
+.twopane {
+  display: flex;
+}
+
+@media screen and (orientation: landscape) {
+  .twopane {
+    flex-direction: row;
+  }
+  .twopane div {
+    width: 50%;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .twopane {
+    flex-direction: column;
+  }
+}
+
 /* An indented list of links, each is expected to have an icon */
 ul.links-list li {
   list-style-type: none;
