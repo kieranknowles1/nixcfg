@@ -83,6 +83,7 @@ function projectHeader(array $project): string {
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
+    <meta charset="UTF-8">
     <title>Kieran Knowles</title>
     <link rel="stylesheet" href="style.css">
 </head>
