@@ -45,15 +45,24 @@ function getIcon(IconPack $pack, string $name): string {
 /**
  * @param array{
  *  title: string,
- *  videoId: string,
+ *  videoId?: string,
  *  github: string,
+ *  itchio?: string,
  * } $project
  */
 function projectHeader(array $project): string {
     $gh = getIcon(IconPack::SI, 'github');
     $yt = getIcon(IconPack::SI, 'youtube');
-    $zip = getIcon(IconPack::MDI, 'folder-zip');
-    // TODO: Find a middle ground between embeds with tracking and just linking to the video
+    $itch = getIcon(IconPack::SI, 'itchdotio');
+
+    $video = array_key_exists('videoId', $project)
+      ? "<li>{$yt} YouTube: <a href='https://www.youtube.com/watch?v={$project['videoId']}'>https://www.youtube.com/watch?v={$project['videoId']}</a></li>"
+      : "";
+    $download = array_key_exists('itchio', $project)
+      ? "<li>{$itch} itch.io: <a href='{$project['itchio']}'>{$project['itchio']}</a></li>"
+      : "";
+
+    // TODO: Find a middle ground between 7embeds with tracking and just linking to the video
     // Maybe an img that turns into an embed on click?
     //
     // TODO: Serve downloads from the server. How to include the builds?
@@ -64,7 +73,8 @@ function projectHeader(array $project): string {
         <h3>{$project['title']}</h3>
         <ul class="links-list">
             <li>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></li>
-            <li>{$yt} YouTube: <a href="https://www.youtube.com/watch?v={$project['videoId']}">https://www.youtube.com/watch?v={$project['videoId']}</a></li>
+            $video
+            $download
         </ul>
     HTML;
 }
@@ -83,6 +93,7 @@ function projectHeader(array $project): string {
         <ul>
             <li><a href="#csc8502">CSC8502 Advanced Graphics for Games</a></li>
             <li><a href="#csc8503">CSC8503 Advanced Game Technologies</a></li>
+            <li><a href="#game-jam">Game Jam - A Shot in the Dark</a></li>
         </ul>
      </nav>
 
@@ -97,6 +108,13 @@ function projectHeader(array $project): string {
                 <li><?echo getIcon(IconPack::MDI, 'domain')?> LinkedIn: <a href="https://www.linkedin.com/in/kieran-john-knowles/">https://www.linkedin.com/in/kieran-john-knowles/</a></li>
                 <li><?echo getIcon(IconPack::SI, 'itchdotio')?> itch.io: <a href="https://kieranknowles.itch.io/">https://kieranknowles.itch.io/</a></li>
             </ul>
+        </section>
+
+        <section>
+            <h3>Skills</h3>
+            <p>
+
+            </p>
         </section>
      </header>
 
@@ -139,6 +157,15 @@ function projectHeader(array $project): string {
                 <li>Spatial partitioning using quadtrees</li>
                 <li>As before, Linux support</li>
             </ul>
+        </article>
+
+        <article id="game-jam">
+            <?php echo projectHeader([
+                'title' => 'Game Jam - A Shot in the Dark',
+                'github' => 'https://github.com/WJConnors/Team3ShotInTheDark',
+                'itchio' => 'https://kieranknowles.itch.io/a-shot-in-the-dark',
+            ]); ?>
+            <!-- TODO: More info -->
         </article>
     </main>
 
