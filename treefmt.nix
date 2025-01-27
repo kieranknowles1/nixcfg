@@ -47,6 +47,7 @@
         alejandra.enable = true; # Nix
         beautysh.enable = true; # Bash
         black.enable = true; # Python
+        cmake-format.enable = true; # CMake
         rustfmt.enable = true; # Rust
         stylua.enable = true; # Lua
 

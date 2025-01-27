@@ -41,6 +41,7 @@
           phpactor
 
           taplo # TOML
+          neocmakelsp
 
           rust-analyzer
 

@@ -26,6 +26,7 @@
   "auto_install_extensions": {
     "html": true,
     "log": true,
+    "neocmake": true,
     "nix": true,
     "nu": true,
     "php": true,
@@ -100,6 +101,10 @@
     "show_type_hints": true
   },
 
+  "file_types": {
+    "CMake": ["CMakeLists.txt"]
+  },
+
   // Overrides to the default settings for specific languages
   // Mostly used to select an LSP
   // See https://zed.dev/docs/languages
@@ -116,6 +121,10 @@
       // intelephense is also available, but non-free
       "language_servers": ["phpactor"],
       // PSR12 requires 4 spaces, not 2
+      "tab_size": 4
+    },
+    // https://zed.dev/docs/languages/rust
+    "Rust": {
       "tab_size": 4
     },
     "TOML": {
