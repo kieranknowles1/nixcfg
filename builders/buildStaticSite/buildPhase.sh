@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
-src="$1"
-out="$2"
+# Silence Nix warnings
+# shellcheck disable=SC2269
+src="$src"
+# shellcheck disable=SC2269
+out="$out"
 
 # For Pandoc reproducibility
 export SOURCE_DATE_EPOCH=0
@@ -31,6 +34,7 @@ buildPandoc() {
   else
     # Tweak the default CSS to be more to my liking
     extraArgs+=(
+      -V "lang=en-GB"
       -V "maxwidth=40em"
       -V "mainfont=$FONT"
       -V "monofont=$MONOFONT"

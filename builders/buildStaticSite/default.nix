@@ -3,6 +3,7 @@
   pandoc,
   graphviz,
   stdenv,
+  html-tidy,
 }:
 /*
 Build a truly static site with no runtime overhead. Files are transformed at
@@ -21,6 +22,9 @@ Supported file types and their transformations:
     font for icons. This is assumed to be available in the visitor's browser.
 - All other files: Copied to the output directory.
 
+The following files are checked after build:
+- HTML: Passed through html-tidy
+
 Spaces are strongly discouraged and not guaranteed to work. No technical reason,
 just I can't be bothered to work around Bash's quirks.
 */
@@ -35,12 +39,17 @@ stdenv.mkDerivation (args
       php
       pandoc
       graphviz
+      html-tidy
     ];
 
     CUSTOM_MARKDOWN_STYLE = useCustomMarkdownStyle;
+    BUILD_HELPERS = ./.;
 
     buildPhase = ''
-      export BUILD_HELPERS="${./.}"
-      bash ${./buildPhase.sh} "$src" "$out"
+      ${builtins.readFile ./buildPhase.sh}
+
+      # checkPhase is skipped when cross-compiling, in this case
+      # we can run it anyway
+      ${builtins.readFile ./checkPhase.sh}
     '';
   })
