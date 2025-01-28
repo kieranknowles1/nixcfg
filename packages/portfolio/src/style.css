@@ -57,6 +57,11 @@ a:hover {
   text-decoration: underline;
 }
 
+.video {
+  display: block;
+  margin: 0 auto;
+}
+
 article {
   border: thin solid var(--accent-color);
   border-radius: 4pt;
