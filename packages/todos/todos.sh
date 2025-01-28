@@ -29,6 +29,7 @@ COMMENT_STARTS=(
   '--' # Lua
   '<!--' # HTML
   '-' # Markdown list
+  '%' # Tex
 )
 
 TODO_TAGS=(

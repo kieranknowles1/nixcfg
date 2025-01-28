@@ -128,6 +128,7 @@ function projectLinks(array $project): string {
         <h2>Projects</h2>
         <article id="csc8502">
             <h3>CSC8502 Advanced Graphics for Games</h3>
+            <!-- TODO: Gallery with images -->
             <?php echo embedVideo('GKlL0EY-yHE') ?>
             <div class="twopane">
                 <div>
