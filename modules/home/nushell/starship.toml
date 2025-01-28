@@ -44,12 +44,9 @@ disabled = false
 # ===================
 
 [cmake]
-# CMake doesn't have an icon in nerd-fonts, so we'll use the plain
-# Makefile icon instead. The cpp icons are too small to be legible
-# on a prompt
+# The CMake icon is too small to be legible, so use a blue Makefile icon instead
 symbol = " "
-# Orange-red, mirroring VSCode's icon for makefiles
-style = "bold bright-red"
+style = "bold bright-blue"
 
 [git_metrics]
 # Show number of added/deleted lines since the last commit

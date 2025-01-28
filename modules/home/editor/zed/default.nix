@@ -16,6 +16,13 @@
       type = types.str;
       readOnly = true;
     };
+
+    command = mkOption {
+      description = "Command to run the editor";
+      default = "zeditor";
+      type = types.str;
+      readOnly = true;
+    };
   };
 
   config = let

@@ -14,6 +14,13 @@
       type = types.str;
       readOnly = true;
     };
+
+    command = mkOption {
+      description = "Command to run the editor";
+      default = "nvim";
+      type = types.str;
+      readOnly = true;
+    };
   };
 
   config = lib.mkIf config.custom.editor.neovim.enable {

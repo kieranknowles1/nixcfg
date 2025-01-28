@@ -46,6 +46,14 @@
         "text/x-tex"
       ];
     };
+
+    defaultCommand = mkOption {
+      type = types.str;
+      description = ''
+        The command to run the default editor.
+      '';
+      readOnly = true;
+    };
   };
 
   # TODO: Try out Helix
@@ -71,6 +79,10 @@
       assertion = defaultConfig.enable;
       message = "The default editor is set to ${cfg.default}, but it is not enabled.";
     };
+
+    custom.editor.defaultCommand = defaultConfig.command;
+    home.sessionVariables.EDITOR = cfg.defaultCommand;
+    custom.aliases.e.exec = "${cfg.defaultCommand} .";
 
     # Assign the default GUI editor to handle text files
     custom.mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {

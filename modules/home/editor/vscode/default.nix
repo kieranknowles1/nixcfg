@@ -15,6 +15,13 @@
       type = types.str;
       readOnly = true;
     };
+
+    command = mkOption {
+      description = "Command to run the editor";
+      default = "code";
+      type = types.str;
+      readOnly = true;
+    };
   };
 
   config = lib.mkIf config.custom.editor.vscode.enable {
