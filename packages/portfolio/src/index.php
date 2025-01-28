@@ -99,8 +99,8 @@ function projectLinks(array $project): string {
      <header>
         <h2>About Me</h2>
         <!-- TODO: Fill this in -->
-        <!-- TODO: CV Link -->
-        <p><?echo getIcon(IconPack::MDI, 'file-document')?> CV: </p>
+        <!-- TODO: Build CV automatically -->
+        <a href="./cv-kieran-knowles.pdf" target="_blank"><?echo getIcon(IconPack::MDI, 'file-document')?> CV Download</a>
         <section>
             <h3>Contact</h3>
             <ul class="links-list">
@@ -114,9 +114,10 @@ function projectLinks(array $project): string {
         <section>
             <h3>Skills</h3>
             <p>Programming in:</p>
+            <!-- TODO: Display in a row -->
             <ul class="links-list">
                 <li><?echo getIcon(IconPack::SI, 'cplusplus')?> C++</li>
-                <li><?echo getIcon(IconPack::SI, 'rust')?> Experiments in Rust <!-- :) --></li>
+                <li><?echo getIcon(IconPack::SI, 'rust')?> Rust (fairly limited) <!-- :) --></li>
                 <li><?echo getIcon(IconPack::MDI, 'coffee')?> Java</li>
                 <li><?echo getIcon(IconPack::SI, 'python')?> Python</li>
                 <li><?echo getIcon(IconPack::SI, 'typescript')?> Typescript</li>
