@@ -15,7 +15,7 @@
 
 % TODO: Verify everything is OK and work on CV. Move this comment as things are checked
 % adjust the page margins
-\usepackage[scale=0.8]{geometry}
+\usepackage[scale=0.85]{geometry}
 % \setlength{\footskip}{136.00005pt}                 % depending on the amount of information in the footer, you need to change this value. comment this line out and set it to the size given in the warning
 %\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
 %\setlength{\makecvheadnamewidth}{10cm}            % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
@@ -26,16 +26,14 @@
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans}
 
-% \usepackage[T1]{fontenc}
-% \usepackage{lmodern}
-
 % document language
 \usepackage[british]{babel}
 
 % TODO: Remove all irrelevant stuff from the template
 % personal data
 \name{Kieran}{Knowles}
-\address{}{Newcastle Upon Tyne}{United Kingdom}
+\address{}{Newcastle Upon Tyne}
+% \address{}{Newcastle Upon Tyne}{United Kingdom}
 \email{contact@selwonk.uk}
 \homepage{selwonk.uk}
 % Social icons
@@ -45,16 +43,6 @@
 % \extrainfo{additional information}                 % optional, remove / comment the line if not wanted
 %\photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
 
-% bibliography adjustments (only useful if you make citations in your resume, or print a list of publications using BibTeX)
-%   to show numerical labels in the bibliography (default is to show no labels)
-%\makeatletter\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}\makeatother
-\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}
-%   to redefine the bibliography heading string ("Publications")
-%\renewcommand{\refname}{Articles}
-
-% bibliography with mutiple entries
-%\usepackage{multibib}
-%\newcites{book,misc}{{Books},{Others}}
 %----------------------------------------------------------------------------------
 %            content
 %----------------------------------------------------------------------------------
@@ -70,12 +58,9 @@
 \section{Undergraduate Dissertation}
 \cvitem{title}{\emph{CHEF - Cooking Helper for Everyone's Fridge}}
 \cvitem{supervisor}{Nick Dalton}
-\cvitem{description}{A web application to help users find a variety of recipes based on the ingredients they have, and that are similar to those previously liked with the end goal of reducing food waste.}
+\cvitem{description}{A web application to help users find a variety of recipes based on the ingredients they have, and that are similar to those previously liked to help reduce food waste.}
 
-\section{Technical Experience}
-See portfolio hosted at \url{https://selwonk.uk}
-
-\section{Skill matrix}
+\section{Skills}
 \cvskilllegend{}
 %% Add a head of the skill matrix table with descriptions.
 %% Usage \cvskillhead[<post_padding>][<Level>][<Skill>][<Years>][<Comment>]%
@@ -91,12 +76,14 @@ See portfolio hosted at \url{https://selwonk.uk}
 
 \cvskillentry*{OS:}{4}{Linux}{2}{Started on the server. Now a daily driver.}
 
-\section{Work Experience}
+\section{Experience}
+See portfolio hosted at \url{https://selwonk.uk} for technical experience.\\
+
 \cventry{2022--present}{Volunteer}{Bright Charity}{Northumbria Hospital}{}{Serving customers, restocking cafeteria and shop. Opening/closing as needed. Cashing up.}
 \cventry{2022--2024}{Volunteer}{Pets Corner}{Jesmond Dene}{}{Preparing feed, cleaning enclosures, answering visitor questions.}
 \cventry{as needed}{Website Maintainer}{Out of Sight Charity}{}{}{Maintain website and update as needed}
 
-\clearpage\section{Interests}
+\section{Interests}
 \cvitem{gaming}{Enjoy playing single-player and co-op games in a diverse range of genres. On PC and steam deck.}
 \cvitem{animals}{Pet cats I enjoy spending time with. I love all animals, which led to volunteering at Jesmond Dene}
 \cvitem{walking}{Aiming for a 5-mile walk several times a week.}
