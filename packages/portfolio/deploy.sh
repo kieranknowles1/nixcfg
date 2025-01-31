@@ -16,3 +16,5 @@ scp -r result/* "$HOST:$DST"
 # We don't need to touch output files to update mtime for nginx, scp does that for us
 # shellcheck disable=SC2029
 ssh "$HOST" "chmod -R u+w $DST"
+
+# TODO: Clear cloudflare's cache. Need to store an API key
