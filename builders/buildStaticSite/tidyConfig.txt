@@ -1,0 +1,3 @@
+# iframe allowfullscreen and referrerpolicy are considered
+# proprietary, but are implemented by all browsers
+warn-proprietary-attributes: no

@@ -7,7 +7,7 @@ out="$out"
 fails=0
 while IFS= read -r -d "" file; do
   echo "Checking $file"
-  if ! tidy -quiet > /dev/null "$file"; then
+  if ! tidy -config "$BUILD_HELPERS/tidyConfig.txt" -quiet > /dev/null "$file"; then
     echo "$file failed to validate"
     fails=$(( fails + 1))
   fi
