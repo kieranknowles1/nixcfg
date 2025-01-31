@@ -9,6 +9,8 @@ mkdir("$OUT_DIR/icons");
 
 enum IconPack: string {
     case MDI = __DIR__ . '/.build-only/mdi-icons/';
+    // Some of these have been removed over time due to licencing
+    // Get creative with alternatives
     case SI = __DIR__ . '/.build-only/simple-icons/';
 }
 
@@ -42,28 +44,29 @@ function getIcon(IconPack $pack, string $name): string {
     return "<img src='{$src}' alt='' class='icon'>";
 }
 
+// TODO: Find a middle ground between embeds with tracking and just linking to the video
+// Maybe an img that turns into an embed on click? Or just host it ourselves
+function embedVideo(string $id): string {
+    return <<<HTML
+        <iframe class="video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/$id"
+          title="YouTube video player"
+          allow="fullscreen" referrerpolicy="no-referrer"></iframe>
+    HTML;
+}
+
 /**
  * @param array{
- *  videoId?: string,
  *  github: string,
  *  itchio?: string,
  * } $project
  */
 function projectLinks(array $project): string {
     $gh = getIcon(IconPack::SI, 'github');
-    $yt = getIcon(IconPack::SI, 'youtube');
     $itch = getIcon(IconPack::SI, 'itchdotio');
-
-    $video = array_key_exists('videoId', $project)
-      ? "<li>{$yt} YouTube: <a href='https://www.youtube.com/watch?v={$project['videoId']}'>https://www.youtube.com/watch?v={$project['videoId']}</a></li>"
-      : "";
     $download = array_key_exists('itchio', $project)
       ? "<li>{$itch} itch.io: <a href='{$project['itchio']}'>{$project['itchio']}</a></li>"
       : "";
 
-    // TODO: Find a middle ground between 7embeds with tracking and just linking to the video
-    // Maybe an img that turns into an embed on click?
-    //
     // TODO: Serve downloads from the server. How to include the builds?
     // Probably use itch.io
     // Serving only Windows builds is good enough, and builds made on NixOS are not portable
@@ -71,7 +74,6 @@ function projectLinks(array $project): string {
     return <<<HTML
         <ul class="links-list">
             <li>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></li>
-            $video
             $download
         </ul>
     HTML;
@@ -99,6 +101,7 @@ function projectLinks(array $project): string {
      <header>
         <h2>About Me</h2>
         <!-- TODO: Fill this in -->
+        <a href="./cv-kieran-knowles.pdf" target="_blank"><?echo getIcon(IconPack::MDI, 'file-document')?> CV Download</a>
         <section>
             <h3>Contact</h3>
             <ul class="links-list">
@@ -111,6 +114,14 @@ function projectLinks(array $project): string {
 
         <section>
             <h3>Skills</h3>
+            <p>Programming in:</p>
+            <ul class="links-list">
+                <li><?echo getIcon(IconPack::SI, 'cplusplus')?> C++</li>
+                <li><?echo getIcon(IconPack::SI, 'rust')?> Rust (fairly limited) <!-- :) --></li>
+                <li><?echo getIcon(IconPack::MDI, 'coffee')?> Java</li>
+                <li><?echo getIcon(IconPack::SI, 'python')?> Python</li>
+                <li><?echo getIcon(IconPack::SI, 'typescript')?> Typescript</li>
+            </ul>
         </section>
      </header>
 
@@ -118,10 +129,11 @@ function projectLinks(array $project): string {
         <h2>Projects</h2>
         <article id="csc8502">
             <h3>CSC8502 Advanced Graphics for Games</h3>
+            <!-- TODO: Gallery with images -->
+            <?php echo embedVideo('GKlL0EY-yHE') ?>
             <div class="twopane">
                 <div>
                   <?php echo projectLinks([
-                      'videoId' => 'GKlL0EY-yHE',
                       'github' => 'https://github.com/kieranknowles1/csc8502-advanced-graphics',
                   ]); ?>
                   <!-- TODO: Link to the project, should I automate building to be extra fancy? -->
@@ -153,10 +165,10 @@ function projectLinks(array $project): string {
 
         <article id="csc8503">
             <h3>CSC8503 Advanced Game Technologies</h3>
+            <?php echo embedVideo('0JzQBoRjsA0') ?>
             <div class="twopane">
                 <div>
                     <?php echo projectLinks([
-                        'videoId' => '0JzQBoRjsA0',
                         'github' => 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/',
                     ]); ?>
                     <!-- TODO: Link to the project -->
