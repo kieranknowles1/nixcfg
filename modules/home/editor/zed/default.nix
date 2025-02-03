@@ -42,13 +42,14 @@
         # Zed will try to download language servers automatically, but will fail
         # as NixOS doesn't like unpatched binaries without extra work.
         extraPackages = with pkgs; [
-          nixd
+          nixd # Nix
 
-          php
+          php # PHP
           phpactor
 
           taplo # TOML
-          neocmakelsp
+          neocmakelsp # CMake
+          clang-tools # C++
 
           rust-analyzer
 
