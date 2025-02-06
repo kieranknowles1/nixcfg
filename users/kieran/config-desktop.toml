@@ -26,6 +26,7 @@ contractions-en.replacements."’" = "'"
 
 [editor]
 default = "zed"
+vscode.enable = true
 zed.enable = true
 
 # The client itself is enaled per host
