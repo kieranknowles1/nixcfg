@@ -42,13 +42,14 @@ final: prev: {
       src = latestSrc;
     });
 
-  # Continuation of Trilium, not currently in nixpkgs
+  # Continuation of Trilium
+  # TODO: Use nixpkgs trilium-next once it's up to date
   trilium-desktop = prev.trilium-desktop.overrideAttrs (oldAttrs: rec {
     # TODO: Run this on a server
-    version = "0.91.2-beta";
+    version = "0.91.6";
     src = builtins.fetchurl {
       url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-v${version}-linux-x64.zip";
-      sha256 = "sha256:1h4rdifs7bzc3fl5rsnxpwvqvmbqbm8grmk5c8p5pqqya9s90kzj";
+      sha256 = "sha256:13r9akfakmrpvnyab182irhraf9hpqb24205r8rxjfgj8dpmfa4p";
     };
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [final.unzip];
   });
