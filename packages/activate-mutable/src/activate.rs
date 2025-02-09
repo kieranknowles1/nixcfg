@@ -29,6 +29,10 @@ pub enum Error {
 pub struct Opt {
     config_file: PathBuf,
     home_directory: PathBuf,
+
+    /// Always overwrite local changes, even if `onConflict` says otherwise
+    #[arg(short, long)]
+    force: bool,
 }
 
 type Hash = [u8; 32];
@@ -122,6 +126,11 @@ fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) 
             };
             std::fs::create_dir_all(&dir)?;
             std::fs::copy(&entry.source, path)?;
+            // Paths in the Nix store are always read-only, disable this
+            let mut permissions = std::fs::metadata(&entry.source)?.permissions();
+            permissions.set_readonly(false);
+            std::fs::set_permissions(path, permissions)?;
+
             Ok(())
         }
     }
@@ -157,7 +166,12 @@ pub fn run(args: Opt) -> Result<bool> {
         args.config_file.display()
     );
 
-    let config = read_config(&args.config_file)?;
+    let mut config = read_config(&args.config_file)?;
+    if args.force {
+        for entry in config.iter_mut() {
+            entry.on_conflict = ConflictStrategy::Replace;
+        }
+    }
 
     // See [[../../../docs/plan/activate-mutable.md]]
     // Having no active config is a valid state, documented as being identical to an empty config.
