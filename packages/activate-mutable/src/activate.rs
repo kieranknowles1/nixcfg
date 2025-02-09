@@ -29,6 +29,10 @@ pub enum Error {
 pub struct Opt {
     config_file: PathBuf,
     home_directory: PathBuf,
+
+    /// Always overwrite local changes, even if `onConflict` says otherwise
+    #[arg(short, long)]
+    force: bool,
 }
 
 type Hash = [u8; 32];
@@ -157,7 +161,12 @@ pub fn run(args: Opt) -> Result<bool> {
         args.config_file.display()
     );
 
-    let config = read_config(&args.config_file)?;
+    let mut config = read_config(&args.config_file)?;
+    if args.force {
+        for entry in config.iter_mut() {
+            entry.on_conflict = ConflictStrategy::Replace;
+        }
+    }
 
     // See [[../../../docs/plan/activate-mutable.md]]
     // Having no active config is a valid state, documented as being identical to an empty config.
