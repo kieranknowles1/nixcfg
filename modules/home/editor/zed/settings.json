@@ -30,6 +30,7 @@
     "nix": true,
     "nu": true,
     "php": true,
+    "quill": true,
     "toml": true
   },
 
@@ -46,7 +47,7 @@
   // ================
 
   // Got to have a dark theme
-  "theme": "Andromeda",
+  "theme": "Quill",
   "experimental.theme_overrides": {
     // Default is bright green which doesn't fit the theme
     // Use a bright-ish purple that stands out, but isn't too harsh
