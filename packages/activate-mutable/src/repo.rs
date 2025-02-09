@@ -48,8 +48,6 @@ fn restore_file(repo_path: &Path, home_path: &Path) -> Result<()> {
     match std::fs::exists(&repo_path)? {
         true => {
             // Replace the repository file with the up-to-date home file.
-            // FIXME: This should preserve permissions in the repo. Currently, it overwrites them.
-            // with r--.
             std::fs::copy(&home_path, &repo_path)?;
             Ok(())
         }

@@ -126,6 +126,11 @@ fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) 
             };
             std::fs::create_dir_all(&dir)?;
             std::fs::copy(&entry.source, path)?;
+            // Paths in the Nix store are always read-only, disable this
+            let mut permissions = std::fs::metadata(&entry.source)?.permissions();
+            permissions.set_readonly(false);
+            std::fs::set_permissions(path, permissions)?;
+
             Ok(())
         }
     }
