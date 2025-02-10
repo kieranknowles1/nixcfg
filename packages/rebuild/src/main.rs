@@ -8,8 +8,6 @@ mod git;
 mod nix;
 mod process;
 
-use git::{wrap_in_commit, WrapError};
-
 /// Configuration derived from the environment.
 struct Config {
     /// The path to the flake repository.
@@ -60,34 +58,33 @@ struct UpdateOpt {
 struct PullOpt {}
 
 impl BuildOpt {
-    fn run(&self, flake: &str) -> Result<(), WrapError<std::io::Error>> {
-        wrap_in_commit(|| build_and_switch(&flake, &self.message))
+    fn run(&self, flake: &str) -> Result<(), std::io::Error> {
+        git::stage_all()?;
+        let msg = build_and_switch(&flake, &self.message)?;
+        git::commit(&msg)
     }
 }
 
 impl UpdateOpt {
-    fn run(&self, flake: &str) -> Result<(), WrapError<std::io::Error>> {
-        match nix::update_flake_inputs() {
-            Ok(_) => (),
-            Err(e) => return Err(WrapError::WrappedError(e)),
-        }
-        wrap_in_commit(|| build_and_switch(&flake, &self.message))
+    fn run(&self, flake: &str) -> Result<(), std::io::Error> {
+        nix::update_flake_inputs()?;
+        git::stage_all()?;
+        let msg = build_and_switch(&flake, &self.message)?;
+        git::commit(&msg)
     }
 }
 
 impl PullOpt {
-    fn run(&self, flake: &str) -> Result<(), WrapError<std::io::Error>> {
-        match git::pull(&flake) {
-            Ok(_) => (),
-            Err(e) => return Err(WrapError::GitError(e)),
-        }
-        match build_and_switch(&flake, "Pull latest changes") {
-            Ok(_) => Ok(()),
-            Err(e) => Err(WrapError::WrappedError(e)),
-        }
+    fn run(&self, flake: &str) -> Result<(), std::io::Error> {
+        git::pull(&flake)?;
+        build_and_switch(&flake, "Pull latest changes")?;
+        Ok(())
     }
 }
 
+/// Build the latest configuration and switch to it
+/// Returns the provided message, generation number, and diff of the build
+/// formatted for a commit message
 fn build_and_switch(repo_path: &str, message: &str) -> std::io::Result<String> {
     let diff = nix::fancy_build(repo_path)?;
     let meta = nix::apply_configuration(repo_path)?;
@@ -124,12 +121,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("Successfully built, applied, and committed configuration");
             Ok(())
         }
-        Err(WrapError::WrappedError(e)) => {
-            eprintln!("Failed to build or apply configuration: {}", e);
-            Err(Box::new(e))
-        }
-        Err(WrapError::GitError(e)) => {
-            eprintln!("A Git command failed. The repository may have been altered by this script. Please check the repository and fix any issues manually.");
+        Err(e) => {
+            eprintln!("Error running a Git or Nix command: {}", e);
             Err(Box::new(e))
         }
     }

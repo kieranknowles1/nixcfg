@@ -1,10 +1,10 @@
 {rustPlatform}:
 rustPlatform.buildRustPackage {
   pname = "rebuild";
-  version = "2.1.0";
+  version = "2.2.0";
   src = ./.;
 
-  cargoHash = "sha256-xvv5LJcZ5FF+LIuEktVvQQwqVXBfa/yBH2q66WLn7OM=";
+  cargoHash = "sha256-aGNx9ZiN+t9jBmg7TvxgCyIQtXP5Mv7CfDp2lwTd1zs=";
 
   meta = {
     description = "Wrapper for common Nix build workflows";
