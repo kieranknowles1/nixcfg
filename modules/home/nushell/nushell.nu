@@ -15,6 +15,9 @@ alias "log error" = __log "red" "Error"
 alias __orig_nix-shell = nix-shell
 alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
+alias void = ignore
+alias discard = ignore
+
 # Split a string on newlines, like Bash's `read`
 def "from lines" []: string -> list<string> {
     split row "\n"
