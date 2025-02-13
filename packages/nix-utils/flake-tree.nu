@@ -62,25 +62,22 @@ def graph-entry [] {
 }
 
 def to-dot [] {
+  let raw = $in
   let include = $in | columns
 
-  # Get all inputs in the form input -> [depends-on]
-  let deps = $in | update cells {|it|
-    if ("inputs" in $it) {
-      $it.inputs | values | each {get-target} | where {$in in $include}
+  # Get all inputs in the form list<{src, targets}>
+  let deps = $include | each {|name|
+    let rec = $raw | get $name
+    let targets = if ("inputs" in $rec) {
+      $rec.inputs | values | each {get-target} | where {$in in $include}
     } else {
       []
     }
-  # `update cells` returns a single-row table for record inputs, so transform
-  # back to a record
-  } | get 0
-
-
+    {src: $name, target: $targets}
   # Transform inputs into a flat list of src -> target, where src is not unique
-  let flattened = $deps | transpose src target | flatten
-  $flattened
+  } | flatten
 
-  let body = $flattened | each {graph-entry} | str join "\n"
+  let body = $deps | each {graph-entry} | str join "\n"
   $"
     digraph {
       rankdir=LR;
