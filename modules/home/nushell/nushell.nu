@@ -15,6 +15,12 @@ alias "log error" = __log "red" "Error"
 alias __orig_nix-shell = nix-shell
 alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
+# List all files in a git repository
+def "git ls-files" [] {
+    let files = ^git ls-files | split row "\n"
+    ls **/* | where name in $files
+}
+
 alias void = ignore
 alias discard = ignore
 
