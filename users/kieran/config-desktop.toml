@@ -28,7 +28,3 @@ contractions-en.replacements."’" = "'"
 default = "zed"
 vscode.enable = true
 zed.enable = true
-
-# The client itself is enaled per host
-[trilium-client]
-export.apiKeySecret = "trilium/apikey"

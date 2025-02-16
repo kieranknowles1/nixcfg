@@ -61,7 +61,7 @@
       sops.secrets."trilium/apikey".key = cfg.export.apiKeySecret;
 
       home.packages = with pkgs; [
-        trilium-desktop
+        trilium-next-desktop
         cfg.export.finalPackage
       ];
 

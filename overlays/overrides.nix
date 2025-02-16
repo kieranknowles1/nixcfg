@@ -41,16 +41,4 @@ final: prev: {
     devPkg.overrideAttrs (_oldAttrs: {
       src = latestSrc;
     });
-
-  # Continuation of Trilium
-  # TODO: Use nixpkgs trilium-next once it's up to date
-  trilium-desktop = prev.trilium-desktop.overrideAttrs (oldAttrs: rec {
-    # TODO: Run this on a server
-    version = "0.91.6";
-    src = builtins.fetchurl {
-      url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-v${version}-linux-x64.zip";
-      sha256 = "sha256:13r9akfakmrpvnyab182irhraf9hpqb24205r8rxjfgj8dpmfa4p";
-    };
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [final.unzip];
-  });
 }
