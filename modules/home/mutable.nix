@@ -132,7 +132,6 @@
     in
       lib.lists.flatten (lib.attrsets.mapAttrsToList checkAll cfg.file);
 
-    # TODO: Use for other files described in the plan
     home.activation.activate-mutable = let
       configTransform = lib.attrsets.mapAttrsToList (name: value:
         {

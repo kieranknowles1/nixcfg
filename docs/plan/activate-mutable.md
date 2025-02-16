@@ -58,9 +58,9 @@ Current uses:
 - [x] XDG template files
 - [x] VSCode config (preprocessed, put deps on `$PATH` instead?)
 - [x] VSCode bindings
-- [ ] Espanso config (needs directory support)
+- [x] Espanso config (needs directory support)
 - [ ] Game config (still in old dotfiles repo)
-- [ ] VSCode snippets (needs directory support)
+- [x] VSCode snippets (needs directory support)
 
 ## V3 - Handle Directories
 
