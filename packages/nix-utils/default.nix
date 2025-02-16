@@ -1,25 +1,39 @@
-{stdenv}:
+{
+  nushell,
+  stdenv,
+}:
 stdenv.mkDerivation {
   pname = "nix-utils";
   version = "1.1.0";
 
   src = ./.;
+  buildInputs = [
+    nushell
+  ];
 
-  # Nix automatically patches the shebangs to point to the
-  # store.
-  # Iterate over all files, copy them to $out/bin, and remove
-  # the .sh extension, excluding the default.nix file.
+  # Iterate over all files in $src apart from default.nix, copy them to
+  # $out/bin, remove extensions, and patch the shebang to point to the nix store
+  # While /usr/bin/env works as long as the executable is on the path, using absolute
+  # paths makes it clear what a script depends on and makes using them in a builder easier
+  # (see how flake-tree is called in [[modules/home/docs.nix]])
   buildPhase = ''
     mkdir -p $out/bin
 
     for file in $(ls $src); do
       if [ "$file" != "default.nix" ]; then
-        if [[ ! -x "$src/$file" ]]; then
+        noextension="''${file%.*}"
+        infile=$src/$file
+        outfile=$out/bin/$noextension
+        if [[ ! -x "$infile" ]]; then
           echo "Error: $file is not executable" >&2
           exit 1
         fi
 
-        cp "$src/$file" "$out/bin/$(basename $file .sh)"
+        # NOTE: If the shebang's exe is not available to the build environment, this will silently fail
+        exe="$(head -n 1 $infile | sed 's|#!/usr/bin/env ||')"
+        echo "#!/$(command -v $exe)" >> $outfile
+        tail -n +2 $infile >> $outfile
+        chmod +x $outfile
       fi
     done
   '';
@@ -32,7 +46,6 @@ stdenv.mkDerivation {
       - `confeval`: Evaluate a Nix option's value, as JSON
       - `check`: Build a check for the current flake
       - `gr`: Utilities for working with Git remotes
-      # FIXME: Remove .nu extension when building
       - `flake-tree`: Print the dependency tree of a flake, either as a Nushell table or Graphviz dot file
       - `run`: Run a Nix package from the current repository
       - `venv`: Activate a Python virtual environment, shell-agnostic version
