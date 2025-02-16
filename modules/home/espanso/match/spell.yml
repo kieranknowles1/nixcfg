@@ -3,8 +3,19 @@
 
 matches:
   # Basic matches, in alphabetical order
+  - trigger: dicipline
+    replace: discipline
+    propagate_case: true
+    word: true
   - trigger: forgoe
     replace: forgo
+    propagate_case: true
+    word: true
+  - trigger: liase
+    replace: liaise
+    propagate_case: true
+  - trigger: minuite
+    replace: minute
     propagate_case: true
     word: true
   - trigger: vertecies
