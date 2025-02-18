@@ -176,8 +176,6 @@
           };
           "user-options.schema.json" = mkSchema "Home Manager" self.homeManagerModules.default cfg.jsonIgnoredOptions.home;
 
-          # FIXME: home-manager lists a warning about packages.md not being a directory
-          # This option should probably be like home.file, with different keys for plaintext and file sources
           "packages.md" = let
             text = self.lib.docs.mkPackageDocs pkgs.flake;
           in {

@@ -6,7 +6,6 @@
   options.custom.editor = let
     inherit (lib) mkOption types;
   in {
-    # TODO: This should set $EDITOR
     default = mkOption {
       type = types.enum [
         "vscode"
