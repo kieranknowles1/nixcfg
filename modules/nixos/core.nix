@@ -55,6 +55,7 @@
       [
         flake.nix-utils
         flake.todos
+        ripgrep # Fast search
         nvd # Generate diffs between generations
         nh # Useful to generate diffs before applying changes
         file
