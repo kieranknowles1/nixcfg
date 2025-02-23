@@ -9,29 +9,33 @@
   buildType ? "RelWithDebInfo",
   # Additional libraries and tools to include
   libraries ? [],
-}:
-flake.lib.shell.mkShellEx mkShellNoCC {
-  name = "cmake";
+  # Key-value options to pass to CMake configure
+  options ? {},
+}: let
+  opts = builtins.concatStringsSep " " (map (name: "-D${name}=${options.${name}}") (builtins.attrNames options));
+in
+  flake.lib.shell.mkShellEx mkShellNoCC {
+    name = "cmake";
 
-  packages =
-    [
-      cmake
-      clang
-      gdb
-    ]
-    ++ libraries;
+    packages =
+      [
+        cmake
+        clang
+        gdb
+      ]
+      ++ libraries;
 
-  CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=${buildType}";
+    CMAKE_FLAGS = "-DCMAKE_BUILD_TYPE=${buildType}";
 
-  shellHook = ''
-    # mkcd into build if not already
-    if [[ "$PWD" != *build ]]; then
-      mkdir -p "build"
-      cd "build"
-    fi
+    shellHook = ''
+      # mkcd into build if not already
+      if [[ "$PWD" != *build ]]; then
+        mkdir -p "build"
+        cd "build"
+      fi
 
-    cmake ..
-    code ..
-    cd ..
-  '';
-}
+      cmake .. ${opts}
+      code ..
+      cd ..
+    '';
+  }
