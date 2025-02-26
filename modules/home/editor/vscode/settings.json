@@ -78,7 +78,10 @@
     "workbench.action.tasks.configureTaskRunner",
     "workbench.action.tasks.runTask"
   ], // WTF: The extension is aggressive about setting its defaults, and overwrites an explicit empty array
+  "cmake.configureOnOpen": false, // WTF: I don't want you to touch anyting when I open a file
+  "cmake.configureOnEdit": false, // Finally something that isn't WTF, I still don't want it
   "C_Cpp.autoAddFileAssociations": false, // WTF: Don't mess with my files, why are you even looking at them?
+  "cmake.showConfigureWithDebuggerNotification": false, // WTF: If I wanted a debugger I would search for one
 
   // =====
   //  Nix
