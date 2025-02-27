@@ -1,10 +1,11 @@
 {rustPlatform}:
 rustPlatform.buildRustPackage rec {
   pname = "activate-mutable";
-  version = "2.0.3";
+  version = "2.1.0";
   src = ./.;
 
-  cargoHash = "sha256-PKX/nsYkVc4CZ42xrxHgcbGvfilEPDmF9V8Tsf2oKC0=";
+  # TODO: cargoLock for all of our rust packages
+  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     description = "Activate mutable files in the home directory";
