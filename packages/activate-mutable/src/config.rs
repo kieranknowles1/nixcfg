@@ -11,6 +11,12 @@ pub enum Error {
     Json(#[from] serde_json::Error),
 }
 
+#[derive(Error, Debug)]
+#[error("Directory traversal detected: {file}")]
+pub struct DirectoryTraversalError {
+    file: PathBuf,
+}
+
 pub type Result<T> = std::result::Result<T, Error>;
 
 pub type Config = Vec<ConfigEntry>;
@@ -38,6 +44,22 @@ pub fn read_config(file: &Path) -> Result<Config> {
 
 pub fn find_entry<'a>(entries: &'a Config, path: &Path) -> Option<&'a ConfigEntry> {
     entries.iter().find(|entry| entry.destination == path)
+}
+
+fn is_subdirectory(parent: &Path, child: &Path) -> bool {
+    child.ancestors().any(|ancestor| ancestor == parent)
+}
+
+/// Resolve a possibly absolute path, throwing if it is not a path in the home directory
+pub fn resolve_directory(
+    home: &Path,
+    path: &Path,
+) -> std::result::Result<PathBuf, DirectoryTraversalError> {
+    let full = home.join(path);
+    match is_subdirectory(home, &full) {
+        true => Ok(full),
+        false => Err(DirectoryTraversalError { file: full }),
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]

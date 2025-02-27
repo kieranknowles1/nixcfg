@@ -2,11 +2,13 @@ use std::fs::File;
 use std::path::{Path, PathBuf};
 
 use clap::Parser;
-use sha2::{Digest, Sha256};
 use thiserror::Error;
 
+use crate::state::{hash_file, ExistingMatch, Hash};
+
 use crate::config::{
-    find_entry, get_previous_config_path, read_config, Config, ConfigEntry, ConflictStrategy,
+    find_entry, get_previous_config_path, read_config, resolve_directory, Config, ConfigEntry,
+    ConflictStrategy,
 };
 
 pub type Result<T> = std::result::Result<T, Error>;
@@ -21,8 +23,8 @@ pub enum Error {
     Conflict { file: PathBuf },
     #[error("Error loading config: {0}")]
     Config(#[from] crate::config::Error),
-    #[error("Directory traversal detected {file}")]
-    DirectoryTraversal { file: PathBuf },
+    #[error("Directory traversal")]
+    DirectoryTraversal(#[from] crate::config::DirectoryTraversalError),
 }
 
 #[derive(Parser)]
@@ -35,22 +37,11 @@ pub struct Opt {
     force: bool,
 }
 
-type Hash = [u8; 32];
-
 #[derive(Debug)]
 enum MatchOutcome {
     DoNothing,
     Conflict,
     CopyNew,
-}
-
-enum ExistingMatch {
-    // The home file is identical to the new file.
-    EqualNew,
-    // The home file is identical to the old file.
-    EqualOld,
-    // The home file differs from both the old and new files.
-    Conflict,
 }
 
 impl MatchOutcome {
@@ -77,27 +68,6 @@ impl MatchOutcome {
             MatchOutcome::CopyNew
         }
     }
-}
-
-impl ExistingMatch {
-    // Compare the current home file with the new and old files.
-    fn from_hashes(old_hash: Option<Hash>, new_hash: Hash, home_hash: Hash) -> Self {
-        if new_hash == home_hash {
-            ExistingMatch::EqualNew
-        } else if Some(home_hash) == old_hash {
-            ExistingMatch::EqualOld
-        } else {
-            // The files differ, or we have no previous file to compare to.
-            // A non-existent file is never identical to an existing file.
-            ExistingMatch::Conflict
-        }
-    }
-}
-
-fn hash_file(path: &Path) -> Result<Hash> {
-    let data = std::fs::read(path)?;
-    let digest = Sha256::digest(&data);
-    Ok(digest.into())
 }
 
 fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
@@ -137,13 +107,8 @@ fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) 
 }
 
 fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
-    let full_path = home.join(&entry.destination);
-
-    // Security check: Only allow writing to the home directory or its subdirectories.
-    match is_subdirectory(&home, &full_path) {
-        true => copy_file(&full_path, entry, old_entry),
-        false => Err(Error::DirectoryTraversal { file: full_path }),
-    }
+    let full_path = resolve_directory(home, &entry.destination)?;
+    copy_file(&full_path, entry, old_entry)
 }
 
 fn write_previous_config(home: &Path, config: &Config) -> Result<()> {
@@ -151,10 +116,6 @@ fn write_previous_config(home: &Path, config: &Config) -> Result<()> {
     let file = File::create(path)?;
     serde_json::to_writer(file, config)?;
     Ok(())
-}
-
-fn is_subdirectory(parent: &Path, child: &Path) -> bool {
-    child.ancestors().any(|ancestor| ancestor == parent)
 }
 
 /// Run the activation process, copying files specified in the config to the home directory.
