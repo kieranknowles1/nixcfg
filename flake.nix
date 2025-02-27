@@ -37,6 +37,7 @@
       inputs.tinted-foot.follows = "";
       inputs.tinted-kitty.follows = "";
       inputs.tinted-tmux.follows = "";
+      inputs.nur.follows = "";
     };
 
     # TODO: Use the official Cosmic once https://github.com/NixOS/nixpkgs/pull/330167 is merged
@@ -119,14 +120,7 @@
       # NOTE: Nixvim master requires nixpkgs-unstable and will not work with nixpkgs-24.05
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
-      inputs.home-manager.follows = "home-manager";
-
-      inputs.devshell.follows = "";
-      inputs.flake-compat.follows = "";
-      inputs.git-hooks.follows = "";
-      inputs.nix-darwin.follows = "";
       inputs.nuschtosSearch.follows = "";
-      inputs.treefmt-nix.follows = "";
     };
 
     # nixpkgs doesn't include the dependencies for master, so we override a separate flake

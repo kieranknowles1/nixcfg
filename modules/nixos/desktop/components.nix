@@ -16,7 +16,7 @@
       systemPackages = with pkgs; [
         xfce.thunar
         # thunar-archive-plugin requires an archive manager
-        ark
+        kdePackages.ark
         xfce.xfconf
       ];
     };
