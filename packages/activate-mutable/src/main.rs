@@ -2,6 +2,7 @@ mod activate;
 mod config;
 mod info;
 mod repo;
+mod state;
 
 use std::process::ExitCode;
 
