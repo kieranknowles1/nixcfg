@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage rec {
   version = "2.1.0";
   src = ./.;
 
-  cargoHash = "sha256-Ji6+X7MdftpnxmH9LalvREe3ltJc3M//88PEE/Q7JrA=";
+  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     description = "A simple command palette for running scripts";

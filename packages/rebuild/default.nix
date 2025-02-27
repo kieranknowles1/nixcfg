@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage {
   version = "2.2.0";
   src = ./.;
 
-  cargoHash = "sha256-aGNx9ZiN+t9jBmg7TvxgCyIQtXP5Mv7CfDp2lwTd1zs=";
+  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     description = "Wrapper for common Nix build workflows";

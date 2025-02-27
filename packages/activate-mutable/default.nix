@@ -4,7 +4,6 @@ rustPlatform.buildRustPackage rec {
   version = "2.1.0";
   src = ./.;
 
-  # TODO: cargoLock for all of our rust packages
   cargoLock.lockFile = ./Cargo.lock;
 
   meta = {

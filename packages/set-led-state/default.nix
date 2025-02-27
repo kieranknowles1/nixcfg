@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage rec {
   version = "1.0.0";
   src = ./.;
 
-  cargoHash = "sha256-t0sqN6jrq//lQa0Thp1GMoIoJee5ycVt6/WM0vLlEho=";
+  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     description = "A simple CLI tool to set the state of an LED";

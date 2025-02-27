@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage rec {
   version = "1.0.0";
   src = ./.;
 
-  cargoHash = "sha256-Y6LnDCTTdgzhh50VFqheD6BkUfdc7L05x47vx+xldV8=";
+  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     description = "Read and write OpenMW Lua data files";
