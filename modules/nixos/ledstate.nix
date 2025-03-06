@@ -9,6 +9,8 @@
   ...
 }: let
   cfg = config.custom.ledState;
+
+  set-led-state = lib.getExe cfg.package;
 in {
   options.custom.ledState = {
     enable = lib.mkEnableOption "run set-led-state without a password";
@@ -33,5 +35,15 @@ in {
         ];
       }
     ];
+
+    home-manager.sharedModules = lib.singleton {
+      config.custom.shortcuts.hotkeys.keys = {
+        "alt + slash" = {
+          # sudo doesn't require a password due to the rule defined above
+          action = "sudo ${set-led-state} capslock off";
+          description = "Turn off the Caps Lock LED";
+        };
+      };
+    };
   };
 }

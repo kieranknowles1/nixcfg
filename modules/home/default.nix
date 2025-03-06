@@ -14,7 +14,6 @@
     ./firefox.nix
     ./games
     ./git
-    ./ledstate.nix
     ./llm.nix
     ./mime.nix
     ./mutable.nix
