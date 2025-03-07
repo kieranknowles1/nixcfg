@@ -18,6 +18,7 @@ enum Opt {
     /// Copy local changes to the repository.
     Repo(repo::Opt),
     /// List currently deployed files.
+    #[clap(alias = "status")]
     Info(info::Opt),
 }
 
