@@ -175,14 +175,6 @@
 
       inputs.flake-compat.follows = "";
     };
-
-    # TODO: Could be useful for updating package inputs
-    # nix-update = {
-    #   url = "github:lilyinstarlight/nix-update";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-parts.follows = "flake-parts";
-    #   inputs.treefmt-nix.follows = "treefmt-nix";
-    # };
   };
 
   outputs = {flake-parts, ...} @ inputs:
