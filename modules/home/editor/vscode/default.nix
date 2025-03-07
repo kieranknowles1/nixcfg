@@ -82,6 +82,7 @@
         "settings.json"
         "keybindings.json"
         "snippets/cmake.json"
+        "snippets/cpp.json"
         "snippets/python.json"
       ];
     };
