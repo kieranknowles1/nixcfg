@@ -17,8 +17,8 @@ alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
 # List all files in a git repository
 def "git ls-files" [] {
-    let files = ^git ls-files | split row "\n"
-    ls **/* | where name in $files
+    let files = ^git ls-files | from lines
+    ls ...$files
 }
 
 alias void = ignore
@@ -33,8 +33,8 @@ def "from lines" []: string -> list<string> {
 def repodu [
     repo: path = "."
 ] {
-    let tracked_files = git ls-files | from lines
-    ls **/* | where name in $tracked_files | get size | math sum
+    cd $repo
+    git ls-files | get size | math sum
 }
 
 # Create a new directory and cd into it
