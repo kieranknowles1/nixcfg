@@ -1,6 +1,5 @@
 # Matches for spell correction
 # cSpell:ignoreRegExp /trigger: \w+/
-
 matches:
   # Basic matches, in alphabetical order
   - trigger: dicipline

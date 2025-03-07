@@ -1,5 +1,4 @@
 # Match config for email clients
-
 filter_class: thunderbird
 extra_includes:
   - ../match/_email.yml

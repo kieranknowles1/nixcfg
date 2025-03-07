@@ -1,5 +1,4 @@
 # Matches for email clients
-
 matches:
   - trigger: ":template:"
     form: |

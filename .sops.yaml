@@ -15,7 +15,6 @@
 # That is, machine-specific secrets should only be accessible by that machine
 # User-specific secrets should only be accessible by that user
 # (if I had machines with multiple users, I would use different keys for the user and machine)
-
 keys:
   # Public keys, generated from SSH keys
   # The matching private keys are stored at ~/.config/sops/age/keys.txt, outside of anything that may be shared
