@@ -81,8 +81,10 @@
       files = [
         "settings.json"
         "keybindings.json"
+        # TODO: VSCode snippets are compatable with Zed, move these to a shared dir and copy to both editors
         "snippets/cmake.json"
         "snippets/cpp.json"
+        "snippets/nix.json"
         "snippets/python.json"
       ];
     };
