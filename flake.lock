@@ -397,6 +397,7 @@
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",
         "src-factorio-blueprint-decoder": "src-factorio-blueprint-decoder",
+        "src-tldr": "src-tldr",
         "stylix": "stylix",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix",
@@ -461,6 +462,22 @@
         "owner": "kieranknowles1",
         "ref": "turret_fix",
         "repo": "factorio-blueprint-decoder",
+        "type": "github"
+      }
+    },
+    "src-tldr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741623034,
+        "narHash": "sha256-0lN61l1cCjjqoFBFO5/y1Fsk4Xscehhkb7gSklnuoEA=",
+        "owner": "tldr-pages",
+        "repo": "tldr",
+        "rev": "e27fc36d861f56c6e26f845f80f43833c3592ed5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tldr-pages",
+        "repo": "tldr",
         "type": "github"
       }
     },

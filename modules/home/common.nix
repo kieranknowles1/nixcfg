@@ -55,9 +55,23 @@
     # Inherit any overlays from the host to avoid duplication
     nixpkgs.overlays = hostConfig.nixpkgs.overlays;
 
-    home.packages =
-      lib.optional hostConfig.custom.features.desktop
-      config.custom.terminal.package;
+    home.packages = let
+      term =
+        lib.optional hostConfig.custom.features.desktop
+        config.custom.terminal.package;
+
+      extras = with pkgs; [
+        flake.tlro
+      ];
+    in
+      term ++ extras;
+    custom.aliases = {
+      tldr.exec = "tlro";
+      wtf = {
+        exec = "tlro";
+        description = "What's That For?";
+      };
+    };
 
     # Add a command palette entry to rebuild while pulling,
     # this is a fairly common operation for me.

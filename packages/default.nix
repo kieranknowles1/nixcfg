@@ -31,6 +31,7 @@
       skyrim-utils = callPackage ./skyrim-utils {};
       spriggit = callPackage ./spriggit.nix {};
       todos = callPackage ./todos {};
+      tlro = callPackage ./tlro {};
     };
   };
 }

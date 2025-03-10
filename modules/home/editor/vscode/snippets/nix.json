@@ -34,5 +34,17 @@
       "  };",
       "}"
     ]
+  },
+  "Meta block": {
+    "prefix": "meta",
+    "body": [
+      "meta = {",
+      "  mainProgram = name;",
+      "  description = \"$1\";",
+      "  longDescription = ''",
+      "    $2",
+      "  '';",
+      "};"
+    ]
   }
 }

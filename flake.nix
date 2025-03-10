@@ -144,6 +144,11 @@
       flake = false;
     };
 
+    src-tldr = {
+      url = "github:tldr-pages/tldr";
+      flake = false;
+    };
+
     # /// Unused Libraries ///
     # These are libraries that aren't used in the flake, but are included to avoid
     # duplicating inputs of other inputs.

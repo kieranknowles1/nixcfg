@@ -45,7 +45,7 @@
         description =
           if alias.description == null
           then ""
-          else "<br>${alias.description}";
+          else "<br>\n  > ${alias.description}";
       in "- `${name}`: `${alias.exec}`${description}";
     in {
       description = "Shell Aliases";
