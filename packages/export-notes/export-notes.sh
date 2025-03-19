@@ -53,7 +53,7 @@ if [ "$repo_clean" -gt 0 ]; then
   log "Changes detected, committing to git"
   git -C "$DST_DIR" add .
   git -C "$DST_DIR" commit -m "Update on $(date +'%Y-%m-%d %H:%M:%S')" > /dev/null
-  # git -C "$DST_DIR" push
+  git -C "$DST_DIR" push
 else
   log "No changes since last export"
 fi
