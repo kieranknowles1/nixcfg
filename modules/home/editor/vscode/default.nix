@@ -37,8 +37,6 @@
 
       extensions = with pkgs.vscode-marketplace; [
         # Must-have extensions
-        github.copilot
-        github.copilot-chat
         gruntfuggly.todo-tree
         isotechnics.commentlinks
         streetsidesoftware.code-spell-checker
@@ -56,6 +54,11 @@
         ms-python.vscode-pylance
 
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
+
+        # C++
+        ms-vscode.cmake-tools
+        ms-vscode.cpptools
+        twxs.cmake
 
         # GLSL
         slevesque.shader
