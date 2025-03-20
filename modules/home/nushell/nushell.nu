@@ -15,12 +15,6 @@ alias "log error" = __log "red" "Error"
 alias __orig_nix-shell = nix-shell
 alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
-# List all files in a git repository
-def "git ls-files" [] {
-    let files = ^git ls-files | from lines
-    ls ...$files
-}
-
 alias void = ignore
 alias discard = ignore
 
@@ -34,7 +28,8 @@ def repodu [
     repo: path = "."
 ] {
     cd $repo
-    git ls-files | get size | math sum
+    let files = git ls-files | from lines
+    ls **/* | where name in $files | get size | math sum
 }
 
 # Create a new directory and cd into it
