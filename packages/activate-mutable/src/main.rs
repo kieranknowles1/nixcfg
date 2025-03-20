@@ -16,6 +16,7 @@ enum Opt {
     /// Deploy a set of files to the system.
     Activate(activate::Opt),
     /// Copy local changes to the repository.
+    #[clap(alias = "pull")]
     Repo(repo::Opt),
     /// List currently deployed files.
     #[clap(alias = "status")]

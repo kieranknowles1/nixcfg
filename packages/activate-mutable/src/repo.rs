@@ -64,7 +64,7 @@ pub fn run(args: Opt) -> Result<()> {
     let opt = FinalOpt::from(args)?;
 
     println!(
-        "Restoring files from using $HOME={} and $FLAKE={}",
+        "Restoring files using $HOME={} and $FLAKE={}",
         opt.home.display(),
         opt.repo.display()
     );
