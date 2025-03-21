@@ -1,7 +1,7 @@
 {
   valgrind,
   writeShellApplication,
-  target ? "CSC8508-1", # TODO: More sensible default
+  target ? "unknown",
   suppressions ? [./valgrind-ignore.supp],
 }:
 writeShellApplication rec {
@@ -18,7 +18,6 @@ writeShellApplication rec {
 
   text = builtins.readFile ./checkleak.sh;
 
-  # TODO: Add to cmake shell
   meta = {
     mainProgram = name;
     description = "Check for memory leaks or other issues";
@@ -26,6 +25,10 @@ writeShellApplication rec {
       Wrapper for Valgrind with my preferred defaults,
       and that automatically makes a debug build before
       running.
+
+      ## Usage
+      This derivation does nothing unless `target` is overridden, this should
+      point to the desired build target to test.
     '';
   };
 }
