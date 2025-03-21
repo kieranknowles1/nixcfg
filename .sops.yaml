@@ -10,7 +10,6 @@
 # To encrypt an existing file for a new key:
 # Run `sops updatekeys <path to file>`
 # This must run on a machine that already has access to the file
-
 # When assigning key groups, be sure to follow the principle of least privilege
 # That is, machine-specific secrets should only be accessible by that machine
 # User-specific secrets should only be accessible by that user

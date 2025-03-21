@@ -18,6 +18,7 @@
       activate-mutable = callPackage ./activate-mutable {};
       combine-blueprints = callPackage ./combine-blueprints {};
       command-palette = callPackage ./command-palette {};
+      checkleak = callPackage ./checkleak {};
       export-blueprints = callPackage ./export-blueprints {};
       export-notes = callPackage ./export-notes {};
       factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
