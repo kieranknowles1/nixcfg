@@ -14,7 +14,10 @@ Usage: $0 [tool=memcheck]
     Exit on first error
   -S|--suppressions:
     Generate suppressions
+
+Currently configured target: $TARGET
 EOF
+  exit
 }
 
 opts=()
@@ -38,17 +41,21 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-
 case $tool in
   memcheck)
     opts+=( "--leak-check=full" )
     ;;
 esac
 
+if [[ "$TARGET" == "unknown" ]]; then
+  echo "ERROR: \$TARGET has not been set. This tool will not be usable." >&2
+  exit 1
+fi
+
 cmake -DCMAKE_BUILD_TYPE=Debug build
 make --directory build -j12 $TARGET
 
 # TODO: Set target path automatically
-# TODO: Detect extra suppressions
+# TODO: Use extra suppressions if present
 valgrind --tool="$tool" --error-exitcode=1 --exit-on-first-error=$errexit \
   "${SUPPRESSIONS[@]}" "${opts[@]}" ./build/TeamProject/$TARGET
