@@ -14,10 +14,10 @@
     }
   },
   {
-    "context": "Editor && mode == full && inline_completion",
+    "context": "Editor && mode == full && edit_prediction",
     "bindings": {
       // Use VSCode's binding to accept one word of the completion
-      "ctrl-right": "editor::AcceptPartialInlineCompletion"
+      "ctrl-right": "editor::AcceptPartialEditPrediction"
     }
   }
 ]

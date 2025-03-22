@@ -16,6 +16,9 @@
   "extensions.autoUpdate": false,
   "update.mode": "none",
 
+  // Hide message when opening a new window
+  "extensions.ignoreRecommendations": true,
+
   "files.insertFinalNewline": true, // Makes some tools happier
   "files.trimTrailingWhitespace": true, // Trailing whitespace is bad practice
 
@@ -59,14 +62,6 @@
     "[ ]"
     // "[x]" // Disable this as it represents a completed task.
   ],
-
-  // Enable copilot everywhere
-  "github.copilot.enable": {
-    "*": true,
-    "plaintext": true,
-    "markdown": true,
-    "scminput": false // Copilot gives very poor quality suggestions for commit messages
-  },
 
   // =====
   //  C++
