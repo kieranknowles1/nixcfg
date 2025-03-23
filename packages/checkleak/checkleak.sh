@@ -53,9 +53,9 @@ if [[ "$TARGET" == "unknown" ]]; then
 fi
 
 cmake -DCMAKE_BUILD_TYPE=Debug build
-make --directory build -j12 $TARGET
+make --directory build -j12 "$TARGET"
 
 # TODO: Set target path automatically
 # TODO: Use extra suppressions if present
 valgrind --tool="$tool" --error-exitcode=1 --exit-on-first-error=$errexit \
-  "${SUPPRESSIONS[@]}" "${opts[@]}" ./build/TeamProject/$TARGET
+  "${SUPPRESSIONS[@]}" "${opts[@]}" "./build/TeamProject/$TARGET"

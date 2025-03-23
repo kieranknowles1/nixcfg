@@ -6,7 +6,7 @@
 # 3. Add the public key to the list of keys and appropriate creation rules
 # This should be in the format of `&<hostname> <public key>`, which will start with `age1`
 # DO NOT allow the private key to leave your machine
-
+#
 # To encrypt an existing file for a new key:
 # Run `sops updatekeys <path to file>`
 # This must run on a machine that already has access to the file
