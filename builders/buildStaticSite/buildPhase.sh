@@ -78,7 +78,7 @@ while IFS= read -r -d "" file; do
       buildPandoc "$file" "$(replaceExtension "$out_relative" "html")"
       ;;
     php)
-      php -f "$BUILD_HELPERS/buildFile.php" "$file" > "$(replaceExtension "$out_relative" "html")"
+      php -f "$BUILD_HELPERS/buildPhp.php" "$file" > "$(replaceExtension "$out_relative" "html")"
       ;;
     *)
       cp "$file" "$out_relative"
