@@ -77,4 +77,11 @@ if [[ ! -f "$path" ]]; then
   exit 1
 fi
 
-sed --regexp-extended "s/$SED_ARGUMENT_PATTERN/$arg_replace/" "$path" | mdcat
+# Reformat things a bit
+# 1. Only show short/long-form versions of arguments accodring to $LONGOPTS
+# 2. Replace example code blocks with bold (we're on the terminal, so assume a monospaced font)
+# 3. Show editable placeholders as code blocks (mdcat uses orange for these)
+sed --regexp-extended "s/$SED_ARGUMENT_PATTERN/$arg_replace/" "$path" \
+  | sed --regexp-extended 's|^`(.+)`$|**\1**|' \
+  | perl -pe 's|\{\{(.+?)\}\}|`\1`|g' \
+  | mdcat
