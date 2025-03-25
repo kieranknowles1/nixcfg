@@ -36,6 +36,8 @@ while [[ $# -gt 0 ]]; do
       echo "tlro version $VERSION, client specification 2.3"
       ;;
     -l|--list)
+      # The information here is intended for the user
+      # shellcheck disable=SC2012
       ls "$PAGES" | sed 's|\.md||'
       exit
       ;;
@@ -56,7 +58,7 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-if [[ "${positional[@]}" == "" ]]; then
+if [[ "${positional[*]}" == "" ]]; then
   showhelp
 fi
 
@@ -70,10 +72,9 @@ IFS='-'
 page=$(echo "${positional[@]}" | sed 's| |-|' | tr '[:upper:]' '[:lower:]')
 path="$PAGES/$page.md"
 
-echo "$path"
 if [[ ! -f "$path" ]]; then
   echo "Page '$page' not found." >&2
   exit 1
 fi
 
-cat "$path" | sed --regexp-extended "s/$SED_ARGUMENT_PATTERN/$arg_replace/" | mdcat
+sed --regexp-extended "s/$SED_ARGUMENT_PATTERN/$arg_replace/" "$path" | mdcat
