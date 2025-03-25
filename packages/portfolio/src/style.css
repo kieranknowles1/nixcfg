@@ -94,7 +94,7 @@ Two panes shown either side-by-side or vertically depending on orientation
   .twopane {
     flex-direction: row;
   }
-  .twopane div {
+  .twopane > * {
     width: 50%;
   }
 }

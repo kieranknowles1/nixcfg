@@ -102,27 +102,29 @@ function projectLinks(array $project): string {
         <h2>About Me</h2>
         <!-- TODO: Fill this in -->
         <a href="./cv-kieran-knowles.pdf" target="_blank"><?echo getIcon(IconPack::MDI, 'file-document')?> CV Download</a>
-        <section>
-            <h3>Contact</h3>
-            <ul class="links-list">
-                <li><?echo getIcon(IconPack::MDI, 'email')?> Email: <a href="mailto:contact@selwonk.uk">contact@selwonk.uk</a></li>
-                <li><?echo getIcon(IconPack::SI, 'github')?> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></li>
-                <li><?echo getIcon(IconPack::MDI, 'domain')?> LinkedIn: <a href="https://www.linkedin.com/in/kieran-john-knowles/">https://www.linkedin.com/in/kieran-john-knowles/</a></li>
-                <li><?echo getIcon(IconPack::SI, 'itchdotio')?> itch.io: <a href="https://kieranknowles.itch.io/">https://kieranknowles.itch.io/</a></li>
-            </ul>
-        </section>
+        <div class="twopane">
+            <section>
+                <h3>Contact</h3>
+                <ul class="links-list">
+                    <li><?echo getIcon(IconPack::MDI, 'email')?> Email: <a href="mailto:contact@selwonk.uk">contact@selwonk.uk</a></li>
+                    <li><?echo getIcon(IconPack::SI, 'github')?> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></li>
+                    <li><?echo getIcon(IconPack::MDI, 'domain')?> LinkedIn: <a href="https://www.linkedin.com/in/kieran-john-knowles/">https://www.linkedin.com/in/kieran-john-knowles/</a></li>
+                    <li><?echo getIcon(IconPack::SI, 'itchdotio')?> itch.io: <a href="https://kieranknowles.itch.io/">https://kieranknowles.itch.io/</a></li>
+                </ul>
+            </section>
 
-        <section>
-            <h3>Skills</h3>
-            <p>Programming in:</p>
-            <ul class="links-list">
-                <li><?echo getIcon(IconPack::SI, 'cplusplus')?> C++</li>
-                <li><?echo getIcon(IconPack::SI, 'rust')?> Rust (fairly limited) <!-- :) --></li>
-                <li><?echo getIcon(IconPack::MDI, 'coffee')?> Java</li>
-                <li><?echo getIcon(IconPack::SI, 'python')?> Python</li>
-                <li><?echo getIcon(IconPack::SI, 'typescript')?> Typescript</li>
-            </ul>
-        </section>
+            <section>
+                <h3>Skills</h3>
+                <p>Programming in:</p>
+                <ul class="links-list">
+                    <li><?echo getIcon(IconPack::SI, 'cplusplus')?> C++</li>
+                    <li><?echo getIcon(IconPack::SI, 'rust')?> Rust (fairly limited) <!-- :) --></li>
+                    <li><?echo getIcon(IconPack::MDI, 'coffee')?> Java</li>
+                    <li><?echo getIcon(IconPack::SI, 'python')?> Python</li>
+                    <li><?echo getIcon(IconPack::SI, 'typescript')?> Typescript</li>
+                </ul>
+            </section>
+        </div>
      </header>
 
      <main>
