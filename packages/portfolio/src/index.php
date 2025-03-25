@@ -86,6 +86,7 @@ function projectLinks(array $project): string {
     <meta charset="UTF-8">
     <title>Kieran Knowles</title>
     <link rel="stylesheet" href="style.css">
+    <script src="gameOfLife.js" defer></script>
 </head>
 <body>
     <h1>Kieran Knowles</h1>
@@ -126,6 +127,8 @@ function projectLinks(array $project): string {
             </section>
         </div>
      </header>
+
+     <canvas id="gameoflife" width="250" height="250"></canvas>
 
      <main>
         <h2>Projects</h2>
