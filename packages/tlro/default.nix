@@ -18,7 +18,10 @@ writeShellApplication rec {
   runtimeEnv = {
     PAGES = pages;
     VERSION = "1.0.0";
-    LONGOPTS = if longOpts then "2" else "1";
+    LONGOPTS =
+      if longOpts
+      then "2"
+      else "1";
   };
   runtimeInputs = [
     mdcat

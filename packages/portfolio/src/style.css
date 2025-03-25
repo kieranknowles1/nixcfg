@@ -125,7 +125,7 @@ img.icon {
 /* Game of Life section */
 canvas {
   display: block;
-  margin: 0 auto
+  margin: 0 auto;
 }
 
 .flexbox {
