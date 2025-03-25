@@ -62,7 +62,6 @@ if [[ "${positional[*]}" == "" ]]; then
   showhelp
 fi
 
-# TODO: Properly implement the specification
 # TODO: Carapace completions
 # TODO: Add TLDR pages based on meta attributes of my packages, will need restructuring to fit in with the standard
 
@@ -81,6 +80,8 @@ fi
 # 1. Only show short/long-form versions of arguments accodring to $LONGOPTS
 # 2. Replace example code blocks with bold (we're on the terminal, so assume a monospaced font)
 # 3. Show editable placeholders as code blocks (mdcat uses orange for these)
+# $ is being used as part of the sed expression, not for variable expansion
+# shellcheck disable=SC2016
 sed --regexp-extended "s/$SED_ARGUMENT_PATTERN/$arg_replace/" "$path" \
   | sed --regexp-extended 's|^`(.+)`$|**\1**|' \
   | perl -pe 's|\{\{(.+?)\}\}|`\1`|g' \
