@@ -123,7 +123,12 @@ img.icon {
 }
 
 /* Game of Life section */
-canvas, button {
+canvas {
   display: block;
   margin: 0 auto
+}
+
+.flexbox {
+  display: flex;
+  justify-content: center;
 }

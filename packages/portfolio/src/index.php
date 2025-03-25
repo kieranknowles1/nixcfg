@@ -132,7 +132,10 @@ function projectLinks(array $project): string {
         <h2>Projects</h2>
         <article>
             <canvas id="gameoflife" width="500" height="250"></canvas>
-            <button id="gameoflife_reset" type="button">Reset</button>
+            <div class="flexbox">
+                <button id="gameoflife_pause" type="button">Pause</button>
+                <button id="gameoflife_reset" type="button">Reset</button>
+            </div>
         </article>
 
         <article id="csc8502">

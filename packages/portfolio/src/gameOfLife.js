@@ -75,7 +75,9 @@ function render() {
     })
 }
 
+let active = true
 setInterval(_ => {
+    if (!active) return;
     update()
     render()
 }, UPDATE_FREQUENCY)
@@ -87,4 +89,9 @@ document.getElementById('gameoflife_reset').addEventListener('click', _ => {
     reset()
     update()
     render()
+})
+
+document.getElementById('gameoflife_pause').addEventListener('click', event => {
+    active = !active
+    event.target.textContent = active ? 'Pause' : 'Unpause'
 })
