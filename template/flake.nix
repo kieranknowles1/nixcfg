@@ -33,6 +33,7 @@
       inputs.snowfall-lib.follows = "";
       inputs.sops-nix.follows = "";
       inputs.src-factorio-blueprint-decoder.follows = "";
+      inputs.src-tldr.follows = "";
       inputs.stylix.follows = "";
       inputs.vscode-extensions.follows = "";
     };
