@@ -13,15 +13,15 @@ const ctx = canvas.getContext('2d')
 const UPDATE_FREQUENCY = 250
 const PIXEL_SIZE = 10
 const GRID_SIZE = vec2(canvas.width / PIXEL_SIZE, canvas.height / PIXEL_SIZE)
-const STARTING_ALIVE = Math.ceil(GRID_SIZE.x * GRID_SIZE.y * 0.1)
+const STARTING_ALIVE = Math.ceil(GRID_SIZE.x * GRID_SIZE.y * 0.15)
 const NEIGHBOUR_OFFSETS = [
     vec2(-1, -1), vec2(0, -1), vec2(1, -1),
     vec2(-1, 0),               vec2(1, 0),
     vec2(-1, 1),  vec2(0, 1),  vec2(1, 1)
 ]
 
-
 const cells = Array.from({ length: GRID_SIZE.x }, (v, i) => Array.from({ length: GRID_SIZE.y }, (v, i) => false))
+
 function forEachCell(cb) {
     for (let x = 0; x < GRID_SIZE.x; x++) {
         for (let y = 0; y < GRID_SIZE.y; y++) {
@@ -41,12 +41,14 @@ function setCellState(pos, state) {
     cells[pos.x][pos.y] = state
 }
 
-for (let i = 0; i < STARTING_ALIVE; i++) {
-    const x = Math.floor(Math.random() * GRID_SIZE.x)
-    const y = Math.floor(Math.random() * GRID_SIZE.y)
-    setCellState(vec2(x, y), true)
+function reset() {
+    forEachCell(pos => setCellState(pos, false))
+    for (let i = 0; i < STARTING_ALIVE; i++) {
+        const x = Math.floor(Math.random() * GRID_SIZE.x)
+        const y = Math.floor(Math.random() * GRID_SIZE.y)
+        setCellState(vec2(x, y), true)
+    }
 }
-
 
 function update() {
     forEachCell(pos => {
@@ -77,4 +79,12 @@ setInterval(_ => {
     update()
     render()
 }, UPDATE_FREQUENCY)
+reset()
+update()
 render()
+
+document.getElementById('gameoflife_reset').addEventListener('click', _ => {
+    reset()
+    update()
+    render()
+})

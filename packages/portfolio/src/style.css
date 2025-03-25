@@ -121,3 +121,9 @@ img.icon {
   /* The icons are black by default, invert them to work with the dark theme */
   filter: invert(1);
 }
+
+/* Game of Life section */
+canvas, button {
+  display: block;
+  margin: 0 auto
+}

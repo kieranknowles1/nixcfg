@@ -126,12 +126,15 @@ function projectLinks(array $project): string {
                 </ul>
             </section>
         </div>
-     </header>
+    </header>
 
-     <canvas id="gameoflife" width="250" height="250"></canvas>
-
-     <main>
+    <main>
         <h2>Projects</h2>
+        <article>
+            <canvas id="gameoflife" width="500" height="250"></canvas>
+            <button id="gameoflife_reset" type="button">Reset</button>
+        </article>
+
         <article id="csc8502">
             <h3>CSC8502 Advanced Graphics for Games</h3>
             <!-- TODO: Gallery with images -->
