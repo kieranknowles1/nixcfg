@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 def do_check [name: string, system: string] {
-    nix build $".#checks.($system).($name)"
+    nix build --no-link $".#checks.($system).($name)"
 }
 
 def list_checks [system: string] {
