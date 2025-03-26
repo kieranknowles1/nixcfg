@@ -13,11 +13,17 @@
         args ? [],
       }:
         pkgs.runCommand name {inherit nativeBuildInputs;} ''
-          set -e
+          set -euo pipefail
           bash ${script} ${builtins.concatStringsSep " " args}
           touch $out
         '';
     in {
+      bash-sanity = mkCheck {
+        script = ./bash-sanity.sh;
+        name = "check-bash-sanity";
+        args = [self];
+      };
+
       duplicate-input = mkCheck {
         nativeBuildInputs = with pkgs; [jq];
         script = ./duplicate-input.sh;
@@ -49,12 +55,6 @@
             # TODO: Could we link the generated files into ./docs/generated, so that they are checked? Which host should they come from?
             args = [./markdown-link-config.json self];
           };
-
-      bash-sanity = mkCheck {
-        script = ./bash-sanity.sh;
-        name = "check-bash-sanity";
-        args = [self];
-      };
     };
   };
 }

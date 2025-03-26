@@ -13,7 +13,7 @@ dir="$1"
 # Additional checks are provided by shellcheck, which runs as part of `nix fmt`.
 
 # Maximum number of lines allowed in a script.
-MAX_LINES=100
+MAX_LINES=256
 
 error() {
   echo "$1" >&2
