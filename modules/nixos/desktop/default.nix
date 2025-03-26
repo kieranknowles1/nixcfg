@@ -37,6 +37,17 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+
+      # Increase quantum (buffer size) to avoid
+      # buffer underruns during lag spikes, which cause
+      # buzzing
+      extraConfig.pipewire = {
+        "99-prevent-underrun" = {
+          "context.properties" = {
+            "default.clock.quantum" = 256;
+          };
+        };
+      };
       # If you want to use JACK applications, uncomment this
       #jack.enable = true;
 
