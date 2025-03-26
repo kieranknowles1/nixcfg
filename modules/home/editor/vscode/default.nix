@@ -89,6 +89,7 @@
         "snippets/cpp.json"
         "snippets/nix.json"
         "snippets/python.json"
+        "snippets/shellscript.json"
       ];
     };
   };
