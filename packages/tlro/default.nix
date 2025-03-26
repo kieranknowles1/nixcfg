@@ -4,8 +4,10 @@
   mdcat,
   language ? "en",
   platform ? "linux",
-  # If true, show long options by default otherwise show short options
+  # Show short/long options by default
+  # At least one of these must be set
   # Can be overridden per-invocation using the --short/long-options flag
+  shortOpts ? true,
   longOpts ? true,
   pages ?
     import ./pages.nix {
@@ -18,10 +20,8 @@ writeShellApplication rec {
   runtimeEnv = {
     PAGES = pages;
     VERSION = "1.0.0";
-    LONGOPTS =
-      if longOpts
-      then "2"
-      else "1";
+    SHORTOPTS = shortOpts;
+    LONGOPTS = longOpts;
   };
   runtimeInputs = [
     mdcat

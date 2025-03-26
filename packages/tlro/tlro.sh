@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# May be set by Nix
+SHORTOPTS=${SHORTOPTS:-0}
+LONGOPTS=${LONGOPTS:-0}
+
 showhelp() {
-  shortOptDefault=$([[ $LONGOPTS == 1 ]] && echo " (default)" || echo "")
+  shortOptDefault=$([[ $SHORTOPTS == 1 ]] && echo " (default)" || echo "")
   longOptDefault=$([[ $LONGOPTS == 2 ]] && echo " (default)" || echo "")
 
   cat <<EOF
@@ -19,14 +23,18 @@ Usage: $0 [command]
     Show short-form options if available$shortOptDefault
   --long-options:
     Show long-form options if available$longOptDefault
+
+  If both '--short-options' and '--long-options' are passed, then
+  both will be shown.
 EOF
   exit
 }
 
 # Short/long-form arguments in the form {{[short|long]}}
 SED_ARGUMENT_PATTERN='\{\{\[([a-zA-Z -]+)\|([a-zA-Z -]+)\]\}\}'
-arg_replace="\\$LONGOPTS"
 positional=()
+shortopts=0
+longopts=0
 while [[ $# -gt 0 ]]; do
   case $1 in
     -h|--help)
@@ -42,9 +50,11 @@ while [[ $# -gt 0 ]]; do
       exit
       ;;
     --short-options)
+      shortopts=1
       arg_replace='\1'
       ;;
     --long-options)
+      longopts=1
       arg_replace='\2'
       ;;
     -*)
@@ -61,6 +71,21 @@ done
 if [[ "${positional[*]}" == "" ]]; then
   showhelp
 fi
+
+if [[ "$shortopts" == 0 && "$longopts" == 0 ]]; then
+  shortopts=$SHORTOPTS
+  longopts=$LONGOPTS
+fi
+
+if [[ "$shortopts" == 1 && "$longopts" == 1 ]]; then
+  arg_replace='[\1|\2]' # Show both, surrounded by [] and separated by a pipe
+elif [[ "$shortopts" == 1 ]]; then
+  arg_replace='\1'
+else
+  arg_replace='\2'
+fi
+
+echo "$arg_replace"
 
 # TODO: Carapace completions
 # TODO: Add TLDR pages based on meta attributes of my packages, will need restructuring to fit in with the standard
