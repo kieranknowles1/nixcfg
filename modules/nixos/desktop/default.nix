@@ -44,7 +44,7 @@
       extraConfig.pipewire = {
         "99-prevent-underrun" = {
           "context.properties" = {
-            "default.clock.quantum" = 256;
+            "default.clock.min-quantum" = 256;
           };
         };
       };
