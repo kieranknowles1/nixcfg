@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SECRETSROOT=~/.config/sops-nix/secrets/portfolio/
 HOST=razorback.local
 DST=/home/kieran/portfolio
+ZONE_ID=$(cat "$SECRETSROOT/cfzone")
+CLEAR_CACHE_TOKEN=$(cat "$SECRETSROOT/cfclearcache")
 
 # SC2029 - $ expansion occurs client-side. This is the expected behaviour
 
@@ -17,4 +20,7 @@ scp -r result/* "$HOST:$DST"
 # shellcheck disable=SC2029
 ssh "$HOST" "chmod -R u+w $DST"
 
-# TODO: Clear cloudflare's cache. Need to store an API key
+curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache \
+  --header 'Content-Type: application/json' \
+  --header "Authorization: Bearer $CLEAR_CACHE_TOKEN" \
+  --data '{"purge_everything": true}'
