@@ -43,3 +43,4 @@ issues so I can do all my work in one place.
 - [ ] Configure RAG based on my notetaking workflow
       [Tutorial](https://www.youtube.com/watch?v=fFgyOucIFuk), the UI used here
       has too much overhead currently
+- [ ] Hotkeys for brightness. Either `Alt+Home/End` or media keys.
