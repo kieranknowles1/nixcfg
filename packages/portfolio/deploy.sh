@@ -20,7 +20,7 @@ scp -r result/* "$HOST:$DST"
 # shellcheck disable=SC2029
 ssh "$HOST" "chmod -R u+w $DST"
 
-curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache \
+curl "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
   --header 'Content-Type: application/json' \
   --header "Authorization: Bearer $CLEAR_CACHE_TOKEN" \
   --data '{"purge_everything": true}'
