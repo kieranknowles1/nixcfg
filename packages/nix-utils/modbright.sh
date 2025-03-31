@@ -6,6 +6,7 @@ MAX=1.0
 STATEFILE=/tmp/brightness
 
 STEPS=10
+DISPLAYS=$(xrandr --query | grep ' connected' | awk '{print $1}')
 
 showhelp() {
   cat <<EOF
@@ -44,6 +45,7 @@ newvalue=$(awk -v c="$current" -v a="$adjust" -v min="$MIN" -v max="$MAX" 'BEGIN
   print result;
 }')
 echo "$newvalue" > "$STATEFILE"
+echo "Adjusting brightness from $current to $newvalue on displays $(tr '\n' ' ' <<< "$DISPLAYS")"
 
 stepsize=$(awk -v c="$current" -v n="$newvalue" -v s="$STEPS" 'BEGIN {print (n - c) / s}')
 
@@ -52,7 +54,7 @@ for ((step=0; step<STEPS; step++)); do
 
   while read -r display; do
     xrandr --output "$display" --brightness "$intermediate"
-  done < <(xrandr --query | grep ' connected' | awk '{print $1}')
+  done <<<"$DISPLAYS"
   # xrandr is fairly slow, so use that on its own as a delay time
   # sleep $STEPDELAY
 done

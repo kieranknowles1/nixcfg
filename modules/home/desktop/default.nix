@@ -2,6 +2,7 @@
   lib,
   config,
   hostConfig,
+  pkgs,
   ...
 }: {
   imports = [
@@ -36,5 +37,15 @@
         };
       })
       config.custom.desktop.templates;
+
+    custom.shortcuts.hotkeys.keys = let
+      adjustBrightness = amount: action: {
+        action = "${pkgs.flake.nix-utils}/bin/modbright ${toString amount}";
+        description = "${action} display brightness";
+      };
+    in {
+      "alt + Home" = adjustBrightness 0.1 "Increase";
+      "alt + End" = adjustBrightness (-0.1) "Decrease";
+    };
   };
 }

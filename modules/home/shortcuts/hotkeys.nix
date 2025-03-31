@@ -25,10 +25,14 @@ in {
     hotkeys.keys = lib.mkOption {
       description = ''
         A set of keyboard shortcuts to be managed by sxhkd.
-        The key in the set is the binding, and the value contains the action to be executed and
-        a description for documentation purposes.
+        The key in the set is the binding keysym names, and the value contains the action
+        to be executed plus a description for documentation purposes.
 
-        See [man sxhkd (1)](https://manpages.org/sxhkd) for more information on the syntax of keybindings.
+        See [man sxhkd (1)](https://manpages.org/sxhkd) for more information on the
+        syntax of keybindings.
+
+        To get the keysym name for a key, run `xev`, press the desired key, and
+        use the keysym it displays.
       '';
 
       type = lib.types.attrsOf (lib.types.submodule {
@@ -39,7 +43,12 @@ in {
           };
           description = lib.mkOption {
             type = lib.types.str;
-            description = "Brief, one-line description of the keybinding";
+            description = ''
+              Brief, one-line description of the keybinding.
+
+              Follow the same rules as the `description`
+              [meta attribute](https://ryantm.github.io/nixpkgs/stdenv/meta/).
+            '';
           };
         };
       });

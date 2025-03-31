@@ -15,6 +15,7 @@
           description = "The command to run";
         };
 
+        # TODO: Standardise using mnemonics for these, such as `lg: [l]azy[g]it` or `gd: [g]it [d]iff`
         description = mkOption {
           type = types.nullOr types.str;
           description = "A description of the alias. Not always necessary, but can be helpful.";
