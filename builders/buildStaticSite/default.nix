@@ -1,9 +1,11 @@
 {
-  php,
-  pandoc,
   graphviz,
-  stdenv,
   html-tidy,
+  jq,
+  pandoc,
+  php,
+  stdenv,
+  typescript,
 }:
 /*
 Build a truly static site with no runtime overhead. Files are transformed at
@@ -20,13 +22,14 @@ Supported file types and their transformations:
   - If `useCustomMarkdownStyle` is true, the site will use its own `style.css`.
   - Otherwise, a tweaked version of Pandoc's default style is used plus a nerd
     font for icons. This is assumed to be available in the visitor's browser.
+- TypeScript: Checked and compiled to JavaScript
 - All other files: Copied to the output directory.
 
 The following files are checked after build:
 - HTML: Passed through html-tidy
 
-Spaces are strongly discouraged and not guaranteed to work. No technical reason,
-just I can't be bothered to work around Bash's quirks.
+Spaces in filenames are strongly discouraged and not guaranteed to work. No technical
+reason, just I can't be bothered to work around Bash's quirks.
 */
 {
   # If true, the site will use its own `style.css` for Markdown instead of Pandoc's.
@@ -36,10 +39,12 @@ just I can't be bothered to work around Bash's quirks.
 stdenv.mkDerivation (args
   // {
     buildInputs = [
-      php
-      pandoc
       graphviz
       html-tidy
+      jq
+      pandoc
+      php
+      typescript
     ];
 
     CUSTOM_MARKDOWN_STYLE = useCustomMarkdownStyle;
