@@ -7,7 +7,7 @@ LONGOPTS=${LONGOPTS:-0}
 
 showhelp() {
   shortOptDefault=$([[ $SHORTOPTS == 1 ]] && echo " (default)" || echo "")
-  longOptDefault=$([[ $LONGOPTS == 2 ]] && echo " (default)" || echo "")
+  longOptDefault=$([[ $LONGOPTS == 1 ]] && echo " (default)" || echo "")
 
   cat <<EOF
 Offline-only TLDR client
