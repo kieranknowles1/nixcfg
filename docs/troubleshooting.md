@@ -3,6 +3,7 @@
 - [Troubleshooting](#troubleshooting)
   - [Corrupt Derivation](#corrupt-derivation)
   - [Nerd Fonts not Working](#nerd-fonts-not-working)
+  - [Occasional Buzzing](#occasional-buzzing)
 
 ## Corrupt Derivation
 
@@ -25,3 +26,11 @@ not displaying, instead showing as a box ▯.
 
 Solution: Run `fc-cache --force` to update the font cache. After restarting the
 terminal, the icons should display correctly.
+
+## Occasional Buzzing
+
+Issue: In games, there will occasionally be a loud buzz, especially during lag
+spikes.
+
+Solution: Increase Pipewire's quantum via pw-metadata. Start at 256 and double
+until the issue is resolved.
