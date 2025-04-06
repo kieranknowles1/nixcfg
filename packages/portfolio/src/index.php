@@ -93,9 +93,9 @@ function projectLinks(array $project): string {
     <!-- TODO: Work on the portfolio page -->
      <nav>
         <ul>
+            <li><a href="#blitzbox">Blitzbox</a></li>
             <li><a href="#csc8502">CSC8502 Advanced Graphics for Games</a></li>
             <li><a href="#csc8503">CSC8503 Advanced Game Technologies</a></li>
-            <li><a href="#game-jam">Game Jam - A Shot in the Dark</a></li>
         </ul>
      </nav>
 
@@ -128,13 +128,38 @@ function projectLinks(array $project): string {
         </div>
     </header>
 
+    <canvas id="gameoflife" width="500" height="250"></canvas>
+    <div class="flexbox">
+        <button id="gameoflife_pause" type="button">Pause</button>
+        <button id="gameoflife_reset" type="button">Reset</button>
+    </div>
+
     <main>
         <h2>Projects</h2>
-        <article>
-            <canvas id="gameoflife" width="500" height="250"></canvas>
-            <div class="flexbox">
-                <button id="gameoflife_pause" type="button">Pause</button>
-                <button id="gameoflife_reset" type="button">Reset</button>
+        <article id="blitzbox">
+            <h3>Blitzbox</h3>
+            <?php echo embedVideo('xMGoUh14qWc') ?>
+            <!-- TODO: Gallery -->
+            <div class="twopane">
+              <div>
+                <?php echo projectLinks([
+                    'github' => 'https://github.com/kieranknowles1/csc8508-team-project',
+                    'itchio' => 'https://abarnett.itch.io/blitzbox',
+                ]); ?>
+                <p>
+                  A gravity manipulation boomer shooter built for the CSC8508 Team Project module by
+                  a team of eight. My work includes:
+                </p>
+                <ul>
+                  <li>Full PS5 support, including cross-platform multiplayer</li>
+                  <li>Multithreaded asset loading via a thread pool</li>
+                  <li>Controller input on all platforms</li>
+                  <li>Automatic mesh conversion during build, for an order of magnitude speedup</li>
+                  <li>TrueType font rendering via a texture atlas</li>
+                  <li>Memory leak detection using Valgrind</li>
+                  <li>As always, Linux support through SDL2</li>
+                </ul>
+              </div>
             </div>
         </article>
 
@@ -214,15 +239,6 @@ function projectLinks(array $project): string {
                     <cite>Dr RG Davison</cite>
                 </div>
             </div>
-        </article>
-
-        <article id="game-jam">
-            <h3>Game Jam - A Shot in the Dark</h3>
-            <?php echo projectLinks([
-                'github' => 'https://github.com/WJConnors/Team3ShotInTheDark',
-                'itchio' => 'https://kieranknowles.itch.io/a-shot-in-the-dark',
-            ]); ?>
-            <!-- TODO: More info -->
         </article>
     </main>
 
