@@ -66,17 +66,23 @@ function reset() {
     }
 }
 
+function newCellState(alive: boolean, aliveNeighbours: number) {
+    // Underpopulation
+    if (alive && aliveNeighbours < 2) return false
+    // Overpopulation
+    else if (alive && aliveNeighbours > 3) return false
+    // Birth
+    else if (!alive && aliveNeighbours == 3) return true
+    // No change
+    return alive
+}
+
 function update() {
     forEachCell(pos => {
         const alive = cellAlive(pos)
         const neighbours = NEIGHBOUR_OFFSETS.map(off => vecAdd(off, pos)).filter(neighbour => cellAlive(neighbour)).length
 
-        // Underpopulation
-        if (alive && neighbours < 2) setCellState(pos, false)
-        // Overpopulation
-        else if (alive && neighbours > 3) setCellState(pos, false)
-        // Birth
-        else if (!alive && neighbours == 3) setCellState(pos, true)
+        setCellState(pos, newCellState(alive, neighbours))
     })
 }
 
