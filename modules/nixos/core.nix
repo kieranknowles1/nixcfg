@@ -45,6 +45,9 @@
     # No wait in grub. Can override one-off by holding shift
     boot.loader.timeout = 0;
 
+    # Live dangerously
+    boot.kernelPackages = pkgs.linuxPackages_latest;
+
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;
 
