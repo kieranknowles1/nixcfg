@@ -128,6 +128,8 @@ pub fn run(args: Opt) -> Result<bool> {
     );
 
     let mut config = read_config(&args.config_file)?;
+    // Write previous config before transformations to keep the original intact
+    write_previous_config(&args.home_directory, &config)?;
     if args.force {
         for entry in config.iter_mut() {
             entry.on_conflict = ConflictStrategy::Replace;
@@ -154,8 +156,6 @@ pub fn run(args: Opt) -> Result<bool> {
             }
         }
     }
-
-    write_previous_config(&args.home_directory, &config)?;
 
     Ok(any_errors)
 }
