@@ -29,6 +29,24 @@
       type = types.path;
       readOnly = true;
     };
+
+    userDetails = {
+      email = mkOption {
+        description = "Email address";
+        type = types.str;
+        example = "bob@example.com";
+      };
+      firstName = mkOption {
+        description = "First name";
+        type = types.str;
+        example = "Bob";
+      };
+      surName = mkOption {
+        description = "Surname";
+        type = types.str;
+        example = "Smith";
+      };
+    };
   };
 
   config = {
