@@ -39,9 +39,11 @@
     # Apply all of the flake's overlays, as we need them for the system
     nixpkgs.overlays = builtins.attrValues self.overlays;
 
-    # Bootloader.
+    # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
+    # No wait in grub. Can override one-off by holding shift
+    boot.loader.timeout = 0;
 
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;
