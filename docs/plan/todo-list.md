@@ -46,3 +46,7 @@ issues so I can do all my work in one place.
 - [x] Hotkeys for brightness. Either `Alt+Home/End` or media keys.
 - [ ] Fix `nixd` in Zed
 - [ ] Fix nerd fonts in Zed
+- [ ] Tidy docs-generate, split into multiple files, one for defaults and
+      another for generating HTML
+  - [ ] Only rebuild changed generated docs, rather than all of them
+  - [ ] Rewrite store paths for options to point to the repo instead

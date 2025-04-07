@@ -71,9 +71,17 @@
           description = "${name} documentation, in ${format} format";
         };
     in {
-      generated = mkBuildOption "Generated" "Markdown";
-      all = mkBuildOption "All" "Markdown";
-      html = mkBuildOption "All" "HTML";
+      # Keep static docs separated to avoid rebuilding them
+      # every time generated docs are rebuilt
+      static = mkBuildOption "Static" "HTML";
+
+      # It's much easier to generate Markdown as an intermediate format
+      # rather than HTML directly.
+      generated = {
+        md = mkBuildOption "Generated" "Markdown";
+        html = mkBuildOption "Generated" "HTML";
+      };
+      combined = mkBuildOption "Combined" "HTML";
     };
   };
 
@@ -83,67 +91,74 @@
     lib.mkIf cfg.enable {
       custom.docs-generate = {
         build = let
-          /*
-          * Generate an index of the documentation files.
-          */
-          mkIndex = files: let
-            sortedNames = let
-              names = builtins.attrNames files;
-            in
-              lib.sort (a: b: files.${a}.description < files.${b}.description) names;
-
-            # # Map the files to a markdown list of links
-            links = lib.lists.forEach sortedNames (name: let
-              value = files.${name};
-            in " - [${value.description}](./${name})");
-            # Generate the index file
-            # This is done in pure Nix because it's easier than working with bash and jq
-            # This gives the same result as bash, but in a language that while I wouldn't call
-            # good, is at least better than bash, a very low bar to clear.
-          in ''
-            # Documentation index
-
-            This file is the index for all generated documentation files.
-
-            ## Files
-            ${lib.strings.concatStringsSep "\n" links}
-          '';
-
-          /*
-          * Combine all the documentation files into one. Generate the index file.
-          */
-          mkDocs = files: let
-            fileNames = builtins.attrNames files;
-
-            # Generate code to symlink the files
-            # Easier than doing a loop in bash
-            linkDocs = lib.lists.forEach fileNames (name: let
-              value = files.${name};
-            in "ln --symbolic ${value.source} $out/${name}");
-          in
-            pkgs.runCommand "merged-docs" {
-              INDEX = mkIndex files;
-            } ''
-              mkdir -p $out
-              echo "$INDEX" > $out/readme.md
-              ${lib.strings.concatStringsSep "\n" linkDocs}
-            '';
+          inherit (self.builders.${pkgs.system}) buildStaticSite;
         in {
-          generated = mkDocs cfg.file;
-          all =
-            pkgs.runCommand "all-docs" {
-              GENERATED = cfg.build.generated;
-              STATIC = "${self}/docs";
-            } ''
-              mkdir -p $out
-              mkdir -p $out/generated
-              cp -r $STATIC/* $out
-              cp -r $GENERATED/* $out/generated
-            '';
+          static = buildStaticSite {
+            src = "${self}/docs";
+            name = "static-docs";
+          };
 
-          html = self.builders.${pkgs.system}.buildStaticSite {
-            name = "html-docs";
-            src = cfg.build.all;
+          generated = {
+            md = let
+              mkIndex = files: let
+                sortedNames = let
+                  names = builtins.attrNames files;
+                  predicate = a: b:
+                    files.${a}.description < files.${b}.description;
+                in
+                  lib.sort predicate names;
+
+                # Map the files to a markdown list of links
+                links = lib.lists.forEach sortedNames (name: let
+                  value = files.${name};
+                in " - [${value.description}](./${name})");
+                # Generate the index file
+                # This is done in pure Nix because it's easier than working with
+                # bash and jq. This gives the same result as bash, but in a
+                # language that while I wouldn't call good, is at least better
+                # than bash, a very low bar to clear.
+              in ''
+                # Documentation index
+
+                This file is the index for all generated documentation files.
+
+                ## Files
+                ${lib.strings.concatStringsSep "\n" links}
+              '';
+
+              /*
+              * Combine all the documentation files into one plus an index file
+              */
+              mkDocs = files: let
+                fileNames = builtins.attrNames files;
+
+                # Generate code to symlink the files
+                # Easier than doing a loop in bash
+                # Note how we put everything in $out/generated, which lets us
+                # symlinkjoin later
+                linkDocs = lib.lists.forEach fileNames (name: let
+                  value = files.${name};
+                in "ln --symbolic ${value.source} $out/generated/${name}");
+              in
+                pkgs.runCommand "merged-docs" {
+                  INDEX = mkIndex files;
+                } ''
+                  mkdir -p $out/generated
+                  echo "$INDEX" > $out/generated/readme.md
+                  ${lib.strings.concatStringsSep "\n" linkDocs}
+                '';
+            in
+              mkDocs cfg.file;
+
+            html = buildStaticSite {
+              src = cfg.build.generated.md;
+              name = "generated-docs";
+            };
+          };
+
+          combined = pkgs.symlinkJoin {
+            name = "combined-docs";
+            paths = [cfg.build.static cfg.build.generated.html];
           };
         };
 
@@ -198,11 +213,11 @@
       custom.shortcuts.palette.actions = lib.singleton {
         description = "View documentation";
         # These are built from markdown where the convention is `readme.md` rather than `index.html`
-        action = ["xdg-open" "${cfg.build.html}/readme.html"];
+        action = ["xdg-open" "${cfg.build.combined}/readme.html"];
       };
 
       home.file."${config.custom.repoPath}/docs/generated" = {
-        source = cfg.build.generated;
+        source = cfg.build.generated.md;
         recursive = true;
       };
     };
