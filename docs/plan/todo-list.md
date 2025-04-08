@@ -49,4 +49,4 @@ issues so I can do all my work in one place.
 - [ ] Tidy docs-generate, split into multiple files, one for defaults and
       another for generating HTML
   - [ ] Only rebuild changed generated docs, rather than all of them
-  - [ ] Rewrite store paths for options to point to the repo instead
+  - [x] Rewrite store paths for options to point to the repo instead

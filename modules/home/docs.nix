@@ -182,12 +182,20 @@
           # };
           "host-options.md" = {
             description = "NixOS options";
-            source = mkOptionDocs self.nixosModules.default "NixOS options";
+            source = mkOptionDocs {
+              module = self.nixosModules.default;
+              title = "NixOS options";
+              repoPath = config.custom.fullRepoPath;
+            };
           };
           "host-options.schema.json" = mkSchema "NixOS" self.nixosModules.default cfg.jsonIgnoredOptions.nixos;
           "user-options.md" = {
             description = "Home Manager options";
-            source = mkOptionDocs self.homeManagerModules.default "Home Manager options";
+            source = mkOptionDocs {
+              module = self.homeManagerModules.default;
+              title = "Home Manager options";
+              repoPath = config.custom.fullRepoPath;
+            };
           };
           "user-options.schema.json" = mkSchema "Home Manager" self.homeManagerModules.default cfg.jsonIgnoredOptions.home;
 

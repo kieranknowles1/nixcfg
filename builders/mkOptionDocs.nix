@@ -1,4 +1,5 @@
 {
+  lib,
   self,
   nixosOptionsDoc,
   writeText,
@@ -18,14 +19,31 @@ mkOptionDocs ./modules/nixos
 mkOptionDocs :: Path -> Path
 
 # Arguments
-modules : The root module to generate documentation for. E.g., self.nixosModules.default
+module : The root module to generate documentation for. E.g., self.nixosModules.default
 
-header : The header to include in the generated documentation
+title : The title to include in the generated documentation
+
+repoPath : The path to the repository containing the module
 */
-module: title: let
+{
+  module,
+  title,
+  repoPath,
+  prefix ? (toString self),
+}: let
   eval = self.lib.docs.evalUnchecked module;
   optionsDoc = nixosOptionsDoc {
     inherit (eval) options;
+    transformOptions = opt:
+      opt
+      // {
+        declarations =
+          map (decl: rec {
+            name = lib.removePrefix "${prefix}/" decl;
+            url = "${repoPath}/${name}";
+          })
+          opt.declarations;
+      };
   };
 in
   writeText "option-docs.md" ''
