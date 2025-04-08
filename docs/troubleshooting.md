@@ -1,8 +1,12 @@
 # Troubleshooting
 
+Problems and solutions for various issues, not necessarily NixOS or even Linux
+related (but mostly just NixOS).
+
 - [Troubleshooting](#troubleshooting)
   - [Corrupt Derivation](#corrupt-derivation)
   - [Nerd Fonts not Working](#nerd-fonts-not-working)
+  - [Minecraft Unable to Start](#minecraft-unable-to-start)
   - [Occasional Buzzing](#occasional-buzzing)
 
 ## Corrupt Derivation
@@ -26,6 +30,13 @@ not displaying, instead showing as a box ▯.
 
 Solution: Run `fc-cache --force` to update the font cache. After restarting the
 terminal, the icons should display correctly.
+
+## Minecraft Unable to Start
+
+Issue: Minecraft fails to start with Prism reporting that it couldn't launch
+after 3 tries.
+
+Solution: Re-authenticate account under `Settings > Accounts`.
 
 ## Occasional Buzzing
 
