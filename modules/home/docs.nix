@@ -225,7 +225,7 @@
       };
 
       home.file."${config.custom.repoPath}/docs/generated" = {
-        source = cfg.build.generated.md;
+        source = "${cfg.build.generated.md}/generated";
         recursive = true;
       };
     };
