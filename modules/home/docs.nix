@@ -156,10 +156,13 @@
             };
           };
 
-          combined = pkgs.symlinkJoin {
-            name = "combined-docs";
-            paths = [cfg.build.static cfg.build.generated.html];
-          };
+          # Can't use symlinkJoin as Firefox follows symlinks, which would break
+          # as we'd be redirected to static-docs
+          combined = pkgs.runCommand "combined-docs" {} ''
+            mkdir -p $out
+            cp -r ${cfg.build.static}/* $out
+            cp -r ${cfg.build.generated.html}/* $out
+          '';
         };
 
         file = let
