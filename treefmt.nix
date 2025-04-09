@@ -7,6 +7,7 @@
 {
   lib,
   inputs,
+  self,
   ...
 }: let
   flakeModule = {
@@ -14,97 +15,107 @@
       inputs.treefmt-nix.flakeModule
     ];
 
-    perSystem.treefmt = {
+    perSystem = {
       pkgs,
       config,
+      system,
       ...
-    }: {
-      projectRootFile = "flake.nix";
-
-      settings.global = {
-        # Treefmt raises warnings for all files not covered by a formatter,
-        # so we explicitly skip files that are not meant to be formatted
-        excludes = [
-          "**/Cargo.toml" # Managed by the Cargo command
-
-          # Godot scenes/resources. Managed by the editor
-          "*.tscn"
-          "*.tres"
-
-          # Binary files
-          "*.heic"
-          "*.jpg"
-          "*.odp"
-          "*.ods"
-          "*.odt"
-          "*.png"
-          "*.ttf"
-          "*.wav"
-        ];
+    }: let
+      # TODO: Remove this once flake-parts has a proper way of handling overlays
+      pkgs-stable = import inputs.nixpkgs-stable {
+        inherit system;
+        overlays = builtins.attrValues self.overlays;
       };
+    in {
+      treefmt = {
+        projectRootFile = "flake.nix";
 
-      programs = {
-        alejandra.enable = true; # Nix
-        beautysh.enable = true; # Bash
-        black.enable = true; # Python
-        cmake-format.enable = true; # CMake
-        rustfmt.enable = true; # Rust
-        stylua.enable = true; # Lua
+        settings.global = {
+          # Treefmt raises warnings for all files not covered by a formatter,
+          # so we explicitly skip files that are not meant to be formatted
+          excludes = [
+            "**/Cargo.toml" # Managed by the Cargo command
 
-        # Like prettier, but written in memory-safe Rust
-        # rather than JavaScript with it's garbage collection (ew)
-        deno = {
-          enable = true;
+            # Godot scenes/resources. Managed by the editor
+            "*.tscn"
+            "*.tres"
 
-          # Be explicit about what Deno should format
-          includes = lib.mkForce [
-            "*.css"
-            "*.json"
-            "*.md"
+            # Binary files
+            "*.heic"
+            "*.jpg"
+            "*.odp"
+            "*.ods"
+            "*.odt"
+            "*.png"
+            "*.ttf"
+            "*.wav"
           ];
         };
 
-        php-cs-fixer = {
-          enable = true;
-          configFile = ./.php-cs-fixer.php;
+        programs = {
+          alejandra.enable = true; # Nix
+          beautysh.enable = true; # Bash
+          black.enable = true; # Python
+          cmake-format.enable = true; # CMake
+          rustfmt.enable = true; # Rust
+          stylua.enable = true; # Lua
+
+          # Like prettier, but written in memory-safe Rust
+          # rather than JavaScript with it's garbage collection (ew)
+          deno = {
+            enable = true;
+
+            # Be explicit about what Deno should format
+            includes = lib.mkForce [
+              "*.css"
+              "*.json"
+              "*.md"
+            ];
+          };
+
+          php-cs-fixer = {
+            enable = true;
+            configFile = ./.php-cs-fixer.php;
+            package = pkgs-stable.phpPackages.php-cs-fixer;
+          };
+
+          taplo.enable = true; # TOML
+
+          yamlfmt.enable = true; # YAML
+
+          # Static analysis
+          shellcheck.enable = true; # Bash
+
+          deadnix.enable = true; # Nix
+          statix = {
+            # Nix
+            enable = true;
+            disabled-lints = [
+              # !boolOrString is different to boolOrString != false
+              "bool_comparison"
+            ];
+          };
+
+          # Other Repositories
+          # These languages are not used in this repository, but their formatters are included
+          # to let me use the same config everywhere
+          gdformat.enable = true; # GDScript
+
+          clang-format.enable = true; # C++
         };
 
-        taplo.enable = true; # TOML
-
-        yamlfmt.enable = true; # YAML
-
-        # Static analysis
-        shellcheck.enable = true; # Bash
-
-        deadnix.enable = true; # Nix
-        statix = {
-          # Nix
-          enable = true;
-          disabled-lints = [
-            # !boolOrString is different to boolOrString != false
-            "bool_comparison"
-          ];
-        };
-
-        # Other Repositories
-        # These languages are not used in this repository, but their formatters are included
-        # to let me use the same config everywhere
-        gdformat.enable = true; # GDScript
-
-        clang-format.enable = true; # C++
-      };
-
-      # Formatters not included in the treefmt-nix repo
-      settings.formatter = {
-        phpstan = {
-          command = lib.getExe pkgs.php84Packages.phpstan;
-          options = [
-            "analyze"
-            "--level=max"
-            "--no-interaction"
-            "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
-          ];
-          includes = ["*.php"];
+        # Formatters not included in the treefmt-nix repo
+        settings.formatter = {
+          phpstan = {
+            command = lib.getExe pkgs.php84Packages.phpstan;
+            options = [
+              "analyze"
+              "--level=max"
+              "--no-interaction"
+              "--autoload-file=${config.treefmt.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
+            ];
+            includes = ["*.php"];
+          };
         };
       };
     };

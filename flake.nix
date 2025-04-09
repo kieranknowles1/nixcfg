@@ -69,7 +69,6 @@
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     # This is a much more complete set of extensions than the ones in nixpkgs
@@ -93,9 +92,11 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.treefmt-nix.follows = "treefmt-nix";
 
+      inputs.data-mesher.follows = "";
       inputs.disko.follows = "";
       inputs.sops-nix.follows = "";
       inputs.nixos-facter-modules.follows = "";
+      inputs.nix-darwin.follows = "";
     };
 
     # Generate package sets for x86_64-linux and aarch64-linux. This can be
