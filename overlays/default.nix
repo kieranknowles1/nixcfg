@@ -1,6 +1,7 @@
 {
   self,
   inputs,
+  config,
   ...
 }: let
   /*
@@ -21,6 +22,14 @@
     "${name}" = namespacePkgs // extra;
   });
 in {
+  # TODO: Remove this once flake-parts has a proper way of handling overlays
+  perSystem = {system, ...}: {
+    _module.args.pkgs = import inputs.nixpkgs {
+      inherit system;
+      overlays = builtins.attrValues config.flake.overlays;
+    };
+  };
+
   flake.overlays = {
     default = mkNamespace "flake" self.packages {
       inherit (self) lib;
