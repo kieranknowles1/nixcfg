@@ -22,7 +22,6 @@ details how to develop in the repository, and use systems configured with it.
   it as `pkgs.stdenv` for `lib`.
 - [docs](docs/readme.md) - Documentation generated during the build process.
 - [hosts](hosts/) - Configuration for each host.
-- [media](media/) - Media used throughout the repository.
 - [modules](modules/) - Modules included by the hosts.
   - [home](modules/home/) - Modules for home-manager.
   - [nixos](modules/nixos/) - Modules for NixOS.

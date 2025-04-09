@@ -2,7 +2,6 @@
 {
   pkgs,
   config,
-  self,
   ...
 }: {
   stylix = {
@@ -12,9 +11,6 @@
     # Stylix can generate a theme from the wallpaper, but in the images I've tested it came out ugly
     # This is overridden in home-manager
     base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-gray.yaml";
-    # Stylix requires an image to be set, even if it's then overridden in home-manager
-    # So grab Blank.jpg off Wikipedia to use as a dummy
-    image = "${self}media/blank.jpg";
 
     polarity = "dark"; # Force a dark theme
 
