@@ -80,7 +80,10 @@ fn copy_file(
         Some(o) => Some(std::fs::read(&o.source)?),
         None => None,
     };
-    let home = std::fs::read(&destination).ok();
+    let home = match std::fs::exists(&destination)? {
+        true => Some(std::fs::read(&destination)?),
+        false => None,
+    };
 
     let state = MatchOutcome::from_contents(old.as_ref(), &new, home.as_ref(), &entry.on_conflict);
     match state {
