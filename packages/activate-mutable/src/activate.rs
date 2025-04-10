@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use clap::Parser;
 use thiserror::Error;
 
-use crate::state::{hash_file, ExistingMatch, Hash};
+use crate::state::{ExistingMatch, FileContents};
 
 use crate::config::{
     find_entry, get_previous_config_path, read_config, resolve_directory, Config, ConfigEntry,
@@ -46,14 +46,14 @@ enum MatchOutcome {
 
 impl MatchOutcome {
     // See flow chart in plan.
-    fn from_hashes(
-        old_hash: Option<Hash>,
-        new_hash: Hash, // If this wasn't present, we wouldn't be provisioning it.
-        home_hash: Option<Hash>,
+    fn from_contents(
+        old: Option<&FileContents>,
+        new: &FileContents, // If this wasn't present, we wouldn't be provisioning it.
+        home: Option<&FileContents>,
         on_conflict: &ConflictStrategy,
     ) -> Self {
-        if let Some(home) = home_hash {
-            let status = ExistingMatch::from_hashes(old_hash, new_hash, home);
+        if let Some(home) = home {
+            let status = ExistingMatch::from_contents(old, new, home);
             match status {
                 ExistingMatch::EqualNew => MatchOutcome::DoNothing,
                 ExistingMatch::EqualOld => MatchOutcome::CopyNew,
@@ -70,22 +70,26 @@ impl MatchOutcome {
     }
 }
 
-fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
-    let new_hash = hash_file(&entry.source)?;
-    let old_hash = match old_entry {
-        Some(old) => Some(hash_file(&old.source)?),
+fn copy_file(
+    destination: &Path,
+    entry: &ConfigEntry,
+    old_entry: Option<&ConfigEntry>,
+) -> Result<()> {
+    let new = std::fs::read(&entry.source)?;
+    let old = match old_entry {
+        Some(o) => Some(std::fs::read(&o.source)?),
         None => None,
     };
-    let home_hash = hash_file(path).ok();
+    let home = std::fs::read(&destination).ok();
 
-    let state = MatchOutcome::from_hashes(old_hash, new_hash, home_hash, &entry.on_conflict);
+    let state = MatchOutcome::from_contents(old.as_ref(), &new, home.as_ref(), &entry.on_conflict);
     match state {
         MatchOutcome::DoNothing => Ok(()),
         MatchOutcome::Conflict => Err(Error::Conflict {
-            file: path.to_path_buf(),
+            file: destination.to_path_buf(),
         }),
         MatchOutcome::CopyNew => {
-            let dir = match path.parent() {
+            let dir = match destination.parent() {
                 Some(dir) => dir,
                 None => {
                     return Err(Error::Io(std::io::Error::new(
@@ -95,11 +99,11 @@ fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) 
                 }
             };
             std::fs::create_dir_all(&dir)?;
-            std::fs::copy(&entry.source, path)?;
+            std::fs::copy(&entry.source, destination)?;
             // Paths in the Nix store are always read-only, disable this
             let mut permissions = std::fs::metadata(&entry.source)?.permissions();
             permissions.set_readonly(false);
-            std::fs::set_permissions(path, permissions)?;
+            std::fs::set_permissions(destination, permissions)?;
 
             Ok(())
         }

@@ -8,7 +8,7 @@ use crate::{
     config::{
         get_previous_config_path, or_environ, read_config, resolve_directory, ConflictStrategy,
     },
-    state::{hash_file, ExistingMatch},
+    state::ExistingMatch,
 };
 
 #[derive(Error, Debug)]
@@ -32,11 +32,11 @@ pub struct Opt {
 }
 
 fn get_status(home: &Path, store_path: &Path, home_path: &Path) -> Option<ColoredString> {
-    let store_hash = hash_file(&store_path).ok()?;
+    let store = std::fs::read(store_path).ok()?;
     let full_home = resolve_directory(home, home_path).ok()?;
-    let home_hash = hash_file(&full_home).ok()?;
+    let home = std::fs::read(&full_home).ok()?;
 
-    match ExistingMatch::from_hashes(None, store_hash, home_hash) {
+    match ExistingMatch::from_contents(None, &store, &home) {
         ExistingMatch::EqualNew => Some("Not changed".cyan()),
         ExistingMatch::Conflict => Some("Changed".red()),
         ExistingMatch::EqualOld => panic!("No old hash was passed, how did thi hapen?"),
