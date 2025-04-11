@@ -1,7 +1,7 @@
 {rustPlatform}:
 rustPlatform.buildRustPackage {
   pname = "skyrim-utils";
-  version = "1.2.2";
+  version = "1.3.0";
   src = ./.;
 
   cargoLock.lockFile = ./Cargo.lock;
@@ -14,6 +14,9 @@ rustPlatform.buildRustPackage {
       - `clean`: Clean orphaned SKSE co-save files
       - `crash`: Open the most recent crash log
       - `latest`: Open the latest save in ReSaver
+
+      Don't look here for code quality, I made it in a hurry and should have
+      used Python instead of Rust.
     '';
 
     mainProgram = "skyrim-utils";
