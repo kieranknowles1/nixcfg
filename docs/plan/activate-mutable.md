@@ -79,3 +79,18 @@ Use for OpenMW Lua data and more volatile ini files.
 
 Pull could use a similar script to discard/modify the file before copying to
 repo, such as excluding some sections of an ini file.
+
+### Detailed Plan
+
+New field in config: `transformer: Option<String>`. If `None`, no transform is
+applied.
+
+If `Some`, it is a path to a script with the signature: `transform [in-file]`.
+This script takes the **deployed file** as input, and outputs a file, **repo
+file**, that is suitable for version control(e.g., converting binary data to
+text), on stdout.
+
+**Repo file** is converted to **deployed file** during the NixOS build process.
+
+**deployed file** is considered equal to **repo file** if `transform` outputs
+the same as **repo file's** contents.
