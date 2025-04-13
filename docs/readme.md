@@ -15,6 +15,7 @@
 - [Development](./development.md)<br> Information on how to develop this
   repository.
 - [Usage](./usage.md)<br> How to use systems configured with this repository.
+- [Style Guide](./style-guide.md)<br> Guidelines for code and documentation.
 - [Troubleshooting](./troubleshooting.md)<br> Particularly odd issues that have
   been encountered and how to resolve them.
 - [Planning](./plan/readme.md)<br> Planning documents for past, present, and
