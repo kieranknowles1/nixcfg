@@ -21,8 +21,14 @@
   },
 
   "features": {
+    // Fancy open source AI completions
+    // Basically copilot but I don't have to pay for it
     "edit_prediction_provider": "zed"
   },
+
+  // Keep most lines under 80 characters, and consider refactoring if exceeding
+  // 120.
+  "wrap_guides": [80, 120],
 
   // See https://github.com/zed-industries/extensions/tree/main/extensions
   // These will be fetched on first run, as they currently can't be installed via Nix
