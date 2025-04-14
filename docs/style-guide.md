@@ -26,10 +26,13 @@ Application-specific terms SHOULD be displayed in **bold**, and given a
 definition the first time they are used. Future references only require being
 bold. For example, in [Activate Mutable Plan](./plan/activate-mutable.md):
 
-> ... this script takes the **deployed file** as input, and outputs a file, **repo
-> file**, that is suitable for version control...
+> ... this script takes the **deployed file** as input, and outputs a file,
+> **repo file**, that is suitable for version control...
 >
-> **Repo file** is converted to **deployed file** during the NixOS build process.
+> **Repo file** is converted to **deployed file** during the NixOS build
+> process.
+
+Keep it consise. Don't write a full paragraph when a single sentence will do.
 
 ## Code
 

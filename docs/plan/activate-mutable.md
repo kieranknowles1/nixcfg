@@ -1,5 +1,12 @@
 # Activate Mutable Planning
 
+- [Activate Mutable Planning](#activate-mutable-planning)
+  - [V1 - Minimum Viable Product](#v1---minimum-viable-product)
+  - [V2 - Restore Changes to the Repo](#v2---restore-changes-to-the-repo)
+  - [V3 - Handle Directories](#v3---handle-directories)
+  - [V4 - Custom Comparison](#v4---custom-comparison)
+    - [Detailed Plan - Transformer Model](#detailed-plan---transformer-model)
+
 ## V1 - Minimum Viable Product
 
 ```sh
@@ -80,7 +87,7 @@ Use for OpenMW Lua data and more volatile ini files.
 Pull could use a similar script to discard/modify the file before copying to
 repo, such as excluding some sections of an ini file.
 
-### Detailed Plan
+### Detailed Plan - Transformer Model
 
 New field in config: `transformer: Option<String>`. If `None`, no transform is
 applied.
