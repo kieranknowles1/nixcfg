@@ -83,4 +83,6 @@ pub struct ConfigEntry {
     pub on_conflict: ConflictStrategy,
     /// Path to the file in the repository, relative to the repository root.
     pub repo_path: Option<String>,
+    /// Script to convert a deployed file to a repo file
+    pub transformer: Option<PathBuf>,
 }

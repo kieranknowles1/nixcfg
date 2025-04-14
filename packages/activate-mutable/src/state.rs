@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{path::Path, process::Command};
 
 use crate::config::ConfigEntry;
 
@@ -28,13 +28,14 @@ impl Files {
         old_entry: Option<&ConfigEntry>,
         destination: &Path,
     ) -> Result<Self> {
-        let store = std::fs::read(&entry.source)?;
+        let transform = entry.transformer.as_deref();
+        let store = Self::read_file(&entry.source, transform)?;
         let old_store = match old_entry {
-            Some(o) => Some(std::fs::read(&o.source)?),
+            Some(o) => Some(Self::read_file(&o.source, transform)?),
             None => None,
         };
         let home = match std::fs::exists(&destination)? {
-            true => Some(std::fs::read(&destination)?),
+            true => Some(Self::read_file(&destination, transform)?),
             false => None,
         };
 
@@ -43,6 +44,13 @@ impl Files {
             old_store,
             home,
         })
+    }
+
+    fn read_file(file: &Path, transform: Option<&Path>) -> Result<FileContents> {
+        match transform {
+            Some(trans) => Ok(Command::new(trans).arg(file).output()?.stdout),
+            None => std::fs::read(file),
+        }
     }
 
     pub fn compare(&self) -> ExistingMatch {
