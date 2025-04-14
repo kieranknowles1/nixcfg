@@ -29,13 +29,13 @@ impl Files {
         destination: &Path,
     ) -> Result<Self> {
         let transform = entry.transformer.as_deref();
-        let store = Self::read_file(&entry.source, transform)?;
+        let store = Self::read_transformed(&entry.source, transform)?;
         let old_store = match old_entry {
-            Some(o) => Some(Self::read_file(&o.source, transform)?),
+            Some(o) => Some(Self::read_transformed(&o.source, transform)?),
             None => None,
         };
         let home = match std::fs::exists(&destination)? {
-            true => Some(Self::read_file(&destination, transform)?),
+            true => Some(Self::read_transformed(&destination, transform)?),
             false => None,
         };
 
@@ -46,9 +46,18 @@ impl Files {
         })
     }
 
-    fn read_file(file: &Path, transform: Option<&Path>) -> Result<FileContents> {
+    pub fn read_transformed(file: &Path, transform: Option<&Path>) -> Result<FileContents> {
         match transform {
-            Some(trans) => Ok(Command::new(trans).arg(file).output()?.stdout),
+            Some(trans) => {
+                let out = Command::new(trans).arg(file).output()?;
+                match out.status.success() {
+                    true => Ok(out.stdout),
+                    false => Err(std::io::Error::new(
+                        std::io::ErrorKind::Other,
+                        "Transform failed",
+                    )),
+                }
+            }
             None => std::fs::read(file),
         }
     }
