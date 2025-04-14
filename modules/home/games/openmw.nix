@@ -1,19 +1,10 @@
 {
   pkgs,
+  self,
   lib,
   config,
   ...
-}: let
-  cfg = config.custom.games.openmw;
-
-  # Encode a JSON file back to OpenMW's binary format
-  toOmwData = json: let
-    converter = lib.getExe cfg.luaData.package;
-  in
-    pkgs.runCommand "omw-lua.bin" {} ''
-      ${converter} encode --input ${json} --output $out
-    '';
-in {
+}: {
   options.custom.games.openmw = let
     mkStorageOption = name: example:
       lib.mkOption {
@@ -33,19 +24,38 @@ in {
 
   config = let
     cfg = config.custom.games.openmw;
+    converter = lib.getExe cfg.luaData.package;
+
+    # Encode a JSON file back to OpenMW's binary format
+    # Runs at build time
+    jsonToOmw = json:
+      pkgs.runCommand "omw-lua.bin" {} ''
+        ${converter} encode --input ${json} --output $out
+      '';
+
+    # Decode a binary file back to JSON format
+    # Runs at runtime
+    omwToJson = pkgs.writeShellScript "omw-json" ''
+      exec ${converter} decode $@
+    '';
+
+    mkStorage = repo: {
+      source = jsonToOmw "${self}/${repo}";
+      repoPath = repo;
+      transformer = omwToJson;
+    };
   in
     lib.mkIf config.custom.games.enable {
       home = {
         packages = with pkgs; [
           openmw
         ];
+      };
 
-        # TODO: Use an impure provisioner to install Lua data files directly to ~/.config/openmw
-        # TODO: Consider syncing rest my openmw config
-        file = {
-          "Games/configs/openmw/global_storage.dat".source = toOmwData cfg.globalStorage;
-          "Games/configs/openmw/player_storage.dat".source = toOmwData cfg.playerStorage;
-        };
+      custom.mutable.file = {
+        # TODO: Use the options we have, need to specify repo paths in them
+        ".config/openmw/global_storage.bin" = mkStorage "users/kieran/openmw/global_storage.json";
+        ".config/openmw/player_storage.bin" = mkStorage "users/kieran/openmw/player_storage.json";
       };
     };
 }
