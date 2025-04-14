@@ -7,11 +7,11 @@ use crate::config::{get_previous_config_path, or_environ, read_config};
 
 #[derive(Error, Debug)]
 pub enum Error {
-    #[error("Environment variable {0}")]
+    #[error(transparent)]
     Environ(#[from] std::env::VarError),
-    #[error("Config error: {0}")]
+    #[error(transparent)]
     Config(#[from] crate::config::Error),
-    #[error("I/O error: {0}")]
+    #[error(transparent)]
     Io(#[from] std::io::Error),
 }
 

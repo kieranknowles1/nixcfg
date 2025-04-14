@@ -13,13 +13,13 @@ use crate::{
 
 #[derive(Error, Debug)]
 pub enum Error {
-    #[error("Environment variable {0}")]
+    #[error(transparent)]
     Environ(#[from] std::env::VarError),
-    #[error("Config error: {0}")]
+    #[error(transparent)]
     Config(#[from] crate::config::Error),
-    #[error("Directory traversal")]
+    #[error(transparent)]
     DirectoryTraversal(#[from] crate::config::DirectoryTraversalError),
-    #[error("IO Error")]
+    #[error(transparent)]
     Io(#[from] std::io::Error),
 }
 

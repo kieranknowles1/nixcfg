@@ -15,15 +15,15 @@ pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Error, Debug)]
 pub enum Error {
-    #[error("I/O error {0}")]
+    #[error(transparent)]
     Io(#[from] std::io::Error),
-    #[error("JSON error {0}")]
+    #[error(transparent)]
     Json(#[from] serde_json::Error),
     #[error("File changed locally: {file}")]
     Conflict { file: PathBuf },
-    #[error("Error loading config: {0}")]
+    #[error(transparent)]
     Config(#[from] crate::config::Error),
-    #[error("Directory traversal")]
+    #[error(transparent)]
     DirectoryTraversal(#[from] crate::config::DirectoryTraversalError),
 }
 

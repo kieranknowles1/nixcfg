@@ -5,9 +5,9 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum Error {
-    #[error("I/O error {0}")]
+    #[error(transparent)]
     Io(#[from] std::io::Error),
-    #[error("JSON error {0}")]
+    #[error(transparent)]
     Json(#[from] serde_json::Error),
 }
 
