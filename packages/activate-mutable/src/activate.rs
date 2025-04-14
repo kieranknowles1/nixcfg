@@ -70,11 +70,9 @@ impl MatchOutcome {
     }
 }
 
-fn copy_file(
-    destination: &Path,
-    entry: &ConfigEntry,
-    old_entry: Option<&ConfigEntry>,
-) -> Result<()> {
+fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
+    let destination = resolve_directory(home, &entry.destination)?;
+
     let new = std::fs::read(&entry.source)?;
     let old = match old_entry {
         Some(o) => Some(std::fs::read(&o.source)?),
@@ -102,20 +100,15 @@ fn copy_file(
                 }
             };
             std::fs::create_dir_all(&dir)?;
-            std::fs::copy(&entry.source, destination)?;
+            std::fs::copy(&entry.source, &destination)?;
             // Paths in the Nix store are always read-only, disable this
             let mut permissions = std::fs::metadata(&entry.source)?.permissions();
             permissions.set_readonly(false);
-            std::fs::set_permissions(destination, permissions)?;
+            std::fs::set_permissions(&destination, permissions)?;
 
             Ok(())
         }
     }
-}
-
-fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
-    let full_path = resolve_directory(home, &entry.destination)?;
-    copy_file(&full_path, entry, old_entry)
 }
 
 fn write_previous_config(home: &Path, config: &Config) -> Result<()> {
