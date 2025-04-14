@@ -4,9 +4,9 @@
   - [General Rules](#general-rules)
   - [Documentation](#documentation)
   - [Code](#code)
-    - [Error Handling (Nix)](#error-handling-nix)
     - [Code Style](#code-style)
       - [Nix Specific](#nix-specific)
+    - [Error Handling (Nix)](#error-handling-nix)
 
 Since I plan this to be a long-term project and always work-in-progress, I want
 to keep things clean and easy to work with. Therefore, I have created this set
@@ -41,15 +41,6 @@ file**, that is suitable for version control...
 
 The following practices are recommended when developing this repository:
 
-### Error Handling (Nix)
-
-Use the `config.assertions` list to check for invalid options or combinations of
-options, such as
-[installing VS Code on a headless server](../modules/home/editor/vscode/default.nix).
-
-This gives a nicely formatted error message and collects all errors rather than
-stopping at the first one.
-
 ### Code Style
 
 The most important rule is: **keep it simple**. If you can't understand what a
@@ -66,3 +57,12 @@ overridden package (See the
 [reddit question](https://www.reddit.com/r/NixOS/comments/ttaw5u/what_is_the_purpose_of_single_quotes_after/),
 TL;DR: it's from the prime symbol meaning a derivative in mathematics). This is
 not strictly required, but is included for consistency with Nixpkgs.
+
+### Error Handling (Nix)
+
+Use the `config.assertions` list to check for invalid options or combinations of
+options, such as
+[installing VS Code on a headless server](../modules/home/editor/vscode/default.nix).
+
+This gives a nicely formatted error message and collects all errors rather than
+stopping at the first one.
