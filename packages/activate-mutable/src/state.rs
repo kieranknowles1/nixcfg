@@ -1,28 +1,58 @@
+use std::path::Path;
+
+use crate::config::ConfigEntry;
+
+pub type Result<T> = std::io::Result<T>;
 pub type FileContents = Vec<u8>;
 
 pub enum ExistingMatch {
-    // The home file is identical to the new file.
+    /// The home file is identical to the new file.
     EqualNew,
-    // The home file is identical to the old file.
+    /// The home file is identical to the old file.
     EqualOld,
-    // The home file differs from both the old and new files.
+    /// The home file differs from both the old and new files.
     Conflict,
+    /// File is not present in home
+    NotInHome,
 }
 
-impl ExistingMatch {
-    // Compare the current home file with the new and old files.
-    pub fn from_contents(
-        old: Option<&FileContents>,
-        new: &FileContents,
-        home: &FileContents,
-    ) -> Self {
-        if new == home {
-            ExistingMatch::EqualNew
-        } else if Some(home) == old {
+pub struct Files {
+    store: FileContents,
+    old_store: Option<FileContents>,
+    home: Option<FileContents>,
+}
+
+impl Files {
+    pub fn read(
+        entry: &ConfigEntry,
+        old_entry: Option<&ConfigEntry>,
+        destination: &Path,
+    ) -> Result<Self> {
+        let store = std::fs::read(&entry.source)?;
+        let old_store = match old_entry {
+            Some(o) => Some(std::fs::read(&o.source)?),
+            None => None,
+        };
+        let home = match std::fs::exists(&destination)? {
+            true => Some(std::fs::read(&destination)?),
+            false => None,
+        };
+
+        Ok(Self {
+            store,
+            old_store,
+            home,
+        })
+    }
+
+    pub fn compare(&self) -> ExistingMatch {
+        if self.home == None {
+            ExistingMatch::NotInHome
+        } else if self.home == self.old_store {
             ExistingMatch::EqualOld
+        } else if self.home.as_ref() == Some(&self.store) {
+            ExistingMatch::EqualNew
         } else {
-            // The files differ, or we have no previous file to compare to.
-            // A non-existent file is never identical to an existing file.
             ExistingMatch::Conflict
         }
     }

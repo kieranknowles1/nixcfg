@@ -1,4 +1,4 @@
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 use clap::Parser;
 use colored::{ColoredString, Colorize};
@@ -8,7 +8,7 @@ use crate::{
     config::{
         get_previous_config_path, or_environ, read_config, resolve_directory, ConflictStrategy,
     },
-    state::ExistingMatch,
+    state::{ExistingMatch, Files},
 };
 
 #[derive(Error, Debug)]
@@ -31,14 +31,11 @@ pub struct Opt {
     home: Option<PathBuf>,
 }
 
-fn get_status(home: &Path, store_path: &Path, home_path: &Path) -> Option<ColoredString> {
-    let store = std::fs::read(store_path).ok()?;
-    let full_home = resolve_directory(home, home_path).ok()?;
-    let home = std::fs::read(&full_home).ok()?;
-
-    match ExistingMatch::from_contents(None, &store, &home) {
-        ExistingMatch::EqualNew => Some("Not changed".cyan()),
-        ExistingMatch::Conflict => Some("Changed".red()),
+fn describe_status(status: ExistingMatch) -> ColoredString {
+    match status {
+        ExistingMatch::EqualNew => "Not changed".cyan(),
+        ExistingMatch::Conflict => "Changed".red(),
+        ExistingMatch::NotInHome => "Not deployed".red(),
         ExistingMatch::EqualOld => panic!("No old hash was passed, how did thi hapen?"),
     }
 }
@@ -62,13 +59,14 @@ pub fn run(args: Opt) -> Result<()> {
             ConflictStrategy::Warn => "Warn".cyan(),
             ConflictStrategy::Replace => "Replace".yellow(),
         };
-        let status =
-            get_status(&home, &entry.source, &entry.destination).unwrap_or("Unknown".red());
+
+        let destination = resolve_directory(&home, &entry.destination)?;
+        let files = Files::read(entry, None, &destination)?;
 
         println!("{}", entry.destination.to_string_lossy().bold());
         println!("  Repository: {}", repo);
         println!("  On conflict: {}", on_conflict);
-        println!("  Status: {}", status);
+        println!("  Status: {}", describe_status(files.compare()));
     }
 
     Ok(())

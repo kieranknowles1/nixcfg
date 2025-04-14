@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use clap::Parser;
 use thiserror::Error;
 
-use crate::state::{ExistingMatch, FileContents};
+use crate::state::{ExistingMatch, Files};
 
 use crate::config::{
     find_entry, get_previous_config_path, read_config, resolve_directory, Config, ConfigEntry,
@@ -46,44 +46,24 @@ enum MatchOutcome {
 
 impl MatchOutcome {
     // See flow chart in plan.
-    fn from_contents(
-        old: Option<&FileContents>,
-        new: &FileContents, // If this wasn't present, we wouldn't be provisioning it.
-        home: Option<&FileContents>,
-        on_conflict: &ConflictStrategy,
-    ) -> Self {
-        if let Some(home) = home {
-            let status = ExistingMatch::from_contents(old, new, home);
-            match status {
-                ExistingMatch::EqualNew => MatchOutcome::DoNothing,
-                ExistingMatch::EqualOld => MatchOutcome::CopyNew,
-                ExistingMatch::Conflict => match on_conflict {
-                    ConflictStrategy::Warn => MatchOutcome::Conflict,
-                    ConflictStrategy::Replace => MatchOutcome::CopyNew,
-                },
-            }
-        }
-        // If the file isn't in $HOME, always copy the new file.
-        else {
-            MatchOutcome::CopyNew
+    fn from_contents(files: &Files, on_conflict: &ConflictStrategy) -> Self {
+        match files.compare() {
+            ExistingMatch::NotInHome => MatchOutcome::CopyNew,
+            ExistingMatch::EqualOld => MatchOutcome::CopyNew,
+            ExistingMatch::EqualNew => MatchOutcome::DoNothing,
+            ExistingMatch::Conflict => match on_conflict {
+                ConflictStrategy::Warn => MatchOutcome::Conflict,
+                ConflictStrategy::Replace => MatchOutcome::CopyNew,
+            },
         }
     }
 }
 
 fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
     let destination = resolve_directory(home, &entry.destination)?;
+    let files = Files::read(entry, old_entry, &destination)?;
 
-    let new = std::fs::read(&entry.source)?;
-    let old = match old_entry {
-        Some(o) => Some(std::fs::read(&o.source)?),
-        None => None,
-    };
-    let home = match std::fs::exists(&destination)? {
-        true => Some(std::fs::read(&destination)?),
-        false => None,
-    };
-
-    let state = MatchOutcome::from_contents(old.as_ref(), &new, home.as_ref(), &entry.on_conflict);
+    let state = MatchOutcome::from_contents(&files, &entry.on_conflict);
     match state {
         MatchOutcome::DoNothing => Ok(()),
         MatchOutcome::Conflict => Err(Error::Conflict {
