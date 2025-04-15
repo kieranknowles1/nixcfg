@@ -17,6 +17,9 @@ exclude = [".git", "src"]
 destination.local = "/home/kieran/Backups/Documents"
 destination.remote = "backup/remote"
 
+[hardware]
+memorySize = 32
+
 [networking]
 hostName = "rocinante"
 

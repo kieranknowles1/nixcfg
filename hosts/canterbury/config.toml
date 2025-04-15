@@ -19,6 +19,9 @@ exclude = [".git", "src"]
 destination.local = "/home/kieran/Backups/Documents" # Local path
 destination.remote = "backup/remote"                 # Path to the secret
 
+[hardware]
+memorySize = 8
+
 [networking]
 hostName = "canterbury"
 
