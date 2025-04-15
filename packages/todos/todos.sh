@@ -46,5 +46,9 @@ any_of() {
 }
 
 query="$(any_of "${COMMENT_STARTS[@]}").*$(any_of "${TODO_TAGS[@]}")"
+search() {
+  rg "$query" "$directory" "$@"
+}
 
-rg "$query" "$directory" --sort modified --context 2
+search --sort modified --context 2
+echo "$(search | wc -l) tasks found"
