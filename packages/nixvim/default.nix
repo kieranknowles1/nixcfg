@@ -8,4 +8,7 @@
   ...
 }:
 nixvim.legacyPackages.${system}.makeNixvim {
+  imports = [
+    ./plugins
+  ];
 }

@@ -11,27 +11,15 @@
   system,
   lib,
 }: let
-  # TODO: Configure all the language servers I use
-  # - Nu
-  # - Python
-  # - Toml
-  # - Yaml
-  # List of languages to enable
-  # Format: server = "language-server"; tsgrammar = tree-sitter-grammar; serverConfig = {options = "here"};
-  # See https://nix-community.github.io/nixvim/plugins/lsp/index.html for a list of available servers
-  # See https://search.nixos.org/packages?&type=packages&query=vimPlugins.nvim-treesitter-parsers for a list of available grammars
   languages = with vimPlugins.nvim-treesitter-parsers; [
     {
       server = "lua_ls";
-      tsgrammar = lua;
     }
     {
       server = "nil_ls";
-      tsgrammar = nix;
     }
     {
       server = "rust_analyzer";
-      tsgrammar = rust;
 
       # rust-analyzer complains if it can't find rustc or cargo on the path
       serverConfig = {
@@ -85,11 +73,6 @@ in
         colorschemes.gruvbox.enable = true;
 
         plugins = {
-          treesitter = {
-            # TODO: How do I get inline code highlighting?
-            enable = true;
-            grammarPackages = map (language: language.tsgrammar) languages;
-          };
           lualine.enable = true;
 
           # Bracket pair color/highlight
