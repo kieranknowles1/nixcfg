@@ -79,8 +79,8 @@ function projectLinks(array $project): string {
     HTML;
 }
 
-function feedbackSection(string $from, int $marks, string $quote) {
-  return <<<HTML
+function feedbackSection(string $from, int $marks, string $quote): string {
+    return <<<HTML
   <div>
     <h4>Feedback</h4>
     <p>Marks: $marks/100</p>
@@ -171,7 +171,7 @@ function feedbackSection(string $from, int $marks, string $quote) {
                   <li>As always, Linux support through SDL2</li>
                 </ul>
               </div>
-              <? echo feedbackSection("Dr G Ushaw", 100, <<<HTML
+              <?php echo feedbackSection("Dr G Ushaw", 100, <<<HTML
                 Absolutely excellent. A fully feature-complete game that plays well, looks great and is truly cross
                 platform. Great to see good teamwork throughout the project with lots of individual efforts coming
                 together in a consistent and well presented piece of work. Single player works very well with great

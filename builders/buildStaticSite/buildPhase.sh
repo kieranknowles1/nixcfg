@@ -20,10 +20,10 @@ replaceExtension() {
 # Very simple removal of comments. Definitely has edge cases that aren't
 # covered
 stripComments() {
-  sed --regexp-extended -e 's|/\*.*\*/||' -e 's|(.+)//.+|\1|' | jq
+  sed --regexp-extended -e 's|/\*.*\*/||' -e 's|(.+)//.+|\1|' "$@"
 }
 # TSC doesn't support manually specifying a config file, so manually convert tsconfig options into CLI arguments
-TS_OPTS=$(cat "$BUILD_HELPERS/tsconfig.json" | stripComments | jq -r '.compilerOptions | to_entries | map("--\(.key) \(.value)") | .[]')
+IFS=' ' read -r -a TS_OPTS <<< "$(stripComments "$BUILD_HELPERS/tsconfig.json" | jq -r '.compilerOptions | to_entries | map("--\(.key) \(.value)") | .[]')"
 
 buildPandoc() {
   file="$1"
@@ -89,7 +89,7 @@ while IFS= read -r -d "" file; do
       php -f "$BUILD_HELPERS/buildFile.php" "$file" > "$(replaceExtension "$out_relative" "html")"
       ;;
     ts)
-      tsc $TS_OPTS "$file" --outFile "$(replaceExtension "$out_relative" "js")"
+      tsc "${TS_OPTS[@]}" "$file" --outFile "$(replaceExtension "$out_relative" "js")"
       ;;
     *)
       cp "$file" "$out_relative"
