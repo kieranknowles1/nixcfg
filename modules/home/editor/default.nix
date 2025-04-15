@@ -9,7 +9,6 @@
     default = mkOption {
       type = types.enum [
         "vscode"
-        "neovim"
         "zed"
       ];
 
@@ -61,7 +60,6 @@
   # I guess it also supports tree-sitter, which is cool.
   imports = [
     ./vscode
-    ./neovim.nix
     ./zed
   ];
 

@@ -116,13 +116,6 @@
     };
 
     # /// Applications ///
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      # NOTE: Nixvim master requires nixpkgs-unstable and will not work with nixpkgs-24.05
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.nuschtosSearch.follows = "";
-    };
 
     # nixpkgs doesn't include the dependencies for master, so we override a separate flake
     # The source code could also be a flake input, but doing so would take a long time to update

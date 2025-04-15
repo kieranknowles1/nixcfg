@@ -22,7 +22,6 @@
       export-notes = callPackage ./export-notes {};
       factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
       nix-utils = callPackage ./nix-utils {};
-      nixvim = callPackage ./nixvim {};
       openmw-luadata = callPackage ./openmw-luadata {};
       portfolio = callPackage ./portfolio {};
       rebuild = callPackage ./rebuild {};
