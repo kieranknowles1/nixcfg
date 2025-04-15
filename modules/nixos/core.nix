@@ -27,6 +27,13 @@
     in {
       desktop = mkFeatureOption "desktop" "a graphical environment";
     };
+
+    hardware = {
+      memorySize = mkOption {
+        description = "Available RAM, in GB";
+        type = types.int;
+      };
+    };
   };
 
   config = {
@@ -79,6 +86,14 @@
     # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
     # a bad superblock, try mounting it in the terminal instead.
     boot.supportedFilesystems = ["ntfs"];
+
+    swapDevices = [
+      {
+        device = "/var/lib/swapfile";
+        # 1.5 times RAM size
+        size = config.custom.hardware.memorySize * 1536;
+      }
+    ];
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

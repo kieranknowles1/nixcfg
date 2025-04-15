@@ -37,7 +37,7 @@ issues so I can do all my work in one place.
 - [x] Convert to `flake-parts` for better modularity
   - [x] `flake.nix`
   - [x] Template
-- [ ] Get swap files working
+- [x] Get swap files working
 - [ ] Port my Steam Deck to NixOS. Use
       [Jovian NixOS](https://github.com/Jovian-Experiments/Jovian-NixOS)
 - [ ] Configure RAG based on my notetaking workflow
