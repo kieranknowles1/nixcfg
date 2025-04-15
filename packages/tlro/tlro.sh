@@ -91,7 +91,7 @@ fi
 # All arguments, separated by and with spaces replaced by `-`
 # and lowercased
 IFS='-'
-page=$(echo "${positional[@]}" | sed 's| |-|' | tr '[:upper:]' '[:lower:]')
+page=$(echo "${positional[@]}" | sed 's| |-|g' | tr '[:upper:]' '[:lower:]')
 path="$PAGES/$page.md"
 
 if [[ ! -f "$path" ]]; then
