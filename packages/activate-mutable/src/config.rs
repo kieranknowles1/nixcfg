@@ -5,9 +5,9 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum Error {
-    #[error("I/O error {0}")]
+    #[error(transparent)]
     Io(#[from] std::io::Error),
-    #[error("JSON error {0}")]
+    #[error(transparent)]
     Json(#[from] serde_json::Error),
 }
 
@@ -83,4 +83,6 @@ pub struct ConfigEntry {
     pub on_conflict: ConflictStrategy,
     /// Path to the file in the repository, relative to the repository root.
     pub repo_path: Option<String>,
+    /// Script to convert a deployed file to a repo file
+    pub transformer: Option<PathBuf>,
 }

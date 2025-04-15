@@ -1,37 +1,76 @@
-use std::path::Path;
+use std::{path::Path, process::Command};
 
-use sha2::{Digest, Sha256};
-
-pub type Hash = [u8; 32];
+use crate::config::ConfigEntry;
 
 pub type Result<T> = std::io::Result<T>;
+pub type FileContents = Vec<u8>;
 
 pub enum ExistingMatch {
-    // The home file is identical to the new file.
+    /// The home file is identical to the new file.
     EqualNew,
-    // The home file is identical to the old file.
+    /// The home file is identical to the old file.
     EqualOld,
-    // The home file differs from both the old and new files.
+    /// The home file differs from both the old and new files.
     Conflict,
+    /// File is not present in home
+    NotInHome,
 }
 
-impl ExistingMatch {
-    // Compare the current home file with the new and old files.
-    pub fn from_hashes(old_hash: Option<Hash>, new_hash: Hash, home_hash: Hash) -> Self {
-        if new_hash == home_hash {
-            ExistingMatch::EqualNew
-        } else if Some(home_hash) == old_hash {
+pub struct Files {
+    store: FileContents,
+    old_store: Option<FileContents>,
+    home: Option<FileContents>,
+}
+
+impl Files {
+    pub fn read(
+        entry: &ConfigEntry,
+        old_entry: Option<&ConfigEntry>,
+        destination: &Path,
+    ) -> Result<Self> {
+        let transform = entry.transformer.as_deref();
+        let store = Self::read_transformed(&entry.source, transform)?;
+        let old_store = match old_entry {
+            Some(o) => Some(Self::read_transformed(&o.source, transform)?),
+            None => None,
+        };
+        let home = match std::fs::exists(&destination)? {
+            true => Some(Self::read_transformed(&destination, transform)?),
+            false => None,
+        };
+
+        Ok(Self {
+            store,
+            old_store,
+            home,
+        })
+    }
+
+    pub fn read_transformed(file: &Path, transform: Option<&Path>) -> Result<FileContents> {
+        match transform {
+            Some(trans) => {
+                let out = Command::new(trans).arg(file).output()?;
+                match out.status.success() {
+                    true => Ok(out.stdout),
+                    false => Err(std::io::Error::new(
+                        std::io::ErrorKind::Other,
+                        "Transform failed",
+                    )),
+                }
+            }
+            None => std::fs::read(file),
+        }
+    }
+
+    pub fn compare(&self) -> ExistingMatch {
+        if self.home == None {
+            ExistingMatch::NotInHome
+        } else if self.home == self.old_store {
             ExistingMatch::EqualOld
+        } else if self.home.as_ref() == Some(&self.store) {
+            ExistingMatch::EqualNew
         } else {
-            // The files differ, or we have no previous file to compare to.
-            // A non-existent file is never identical to an existing file.
             ExistingMatch::Conflict
         }
     }
-}
-
-pub fn hash_file(path: &Path) -> Result<Hash> {
-    let data = std::fs::read(path)?;
-    let digest = Sha256::digest(&data);
-    Ok(digest.into())
 }

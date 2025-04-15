@@ -50,3 +50,6 @@ issues so I can do all my work in one place.
       another for generating HTML
   - [ ] Only rebuild changed generated docs, rather than all of them
   - [x] Rewrite store paths for options to point to the repo instead
+- [ ] Use a Nix cache to speed up builds on my laptop. Would ideally be able to
+      push a fully NixOS image to the laptop, rather than building locally which
+      pushes memory limits.

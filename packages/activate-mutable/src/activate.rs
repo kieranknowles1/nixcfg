@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use clap::Parser;
 use thiserror::Error;
 
-use crate::state::{hash_file, ExistingMatch, Hash};
+use crate::state::{ExistingMatch, Files};
 
 use crate::config::{
     find_entry, get_previous_config_path, read_config, resolve_directory, Config, ConfigEntry,
@@ -15,15 +15,15 @@ pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Error, Debug)]
 pub enum Error {
-    #[error("I/O error {0}")]
+    #[error(transparent)]
     Io(#[from] std::io::Error),
-    #[error("JSON error {0}")]
+    #[error(transparent)]
     Json(#[from] serde_json::Error),
     #[error("File changed locally: {file}")]
     Conflict { file: PathBuf },
-    #[error("Error loading config: {0}")]
+    #[error(transparent)]
     Config(#[from] crate::config::Error),
-    #[error("Directory traversal")]
+    #[error(transparent)]
     DirectoryTraversal(#[from] crate::config::DirectoryTraversalError),
 }
 
@@ -46,46 +46,31 @@ enum MatchOutcome {
 
 impl MatchOutcome {
     // See flow chart in plan.
-    fn from_hashes(
-        old_hash: Option<Hash>,
-        new_hash: Hash, // If this wasn't present, we wouldn't be provisioning it.
-        home_hash: Option<Hash>,
-        on_conflict: &ConflictStrategy,
-    ) -> Self {
-        if let Some(home) = home_hash {
-            let status = ExistingMatch::from_hashes(old_hash, new_hash, home);
-            match status {
-                ExistingMatch::EqualNew => MatchOutcome::DoNothing,
-                ExistingMatch::EqualOld => MatchOutcome::CopyNew,
-                ExistingMatch::Conflict => match on_conflict {
-                    ConflictStrategy::Warn => MatchOutcome::Conflict,
-                    ConflictStrategy::Replace => MatchOutcome::CopyNew,
-                },
-            }
-        }
-        // If the file isn't in $HOME, always copy the new file.
-        else {
-            MatchOutcome::CopyNew
+    fn from_contents(files: &Files, on_conflict: &ConflictStrategy) -> Self {
+        match files.compare() {
+            ExistingMatch::NotInHome => MatchOutcome::CopyNew,
+            ExistingMatch::EqualOld => MatchOutcome::CopyNew,
+            ExistingMatch::EqualNew => MatchOutcome::DoNothing,
+            ExistingMatch::Conflict => match on_conflict {
+                ConflictStrategy::Warn => MatchOutcome::Conflict,
+                ConflictStrategy::Replace => MatchOutcome::CopyNew,
+            },
         }
     }
 }
 
-fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
-    let new_hash = hash_file(&entry.source)?;
-    let old_hash = match old_entry {
-        Some(old) => Some(hash_file(&old.source)?),
-        None => None,
-    };
-    let home_hash = hash_file(path).ok();
+fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
+    let destination = resolve_directory(home, &entry.destination)?;
+    let files = Files::read(entry, old_entry, &destination)?;
 
-    let state = MatchOutcome::from_hashes(old_hash, new_hash, home_hash, &entry.on_conflict);
+    let state = MatchOutcome::from_contents(&files, &entry.on_conflict);
     match state {
         MatchOutcome::DoNothing => Ok(()),
         MatchOutcome::Conflict => Err(Error::Conflict {
-            file: path.to_path_buf(),
+            file: destination.to_path_buf(),
         }),
         MatchOutcome::CopyNew => {
-            let dir = match path.parent() {
+            let dir = match destination.parent() {
                 Some(dir) => dir,
                 None => {
                     return Err(Error::Io(std::io::Error::new(
@@ -95,20 +80,15 @@ fn copy_file(path: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) 
                 }
             };
             std::fs::create_dir_all(&dir)?;
-            std::fs::copy(&entry.source, path)?;
+            std::fs::copy(&entry.source, &destination)?;
             // Paths in the Nix store are always read-only, disable this
             let mut permissions = std::fs::metadata(&entry.source)?.permissions();
             permissions.set_readonly(false);
-            std::fs::set_permissions(path, permissions)?;
+            std::fs::set_permissions(&destination, permissions)?;
 
             Ok(())
         }
     }
-}
-
-fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntry>) -> Result<()> {
-    let full_path = resolve_directory(home, &entry.destination)?;
-    copy_file(&full_path, entry, old_entry)
 }
 
 fn write_previous_config(home: &Path, config: &Config) -> Result<()> {

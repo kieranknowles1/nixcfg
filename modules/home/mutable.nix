@@ -71,6 +71,15 @@
               If unset, this file will still be provisioned but changes cannot be restored.
             '';
           };
+
+          transformer = mkOption {
+            type = types.nullOr types.path;
+            description = ''
+              Path to a script that converts a **deployed file** to a **repo file**.
+              The deployed file is passed as the first argument, and `stdout` is used as the repo file.
+            '';
+            default = null;
+          };
         };
       });
 
@@ -114,7 +123,14 @@
       };
 
       checkSameFile = name: value: let
-        srcHash = builtins.hashFile "sha256" value.source;
+        # Apply any transformations as part of our equality check
+        # Just so happens to check for round-trip consistency as well :)
+        finalSrcFile =
+          if value.transformer == null
+          then value.source
+          else pkgs.runCommand "transform" {} "${value.transformer} ${value.source} > $out";
+        srcHash = builtins.hashFile "sha256" finalSrcFile;
+
         repoHash = builtins.hashFile "sha256" "${cfg.repository}/${value.repoPath}";
       in {
         # We need to use hashes rather than path equality, as the ./path syntax

@@ -79,6 +79,17 @@ function projectLinks(array $project): string {
     HTML;
 }
 
+function feedbackSection(string $from, int $marks, string $quote) {
+  return <<<HTML
+  <div>
+    <h4>Feedback</h4>
+    <p>Marks: $marks/100</p>
+    <blockquote>$quote</blockquote>
+    <cite>$from</cite>
+  </div>
+  HTML;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -160,6 +171,13 @@ function projectLinks(array $project): string {
                   <li>As always, Linux support through SDL2</li>
                 </ul>
               </div>
+              <? echo feedbackSection("Dr G Ushaw", 100, <<<HTML
+                Absolutely excellent. A fully feature-complete game that plays well, looks great and is truly cross
+                platform. Great to see good teamwork throughout the project with lots of individual efforts coming
+                together in a consistent and well presented piece of work. Single player works very well with great
+                use of bots, the online tech also very good, including multi-platform play. PS5 is very good, as is
+                the editor.
+              HTML);?>
             </div>
         </article>
 
@@ -184,18 +202,13 @@ function projectLinks(array $project): string {
                       <li>Linux support via SDL2</li>
                   </ul>
                 </div>
-                <div>
-                    <h4>Feedback</h4>
-                    <p>Marks: 94/100</p>
-                    <blockquote>
-                        Excellent piece of work showcasing multiple graphical techniques in a cohesive scene.
-                        All of the core concepts are in place and well integrated, with particularly good terrain.
-                        Many more advanced techniques are also included, with great use of lighting in general
-                        (including multiple shadow maps). Nice to see tessellation place as well as good
-                        understanding of the uses for frame buffers etc. An excellent addition to your portfolio.
-                    </blockquote>
-                    <cite>Dr G Ushaw</cite>
-                </div>
+                <?php echo feedbackSection("Dr G Ushaw", 94, <<<HTML
+                  Excellent piece of work showcasing multiple graphical techniques in a cohesive scene.
+                  All of the core concepts are in place and well integrated, with particularly good terrain.
+                  Many more advanced techniques are also included, with great use of lighting in general
+                  (including multiple shadow maps). Nice to see tessellation place as well as good
+                  understanding of the uses for frame buffers etc. An excellent addition to your portfolio.
+                HTML); ?>
             </div>
         </article>
 
@@ -220,24 +233,19 @@ function projectLinks(array $project): string {
                         <li>As before, Linux support</li>
                     </ul>
                 </div>
-                <div>
-                    <h4>Feedback</h4>
-                    <p>Marks: 95/100</p>
-                    <blockquote>
-                        A nice game world, with some strong additions throughout. There's added elasticity and some
-                        new collision volume code, along with separate static and dynamic collision lists for performance.
-                        There's some extra work on constraints to add some additional expressiveness to the physics system.
-                        Good use of raycasting to keep the camera in a useful position relative to the player.
-                        <br>
-                        There's a lot of network code implemented, and it is well integrated into the gameplay. The AI
-                        makes good use of hierarchical state machines, and implements both pathfinding itself, and moving
-                        through the world to reach waypoints well.
-                        <br>
-                        While more could have been done on the physics side, there's been a lot of thought put into making
-                        an effective networking solution, that maintains the consistency of the game world.
-                    </blockquote>
-                    <cite>Dr RG Davison</cite>
-                </div>
+                <?php echo feedbackSection("Dr RG Davison", 95, <<<HTML
+                  A nice game world, with some strong additions throughout. There's added elasticity and some
+                  new collision volume code, along with separate static and dynamic collision lists for performance.
+                  There's some extra work on constraints to add some additional expressiveness to the physics system.
+                  Good use of raycasting to keep the camera in a useful position relative to the player.
+                  <br>
+                  There's a lot of network code implemented, and it is well integrated into the gameplay. The AI
+                  makes good use of hierarchical state machines, and implements both pathfinding itself, and moving
+                  through the world to reach waypoints well.
+                  <br>
+                  While more could have been done on the physics side, there's been a lot of thought put into making
+                  an effective networking solution, that maintains the consistency of the game world.
+                HTML); ?>
             </div>
         </article>
     </main>
