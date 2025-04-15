@@ -20,5 +20,8 @@ destination.remote = "backup/remote"
 [networking]
 hostName = "rocinante"
 
+[hardware]
+memorySize = 32
+
 [development]
 enable = true

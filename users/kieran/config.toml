@@ -2,6 +2,9 @@
 
 # Config to enable on all hosts
 
+[editor]
+neovim.enable = true
+
 [userDetails]
 email = "kieranknowles11@hotmail.co.uk"
 firstName = "Kieran"

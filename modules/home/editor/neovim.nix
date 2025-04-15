@@ -2,10 +2,11 @@
   config,
   lib,
   pkgs,
+  hostConfig,
   ...
 }: {
   options.custom.editor.neovim = let
-    inherit (lib) mkOption mkEnableOption types;
+    inherit (lib) mkOption mkEnableOption mkPackageOption types;
   in {
     enable = mkEnableOption "NeoVim";
     desktopFile = mkOption {
@@ -21,25 +22,19 @@
       type = types.str;
       readOnly = true;
     };
+
+    package = mkPackageOption pkgs.flake "nixvim" {};
   };
 
-  config = lib.mkIf config.custom.editor.neovim.enable {
-    home.packages = [
-      (pkgs.flake.nixvim.extend {custom.optimise = true;})
-    ];
-    # programs.neovim = {
-    #   enable = true;
+  config = let
+    cfg = config.custom.editor.neovim;
 
-    #   viAlias = true;
-    #   vimAlias = true;
-    #   vimdiffAlias = true;
-    # };
-
-    # # Don't manage anything with Nix for now
-    # # TODO: Manage configs/plugins with Nix?
-    # xdg.configFile."nvim" = {
-    #   source = ./config;
-    #   recursive = true;
-    # };
-  };
+    # Fancy GUI, included on all desktops
+    neovideOpt = lib.optional hostConfig.custom.features.desktop pkgs.neovide;
+  in
+    lib.mkIf cfg.enable {
+      # We can't use home-manager to deploy, as nixvim is incompatible with its
+      # wrapper
+      home.packages = [cfg.package] ++ neovideOpt;
+    };
 }
