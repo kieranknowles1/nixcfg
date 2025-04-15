@@ -80,7 +80,6 @@
     };
 
     custom.editor.defaultCommand = defaultConfig.command;
-    home.sessionVariables.EDITOR = cfg.defaultCommand;
     custom.aliases.e.exec = "${cfg.defaultCommand} .";
 
     # Assign the default GUI editor to handle text files
