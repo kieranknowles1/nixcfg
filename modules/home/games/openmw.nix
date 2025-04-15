@@ -1,6 +1,5 @@
 {
   pkgs,
-  self,
   lib,
   config,
   ...
@@ -39,9 +38,9 @@
       exec ${converter} decode $@
     '';
 
-    mkStorage = repo: {
-      source = jsonToOmw "${self}/${repo}";
-      repoPath = repo;
+    mkStorage = repo: file: {
+      source = jsonToOmw file;
+      repoPath = "users/kieran/openmw/${repo}";
       transformer = omwToJson;
     };
   in
@@ -53,9 +52,9 @@
       };
 
       custom.mutable.file = {
-        # TODO: Use the options we have, need to specify repo paths in them
-        ".config/openmw/global_storage.bin" = mkStorage "users/kieran/openmw/global_storage.json";
-        ".config/openmw/player_storage.bin" = mkStorage "users/kieran/openmw/player_storage.json";
+        # TODO: Use the options we have, need to specify repo paths adsadasin them
+        ".config/openmw/global_storage.bin" = mkStorage "global_storage.json" cfg.globalStorage;
+        ".config/openmw/player_storage.bin" = mkStorage "player_storage.json" cfg.playerStorage;
       };
     };
 }
