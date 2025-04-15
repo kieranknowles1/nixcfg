@@ -94,7 +94,7 @@
           inherit (self.builders.${pkgs.system}) buildStaticSite;
         in {
           static = buildStaticSite {
-            src = "${self}/docs";
+            src = ../../docs;
             name = "static-docs";
           };
 
