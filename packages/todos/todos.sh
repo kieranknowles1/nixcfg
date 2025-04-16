@@ -45,10 +45,20 @@ any_of() {
   echo "($*)"
 }
 
-query="$(any_of "${COMMENT_STARTS[@]}").*$(any_of "${TODO_TAGS[@]}")"
-search() {
-  rg "$query" "$directory" "$@"
-}
+ANY_COMMENT=$(any_of "${COMMENT_STARTS[@]}")
+query="$ANY_COMMENT.*$(any_of "${TODO_TAGS[@]}")"
 
-search --sort modified --context 2
-echo "$(search | wc -l) tasks found"
+rg "$query" "$directory" --sort modified --context 2
+
+echo "Summary:"
+total=0
+for tag in "${TODO_TAGS[@]}"; do
+  plainTag=$(sed 's|\\||g' <<< $tag)
+  count=$((rg "$ANY_COMMENT.*$tag" "$directory" "$@" || true) | wc -l)
+  total=$((total + count))
+
+  if [[ $count -gt 0 ]]; then
+    echo "  $count ${plainTag}s"
+  fi
+done
+echo "  $total total tasks"
