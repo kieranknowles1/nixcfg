@@ -3,8 +3,6 @@ set -euo pipefail
 
 directory="$1"
 
-# TODO: SVGs are only generated at build time. Can we check for
-# a matching .dot file?
-
 # Exclude links to generated files, as these are not available during checks
-lychee "$directory" --offline --exclude "$directory/docs/generated/" --exclude '\.svg$'
+# Remap .svg to .dot, as SVGs are generated from them at build time
+lychee "$directory" --offline --exclude "$directory/docs/generated/" --remap '.svg .dot'
