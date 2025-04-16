@@ -26,8 +26,14 @@
     # Such an essential tool as Git deserves a 2-character command
     # Just like `ls`, `cd`, and `sl`
     custom.aliases = {
-      gd.exec = "git diff";
-      lg.exec = "lazygit";
+      gd = {
+        exec = "git diff";
+        mnemonic = "[g]it [d]iff";
+      };
+      lg = {
+        exec = "lazygit";
+        mnemonic = "[l]azy [g]it";
+      };
     };
   };
 }

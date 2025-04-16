@@ -78,7 +78,10 @@
     };
 
     custom.editor.defaultCommand = defaultConfig.command;
-    custom.aliases.e.exec = "${cfg.defaultCommand} .";
+    custom.aliases.e = {
+      exec = "${cfg.defaultCommand} .";
+      mnemonic = "[e]ditor";
+    };
 
     # Assign the default GUI editor to handle text files
     custom.mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {

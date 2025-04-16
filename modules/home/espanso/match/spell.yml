@@ -13,6 +13,11 @@ matches:
   - trigger: liase
     replace: liaise
     propagate_case: true
+    word: true
+  - trigger: memomic
+    replace: mnemonic
+    propagate_case: true
+    word: true
   - trigger: minuite
     replace: minute
     propagate_case: true

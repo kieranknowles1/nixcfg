@@ -1,3 +1,5 @@
+# Command line aliases
+# This is not the same as [[./shortcuts]], that is GUI specific shortcuts
 {
   config,
   pkgs,
@@ -15,11 +17,14 @@
           description = "The command to run";
         };
 
-        # TODO: Standardise using mnemonics for these, such as `lg: [l]azy[g]it` or `gd: [g]it [d]iff`
-        description = mkOption {
-          type = types.nullOr types.str;
-          description = "A description of the alias. Not always necessary, but can be helpful.";
-          default = null;
+        mnemonic = mkOption {
+          type = types.str;
+          description = ''
+            A mnemonic to help remember the alias, in the form [l]etter.
+
+            For example, `[l]azy[g]it` for `lg` -> `lazygit`, or
+            `[g]it [d]iff` for `gd` -> `git diff`
+          '';
         };
       };
     };
@@ -42,12 +47,7 @@
     home.shellAliases = builtins.mapAttrs (_name: alias: alias.exec) cfg;
 
     custom.docs-generate.file."aliases.md" = let
-      toDoc = name: alias: let
-        description =
-          if alias.description == null
-          then ""
-          else "<br>\n  > ${alias.description}";
-      in "- `${name}`: `${alias.exec}`${description}";
+      toDoc = name: alias: "- `${name}`: `${alias.exec}` - ${alias.mnemonic}";
     in {
       description = "Shell Aliases";
       source = pkgs.writeText "aliases.md" ''

@@ -84,10 +84,13 @@
     in
       term ++ extras;
     custom.aliases = {
-      tldr.exec = "tlro";
+      tldr = {
+        exec = "tlro";
+        mnemonic = "[t]oo [l]ong [d]idn't [r]ead";
+      };
       wtf = {
         exec = "tlro";
-        description = "What's That For?";
+        mnemonic = "[w]hat's [t]hat [f]or";
       };
     };
 
