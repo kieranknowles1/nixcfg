@@ -25,6 +25,9 @@ stripComments() {
 # TSC doesn't support manually specifying a config file, so manually convert tsconfig options into CLI arguments
 IFS=' ' read -r -a TS_OPTS <<< "$(stripComments "$BUILD_HELPERS/tsconfig.json" | jq -r '.compilerOptions | to_entries | map("--\(.key) \(.value)") | .[]')"
 
+# TypeScript is excessive here, but why not
+echo "<script>$(tsc "${TS_OPTS[@]}" --outFile /dev/stdout "$BUILD_HELPERS/mdPost.ts")</script>" > mdPost.html
+
 buildPandoc() {
   file="$1"
   out_html="$2"
@@ -46,7 +49,7 @@ buildPandoc() {
       -V "maxwidth=40em"
       -V "mainfont=$FONT"
       -V "monofont=$MONOFONT"
-      --include-after-body "$BUILD_HELPERS/markdownExtraEnd.html"
+      --include-after-body "mdPost.html"
     )
   fi
 
