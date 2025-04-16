@@ -48,6 +48,37 @@ they are named after ships from The Expanse.
 - [tycho](hosts/tycho/configuration.nix) - My server.<br> Used to host a variety
   of services.
 
+## Why NixOS
+
+Why use NixOS over other Linux distributions?
+
+I started out with Ubuntu, and my first action was to setup a dotfiles repo to
+store configs and automate setting up a new system. I'd encourage doing the same
+for non-NixOS systems, at least as a learning experience.
+
+When I discovered NixOS via
+[No Boilerplate's Video](https://youtu.be/CwfKlX3rA6E), I immediately knew that
+it was the solution I was looking for, performing most of what I was already
+handling myself, but better in most cases. For example, rollback support saved
+me after a bad driver update, which broke anything running OpenGL.
+
+### The Bad Parts
+
+While I find NixOS great, it isn't without its flaws, which are included here
+along with some of the solutions I've found:
+
+- Steep learning curve involving a domain specific language.
+- Limited support for unpatched binaries<br>Wrap these with `steam-run` and hope
+  for the best. I still haven't gotten things 100%.
+- Bad documentation<br>Don't even bother with the HTML documentation, it
+  struggles even with 32GB of RAM. Instead use one of the various sites listed
+  in [Essential Resources](#essential-resources)
+- Home files are read-only symlinks<br>Files deployed with home-manager are
+  read-only symlinks to the actual files, which makes editing them from within
+  applications difficult. I created my `activate-mutable` module to handle this
+  using normal files. While it was good practice for Rust, I'd prefer if
+  NixOS/home-manager supported it natively.
+
 ## Essential Resources
 
 The following resources were essential in setting up this repository and served
