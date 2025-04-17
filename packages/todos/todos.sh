@@ -53,8 +53,8 @@ rg "$query" "$directory" --sort modified --context 2
 echo "Summary:"
 total=0
 for tag in "${TODO_TAGS[@]}"; do
-  plainTag=$(sed 's|\\||g' <<< $tag)
-  count=$((rg "$ANY_COMMENT.*$tag" "$directory" "$@" || true) | wc -l)
+  plainTag=${tag//\\/}
+  count=$( (rg "$ANY_COMMENT.*$tag" "$directory" "$@" || true) | wc -l)
   total=$((total + count))
 
   if [[ $count -gt 0 ]]; then
