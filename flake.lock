@@ -52,6 +52,31 @@
         "url": "https://git.clan.lol/clan/clan-core"
       }
     },
+    "determinate-nix": {
+      "inputs": {
+        "flake-compat": [],
+        "flake-parts": [],
+        "git-hooks-nix": [],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-23-11": [],
+        "nixpkgs-regression": []
+      },
+      "locked": {
+        "lastModified": 1744904151,
+        "narHash": "sha256-O54QWzTTQzdL7SlgK6T8nehFOxrbO1ZzDPo9lwNBfDQ=",
+        "owner": "DeterminateSystems",
+        "repo": "nix-src",
+        "rev": "a8979e05b1088e4fb4c0b83ecd771f3a5b76e45f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DeterminateSystems",
+        "repo": "nix-src",
+        "type": "github"
+      }
+    },
     "factorio-blueprints": {
       "flake": false,
       "locked": {
@@ -357,6 +382,7 @@
     "root": {
       "inputs": {
         "clan-core": "clan-core",
+        "determinate-nix": "determinate-nix",
         "factorio-blueprints": "factorio-blueprints",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",

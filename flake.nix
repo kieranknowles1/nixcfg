@@ -16,6 +16,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Fork of Nix with fancy stuff
+    # TODO: See if this should be a permanent addition, or just until its
+    # features are upstreamed
+    determinate-nix = {
+      url = "github:DeterminateSystems/nix-src";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+
+      inputs.flake-compat.follows = "";
+      inputs.flake-parts.follows = "";
+      inputs.git-hooks-nix.follows = "";
+
+      inputs.nixpkgs-23-11.follows = "";
+      inputs.nixpkgs-regression.follows = "";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

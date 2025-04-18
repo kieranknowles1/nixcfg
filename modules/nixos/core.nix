@@ -4,6 +4,7 @@
   pkgs,
   lib,
   self,
+  inputs,
   ...
 }: {
   options.custom = let
@@ -37,11 +38,16 @@
   };
 
   config = {
-    # Enable flakes
-    nix.settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    nix = {
+      # Use determinate Nix, for its fancy stuff
+      package = inputs.determinate-nix.packages.${pkgs.system}.default;
+
+      # Enable flakes
+      settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
 
     # Apply all of the flake's overlays, as we need them for the system
     nixpkgs.overlays = builtins.attrValues self.overlays;
