@@ -37,11 +37,16 @@
   };
 
   config = {
-    # Enable flakes
-    nix.settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    nix.settings = {
+      # Enable flakes
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
+      # Allow any sudoer to run protected Nix commands
+      trusted-users = ["@wheel"];
+    };
 
     # Apply all of the flake's overlays, as we need them for the system
     nixpkgs.overlays = builtins.attrValues self.overlays;
