@@ -35,7 +35,7 @@ When updating hashes for packages, replace the old hash with an empty string
 first to force a download, otherwise Nix will see the old hash and treat it as
 pointing to the cached download.
 
-<!-- TODO: Can this be automated? -->
+<!-- TODO: Can this be automated? Not sure if this statement is even accurate -->
 
 ## Host Definition
 

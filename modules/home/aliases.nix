@@ -9,7 +9,6 @@
   options.custom = let
     inherit (lib) mkOption types;
 
-    # TODO: Should we just read home.shellAliases and skip the extra option?
     aliasType = types.submodule {
       options = {
         exec = mkOption {
