@@ -13,6 +13,7 @@
       bash-sanity = mkCheck "bash-sanity" [];
       duplicate-input = mkCheck "duplicate-input" [pkgs.jq];
       markdown-links = mkCheck "markdown-links" [pkgs.lychee];
+      symlinks = mkCheck "symlinks" [];
     };
   };
 }
