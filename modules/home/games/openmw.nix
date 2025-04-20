@@ -5,20 +5,25 @@
   ...
 }: {
   options.custom.games.openmw = let
-    mkStorageOption = name: example:
+    mkStorageSubOption = name: example: typeDesc: type:
       lib.mkOption {
+        inherit type;
         description = ''
-          The JSON file containing ${name} storage data,
-          as exported using the OpenMW LuaData tool.
+          ${typeDesc} path to a JSON file containing ${name}
+          storage data, as exported using the OpenMW LuaData tool.
         '';
-        type = lib.types.path;
         example = lib.options.literalExpression example;
       };
+
+    mkStorageOptions = name: example: {
+      nix = mkStorageSubOption name "$./${example}" "Nix" lib.types.path;
+      repo = mkStorageSubOption name "user/${example}" "Repository relative" lib.types.str;
+    };
   in {
     luaData.package = lib.mkPackageOption pkgs.flake "openmw-luadata" {};
 
-    globalStorage = mkStorageOption "global" "./global_storage.json";
-    playerStorage = mkStorageOption "player" "./player_storage.json";
+    globalStorage = mkStorageOptions "global" "global_storage.json";
+    playerStorage = mkStorageOptions "player" "player_storage.json";
   };
 
   config = let
@@ -38,9 +43,9 @@
       exec ${converter} decode $@
     '';
 
-    mkStorage = repo: file: {
-      source = jsonToOmw file;
-      repoPath = "users/kieran/openmw/${repo}";
+    mkStorage = opts: {
+      source = jsonToOmw opts.nix;
+      repoPath = opts.repo;
       transformer = omwToJson;
     };
   in
@@ -52,9 +57,8 @@
       };
 
       custom.mutable.file = {
-        # TODO: Use the options we have, need to specify repo paths adsadasin them
-        ".config/openmw/global_storage.bin" = mkStorage "global_storage.json" cfg.globalStorage;
-        ".config/openmw/player_storage.bin" = mkStorage "player_storage.json" cfg.playerStorage;
+        ".config/openmw/global_storage.bin" = mkStorage cfg.globalStorage;
+        ".config/openmw/player_storage.bin" = mkStorage cfg.playerStorage;
       };
     };
 }
