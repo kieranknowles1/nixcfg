@@ -3,6 +3,10 @@ $env.config.show_banner = false
 # Suggest updating Nixpkgs at least this often
 const NIXPKGS_UPDATE_SUGGESION = 2wk
 
+# TODO: Set this automatically to the default GUI editor
+# $EDITOR is for TUIs
+const GUIEDITOR = "zeditor"
+
 def __log [color: string, type: string, message: string] {
   print $"(ansi $color)($type)(ansi reset): ($message)"
 }
@@ -17,6 +21,27 @@ alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
 alias void = ignore
 alias discard = ignore
+
+
+# TODO: Add tv to PATH via home-manager to use stylix config
+def __telly [
+    channel: string
+]: nothing -> string {
+    let choice = tv $channel
+    if $choice == "" {
+        error make {msg: "Cancelled"}
+    }
+    return $choice
+}
+def __tellyexec [channel: string, command: string] {
+    run-external $command (__telly $channel)
+}
+# Fuzzy search and cd to a Git repository
+def --env tvg [] { cd (__telly git-repos)}
+# Fuzzy search and open a file, by its name
+alias tvf = __tellyexec files $GUIEDITOR
+# Fuzzy search and open a file, by its contents
+alias tvc = __tellyexec text $GUIEDITOR
 
 # Split a string on newlines, like Bash's `read`
 def "from lines" []: string -> list<string> {
