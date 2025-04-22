@@ -41,12 +41,6 @@ so updating inputs may require changes to the consuming flake.
 Firefox along with a set of extensions aimed at usability is provisioned through
 `home-manager` in [modules/home/firefox.nix](../modules/home/firefox.nix).
 
-Additionally, the following search engines are added:
-
-- [NixOS Search](https://search.nixos.org/packages) `@n`
-- [NixOS Options](https://nixos.org/nixos/options.html) `@no`
-- [Home Manager Options](https://home-manager-options.extranix.com/) `@ho`
-
 ## Wine
 
 Wine is used to run Windows applications on Linux. As my only use case for this
