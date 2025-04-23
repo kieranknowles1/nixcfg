@@ -17,8 +17,9 @@ Usage: $0 [command]
     Show this help message and exit
   -v|--version:
     Show the version number and eixt
-  -l|--list:
-    List all the pages to the standard output
+  -l|--list
+    List all the pages to the standard output.
+    If a command is provided, filter pages based on it.
   --short-options:
     Show short-form options if available$shortOptDefault
   --long-options:
@@ -32,7 +33,9 @@ EOF
 
 # Short/long-form arguments in the form {{[short|long]}}
 SED_ARGUMENT_PATTERN='\{\{\[([a-zA-Z -]+)\|([a-zA-Z -]+)\]\}\}'
+
 query=""
+list=0
 shortopts=0
 longopts=0
 while [[ $# -gt 0 ]]; do
@@ -42,12 +45,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     -v|--version)
       echo "tlro version $VERSION, client specification 2.3"
+      exit
       ;;
     -l|--list)
-      # The information here is intended for the user
-      # shellcheck disable=SC2012
-      ls "$PAGES" | sed 's|\.md||'
-      exit
+      list=1
       ;;
     --short-options)
       shortopts=1
@@ -72,6 +73,13 @@ query="${query#-}"
 
 if [[ "$query" == "" ]]; then
   showhelp
+fi
+
+if [[ "$list" == 1 ]]; then
+  # The information here is intended for the user
+  # shellcheck disable=SC2012
+  ls "$PAGES" | sed 's|\.md||' | grep --color "$query"
+  exit
 fi
 
 if [[ "$shortopts" == 0 && "$longopts" == 0 ]]; then
