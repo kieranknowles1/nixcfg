@@ -53,6 +53,6 @@ issues so I can do all my work in one place.
 - [ ] Use a Nix cache to speed up builds on my laptop. Would ideally be able to
       push a fully NixOS image to the laptop, rather than building locally which
       pushes memory limits.
-- [ ] Don't use `${self}/path` pattern<br> this causes a rebuild every time
+- [x] Don't use `${self}/path` pattern<br> this causes a rebuild every time
       anything in the repo changes, rather than just when the file/directory
       changes.

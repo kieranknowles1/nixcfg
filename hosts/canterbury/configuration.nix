@@ -12,7 +12,7 @@
     {
       custom = {
         users = {
-          users.kieran = import "${self}/users/kieran" {inherit pkgs config self;};
+          users.kieran = import ../../users/kieran {inherit pkgs config self;};
           sharedConfig.custom = self.lib.host.readTomlFile ./user-config.toml;
         };
 

@@ -11,6 +11,7 @@
           meta.description = description;
         } ''
           set -euo pipefail
+          # $self is ok here as most checks apply to the entire flake
           bash ${file} ${self}
           touch $out
         '';

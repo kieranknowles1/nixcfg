@@ -55,6 +55,10 @@ overridden package (See the
 TL;DR: it's from the prime symbol meaning a derivative in mathematics). This is
 not strictly required, but is included for consistency with Nixpkgs.
 
+Avoid using `${self}` without good reason, as it makes the derivation depend on
+the entire flake, and therefore be rebuilt whenever anything changes rather than
+only the files it depends on.
+
 ### Error Handling (Nix)
 
 Use the `config.assertions` list to check for invalid options or combinations of

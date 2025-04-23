@@ -214,7 +214,7 @@
             source = pkgs.runCommand "flake-tree.dot" {buildInputs = with pkgs; [flake.nix-utils graphviz];} ''
               # Ignore standard inputs to avoid cluttering the graph
               # Chosen mostly arbitrarily
-              flake-tree --dot ${self}/flake.lock \
+              flake-tree --dot ${../../flake.lock} \
                 nixpkgs systems flake-utils > $out
             '';
           };
