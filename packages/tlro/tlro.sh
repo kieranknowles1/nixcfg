@@ -32,7 +32,7 @@ EOF
 
 # Short/long-form arguments in the form {{[short|long]}}
 SED_ARGUMENT_PATTERN='\{\{\[([a-zA-Z -]+)\|([a-zA-Z -]+)\]\}\}'
-positional=()
+query=""
 shortopts=0
 longopts=0
 while [[ $# -gt 0 ]]; do
@@ -62,13 +62,15 @@ while [[ $# -gt 0 ]]; do
       exit 1
       ;;
     *)
-      positional+=("$1")
+      query="$query-${1// /-}"
       ;;
   esac
   shift
 done
+# Remove leading dashes from when we appended
+query="${query#-}"
 
-if [[ "${positional[*]}" == "" ]]; then
+if [[ "$query" == "" ]]; then
   showhelp
 fi
 
@@ -91,11 +93,10 @@ fi
 # All arguments, separated by and with spaces replaced by `-`
 # and lowercased
 IFS='-'
-page=$(echo "${positional[@]}" | sed 's| |-|g' | tr '[:upper:]' '[:lower:]')
-path="$PAGES/$page.md"
+path="$PAGES/$query.md"
 
 if [[ ! -f "$path" ]]; then
-  echo "Page '$page' not found." >&2
+  echo "Page '$query' not found." >&2
   exit 1
 fi
 
