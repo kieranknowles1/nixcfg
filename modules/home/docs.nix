@@ -37,6 +37,10 @@
         This file will probably be pointing to a derivation that generates the content.
 
         All documentation files are generated in the `docs` directory of the flake repository.
+
+        This is passed as-is when building markdown. When building HTML, only
+        markdown files are included. Make sure to replicate any information in a
+        human-readable format as well as machine-readable.
       '';
 
       example = {
@@ -55,7 +59,7 @@
           };
 
           source = mkOption {
-            description = "The file containing the content or a string literal.";
+            description = "The file containing the content.";
             type = types.path;
             example = options.literalExpression "./docs-generated/file-a.md";
           };
@@ -71,17 +75,11 @@
           description = "${name} documentation, in ${format} format";
         };
     in {
-      # Keep static docs separated to avoid rebuilding them
-      # every time generated docs are rebuilt
-      static = mkBuildOption "Static" "HTML";
-
-      # It's much easier to generate Markdown as an intermediate format
-      # rather than HTML directly.
-      generated = {
-        md = mkBuildOption "Generated" "Markdown";
-        html = mkBuildOption "Generated" "HTML";
+      generated = mkBuildOption "Generated" "Markdown";
+      combined = {
+        markdown = mkBuildOption "Combined" "Markdown";
+        html = mkBuildOption "Combined" "HTML book";
       };
-      combined = mkBuildOption "Combined" "HTML";
     };
   };
 
@@ -90,79 +88,54 @@
   in
     lib.mkIf cfg.enable {
       custom.docs-generate = {
-        build = let
-          inherit (self.builders.${pkgs.system}) buildStaticSite;
-        in {
-          static = buildStaticSite {
-            src = ../../docs;
-            name = "static-docs";
-          };
-
-          generated = {
-            md = let
-              mkIndex = files: let
-                sortedNames = let
-                  names = builtins.attrNames files;
-                  predicate = a: b:
-                    files.${a}.description < files.${b}.description;
-                in
-                  lib.sort predicate names;
-
-                # Map the files to a markdown list of links
-                links = lib.lists.forEach sortedNames (name: let
-                  value = files.${name};
-                in " - [${value.description}](./${name})");
-                # Generate the index file
-                # This is done in pure Nix because it's easier than working with
-                # bash and jq. This gives the same result as bash, but in a
-                # language that while I wouldn't call good, is at least better
-                # than bash, a very low bar to clear.
-              in ''
-                # Documentation index
-
-                This file is the index for all generated documentation files.
-
-                ## Files
-                ${lib.strings.concatStringsSep "\n" links}
+        # Step 1: Build generated docs (mostly markdown, but some JSON and graphviz)
+        build = {
+          generated = let
+            buildMd = name:
+              pkgs.runCommand name {} ''
+                mkdir -p $out/generated
+                cp ${cfg.file.${name}.source} $out/generated/${name}
               '';
-
-              /*
-              * Combine all the documentation files into one plus an index file
-              */
-              mkDocs = files: let
-                fileNames = builtins.attrNames files;
-
-                # Generate code to symlink the files
-                # Easier than doing a loop in bash
-                # Note how we put everything in $out/generated, which lets us
-                # symlinkjoin later
-                linkDocs = lib.lists.forEach fileNames (name: let
-                  value = files.${name};
-                in "ln --symbolic ${value.source} $out/generated/${name}");
-              in
-                pkgs.runCommand "merged-docs" {
-                  INDEX = mkIndex files;
-                } ''
-                  mkdir -p $out/generated
-                  echo "$INDEX" > $out/generated/readme.md
-                  ${lib.strings.concatStringsSep "\n" linkDocs}
-                '';
-            in
-              mkDocs cfg.file;
-
-            html = buildStaticSite {
-              src = cfg.build.generated.md;
+          in
+            pkgs.symlinkJoin {
               name = "generated-docs";
+              paths = map buildMd (builtins.attrNames cfg.file);
+            };
+
+          # Step 2: Combine static and generated markdown. Not used directly but
+          # convenient for later
+          # buildStaticSite does some pre-processing which converts graphs to SVG
+          combined.markdown = self.builders.${pkgs.system}.buildStaticSite {
+            name = "combined-docs-md";
+            src = pkgs.symlinkJoin {
+              name = "combined-docs-md";
+              paths = [cfg.build.generated ../../docs];
             };
           };
 
-          # Can't use symlinkJoin as Firefox follows symlinks, which would break
-          # as we'd be redirected to static-docs
-          combined = pkgs.runCommand "combined-docs" {} ''
-            mkdir -p $out
-            cp -r ${cfg.build.static}/* $out
-            cp -r ${cfg.build.generated.html}/* $out
-          '';
+          # Step 3: Build HTML from combined markdown
+          # mdbook is fast, so don't worry about speed
+          combined.html =
+            pkgs.runCommand "combined-docs-html" {
+              SRC = cfg.build.combined.markdown;
+              INDEX =
+                builtins.concatStringsSep "\n"
+                (map (name: " - [${cfg.file.${name}.description}](./generated/${name})")
+                  (builtins.filter (lib.strings.hasSuffix ".md") (builtins.attrNames cfg.file)));
+            } ''
+              mkdir -p $out
+              # Build from a temporary directory so we can inject the generated index
+              tmpdir=$(mktemp --directory)
+              cp -r $SRC/* $tmpdir/
+
+              # Do some musical chairs to append the generated index to SUMMARY.md
+              cp --remove-destination --dereference $SRC/SUMMARY.md $tmpdir/SUMMARY.md
+              chmod +w $tmpdir/SUMMARY.md
+              echo "$INDEX" >> "$tmpdir/SUMMARY.md"
+
+              # Now we can build HTML
+              ${lib.getExe pkgs.mdbook} build --dest-dir $out $tmpdir
+            '';
         };
 
         file = let
@@ -209,13 +182,13 @@
             source = pkgs.writeText "packages.md" text;
           };
 
-          "flake-tree.dot" = {
-            description = "Flake input tree. Converted to SVG when building HTML.";
-            source = pkgs.runCommand "flake-tree.dot" {buildInputs = with pkgs; [flake.nix-utils graphviz];} ''
+          "flake-tree.svg" = {
+            description = "Flake input tree.";
+            source = pkgs.runCommand "flake-tree.svg" {buildInputs = with pkgs; [flake.nix-utils graphviz];} ''
               # Ignore standard inputs to avoid cluttering the graph
               # Chosen mostly arbitrarily
-              flake-tree --dot ${../../flake.lock} \
-                nixpkgs systems flake-utils > $out
+              flake-tree --dot ${../../flake.lock} nixpkgs systems flake-utils | \
+                ${pkgs.graphviz}/bin/dot -Tsvg -o $out
             '';
           };
         };
@@ -224,11 +197,11 @@
       custom.shortcuts.palette.actions = lib.singleton {
         description = "View documentation";
         # These are built from markdown where the convention is `readme.md` rather than `index.html`
-        action = ["xdg-open" "${cfg.build.combined}/readme.html"];
+        action = ["xdg-open" "${cfg.build.combined.html}/index.html"];
       };
 
       home.file."${config.custom.repoPath}/docs/generated" = {
-        source = "${cfg.build.generated.md}/generated";
+        source = "${cfg.build.generated}/generated";
         recursive = true;
       };
     };
