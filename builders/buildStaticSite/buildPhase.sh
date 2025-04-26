@@ -6,11 +6,6 @@ src="$src"
 # shellcheck disable=SC2269
 out="$out"
 
-# For Pandoc reproducibility
-export SOURCE_DATE_EPOCH=0
-FONT="DejaVuSansM Nerd Font"
-MONOFONT="$FONT Mono"
-
 replaceExtension() {
   file="$1"
   new_extension="$2"
@@ -24,48 +19,6 @@ stripComments() {
 }
 # TSC doesn't support manually specifying a config file, so manually convert tsconfig options into CLI arguments
 IFS=' ' read -r -a TS_OPTS <<< "$(stripComments "$BUILD_HELPERS/tsconfig.json" | jq -r '.compilerOptions | to_entries | map("--\(.key) \(.value)") | .[]')"
-
-# TypeScript is excessive here, but why not
-echo "<script>$(tsc "${TS_OPTS[@]}" --outFile /dev/stdout "$BUILD_HELPERS/mdPost.ts")</script>" > mdPost.html
-
-buildPandoc() {
-  file="$1"
-  out_html="$2"
-
-  # Grab the title from the first line of the file
-  title=$(head -n 1 "$file" | sed 's|^# ||')
-
-  # Remove the title as Pandoc will add it back
-  tmpfile=$(mktemp)
-  tail -n +2 "$file" > "$tmpfile"
-
-  extraArgs=()
-  if [[ "$CUSTOM_MARKDOWN_STYLE" == true ]]; then
-    extraArgs+=(--css "style.css")
-  else
-    # Tweak the default CSS to be more to my liking
-    extraArgs+=(
-      -V "lang=en-GB"
-      -V "maxwidth=40em"
-      -V "mainfont=$FONT"
-      -V "monofont=$MONOFONT"
-      --include-after-body "mdPost.html"
-    )
-  fi
-
-  pandoc \
-    "${extraArgs[@]}" \
-    --standalone \
-    --from markdown --to html \
-    --metadata title="$title" \
-    --fail-if-warnings \
-    "$tmpfile" --output "$out_html"
-  rm "$tmpfile"
-
-  # Replace .md with .html in links, such that href="<file>.md#<anchor>" becomes href="<file>.html#<anchor>"
-  # --regexp-extended - Removes the need for escaping parentheses (badly named option)
-  sed --regexp-extended --in-place 's|href="([^"]*).md([^"]*)|href="\1.html\2|g' "$out_html"
-}
 
 mkdir -p "$out"
 while IFS= read -r -d "" file; do
@@ -84,9 +37,6 @@ while IFS= read -r -d "" file; do
         -Gbgcolor=transparent -Nfillcolor=lightgrey -Nfontname="$FONT" \
         -Nstyle=filled -Ecolor=white \
         -Tsvg "$file" -o "$(replaceExtension "$out_relative" "svg")"
-      ;;
-    md)
-      buildPandoc "$file" "$(replaceExtension "$out_relative" "html")"
       ;;
     php)
       php -f "$BUILD_HELPERS/buildFile.php" "$file" > "$(replaceExtension "$out_relative" "html")"
