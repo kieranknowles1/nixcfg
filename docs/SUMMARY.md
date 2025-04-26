@@ -15,5 +15,3 @@
   - [Nix Server](./plan/nix-server.md)
 
 # Generated
-
-<!-- MDBOOK_GENERATED_INDEX -->
