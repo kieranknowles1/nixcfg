@@ -1,5 +1,7 @@
 # Style Guide
 
+Guidelines for code and documentation.
+
 - [Style Guide](#style-guide)
   - [General Rules](#general-rules)
   - [Documentation](#documentation)

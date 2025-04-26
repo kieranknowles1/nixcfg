@@ -1,5 +1,7 @@
 # Usage Information
 
+How to use systems configured with this repository.
+
 - [Usage Information](#usage-information)
   - [Backups](#backups)
   - [Dev Shells](#dev-shells)
