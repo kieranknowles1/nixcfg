@@ -82,3 +82,5 @@ If a task is cancelled, do not remove it from the list. Instead mark it with a
 - [x] Don't use `${self}/path` pattern<br> this causes a rebuild every time
       anything in the repo changes, rather than just when the file/directory
       changes.
+- [ ] Document `builders`, `lib`, and `shells` outputs. Want to plan out how to
+      do this.

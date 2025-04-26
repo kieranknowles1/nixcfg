@@ -58,6 +58,14 @@
             example = "Options for home-manager";
           };
 
+          dynamic = mkOption {
+            description = ''
+              Whether the file is dynamic, meaning it varies per-host.
+            '';
+            type = types.bool;
+            default = false;
+          };
+
           source = mkOption {
             description = "The file containing the content.";
             type = types.path;
@@ -118,10 +126,27 @@
           combined.html =
             pkgs.runCommand "combined-docs-html" {
               SRC = cfg.build.combined.markdown;
-              INDEX =
-                builtins.concatStringsSep "\n"
-                (map (name: " - [${cfg.file.${name}.description}](./generated/${name})")
-                  (builtins.filter (lib.strings.hasSuffix ".md") (builtins.attrNames cfg.file)));
+              INDEX = let
+                value = name: cfg.file.${name};
+
+                filtered = builtins.filter (lib.strings.hasSuffix ".md") (builtins.attrNames cfg.file);
+                groups = builtins.groupBy (name:
+                  if (value name).dynamic
+                  then "dynamic"
+                  else "static")
+                filtered;
+
+                linkLine = name: "   - [${(value name).description}](./generated/${name})";
+                mkLinks = items: builtins.concatStringsSep "\n" (map linkLine items);
+              in ''
+                - [Global](./meta/generated-global.md)
+                ${mkLinks groups.static}
+                - [Machine-Specific](./meta/generated-dynamic.md)
+                ${mkLinks groups.dynamic}
+              '';
+              # builtins.concatStringsSep "\n"
+              # (map linkLine
+              #   (builtins.filter (lib.strings.hasSuffix ".md") (builtins.attrNames cfg.file)));
             } ''
               mkdir -p $out
               # Build from a temporary directory so we can inject the generated index

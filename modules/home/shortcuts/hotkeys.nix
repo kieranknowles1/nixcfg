@@ -78,6 +78,7 @@ in {
       # Generate documentation
       custom.docs-generate.file."shortcuts.md" = {
         description = "Keyboard shortcuts";
+        dynamic = true;
         source = pkgs.writeText "shortcuts.md" (mkDocs cfg.hotkeys.keys);
       };
 

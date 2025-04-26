@@ -49,6 +49,7 @@
       toDoc = name: alias: "- `${name}`: `${alias.exec}` - ${alias.mnemonic}";
     in {
       description = "Shell Aliases";
+      dynamic = true;
       source = pkgs.writeText "aliases.md" ''
         # Shell Aliases
 
