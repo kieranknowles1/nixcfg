@@ -24,7 +24,7 @@ Requirement specificiations MUST use the
 
 Application-specific terms SHOULD be displayed in **bold**, and given a
 definition the first time they are used. Future references only require being
-bold. For example, in [Activate Mutable Plan](./plan/activate-mutable.md):
+bold. For example, in [Activate Mutable Plan](../plan/activate-mutable.md):
 
 > ... this script takes the **deployed file** as input, and outputs a file,
 > **repo file**, that is suitable for version control...
@@ -63,7 +63,7 @@ only the files it depends on.
 
 Use the `config.assertions` list to check for invalid options or combinations of
 options, such as
-[installing VS Code on a headless server](../modules/home/editor/vscode/default.nix).
+[installing VS Code on a headless server](../../modules/home/editor/vscode/default.nix).
 
 This gives a nicely formatted error message and collects all errors rather than
 stopping at the first one.

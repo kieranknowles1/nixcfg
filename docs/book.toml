@@ -3,7 +3,8 @@ authors = ["Kieran"]
 language = "en"
 multilingual = false
 src = "."
-title = "book"
+title = "Book of NixOS"
 
 [build]
+build-dir = "../book"
 create-missing = false

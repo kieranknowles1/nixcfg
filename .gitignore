@@ -6,3 +6,6 @@ result
 
 # Rust compiler output
 target/
+
+# mdBook output
+/book/

@@ -4,10 +4,10 @@
 
 # Static
 
-- [Development](./development.md)
-  - [Style Guide](./style-guide.md)
-- [Usage](./usage.md)
-  - [Troubleshooting](./troubleshooting.md)
+- [Development](./development/readme.md)
+  - [Style Guide](./development/style-guide.md)
+- [Usage](./usage/readme.md)
+  - [Troubleshooting](./usage/troubleshooting.md)
 
 - [Planning](./plan/readme.md)
   - [Todos](./plan/todo-list.md)

@@ -39,7 +39,7 @@ so updating inputs may require changes to the consuming flake.
 ## Firefox
 
 Firefox along with a set of extensions aimed at usability is provisioned through
-`home-manager` in [modules/home/firefox.nix](../modules/home/firefox.nix).
+`home-manager` in [modules/home/firefox.nix](../../modules/home/firefox.nix).
 
 ## Wine
 
