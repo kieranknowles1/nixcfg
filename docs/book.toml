@@ -1,0 +1,9 @@
+[book]
+authors = ["Kieran"]
+language = "en"
+multilingual = false
+src = "."
+title = "book"
+
+[build]
+create-missing = false
