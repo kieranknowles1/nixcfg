@@ -6,6 +6,8 @@ src="$src"
 # shellcheck disable=SC2269
 out="$out"
 
+FONT="DejaVuSansM Nerd Font"
+
 replaceExtension() {
   file="$1"
   new_extension="$2"

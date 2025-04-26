@@ -37,6 +37,10 @@
         This file will probably be pointing to a derivation that generates the content.
 
         All documentation files are generated in the `docs` directory of the flake repository.
+
+        This is passed as-is when building markdown. When building HTML, only
+        markdown files are included. Make sure to replicate any information in a
+        human-readable format as well as machine-readable.
       '';
 
       example = {
@@ -55,7 +59,7 @@
           };
 
           source = mkOption {
-            description = "The file containing the content or a string literal.";
+            description = "The file containing the content.";
             type = types.path;
             example = options.literalExpression "./docs-generated/file-a.md";
           };
@@ -100,10 +104,13 @@
 
           # Step 2: Combine static and generated markdown. Not used directly but
           # convenient for later
-          # TODO: Build graphviz graphs here or in the next step
-          combined.markdown = pkgs.symlinkJoin {
+          # buildStaticSite does some pre-processing which converts graphs to SVG
+          combined.markdown = self.builders.${pkgs.system}.buildStaticSite {
             name = "combined-docs-md";
-            paths = [cfg.build.generated ../../docs];
+            src = pkgs.symlinkJoin {
+              name = "combined-docs-md";
+              paths = [cfg.build.generated ../../docs];
+            };
           };
 
           # Step 3: Build HTML from combined markdown
@@ -114,7 +121,7 @@
               INDEX =
                 builtins.concatStringsSep "\n"
                 (map (name: " - [${cfg.file.${name}.description}](./generated/${name})")
-                  (builtins.attrNames cfg.file));
+                  (builtins.filter (lib.strings.hasSuffix ".md") (builtins.attrNames cfg.file)));
             } ''
               mkdir -p $out
               # Build from a temporary directory so we can inject the generated index
@@ -175,13 +182,13 @@
             source = pkgs.writeText "packages.md" text;
           };
 
-          "flake-tree.dot" = {
-            description = "Flake input tree. Converted to SVG when building HTML.";
-            source = pkgs.runCommand "flake-tree.dot" {buildInputs = with pkgs; [flake.nix-utils graphviz];} ''
+          "flake-tree.svg" = {
+            description = "Flake input tree.";
+            source = pkgs.runCommand "flake-tree.svg" {buildInputs = with pkgs; [flake.nix-utils graphviz];} ''
               # Ignore standard inputs to avoid cluttering the graph
               # Chosen mostly arbitrarily
-              flake-tree --dot ${../../flake.lock} \
-                nixpkgs systems flake-utils > $out
+              flake-tree --dot ${../../flake.lock} nixpkgs systems flake-utils | \
+                ${pkgs.graphviz}/bin/dot -Tsvg -o $out
             '';
           };
         };
