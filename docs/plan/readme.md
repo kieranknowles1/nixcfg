@@ -24,7 +24,11 @@ directory, one file per project.
 Miscelaneous tasks I want to complete in the future. Tracked here rather than in
 issues so I can do all my work in one place.
 
-- ❎ Automate updates of packages. (Not planned)
+If a task is cancelled, do not remove it from the list. Instead mark it with a
+❎ and ~~strike through~~.
+
+- ❎ ~~Automate updates of packages.~~ Not planned. I want to at least glance at
+  the changes before applying them.
 - [x] Preview changes before applying them.
       [https://www.youtube.com/watch?v=DnA4xNTrrqY](https://www.youtube.com/watch?v=DnA4xNTrrqY)
 - [x] Generate documentation rather than doing it manually
@@ -39,8 +43,8 @@ issues so I can do all my work in one place.
   - [x] PDFs with Firefox, overriding LibreOffice
   - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just
         need to set the program)
-- ❎ Port my server to NixOS. (Raspberry Pi 5 is currently unsupported. Putting
-  this on hold for now)
+- ❎ ~~Port my server to NixOS.~~ Putting this on hold for now as Raspberry Pi 5
+  is currently unsupported.
   - [x] Build ISO
         [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
   - [ ] Remove anything not needed for a server
@@ -68,8 +72,9 @@ issues so I can do all my work in one place.
 - [ ] Fix `nixd` in Zed
 - [ ] Fix nerd fonts in Zed
 - [ ] Tidy docs-generate, split into multiple files, one for defaults and
-      another for generating HTML
-  - [ ] Only rebuild changed generated docs, rather than all of them
+      another for generating HTML.
+  - ❎ ~~Only rebuild changed generated docs, rather than all of them.~~ No
+    longer needed after switch to mdbook, as it is much faster than Pandoc.
   - [x] Rewrite store paths for options to point to the repo instead
 - [ ] Use a Nix cache to speed up builds on my laptop. Would ideally be able to
       push a fully NixOS image to the laptop, rather than building locally which
