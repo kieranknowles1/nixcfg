@@ -22,6 +22,7 @@
     ./office
     ./shortcuts
     ./theme.nix
+    ./timer.nix
     ./trilium.nix
   ];
 }

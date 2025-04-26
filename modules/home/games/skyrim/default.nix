@@ -5,6 +5,8 @@
   ...
 }: let
   resaverDesktopFileName = "resaver.desktop";
+
+  utilsBin = lib.getExe pkgs.flake.skyrim-utils;
 in {
   config = lib.mkIf config.custom.games.enable {
     home.packages = [
@@ -24,7 +26,6 @@ in {
       };
 
       shortcuts.palette.actions = let
-        utilsBin = lib.getExe pkgs.flake.skyrim-utils;
         mkAction = subcommand: description: {
           action = [utilsBin subcommand];
           description = "Skyrim: ${description}";
@@ -32,8 +33,13 @@ in {
       in [
         (mkAction "latest" "Open the latest save in ReSaver")
         (mkAction "crash" "Open the most recent crash log")
-        (mkAction "clean" "Clean orphaned SKSE co-save files")
       ];
+
+      timer."clean-skyrim-saves" = {
+        description = "Clean orphaned SKSE co-save files";
+        frequency = "daily";
+        command = "${utilsBin} clean";
+      };
     };
   };
 }
