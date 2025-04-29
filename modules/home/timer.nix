@@ -42,6 +42,7 @@
 
         Acts as a wrapper to create a timer and a unit with a less verbose syntax.
       '';
+      default = {};
     };
 
   config = let
