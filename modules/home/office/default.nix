@@ -25,6 +25,9 @@
       hunspell
       # It's "Specialise" not "Specialize", we're British
       hunspellDicts.en_GB-ise
+
+      # Research
+      zotero
     ];
   };
 }
