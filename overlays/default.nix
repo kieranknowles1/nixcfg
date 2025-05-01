@@ -21,6 +21,11 @@
   in {
     "${name}" = namespacePkgs // extra;
   });
+
+  optionalOverlay = overlaySet: name:
+    if name ? "overlaySet"
+    then overlaySet.${name}
+    else (_: _: {});
 in {
   # TODO: Remove this once flake-parts has a proper way of handling overlays
   perSystem = {system, ...}: {
@@ -41,7 +46,7 @@ in {
     firefox-addons = mkNamespace "firefox-addons" inputs.firefox-addons.packages {};
 
     # Also add overlays consumed by the flake, makes activating everything easier
-    vscode-extensions = inputs.vscode-extensions.overlays.default;
+    vscode-extensions = optionalOverlay inputs.vscode-extensions.overlays "default";
 
     overrides = import ./overrides.nix {inherit inputs;};
   };
