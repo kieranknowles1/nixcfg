@@ -11,6 +11,10 @@
 
       # Fancy diffs
       difftastic.enable = true;
+
+      extraConfig = {
+        init.defaultBranch = "main";
+      };
     };
 
     # Fancy TUI
