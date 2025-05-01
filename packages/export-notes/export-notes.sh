@@ -9,7 +9,6 @@ log() {
 API_ROOT="http://127.0.0.1:37840/etapi"
 API_KEY=$(cat "$API_KEY_FILE")
 META_FILE="$DST_DIR/!!!meta.json"
-FORMAT="markdown"
 
 if [ ! -d "$DST_DIR/.git" ]; then
   log "No git repository found at $DST_DIR, aborting"

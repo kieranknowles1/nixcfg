@@ -13,6 +13,8 @@
   rootNote ? "root",
   # Whether to automatically commit and push changes with a generic message
   autoCommit ? true,
+  # Either "markdown" or "html"
+  format ? "markdown",
 }:
 writeShellApplication rec {
   name = "export-notes";
@@ -27,6 +29,7 @@ writeShellApplication rec {
     DST_DIR = destinationDir;
     ROOT_NOTE = rootNote;
     AUTO_COMMIT = autoCommit;
+    FORMAT = format;
   };
 
   text = builtins.readFile ./export-notes.sh;
