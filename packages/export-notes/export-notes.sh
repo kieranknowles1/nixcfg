@@ -10,7 +10,9 @@ API_ROOT="http://127.0.0.1:37840/etapi"
 API_KEY=$(cat "$API_KEY_FILE")
 META_FILE="$DST_DIR/!!!meta.json"
 
-if [ ! -d "$DST_DIR/.git" ]; then
+newRepo=$(if [ -f "$META_FILE" ]; then echo 0; else echo 1; fi)
+
+if ! git -C "$DST_DIR" status > /dev/null 2>&1; then
   log "No git repository found at $DST_DIR, aborting"
   exit 1
 fi
@@ -21,12 +23,16 @@ curl --header "Authorization: $API_KEY" "$API_ROOT/notes/$ROOT_NOTE/export?forma
 
 log "Fetched $(du -k "$export_file" | cut -f1)KB of data"
 log "Unzipping $export_file to $DST_DIR"
-# Notes may have been moved or deleted. Remove the old notes directory to avoid stale data.
-rootNoteDir=$(jq --raw-output '.files[0].dirFileName' < "$META_FILE")
 
-if [ -n "$rootNoteDir" ] && [ -d "$DST_DIR/$rootNoteDir" ]; then
-  rm -rf "${DST_DIR:?}/${rootNoteDir:?}"
+if [ "$newRepo" -eq 0 ]; then
+  # Notes may have been moved or deleted. Remove the old notes directory to avoid stale data.
+  rootNoteDir=$(jq --raw-output '.files[0].dirFileName' < "$META_FILE")
+
+  if [ -d "$DST_DIR/$rootNoteDir" ]; then
+    rm -rf "${DST_DIR:?}/${rootNoteDir:?}"
+  fi
 fi
+
 unzip -q -o "$export_file" -d "$DST_DIR"
 rm "$export_file"
 
