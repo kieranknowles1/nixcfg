@@ -67,7 +67,8 @@
         php-cs-fixer = {
           enable = true;
           configFile = ./.php-cs-fixer.php;
-          package = pkgs.stable.phpPackages.php-cs-fixer;
+          # Hasn't been updated to PHP 8.4 yet
+          package = pkgs.php83Packages.php-cs-fixer;
         };
 
         taplo.enable = true; # TOML
