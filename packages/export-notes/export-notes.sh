@@ -25,7 +25,7 @@ log "Unzipping $export_file to $DST_DIR"
 # Notes may have been moved or deleted. Remove the old notes directory to avoid stale data.
 rootNoteDir=$(jq --raw-output '.files[0].dirFileName' < "$META_FILE")
 
-if [ -d "$DST_DIR/$rootNoteDir" ]; then
+if [ -n "$rootNoteDir" ] && [ -d "$DST_DIR/$rootNoteDir" ]; then
   rm -rf "${DST_DIR:?}/${rootNoteDir:?}"
 fi
 unzip -q -o "$export_file" -d "$DST_DIR"
