@@ -17,8 +17,8 @@ if [ ! -d "$DST_DIR/.git" ]; then
 fi
 
 export_file=$(mktemp)
-log "Feching notes from $API_ROOT to $export_file"
-curl --header "Authorization: $API_KEY" "$API_ROOT/notes/root/export?format=$FORMAT" > "$export_file" -Ss
+log "Feching notes from $API_ROOT to $export_file, starting at '$ROOT_NOTE'"
+curl --header "Authorization: $API_KEY" "$API_ROOT/notes/$ROOT_NOTE/export?format=$FORMAT" > "$export_file" -Ss
 
 log "Fetched $(du -k "$export_file" | cut -f1)KB of data"
 log "Unzipping $export_file to $DST_DIR"
@@ -45,6 +45,11 @@ while IFS= read -r -d '' file; do
   jq --indent 1 . "$file" > "$tmp_file"
   mv "$tmp_file" "$file"
 done < <(find "$DST_DIR" -type f -name '*.json' -print0)
+
+if [[ -z "$AUTO_COMMIT" ]]; then
+  echo "Auto commit disabled"
+  exit 0
+fi
 
 
 log "Committing changes to git"

@@ -4,8 +4,15 @@
   jq,
   # runtimeEnv doesn't support shell expansions,
   # need absolute paths
+  # File containing Trilium's API key. Should be deployed with SOPS
   apiKeyFile ? "/home/kieran/.local/share/trilium-data/token",
+  # Base directory to export notes. Must be a Git repository
+  # WARN: The subdirectory with name matching the root note will be deleted
   destinationDir ? "/home/kieran/Documents/trilium-export",
+  # ID of the note to export with all descendants
+  rootNote ? "root",
+  # Whether to automatically commit and push changes with a generic message
+  autoCommit ? true,
 }:
 writeShellApplication rec {
   name = "export-notes";
@@ -18,6 +25,8 @@ writeShellApplication rec {
   runtimeEnv = {
     API_KEY_FILE = apiKeyFile;
     DST_DIR = destinationDir;
+    ROOT_NOTE = rootNote;
+    AUTO_COMMIT = autoCommit;
   };
 
   text = builtins.readFile ./export-notes.sh;
