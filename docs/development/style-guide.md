@@ -5,6 +5,8 @@ Guidelines for code and documentation.
 - [Style Guide](#style-guide)
   - [General Rules](#general-rules)
   - [Documentation](#documentation)
+    - [Tables of Contents](#tables-of-contents)
+    - [Referencing Other Files](#referencing-other-files)
   - [Code](#code)
     - [Code Style](#code-style)
       - [Nix Specific](#nix-specific)
@@ -16,7 +18,7 @@ of guidelines for code and documentation.
 
 ## General Rules
 
-- Commit messages should be written in the format `component: description`,
+- Commit messages SHOULD be written in the format `component: description`,
   additional information can be provided in the commit message body.
 
 ## Documentation
@@ -35,6 +37,23 @@ bold. For example, in [Activate Mutable Plan](../plan/activate-mutable.md):
 > process.
 
 Keep it consise. Don't write a full paragraph when a single sentence will do.
+
+### Tables of Contents
+
+Tables of contents SHOULD be included in Markdown files with more than a few
+sections (no hard threshold). These can be generated with VS Code's
+[Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+extension.
+
+<!-- TODO: Check these are up to date and/or generate them automatically -->
+
+### Referencing Other Files
+
+Markdown files MUST use Markdown links. All other contexts MUST use the VS Code
+[Comment Links](https://marketplace.visualstudio.com/items?itemName=Isotechnics.commentlinks)
+extension format. That is: `[[<path_to_file>]]` where `<path_to_file>` begins
+with either `./`, signifying a relative path, or `@`, for paths relative to the
+root of the repository.
 
 ## Code
 
