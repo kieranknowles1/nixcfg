@@ -22,8 +22,6 @@ alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 alias void = ignore
 alias discard = ignore
 
-
-# TODO: Add tv to PATH via home-manager to use stylix config
 def __telly [
     channel: string
 ]: nothing -> string {
