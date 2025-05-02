@@ -23,7 +23,7 @@
   });
 
   optionalOverlay = overlaySet: name:
-    if name ? "overlaySet"
+    if builtins.hasAttr name overlaySet
     then overlaySet.${name}
     else (_: _: {});
 in {
