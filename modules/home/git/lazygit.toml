@@ -2,12 +2,18 @@
 
 update.method = "never" # Managed by nix
 
+# Refuse to open unless we already have a git repo
 notARepository = "quit"
 
 [gui]
 # Not at all necessary, but fancy
 animateExplosion = true
+# Fancy icons for languages
 nerdFontsVersion = "3"
+
+[git]
+# Don't touch HEAD unless I say
+autoForwardBranches = "none"
 
 [git.paging]
 externalDiffCommand = "difft --color auto --display side-by-side"
