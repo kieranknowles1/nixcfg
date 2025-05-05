@@ -129,41 +129,23 @@ in {
 
       createEntry = package: let
         name = getName package;
-        version = package.version or "unknown";
-        shortDescription = package.meta.description or "";
 
-        # Add 2 levels of headers to any in the long description.
-        # We reserve heading 1 for the file header, and heading 2 for the package name,
-        # so descriptions need to start at heading 3.
-        longDescription = let
-          original = package.meta.longDescription or "";
-        in
-          builtins.replaceStrings ["\n#"] ["\n###"] original;
-
-        noDescription = shortDescription == "" && longDescription == "";
+        # h1 is for the page title, h2 is for the package name, so start at h3
+        # in the description.
+        incrementHeaders = builtins.replaceStrings ["\n#"] ["\n###"];
+        getMeta = field: transform:
+          if builtins.hasAttr field package.meta
+          then transform package.meta.${field}
+          else "";
       in ''
         ## ${name}
-        version: ${version}
+        Version: ${package.version or "unknown"}
 
-        ${
-          if package.meta ? homepage
-          then "Homepage: ${package.meta.homepage}"
-          else ""
-        }
-        ${
-          if package.meta ? license
-          then "License: ${package.meta.license.fullName}"
-          else ""
-        }
+        ${getMeta "homepage" (x: "Homepage: [${x}](${x})")}
 
-        ${shortDescription}
+        ${getMeta "description" (x: "*${x}*")}
 
-        ${longDescription}
-        ${
-          if noDescription
-          then "No description provided."
-          else ""
-        }
+        ${getMeta "longDescription" incrementHeaders}
       '';
     in ''
       # Packages

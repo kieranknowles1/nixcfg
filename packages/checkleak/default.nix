@@ -27,7 +27,7 @@ writeShellApplication rec {
       running.
 
       ## Usage
-      This derivation does nothing unless `target` is overridden, this should
+      This derivation is useless unless `target` is overridden, this should
       point to the desired build target to test.
     '';
   };
