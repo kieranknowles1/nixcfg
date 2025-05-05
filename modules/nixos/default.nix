@@ -18,5 +18,6 @@
     ./theme.nix
     ./thunderbird.nix
     ./users.nix
+    ./vr.nix
   ];
 }
