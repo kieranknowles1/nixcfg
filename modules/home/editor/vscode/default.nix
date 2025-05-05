@@ -34,6 +34,7 @@
 
     programs.vscode = {
       enable = true;
+      package = pkgs.vscodium;
 
       extensions = with pkgs.vscode-marketplace; [
         # Must-have extensions
@@ -80,7 +81,7 @@
 
     custom.mutable.file = config.custom.mutable.provisionDir {
       baseRepoPath = "modules/home/editor/vscode";
-      baseSystemPath = "${config.xdg.configHome}/Code/User";
+      baseSystemPath = "${config.xdg.configHome}/VSCodium/User";
       files = [
         "settings.json"
         "keybindings.json"
