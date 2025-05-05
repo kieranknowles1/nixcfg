@@ -40,8 +40,9 @@
         enable = true;
 
         # Give us an environment variable for our flake path
-        environmentVariables = {
+        environmentVariables = rec {
           FLAKE = cfg.fullRepoPath;
+          NH_FLAKE = FLAKE;
         };
 
         # Load my custom config
