@@ -8,6 +8,7 @@
   - [Style Guide](./development/style-guide.md)
 - [Usage](./usage/readme.md)
   - [Troubleshooting](./usage/troubleshooting.md)
+  - [VR Support](./usage/vr.md)
 
 - [Planning](./plan/readme.md)
   - [Activate Mutable](./plan/activate-mutable.md)
