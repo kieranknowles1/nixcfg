@@ -34,6 +34,7 @@
 
     programs.vscode = {
       enable = true;
+      # VSCode minus Microsoft
       package = pkgs.vscodium;
 
       extensions = with pkgs.vscode-marketplace; [
@@ -78,6 +79,11 @@
       # Required by dtoplak.vscode-glsllint
       glslang
     ];
+
+    custom.aliases.code = {
+      exec = "codium";
+      mnemonic = "[cod]ium";
+    };
 
     custom.mutable.file = config.custom.mutable.provisionDir {
       baseRepoPath = "modules/home/editor/vscode";
