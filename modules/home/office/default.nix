@@ -19,6 +19,10 @@
       "Spreadsheet.ods" = ./templates/Spreadsheet.ods;
     };
 
+    custom.firefox.extraExtensions = [
+      pkgs.firefox-addons.zotero-connector
+    ];
+
     home.packages = with pkgs; [
       libreoffice
       # Needed for spell check
