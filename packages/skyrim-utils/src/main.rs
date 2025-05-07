@@ -27,14 +27,9 @@ impl CleanArgs {
 
         let orphans = save_files.get_orphans();
 
-        match orphans.is_empty() {
-            true => println!("Nothing to do"),
-            false => {
-                for skse in &orphans {
-                    fs::remove_file(skse)?;
-                }
-            }
-        };
+        for skse in &orphans {
+            fs::remove_file(skse)?;
+        }
 
         println!("Deleted {} orphaned .skse files", orphans.len());
 

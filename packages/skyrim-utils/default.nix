@@ -1,7 +1,7 @@
 {rustPlatform}:
 rustPlatform.buildRustPackage {
   pname = "skyrim-utils";
-  version = "1.3.0";
+  version = "1.3.1";
   src = ./.;
 
   cargoLock.lockFile = ./Cargo.lock;
