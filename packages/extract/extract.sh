@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+showhelp() {
+  cat <<EOF
+Extract files into directories matching their names
+
+Usage: $0 [files...]
+  -h|--help:
+    Show this help message and exit
+EOF
+  exit
+}
+
+files=()
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -h|--help)
+      showhelp
+      ;;
+    *)
+      files+=("$1")
+      ;;
+  esac
+  shift
+done
+
+if [[ ${#files[@]} -eq 0 ]]; then
+  showhelp
+fi
+
+extractFile() {
+  file="$1"
+
+  type=$(xdg-mime query filetype "$file")
+  out="${file%.*}"
+
+  # None of this would be necessary if developers had decided on a consistent
+  # interface for extracting files. But that ship sailed 20 years ago
+  case "$type" in
+    application/x-7z-compressed)
+      7z x "$file" -o"$out"
+      ;;
+    application/zip)
+      unzip "$file" -d "$out"
+      ;;
+    application/vnd.rar)
+      mkdir -p "$out"
+      unrar-free x "$file" "$out"
+      ;;
+    *)
+      echo "Unsupported file type: $type" >&2
+      exit 1
+      ;;
+  esac
+}
+
+for file in "${files[@]}"; do
+  extractFile "$file"
+done
