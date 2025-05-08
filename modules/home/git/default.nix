@@ -11,6 +11,10 @@
 
       # Fancy diffs
       difftastic.enable = true;
+      aliases = {
+        difft = "diff";
+        diffp = "diff --no-ext-diff";
+      };
 
       extraConfig = {
         init.defaultBranch = "main";
