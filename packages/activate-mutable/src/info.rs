@@ -6,7 +6,7 @@ use thiserror::Error;
 
 use crate::{
     config::{
-        get_previous_config_path, or_environ, read_config, resolve_directory, ConflictStrategy,
+        ConflictStrategy, get_previous_config_path, or_environ, read_config, resolve_directory,
     },
     state::{ExistingMatch, Files},
 };

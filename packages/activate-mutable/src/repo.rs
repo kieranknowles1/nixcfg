@@ -5,8 +5,8 @@ use thiserror::Error;
 
 use crate::{
     config::{
-        get_previous_config_path, or_environ, read_config, resolve_directory,
-        DirectoryTraversalError,
+        DirectoryTraversalError, get_previous_config_path, or_environ, read_config,
+        resolve_directory,
     },
     state::Files,
 };

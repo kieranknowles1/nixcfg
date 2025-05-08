@@ -102,7 +102,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         None => match Config::new() {
             Ok(config) => config.flake,
             Err(e) => {
-                eprintln!("FLAKE environment variable not set. Use the --flake option or set the FLAKE environment variable.");
+                eprintln!(
+                    "FLAKE environment variable not set. Use the --flake option or set the FLAKE environment variable."
+                );
                 return Err(Box::new(e));
             }
         },

@@ -7,8 +7,8 @@ use thiserror::Error;
 use crate::state::{ExistingMatch, Files};
 
 use crate::config::{
-    find_entry, get_previous_config_path, read_config, resolve_directory, Config, ConfigEntry,
-    ConflictStrategy,
+    Config, ConfigEntry, ConflictStrategy, find_entry, get_previous_config_path, read_config,
+    resolve_directory,
 };
 
 pub type Result<T> = std::result::Result<T, Error>;
@@ -76,7 +76,7 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
                     return Err(Error::Io(std::io::Error::new(
                         std::io::ErrorKind::NotFound,
                         "Parent directory not found",
-                    )))
+                    )));
                 }
             };
             std::fs::create_dir_all(&dir)?;
