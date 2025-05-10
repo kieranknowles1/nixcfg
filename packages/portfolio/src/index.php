@@ -57,24 +57,17 @@ function embedVideo(string $id): string {
 /**
  * @param array{
  *  github: string,
- *  itchio?: string,
+ *  itchio: string,
  * } $project
  */
 function projectLinks(array $project): string {
     $gh = getIcon(IconPack::SI, 'github');
     $itch = getIcon(IconPack::SI, 'itchdotio');
-    $download = array_key_exists('itchio', $project)
-      ? "<li>{$itch} itch.io: <a href='{$project['itchio']}'>{$project['itchio']}</a></li>"
-      : "";
 
-    // TODO: Serve downloads from the server. How to include the builds?
-    // Probably use itch.io
-    // Serving only Windows builds is good enough, and builds made on NixOS are not portable
-    // Could just be lazy, include a zip in the repo and say "build it yourself" for Linux
     return <<<HTML
         <ul class="links-list">
             <li>{$gh} GitHub: <a href="{$project['github']}">{$project['github']}</a></li>
-            $download
+            <li>{$itch} itch.io: <a href='{$project['itchio']}'>{$project['itchio']}</a></li>
         </ul>
     HTML;
 }
@@ -101,7 +94,6 @@ function feedbackSection(string $from, int $marks, string $quote): string {
 </head>
 <body>
     <h1>Kieran Knowles</h1>
-    <!-- TODO: Work on the portfolio page -->
      <nav>
         <ul>
             <li><a href="#blitzbox">Blitzbox</a></li>
@@ -189,8 +181,8 @@ function feedbackSection(string $from, int $marks, string $quote): string {
                 <div>
                   <?php echo projectLinks([
                       'github' => 'https://github.com/kieranknowles1/csc8502-advanced-graphics',
+                      'itchio' => 'https://kieranknowles.itch.io/csc8502',
                   ]); ?>
-                  <!-- TODO: Link to the project, should I automate building to be extra fancy? -->
                   <p>
                       A 3D graphics engine based on OpenGL. Features include:
                   </p>
@@ -219,8 +211,8 @@ function feedbackSection(string $from, int $marks, string $quote): string {
                 <div>
                     <?php echo projectLinks([
                         'github' => 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/',
+                        'itchio' => 'https://kieranknowles.itch.io/small-feline-big-deadline',
                     ]); ?>
-                    <!-- TODO: Link to the project -->
                     <p>
                         A game engine primarily focused on networking, including:
                     </p>
