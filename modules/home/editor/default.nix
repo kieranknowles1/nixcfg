@@ -77,15 +77,19 @@
       message = "The default editor is set to ${cfg.default}, but it is not enabled.";
     };
 
-    custom.editor.defaultCommand = defaultConfig.command;
-    custom.aliases.e = {
-      exec = "${cfg.defaultCommand} .";
-      mnemonic = "[e]ditor";
-    };
+    custom = {
+      editor.defaultCommand = defaultConfig.command;
+      # Like $EDITOR, but for GUIs
+      extraEnv.GUIEDITOR = cfg.defaultCommand;
+      aliases.e = {
+        exec = "${cfg.defaultCommand} .";
+        mnemonic = "[e]ditor";
+      };
 
-    # Assign the default GUI editor to handle text files
-    custom.mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
-      defaultApp = defaultConfig.desktopFile;
-    });
+      # Assign the default GUI editor to handle text files
+      mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
+        defaultApp = defaultConfig.desktopFile;
+      });
+    };
   };
 }
