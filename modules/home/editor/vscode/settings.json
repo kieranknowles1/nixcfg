@@ -42,6 +42,12 @@
   "editor.suggest.matchOnWordStartOnly": false, // Allow searching for words in the middle, without needing to know the start
   "editor.wordBasedSuggestions": "off", // Don't clutter suggestions with every word in the document
 
+  // Keep most lines under 80 characters, and consider refactoring if exceeding
+  // 120.
+  "editor.rulers": [
+    80, 120
+  ],
+
   // =================
   //  Core Extensions
   // =================

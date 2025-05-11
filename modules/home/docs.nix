@@ -9,7 +9,7 @@
   options.custom.docs-generate = let
     inherit (lib) mkEnableOption mkOption types options;
   in {
-    enable = mkEnableOption "generate documentation for the flake and its options.";
+    enable = mkEnableOption "generated documentation for the flake and its options.";
 
     jsonIgnoredOptions = let
       mkIgnoredOptions = name:
