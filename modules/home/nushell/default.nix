@@ -9,11 +9,25 @@
   ...
 }: {
   options.custom = let
-    inherit (lib) mkPackageOption;
+    inherit (lib) mkOption types mkPackageOption;
   in {
     fonts = {
       defaultMono = mkPackageOption pkgs.nerd-fonts "dejavu-sans-mono" {
         extraDescription = "Default monospace font";
+      };
+    };
+
+    extraEnv = mkOption {
+      description = ''
+        Additional environment variables for shell sessions.
+
+        Note that these do not apply to commands launched outside of an
+        interactive shell, such as from the command palette.
+      '';
+      type = types.attrsOf types.str;
+      default = {};
+      example = {
+        MY_ENV = "value";
       };
     };
   };
@@ -24,6 +38,12 @@
   in {
     # TODO: Link to the shell set on the host side, a NuShell specific file isn't the best place for this
     xdg.configFile."default-shell".source = lib.getExe config.programs.nushell.package;
+
+    custom.extraEnv = rec {
+      # Point tools to our flake repository
+      FLAKE = cfg.fullRepoPath;
+      NH_FLAKE = FLAKE;
+    };
 
     custom.mutable.file = {
       "${config.xdg.configHome}/nushell/user-config.nu" = {
@@ -40,10 +60,7 @@
         enable = true;
 
         # Give us an environment variable for our flake path
-        environmentVariables = rec {
-          FLAKE = cfg.fullRepoPath;
-          NH_FLAKE = FLAKE;
-        };
+        environmentVariables = config.custom.extraEnv;
 
         # Load my custom config
         extraConfig = "source user-config.nu";
