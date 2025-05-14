@@ -45,7 +45,8 @@
   // Keep most lines under 80 characters, and consider refactoring if exceeding
   // 120.
   "editor.rulers": [
-    80, 120
+    80,
+    120
   ],
 
   // =================
