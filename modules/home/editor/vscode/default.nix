@@ -57,11 +57,6 @@
 
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
 
-        # C++
-        ms-vscode.cmake-tools
-        ms-vscode.cpptools
-        twxs.cmake
-
         # GLSL
         slevesque.shader
         dtoplak.vscode-glsllint
