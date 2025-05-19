@@ -29,16 +29,9 @@ final: prev: {
 
   # My fork of OpenMW
   openmw = let
-    latestSrc = final.fetchFromGitLab {
-      owner = "kieranjohn1";
-      repo = "openmw";
-      rev = "37104fb6b5bcac976c91bde7c80d27506ca78851";
-      hash = "sha256-Ctf1rtbc4Vre+ugf8vZYaLyukcBc2QFP581e9/L8duY=";
-    };
-
     devPkg = inputs.openmw.packages.${final.system}.openmw-dev;
   in
     devPkg.overrideAttrs (_oldAttrs: {
-      src = latestSrc;
+      src = inputs.src-openmw;
     });
 }

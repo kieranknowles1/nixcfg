@@ -314,16 +314,16 @@
     },
     "nixpkgs-openmw": {
       "locked": {
-        "lastModified": 1727264057,
-        "narHash": "sha256-KQPI8CTTnB9CrJ7LrmLC4VWbKZfljEPBXOFGZFRpxao=",
+        "lastModified": 1746300365,
+        "narHash": "sha256-thYTdWqCRipwPRxWiTiH1vusLuAy0okjOyzRx4hLWh4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "759537f06e6999e141588ff1c9be7f3a5c060106",
+        "rev": "f21e4546e3ede7ae34d12a84602a22246b31f7e0",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "759537f06e6999e141588ff1c9be7f3a5c060106",
+        "ref": "f21e4546e3ede7ae34d12a84602a22246b31f7e0",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -386,6 +386,7 @@
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",
         "src-factorio-blueprint-decoder": "src-factorio-blueprint-decoder",
+        "src-openmw": "src-openmw",
         "src-tldr": "src-tldr",
         "stylix": "stylix",
         "systems": "systems",
@@ -473,6 +474,22 @@
         "ref": "turret_fix",
         "repo": "factorio-blueprint-decoder",
         "type": "github"
+      }
+    },
+    "src-openmw": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747518898,
+        "narHash": "sha256-Qxs2nnVYN6WJTQMBfszmJxQ18JUNGiijfokvb9qRUmg=",
+        "owner": "kieranjohn1",
+        "repo": "openmw",
+        "rev": "8bee4770374ae684805c2facbb61e5ca5a3bbd37",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "kieranjohn1",
+        "repo": "openmw",
+        "type": "gitlab"
       }
     },
     "src-tldr": {
