@@ -6,5 +6,31 @@
     "key": "alt+shift+f",
     "command": "editor.action.formatDocument",
     "when": "editorTextFocus"
+  },
+
+  // LaTeX
+  {
+    "key": "ctrl+b",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == 'latex'",
+    "args": {
+      "snippet": "\\textbf{$1}"
+    }
+  },
+  {
+    "key": "ctrl+i",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == 'latex'",
+    "args": {
+      "snippet": "\\textit{$1}"
+    }
+  },
+  {
+    "key": "ctrl+u",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == 'latex'",
+    "args": {
+      "snippet": "\\underline{$1}"
+    }
   }
 ]
