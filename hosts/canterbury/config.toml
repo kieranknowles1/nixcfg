@@ -28,5 +28,6 @@ hostName = "canterbury"
 [development]
 enable = true
 
-[cache]
-mode = "receive"
+# TODO: home network is too slow for now, reenable later
+# [cache]
+# mode = "receive"
