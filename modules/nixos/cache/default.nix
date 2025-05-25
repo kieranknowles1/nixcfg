@@ -41,10 +41,14 @@
       enable = send;
       secretKeyFile = config.sops.secrets."cache/privateKey".path;
       # TODO: Automatically allocate a port
+      openFirewall = true;
       port = 80;
     };
 
     # TODO: Proper nginx module. Bind nix-serve to a subdomain
-    boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
+    # This is a workaround to allow nix-serve to bind to port 80
+    boot.kernel.sysctl = lib.mkIf send {
+      "net.ipv4.ip_unprivileged_port_start" = 0;
+    };
   };
 }
