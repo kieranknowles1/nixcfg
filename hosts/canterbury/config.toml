@@ -27,3 +27,6 @@ hostName = "canterbury"
 
 [development]
 enable = true
+
+[cache]
+mode = "receive"
