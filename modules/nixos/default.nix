@@ -5,6 +5,7 @@
     ../shared
 
     ./backup.nix
+    ./cache
     ./core.nix
     ./desktop
     ./development.nix

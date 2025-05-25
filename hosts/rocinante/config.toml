@@ -26,3 +26,7 @@ hostName = "rocinante"
 
 [development]
 enable = true
+
+[cache]
+mode = "send"
+send.privateKeySecret = "cache/privateKey"

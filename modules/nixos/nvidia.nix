@@ -5,6 +5,7 @@
   ...
 }: {
   options = {
+    # TODO: Put this under hardware
     custom.nvidia.enable = lib.mkEnableOption "Nvidia drivers";
   };
 
