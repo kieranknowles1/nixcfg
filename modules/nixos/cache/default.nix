@@ -27,11 +27,34 @@
         example = "cache/privateKey";
       };
     };
+
+    receive = {
+      publicKey = mkOption {
+        description = ''
+          Public key that matches the cache server's private key.
+          This is safe to commit unencrypted.
+        '';
+        default = builtins.readFile ./publickey.pem;
+      };
+
+      server = mkOption {
+        description = ''
+          Domain name of the cache server.
+        '';
+        type = types.str;
+        example = "https://cache.example.com";
+        # TODO: HTTPs
+        # TODO: Bind to domain name
+        # TODO: Is this the right place to put the default?
+        default = "http://192.168.1.169";
+      };
+    };
   };
 
   config = let
     cfg = config.custom.cache;
     send = cfg.mode == "send";
+    receive = cfg.mode == "receive";
   in {
     sops.secrets = lib.mkIf send {
       "cache/privateKey".key = cfg.send.privateKeySecret;
@@ -49,6 +72,15 @@
     # This is a workaround to allow nix-serve to bind to port 80
     boot.kernel.sysctl = lib.mkIf send {
       "net.ipv4.ip_unprivileged_port_start" = 0;
+    };
+
+    nix.settings = lib.mkIf receive {
+      substituters = [
+        cfg.receive.server
+      ];
+      trusted-public-keys = [
+        cfg.receive.publicKey
+      ];
     };
   };
 }
