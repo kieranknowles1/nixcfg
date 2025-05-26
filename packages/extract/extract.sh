@@ -8,15 +8,21 @@ Extract files into directories matching their names
 Usage: $0 [files...]
   -h|--help:
     Show this help message and exit
+  --notify:
+    Send a notifaction when complete
 EOF
   exit
 }
 
 files=()
+notify=0
 while [[ $# -gt 0 ]]; do
   case $1 in
     -h|--help)
       showhelp
+      ;;
+    --notify)
+      notify=1
       ;;
     *)
       files+=("$1")
@@ -56,5 +62,14 @@ extractFile() {
 }
 
 for file in "${files[@]}"; do
-  extractFile "$file"
+  extractFile "$file" || {
+    if [[ "$notify" -eq 1 ]]; then
+      notify-send --category warning "Extract failed" "Extraction of $file failed."
+    fi
+    exit 1
+  }
 done
+
+if [[ "$notify" -eq 1 ]]; then
+  notify-send "Extract complete" "Extraction of ${#files[@]} files complete."
+fi

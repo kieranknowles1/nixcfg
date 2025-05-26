@@ -3,6 +3,7 @@
   makeDesktopItem,
   symlinkJoin,
   lib,
+  libnotify,
   p7zip,
   unzip,
   unrar-free,
@@ -10,6 +11,7 @@
   extract = writeShellApplication rec {
     name = "extract";
     runtimeInputs = [
+      libnotify
       p7zip
       unzip
       unrar-free
@@ -33,7 +35,7 @@
   desktopItem = makeDesktopItem {
     inherit (extract) name;
     desktopName = "Extract";
-    exec = "${lib.getExe extract} %F";
+    exec = "${lib.getExe extract} --notify %F";
     mimeTypes = [
       "application/x-7z-compressed"
       "application/zip"
