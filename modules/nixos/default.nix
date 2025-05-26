@@ -7,7 +7,6 @@
     ./backup.nix
     ./core.nix
     ./desktop
-    ./development.nix
     ./ledstate.nix
     ./llm.nix
     ./locale.nix

@@ -23,6 +23,3 @@ memorySize = 32
 
 [networking]
 hostName = "rocinante"
-
-[development]
-enable = true

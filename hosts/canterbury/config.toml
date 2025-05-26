@@ -24,6 +24,3 @@ memorySize = 8
 
 [networking]
 hostName = "canterbury"
-
-[development]
-enable = true
