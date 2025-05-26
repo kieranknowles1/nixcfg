@@ -23,13 +23,12 @@
 
     stylix = {
       url = "github:danth/stylix";
-      inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
 
       inputs.flake-compat.follows = "";
-      inputs.git-hooks.follows = "";
       # Remove some inputs that are not used by this flake
       inputs.base16-fish.follows = "";
       inputs.base16-helix.follows = "";

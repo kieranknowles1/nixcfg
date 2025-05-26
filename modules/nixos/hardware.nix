@@ -4,21 +4,29 @@
   lib,
   ...
 }: {
-  options = {
-    # TODO: Put this under hardware
-    custom.nvidia.enable = lib.mkEnableOption "Nvidia drivers";
+  options.custom.hardware = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    nvidia.enable = mkEnableOption "Nvidia drivers";
+
+    memorySize = mkOption {
+      description = "Available RAM, in GB";
+      type = types.int;
+    };
   };
 
-  config = lib.mkIf config.custom.nvidia.enable {
-    # This may not cover everything, but it gets Skyrim running and that's good enough for now.
-    # https://nixos.wiki/wiki/Nvidia
+  config = let
+    cfg = config.custom.hardware;
+    nvidiaOnly = lib.mkIf cfg.nvidia.enable;
+  in {
+    # See https://nixos.wiki/wiki/Nvidia
     # TODO: Should this be enabled on all desktops?
-    hardware.graphics = {
+    hardware.graphics = nvidiaOnly {
       enable = true;
       enable32Bit = true;
     };
-    services.xserver.videoDrivers = ["nvidia"];
-    hardware.nvidia = {
+    services.xserver.videoDrivers = lib.optional cfg.nvidia.enable "nvidia";
+    hardware.nvidia = nvidiaOnly {
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
@@ -29,5 +37,13 @@
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
+
+    swapDevices = [
+      {
+        device = "/var/lib/swapfile";
+        # 1.5 times RAM size
+        size = config.custom.hardware.memorySize * 1536;
+      }
+    ];
   };
 }

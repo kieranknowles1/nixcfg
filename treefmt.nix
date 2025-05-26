@@ -32,13 +32,22 @@
           "*.tscn"
           "*.tres"
 
+          # Unity assets. Managed by the editor
+          "*.asset"
+          "*.mat"
+          "*.meta"
+          "*.prefab"
+          "*.unity"
+
           # Binary files
+          "*.fbx"
           "*.heic"
           "*.jpg"
           "*.odp"
           "*.ods"
           "*.odt"
           "*.png"
+          "*.tif"
           "*.ttf"
           "*.wav"
         ];
@@ -93,6 +102,8 @@
         # These languages are not used in this repository, but their formatters are included
         # to let me use the same config everywhere
         clang-format.enable = true; # C++
+
+        csharpier.enable = true; # C#
 
         gdformat.enable = true; # GDScrip
 

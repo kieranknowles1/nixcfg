@@ -36,47 +36,43 @@ python312.withPackages (python-pkgs: [
   meta ? {},
   runtimeInputs ? null,
 }: let
-  useWrapper = runtimeInputs != null;
-
-  finalMeta =
+  meta' =
     meta
     // {
       # lib.getExe expects this to be set, and raises a warning if it isn't
       mainProgram = name;
     };
 
-  script = stdenv.mkDerivation {
-    pname =
-      if useWrapper
-      then "${name}-wrapped"
-      else name;
+  # If we need to include additional packages on the PATH, generate a wrapper
+  # that extends PATH with the runtime inputs.
+  runtime' =
+    if runtimeInputs == null
+    then runtime
+    else
+      writeShellApplication {
+        name = "${runtime.name}-with-path";
+        inherit runtimeInputs;
+        text = ''
+          exec ${lib.getExe runtime} "$@"
+        '';
+      };
+in
+  stdenv.mkDerivation {
+    pname = name;
     inherit version src runtimeInputs;
 
     dontUnpack = true; # This is a text file, unpacking is only applicable to archives
+
+    TEXT = ''
+      #!${lib.getExe runtime'}
+      ${builtins.readFile src}
+    '';
+
     installPhase = ''
       mkdir -p $out/bin
-
-      shebang="#!${lib.getExe runtime}"
-
-      echo "$shebang" > $out/bin/${name}
-      cat $src >> $out/bin/${name}
+      echo "$TEXT" > $out/bin/${name}
       chmod +x $out/bin/${name}
     '';
 
-    meta = finalMeta;
-  };
-
-  # If we need to include additional packages on the PATH, generate a wrapper
-  # that extends PATH with the runtime inputs.
-  wrapper = writeShellApplication {
-    name = "${name}-wrapped";
-    meta = finalMeta;
-    text = ''
-      export PATH="$PATH:${lib.strings.makeBinPath runtimeInputs}"
-      exec ${script}/bin/${name} "$@"
-    '';
-  };
-in
-  if useWrapper
-  then wrapper
-  else script
+    meta = meta';
+  }

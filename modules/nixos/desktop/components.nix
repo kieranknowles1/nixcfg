@@ -15,9 +15,8 @@
       ];
       systemPackages = with pkgs; [
         xfce.thunar
-        # thunar-archive-plugin requires an archive manager
-        kdePackages.ark
         xfce.xfconf
+        flake.extract
       ];
     };
 
@@ -25,7 +24,7 @@
       "inode/directory" = "thunar.desktop";
       # Prism (Minecraft launcher) associates itself with zips
       # Make sure our archive manager has priority
-      "application/zip" = "org.kde.ark.desktop";
+      "application/zip" = "extract.desktop";
     };
   };
 }
