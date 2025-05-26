@@ -5,7 +5,6 @@ repoPath = "/home/kieran/Documents/src/nixcfg"
 
 ledState.enable = true
 
-nvidia.enable = true
 vr.enable = true
 
 backup.enable = true
@@ -20,6 +19,7 @@ destination.remote = "backup/remote"
 
 [hardware]
 memorySize = 32
+nvidia.enable = true
 
 [networking]
 hostName = "rocinante"

@@ -7,11 +7,11 @@
     ./backup.nix
     ./core.nix
     ./desktop
+    ./hardware.nix
     ./ledstate.nix
     ./llm.nix
     ./locale.nix
     ./networking.nix
-    ./nvidia.nix
     ./printing.nix
     ./ssh
     ./theme.nix
