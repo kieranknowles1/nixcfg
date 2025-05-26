@@ -24,7 +24,7 @@
       "inode/directory" = "thunar.desktop";
       # Prism (Minecraft launcher) associates itself with zips
       # Make sure our archive manager has priority
-      "application/zip" = "org.kde.ark.desktop";
+      "application/zip" = "extract.desktop";
     };
   };
 }
