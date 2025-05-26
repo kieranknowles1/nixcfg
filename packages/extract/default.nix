@@ -34,7 +34,6 @@
     inherit (extract) name;
     desktopName = "Extract";
     exec = "${lib.getExe extract} %F";
-    terminal = true;
     mimeTypes = [
       "application/x-7z-compressed"
       "application/zip"
