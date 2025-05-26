@@ -24,3 +24,7 @@ memorySize = 8
 
 [networking]
 hostName = "canterbury"
+
+# TODO: home network is too slow for now, reenable later
+# [cache]
+# mode = "receive"
