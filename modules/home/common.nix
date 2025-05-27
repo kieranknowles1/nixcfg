@@ -70,9 +70,6 @@
       lib.mkDefault homeRelativePath;
     custom.fullRepoPath = "${config.home.homeDirectory}${config.custom.repoPath}";
 
-    # Inherit any overlays from the host to avoid duplication
-    nixpkgs.overlays = hostConfig.nixpkgs.overlays;
-
     home.packages = let
       term =
         lib.optional hostConfig.custom.features.desktop
