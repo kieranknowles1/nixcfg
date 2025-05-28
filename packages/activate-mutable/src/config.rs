@@ -84,5 +84,7 @@ pub struct ConfigEntry {
     /// Path to the file in the repository, relative to the repository root.
     pub repo_path: Option<String>,
     /// Script to convert a deployed file to a repo file
+    /// It is expected to take a single argument: the path of the deployed file,
+    /// and to return its output on stdout
     pub transformer: Option<PathBuf>,
 }
