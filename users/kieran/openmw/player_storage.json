@@ -1,7 +1,4 @@
 {
-  "NCGDMW_Blormuk_1": {
-    "deathCount": 0.0
-  },
   "OMWInputBindings": {
     "Grab_physics_object_button": {
       "button": 29.0,
@@ -71,7 +68,6 @@
     }
   },
   "SettingsOMWControls": {
-    "alwaysRun": true,
     "smoothControllerMovement": true,
     "toggleSneak": true
   },

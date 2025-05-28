@@ -40,7 +40,7 @@
     # Decode a binary file back to JSON format
     # Runs at runtime
     omwToJson = pkgs.writeShellScript "omw-json" ''
-      exec ${converter} decode $@
+      ${converter} decode $@ | ${pkgs.jq}/bin/jq --from-file ${./luaignore.jq}
     '';
 
     mkStorage = opts: {
