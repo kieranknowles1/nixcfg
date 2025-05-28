@@ -1,7 +1,7 @@
 use std::io::Write;
 
 use crate::constants::*;
-use crate::value::{Table, Value};
+use crate::value::{Array, Table, Value};
 
 type Result<T> = std::io::Result<T>;
 
@@ -53,6 +53,9 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
         Value::Table(t) => {
             write_table(t, write)?;
         }
+        Value::Array(a) => {
+            write_array(a, write)?;
+        }
         Value::Vec2(x, y) => {
             write.u8(T_VEC2)?;
             write.f64(x)?;
@@ -61,6 +64,10 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
     }
 
     Ok(())
+}
+
+fn write_array(array: Array, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
+    todo!();
 }
 
 fn write_table(table: Table, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {

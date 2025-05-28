@@ -1,11 +1,11 @@
-use std::fs::File;
+use std::fs::{File, read};
 use std::io::{BufRead, BufReader, Read};
 use std::string::FromUtf8Error;
 
 use thiserror::Error;
 
 use crate::constants::*;
-use crate::value::{Table, Value};
+use crate::value::{Array, Table, Value};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -144,8 +144,11 @@ fn read_value<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
             Ok(Value::Boolean(value != 0))
         }
         T_TABLE_START => {
-            let table = read_table(reader)?;
-            Ok(Value::Table(table))
+            let is_array = reader.peek_u8()? == T_NUMBER;
+            match is_array {
+                true => Ok(Value::Array(read_array(reader)?)),
+                false => Ok(Value::Table(read_table(reader)?)),
+            }
         }
         T_VEC2 => {
             let x = reader.f64()?;
@@ -162,6 +165,28 @@ fn read_value<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
     }
 }
 
+fn read_array<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Array> {
+    let mut arr = Vec::new();
+
+    let mut index = 1; // Lua arrays start at 1
+    loop {
+        let tag = reader.peek_u8()?;
+        if tag == T_TABLE_END {
+            reader.u8()?;
+            return Ok(arr);
+        }
+
+        let key = read_value(reader)?;
+        if key != Value::Number(index.into()) {
+            return Err(Error::data(&format!("Expected {}, got {:?}", index, key)));
+        }
+        let value = read_value(reader)?;
+        arr.push(value);
+
+        index += 1;
+    }
+}
+
 /// Decode a table from the reader
 /// Assumes that the buffer points to the first byte after TABLE_START
 fn read_table<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Table> {
@@ -175,9 +200,6 @@ fn read_table<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Table> {
             return Ok(table);
         }
 
-        // Table keys can be any type, but JSON only allows strings
-        // so expect that for now
-        // TODO: Use a different format that supports non-string keys
         let key = match read_value(reader)? {
             Value::String(s) => s,
             _ => Err(Error::data("Table key must be a string"))?,
