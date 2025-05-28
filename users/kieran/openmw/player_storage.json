@@ -1,5 +1,53 @@
 {
   "Table": {
+    "NCGDMW_Blormuk_1": {
+      "Table": {
+        "deathCount": {
+          "Number": 0.0
+        }
+      }
+    },
+    "OMWInputBindings": {
+      "Table": {
+        "Grab_physics_object_button": {
+          "Table": {
+            "button": {
+              "Number": 29.0
+            },
+            "device": {
+              "String": "keyboard"
+            },
+            "key": {
+              "String": "GrabPhysicsObject"
+            },
+            "type": {
+              "String": "action"
+            }
+          }
+        }
+      }
+    },
+    "SettingsLuaPhysicsControls": {
+      "Table": {
+        "GrabPhysicsObjectButton": {
+          "String": "Grab_physics_object_button"
+        }
+      }
+    },
+    "SettingsLuaPhysicsControlsArguments": {
+      "Table": {
+        "GrabPhysicsObjectButton": {
+          "Table": {
+            "key": {
+              "String": "GrabPhysicsObject"
+            },
+            "type": {
+              "String": "action"
+            }
+          }
+        }
+      }
+    },
     "SettingsOMWCameraHeadBobbing": {
       "Table": {
         "enabled": {
@@ -56,7 +104,7 @@
           "Boolean": true
         },
         "deferredPreviewRotation": {
-          "Boolean": true
+          "Boolean": false
         },
         "ignoreNC": {
           "Boolean": false
@@ -145,12 +193,1082 @@
     "SettingsOMWMusic": {
       "Table": {
         "CombatMusicEnabled": {
+          "Boolean": false
+        }
+      }
+    },
+    "SettingsPlayerAttributesNCGDMW": {
+      "Table": {
+        "attributeGrowthRate": {
+          "String": "attrGrowthSlow"
+        },
+        "growthFactorFromMajorSkills": {
+          "Number": 100.0
+        },
+        "growthFactorFromMinorSkills": {
+          "Number": 100.0
+        },
+        "growthFactorFromMiscSkills": {
+          "Number": 50.0
+        },
+        "luckGrowthRate": {
+          "String": "luckGrowthLow"
+        },
+        "startValuesRatio": {
+          "String": "half"
+        },
+        "uncapperMaxValue": {
+          "Number": 1000.0
+        }
+      }
+    },
+    "SettingsPlayerAttributesNCGDMWArguments": {
+      "Table": {
+        "attributeGrowthRate": {
+          "Table": {
+            "items": {
+              "Array": [
+                {
+                  "String": "attrGrowthSlow"
+                },
+                {
+                  "String": "attrGrowthStandard"
+                },
+                {
+                  "String": "attrGrowthFast"
+                }
+              ]
+            },
+            "l10n": {
+              "String": "NCGDMW"
+            },
+            "values": {
+              "Array": [
+                {
+                  "Number": 1.0
+                },
+                {
+                  "Number": 2.0
+                },
+                {
+                  "Number": 3.0
+                }
+              ]
+            }
+          }
+        },
+        "growthFactorFromMajorSkills": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 1000.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "growthFactorFromMinorSkills": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 1000.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "growthFactorFromMiscSkills": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 1000.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "luckGrowthRate": {
+          "Table": {
+            "items": {
+              "Array": [
+                {
+                  "String": "luckGrowthNone"
+                },
+                {
+                  "String": "luckGrowthLow"
+                },
+                {
+                  "String": "luckGrowthMed"
+                },
+                {
+                  "String": "luckGrowthHigh"
+                }
+              ]
+            },
+            "l10n": {
+              "String": "NCGDMW"
+            },
+            "values": {
+              "Array": [
+                {
+                  "Number": 0.0
+                },
+                {
+                  "Number": 0.25
+                },
+                {
+                  "Number": 0.5
+                },
+                {
+                  "Number": 1.0
+                }
+              ]
+            }
+          }
+        },
+        "perAttributeUncapper": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 9999.0
+            },
+            "min": {
+              "Number": 5.0
+            }
+          }
+        },
+        "startValuesRatio": {
+          "Table": {
+            "items": {
+              "Array": [
+                {
+                  "String": "none"
+                },
+                {
+                  "String": "quarter"
+                },
+                {
+                  "String": "half"
+                },
+                {
+                  "String": "threeQuarters"
+                },
+                {
+                  "String": "full"
+                }
+              ]
+            },
+            "l10n": {
+              "String": "NCGDMW"
+            },
+            "values": {
+              "Array": [
+                {
+                  "Number": 0.0
+                },
+                {
+                  "Number": 0.25
+                },
+                {
+                  "Number": 0.5
+                },
+                {
+                  "Number": 0.75
+                },
+                {
+                  "Number": 1.0
+                }
+              ]
+            }
+          }
+        },
+        "uncapperMaxValue": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 9999.0
+            },
+            "min": {
+              "Number": 5.0
+            }
+          }
+        }
+      }
+    },
+    "SettingsPlayerHealthNCGDMW": {
+      "Table": {
+        "baseHPRatio": {
+          "String": "full"
+        },
+        "deathCounter": {
+          "Boolean": false
+        },
+        "perLevelHPGain": {
+          "String": "hpGrowthMed"
+        },
+        "stateBasedHP": {
+          "Boolean": true
+        }
+      }
+    },
+    "SettingsPlayerHealthNCGDMWArguments": {
+      "Table": {
+        "baseHPRatio": {
+          "Table": {
+            "items": {
+              "Array": [
+                {
+                  "String": "full"
+                },
+                {
+                  "String": "3/4"
+                },
+                {
+                  "String": "1/2"
+                },
+                {
+                  "String": "1/4"
+                }
+              ]
+            },
+            "l10n": {
+              "String": "NCGDMW"
+            },
+            "values": {
+              "Array": [
+                {
+                  "Number": 1.0
+                },
+                {
+                  "Number": 0.75
+                },
+                {
+                  "Number": 0.5
+                },
+                {
+                  "Number": 0.25
+                }
+              ]
+            }
+          }
+        },
+        "perLevelHPGain": {
+          "Table": {
+            "items": {
+              "Array": [
+                {
+                  "String": "hpGrowthNone"
+                },
+                {
+                  "String": "hpGrowthLow"
+                },
+                {
+                  "String": "hpGrowthMed"
+                },
+                {
+                  "String": "hpGrowthHigh"
+                }
+              ]
+            },
+            "l10n": {
+              "String": "NCGDMW"
+            },
+            "values": {
+              "Array": [
+                {
+                  "Number": 0.0
+                },
+                {
+                  "Number": 0.02
+                },
+                {
+                  "Number": 0.04
+                },
+                {
+                  "Number": 0.08
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "SettingsPlayerMBSPNCGDMW": {
+      "Table": {
+        "magickaXPRate": {
+          "String": "10"
+        },
+        "mbspEnabled": {
+          "Boolean": true
+        },
+        "refundEnabled": {
+          "Boolean": true
+        },
+        "refundMult": {
+          "String": "4"
+        },
+        "refundStart": {
+          "Number": 35.0
+        }
+      }
+    },
+    "SettingsPlayerMBSPNCGDMWArguments": {
+      "Table": {
+        "magickaXPRate": {
+          "Table": {
+            "items": {
+              "Array": [
+                {
+                  "String": "5"
+                },
+                {
+                  "String": "10"
+                },
+                {
+                  "String": "15"
+                },
+                {
+                  "String": "20"
+                },
+                {
+                  "String": "25"
+                }
+              ]
+            },
+            "l10n": {
+              "String": "NCGDMW"
+            }
+          }
+        },
+        "refundMult": {
+          "Table": {
+            "items": {
+              "Array": [
+                {
+                  "String": "1"
+                },
+                {
+                  "String": "2"
+                },
+                {
+                  "String": "3"
+                },
+                {
+                  "String": "4"
+                },
+                {
+                  "String": "5"
+                }
+              ]
+            },
+            "l10n": {
+              "String": "NCGDMW"
+            }
+          }
+        },
+        "refundStart": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 1000.0
+            },
+            "min": {
+              "Number": 1.0
+            }
+          }
+        }
+      }
+    },
+    "SettingsPlayerNCGDMW": {
+      "Table": {
+        "debugMode": {
+          "Boolean": false
+        },
+        "showIntro": {
+          "Boolean": true
+        },
+        "showMessagesLog": {
+          "Boolean": true
+        },
+        "statsMenuKey": {
+          "Number": 63.0
+        },
+        "statsMenuWidth": {
+          "Number": 1100.0
+        }
+      }
+    },
+    "SettingsPlayerNCGDMWArguments": {
+      "Table": {
+        "statsMenuWidth": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 2000.0
+            },
+            "min": {
+              "Number": 800.0
+            }
+          }
+        }
+      }
+    },
+    "SettingsPlayerSkillUsesNCGDMW": {
+      "Table": {
+        "skillUse-acrobatics-Fall": {
+          "Number": 3.0
+        },
+        "skillUse-acrobatics-Jump": {
+          "Number": 0.1
+        },
+        "skillUse-alchemy-CreatePotion": {
+          "Number": 2.0
+        },
+        "skillUse-alchemy-UseIngredient": {
+          "Number": 0.5
+        },
+        "skillUse-alteration-Success": {
+          "Number": 1.0
+        },
+        "skillUse-armorer-Repair": {
+          "Number": 0.75
+        },
+        "skillUse-athletics-RunOneSecond": {
+          "Number": 0.02
+        },
+        "skillUse-athletics-SwimOneSecond": {
+          "Number": 0.03
+        },
+        "skillUse-axe-SuccessfulHit": {
+          "Number": 0.75
+        },
+        "skillUse-block-Success": {
+          "Number": 2.5
+        },
+        "skillUse-bluntweapon-SuccessfulHit": {
+          "Number": 0.75
+        },
+        "skillUse-conjuration-Success": {
+          "Number": 1.0
+        },
+        "skillUse-destruction-Success": {
+          "Number": 1.0
+        },
+        "skillUse-enchant-CastOnStrike": {
+          "Number": 0.05
+        },
+        "skillUse-enchant-CreateMagicItem": {
+          "Number": 10.0
+        },
+        "skillUse-enchant-Recharge": {
+          "Number": 2.5
+        },
+        "skillUse-enchant-UseMagicItem": {
+          "Number": 0.2
+        },
+        "skillUse-handtohand-SuccessfulHit": {
+          "Number": 0.75
+        },
+        "skillUse-heavyarmor-HitByOpponent": {
+          "Number": 0.75
+        },
+        "skillUse-illusion-Success": {
+          "Number": 1.0
+        },
+        "skillUse-lightarmor-HitByOpponent": {
+          "Number": 1.0
+        },
+        "skillUse-longblade-SuccessfulHit": {
+          "Number": 0.75
+        },
+        "skillUse-marksman-SuccessfulHit": {
+          "Number": 0.75
+        },
+        "skillUse-mediumarmor-HitByOpponent": {
+          "Number": 1.0
+        },
+        "skillUse-mercantile-Bribe": {
+          "Number": 1.0
+        },
+        "skillUse-mercantile-Success": {
+          "Number": 0.3
+        },
+        "skillUse-mysticism-Success": {
+          "Number": 1.0
+        },
+        "skillUse-restoration-Success": {
+          "Number": 1.0
+        },
+        "skillUse-security-DisarmTrap": {
+          "Number": 2.5
+        },
+        "skillUse-security-PickLock": {
+          "Number": 2.5
+        },
+        "skillUse-shortblade-SuccessfulHit": {
+          "Number": 0.75
+        },
+        "skillUse-sneak-AvoidNotice": {
+          "Number": 0.5
+        },
+        "skillUse-sneak-PickPocket": {
+          "Number": 5.0
+        },
+        "skillUse-spear-SuccessfulHit": {
+          "Number": 0.75
+        },
+        "skillUse-speechcraft-Fail": {
+          "Number": 0.0
+        },
+        "skillUse-speechcraft-Success": {
+          "Number": 1.0
+        },
+        "skillUse-unarmored-HitByOpponent": {
+          "Number": 1.25
+        }
+      }
+    },
+    "SettingsPlayerSkillUsesNCGDMWArguments": {
+      "Table": {
+        "skillUse-acrobatics-Fall": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-acrobatics-Jump": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-alchemy-CreatePotion": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-alchemy-UseIngredient": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-alteration-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-armorer-Repair": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-athletics-RunOneSecond": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-athletics-SwimOneSecond": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-axe-SuccessfulHit": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-block-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-bluntweapon-SuccessfulHit": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-conjuration-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-destruction-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-enchant-CastOnStrike": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-enchant-CreateMagicItem": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-enchant-Recharge": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-enchant-UseMagicItem": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-handtohand-SuccessfulHit": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-heavyarmor-HitByOpponent": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-illusion-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-lightarmor-HitByOpponent": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-longblade-SuccessfulHit": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-marksman-SuccessfulHit": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-mediumarmor-HitByOpponent": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-mercantile-Bribe": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-mercantile-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-mysticism-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-restoration-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-security-DisarmTrap": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-security-PickLock": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-shortblade-SuccessfulHit": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-sneak-AvoidNotice": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-sneak-PickPocket": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-spear-SuccessfulHit": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-speechcraft-Fail": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-speechcraft-Success": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        },
+        "skillUse-unarmored-HitByOpponent": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 0.0
+            }
+          }
+        }
+      }
+    },
+    "SettingsPlayerSkillsNCGDMW": {
+      "Table": {
+        "capSkillTraining": {
+          "Boolean": true
+        },
+        "carryOverExcessSkillGain": {
+          "Boolean": true
+        },
+        "perSkillUncapper": {
+          "Table": {}
+        },
+        "progressiveTrainingDuration": {
+          "Boolean": true
+        },
+        "skillDecayRate": {
+          "String": "skillDecayStandard"
+        },
+        "skillGainFactorRange": {
+          "Array": [
+            {
+              "Number": 125.0
+            },
+            {
+              "Number": 25.0
+            }
+          ]
+        },
+        "skillIncreaseFromBooks": {
+          "Boolean": true
+        },
+        "uncapperMaxValue": {
+          "Number": 1000.0
+        }
+      }
+    },
+    "SettingsPlayerSkillsNCGDMWArguments": {
+      "Table": {
+        "perSkillUncapper": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 9999.0
+            },
+            "min": {
+              "Number": 5.0
+            }
+          }
+        },
+        "skillDecayRate": {
+          "Table": {
+            "items": {
+              "Array": [
+                {
+                  "String": "skillDecayNone"
+                },
+                {
+                  "String": "skillDecaySlow"
+                },
+                {
+                  "String": "skillDecayStandard"
+                },
+                {
+                  "String": "skillDecayFast"
+                }
+              ]
+            },
+            "l10n": {
+              "String": "NCGDMW"
+            },
+            "values": {
+              "Array": [
+                {
+                  "Number": 0.0
+                },
+                {
+                  "Number": 1.0
+                },
+                {
+                  "Number": 2.0
+                },
+                {
+                  "Number": 3.0
+                }
+              ]
+            }
+          }
+        },
+        "skillGainFactorRange": {
+          "Table": {
+            "max": {
+              "Number": 1000.0
+            },
+            "min": {
+              "Number": 1.0
+            }
+          }
+        },
+        "uncapperMaxValue": {
+          "Table": {
+            "integer": {
+              "Boolean": true
+            },
+            "max": {
+              "Number": 9999.0
+            },
+            "min": {
+              "Number": 5.0
+            }
+          }
+        }
+      }
+    },
+    "Settings_TamrielData_page01Main_group01Main": {
+      "Table": {
+        "Settings_TamrielData_page01Main_group01Main_restrictEquipment": {
+          "Boolean": true
+        }
+      }
+    },
+    "Settings_TamrielData_page01Main_group02Magic": {
+      "Table": {
+        "Settings_TamrielData_page01Main_group02Magic_miscSpells": {
+          "Boolean": true
+        }
+      }
+    },
+    "Settings_TamrielData_page01Main_group99Misc": {
+      "Table": {
+        "Settings_TamrielData_page01Main_group99Misc_debugLogging": {
+          "Boolean": false
+        }
+      }
+    },
+    "Settings_TamrielRebuilt_Misc": {
+      "Table": {
+        "FiremothComp": {
           "Boolean": true
         }
       }
     },
     "Settings_openmw_dynamic_music_1000_general": {
       "Table": {
+        "GENERAL_EXTERIOR_DELAY": {
+          "Number": 0.0
+        },
+        "GENERAL_INTERIOR_REGIONS": {
+          "Boolean": false
+        },
         "GENERAL_USE_DEFAULT_SOUNDBANK": {
           "Boolean": true
         }
@@ -158,14 +1276,47 @@
     },
     "Settings_openmw_dynamic_music_2000_combat": {
       "Table": {
+        "COMBAT_ENEMIES_IGNORE": {
+          "String": ""
+        },
+        "COMBAT_ENEMIES_IGNORE_RESPECT_LEVEL_DIFFERENCE": {
+          "Boolean": true
+        },
+        "COMBAT_ENEMIES_INCLUDE": {
+          "String": ""
+        },
         "COMBAT_MIN_ENEMY_LEVEL": {
-          "Number": 1.0
+          "Number": 5.0
         },
         "COMBAT_MIN_LEVEL_DIFFERENCE": {
-          "Number": 999.0
+          "Number": 2.0
         },
         "COMBAT_PLAY_COMBAT_MUSIC": {
           "Boolean": true
+        }
+      }
+    },
+    "Settings_tt_visiblerings": {
+      "Table": {
+        "defaultModel": {
+          "String": "meshes/c/c_ring_common05_skins.nif"
+        },
+        "frameSkip": {
+          "Number": 20.0
+        }
+      }
+    },
+    "Settings_tt_visibleringsArguments": {
+      "Table": {
+        "frameSkip": {
+          "Table": {
+            "max": {
+              "Number": 100.0
+            },
+            "min": {
+              "Number": 1.0
+            }
+          }
         }
       }
     }
