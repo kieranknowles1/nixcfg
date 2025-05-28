@@ -1,4 +1,4 @@
-use std::fs::{File, read};
+use std::fs::File;
 use std::io::{BufRead, BufReader, Read};
 use std::string::FromUtf8Error;
 

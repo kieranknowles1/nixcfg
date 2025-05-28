@@ -67,7 +67,15 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
 }
 
 fn write_array(array: Array, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
-    todo!();
+    write.u8(T_TABLE_START)?;
+    let mut i = 1; // Lua arrays start at 1
+    for value in array {
+        write_value(Value::Number(i.into()), write)?;
+        write_value(value, write)?;
+        i += 1;
+    }
+    write.u8(T_TABLE_END)?;
+    Ok(())
 }
 
 fn write_table(table: Table, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
