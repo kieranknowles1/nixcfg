@@ -138,7 +138,10 @@
 
         # This will also raise a build error if the file doesn't exist
         assertion = value.repoPath == null || (srcHash == repoHash);
-        message = "repoPath for mutable file ${name} points to a different file";
+        message =
+          if value.transformer == null
+          then "repoPath for mutable file ${name} points to a different file"
+          else "Mutable file ${name} failed round trip check";
       };
 
       checkAll = name: value: [
