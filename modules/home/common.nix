@@ -101,8 +101,5 @@
         description = "Update system from remote repository";
         useTerminal = true;
       };
-
-    # Fuzzy finder for use in scripts
-    programs.television.enable = true;
   };
 }

@@ -21,6 +21,7 @@
     ./nushell
     ./office
     ./shortcuts
+    ./telly
     ./theme.nix
     ./timer.nix
     ./trilium.nix
