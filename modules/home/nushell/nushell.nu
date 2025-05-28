@@ -32,6 +32,13 @@ def repodu [
     ls **/* | where name in $files | get size | math sum
 }
 
+def sizediff [
+    a: path
+    b: path
+] {
+  (ls $a | get 0.size) - (ls $b | get 0.size)
+}
+
 # Create a new directory and cd into it
 def --env mkcd [
     name: string

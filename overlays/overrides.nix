@@ -3,14 +3,14 @@
 final: prev: {
   xfce = prev.xfce.overrideScope (_nfinal: nprev: {
     thunar = final.symlinkJoin {
-        name = "thunar-without-extras";
-        paths = [nprev.thunar];
-        postBuild = ''
-          # Remove the .desktop files for bulk rename and settings to reduce clutter
-          rm $out/share/applications/thunar-bulk-rename.desktop
-          rm $out/share/applications/thunar-settings.desktop
-        '';
-      };
+      name = "thunar-without-extras";
+      paths = [nprev.thunar];
+      postBuild = ''
+        # Remove the .desktop files for bulk rename and settings to reduce clutter
+        rm $out/share/applications/thunar-bulk-rename.desktop
+        rm $out/share/applications/thunar-settings.desktop
+      '';
+    };
   });
 
   networkmanager = prev.networkmanager.override {
