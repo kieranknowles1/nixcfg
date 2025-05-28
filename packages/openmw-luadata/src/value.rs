@@ -18,15 +18,15 @@ pub type Array = Vec<Value>;
 /// to allow for round-tripping.
 /// Serde handles all of this for us, and automagically generates code to serialize and deserialize
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(untagged)]
 pub enum Value {
     Number(f64),
     Boolean(bool),
     String(String),
     Table(Table),
     Array(Array),
-
     // OpenMW-specific types
-    Vec2(f64, f64),
+    // Vec2(f64, f64),
 }
 
 impl PartialEq for Value {
@@ -37,7 +37,7 @@ impl PartialEq for Value {
             (Value::String(a), Value::String(b)) => a == b,
             (Value::Table(a), Value::Table(b)) => a == b,
             (Value::Array(a), Value::Array(b)) => a == b,
-            (Value::Vec2(a1, a2), Value::Vec2(b1, b2)) => a1 == b1 && a2 == b2,
+            // (Value::Vec2(a1, a2), Value::Vec2(b1, b2)) => a1 == b1 && a2 == b2,
             _ => false,
         }
     }

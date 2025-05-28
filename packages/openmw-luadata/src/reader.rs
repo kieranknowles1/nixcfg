@@ -151,9 +151,10 @@ fn read_value<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
             }
         }
         T_VEC2 => {
-            let x = reader.f64()?;
-            let y = reader.f64()?;
-            Ok(Value::Vec2(x, y))
+            todo!();
+            // let x = reader.f64()?;
+            // let y = reader.f64()?;
+            // Ok(Value::Vec2(x, y))
         }
         // Every bit after the flag is part of the length, so we can use a range and mask
         0x20..=0x3F => {
