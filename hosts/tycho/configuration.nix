@@ -11,7 +11,9 @@
     ./hardware-configuration.nix
     {
       custom = {
-        user.kieran = import ../../users/kieran {inherit pkgs config self;};
+        users = {
+          users.kieran = import ../../users/kieran {inherit pkgs config self;};
+        };
 
         secrets = {
           ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";

@@ -25,6 +25,7 @@ contractions-en.removals = ["cause"]
 contractions-en.replacements."’" = "'"
 
 [editor]
+enable = true
 default = "zed"
 vscode.enable = true
 zed.enable = true

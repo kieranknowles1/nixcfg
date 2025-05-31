@@ -4,8 +4,9 @@
   ...
 }: {
   options.custom.editor = let
-    inherit (lib) mkOption types;
+    inherit (lib) mkOption mkEnableOption types;
   in {
+    enable = mkEnableOption "editor management";
     default = mkOption {
       type = types.enum [
         "vscode"
@@ -70,26 +71,27 @@
     # - `enable`
     # - `desktopFile`
     defaultConfig = cfg.${cfg.default};
-  in {
-    # Make sure our default editor is installed
-    assertions = lib.singleton {
-      assertion = defaultConfig.enable;
-      message = "The default editor is set to ${cfg.default}, but it is not enabled.";
-    };
-
-    custom = {
-      editor.defaultCommand = defaultConfig.command;
-      # Like $EDITOR, but for GUIs
-      extraEnv.GUIEDITOR = cfg.defaultCommand;
-      aliases.e = {
-        exec = "${cfg.defaultCommand} .";
-        mnemonic = "[e]ditor";
+  in
+    lib.mkIf cfg.enable {
+      # Make sure our default editor is installed
+      assertions = lib.singleton {
+        assertion = defaultConfig.enable;
+        message = "The default editor is set to ${cfg.default}, but it is not enabled.";
       };
 
-      # Assign the default GUI editor to handle text files
-      mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
-        defaultApp = defaultConfig.desktopFile;
-      });
+      custom = {
+        editor.defaultCommand = defaultConfig.command;
+        # Like $EDITOR, but for GUIs
+        extraEnv.GUIEDITOR = cfg.defaultCommand;
+        aliases.e = {
+          exec = "${cfg.defaultCommand} .";
+          mnemonic = "[e]ditor";
+        };
+
+        # Assign the default GUI editor to handle text files
+        mime.definition = lib.attrsets.genAttrs cfg.textMimeTypes (_type: {
+          defaultApp = defaultConfig.desktopFile;
+        });
+      };
     };
-  };
 }

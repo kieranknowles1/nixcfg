@@ -16,3 +16,5 @@ for me.
 Both issues could be fixed by building all targets during `rebuild update` on my
 main PC, then pushing to a server that other hosts pull from. Commit messages
 could then merge the diffs to show every package that was updated.
+
+Try [nixos-hardware](https://github.com/NixOS/nixos-hardware)' RPI5 module.

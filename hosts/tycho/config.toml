@@ -7,6 +7,9 @@
 
 repoPath = "/home/kieran/src/nixcfg"
 
+[hardware]
+memorySize = 8
+
 [networking]
 hostName = "tycho"
 waitOnline = true
