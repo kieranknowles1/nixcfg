@@ -40,9 +40,6 @@ in {
       inherit (self) lib;
     };
 
-    nixpkgs-stable = mkNamespace "stable" inputs.nixpkgs-stable.legacyPackages {};
-    nixpkgs-unstable = mkNamespace "unstable" inputs.nixpkgs.legacyPackages {};
-
     firefox-addons = mkNamespace "firefox-addons" inputs.firefox-addons.packages {};
 
     # Also add overlays consumed by the flake, makes activating everything easier

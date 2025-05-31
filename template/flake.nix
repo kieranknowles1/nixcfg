@@ -27,7 +27,6 @@
       inputs.nix-index-database.follows = "";
       inputs.nixos-cosmic.follows = "";
       inputs.nixpkgs-openmw.follows = "";
-      inputs.nixpkgs-stable.follows = "";
       inputs.openmw.follows = "";
       inputs.snowfall-lib.follows = "";
       inputs.sops-nix.follows = "";

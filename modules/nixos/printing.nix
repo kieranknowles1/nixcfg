@@ -14,12 +14,7 @@
       printing = {
         enable = true;
 
-        # CUPS seems to be borked on unstable, so let's use the old version
-        # When adding a printer, the connection input field is garbage data
-        # Printing is cursed enough as it is, so let's not take any chances
-        package = pkgs.stable.cups;
-
-        drivers = with pkgs.stable; [
+        drivers = with pkgs; [
           # Drivers for various printers
           gutenprint
           gutenprintBin

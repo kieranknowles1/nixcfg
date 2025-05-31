@@ -20,7 +20,7 @@
     */
     mkHost = rootConfig:
       inputs.nixpkgs.lib.nixosSystem {
-        # Pass the flake's inputs and pkgs-unstable to the module
+        # Pass the flake's inputs to the module
         # TODO: See if we can remove this entirely, would remove the assumption that we're passing certain arguments
         specialArgs = {inherit self inputs;};
 

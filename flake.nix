@@ -7,8 +7,7 @@
   # are lazily fetched, but I'd rather be explicit)
   inputs = {
     # /// Core ///
-    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
-    # This isn't quite the bleeding edge, but packages on master are not always cached
+    # This isn't quite the bleeding edge, but packages on master are less likely to be cached
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
     home-manager = {
