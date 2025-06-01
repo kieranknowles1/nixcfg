@@ -31,7 +31,6 @@ pub struct Command {
 pub struct Config {
     /// Program name and arguments to run a command in a terminal.
     pub terminal_args: Vec<String>,
-    // TODO: Also pass zenity through the config file
     /// The commands to display.
     pub commands: Vec<Command>,
 }

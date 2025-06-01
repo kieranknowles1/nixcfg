@@ -16,11 +16,8 @@ pub enum Error {
 
 /// Show a dialog box with the given commands.
 /// Returns the selected command.
-pub fn pick_command<'a>(
-    zenity: &str,
-    commands: &'a Vec<data::Command>,
-) -> Result<&'a data::Command> {
-    let mut zenity = process::Command::new(zenity);
+pub fn pick_command<'a>(commands: &'a Vec<data::Command>) -> Result<&'a data::Command> {
+    let mut zenity = process::Command::new("zenity");
     zenity
         .arg("--list")
         .arg("--width=450")
@@ -67,8 +64,8 @@ impl MessageKind {
     }
 }
 
-pub fn show_message(zenity: &str, message: &str, kind: MessageKind) -> std::io::Result<()> {
-    process::Command::new(zenity)
+pub fn show_message(message: &str, kind: MessageKind) -> std::io::Result<()> {
+    process::Command::new("zenity")
         .arg(kind.as_arg())
         .arg("--text")
         .arg(message)

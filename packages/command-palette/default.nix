@@ -18,8 +18,8 @@ rustPlatform.buildRustPackage rec {
 
       As usual, Rust is overkill, but you can't stop carcinization.
 
-      NOTE: This requires `zenity` to be available in the PATH. 2.0 is incompatible
-      with 1.0, as input is now a JSON array, rather than a newline-separated list.
+      2.0 is incompatible with 1.0, as input is now a JSON array, rather than a
+      newline-separated list.
     '';
 
     mainProgram = pname;
