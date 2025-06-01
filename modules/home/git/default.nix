@@ -18,6 +18,9 @@
 
       extraConfig = {
         init.defaultBranch = "main";
+
+        # Don't require "--set-upstream origin <branch>" when pushing a new branch
+        push.autoSetupRemote = true;
       };
     };
 
