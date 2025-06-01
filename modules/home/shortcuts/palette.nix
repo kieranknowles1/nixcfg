@@ -55,7 +55,6 @@
     cfg = config.custom.shortcuts;
 
     palette = lib.getExe cfg.palette.package;
-    zenity = lib.getExe pkgs.zenity;
 
     sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
     configFile = {
@@ -72,7 +71,7 @@
       custom.shortcuts.hotkeys.keys = {
         "${cfg.palette.binding}" = {
           description = "Open the command palette";
-          action = "${palette} --zenity ${zenity} --file ${cfg.palette.finalConfig}";
+          action = "${palette} --file ${cfg.palette.finalConfig}";
         };
       };
     };

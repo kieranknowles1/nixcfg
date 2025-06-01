@@ -1,8 +1,16 @@
-{rustPlatform}:
+{
+  rustPlatform,
+  zenity,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "command-palette";
   version = "2.1.0";
   src = ./.;
+
+  patchPhase = ''
+    # Don't require that zenity is on PATH
+    sed -i 's|"zenity"|"${zenity}/bin/zenity"|g' src/dialog.rs
+  '';
 
   cargoLock.lockFile = ./Cargo.lock;
 
