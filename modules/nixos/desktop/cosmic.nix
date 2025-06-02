@@ -17,6 +17,8 @@ in {
       xwayland.enable = true;
     };
 
+    services.displayManager.cosmic-greeter.enable = true;
+
     # TODO: Before making this the default, would like to make the following changes:
     # - Window view when pressing super, like in GNOME
     # - Manage config with nix
