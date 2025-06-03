@@ -7,6 +7,8 @@ ledState.enable = true
 
 vr.enable = true
 
+desktop.environment = "cosmic"
+
 backup.enable = true
 [backup.repositories.documents]
 password = "backup/password"
