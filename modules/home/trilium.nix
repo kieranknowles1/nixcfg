@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -9,6 +10,8 @@
   in {
     # TODO: Would like to run this on a server for syncing
     enable = mkEnableOption "Trilium client";
+
+    package = mkPackageOption pkgs "trilium-next" {};
 
     export = {
       destinationDir = mkOption {
@@ -49,6 +52,8 @@
   in
     lib.mkIf cfg.enable {
       custom.trilium-client = {
+        package = lib.mkDefault inputs.trilium-next.packages.${pkgs.system}.desktop;
+
         export = {
           destinationDir = lib.mkDefault "${config.home.homeDirectory}/Documents/trilium-export";
           finalPackage = cfg.export.package.override {
@@ -60,8 +65,8 @@
 
       sops.secrets."trilium/apikey".key = cfg.export.apiKeySecret;
 
-      home.packages = with pkgs; [
-        trilium-next-desktop
+      home.packages = [
+        cfg.package
         cfg.export.finalPackage
       ];
 

@@ -423,6 +423,29 @@
         "url": "https://codeberg.org/PopeRigby/openmw-nix.git"
       }
     },
+    "pnpm2nix": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749022118,
+        "narHash": "sha256-7Qzmy1snKbxFBKoqUrfyxxmEB8rPxDdV7PQwRiAR01o=",
+        "owner": "FliegendeWurst",
+        "repo": "pnpm2nix-nzbr",
+        "rev": "35f88a41d29839b3989f31871263451c8e092cb1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FliegendeWurst",
+        "repo": "pnpm2nix-nzbr",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "clan-core": "clan-core",
@@ -437,6 +460,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-openmw": "nixpkgs-openmw",
         "openmw": "openmw",
+        "pnpm2nix": "pnpm2nix",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",
         "src-factorio-blueprint-decoder": "src-factorio-blueprint-decoder",
@@ -445,6 +469,7 @@
         "stylix": "stylix",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix",
+        "trilium-next": "trilium-next",
         "vscode-extensions": "vscode-extensions"
       }
     },
@@ -654,6 +679,32 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "trilium-next": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pnpm2nix": [
+          "pnpm2nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749068105,
+        "narHash": "sha256-9dsA13a2SvLtjURD7B9f0VR7MZ9Sl1HlRW+qFDpLD9Q=",
+        "owner": "TriliumNext",
+        "repo": "Notes",
+        "rev": "c40e224727a8b00c864bc3f525ca9a6670d17254",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TriliumNext",
+        "repo": "Notes",
         "type": "github"
       }
     },

@@ -115,6 +115,13 @@
 
     # /// Applications ///
 
+    trilium-next = {
+      url = "github:TriliumNext/Notes";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.pnpm2nix.follows = "pnpm2nix";
+    };
+
     # nixpkgs doesn't include the dependencies for master, so we override a separate flake
     # The source code could also be a flake input, but doing so would take a long time to update
     # TODO: Remove this once 0.48 is building on nixpkgs
@@ -158,6 +165,12 @@
     # TODO: Remove once openmw is building on nixpkgs
     flake-utils-plus = {
       url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    pnpm2nix = {
+      url = "github:FliegendeWurst/pnpm2nix-nzbr";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
 
