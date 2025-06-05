@@ -22,9 +22,9 @@
     "${name}" = namespacePkgs // extra;
   });
 
-  optionalOverlay = overlaySet: name:
-    if builtins.hasAttr name overlaySet
-    then overlaySet.${name}
+  optionalOverlay = input: name:
+    if builtins.hasAttr "overlays" input
+    then input.overlays.${name}
     else (_: _: {});
 in {
   # TODO: Remove this once flake-parts has a proper way of handling overlays
@@ -43,7 +43,7 @@ in {
     firefox-addons = mkNamespace "firefox-addons" inputs.firefox-addons.packages {};
 
     # Also add overlays consumed by the flake, makes activating everything easier
-    vscode-extensions = optionalOverlay inputs.vscode-extensions.overlays "default";
+    vscode-extensions = optionalOverlay inputs.vscode-extensions "default";
 
     overrides = import ./overrides.nix {inherit inputs;};
   };
