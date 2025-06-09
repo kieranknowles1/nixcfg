@@ -25,3 +25,8 @@ nvidia.enable = true
 
 [networking]
 hostName = "rocinante"
+
+# TODO: home network is too slow for now, reenable later
+# [cache]
+# mode = "send"
+# send.privateKeySecret = "cache/privateKey"
