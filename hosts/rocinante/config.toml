@@ -7,7 +7,7 @@ ledState.enable = true
 
 vr.enable = true
 
-desktop.environment = "cosmic"
+desktop.environment = "gnome"
 
 backup.enable = true
 [backup.repositories.documents]
