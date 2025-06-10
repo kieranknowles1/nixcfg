@@ -3,7 +3,7 @@
 use clap::{Parser, Subcommand};
 use core::str;
 use std::{
-    env,
+    env, fs,
     path::{Path, PathBuf},
 };
 
@@ -85,16 +85,35 @@ impl PullOpt {
     }
 }
 
+fn diff_path(repo_path: &Path) -> PathBuf {
+    repo_path.join(".rebuild-diff")
+}
+
+fn store_diff(repo_path: &Path, diff: &str) -> std::io::Result<()> {
+    fs::write(diff_path(repo_path), diff)
+}
+
 /// Build the latest configuration and switch to it
 /// Returns the provided message, generation number, and diff of the build
 /// formatted for a commit message
 fn build_and_switch(repo_path: &Path, message: &str) -> std::io::Result<String> {
     let diff = nix::fancy_build(repo_path)?;
-    let meta = nix::apply_configuration(repo_path)?;
+    let meta = nix::apply_configuration(repo_path);
 
-    let commit_message = meta.to_commit_message(&diff, message);
-
-    Ok(commit_message)
+    match meta {
+        Ok(meta) => {
+            let commit_message = meta.to_commit_message(&diff, message);
+            Ok(commit_message)
+        }
+        Err(e) => {
+            eprintln!(
+                "Build succeeded, but activation failed. Storing diff in {}",
+                diff_path(repo_path).display()
+            );
+            store_diff(repo_path, &diff)?;
+            Err(e)
+        }
+    }
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {

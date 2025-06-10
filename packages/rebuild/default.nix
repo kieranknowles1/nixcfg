@@ -1,7 +1,7 @@
 {rustPlatform}:
 rustPlatform.buildRustPackage {
   pname = "rebuild";
-  version = "2.2.0";
+  version = "2.3.0";
   src = ./.;
 
   cargoLock.lockFile = ./Cargo.lock;
