@@ -2,7 +2,10 @@
 
 use clap::{Parser, Subcommand};
 use core::str;
-use std::env;
+use std::{
+    env,
+    path::{Path, PathBuf},
+};
 
 mod git;
 mod nix;
@@ -11,13 +14,13 @@ mod process;
 /// Configuration derived from the environment.
 struct Config {
     /// The path to the flake repository.
-    flake: String,
+    flake: PathBuf,
 }
 
 impl Config {
     fn new() -> Result<Self, env::VarError> {
         Ok(Self {
-            flake: env::var("FLAKE")?,
+            flake: PathBuf::from(env::var("FLAKE")?),
         })
     }
 }
@@ -27,7 +30,7 @@ impl Config {
 struct Opt {
     #[clap(short, long)]
     /// The path to the flake repository. If not provided, the FLAKE environment variable is used.
-    flake: Option<String>,
+    flake: Option<PathBuf>,
 
     #[clap(subcommand)]
     action: Action,
@@ -58,7 +61,7 @@ struct UpdateOpt {
 struct PullOpt {}
 
 impl BuildOpt {
-    fn run(&self, flake: &str) -> Result<(), std::io::Error> {
+    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
         git::stage_all()?;
         let msg = build_and_switch(&flake, &self.message)?;
         git::commit(&msg)
@@ -66,7 +69,7 @@ impl BuildOpt {
 }
 
 impl UpdateOpt {
-    fn run(&self, flake: &str) -> Result<(), std::io::Error> {
+    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
         nix::update_flake_inputs()?;
         git::stage_all()?;
         let msg = build_and_switch(&flake, &self.message)?;
@@ -75,7 +78,7 @@ impl UpdateOpt {
 }
 
 impl PullOpt {
-    fn run(&self, flake: &str) -> Result<(), std::io::Error> {
+    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
         git::pull(&flake)?;
         build_and_switch(&flake, "Pull latest changes")?;
         Ok(())
@@ -85,7 +88,7 @@ impl PullOpt {
 /// Build the latest configuration and switch to it
 /// Returns the provided message, generation number, and diff of the build
 /// formatted for a commit message
-fn build_and_switch(repo_path: &str, message: &str) -> std::io::Result<String> {
+fn build_and_switch(repo_path: &Path, message: &str) -> std::io::Result<String> {
     let diff = nix::fancy_build(repo_path)?;
     let meta = nix::apply_configuration(repo_path)?;
 
@@ -110,7 +113,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         },
     };
 
-    println!("Using flake repository at '{}'. ", flake);
+    println!("Using flake repository at '{}'. ", flake.display());
 
     let status = match opt.action {
         Action::Build(value) => value.run(&flake),

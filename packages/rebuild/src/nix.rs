@@ -1,5 +1,6 @@
 // Module for functions used during Nix build/switch.
 
+use std::path::Path;
 use std::process::Command;
 use std::str;
 
@@ -14,7 +15,7 @@ pub fn update_flake_inputs() -> std::io::Result<()> {
 }
 
 /// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
-pub fn fancy_build(repo_path: &str) -> std::io::Result<String> {
+pub fn fancy_build(repo_path: &Path) -> std::io::Result<String> {
     let build_status = Command::new("nh")
         .arg("os")
         .arg("build")
@@ -64,7 +65,7 @@ impl GenerationMeta {
 
 /// Apply the configuration. Returns the metadata of the new generation.
 /// No BuildToken here as nixos-rebuild produces the same output, just without the fancy bits.
-pub fn apply_configuration(repo_path: &str) -> std::io::Result<GenerationMeta> {
+pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> {
     let status = Command::new("sudo")
         .arg("nixos-rebuild")
         .arg("switch")
