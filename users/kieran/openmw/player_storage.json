@@ -474,6 +474,24 @@
       "min": 5.0
     }
   },
+  "SettingsPotionThrower": {
+    "DisplayMessages": true,
+    "Enabled": true,
+    "IconDisplayMode": "constant",
+    "PotionInfoFadeSeconds": 5.0,
+    "SoundEffects": true
+  },
+  "SettingsPotionThrowerArguments": {
+    "IconDisplayMode": {
+      "disabled": false,
+      "items": [
+        "constant",
+        "armed",
+        "never"
+      ],
+      "l10n": "PotionThrower"
+    }
+  },
   "Settings_TamrielData_page01Main_group01Main": {
     "Settings_TamrielData_page01Main_group01Main_restrictEquipment": true
   },
