@@ -1,4 +1,5 @@
 {
+  self,
   writeShellApplication,
   makeDesktopItem,
   symlinkJoin,
@@ -19,6 +20,7 @@
     text = builtins.readFile ./extract.sh;
 
     meta = {
+      inherit (self.lib) license;
       mainProgram = name;
       description = "Extract files from archives";
       longDescription = ''

@@ -1,5 +1,9 @@
-{rustPlatform}:
+{
+  self,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
+  inherit (self.lib) license;
   pname = "set-led-state";
   version = "1.0.0";
   src = ./.;
@@ -7,6 +11,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
+    inherit (self.lib) license;
     description = "A simple CLI tool to set the state of an LED";
     longDescription = ''
       Turn an LED, such as caps lock, num lock, or scroll lock, on or off.

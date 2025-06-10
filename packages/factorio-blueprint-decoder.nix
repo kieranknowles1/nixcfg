@@ -1,4 +1,5 @@
 {
+  lib,
   buildScript,
   python3,
   src-factorio-blueprint-decoder,
@@ -9,6 +10,8 @@ buildScript {
   src = "${src-factorio-blueprint-decoder}/decode";
   version = "unstable";
   meta = {
+    # No license.txt, so it's unfree
+    license = lib.licenses.unfree;
     description = "Decode a Factorio blueprint storage file";
     longDescription = ''
       Decode a Factorio blueprint storage file into plain JSON on stdout.

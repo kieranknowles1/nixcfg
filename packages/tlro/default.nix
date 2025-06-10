@@ -2,6 +2,7 @@
   src-tldr,
   runCommand,
   mdcat,
+  self,
   language ? "en",
   platform ? "linux",
   # Show short/long options by default
@@ -29,6 +30,7 @@ writeShellApplication rec {
   text = builtins.readFile ./tlro.sh;
 
   meta = {
+    inherit (self.lib) license;
     mainProgram = name;
     description = "Offline only TLDR client";
     longDescription = ''

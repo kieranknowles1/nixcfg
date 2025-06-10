@@ -1,4 +1,7 @@
-{rustPlatform}:
+{
+  rustPlatform,
+  self,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "activate-mutable";
   version = "3.0.0";
@@ -7,6 +10,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
+    inherit (self.lib) license;
     description = "Activate mutable files in the home directory";
     longDescription = ''
       Activate mutable files in the home directory that can then be modified

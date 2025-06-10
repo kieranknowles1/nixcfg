@@ -1,4 +1,7 @@
-{rustPlatform}:
+{
+  rustPlatform,
+  self,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "openmw-luadata";
   version = "2.0.0";
@@ -7,6 +10,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
+    inherit (self.lib) license;
     description = "Read and write OpenMW Lua data files";
     longDescription = ''
       Read and write OpenMW Lua data files, such as those used to store settings.

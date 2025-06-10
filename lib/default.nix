@@ -23,4 +23,6 @@
     ./host.nix
     ./shell.nix
   ];
+
+  config.flake.lib.license = lib.licenses.mit;
 }

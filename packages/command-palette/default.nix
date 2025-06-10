@@ -1,4 +1,5 @@
 {
+  self,
   rustPlatform,
   zenity,
 }:
@@ -15,6 +16,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
+    inherit (self.lib) license;
     description = "A simple command palette for running scripts";
     longDescription = ''
       Show a list of options in a dialog box, and run the command associated with

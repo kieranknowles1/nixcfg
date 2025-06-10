@@ -28,6 +28,7 @@ in
     paths = [resaver desktopItem];
 
     meta = {
+      license = lib.licenses.asl20;
       description = "Skyrim and Fallout 4 savegame editor";
       longDescription = ''
         A savegame editor for Skyrim and Fallout 4, wrapped to be fetched automatically

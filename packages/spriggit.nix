@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://github.com/Mutagen-Modding/Spriggit";
 
-    licence = licenses.gpl3;
+    license = licenses.gpl3;
 
     mainProgram = "Spriggit.CLI";
   };

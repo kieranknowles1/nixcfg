@@ -1,6 +1,7 @@
 {
   nushell,
   stdenv,
+  self,
 }:
 stdenv.mkDerivation {
   pname = "nix-utils";
@@ -39,6 +40,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
+    inherit (self.lib) license;
     description = "Miscellaneous shell utilities";
     longDescription = ''
       Single-word commands for common tasks, including:

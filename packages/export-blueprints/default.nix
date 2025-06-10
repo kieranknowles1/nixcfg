@@ -1,4 +1,5 @@
 {
+  self,
   buildScript,
   python3,
   flake,
@@ -10,6 +11,7 @@ buildScript {
   src = ./export-blueprints.py;
   version = "2.0.0";
   meta = {
+    inherit (self.lib) license;
     description = "Export Factorio blueprints to a directory";
     longDescription = ''
       Export blueprints from ~/.factorio/blueprint-storage.dat to the repository.

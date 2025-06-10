@@ -1,4 +1,5 @@
 {
+  self,
   valgrind,
   writeShellApplication,
   target ? "unknown",
@@ -19,6 +20,7 @@ writeShellApplication rec {
   text = builtins.readFile ./checkleak.sh;
 
   meta = {
+    inherit (self.lib) license;
     mainProgram = name;
     description = "Check for memory leaks or other issues";
     longDescription = ''

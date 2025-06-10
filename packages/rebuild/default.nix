@@ -1,4 +1,7 @@
-{rustPlatform}:
+{
+  rustPlatform,
+  self,
+}:
 rustPlatform.buildRustPackage {
   pname = "rebuild";
   version = "2.3.0";
@@ -7,6 +10,7 @@ rustPlatform.buildRustPackage {
   cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
+    inherit (self.lib) license;
     description = "Wrapper for common Nix build workflows";
     longDescription = ''
       Rebuild the system and commit the changes to the repository.

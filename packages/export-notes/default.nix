@@ -1,4 +1,5 @@
 {
+  self,
   writeShellApplication,
   unzip,
   jq,
@@ -35,6 +36,7 @@ writeShellApplication rec {
   text = builtins.readFile ./export-notes.sh;
 
   meta = {
+    inherit (self.lib) license;
     description = "Export notes from Trilium to Git";
     longDescription = ''
       Fetch notes from Trilium as HTML with metadata, then commit the changes to a Git repository.

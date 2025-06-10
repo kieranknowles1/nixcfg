@@ -133,15 +133,18 @@ in {
         # h1 is for the page title, h2 is for the package name, so start at h3
         # in the description.
         incrementHeaders = builtins.replaceStrings ["\n#"] ["\n###"];
-        getMeta = field: transform:
+        getMetaOr = default: field: transform:
           if builtins.hasAttr field package.meta
           then transform package.meta.${field}
-          else "";
+          else default;
+        getMeta = getMetaOr "";
       in ''
         ## ${name}
         Version: ${package.version or "unknown"}
 
         ${getMeta "homepage" (x: "Homepage: [${x}](${x})")}
+
+        ${getMetaOr "No License specified" "license" (x: "License: ${x.fullName}")}
 
         ${getMeta "description" (x: "*${x}*")}
 

@@ -36,6 +36,7 @@ self.builders.${hostPlatform.system}.buildStaticSite {
       '';
     };
   meta = {
+    inherit (self.lib) license;
     description = "My personal portfolio";
     longDescription = ''
       My portfolio for job applications listing my projects and skills. As I'm in to
