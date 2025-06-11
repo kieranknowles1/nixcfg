@@ -3,7 +3,6 @@
   rustPlatform,
 }:
 rustPlatform.buildRustPackage rec {
-  inherit (self.lib) license;
   pname = "set-led-state";
   version = "1.0.0";
   src = ./.;
