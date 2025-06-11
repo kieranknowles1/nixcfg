@@ -11,7 +11,9 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager?ref=master";
+      # TODO: Switch back to official branch once https://github.com/nix-community/home-manager/pull/7254 is merged or #7247
+      # is fixed
+      url = "github:kieranknowles1/home-manager?ref=zed-lazy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
