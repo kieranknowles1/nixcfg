@@ -64,12 +64,16 @@ impl Files {
 
     pub fn compare(&self) -> ExistingMatch {
         if self.home == None {
+            // File doesn't exist in home - will be deployed no matter what
             ExistingMatch::NotInHome
-        } else if self.home == self.old_store {
-            ExistingMatch::EqualOld
         } else if self.home.as_ref() == Some(&self.store) {
+            // File exists and matches current generation - no need to deploy
             ExistingMatch::EqualNew
+        } else if self.home == self.old_store {
+            // File exists and matches previous, but not current, generation - deploy the updated version
+            ExistingMatch::EqualOld
         } else {
+            // File doesn't match either previous or current - handle base on `on_conflict`
             ExistingMatch::Conflict
         }
     }
