@@ -77,8 +77,6 @@
         php-cs-fixer = {
           enable = true;
           configFile = ./.php-cs-fixer.php;
-          # Hasn't been updated to PHP 8.4 yet
-          package = pkgs.php83Packages.php-cs-fixer;
         };
 
         taplo.enable = true; # TOML
@@ -119,7 +117,7 @@
       # Formatters not included in the treefmt-nix repo
       settings.formatter = {
         phpstan = {
-          command = lib.getExe pkgs.php84Packages.phpstan;
+          command = lib.getExe pkgs.phpPackages.phpstan;
           options = [
             "analyze"
             "--level=max"

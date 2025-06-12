@@ -44,7 +44,6 @@
         extraPackages = with pkgs; [
           nixd # Nix
 
-          php # PHP
           phpactor
 
           taplo # TOML
