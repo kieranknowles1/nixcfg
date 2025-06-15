@@ -8,7 +8,6 @@
   imports = [
     ./cosmic.nix
     ./gnome.nix
-    ./kde.nix
   ];
 
   options.custom.desktop = {
