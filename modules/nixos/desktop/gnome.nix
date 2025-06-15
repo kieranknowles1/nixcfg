@@ -11,11 +11,6 @@
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
 
-    # Remove unneeded packages
-    services.xserver.excludePackages = with pkgs; [
-      xterm
-    ];
-
     services.gnome = {
       gnome-initial-setup.enable = false; # Redundant with NixOS
     };
@@ -49,10 +44,6 @@
       totem # Video player. Use VLC instead
       yelp # I use the web for documentation
       snapshot # I don't have a webcam
-    ];
-
-    environment.systemPackages = with pkgs; [
-      resources
     ];
   };
 }

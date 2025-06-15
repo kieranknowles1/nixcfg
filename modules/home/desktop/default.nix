@@ -30,6 +30,10 @@
       "Empty File" = builtins.toFile "empty.txt" "";
     };
 
+    home.packages = with pkgs; [
+      resources
+    ];
+
     custom.mutable.file =
       lib.attrsets.mapAttrs' (name: value: {
         name = "${config.xdg.userDirs.templates}/${name}";

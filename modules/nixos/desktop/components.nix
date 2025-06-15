@@ -20,6 +20,11 @@
       ];
     };
 
+    # Configured in home-manager
+    services.xserver.excludePackages = with pkgs; [
+      xterm
+    ];
+
     xdg.mime.addedAssociations = {
       "inode/directory" = "thunar.desktop";
       # Prism (Minecraft launcher) associates itself with zips
