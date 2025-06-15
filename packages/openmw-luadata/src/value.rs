@@ -28,5 +28,3 @@ pub enum Value {
     // OpenMW-specific types
     // Vec2(f64, f64),
 }
-
-impl Eq for Value {}
