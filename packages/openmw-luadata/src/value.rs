@@ -17,7 +17,7 @@ pub type Array = Vec<Value>;
 /// A value in the storage file. When serializing to JSON, values will be tagged with their type
 /// to allow for round-tripping.
 /// Serde handles all of this for us, and automagically generates code to serialize and deserialize
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 #[serde(untagged)]
 pub enum Value {
     Number(f64),
@@ -27,20 +27,6 @@ pub enum Value {
     Array(Array),
     // OpenMW-specific types
     // Vec2(f64, f64),
-}
-
-impl PartialEq for Value {
-    fn eq(&self, other: &Self) -> bool {
-        match (self, other) {
-            (Value::Number(a), Value::Number(b)) => a == b,
-            (Value::Boolean(a), Value::Boolean(b)) => a == b,
-            (Value::String(a), Value::String(b)) => a == b,
-            (Value::Table(a), Value::Table(b)) => a == b,
-            (Value::Array(a), Value::Array(b)) => a == b,
-            // (Value::Vec2(a1, a2), Value::Vec2(b1, b2)) => a1 == b1 && a2 == b2,
-            _ => false,
-        }
-    }
 }
 
 impl Eq for Value {}
