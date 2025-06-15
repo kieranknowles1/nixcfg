@@ -11,6 +11,7 @@
         # See [[./cosmic.nix]] for more information
         "cosmic"
         "gnome"
+        "kde"
       ];
       default = "gnome";
     };
@@ -21,6 +22,7 @@
   imports = [
     ./cosmic.nix
     ./gnome.nix
+    ./kde.nix
 
     ./components.nix
   ];

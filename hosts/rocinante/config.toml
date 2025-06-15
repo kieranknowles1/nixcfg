@@ -7,7 +7,7 @@ ledState.enable = true
 
 vr.enable = true
 
-desktop.environment = "gnome"
+desktop.environment = "kde"
 
 backup.enable = true
 [backup.repositories.documents]
