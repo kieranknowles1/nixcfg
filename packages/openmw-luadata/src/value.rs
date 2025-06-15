@@ -14,6 +14,19 @@ pub type Table = BTreeMap<String, Value>;
 // - Float keys (please don't do that)
 pub type Array = Vec<Value>;
 
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
+pub struct Vec2 {
+    pub x: f64,
+    pub y: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
+pub struct Vec3 {
+    pub x: f64,
+    pub y: f64,
+    pub z: f64,
+}
+
 /// A value in the storage file. When serializing to JSON, values will be tagged with their type
 /// to allow for round-tripping.
 /// Serde handles all of this for us, and automagically generates code to serialize and deserialize
@@ -26,5 +39,6 @@ pub enum Value {
     Table(Table),
     Array(Array),
     // OpenMW-specific types
-    // Vec2(f64, f64),
+    Vec2(Vec2),
+    Vec3(Vec3),
 }

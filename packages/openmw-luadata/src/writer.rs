@@ -55,11 +55,18 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
         }
         Value::Array(a) => {
             write_array(a, write)?;
-        } // Value::Vec2(x, y) => {
-          //     write.u8(T_VEC2)?;
-          //     write.f64(x)?;
-          //     write.f64(y)?;
-          // }
+        }
+        Value::Vec2(v) => {
+            write.u8(T_VEC2)?;
+            write.f64(v.x)?;
+            write.f64(v.y)?;
+        }
+        Value::Vec3(v) => {
+            write.u8(T_VEC3)?;
+            write.f64(v.x)?;
+            write.f64(v.y)?;
+            write.f64(v.z)?;
+        }
     }
 
     Ok(())
