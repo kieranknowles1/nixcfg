@@ -6,6 +6,12 @@
   ...
 }: {
   config = lib.mkIf (hostConfig.custom.desktop.environment == "gnome") {
+    # HACK: Workaround for opening URLs through sandboxed apps not working.
+    # Foribly restart xdg-desktop-portal shortly after login which seems to
+    # fix the issue until reboot.
+    xsession.initExtra = ''
+      sleep 5s && systemctl --user restart xdg-desktop-portal.service &
+    '';
     dconf.settings = {
       # Snap windows to screen edges
       "org/gnome/mutter" = {
