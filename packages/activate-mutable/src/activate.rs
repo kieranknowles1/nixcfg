@@ -1,4 +1,5 @@
-use std::fs::File;
+use std::fs::{exists, remove_file};
+use std::os::unix::fs::symlink;
 use std::path::{Path, PathBuf};
 
 use clap::Parser;
@@ -91,10 +92,12 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
     }
 }
 
-fn write_current_config(home: &Path, config: &Config) -> Result<()> {
+fn write_current_config(home: &Path, config_path: &Path) -> Result<()> {
     let path = get_previous_config_path(home);
-    let file = File::create(path)?;
-    serde_json::to_writer(file, config)?;
+    if exists(&path)? {
+        remove_file(&path)?;
+    }
+    symlink(config_path, &path)?;
     Ok(())
 }
 
@@ -117,8 +120,8 @@ pub fn run(args: Opt) -> Result<bool> {
             Config::new()
         });
 
-    // Write current config before transformations to keep the original intact
-    write_current_config(&args.home_directory, &config)?;
+    // Write current config after reading what was there previously
+    write_current_config(&args.home_directory, &args.config_file)?;
     if args.force {
         for entry in config.iter_mut() {
             entry.on_conflict = ConflictStrategy::Replace;
