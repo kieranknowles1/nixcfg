@@ -33,8 +33,18 @@
           cmp $homeDir/test-file-write $2
         }
 
+        # Run 1: File A must be installed to home (hmf)
         runMutation ${configA.json} ${configA.file}
+        # Run 2: New config with different config and different contents for hmf
+        # hmf contents should be overwritten with File B as hmf starts with identical
+        # contents to Config A's hmf spec
         runMutation ${configB.json} ${configB.file}
+
+        # Run 3 & 4: activation should fail as hmf contents differ from both old
+        # and new configs
+        echo "Something new" >> $homeDir/test-file-write
+        ! ${activate-mutable} activate ${configA.json} $homeDir
+        ! ${activate-mutable} activate ${configB.json} $homeDir
 
         touch $out
       '';
