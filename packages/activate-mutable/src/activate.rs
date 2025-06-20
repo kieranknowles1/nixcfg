@@ -1,4 +1,5 @@
-use std::fs::File;
+use std::fs::{exists, remove_file};
+use std::os::unix::fs::symlink;
 use std::path::{Path, PathBuf};
 
 use clap::Parser;
@@ -91,10 +92,12 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
     }
 }
 
-fn write_previous_config(home: &Path, config: &Config) -> Result<()> {
+fn write_current_config(home: &Path, config_path: &Path) -> Result<()> {
     let path = get_previous_config_path(home);
-    let file = File::create(path)?;
-    serde_json::to_writer(file, config)?;
+    if exists(&path)? {
+        remove_file(&path)?;
+    }
+    symlink(config_path, &path)?;
     Ok(())
 }
 
@@ -108,13 +111,6 @@ pub fn run(args: Opt) -> Result<bool> {
     );
 
     let mut config = read_config(&args.config_file)?;
-    // Write previous config before transformations to keep the original intact
-    write_previous_config(&args.home_directory, &config)?;
-    if args.force {
-        for entry in config.iter_mut() {
-            entry.on_conflict = ConflictStrategy::Replace;
-        }
-    }
 
     // See [[../../../docs/plan/activate-mutable.md]]
     // Having no active config is a valid state, documented as being identical to an empty config.
@@ -123,6 +119,14 @@ pub fn run(args: Opt) -> Result<bool> {
             println!("Active config not found. Treating as empty.");
             Config::new()
         });
+
+    // Write current config after reading what was there previously
+    write_current_config(&args.home_directory, &args.config_file)?;
+    if args.force {
+        for entry in config.iter_mut() {
+            entry.on_conflict = ConflictStrategy::Replace;
+        }
+    }
 
     let mut any_errors = false;
     for entry in &config {
