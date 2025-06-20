@@ -90,7 +90,7 @@ for my needs.
 The `confbuild` and `confeval` commands are provided to build/display the value
 of a config path. To make a derivation debuggable, expose it as an option with
 `type = types.path` and set it to a derivation as is done in
-[docs.nix](../../modules/home/docs.nix).
+[home/docs/default.nix](../../modules/home/docs/default.nix).
 
 ```nu
 # Per-host. Can be converted to a Nushell table for easier reading.
