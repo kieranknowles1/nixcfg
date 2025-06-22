@@ -52,7 +52,7 @@
   in
     lib.mkIf cfg.enable {
       custom.trilium-client = {
-        package = lib.mkDefault inputs.trilium-next.packages.${pkgs.system}.desktop;
+        package = lib.mkDefault inputs.trilium.packages.${pkgs.system}.desktop;
 
         export = {
           destinationDir = lib.mkDefault "${config.home.homeDirectory}/Documents/trilium-export";

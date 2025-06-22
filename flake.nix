@@ -115,8 +115,8 @@
 
     # /// Applications ///
 
-    trilium-next = {
-      url = "github:TriliumNext/Notes";
+    trilium = {
+      url = "github:TriliumNext/trilium";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
       inputs.pnpm2nix.follows = "pnpm2nix";

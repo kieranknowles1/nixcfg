@@ -469,7 +469,7 @@
         "stylix": "stylix",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix",
-        "trilium-next": "trilium-next",
+        "trilium": "trilium",
         "vscode-extensions": "vscode-extensions"
       }
     },
@@ -682,7 +682,7 @@
         "type": "github"
       }
     },
-    "trilium-next": {
+    "trilium": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -695,16 +695,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1750537108,
-        "narHash": "sha256-BYtvi2vfobszU9C/wA6gSKihSxlWr2Nc0YXveb2yJp8=",
+        "lastModified": 1750591746,
+        "narHash": "sha256-SoRWTQNWeU2bpGE4zgD8DJ4jBPnCLEszmdaHlekdXUI=",
         "owner": "TriliumNext",
-        "repo": "Notes",
-        "rev": "f529cfd928fd221b9652254cf30c21d598449677",
+        "repo": "trilium",
+        "rev": "5a3503c577601a3923201303e72357ae53426ac7",
         "type": "github"
       },
       "original": {
         "owner": "TriliumNext",
-        "repo": "Notes",
+        "repo": "trilium",
         "type": "github"
       }
     },
