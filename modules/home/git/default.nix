@@ -1,6 +1,13 @@
-{config, ...}: {
+{
+  config,
+  hostConfig,
+  pkgs,
+  ...
+}: {
   config = let
     details = config.custom.userDetails;
+
+    inherit (hostConfig.custom.ssh) authorizedKeys;
   in {
     programs.git = {
       # This is stored in a Git repo, so it wouldn't make sense to have a system without Git
@@ -16,11 +23,27 @@
         diffp = "diff --no-ext-diff";
       };
 
+      # Sign commits with SSH
+      signing = {
+        format = "ssh";
+        key = "~/.ssh/id_ed25519.pub";
+        signByDefault = true;
+      };
+
       extraConfig = {
         init.defaultBranch = "main";
 
         # Don't require "--set-upstream origin <branch>" when pushing a new branch
         push.autoSetupRemote = true;
+
+        # TODO: Filter who each key can sign on behalf of. Currently, anyone can sign anything.
+        gpg.ssh.allowedSignersFile = let
+          signerEntry = keyFile: "* ${builtins.readFile keyFile}";
+        in
+          builtins.toPath (pkgs.writeText "allowed-signers" (
+            # TODO: Recognise any known key, even if it isn't allowed to SSH
+            builtins.concatStringsSep "\n" (map signerEntry authorizedKeys)
+          ));
       };
     };
 
