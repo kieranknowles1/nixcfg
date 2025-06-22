@@ -7,7 +7,21 @@
   lib,
   ...
 }: {
-  config = {
+  options.custom.ssh = let
+    inherit (lib) mkOption types;
+  in {
+    authorizedKeys = mkOption {
+      type = types.listOf types.path;
+      readOnly = true;
+      description = "List of paths to known host files";
+    };
+  };
+
+  config = let
+    cfg = config.custom.ssh;
+  in {
+    custom.ssh.authorizedKeys = lib.mkDefault (map (name: ./keys/${name}) (builtins.attrNames (builtins.readDir ./keys)));
+
     services.openssh = {
       enable = true;
 
@@ -28,8 +42,7 @@
     # TODO: Should this be in the user's config? authorized_keys is a user-level setting
     users.users =
       lib.attrsets.mapAttrs (_name: _user: {
-        openssh.authorizedKeys.keyFiles =
-          map (name: ./keys/${name}) (builtins.attrNames (builtins.readDir ./keys));
+        openssh.authorizedKeys.keyFiles = cfg.authorizedKeys;
       })
       config.custom.users.users;
   };
