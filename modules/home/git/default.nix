@@ -33,8 +33,24 @@
       extraConfig = {
         init.defaultBranch = "main";
 
+        # Save a bit of disk space
+        core.compression = 9;
+
         # Don't require "--set-upstream origin <branch>" when pushing a new branch
         push.autoSetupRemote = true;
+
+        # If pulling while behind, rebase instead of merging
+        pull.rebase = true;
+
+        # Shortcuts for URLs
+        url = {
+          "git@github.com:kieranknowles1/".insteadOf = "kk:";
+          "git@github.com:".insteadOf = "gh:";
+          "git@gitlab.com:".insteadOf = "gl:";
+        };
+
+        # Recurse into untracked directories - these need to be resolved by either tracking or ignoring them
+        status.showUntrackedFiles = "all";
 
         # TODO: Filter who each key can sign on behalf of. Currently, anyone can sign anything.
         gpg.ssh.allowedSignersFile = let
