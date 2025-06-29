@@ -2,7 +2,7 @@ use std::io::Write;
 
 use crate::byteconv::ByteConv;
 use crate::tag::{FORMAT_VERSION, MAX_SHORTSTRING_LENGTH, Tag};
-use crate::value::{Array, Table, Value};
+use crate::value::{Table, Value};
 
 type Result<T> = std::io::Result<T>;
 
@@ -46,9 +46,6 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
         Value::Table(t) => {
             write_table(t, write)?;
         }
-        Value::Array(a) => {
-            write_array(a, write)?;
-        }
         Value::Vec2(v) => {
             write.write(Tag::Vec2)?;
             write.write(v.x)?;
@@ -72,22 +69,10 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
     Ok(())
 }
 
-fn write_array(array: Array, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
-    write.write(Tag::TableStart)?;
-    let mut i = 1; // Lua arrays start at 1
-    for value in array {
-        write_value(Value::Number(i.into()), write)?;
-        write_value(value, write)?;
-        i += 1;
-    }
-    write.write(Tag::TableEnd)?;
-    Ok(())
-}
-
 fn write_table(table: Table, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
     write.write(Tag::TableStart)?;
     for (key, value) in table {
-        write_string(&key, write)?;
+        write_value(key, write)?;
         write_value(value, write)?;
     }
 

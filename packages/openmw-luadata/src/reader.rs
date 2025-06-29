@@ -6,7 +6,7 @@ use thiserror::Error;
 
 use crate::byteconv::ByteConv;
 use crate::tag::{FORMAT_VERSION, Tag};
-use crate::value::{Array, Color, Table, Value, Vec2, Vec3};
+use crate::value::{Color, Table, Value, Vec2, Vec3};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -122,13 +122,7 @@ fn read_value<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Value> 
             let value: u8 = reader.read()?;
             Ok(Value::Boolean(value != 0))
         }
-        Tag::TableStart => {
-            let is_array = reader.peek::<Tag, 1>()? == Tag::Number;
-            match is_array {
-                true => Ok(Value::Array(read_array(reader)?)),
-                false => Ok(Value::Table(read_table(reader)?)),
-            }
-        }
+        Tag::TableStart => Ok(Value::Table(read_table(reader)?)),
         Tag::Vec2 => {
             let x = reader.read()?;
             let y = reader.read()?;
@@ -155,28 +149,6 @@ fn read_value<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Value> 
     }
 }
 
-fn read_array<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Array> {
-    let mut arr = Vec::new();
-
-    let mut index = 1; // Lua arrays start at 1
-    loop {
-        let tag: Tag = reader.peek()?;
-        if tag == Tag::TableEnd {
-            reader.read::<Tag, 1>()?;
-            return Ok(arr);
-        }
-
-        let key = read_value(reader)?;
-        if key != Value::Number(index.into()) {
-            return Err(Error::data(&format!("Expected {}, got {:?}", index, key)));
-        }
-        let value = read_value(reader)?;
-        arr.push(value);
-
-        index += 1;
-    }
-}
-
 /// Decode a table from the reader
 /// Assumes that the buffer points to the first byte after TABLE_START
 fn read_table<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Table> {
@@ -190,10 +162,7 @@ fn read_table<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Table> 
             return Ok(table);
         }
 
-        let key = match read_value(reader)? {
-            Value::String(s) => s,
-            _ => Err(Error::data("Table key must be a string"))?,
-        };
+        let key = read_value(reader)?;
         let value = read_value(reader)?;
         table.insert(key, value);
     }
