@@ -5,7 +5,7 @@ use std::string::FromUtf8Error;
 use thiserror::Error;
 
 use crate::byteconv::ByteConv;
-use crate::constants::*;
+use crate::tag::{FORMAT_VERSION, Tag};
 use crate::value::{Array, Color, Table, Value, Vec2, Vec3};
 
 #[derive(Error, Debug)]
@@ -88,7 +88,7 @@ impl<T: Read + Seek> PrimitiveReader<T> {
     /// Read a primitive without consuming it
     fn peek<V: ByteConv<SIZE>, const SIZE: usize>(&mut self) -> Result<V> {
         let val = self.read()?;
-        self.reader.seek_relative(-(SIZE as i64));
+        self.reader.seek_relative(-(SIZE as i64))?;
         Ok(val)
     }
 
@@ -109,51 +109,49 @@ fn read_value<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Value> 
     let tag = reader.read()?;
 
     match tag {
-        T_NUMBER => {
+        Tag::Number => {
             let number = reader.read()?;
             Ok(Value::Number(number))
         }
-        T_LONG_STRING => {
+        Tag::LongString => {
             let length: u32 = reader.read()?;
             let string = reader.string(length as usize)?;
             Ok(Value::String(string))
         }
-        T_BOOLEAN => {
+        Tag::Boolean => {
             let value: u8 = reader.read()?;
             Ok(Value::Boolean(value != 0))
         }
-        T_TABLE_START => {
-            let is_array = reader.peek::<u8, 1>()? == T_NUMBER;
+        Tag::TableStart => {
+            let is_array = reader.peek::<Tag, 1>()? == Tag::Number;
             match is_array {
                 true => Ok(Value::Array(read_array(reader)?)),
                 false => Ok(Value::Table(read_table(reader)?)),
             }
         }
-        T_VEC2 => {
+        Tag::Vec2 => {
             let x = reader.read()?;
             let y = reader.read()?;
             Ok(Value::Vec2(Vec2 { x, y }))
         }
-        T_VEC3 => {
+        Tag::Vec3 => {
             let x = reader.read()?;
             let y = reader.read()?;
             let z = reader.read()?;
             Ok(Value::Vec3(Vec3 { x, y, z }))
         }
-        T_COLOR => {
+        Tag::Color => {
             let r = reader.read()?;
             let g = reader.read()?;
             let b = reader.read()?;
             let a = reader.read()?;
             Ok(Value::Color(Color { r, g, b, a }))
         }
-        // Every bit after the flag is part of the length, so we can use a range and mask
-        T_SHORTSTRING_START..=T_SHORTSTRING_END => {
-            let length = (tag & MASK_SHORT_STRING) as usize;
-            let string = reader.string(length)?;
+        Tag::ShortString(length) => {
+            let string = reader.string(length as usize)?;
             Ok(Value::String(string))
         }
-        _ => Err(Error::data(&format!("Unknown tag: 0x{:02X}", tag))),
+        Tag::TableEnd => Err(Error::data("Table end outside of table key")),
     }
 }
 
@@ -162,9 +160,9 @@ fn read_array<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Array> 
 
     let mut index = 1; // Lua arrays start at 1
     loop {
-        let tag: u8 = reader.peek()?;
-        if tag == T_TABLE_END {
-            reader.read::<u8, 1>()?;
+        let tag: Tag = reader.peek()?;
+        if tag == Tag::TableEnd {
+            reader.read::<Tag, 1>()?;
             return Ok(arr);
         }
 
@@ -186,9 +184,9 @@ fn read_table<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Table> 
 
     // Read until we see TABLE_END in place of the key's type
     loop {
-        let tag: u8 = reader.peek()?;
-        if tag == T_TABLE_END {
-            reader.read::<u8, 1>()?; // Consume the TABLE_END
+        let tag: Tag = reader.peek()?;
+        if tag == Tag::TableEnd {
+            reader.read::<Tag, 1>()?; // Consume the TABLE_END
             return Ok(table);
         }
 

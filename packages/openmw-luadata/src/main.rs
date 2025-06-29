@@ -1,6 +1,6 @@
 mod byteconv;
-mod constants;
 mod reader;
+mod tag;
 mod value;
 mod writer;
 

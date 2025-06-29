@@ -1,7 +1,7 @@
 use std::io::Write;
 
 use crate::byteconv::ByteConv;
-use crate::constants::*;
+use crate::tag::{FORMAT_VERSION, MAX_SHORTSTRING_LENGTH, Tag};
 use crate::value::{Array, Table, Value};
 
 type Result<T> = std::io::Result<T>;
@@ -33,11 +33,11 @@ pub fn encode(value: Value, writer: &mut impl Write) -> Result<()> {
 fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
     match value {
         Value::Number(n) => {
-            write.write(T_NUMBER)?;
+            write.write(Tag::Number)?;
             write.write(n)?;
         }
         Value::Boolean(b) => {
-            write.write(T_BOOLEAN)?;
+            write.write(Tag::Boolean)?;
             write.write(u8::from(b))?;
         }
         Value::String(s) => {
@@ -50,18 +50,18 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
             write_array(a, write)?;
         }
         Value::Vec2(v) => {
-            write.write(T_VEC2)?;
+            write.write(Tag::Vec2)?;
             write.write(v.x)?;
             write.write(v.y)?;
         }
         Value::Vec3(v) => {
-            write.write(T_VEC3)?;
+            write.write(Tag::Vec3)?;
             write.write(v.x)?;
             write.write(v.y)?;
             write.write(v.z)?;
         }
         Value::Color(c) => {
-            write.write(T_COLOR)?;
+            write.write(Tag::Color)?;
             write.write(c.r)?;
             write.write(c.g)?;
             write.write(c.b)?;
@@ -73,25 +73,25 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
 }
 
 fn write_array(array: Array, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
-    write.write(T_TABLE_START)?;
+    write.write(Tag::TableStart)?;
     let mut i = 1; // Lua arrays start at 1
     for value in array {
         write_value(Value::Number(i.into()), write)?;
         write_value(value, write)?;
         i += 1;
     }
-    write.write(T_TABLE_END)?;
+    write.write(Tag::TableEnd)?;
     Ok(())
 }
 
 fn write_table(table: Table, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
-    write.write(T_TABLE_START)?;
+    write.write(Tag::TableStart)?;
     for (key, value) in table {
         write_string(&key, write)?;
         write_value(value, write)?;
     }
 
-    write.write(T_TABLE_END)?;
+    write.write(Tag::TableEnd)?;
 
     Ok(())
 }
@@ -109,12 +109,13 @@ fn write_string(string: &str, write: &mut PrimitiveWriter<impl Write>) -> Result
         string.len() as u32
     };
 
-    if length <= MASK_SHORT_STRING.into() {
-        // Short string format. Length is stored in the lower 5 bits
-        write.write(FLAG_SHORT_STRING | length as u8)?;
+    if length <= MAX_SHORTSTRING_LENGTH.into() {
+        // Short string format. Length is stored in the lower bits
+        // SAFETY: MAX_SHORTSTRING_LENGTH is a u8
+        write.write(Tag::ShortString(length as u8))?;
     } else {
         // Long string format. Length is stored in a 32-bit integer
-        write.write(T_LONG_STRING)?;
+        write.write(Tag::LongString)?;
         write.write(length)?;
     }
 
