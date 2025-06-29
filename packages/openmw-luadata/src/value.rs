@@ -27,6 +27,14 @@ pub struct Vec3 {
     pub z: f64,
 }
 
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
+pub struct Color {
+    pub r: f32,
+    pub g: f32,
+    pub b: f32,
+    pub a: f32,
+}
+
 /// A value in the storage file. When serializing to JSON, values will be tagged with their type
 /// to allow for round-tripping.
 /// Serde handles all of this for us, and automagically generates code to serialize and deserialize
@@ -41,4 +49,5 @@ pub enum Value {
     // OpenMW-specific types
     Vec2(Vec2),
     Vec3(Vec3),
+    Color(Color),
 }

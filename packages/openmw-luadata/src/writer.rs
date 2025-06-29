@@ -22,6 +22,10 @@ impl<T: Write> PrimitiveWriter<T> {
         self.writer.write_all(&value.to_le_bytes())
     }
 
+    fn f32(&mut self, value: f32) -> Result<()> {
+        self.writer.write_all(&value.to_le_bytes())
+    }
+
     fn f64(&mut self, value: f64) -> Result<()> {
         self.writer.write_all(&value.to_le_bytes())
     }
@@ -66,6 +70,13 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
             write.f64(v.x)?;
             write.f64(v.y)?;
             write.f64(v.z)?;
+        }
+        Value::Color(c) => {
+            write.u8(T_COLOR)?;
+            write.f32(c.r)?;
+            write.f32(c.g)?;
+            write.f32(c.b)?;
+            write.f32(c.a)?;
         }
     }
 

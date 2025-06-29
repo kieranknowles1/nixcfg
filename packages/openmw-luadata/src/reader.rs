@@ -5,7 +5,7 @@ use std::string::FromUtf8Error;
 use thiserror::Error;
 
 use crate::constants::*;
-use crate::value::{Array, Table, Value, Vec2, Vec3};
+use crate::value::{Array, Color, Table, Value, Vec2, Vec3};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -104,6 +104,13 @@ impl<T: Read> PrimitiveReader<T> {
         Ok(u32::from_le_bytes(buf))
     }
 
+    fn f32(&mut self) -> Result<f32> {
+        let mut buf = [0u8; 4];
+        self.reader.read_exact(&mut buf)?;
+
+        Ok(f32::from_le_bytes(buf))
+    }
+
     /// Read a double-precision float
     /// Consumes 8 bytes
     fn f64(&mut self) -> Result<f64> {
@@ -160,6 +167,13 @@ fn read_value<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
             let y = reader.f64()?;
             let z = reader.f64()?;
             Ok(Value::Vec3(Vec3 { x, y, z }))
+        }
+        T_COLOR => {
+            let r = reader.f32()?;
+            let g = reader.f32()?;
+            let b = reader.f32()?;
+            let a = reader.f32()?;
+            Ok(Value::Color(Color { r, g, b, a }))
         }
         // Every bit after the flag is part of the length, so we can use a range and mask
         T_SHORTSTRING_START..=T_SHORTSTRING_END => {
