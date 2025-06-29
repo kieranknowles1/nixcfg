@@ -97,6 +97,8 @@
       inputs.sops-nix.follows = "";
       inputs.nixos-facter-modules.follows = "";
       inputs.nix-darwin.follows = "";
+      inputs.nuschtos.follows = "";
+      inputs.flake-utils.follows = "";
     };
 
     # Generate package sets for x86_64-linux and aarch64-linux. This can be
