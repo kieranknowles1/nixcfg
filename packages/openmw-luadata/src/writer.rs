@@ -1,5 +1,6 @@
 use std::io::Write;
 
+use crate::byteconv::ByteConv;
 use crate::constants::*;
 use crate::value::{Array, Table, Value};
 
@@ -14,20 +15,8 @@ impl<T: Write> PrimitiveWriter<T> {
         Self { writer }
     }
 
-    fn u8(&mut self, value: u8) -> Result<()> {
-        self.writer.write_all(&[value])
-    }
-
-    fn u32(&mut self, value: u32) -> Result<()> {
-        self.writer.write_all(&value.to_le_bytes())
-    }
-
-    fn f32(&mut self, value: f32) -> Result<()> {
-        self.writer.write_all(&value.to_le_bytes())
-    }
-
-    fn f64(&mut self, value: f64) -> Result<()> {
-        self.writer.write_all(&value.to_le_bytes())
+    fn write<V: ByteConv<SIZE>, const SIZE: usize>(&mut self, value: V) -> Result<()> {
+        self.writer.write_all(&value.to_bytes())
     }
 }
 
@@ -35,7 +24,7 @@ pub fn encode(value: Value, writer: &mut impl Write) -> Result<()> {
     let mut writer = PrimitiveWriter::new(writer);
 
     // Write the format version, then pass off to the recursive function
-    writer.u8(FORMAT_VERSION)?;
+    writer.write(FORMAT_VERSION)?;
     write_value(value, &mut writer)?;
 
     Ok(())
@@ -44,12 +33,12 @@ pub fn encode(value: Value, writer: &mut impl Write) -> Result<()> {
 fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
     match value {
         Value::Number(n) => {
-            write.u8(T_NUMBER)?;
-            write.f64(n)?;
+            write.write(T_NUMBER)?;
+            write.write(n)?;
         }
         Value::Boolean(b) => {
-            write.u8(T_BOOLEAN)?;
-            write.u8(if b { 1 } else { 0 })?;
+            write.write(T_BOOLEAN)?;
+            write.write(u8::from(b))?;
         }
         Value::String(s) => {
             write_string(&s, write)?;
@@ -61,22 +50,22 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
             write_array(a, write)?;
         }
         Value::Vec2(v) => {
-            write.u8(T_VEC2)?;
-            write.f64(v.x)?;
-            write.f64(v.y)?;
+            write.write(T_VEC2)?;
+            write.write(v.x)?;
+            write.write(v.y)?;
         }
         Value::Vec3(v) => {
-            write.u8(T_VEC3)?;
-            write.f64(v.x)?;
-            write.f64(v.y)?;
-            write.f64(v.z)?;
+            write.write(T_VEC3)?;
+            write.write(v.x)?;
+            write.write(v.y)?;
+            write.write(v.z)?;
         }
         Value::Color(c) => {
-            write.u8(T_COLOR)?;
-            write.f32(c.r)?;
-            write.f32(c.g)?;
-            write.f32(c.b)?;
-            write.f32(c.a)?;
+            write.write(T_COLOR)?;
+            write.write(c.r)?;
+            write.write(c.g)?;
+            write.write(c.b)?;
+            write.write(c.a)?;
         }
     }
 
@@ -84,25 +73,25 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
 }
 
 fn write_array(array: Array, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
-    write.u8(T_TABLE_START)?;
+    write.write(T_TABLE_START)?;
     let mut i = 1; // Lua arrays start at 1
     for value in array {
         write_value(Value::Number(i.into()), write)?;
         write_value(value, write)?;
         i += 1;
     }
-    write.u8(T_TABLE_END)?;
+    write.write(T_TABLE_END)?;
     Ok(())
 }
 
 fn write_table(table: Table, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
-    write.u8(T_TABLE_START)?;
+    write.write(T_TABLE_START)?;
     for (key, value) in table {
         write_string(&key, write)?;
         write_value(value, write)?;
     }
 
-    write.u8(T_TABLE_END)?;
+    write.write(T_TABLE_END)?;
 
     Ok(())
 }
@@ -122,11 +111,11 @@ fn write_string(string: &str, write: &mut PrimitiveWriter<impl Write>) -> Result
 
     if length <= MASK_SHORT_STRING.into() {
         // Short string format. Length is stored in the lower 5 bits
-        write.u8(FLAG_SHORT_STRING | length as u8)?;
+        write.write(FLAG_SHORT_STRING | length as u8)?;
     } else {
         // Long string format. Length is stored in a 32-bit integer
-        write.u8(T_LONG_STRING)?;
-        write.u32(length)?;
+        write.write(T_LONG_STRING)?;
+        write.write(length)?;
     }
 
     write.writer.write_all(string.as_bytes())?;

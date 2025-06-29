@@ -1,9 +1,10 @@
 use std::fs::File;
-use std::io::{BufRead, BufReader, Read};
+use std::io::{BufRead, BufReader, Read, Seek};
 use std::string::FromUtf8Error;
 
 use thiserror::Error;
 
+use crate::byteconv::ByteConv;
 use crate::constants::*;
 use crate::value::{Array, Color, Table, Value, Vec2, Vec3};
 
@@ -37,7 +38,7 @@ pub fn decode(file: &str) -> Result<Value> {
         Err(Error::data("File is empty"))?;
     }
 
-    let version = reader.u8()?;
+    let version: u8 = reader.read()?;
     if version != FORMAT_VERSION {
         Err(Error::data(&format!(
             "Invalid format version: 0x{:02X}, expected 0x{:02X}",
@@ -56,13 +57,13 @@ pub fn decode(file: &str) -> Result<Value> {
     Ok(value)
 }
 
-struct PrimitiveReader<T: Read> {
+struct PrimitiveReader<T: Read + Seek> {
     reader: BufReader<T>,
 }
 
 /// Helper to read and decode Lua primitives
 /// Expects all data to be little-endian
-impl<T: Read> PrimitiveReader<T> {
+impl<T: Read + Seek> PrimitiveReader<T> {
     fn new(reader: T) -> Self {
         Self {
             reader: BufReader::new(reader),
@@ -76,48 +77,19 @@ impl<T: Read> PrimitiveReader<T> {
         Ok(self.reader.fill_buf()?.is_empty())
     }
 
-    /// Read a single byte
-    /// Consumes 1 byte
-    fn u8(&mut self) -> Result<u8> {
-        let mut buf = [0u8; 1];
+    /// Read a primitive and consume it
+    fn read<V: ByteConv<SIZE>, const SIZE: usize>(&mut self) -> Result<V> {
+        let mut buf = [0u8; SIZE];
         self.reader.read_exact(&mut buf)?;
 
-        Ok(buf[0])
+        Ok(V::from_bytes(&buf))
     }
 
-    /// Read a single byte without consuming the buffer
-    fn peek_u8(&mut self) -> Result<u8> {
-        let buf = self.reader.fill_buf()?;
-        if buf.is_empty() {
-            Err(Error::data("Unexpected EOF"))?;
-        }
-
-        Ok(buf[0])
-    }
-
-    /// Read a 32-bit unsigned integer
-    /// Consumes 4 bytes
-    fn u32(&mut self) -> Result<u32> {
-        let mut buf = [0u8; 4];
-        self.reader.read_exact(&mut buf)?;
-
-        Ok(u32::from_le_bytes(buf))
-    }
-
-    fn f32(&mut self) -> Result<f32> {
-        let mut buf = [0u8; 4];
-        self.reader.read_exact(&mut buf)?;
-
-        Ok(f32::from_le_bytes(buf))
-    }
-
-    /// Read a double-precision float
-    /// Consumes 8 bytes
-    fn f64(&mut self) -> Result<f64> {
-        let mut buf = [0u8; 8];
-        self.reader.read_exact(&mut buf)?;
-
-        Ok(f64::from_le_bytes(buf))
+    /// Read a primitive without consuming it
+    fn peek<V: ByteConv<SIZE>, const SIZE: usize>(&mut self) -> Result<V> {
+        let val = self.read()?;
+        self.reader.seek_relative(-(SIZE as i64));
+        Ok(val)
     }
 
     /// Read a fixed-size string
@@ -133,46 +105,46 @@ impl<T: Read> PrimitiveReader<T> {
 /// Decode a value from the reader
 /// Consumes as much data as needed to decode the value
 /// Recurses into tables
-fn read_value<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
-    let tag = reader.u8()?;
+fn read_value<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
+    let tag = reader.read()?;
 
     match tag {
         T_NUMBER => {
-            let number = reader.f64()?;
+            let number = reader.read()?;
             Ok(Value::Number(number))
         }
         T_LONG_STRING => {
-            let length = reader.u32()? as usize;
-            let string = reader.string(length)?;
+            let length: u32 = reader.read()?;
+            let string = reader.string(length as usize)?;
             Ok(Value::String(string))
         }
         T_BOOLEAN => {
-            let value = reader.u8()?;
+            let value: u8 = reader.read()?;
             Ok(Value::Boolean(value != 0))
         }
         T_TABLE_START => {
-            let is_array = reader.peek_u8()? == T_NUMBER;
+            let is_array = reader.peek::<u8, 1>()? == T_NUMBER;
             match is_array {
                 true => Ok(Value::Array(read_array(reader)?)),
                 false => Ok(Value::Table(read_table(reader)?)),
             }
         }
         T_VEC2 => {
-            let x = reader.f64()?;
-            let y = reader.f64()?;
+            let x = reader.read()?;
+            let y = reader.read()?;
             Ok(Value::Vec2(Vec2 { x, y }))
         }
         T_VEC3 => {
-            let x = reader.f64()?;
-            let y = reader.f64()?;
-            let z = reader.f64()?;
+            let x = reader.read()?;
+            let y = reader.read()?;
+            let z = reader.read()?;
             Ok(Value::Vec3(Vec3 { x, y, z }))
         }
         T_COLOR => {
-            let r = reader.f32()?;
-            let g = reader.f32()?;
-            let b = reader.f32()?;
-            let a = reader.f32()?;
+            let r = reader.read()?;
+            let g = reader.read()?;
+            let b = reader.read()?;
+            let a = reader.read()?;
             Ok(Value::Color(Color { r, g, b, a }))
         }
         // Every bit after the flag is part of the length, so we can use a range and mask
@@ -185,14 +157,14 @@ fn read_value<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
     }
 }
 
-fn read_array<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Array> {
+fn read_array<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Array> {
     let mut arr = Vec::new();
 
     let mut index = 1; // Lua arrays start at 1
     loop {
-        let tag = reader.peek_u8()?;
+        let tag: u8 = reader.peek()?;
         if tag == T_TABLE_END {
-            reader.u8()?;
+            reader.read::<u8, 1>()?;
             return Ok(arr);
         }
 
@@ -209,14 +181,14 @@ fn read_array<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Array> {
 
 /// Decode a table from the reader
 /// Assumes that the buffer points to the first byte after TABLE_START
-fn read_table<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Table> {
+fn read_table<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Table> {
     let mut table = Table::new();
 
     // Read until we see TABLE_END in place of the key's type
     loop {
-        let tag = reader.peek_u8()?;
+        let tag: u8 = reader.peek()?;
         if tag == T_TABLE_END {
-            reader.u8()?; // Consume the TABLE_END
+            reader.read::<u8, 1>()?; // Consume the TABLE_END
             return Ok(table);
         }
 
