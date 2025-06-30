@@ -27,12 +27,12 @@
 
       openmw = {
         globalStorage = {
-          nix = ./openmw/global_storage.json;
-          repo = "users/kieran/openmw/global_storage.json";
+          nix = ./openmw/global_storage.ron;
+          repo = "users/kieran/openmw/global_storage.ron";
         };
         playerStorage = {
-          nix = ./openmw/player_storage.json;
-          repo = "users/kieran/openmw/player_storage.json";
+          nix = ./openmw/player_storage.ron;
+          repo = "users/kieran/openmw/player_storage.ron";
         };
       };
     };

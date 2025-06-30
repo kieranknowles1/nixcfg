@@ -11,7 +11,7 @@ checkFile() {
   tmpjson=$(mktemp)
   tmpbin=$(mktemp)
 
-  # Binary files from OpenMW are non-deterministic, so we compare JSON outputs
+  # Binary files from OpenMW are non-deterministic, so we compare RON outputs
   # instead of binaries. This will not work if something is dropped entirely,
   # but should catch most round-trip errors
   decode "$src" > "$tmpjson"

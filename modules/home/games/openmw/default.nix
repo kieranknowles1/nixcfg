@@ -40,7 +40,11 @@
     # Decode a binary file back to JSON format
     # Runs at runtime
     omwToJson = pkgs.writeShellScript "omw-json" ''
-      ${converter} decode $@ | ${pkgs.jq}/bin/jq --from-file ${./luaignore.jq}
+      # Ignore volatile fields
+      ${converter} decode $@ \
+        --drop-starts-with NCGDMW_ \
+        --drop Journey \
+        --drop SettingsOMWControls.alwaysRun
     '';
 
     mkStorage = opts: {
