@@ -4,7 +4,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "activate-mutable";
-  version = "3.0.2";
+  version = "3.0.3";
   src = ./.;
 
   cargoLock.lockFile = ./Cargo.lock;

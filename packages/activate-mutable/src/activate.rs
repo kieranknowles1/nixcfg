@@ -94,6 +94,13 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
 
 fn write_current_config(home: &Path, config_path: &Path) -> Result<()> {
     let path = get_previous_config_path(home);
+
+    // Special case: If we are reactivating manually, the user will be using
+    // $config_path on the CLI, don't overwrite a symlink with itself.
+    if path == config_path {
+        return Ok(());
+    }
+
     if exists(&path)? {
         remove_file(&path)?;
     }
