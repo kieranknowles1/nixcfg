@@ -2,6 +2,9 @@
 
 update.method = "never" # Managed by nix
 
+# Don't take us out of the TUI when committing
+promptToReturnFromSubprocess = false
+
 # Refuse to open unless we already have a git repo
 notARepository = "quit"
 
