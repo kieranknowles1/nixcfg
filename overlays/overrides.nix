@@ -13,15 +13,6 @@ final: prev: {
     };
   });
 
-  networkmanager = prev.networkmanager.override {
-    # I don't need openconnect VPN support, and
-    # having it brings in GTK as a dependency for my server
-    # via openconnect -> stoken -> gtk
-    # stoken can be built without GTK, but I'd rather remove it
-    # at the source.
-    openconnect = null;
-  };
-
   # My fork of OpenMW
   openmw = let
     devPkg = inputs.openmw.packages.${final.system}.openmw-dev;

@@ -23,11 +23,9 @@
     stylix = {
       url = "github:danth/stylix";
       inputs.flake-parts.follows = "flake-parts";
-      inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
 
-      inputs.flake-compat.follows = "";
       # Remove some inputs that are not used by this flake
       inputs.base16-fish.follows = "";
       inputs.base16-helix.follows = "";
@@ -97,8 +95,6 @@
       inputs.sops-nix.follows = "";
       inputs.nixos-facter-modules.follows = "";
       inputs.nix-darwin.follows = "";
-      inputs.nuschtos.follows = "";
-      inputs.flake-utils.follows = "";
     };
 
     # Generate package sets for x86_64-linux and aarch64-linux. This can be
