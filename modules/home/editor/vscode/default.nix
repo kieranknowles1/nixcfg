@@ -48,7 +48,6 @@
         yzhang.markdown-all-in-one
 
         # Language support
-        jnoortheen.nix-ide # Nix IDE
         redhat.vscode-yaml # We have some YAML files in the repo
         tamasfe.even-better-toml # Same for TOML
         thenuprojectcontributors.vscode-nushell-lang # Nushell config
@@ -57,23 +56,11 @@
 
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
 
-        # GLSL
-        slevesque.shader
-        dtoplak.vscode-glsllint
-
         # Godot
         geequlim.godot-tools
         mrorz.language-gettext # Used for translations
       ];
     };
-
-    home.packages = with pkgs; [
-      # Required by jnoortheen.nix-ide
-      nil
-
-      # Required by dtoplak.vscode-glsllint
-      glslang
-    ];
 
     custom.aliases.code = {
       exec = "codium";
