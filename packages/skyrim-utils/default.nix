@@ -2,7 +2,7 @@
   rustPlatform,
   self,
 }:
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   pname = "skyrim-utils";
   version = "1.3.1";
   src = ./.;
@@ -23,6 +23,6 @@ rustPlatform.buildRustPackage {
       used Python instead of Rust.
     '';
 
-    mainProgram = "skyrim-utils";
+    mainProgram = pname;
   };
 }

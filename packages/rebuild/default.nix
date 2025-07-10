@@ -2,9 +2,9 @@
   rustPlatform,
   self,
 }:
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   pname = "rebuild";
-  version = "2.3.0";
+  version = "2.4.0";
   src = ./.;
 
   cargoLock.lockFile = ./Cargo.lock;
@@ -19,6 +19,6 @@ rustPlatform.buildRustPackage {
       builder's hostname, and a diff of packages.
     '';
 
-    mainProgram = "rebuild";
+    mainProgram = pname;
   };
 }

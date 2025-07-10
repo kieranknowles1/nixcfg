@@ -48,7 +48,9 @@ enum Action {
 
 #[derive(Parser)]
 struct BuildOpt {
-    message: String,
+    /// Message to commit the changes with. Multiple arguments will be joined as
+    /// separate paragraphs, similar to multiple `-m` arguments to `git commit`.
+    message: Vec<String>,
 }
 
 #[derive(Parser)]
@@ -63,7 +65,7 @@ struct PullOpt {}
 impl BuildOpt {
     fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
         git::stage_all()?;
-        let msg = build_and_switch(&flake, &self.message)?;
+        let msg = build_and_switch(&flake, &self.message.join("\n\n"))?;
         git::commit(&msg)
     }
 }
