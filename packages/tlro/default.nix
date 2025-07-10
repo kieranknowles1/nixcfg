@@ -1,7 +1,10 @@
 {
   src-tldr,
+  nushell,
   runCommand,
   mdcat,
+  sqlite,
+  jq,
   self,
   language ? "en",
   platform ? "linux",
@@ -12,7 +15,7 @@
   longOpts ? true,
   pages ?
     import ./pages.nix {
-      inherit src-tldr language platform runCommand;
+      inherit src-tldr nushell runCommand;
     },
   writeShellApplication,
 }:
@@ -20,12 +23,16 @@ writeShellApplication rec {
   name = "tlro";
   runtimeEnv = {
     PAGES = pages;
-    VERSION = "1.0.0";
+    VERSION = "2.0.0";
+    LANGUAGE = language;
+    PLATFORM = platform;
     SHORTOPTS = shortOpts;
     LONGOPTS = longOpts;
   };
   runtimeInputs = [
     mdcat
+    sqlite
+    jq
   ];
   text = builtins.readFile ./tlro.sh;
 
