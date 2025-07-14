@@ -42,3 +42,7 @@ func _input(_event: InputEvent) -> void:
 	var mod = Data.get_modifiers()
 	for key in keys:
 		key.set_modifiers(mod)
+	
+	# Quit is slow, so use excessive force. Let the OS clean up for us
+	if Input.is_action_pressed("Quit"):
+		OS.kill(OS.get_process_id())
