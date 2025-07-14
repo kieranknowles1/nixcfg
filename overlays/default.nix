@@ -23,7 +23,7 @@
   });
 
   optionalOverlay = input: name:
-    if builtins.hasAttr "overlays" input
+    if builtins.hasAttr "overlays" input && builtins.hasAttr name input.overlays
     then input.overlays.${name}
     else (_: _: {});
 in {
