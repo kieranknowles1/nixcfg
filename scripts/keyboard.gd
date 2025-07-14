@@ -19,7 +19,7 @@ func new_row(pad: int = 0):
 	return row
 
 func _ready():
-	var padding = 16
+	var padding = 0
 	var row = new_row(padding)
 	for key in LAYOUT.split(""):
 		if key == '|':
