@@ -76,6 +76,7 @@ in {
       };
 
       # Generate documentation
+      # TODO: Add a keyboard visualizer to show shortcuts for held keys
       custom.docs-generate.file."shortcuts.md" = {
         description = "Keyboard shortcuts";
         dynamic = true;
