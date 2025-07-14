@@ -4,7 +4,7 @@
   writeShellApplication,
 }:
 /*
-// TODO: Replace this with pkgs.writeScriptBin, as this can take any interpreter
+Can't use `pkgs.writeScriptBin` for this as it doesn't support the meta argument.
 Package a script as a standalone executable, similar to `pkgs.writeShellScriptBin`.
 
 Only works with simple scripts, that is, a single file with no dependencies
