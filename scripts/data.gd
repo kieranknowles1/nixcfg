@@ -14,14 +14,14 @@ enum ModCombo {
 
 class Hotkey:
 	var modifiers: ModCombo
+	var icon: Image
+
+static func bool_to_modifiers(shift: bool, alt: bool, ctrl: bool) -> ModCombo:
+	return (ModCombo.Alt if alt else 0) | (ModCombo.Shift if shift else 0) | (ModCombo.Ctrl if ctrl else 0)
 
 static func get_modifiers() -> ModCombo:
-	var index = 0
-	if Input.is_key_pressed(KEY_SHIFT):
-		index |= ModCombo.Shift
-	if Input.is_key_pressed(KEY_ALT):
-		index |= ModCombo.Alt
-	if Input.is_key_pressed(KEY_CTRL):
-		index |= ModCombo.Ctrl
-
-	return index as ModCombo
+	return bool_to_modifiers(
+		Input.is_key_pressed(KEY_SHIFT),
+		Input.is_key_pressed(KEY_ALT),
+		Input.is_key_pressed(KEY_CTRL)
+	)
