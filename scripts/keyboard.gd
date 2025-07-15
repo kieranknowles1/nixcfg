@@ -26,6 +26,8 @@ func new_row(pad: int = 0):
 func _ready():
 	# Load all modifiers
 	var cfg = config.load_json(config.get_config_path())
+	if cfg == null:
+		get_tree().quit(1)
 	
 	for i in range(0, LOWER.size()):
 		var lower = LOWER[i]
@@ -38,8 +40,11 @@ func _ready():
 			instance.data.lower = lower.substr(key, 1)
 			instance.data.upper = upper.substr(key, 1)
 			instance.data.code = OS.find_keycode_from_string(instance.data.lower)
+			
+			if instance.data.lower in cfg:
+				instance.hotkeys = cfg[instance.data.lower]
+			
 			row.add_child(instance)
-	#
 			keys.append(instance)
 
 func _input(_event: InputEvent) -> void:
