@@ -8,6 +8,7 @@ class KeyData:
 var data: KeyData
 
 @onready var label: Label = $Label
+@onready var texture_rect: TextureRect = $TextureRect
 
 func _ready():
 	label.text = data.lower
