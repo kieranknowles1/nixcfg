@@ -7,6 +7,7 @@ class KeyData:
 	
 class HotKey:
 	var modifiers: Data.ModCombo
+	var description: String
 	var icon: Texture2D
 
 var data: KeyData
@@ -14,6 +15,7 @@ var hotkeys: Array
 
 @onready var label: Label = $Label
 @onready var texture_rect: TextureRect = $TextureRect
+@onready var description: Label = $Description
 
 func _ready():
 	label.text = data.lower
@@ -29,8 +31,11 @@ func set_modifiers(modifiers: Data.ModCombo):
 	if hk:
 		texture_rect.texture = hk.icon
 		label.visible = false
+		description.text = hk.description
+		description.visible = true
 		texture_rect.visible = true
 	else:
 		label.text = data.upper if modifiers & Data.ModCombo.Shift else data.lower
 		label.visible = true
+		description.visible = false
 		texture_rect.visible = false

@@ -4,6 +4,7 @@
 		"alt": true,
 		"ctrl": false,
 		"shift": false,
-		"icon": "icon.svg"
+		"icon": "icon.svg",
+		"description": "Open Terminal"
 	}
 ]

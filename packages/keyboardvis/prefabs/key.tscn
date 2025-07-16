@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://0pwojfp65gvg"]
+[gd_scene load_steps=4 format=3 uid="uid://0pwojfp65gvg"]
 
 [ext_resource type="Script" uid="uid://byngg175h4bmc" path="res://scripts/key.gd" id="1_prtrg"]
 [ext_resource type="Texture2D" uid="uid://c2g02bufuve3" path="res://icon.svg" id="2_gqaf4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gqaf4"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Key" type="Panel"]
 custom_minimum_size = Vector2(100, 100)
@@ -23,6 +27,7 @@ grow_vertical = 2
 theme_type_variation = &"HeaderLarge"
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.065
@@ -33,3 +38,14 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_gqaf4")
 expand_mode = 1
+
+[node name="Description" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_gqaf4")
+horizontal_alignment = 1
+autowrap_mode = 2

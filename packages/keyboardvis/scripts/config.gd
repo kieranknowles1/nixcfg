@@ -32,6 +32,7 @@ class ConfigEntry:
 		hotkey = Key.HotKey.new()
 		hotkey.modifiers = modifiers
 		hotkey.icon = icon
+		hotkey.description = Config.read_optional(data, "description", "")
 		
 		ok = true
 
