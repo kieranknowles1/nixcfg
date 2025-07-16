@@ -7,9 +7,9 @@ const KEY = preload("res://prefabs/key.tscn")
 const LOWER: Array[String] = ["1234567890-=", "qwertyuiop[]", "asdfghjkl;'#", "\\zxcvbnm,./"]
 const UPPER: Array[String] = ['!"£$%^&*()_+', "QWERTYUIOP{}", "ASDFGHJKL:@~", "|ZXCVBNM<>?"]
 
-const PADDING = [0, 10, 42, 0]
+const PADDING = [0, 10, 32, 0]
 
-var keys: Array[Key] = []
+var keys: Array[KeyNode] = []
 
 
 func new_row(pad: int = 0):
@@ -35,8 +35,8 @@ func _ready():
 
 		var row = new_row(PADDING[i])
 		for key in range(0, lower.length()):
-			var instance: Key = KEY.instantiate()
-			instance.data = Key.KeyData.new()
+			var instance: KeyNode = KEY.instantiate()
+			instance.data = KeyData.new()
 			instance.data.lower = lower.substr(key, 1)
 			instance.data.upper = upper.substr(key, 1)
 			instance.data.code = OS.find_keycode_from_string(instance.data.lower)

@@ -7,7 +7,7 @@ static func read_optional(dict: Dictionary, key: String, default):
 
 class ConfigEntry:
 	var key: String
-	var hotkey: Key.HotKey
+	var hotkey: KeyNode.HotKey
 	var ok: bool = false
 
 	func _init(data: Dictionary):
@@ -31,7 +31,7 @@ class ConfigEntry:
 			Config.read_optional(data, "shift", false)
 		)
 
-		hotkey = Key.HotKey.new()
+		hotkey = KeyNode.HotKey.new()
 		hotkey.modifiers = modifiers
 		hotkey.icon = icon
 		hotkey.description = Config.read_optional(data, "description", "")

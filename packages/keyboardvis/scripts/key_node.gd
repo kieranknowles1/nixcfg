@@ -1,11 +1,4 @@
-class_name Key extends Panel
-
-
-class KeyData:
-	var code: int
-	var lower: String
-	var upper: String
-
+class_name KeyNode extends Panel
 
 class HotKey:
 	var modifiers: Data.ModCombo
@@ -13,7 +6,7 @@ class HotKey:
 	var icon: Texture2D
 
 
-var data: KeyData
+@export var data: KeyData
 var hotkeys: Array
 
 @onready var label: Label = $Label
