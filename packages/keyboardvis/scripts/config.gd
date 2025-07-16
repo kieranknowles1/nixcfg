@@ -1,7 +1,9 @@
 class_name Config extends Node
 
+
 static func read_optional(dict: Dictionary, key: String, default):
-	return dict[key] if key in dict else default;
+	return dict[key] if key in dict else default
+
 
 class ConfigEntry:
 	var key: String
@@ -14,7 +16,7 @@ class ConfigEntry:
 		else:
 			print("key is required")
 			return
-		
+
 		var icon
 		if "icon" in data:
 			var path = data["icon"]
@@ -28,17 +30,19 @@ class ConfigEntry:
 			Config.read_optional(data, "alt", false),
 			Config.read_optional(data, "shift", false)
 		)
-		
+
 		hotkey = Key.HotKey.new()
 		hotkey.modifiers = modifiers
 		hotkey.icon = icon
 		hotkey.description = Config.read_optional(data, "description", "")
-		
+
 		ok = true
+
 
 func get_config_path():
 	var cli = OS.get_cmdline_user_args()
 	return cli[0] if cli.size() > 0 else "example.json"
+
 
 func load_json(file: String):
 	var f = FileAccess.open(file, FileAccess.READ)
@@ -54,8 +58,9 @@ func load_json(file: String):
 		if not parse.ok:
 			print("Failed to read entry", entry)
 			continue
-		
-		if parse.key not in result: result[parse.key] = []
+
+		if parse.key not in result:
+			result[parse.key] = []
 		result[parse.key].append(parse.hotkey)
 
 	return result

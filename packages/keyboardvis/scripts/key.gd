@@ -1,14 +1,17 @@
 class_name Key extends Panel
 
+
 class KeyData:
 	var code: int
 	var lower: String
 	var upper: String
-	
+
+
 class HotKey:
 	var modifiers: Data.ModCombo
 	var description: String
 	var icon: Texture2D
+
 
 var data: KeyData
 var hotkeys: Array
@@ -17,14 +20,17 @@ var hotkeys: Array
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var description: Label = $Description
 
+
 func _ready():
 	label.text = data.lower
+
 
 func find_hotkey(modifiers: Data.ModCombo) -> HotKey:
 	for hk in hotkeys:
 		if hk.modifiers == modifiers:
 			return hk
 	return null
+
 
 func set_modifiers(modifiers: Data.ModCombo):
 	var hk = find_hotkey(modifiers)

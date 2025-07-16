@@ -12,12 +12,19 @@ enum ModCombo {
 	CtrlAltShift = Ctrl | Alt | Shift,
 }
 
+
 class Hotkey:
 	var modifiers: ModCombo
 	var icon: Image
 
+
 static func bool_to_modifiers(shift: bool, alt: bool, ctrl: bool) -> ModCombo:
-	return (ModCombo.Alt if alt else 0) | (ModCombo.Shift if shift else 0) | (ModCombo.Ctrl if ctrl else 0)
+	return (
+		(ModCombo.Alt if alt else 0)
+		| (ModCombo.Shift if shift else 0)
+		| (ModCombo.Ctrl if ctrl else 0)
+	)
+
 
 static func get_modifiers() -> ModCombo:
 	return bool_to_modifiers(
