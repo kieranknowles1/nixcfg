@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c2g02bufuve3" path="res://icon.svg" id="2_gqaf4"]
 
 [node name="Key" type="Panel"]
-custom_minimum_size = Vector2(72, 72)
+custom_minimum_size = Vector2(100, 100)
 script = ExtResource("1_prtrg")
 
 [node name="Label" type="Label" parent="."]
@@ -20,9 +20,9 @@ offset_right = 5.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"HeaderLarge"
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.065
