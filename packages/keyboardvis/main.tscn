@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmdbsja14ntvw"]
+
+[ext_resource type="Script" uid="uid://b3un3760gfvnf" path="res://scripts/keyboard.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://c8ksdkvoeeh4p" path="res://scripts/config.gd" id="2_0xm2m"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Keyboard" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+
+[node name="Config" type="Node" parent="."]
+script = ExtResource("2_0xm2m")
