@@ -6,10 +6,6 @@ enum ModCombo {
 	Shift = 1,
 	Alt = 2,
 	Ctrl = 4,
-	AltShift = Alt | Shift,
-	CtrlShift = Ctrl | Shift,
-	CtrlAlt = Ctrl | Alt,
-	CtrlAltShift = Ctrl | Alt | Shift,
 }
 
 
