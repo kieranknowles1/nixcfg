@@ -30,7 +30,7 @@ metadata/_custom_type_script = "uid://biesjvy78ut8c"
 script = ExtResource("3_1bvp3")
 code = 4194323
 lower = "Page Up"
-upper = "Page Down"
+upper = "Page Up"
 metadata/_custom_type_script = "uid://biesjvy78ut8c"
 
 [sub_resource type="Resource" id="Resource_5vw27"]
