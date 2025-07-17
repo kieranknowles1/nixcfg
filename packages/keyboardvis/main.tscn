@@ -1,7 +1,58 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmdbsja14ntvw"]
+[gd_scene load_steps=12 format=3 uid="uid://dmdbsja14ntvw"]
 
 [ext_resource type="Script" uid="uid://b3un3760gfvnf" path="res://scripts/keyboard.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c8ksdkvoeeh4p" path="res://scripts/config.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://0pwojfp65gvg" path="res://prefabs/key.tscn" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://biesjvy78ut8c" path="res://scripts/key_data.gd" id="3_1bvp3"]
+
+[sub_resource type="Resource" id="Resource_lquwl"]
+script = ExtResource("3_1bvp3")
+code = 4194305
+lower = "Escape"
+upper = "Escape"
+metadata/_custom_type_script = "uid://biesjvy78ut8c"
+
+[sub_resource type="Resource" id="Resource_1bvp3"]
+script = ExtResource("3_1bvp3")
+code = 4194311
+lower = "Insert"
+upper = "Insert"
+metadata/_custom_type_script = "uid://biesjvy78ut8c"
+
+[sub_resource type="Resource" id="Resource_7mycd"]
+script = ExtResource("3_1bvp3")
+code = 4194317
+lower = "Home"
+upper = "Home"
+metadata/_custom_type_script = "uid://biesjvy78ut8c"
+
+[sub_resource type="Resource" id="Resource_272bh"]
+script = ExtResource("3_1bvp3")
+code = 4194323
+lower = "Page Up"
+upper = "Page Down"
+metadata/_custom_type_script = "uid://biesjvy78ut8c"
+
+[sub_resource type="Resource" id="Resource_5vw27"]
+script = ExtResource("3_1bvp3")
+code = 4194312
+lower = "Delete"
+upper = "Delete"
+metadata/_custom_type_script = "uid://biesjvy78ut8c"
+
+[sub_resource type="Resource" id="Resource_kek77"]
+script = ExtResource("3_1bvp3")
+code = 4194318
+lower = "End"
+upper = "End"
+metadata/_custom_type_script = "uid://biesjvy78ut8c"
+
+[sub_resource type="Resource" id="Resource_4c57u"]
+script = ExtResource("3_1bvp3")
+code = 4194324
+lower = "Page Down"
+upper = "Page Down"
+metadata/_custom_type_script = "uid://biesjvy78ut8c"
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -19,6 +70,45 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ig7tw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Keyboard"]
+layout_mode = 2
+
+[node name="Escape" parent="Keyboard/HBoxContainer" instance=ExtResource("2_h2yge")]
+layout_mode = 2
+data = SubResource("Resource_lquwl")
+
+[node name="Pad" type="Control" parent="Keyboard/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Insert" parent="Keyboard/HBoxContainer" instance=ExtResource("2_h2yge")]
+layout_mode = 2
+data = SubResource("Resource_1bvp3")
+
+[node name="Home" parent="Keyboard/HBoxContainer" instance=ExtResource("2_h2yge")]
+layout_mode = 2
+data = SubResource("Resource_7mycd")
+
+[node name="PageUp" parent="Keyboard/HBoxContainer" instance=ExtResource("2_h2yge")]
+layout_mode = 2
+data = SubResource("Resource_272bh")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Keyboard"]
+layout_mode = 2
+alignment = 2
+
+[node name="Delete" parent="Keyboard/HBoxContainer2" instance=ExtResource("2_h2yge")]
+layout_mode = 2
+data = SubResource("Resource_5vw27")
+
+[node name="End" parent="Keyboard/HBoxContainer2" instance=ExtResource("2_h2yge")]
+layout_mode = 2
+data = SubResource("Resource_kek77")
+
+[node name="PageDown" parent="Keyboard/HBoxContainer2" instance=ExtResource("2_h2yge")]
+layout_mode = 2
+data = SubResource("Resource_4c57u")
 
 [node name="Config" type="Node" parent="."]
 script = ExtResource("2_0xm2m")
