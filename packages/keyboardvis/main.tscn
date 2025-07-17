@@ -62,7 +62,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Keyboard" type="VBoxContainer" parent="."]
+[node name="Keyboard" type="VBoxContainer" parent="." node_paths=PackedStringArray("keys")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,6 +70,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ig7tw")
+keys = [NodePath("HBoxContainer/Escape"), NodePath("HBoxContainer/Insert"), NodePath("HBoxContainer/Home"), NodePath("HBoxContainer/PageUp"), NodePath("HBoxContainer2/Delete"), NodePath("HBoxContainer2/End"), NodePath("HBoxContainer2/PageDown")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Keyboard"]
 layout_mode = 2

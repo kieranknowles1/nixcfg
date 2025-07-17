@@ -9,7 +9,7 @@ const UPPER: Array[String] = ['!"£$%^&*()_+', "QWERTYUIOP{}", "ASDFGHJKL:@~", "
 
 const PADDING = [0, 10, 32, 0]
 
-var keys: Array[KeyNode] = []
+@export var keys: Array[KeyNode] = []
 
 
 func new_row(pad: int = 0):
@@ -41,11 +41,12 @@ func _ready():
 			instance.data.upper = upper.substr(key, 1)
 			instance.data.code = OS.find_keycode_from_string(instance.data.lower)
 
-			if instance.data.lower in cfg:
-				instance.hotkeys = cfg[instance.data.lower]
-
 			row.add_child(instance)
 			keys.append(instance)
+	
+	for instance in keys:
+		if instance.data.lower in cfg:
+			instance.hotkeys = cfg[instance.data.lower]
 
 
 func _input(_event: InputEvent) -> void:
