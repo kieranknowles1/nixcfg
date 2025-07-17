@@ -18,17 +18,14 @@ class ConfigEntry:
 			return
 
 		var icon
-		if "icon" in data:
+		if "icon" in data and data["icon"] != null:
 			var path = data["icon"]
 			var image = Image.load_from_file(path)
 			icon = ImageTexture.create_from_image(image)
-		else:
-			print("icon is required")
-			return
 		var modifiers = Data.bool_to_modifiers(
-			Config.read_optional(data, "ctrl", false),
+			Config.read_optional(data, "shift", false),
 			Config.read_optional(data, "alt", false),
-			Config.read_optional(data, "shift", false)
+			Config.read_optional(data, "ctrl", false),
 		)
 
 		hotkey = KeyNode.HotKey.new()
