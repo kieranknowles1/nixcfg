@@ -7,15 +7,16 @@
   options.custom.shortcuts.palette = {
     package = lib.mkPackageOption pkgs.flake "command-palette" {};
 
-    binding = lib.mkOption {
-      description = ''
-        The keybinding to open the command palette.
-      '';
+    # TODO: Use the new hotkeys format (key + modifier booleans, need to be refactored)
+    # binding = lib.mkOption {
+    #   description = ''
+    #     The keybinding to open the command palette.
+    #   '';
 
-      type = lib.types.str;
-      # Use alt + shift + p as it's similar to the standard "ctrl + shift + p", but doesn't conflict with other palletes
-      default = "alt + shift + p";
-    };
+    #   type = lib.types.str;
+    #   # Use alt + shift + p as it's similar to the standard "ctrl + shift + p", but doesn't conflict with other palletes
+    #   default = "alt + shift + p";
+    # };
 
     actions = lib.mkOption {
       description = ''
@@ -68,11 +69,14 @@
         finalConfig = pkgs.writeText "actions.json" (builtins.toJSON configFile);
       };
 
-      custom.shortcuts.hotkeys.keys = {
-        "${cfg.palette.binding}" = {
+      custom.shortcuts.hotkeys.keys = [
+        {
+          key = "p";
+          alt = true;
+          shift = true;
           description = "Open the command palette";
           action = "${palette} --file ${cfg.palette.finalConfig}";
-        };
-      };
+        }
+      ];
     };
 }

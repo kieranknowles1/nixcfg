@@ -7,12 +7,18 @@
 }: let
   inherit (pkgs) sxhkd;
 
-  mkDocs = bindings: let
-    keys = builtins.attrNames bindings;
+  keySym = binding:
+    builtins.concatStringsSep " + " (
+      (lib.optional binding.ctrl "ctrl")
+      ++ (lib.optional binding.alt "alt")
+      ++ (lib.optional binding.shift "shift")
+      ++ [binding.key]
+    );
 
-    bindingList = lib.lists.forEach keys (key: let
-      value = bindings.${key};
-    in "- `${key}` - ${value.description}");
+  mkDocs = bindings: let
+    bindingList =
+      lib.lists.forEach bindings
+      (binding: "- `${keySym binding}` - ${binding.description}");
   in ''
     # Keyboard shortcuts
 
@@ -21,34 +27,65 @@
     ${lib.strings.concatStringsSep "\n" bindingList}
   '';
 in {
-  options.custom.shortcuts = {
-    hotkeys.keys = lib.mkOption {
+  options.custom.shortcuts = let
+    inherit (lib) mkOption types;
+
+    mkModifierOption = name:
+      mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether ${name} must be pressed in addition to the keybinding";
+      };
+  in {
+    hotkeys.build.visualConfig = mkOption {
+      type = types.package;
+      description = "Config file for `keyboardvis`";
+    };
+
+    hotkeys.keys = mkOption {
       description = ''
         A set of keyboard shortcuts to be managed by sxhkd.
-        The key in the set is the binding keysym names, and the value contains the action
-        to be executed plus a description for documentation purposes.
 
         See [man sxhkd (1)](https://manpages.org/sxhkd) for more information on the
         syntax of keybindings.
-
-        To get the keysym name for a key, run `xev`, press the desired key, and
-        use the keysym it displays.
       '';
 
-      type = lib.types.attrsOf (lib.types.submodule {
+      type = types.listOf (types.submodule {
         options = {
-          action = lib.mkOption {
-            type = lib.types.str;
+          key = mkOption {
+            type = types.str;
+            example = "t";
+            description = ''
+              The keysym name for the key to be pressed.
+
+              To get the keysym name for a key, run `xev`, press the desired key, and
+              use the keysym it displays.
+            '';
+          };
+
+          alt = mkModifierOption "alt";
+          ctrl = mkModifierOption "ctrl";
+          shift = mkModifierOption "shift";
+
+          action = mkOption {
+            type = types.str;
             description = "The action to be executed when the keybinding is pressed";
           };
-          description = lib.mkOption {
-            type = lib.types.str;
+
+          description = mkOption {
+            type = types.str;
             description = ''
               Brief, one-line description of the keybinding.
 
               Follow the same rules as the `description`
               [meta attribute](https://ryantm.github.io/nixpkgs/stdenv/meta/).
             '';
+          };
+
+          icon = mkOption {
+            type = types.nullOr types.path;
+            description = "Icon to be displayed in `keyboardvis`";
+            default = null;
           };
         };
       });
@@ -57,23 +94,39 @@ in {
 
   config = let
     cfg = config.custom.shortcuts;
+
+    # WTF: removeAttrs takes item-action instead of action-item, opposite to standard practice
+    # this means we can't use it partially applied
+    removeAction = entry: builtins.removeAttrs entry ["action"];
   in
     lib.mkIf cfg.enable {
+      custom.shortcuts.hotkeys.build.visualConfig =
+        pkgs.writeText "keyboard-vis.json"
+        (builtins.toJSON (map removeAction cfg.hotkeys.keys));
+
       # Default shortcuts
-      custom.shortcuts.hotkeys.keys = {
-        "alt + t" = {
+      custom.shortcuts.hotkeys.keys = [
+        {
+          key = "t";
+          alt = true;
           action = lib.getExe config.custom.terminal.package;
           description = "Open terminal";
-        };
-        "ctrl + alt + e" = {
+        }
+        {
+          key = "e";
+          ctrl = true;
+          alt = true;
           action = "fsearch";
           description = "Open FSearch (Everything clone)";
-        };
-        "ctrl + shift + Escape" = {
+        }
+        {
+          key = "Escape";
+          ctrl = true;
+          shift = true;
           action = "resources";
           description = "Open task manager.";
-        };
-      };
+        }
+      ];
 
       # Generate documentation
       # TODO: Add a keyboard visualizer to show shortcuts for held keys
@@ -88,7 +141,11 @@ in {
         enable = true;
         package = sxhkd;
 
-        keybindings = builtins.mapAttrs (_name: value: value.action) cfg.hotkeys.keys;
+        keybindings = builtins.listToAttrs (map (e: {
+            name = keySym e;
+            value = e.action;
+          })
+          cfg.hotkeys.keys);
       };
 
       # Enable xsession which starts sxhkd

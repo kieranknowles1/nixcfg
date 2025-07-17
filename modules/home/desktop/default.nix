@@ -40,13 +40,16 @@
       config.custom.desktop.templates;
 
     custom.shortcuts.hotkeys.keys = let
-      adjustBrightness = amount: action: {
+      adjustBrightness = amount: action: key: {
+        inherit key;
+        alt = true;
+        shift = true;
         action = "${pkgs.flake.nix-utils}/bin/modbright ${toString amount}";
         description = "${action} display brightness";
       };
-    in {
-      "alt + Home" = adjustBrightness 0.1 "Increase";
-      "alt + End" = adjustBrightness (-0.1) "Decrease";
-    };
+    in [
+      (adjustBrightness 0.1 "Increase" "Home")
+      (adjustBrightness (-0.1) "Decrease" "End")
+    ];
   };
 }

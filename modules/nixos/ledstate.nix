@@ -37,13 +37,15 @@ in {
     ];
 
     home-manager.sharedModules = lib.singleton {
-      config.custom.shortcuts.hotkeys.keys = {
-        "alt + slash" = {
+      config.custom.shortcuts.hotkeys.keys = [
+        {
+          key = "slash";
+          alt = true;
           # sudo doesn't require a password due to the rule defined above
           action = "sudo ${set-led-state} capslock off";
           description = "Turn off the Caps Lock LED";
-        };
-      };
+        }
+      ];
     };
   };
 }
