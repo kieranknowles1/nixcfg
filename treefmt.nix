@@ -31,6 +31,9 @@
           # Godot scenes/resources. Managed by the editor
           "*.tscn"
           "*.tres"
+          "**/project.godot"
+          "*.import"
+          "*.uid"
 
           # Unity assets. Managed by the editor
           "*.asset"

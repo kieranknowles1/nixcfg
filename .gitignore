@@ -9,3 +9,6 @@ target/
 
 # mdBook output
 /book/
+
+# Godot generated files
+.godot
