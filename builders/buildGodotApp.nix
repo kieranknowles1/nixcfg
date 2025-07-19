@@ -55,8 +55,17 @@ in
 
       # We only care about the .pck file, the executable can be reused between
       # multiple apps running the same engine version.
-      mkdir -p $out
-      cp "./build/${name}.pck" $out
-      ln -s "${templateExe}" $out/${name}
+      mkdir -p $out/bin $out/share/${name}
+      PAKFILE="$out/share/${name}/${name}.pck"
+      cp "./build/${name}.pck" "$PAKFILE"
+
+      # Godot expects the executable to be paired with a .pck file, following
+      # symlinks. Manually override this to use the correct path while still
+      # reusing the executable.
+      cat <<EOF > $out/bin/${name}
+      #!/bin/sh
+      exec "${templateExe}" --main-pack "$PAKFILE" "$@"
+      EOF
+      chmod +x $out/bin/${name}
     '';
   }
