@@ -8,9 +8,7 @@ const LOWER: Array[String] = ["1234567890-=", "qwertyuiop[]", "asdfghjkl;'#", "\
 const UPPER: Array[String] = ['!"£$%^&*()_+', "QWERTYUIOP{}", "ASDFGHJKL:@~", "|ZXCVBNM<>?"]
 
 # Keys that have different names to their label
-const ALTERNATE_NAMES: Dictionary = {
-	"/": "slash"
-}
+const ALTERNATE_NAMES: Dictionary = {"/": "slash"}
 
 const PADDING = [0, 10, 32, 0]
 
@@ -48,10 +46,14 @@ func _ready():
 
 			row.add_child(instance)
 			keys.append(instance)
-	
+
 	# Include pre-set keys
 	for instance in keys:
-		var code = ALTERNATE_NAMES[instance.data.lower] if instance.data.lower in ALTERNATE_NAMES else instance.data.lower
+		var code = (
+			ALTERNATE_NAMES[instance.data.lower]
+			if instance.data.lower in ALTERNATE_NAMES
+			else instance.data.lower
+		)
 		if code in cfg:
 			instance.hotkeys = cfg[code]
 

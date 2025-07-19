@@ -1,5 +1,6 @@
 class_name KeyNode extends Panel
 
+
 class HotKey:
 	var modifiers: Data.ModCombo
 	var description: String

@@ -4,8 +4,10 @@ class_name Config extends Node
 # rendering before use
 const SVG_SCALE: float = 4
 
+
 static func read_optional(dict: Dictionary, key: String, default):
 	return dict[key] if key in dict else default
+
 
 static func load_image(path: String):
 	if path.ends_with(".svg"):
@@ -14,6 +16,7 @@ static func load_image(path: String):
 		img.load_svg_from_string(buffer, SVG_SCALE)
 		return img
 	return Image.load_from_file(path)
+
 
 class ConfigEntry:
 	var key: String
@@ -32,10 +35,13 @@ class ConfigEntry:
 			var path = data["icon"]
 			var image = Config.load_image(path)
 			icon = ImageTexture.create_from_image(image)
-		var modifiers = Data.bool_to_modifiers(
-			Config.read_optional(data, "shift", false),
-			Config.read_optional(data, "alt", false),
-			Config.read_optional(data, "ctrl", false),
+		var modifiers = (
+			Data
+			. bool_to_modifiers(
+				Config.read_optional(data, "shift", false),
+				Config.read_optional(data, "alt", false),
+				Config.read_optional(data, "ctrl", false),
+			)
 		)
 
 		hotkey = KeyNode.HotKey.new()
