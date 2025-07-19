@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c2g02bufuve3" path="res://icon.svg" id="2_gqaf4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gqaf4"]
-outline_size = 4
+outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Key" type="Panel"]
@@ -39,10 +39,13 @@ expand_mode = 1
 [node name="Description" type="Label" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 23.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+text = "lorem ipsum"
 label_settings = SubResource("LabelSettings_gqaf4")
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
