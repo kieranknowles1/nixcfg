@@ -29,21 +29,16 @@
   '';
 in {
   options.custom.shortcuts.hotkeys = let
-    inherit (lib) mkOption mkEnableOption types;
+    inherit (lib) mkOption mkPackageOption mkEnableOption types;
 
-    mkModifierOption = name:
+    mkModifierOption = default: name:
       mkOption {
+        inherit default;
         type = types.bool;
-        default = false;
         description = "Whether ${name} must be pressed in addition to the keybinding";
       };
   in {
     enable = mkEnableOption "keyboard shortcuts";
-
-    build.visualConfig = mkOption {
-      type = types.package;
-      description = "Config file for `keyboardvis`";
-    };
 
     keys = mkOption {
       description = ''
@@ -66,9 +61,9 @@ in {
             '';
           };
 
-          alt = mkModifierOption "alt";
-          ctrl = mkModifierOption "ctrl";
-          shift = mkModifierOption "shift";
+          alt = mkModifierOption false "alt";
+          ctrl = mkModifierOption false "ctrl";
+          shift = mkModifierOption false "shift";
 
           action = mkOption {
             type = types.str;
@@ -93,6 +88,27 @@ in {
         };
       });
     };
+
+    visualiser = {
+      enable = mkEnableOption "hotkey visualiser";
+      package = mkPackageOption pkgs.flake "keyboardvis" {};
+
+      binding = {
+        key = mkOption {
+          type = types.str;
+          description = "Key to be pressed";
+          default = "v";
+        };
+        alt = mkModifierOption true "alt";
+        ctrl = mkModifierOption false "ctrl";
+        shift = mkModifierOption true "shift";
+      };
+
+      build.config = mkOption {
+        type = types.package;
+        description = "Config file for `keyboardvis`";
+      };
+    };
   };
 
   config = let
@@ -108,33 +124,41 @@ in {
         message = "Hotkeys require a desktop environment";
       };
 
-      custom.shortcuts.hotkeys.build.visualConfig =
-        pkgs.writeText "keyboard-vis.json"
-        (builtins.toJSON (map removeAction cfg.keys));
+      custom.shortcuts.hotkeys.visualiser = {
+        build.config =
+          pkgs.writeText "keyboard-vis.json"
+          (builtins.toJSON (map removeAction cfg.keys));
+      };
 
       # Default shortcuts
-      custom.shortcuts.hotkeys.keys = [
-        {
-          key = "t";
-          alt = true;
-          action = lib.getExe config.custom.terminal.package;
-          description = "Open terminal";
-        }
-        {
-          key = "e";
-          ctrl = true;
-          alt = true;
-          action = "fsearch";
-          description = "Open FSearch (Everything clone)";
-        }
-        {
-          key = "Escape";
-          ctrl = true;
-          shift = true;
-          action = "resources";
-          description = "Open task manager.";
-        }
-      ];
+      custom.shortcuts.hotkeys.keys =
+        [
+          {
+            key = "t";
+            alt = true;
+            action = lib.getExe config.custom.terminal.package;
+            description = "Open terminal";
+          }
+          {
+            key = "e";
+            ctrl = true;
+            alt = true;
+            action = "fsearch";
+            description = "Open FSearch (Everything clone)";
+          }
+          {
+            key = "Escape";
+            ctrl = true;
+            shift = true;
+            action = "resources";
+            description = "Open task manager.";
+          }
+        ]
+        ++ (lib.optional cfg.visualiser.enable {
+          inherit (cfg.visualiser.binding) key ctrl alt shift;
+          action = "${lib.getExe cfg.visualiser.package} -- ${cfg.visualiser.build.config}";
+          description = "Visualise hotkeys";
+        });
 
       # Generate documentation
       # TODO: Add a keyboard visualizer to show shortcuts for held keys
