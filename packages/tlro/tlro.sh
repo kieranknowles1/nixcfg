@@ -87,7 +87,7 @@ filterLanguage="language IN ('en', '$LANGUAGE')"
 
 if [[ "$list" == 1 ]]; then
   # We use grep instead of WHERE to highlight matching pages
-  sqlite3 $PAGES "SELECT DISTINCT name FROM pages WHERE $filterLanguage ORDER BY name" | grep --color "$query"
+  sqlite3 "$PAGES" "SELECT DISTINCT name FROM pages WHERE $filterLanguage ORDER BY name" | grep --color "$query"
   exit
 fi
 
