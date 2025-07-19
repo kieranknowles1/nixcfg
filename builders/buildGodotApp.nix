@@ -38,8 +38,14 @@ meta :: AttrSet : [Meta-attributes](https://ryantm.github.io/nixpkgs/stdenv/meta
   in "${export-template}/share/godot/export_templates/${version}/${name}";
 in
   stdenv.mkDerivation {
-    inherit src version meta;
+    inherit src version;
     pname = name;
+
+    meta =
+      meta
+      // {
+        mainProgram = name;
+      };
 
     buildInputs = [godot_4];
 
@@ -64,7 +70,7 @@ in
       # reusing the executable.
       cat <<EOF > $out/bin/${name}
       #!/bin/sh
-      exec "${templateExe}" --main-pack "$PAKFILE" "$@"
+      exec "${templateExe}" --main-pack "$PAKFILE" "\$@"
       EOF
       chmod +x $out/bin/${name}
     '';
