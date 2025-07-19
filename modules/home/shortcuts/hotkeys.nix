@@ -137,21 +137,25 @@ in {
             key = "t";
             alt = true;
             action = lib.getExe config.custom.terminal.package;
-            description = "Open terminal";
+            # TODO: Don't always use Alacritty icon
+            icon = "${config.custom.terminal.package}/share/icons/hicolor/scalable/apps/Alacritty.svg";
+            description = "Terminal";
           }
           {
             key = "e";
             ctrl = true;
             alt = true;
-            action = "fsearch";
-            description = "Open FSearch (Everything clone)";
+            action = lib.getExe pkgs.fsearch;
+            icon = "${pkgs.fsearch}/share/icons/hicolor/scalable/apps/io.github.cboxdoerfer.FSearch.svg";
+            description = "FSearch";
           }
           {
             key = "Escape";
             ctrl = true;
             shift = true;
-            action = "resources";
-            description = "Open task manager.";
+            action = lib.getExe pkgs.resources;
+            icon = "${pkgs.resources}/share/icons/hicolor/scalable/apps/net.nokyan.Resources.svg";
+            description = "Task manager";
           }
         ]
         ++ (lib.optional cfg.visualiser.enable {
