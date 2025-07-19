@@ -1,6 +1,7 @@
 # Keyboard shortcuts managed by sxhkd
 {
   config,
+  hostConfig,
   lib,
   pkgs,
   ...
@@ -27,8 +28,8 @@
     ${lib.strings.concatStringsSep "\n" bindingList}
   '';
 in {
-  options.custom.shortcuts = let
-    inherit (lib) mkOption types;
+  options.custom.shortcuts.hotkeys = let
+    inherit (lib) mkOption mkEnableOption types;
 
     mkModifierOption = name:
       mkOption {
@@ -37,12 +38,14 @@ in {
         description = "Whether ${name} must be pressed in addition to the keybinding";
       };
   in {
-    hotkeys.build.visualConfig = mkOption {
+    enable = mkEnableOption "keyboard shortcuts";
+
+    build.visualConfig = mkOption {
       type = types.package;
       description = "Config file for `keyboardvis`";
     };
 
-    hotkeys.keys = mkOption {
+    keys = mkOption {
       description = ''
         A set of keyboard shortcuts to be managed by sxhkd.
 
@@ -93,16 +96,21 @@ in {
   };
 
   config = let
-    cfg = config.custom.shortcuts;
+    cfg = config.custom.shortcuts.hotkeys;
 
     # WTF: removeAttrs takes item-action instead of action-item, opposite to standard practice
     # this means we can't use it partially applied
     removeAction = entry: builtins.removeAttrs entry ["action"];
   in
     lib.mkIf cfg.enable {
+      assertions = lib.singleton {
+        assertion = hostConfig.custom.features.desktop;
+        message = "Hotkeys require a desktop environment";
+      };
+
       custom.shortcuts.hotkeys.build.visualConfig =
         pkgs.writeText "keyboard-vis.json"
-        (builtins.toJSON (map removeAction cfg.hotkeys.keys));
+        (builtins.toJSON (map removeAction cfg.keys));
 
       # Default shortcuts
       custom.shortcuts.hotkeys.keys = [
@@ -133,7 +141,7 @@ in {
       custom.docs-generate.file."shortcuts.md" = {
         description = "Keyboard shortcuts";
         dynamic = true;
-        source = pkgs.writeText "shortcuts.md" (mkDocs cfg.hotkeys.keys);
+        source = pkgs.writeText "shortcuts.md" (mkDocs cfg.keys);
       };
 
       # Apply options
@@ -145,7 +153,7 @@ in {
             name = keySym e;
             value = e.action;
           })
-          cfg.hotkeys.keys);
+          cfg.keys);
       };
 
       # Enable xsession which starts sxhkd

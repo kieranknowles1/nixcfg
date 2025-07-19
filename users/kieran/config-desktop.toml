@@ -4,7 +4,8 @@
 
 docs-generate.enable = true
 discord.enable = true
-shortcuts.enable = true
+shortcuts.hotkeys.enable = true
+shortcuts.palette.enable = true
 
 espanso.enable = true
 [espanso.packages]

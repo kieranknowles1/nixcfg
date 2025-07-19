@@ -5,7 +5,7 @@
   ...
 }: {
   options.custom.shortcuts.palette = let
-    inherit (lib) mkOption mkPackageOption types;
+    inherit (lib) mkOption mkEnableOption mkPackageOption types;
     mkBindingOption = name: type: default:
       mkOption {
         inherit type default;
@@ -13,6 +13,8 @@
       };
     mkModifierOption = name: default: mkBindingOption "Whether the ${name} key must be held" types.bool default;
   in {
+    enable = mkEnableOption "command palette";
+
     package = mkPackageOption pkgs.flake "command-palette" {};
 
     binding = {
@@ -57,27 +59,32 @@
   };
 
   config = let
-    cfg = config.custom.shortcuts;
+    cfg = config.custom.shortcuts.palette;
 
-    palette = lib.getExe cfg.palette.package;
+    palette = lib.getExe cfg.package;
 
-    sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
+    sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.actions;
     configFile = {
       # TODO: Proper option for this
       terminalArgs = ["alacritty" "--command"];
       commands = sortedActions;
     };
   in
-    lib.mkIf (cfg.enable && (builtins.length cfg.palette.actions > 0)) {
+    lib.mkIf (cfg.enable && (builtins.length cfg.actions > 0)) {
+      assertions = lib.singleton {
+        assertion = config.custom.shortcuts.hotkeys.enable;
+        message = "Hotkeys are required for the command palette to be accessible";
+      };
+
       custom.shortcuts.palette = {
         finalConfig = pkgs.writeText "actions.json" (builtins.toJSON configFile);
       };
 
       custom.shortcuts.hotkeys.keys = [
         {
-          inherit (cfg.palette.binding) key ctrl alt shift;
+          inherit (cfg.binding) key ctrl alt shift;
           description = "Open the command palette";
-          action = "${palette} --file ${cfg.palette.finalConfig}";
+          action = "${palette} --file ${cfg.finalConfig}";
         }
       ];
     };
