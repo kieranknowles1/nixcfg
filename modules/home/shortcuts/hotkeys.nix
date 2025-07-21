@@ -4,7 +4,6 @@
   hostConfig,
   lib,
   pkgs,
-  self,
   ...
 }: let
   inherit (pkgs) sxhkd;
@@ -170,7 +169,6 @@ in {
         ++ (lib.optional cfg.visualiser.enable {
           inherit (cfg.visualiser.binding) key ctrl alt shift;
           action = "${lib.getExe cfg.visualiser.package} -- ${cfg.visualiser.build.config}";
-          icon = "${self.assets.material-design-icons}/svg/keyboard.svg";
           description = "Visualise hotkeys";
         });
 
