@@ -2,37 +2,18 @@
   self,
   hostPlatform,
   stdenv,
-  fetchFromGitHub,
 }:
 self.builders.${hostPlatform.system}.buildStaticSite {
   name = "portfolio";
 
-  src = let
-    # Like these for generic icons
-    mdi-icons = fetchFromGitHub {
-      owner = "Templarian";
-      repo = "MaterialDesign";
-      # Master as of 19/12/24
-      rev = "ce55b68ba7308fef54003d5c588343eeac30ff7a";
-      hash = "sha256-S5EugaVJpFxLYM6s+Ujd8vyD6MUa+sxwQrBGTT+ve6w=";
-    };
-
-    # Brand icons that are deliberately excluded from the Material Design set
-    simple-icons = fetchFromGitHub {
-      owner = "simple-icons";
-      repo = "simple-icons";
-      tag = "13.21.0";
-      hash = "sha256-hBb4jIGxdlNE/Om1cpPYHpw4YSD/kkYOdZpXr63wM+w=";
-    };
-  in
-    stdenv.mkDerivation {
+  src = stdenv.mkDerivation {
       name = "portfolio-src";
       src = ./src;
       buildPhase = ''
         mkdir -p $out $out/.build-only
         cp -r $src/* $out
-        ln -s ${mdi-icons}/svg $out/.build-only/mdi-icons
-        ln -s ${simple-icons}/icons $out/.build-only/simple-icons
+        ln -s ${self.assets.mdi-icons}/svg $out/.build-only/mdi-icons
+        ln -s ${self.assets.simple-icons}/icons $out/.build-only/simple-icons
       '';
     };
   meta = {

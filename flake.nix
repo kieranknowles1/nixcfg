@@ -202,6 +202,7 @@
       };
 
       imports = [
+        ./assets.nix
         ./builders
         ./checks
         ./hosts
