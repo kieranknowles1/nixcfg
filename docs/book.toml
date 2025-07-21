@@ -8,3 +8,14 @@ title = "Book of NixOS"
 [build]
 build-dir = "../book"
 create-missing = false
+
+[preprocessor]
+
+[preprocessor.admonish]
+command = "mdbook-admonish"
+assets_version = "3.1.0"    # do not edit: managed by `mdbook-admonish install`
+
+[output]
+
+[output.html]
+additional-css = ["mdbook-admonish.css"]

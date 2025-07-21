@@ -4,6 +4,7 @@
   hostConfig,
   lib,
   pkgs,
+  self,
   ...
 }: let
   inherit (pkgs) sxhkd;
@@ -16,14 +17,22 @@
       ++ [binding.key]
     );
 
-  mkDocs = bindings: let
+  mkDocs = bindings: visBinding: let
     bindingList =
       lib.lists.forEach bindings
       (binding: "- `${keySym binding}` - ${binding.description}");
+
+    visText = ''
+      ```admonish hint
+      Use ${keySym visBinding} to visualise all keyboard shortcuts.
+      ```
+    '';
   in ''
     # Keyboard shortcuts
 
     The following keyboard shortcuts are available globally:
+
+    ${visText}
 
     ${lib.strings.concatStringsSep "\n" bindingList}
   '';
@@ -161,15 +170,15 @@ in {
         ++ (lib.optional cfg.visualiser.enable {
           inherit (cfg.visualiser.binding) key ctrl alt shift;
           action = "${lib.getExe cfg.visualiser.package} -- ${cfg.visualiser.build.config}";
+          icon = "${self.assets.material-design-icons}/svg/keyboard.svg";
           description = "Visualise hotkeys";
         });
 
       # Generate documentation
-      # TODO: Add a keyboard visualizer to show shortcuts for held keys
       custom.docs-generate.file."shortcuts.md" = {
         description = "Keyboard shortcuts";
         dynamic = true;
-        source = pkgs.writeText "shortcuts.md" (mkDocs cfg.keys);
+        source = pkgs.writeText "shortcuts.md" (mkDocs cfg.keys cfg.visualiser.binding);
       };
 
       # Apply options
