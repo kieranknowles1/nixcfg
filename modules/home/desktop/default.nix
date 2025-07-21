@@ -10,9 +10,11 @@
     ./gnome.nix
   ];
 
-  options.custom.desktop = {
-    templates = lib.mkOption {
-      type = lib.types.attrsOf lib.types.path;
+  options.custom.desktop = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    templates = mkOption {
+      type = types.attrsOf types.path;
       default = {};
 
       description = ''
@@ -23,33 +25,39 @@
         Key is the name of the template, value is the path to its source file.
       '';
     };
+
+    modbright.enable = mkEnableOption "brightness modifier keys";
   };
 
-  config = lib.mkIf hostConfig.custom.features.desktop {
-    custom.desktop.templates = {
-      "Empty File" = builtins.toFile "empty.txt" "";
-    };
-
-    custom.mutable.file =
-      lib.attrsets.mapAttrs' (name: value: {
-        name = "${config.xdg.userDirs.templates}/${name}";
-        value = {
-          source = value;
-        };
-      })
-      config.custom.desktop.templates;
-
-    custom.shortcuts.hotkeys.keys = let
-      adjustBrightness = amount: action: key: {
-        inherit key;
-        alt = true;
-        shift = true;
-        action = "${pkgs.flake.nix-utils}/bin/modbright ${toString amount}";
-        description = "${action} display brightness";
+  config = let
+    cfg = config.custom.desktop;
+  in
+    lib.mkIf hostConfig.custom.features.desktop {
+      custom.desktop.templates = {
+        "Empty File" = builtins.toFile "empty.txt" "";
       };
-    in [
-      (adjustBrightness 0.1 "Increase" "Home")
-      (adjustBrightness (-0.1) "Decrease" "End")
-    ];
-  };
+
+      custom.mutable.file =
+        lib.attrsets.mapAttrs' (name: value: {
+          name = "${config.xdg.userDirs.templates}/${name}";
+          value = {
+            source = value;
+          };
+        })
+        cfg.templates;
+
+      custom.shortcuts.hotkeys.keys = let
+        adjustBrightness = amount: action: key: {
+          inherit key;
+          alt = true;
+          shift = true;
+          action = "${pkgs.flake.nix-utils}/bin/modbright ${toString amount}";
+          description = "${action} display brightness";
+        };
+      in
+        lib.optionals cfg.modbright.enable [
+          (adjustBrightness 0.1 "Increase" "Home")
+          (adjustBrightness (-0.1) "Decrease" "End")
+        ];
+    };
 }
