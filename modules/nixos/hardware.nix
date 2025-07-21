@@ -9,6 +9,11 @@
   in {
     nvidia.enable = mkEnableOption "Nvidia drivers";
 
+    powerSave = {
+      enable = mkEnableOption "power saving profiles";
+      batteryOnly = mkEnableOption "power saving only when on battery";
+    };
+
     memorySize = mkOption {
       description = "Available RAM, in GB";
       type = types.int;
@@ -18,6 +23,12 @@
   config = let
     cfg = config.custom.hardware;
     nvidiaOnly = lib.mkIf cfg.nvidia.enable;
+
+    mkPowerSaveSettings = active:
+      lib.mkIf active {
+        governer = "powersave";
+        turbo = "never";
+      };
   in {
     # See https://nixos.wiki/wiki/Nvidia
     # TODO: Should this be enabled on all desktops?
@@ -45,5 +56,15 @@
         size = config.custom.hardware.memorySize * 1536;
       }
     ];
+
+    services.power-profiles-daemon.enable = !config.services.auto-cpufreq.enable;
+
+    services.auto-cpufreq = {
+      inherit (cfg.powerSave) enable;
+      settings = {
+        battery = mkPowerSaveSettings cfg.powerSave.enable;
+        charger = mkPowerSaveSettings (!cfg.powerSave.batteryOnly);
+      };
+    };
   };
 }

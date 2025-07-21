@@ -22,5 +22,8 @@ destination.remote = "backup/remote"                 # Path to the secret
 [hardware]
 memorySize = 8
 
+powerSave.enable = true
+powerSave.batteryOnly = true
+
 [networking]
 hostName = "canterbury"
