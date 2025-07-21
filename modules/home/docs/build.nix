@@ -54,9 +54,11 @@
           - [Machine-Specific](./meta/generated-dynamic.md)
           ${mkLinks groups.dynamic}
         '';
-        # builtins.concatStringsSep "\n"
-        # (map linkLine
-        #   (builtins.filter (lib.strings.hasSuffix ".md") (builtins.attrNames cfg.file)));
+
+        buildInputs = with pkgs; [
+          mdbook
+          mdbook-admonish
+        ];
       } ''
         mkdir -p $out
         # Build from a temporary directory so we can inject the generated index
@@ -69,7 +71,7 @@
         echo "$INDEX" >> "$tmpdir/SUMMARY.md"
 
         # Now we can build HTML
-        ${lib.getExe pkgs.mdbook} build --dest-dir $out $tmpdir
+        mdbook build --dest-dir $out $tmpdir
       '';
   };
 }
