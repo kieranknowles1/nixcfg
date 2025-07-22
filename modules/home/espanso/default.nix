@@ -115,16 +115,9 @@ in {
       };
     };
 
-    custom.mutable.file = config.custom.mutable.provisionDir {
-      baseRepoPath = "modules/home/espanso";
-      baseSystemPath = "${config.xdg.configHome}/espanso";
-      files = [
-        "config/default.yml"
-        "config/email.yml"
-        "match/_email.yml"
-        "match/base.yml"
-        "match/spell.yml"
-      ];
+    custom.mutable.file."${config.xdg.configHome}" = {
+      repoPath = "modules/home/espanso/config";
+      source = ./config;
     };
 
     xdg.configFile =
