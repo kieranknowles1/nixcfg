@@ -1,4 +1,8 @@
-use std::path::{Path, PathBuf};
+use std::{
+    ffi::OsStr,
+    fs::metadata,
+    path::{Path, PathBuf},
+};
 
 use serde::Deserialize;
 use thiserror::Error;
@@ -36,10 +40,43 @@ pub fn or_environ(
     }
 }
 
+fn is_directory(path: &Path) -> Result<bool> {
+    match metadata(path) {
+        Ok(md) => Ok(md.is_dir()),
+        Err(err) => match err.kind() {
+            std::io::ErrorKind::NotFound => Ok(false),
+            _ => Err(err.into()),
+        },
+    }
+}
+
+fn process_config_entry(entry: &ConfigEntry, out: &mut Config) -> Result<()> {
+    match is_directory(&entry.source)? {
+        true => {
+            let children = std::fs::read_dir(&entry.source)?;
+            for child in children {
+                let child = child?;
+                let new_entry = entry.extend(&child.file_name());
+                process_config_entry(&new_entry, out)?;
+            }
+            Ok(())
+        }
+        false => {
+            out.push(entry.clone());
+            Ok(())
+        }
+    }
+}
+
 pub fn read_config(file: &Path) -> Result<Config> {
     let file = std::fs::File::open(file)?;
     let json: Config = serde_json::from_reader(file)?;
-    Ok(json)
+
+    let mut out = Vec::new();
+    for entry in json {
+        process_config_entry(&entry, &mut out)?;
+    }
+    Ok(out)
 }
 
 pub fn find_entry<'a>(entries: &'a Config, path: &Path) -> Option<&'a ConfigEntry> {
@@ -62,14 +99,14 @@ pub fn resolve_directory(
     }
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone, Copy)]
 #[serde(rename_all = "lowercase")]
 pub enum ConflictStrategy {
     Replace,
     Warn,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Clone)]
 #[serde(deny_unknown_fields)]
 #[serde(rename_all = "camelCase")]
 pub struct ConfigEntry {
@@ -87,4 +124,19 @@ pub struct ConfigEntry {
     /// It is expected to take a single argument: the path of the deployed file,
     /// and to return its output on stdout
     pub transformer: Option<PathBuf>,
+    #[serde(skip)]
+    pub depth: usize,
+}
+
+impl ConfigEntry {
+    fn extend(&self, sub_path: &OsStr) -> Self {
+        Self {
+            source: self.source.join(sub_path),
+            destination: self.destination.join(sub_path),
+            on_conflict: self.on_conflict,
+            repo_path: self.repo_path.clone(),
+            transformer: self.transformer.clone(),
+            depth: self.depth + 1,
+        }
+    }
 }
