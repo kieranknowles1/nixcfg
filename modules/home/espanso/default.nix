@@ -115,7 +115,7 @@ in {
       };
     };
 
-    custom.mutable.file."${config.xdg.configHome}" = {
+    custom.mutable.file."${config.xdg.configHome}/espanso/" = {
       repoPath = "modules/home/espanso/config";
       source = ./config;
     };
