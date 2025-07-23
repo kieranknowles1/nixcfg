@@ -67,6 +67,10 @@
           repoPath = "modules/home/editor/zed/keymap.json";
           source = ./keymap.json;
         };
+        "${config.xdg.configHome}/zed/snippets" = {
+          repoPath = "modules/home/editor/common/snippets";
+          source = ../common/snippets;
+        };
       };
     };
 }

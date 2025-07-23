@@ -76,10 +76,9 @@
         repoPath = "modules/home/editor/vscode/keybindings.json";
         source = ./keybindings.json;
       };
-      # TODO: Share these with Zed
       "${config.xdg.configHome}/VSCodium/User/snippets" = {
-        repoPath = "modules/home/editor/vscode/snippets";
-        source = ./snippets;
+        repoPath = "modules/home/editor/common/snippets";
+        source = ../common/snippets;
       };
     };
   };
