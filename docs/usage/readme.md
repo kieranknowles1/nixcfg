@@ -58,6 +58,8 @@ should be sufficient.
 Files can be deployed to the user's home directory in a mutable way using the
 `config.mutable.file` home-manager option. This is useful for files that should
 be modifiable after deployment, such as configuration files for applications.
+Directories are also supported simply by pointing to one, and are useful for
+multi-file configuration such as editor snippets.
 
 The `activate-mutable` script is used to manage these files, and is configured
 on a per-file basis to either replace when there are local changes, or to raise
