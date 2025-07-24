@@ -45,9 +45,23 @@ Link previous config file after activation for future reference. If previous is
 not found, treat as if it was an empty file. Store in
 `~/.config/activate-mutable-config.json`.
 
-![Activate Mutable Flowchart](./activate-mutable-flowchart.svg)
+![Activate Mutable Flowchart](./activate-mutable-flowchart.svg) The flowchart
+depicts the following potential states of a file, and the actions taken based on
+them.
 
-3 possible outcomes, use an enum to represent them.
+States:
+
+- Home identical to previous generation `EqualOld`
+- Home identical to current generation `EqualNew`
+- Home differs from both generations `Conflict`
+- File not in home directory `NotInHome`
+
+Actions:
+
+- Do nothing - `EqualNew`
+- Copy from source to destination -
+  `NotInHome OR EqualOld OR (Conflict AND ReplaceOnConflict)`
+- Log warning - `Conflict AND NOT ReplaceOnConflict`
 
 ## V2 - Restore Changes to the Repo
 
