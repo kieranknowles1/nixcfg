@@ -27,15 +27,19 @@ interface ConfigEntry {
     source: string // Absolute
     onConflict: 'replace' | 'warn'
 }
+```
 
-// impl note: The config format was changed to be the same as Nix
+````admonish note
+This was implemented differently to match the Nix options structure.
+```ts
 config: Map<string, ConfigEntry>
 interface ConfigEntry {
-    // destination: string // Use the map key instead
+    destination: string // Use the map key instead, still relative to home
     source: string
-    on_conflict: 'replace' | 'warn'
+    onConflict: 'replace' | 'warn'
 }
 ```
+````
 
 Link previous config file after activation for future reference. If previous is
 not found, treat as if it was an empty file. Store in
@@ -71,10 +75,28 @@ Current uses:
 
 ## V3 - Handle Directories
 
+```admonish note
+This ended up being implemented after [Custom Comparison](#v4---custom-comparison)
+in v3.1.0
+```
+
 Apply the usual rules on a per-file basis recursively. Still don't allow any
 symlinks.
 
+### Detailed Plan - Recursion
+
+If config entry points to a directory:
+
+1. Walk directory (store when deploying, home when restoring)
+2. Generate new entries based on contents
+3. Recurse into subdirectories
+
 ## V4 - Custom Comparison
+
+```admonish note
+This ended up being implemented before [Handle Directories](#v3---handle-directories)
+in v3.0.0
+```
 
 Add a CompareScript to ConfigEntry. If set, run script with old and new as
 arguments.
