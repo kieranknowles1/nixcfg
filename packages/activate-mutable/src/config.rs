@@ -136,7 +136,10 @@ impl ConfigEntry {
             source: self.source.join(sub_path),
             destination: self.destination.join(sub_path),
             on_conflict: self.on_conflict,
-            repo_path: self.repo_path.clone(),
+            repo_path: match &self.repo_path {
+                Some(repo_path) => Some(format!("{}/{}", repo_path, sub_path.to_string_lossy())),
+                None => None,
+            },
             transformer: self.transformer.clone(),
             base_destination: match &self.base_destination {
                 Some(base) => Some(base.clone()),
