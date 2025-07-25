@@ -10,27 +10,6 @@
     inherit (lib) mkOption mkPackageOption types;
   in {
     package = mkPackageOption pkgs.flake "activate-mutable" {};
-
-    # TODO: This is a placeholder until we can properly provision directories
-    provisionDir = mkOption {
-      type = types.anything;
-      readOnly = true;
-      description = ''
-        Helper to provision multiple files in the same directory.
-      '';
-
-      example = lib.literalExpression ''
-        custom.mutable.file = provisionDir {
-          baseRepoPath = "modules/home/foo";
-          baseSystemPath = ".config/foo";
-          files = [
-            "config.toml"
-            "config.yaml"
-          ];
-        };
-      '';
-    };
-
     repository = mkOption {
       type = types.path;
       description = ''
@@ -97,59 +76,7 @@
   config = let
     cfg = config.custom.mutable;
   in {
-    # NOTE: This adds a dependency on the repo's source, but I consider that acceptable
-    # for cleaner code.
-    custom.mutable.provisionDir = {
-      baseRepoPath,
-      baseSystemPath,
-      files,
-    }: let
-      mkFile = file: {
-        name = "${baseSystemPath}/${file}";
-        value = {
-          source = "${self}/${baseRepoPath}/${file}";
-          repoPath = "${baseRepoPath}/${file}";
-        };
-      };
-    in
-      builtins.listToAttrs (map mkFile files);
-
     custom.mutable.repository = lib.mkDefault self;
-
-    assertions = let
-      checkRegularFile = name: value: {
-        assertion = lib.filesystem.pathIsRegularFile value.source;
-        message = "Mutable file ${name} must be a regular file, not a directory or symlink";
-      };
-
-      checkSameFile = name: value: let
-        # Apply any transformations as part of our equality check
-        # Just so happens to check for round-trip consistency as well :)
-        finalSrcFile =
-          if value.transformer == null
-          then value.source
-          else pkgs.runCommand "transform" {} "${value.transformer} ${value.source} > $out";
-        srcHash = builtins.hashFile "sha256" finalSrcFile;
-
-        repoHash = builtins.hashFile "sha256" "${cfg.repository}/${value.repoPath}";
-      in {
-        # We need to use hashes rather than path equality, as the ./path syntax
-        # creates its own derivation, which will have a different path to ${self}/path
-
-        # This will also raise a build error if the file doesn't exist
-        assertion = value.repoPath == null || (srcHash == repoHash);
-        message =
-          if value.transformer == null
-          then "repoPath for mutable file ${name} points to a different file"
-          else "Mutable file ${name} failed round trip check";
-      };
-
-      checkAll = name: value: [
-        (checkRegularFile name value)
-        (checkSameFile name value)
-      ];
-    in
-      lib.lists.flatten (lib.attrsets.mapAttrsToList checkAll cfg.file);
 
     home.activation.activate-mutable = let
       configTransform = lib.attrsets.mapAttrsToList (name: value:

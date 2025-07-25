@@ -67,19 +67,19 @@
       mnemonic = "[cod]ium";
     };
 
-    custom.mutable.file = config.custom.mutable.provisionDir {
-      baseRepoPath = "modules/home/editor/vscode";
-      baseSystemPath = "${config.xdg.configHome}/VSCodium/User";
-      files = [
-        "settings.json"
-        "keybindings.json"
-        # TODO: VSCode snippets are compatable with Zed, move these to a shared dir and copy to both editors
-        "snippets/cmake.json"
-        "snippets/cpp.json"
-        "snippets/nix.json"
-        "snippets/python.json"
-        "snippets/shellscript.json"
-      ];
+    custom.mutable.file = {
+      "${config.xdg.configHome}/VSCodium/User/settings.json" = {
+        repoPath = "modules/home/editor/vscode/settings.json";
+        source = ./settings.json;
+      };
+      "${config.xdg.configHome}/VSCodium/User/keybindings.json" = {
+        repoPath = "modules/home/editor/vscode/keybindings.json";
+        source = ./keybindings.json;
+      };
+      "${config.xdg.configHome}/VSCodium/User/snippets" = {
+        repoPath = "modules/home/editor/common/snippets";
+        source = ../common/snippets;
+      };
     };
   };
 }

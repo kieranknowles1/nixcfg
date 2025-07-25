@@ -8,9 +8,6 @@ use std::process::ExitCode;
 
 use clap::Parser;
 
-// [[../../../docs/plan/activate-mutable.md]]
-// TODO: V3: Support directories
-
 #[derive(Parser)]
 enum Opt {
     /// Deploy a set of files to the system.
