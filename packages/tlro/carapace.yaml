@@ -1,0 +1,13 @@
+name: tlro
+description: Simplified and community-driven man pages
+flags:
+  -h, --help: Show help message
+  -v, --version: Show version information
+  -p, --platform: Set the preferred platform
+  -L, --language: Set the preferred language
+  -l, --list: List available pages
+  --short-options: Show short options when available
+  --long-options: Show long options when available
+completion:
+  positional:
+    - ["$(tlro --list)"]

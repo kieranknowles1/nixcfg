@@ -44,4 +44,6 @@ writeShellApplication rec {
       Offline only implementation of [tldr pages](https://tldr.sh/)
     '';
   };
+
+  passthru.carapace = ./carapace.yaml;
 }

@@ -66,12 +66,6 @@
         extraConfig = "source user-config.nu";
       };
 
-      # Use Carapace to generate completions
-      carapace = {
-        enable = true;
-        enableNushellIntegration = true;
-      };
-
       # Use Starship as the prompt
       starship = {
         enable = true;

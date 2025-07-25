@@ -108,7 +108,6 @@ else
   arg_replace='\2'
 fi
 
-# TODO: Carapace completions
 # TODO: Add TLDR pages based on meta attributes of my packages, will need restructuring to fit in with the standard
 
 result=$(sqlite3 -json "$PAGES" <<SQL

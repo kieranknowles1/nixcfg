@@ -5,6 +5,7 @@
     ../shared
 
     ./aliases.nix
+    ./carapace.nix
     ./common.nix
     ./desktop
     ./discord.nix
