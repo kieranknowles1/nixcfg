@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -10,7 +11,7 @@
     # TODO: Would like to run this on a server for syncing
     enable = mkEnableOption "Trilium client";
 
-    package = mkPackageOption pkgs "trilium-next-desktop" {};
+    package = mkPackageOption pkgs "trilium-next" {};
 
     export = {
       destinationDir = mkOption {
@@ -51,6 +52,8 @@
   in
     lib.mkIf cfg.enable {
       custom.trilium-client = {
+        package = lib.mkDefault inputs.trilium.packages.${pkgs.system}.desktop;
+
         export = {
           destinationDir = lib.mkDefault "${config.home.homeDirectory}/Documents/trilium-export";
           finalPackage = cfg.export.package.override {
