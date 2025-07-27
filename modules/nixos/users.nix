@@ -97,7 +97,7 @@
       home.username = name;
       home.homeDirectory = "/home/${name}";
 
-      xdg.configFile."default-shell".source = lib.getExe user.shell;
+      xdg.configFile."default-shell".source = lib.getExe user.core.shell;
     };
 
     mkNixos = _name: user: {
