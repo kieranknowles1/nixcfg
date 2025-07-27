@@ -36,9 +36,6 @@
     cfg = config.custom;
     isDesktop = hostConfig.custom.features.desktop;
   in {
-    # TODO: Link to the shell set on the host side, a NuShell specific file isn't the best place for this
-    xdg.configFile."default-shell".source = lib.getExe config.programs.nushell.package;
-
     custom.extraEnv = rec {
       # Point tools to our flake repository
       FLAKE = cfg.fullRepoPath;

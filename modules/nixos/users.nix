@@ -96,6 +96,8 @@
       # Give home-manager some basic info about the user
       home.username = name;
       home.homeDirectory = "/home/${name}";
+
+      xdg.configFile."default-shell".source = lib.getExe user.shell;
     };
 
     mkNixos = _name: user: {
