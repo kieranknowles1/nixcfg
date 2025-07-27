@@ -19,14 +19,10 @@
 
           # Our hook does the following:
           # - Run the hook passed to this function, if any
-          # - Set DEVSHELL=1 for scripts that want to know if they're running in a devshell
           # - Replace Bash with the user's shell. The exec syscall replaces the current process,
           #   so Bash is not running and we only need to exit once to leave the devshell.
           shellHook = ''
             ${args.shellHook or ""}
-            # Used to suppress our shell's welcome message
-            export DEVSHELL=1
-
             # Replace Bash with the user's shell
             # Nix doesn't always preserve $SHELL, check for a default linked to by ~/.config/default-shell
             if [ -f ~/.config/default-shell ]; then

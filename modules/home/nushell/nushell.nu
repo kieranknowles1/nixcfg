@@ -12,8 +12,6 @@ alias "log warn" = __log "yellow" "Warning"
 alias "log error" = __log "red" "Error"
 
 # === Commands and Aliases ===
-alias __orig_nix-shell = nix-shell
-alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
 alias void = ignore
 alias discard = ignore
@@ -113,7 +111,8 @@ def __show_welcome_message [] {
     }
 }
 
-# Show a welcome message unless we're in a Nix shell
-if not ($env.DEVSHELL? | default false | into bool) {
+# Show a welcome message unless we're in a sub shell
+if not ($env.__NU_INIT? | default false | into bool) {
     __show_welcome_message
+    $env.__NU_INIT = true
 }
