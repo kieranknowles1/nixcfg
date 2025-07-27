@@ -26,7 +26,4 @@
 
   # Enable everything needed for this configuration
   config.custom = self.lib.host.readTomlFile ./config.toml;
-
-  # TODO: Have a proper option for this
-  config.programs.kdeconnect.enable = true;
 }
