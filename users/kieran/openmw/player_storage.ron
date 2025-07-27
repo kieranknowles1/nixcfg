@@ -80,7 +80,7 @@ Table({
         String("growthFactorFromMinorSkills"): Number(100.0),
         String("growthFactorFromMiscSkills"): Number(50.0),
         String("luckGrowthRate"): String("luckGrowthLow"),
-        String("startValuesRatio"): String("half"),
+        String("startValuesRatio"): String("full"),
         String("uncapperMaxValue"): Number(1000.0),
     }),
     String("SettingsPlayerAttributesNCGDMWArguments"): Table({
