@@ -7,15 +7,15 @@ self.builders.${hostPlatform.system}.buildStaticSite {
   name = "portfolio";
 
   src = stdenv.mkDerivation {
-      name = "portfolio-src";
-      src = ./src;
-      buildPhase = ''
-        mkdir -p $out $out/.build-only
-        cp -r $src/* $out
-        ln -s ${self.assets.mdi-icons}/svg $out/.build-only/mdi-icons
-        ln -s ${self.assets.simple-icons}/icons $out/.build-only/simple-icons
-      '';
-    };
+    name = "portfolio-src";
+    src = ./src;
+    buildPhase = ''
+      mkdir -p $out $out/.build-only
+      cp -r $src/* $out
+      ln -s ${self.assets.mdi-icons}/svg $out/.build-only/mdi-icons
+      ln -s ${self.assets.simple-icons}/icons $out/.build-only/simple-icons
+    '';
+  };
   meta = {
     inherit (self.lib) license;
     description = "My personal portfolio";
