@@ -62,6 +62,12 @@
       ];
     };
 
+    stylix.targets = {
+      # Don't manage the VSCode theme, as I like the default dark and managing
+      # with Stylix conflicts with home-manager's settings.json
+      vscode.enable = false;
+    };
+
     custom.aliases.code = {
       exec = "codium";
       mnemonic = "[cod]ium";

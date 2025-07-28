@@ -14,6 +14,8 @@
 
   config = {
     stylix = {
+      enable = hostConfig.custom.features.desktop;
+
       # base16Scheme isn't inherited if a wallpaper is set, so explicitly set it
       # to avoid one being generated
       inherit (hostConfig.stylix) base16Scheme;
