@@ -1,0 +1,6 @@
+'$schema' = "../../docs/generated/host-options.schema.json"
+
+# Specialisation for cross compilation
+
+[compat]
+arm.enable = true
