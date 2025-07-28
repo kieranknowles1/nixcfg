@@ -25,3 +25,7 @@ nvidia.enable = true
 
 [networking]
 hostName = "rocinante"
+
+[compat]
+appimage.enable = true
+arm.enable = true

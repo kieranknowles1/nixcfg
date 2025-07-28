@@ -26,9 +26,4 @@
 
   # Enable everything needed for this configuration
   config.custom = self.lib.host.readTomlFile ./config.toml;
-
-  config.specialisation.xcomp = {
-    inheritParentConfig = true;
-    configuration.custom = self.lib.host.readTomlFile ./xcomp.toml;
-  };
 }
