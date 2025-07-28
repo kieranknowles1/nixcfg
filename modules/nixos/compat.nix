@@ -6,6 +6,7 @@
   options.custom.compat = let
     inherit (lib) mkEnableOption;
   in {
+    # Disabled by default as it brings in a dependency on SDL2
     appimage.enable = mkEnableOption "appimage support";
     arm.enable = mkEnableOption "arm support";
   };
