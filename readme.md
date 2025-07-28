@@ -10,6 +10,7 @@ This repository contains the NixOS configuration for my systems.
   - [Lessons Learned](#lessons-learned)
     - [Don't Use Wayland Yet](#dont-use-wayland-yet)
     - [Make Sure You Have a User](#make-sure-you-have-a-user)
+  - [Licensing](#licensing)
 
 ## Documentation
 
@@ -122,3 +123,9 @@ both the root and boot partitions. Then, run `nixos-enter` to chroot into the
 system. You can then fix the configuration and rebuild. If applying the config
 fails, try setting your user's password anyway with `passwd <username>` and
 rebooting into your main OS.
+
+## Licensing
+
+This repository and all its contents are available under the
+[MIT License](./license.txt). However, certain packages are under different
+licenses. This is documented under in individual `meta` attributes.
