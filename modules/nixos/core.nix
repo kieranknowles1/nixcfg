@@ -81,11 +81,6 @@
     programs.nix-index.enable = false;
     programs.nix-index-database.comma.enable = true;
 
-    programs.appimage = {
-      enable = true;
-      binfmt = true;
-    };
-
     # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
     # a bad superblock, try mounting it in the terminal instead.
     boot.supportedFilesystems = ["ntfs"];
