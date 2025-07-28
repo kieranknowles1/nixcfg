@@ -5,6 +5,7 @@
     ../shared
 
     ./backup.nix
+    ./compat.nix
     ./core.nix
     ./desktop
     ./hardware.nix
