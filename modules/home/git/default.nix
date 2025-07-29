@@ -1,13 +1,21 @@
 {
   config,
   hostConfig,
+  lib,
   pkgs,
   ...
 }: {
+  options.custom.git = let
+    inherit (lib) mkEnableOption;
+  in {
+    extras.enable = mkEnableOption "Git extras";
+  };
+
   config = let
     details = config.custom.userDetails;
 
     inherit (hostConfig.custom.ssh) authorizedKeys;
+    cfg = config.custom.git;
   in {
     programs.git = {
       # This is stored in a Git repo, so it wouldn't make sense to have a system without Git
@@ -65,7 +73,7 @@
 
     # Fancy TUI
     programs.lazygit = {
-      enable = true;
+      inherit (cfg.extras) enable;
 
       # Lazygit uses YAML, but Nix doesn't support it.
       # https://github.com/SenchoPens/fromYaml is an option, but I
