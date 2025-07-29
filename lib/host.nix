@@ -18,11 +18,10 @@
     to the host's configuration.nix file.
     ```
     */
-    mkHost = rootConfig:
-      inputs.nixpkgs.lib.nixosSystem {
+    mkHost = mkSystem: extraSpecialArgs: rootConfig:
+      mkSystem {
         # Pass the flake's inputs to the module
-        # TODO: See if we can remove this entirely, would remove the assumption that we're passing certain arguments
-        specialArgs = {inherit self inputs;};
+        specialArgs = {inherit self inputs;} // extraSpecialArgs;
 
         # Include the host's configuration and all modules
         modules = [

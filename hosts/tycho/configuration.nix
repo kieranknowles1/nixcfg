@@ -5,9 +5,10 @@
   pkgs,
   config,
   self,
+  nixos-raspberrypi,
   ...
 }: {
-  imports = [
+  imports = with nixos-raspberrypi.nixosModules; [
     ./hardware-configuration.nix
     {
       custom = {
@@ -21,6 +22,10 @@
         };
       };
     }
+    # Base support
+    raspberry-pi-5.base
+    # Display support (may be unnecessary since we are a server)
+    raspberry-pi-5.display-vc4
   ];
 
   # Enable everything needed for this configuration

@@ -47,6 +47,13 @@
       inputs.flake-compat.follows = "";
     };
 
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+      # This depends on a fork of nixpkgs, can't follow the official one
+      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixos-images.follows = "";
+    };
+
     # Prebuilt nix-index database, as building it takes a long time
     # Updates every week
     nix-index-database = {

@@ -45,7 +45,7 @@
     nixpkgs.overlays = builtins.attrValues self.overlays;
 
     # Bootloader
-    boot.loader.systemd-boot.enable = true;
+    boot.loader.systemd-boot.enable = !config.custom.hardware.raspberryPi.enable;
     boot.loader.efi.canTouchEfiVariables = true;
     # No wait in grub. Can override one-off by holding shift
     boot.loader.timeout = 0;
