@@ -29,3 +29,4 @@ most of them. Following is a list that I would like for a first iteration:
 - [ ] Dashboard
 - [ ] Immich
 - [ ] Trilium
+- [ ] Paperless NGX
