@@ -18,14 +18,15 @@
     };
 
     features = let
-      mkFeatureOption = name: description:
+      mkFeatureOption = description:
         mkOption {
-          description = "Whether the system is a ${name} and should have ${description} enabled.";
+          inherit description;
           type = types.bool;
           default = false;
         };
     in {
-      desktop = mkFeatureOption "desktop" "a graphical environment";
+      desktop = mkFeatureOption "Whether the system is a desktop and should have a graphical environment enabled.";
+      extras = mkFeatureOption "nice-to-have, but not strictly necessary, features";
     };
   };
 
