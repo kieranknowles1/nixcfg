@@ -2,8 +2,6 @@
 
 # Config to enable on all hosts
 
-telly.enable = true
-
 [userDetails]
 email = "kieranknowles11@hotmail.co.uk"
 firstName = "Kieran"

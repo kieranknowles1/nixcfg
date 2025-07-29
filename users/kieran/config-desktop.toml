@@ -5,6 +5,8 @@
 docs-generate.enable = true
 discord.enable = true
 
+telly.enable = true
+
 espanso.enable = true
 [espanso.packages]
 misspell-en.url = "https://github.com/timorunge/espanso-misspell-en/archive/refs/heads/master.tar.gz"
