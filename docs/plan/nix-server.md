@@ -18,3 +18,14 @@ main PC, then pushing to a server that other hosts pull from. Commit messages
 could then merge the diffs to show every package that was updated.
 
 Try [nixos-hardware](https://github.com/NixOS/nixos-hardware)' RPI5 module.
+
+## Service Identification
+
+While I have quite a few services defined in my existing
+[selfhosting](https://github.com/kieranknowles1/selfhosting) repo, I rarely use
+most of them. Following is a list that I would like for a first iteration:
+
+- [ ] Portfolio
+- [ ] Dashboard
+- [ ] Immich
+- [ ] Trilium
