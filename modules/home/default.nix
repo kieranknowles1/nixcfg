@@ -18,7 +18,6 @@
     ./llm.nix
     ./mime.nix
     ./mutable.nix
-    ./portfolio.nix
     ./nushell
     ./office
     ./shortcuts
