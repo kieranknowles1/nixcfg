@@ -1,10 +1,5 @@
 '$schema' = "../../docs/generated/host-options.schema.json"
 
-# TODO: Configure this as a server. Need the following:
-# [ ]: Remove all desktop-related packages. Shouldn't have X or Wayland.
-# [ ]: Provision services for the server.
-# [ ]: Run on my RPI5. Lower priority as Ubuntu is good enough for now.
-
 repoPath = "/home/kieran/src/nixcfg"
 
 [hardware]
