@@ -8,6 +8,7 @@
     inherit (lib) mkOption mkEnableOption types;
   in {
     nvidia.enable = mkEnableOption "Nvidia drivers";
+    raspberryPi.enable = mkEnableOption "Raspberry Pi hardware";
 
     powerSave = {
       enable = mkEnableOption "power saving profiles";

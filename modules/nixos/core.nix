@@ -18,14 +18,15 @@
     };
 
     features = let
-      mkFeatureOption = name: description:
+      mkFeatureOption = description:
         mkOption {
-          description = "Whether the system is a ${name} and should have ${description} enabled.";
+          inherit description;
           type = types.bool;
           default = false;
         };
     in {
-      desktop = mkFeatureOption "desktop" "a graphical environment";
+      desktop = mkFeatureOption "Whether the system is a desktop and should have a graphical environment enabled.";
+      extras = mkFeatureOption "nice-to-have, but not strictly necessary, features";
     };
   };
 
@@ -45,13 +46,13 @@
     nixpkgs.overlays = builtins.attrValues self.overlays;
 
     # Bootloader
-    boot.loader.systemd-boot.enable = true;
+    boot.loader.systemd-boot.enable = !config.custom.hardware.raspberryPi.enable;
     boot.loader.efi.canTouchEfiVariables = true;
     # No wait in grub. Can override one-off by holding shift
     boot.loader.timeout = 0;
 
     # Live dangerously
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    # boot.kernelPackages = pkgs.linuxPackages_latest;
 
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;

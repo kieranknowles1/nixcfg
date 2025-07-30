@@ -1,6 +1,15 @@
 {
   description = "The NixOS configuration for my systems";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://nixos-raspberrypi.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+    ];
+  };
+
   # Dependencies for the flake
   # The syntax `inputs.xxx.follows = ""` removes the input from another flake, this is useful
   # when the input is unused by us to avoid fetching unnecessary data. (I believe flake inputs
@@ -45,6 +54,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
 
       inputs.flake-compat.follows = "";
+    };
+
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi?ref=27518152d10345308bc5340fd64c8d3ad5c88c92";
+      # This depends on a fork of nixpkgs, can't follow the official one
+      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.url = "github:nvmd/nixpkgs?ref=1cba0d4e9720ce8cd0e6b08ff185b92646fe2f90";
+      inputs.nixos-images.follows = "";
     };
 
     # Prebuilt nix-index database, as building it takes a long time
