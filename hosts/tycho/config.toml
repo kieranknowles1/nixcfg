@@ -14,3 +14,8 @@ raspberryPi.enable = true
 [networking]
 hostName = "tycho"
 waitOnline = true
+
+[server]
+enable = true
+hostname = "selwonk.uk"
+email = "kieran@selwonk.uk"

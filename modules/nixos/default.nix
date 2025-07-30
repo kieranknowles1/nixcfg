@@ -14,6 +14,7 @@
     ./locale.nix
     ./networking.nix
     ./printing.nix
+    ./server
     ./ssh
     ./theme.nix
     ./thunderbird.nix
