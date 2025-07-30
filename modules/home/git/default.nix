@@ -2,6 +2,7 @@
   config,
   hostConfig,
   pkgs,
+  lib,
   ...
 }: {
   config = let
@@ -75,15 +76,19 @@
 
     # Such an essential tool as Git deserves a 2-character command
     # Just like `ls`, `cd`, and `sl`
-    custom.aliases = {
-      gd = {
-        exec = "git diff";
-        mnemonic = "[g]it [d]iff";
-      };
-      lg = {
-        exec = "lazygit";
-        mnemonic = "[l]azy [g]it";
-      };
-    };
+    custom.aliases = lib.mkMerge [
+      {
+        gd = {
+          exec = "git diff";
+          mnemonic = "[g]it [d]iff";
+        };
+      }
+      (lib.mkIf config.programs.lazygit.enable {
+        lg = {
+          exec = "lazygit";
+          mnemonic = "[l]azy [g]it";
+        };
+      })
+    ];
   };
 }
