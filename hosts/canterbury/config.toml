@@ -1,6 +1,7 @@
 '$schema' = "../../docs/generated/host-options.schema.json"
 
 features.desktop = true
+features.extras = true
 repoPath = "/home/kieran/Documents/src/nixcfg"
 
 printing.enable = true
