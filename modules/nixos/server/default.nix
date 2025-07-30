@@ -39,7 +39,7 @@
         enable = true;
         virtualHosts."${cfg.hostname}" = {
           inherit (cfg) root;
-          addSSL = true; # Enable HTTPS
+          forceSSL = true; # Enable HTTPS and redirect HTTP to it
           enableACME = true; # Automatically obtain SSL certificates
         };
       };
