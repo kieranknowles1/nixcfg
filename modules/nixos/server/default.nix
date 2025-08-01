@@ -40,12 +40,6 @@
       description = "The domain name of the server";
     };
 
-    email = mkOption {
-      type = types.str;
-      example = "user@example.com";
-      description = "The email address to associate with certificate requests";
-    };
-
     ssl = {
       publicKeyFile = mkOption {
         type = types.path;
