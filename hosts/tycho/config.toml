@@ -13,6 +13,5 @@ waitOnline = true
 [server]
 enable = true
 hostname = "selwonk.uk"
-email = "kieran@selwonk.uk"
 
 docs.enable = true

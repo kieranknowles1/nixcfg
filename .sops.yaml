@@ -1,8 +1,8 @@
 # To add a new key from your SSH key:
 # 1. Generate a private key
-# Run `ssh-to-age -private-key ~/.ssh/id_ed25519 -o ~/.config/sops/age/keys.txt`
+# Run `ssh-to-age -private-key -i ~/.ssh/id_ed25519 -o ~/.config/sops/age/keys.txt`
 # 2. Generate a public key
-# Run `ssh-to-age ~/.ssh/id_ed25519.pub`
+# Run `ssh-to-age -i ~/.ssh/id_ed25519.pub`
 # 3. Add the public key to the list of keys and appropriate creation rules
 # This should be in the format of `&<hostname> <public key>`, which will start with `age1`
 # DO NOT allow the private key to leave your machine
@@ -19,6 +19,7 @@ keys:
   # The matching private keys are stored at ~/.config/sops/age/keys.txt, outside of anything that may be shared
   - &canterbury age18klvxktm23sxs8fa8xts3kzzp8rwh9x037e98ym3sj2yuquqqs6sj3wy76
   - &rocinante age1ghp0654a5yrzgmyspanyvgp5lmz8tn4yqxjaa57kgejc8uuwh9fqnelusr
+  - &tycho age1t2kus55sfxplneeatj6dkfedp0jqmucv7y48hx23l9l0gqfny9kskslh3w
 creation_rules:
   # Hosts - Secrets should only be accessible by the machine they are for
   - path_regex: hosts/canterbury/secrets.yaml$
@@ -29,9 +30,14 @@ creation_rules:
     key_groups:
       - age:
           - *rocinante
+  - path_regex: hosts/tycho/secrets.yaml$
+    key_groups:
+      - age:
+          - *tycho
   # Users - Secrets should be accessible on any of the user's machines
   - path_regex: users/kieran/secrets.yaml$
     key_groups:
       - age:
           - *canterbury
           - *rocinante
+          - *tycho
