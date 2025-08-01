@@ -16,9 +16,16 @@
           users.kieran = import ../../users/kieran {inherit pkgs config self;};
         };
 
+        # Renewal is manual, but I don't really care because certs last 15 years
+        # TODO: We should really be automating this and revoke the 15 year one
         secrets = {
           ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
           file = ./secrets.yaml;
+        };
+
+        server.ssl = {
+          publicKeyFile = ./selwonk.uk.pem;
+          privateKeySecret = "ssl/private-key";
         };
       };
     }
