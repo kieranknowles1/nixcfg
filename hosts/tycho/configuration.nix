@@ -26,9 +26,15 @@
           file = ./secrets.yaml;
         };
 
-        server.ssl = {
-          publicKeyFile = ./selwonk.uk.pem;
-          privateKeySecret = "ssl/private-key";
+        server = {
+          root = {
+            root = pkgs.flake.portfolio;
+            cache.enable = true;
+          };
+          ssl = {
+            publicKeyFile = ./selwonk.uk.pem;
+            privateKeySecret = "ssl/private-key";
+          };
         };
       };
     }

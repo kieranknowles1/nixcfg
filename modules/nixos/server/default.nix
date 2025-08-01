@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: {
   imports = [
@@ -94,12 +93,6 @@
       sops.secrets.ssl-private-key = {
         owner = config.services.nginx.user;
         key = cfg.ssl.privateKeySecret;
-      };
-
-      # TODO: Proper module for this
-      custom.server.root = {
-        root = pkgs.flake.portfolio;
-        cache.enable = true;
       };
 
       services.nginx = {
