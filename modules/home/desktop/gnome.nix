@@ -5,7 +5,7 @@
   lib,
   ...
 }: {
-  config = lib.mkIf (hostConfig.custom.desktop.environment == "gnome") {
+  config = lib.mkIf (hostConfig.custom.features.desktop && hostConfig.custom.desktop.environment == "gnome") {
     # HACK: Workaround for opening URLs through sandboxed apps not working.
     # Foribly restart xdg-desktop-portal shortly after login which seems to
     # fix the issue until reboot.

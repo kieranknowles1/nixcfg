@@ -3,10 +3,12 @@
   config,
   ...
 }: {
-  options.custom = {
-    desktop.environment = lib.mkOption {
+  options.custom.desktop = let
+    inherit (lib) mkOption types;
+  in {
+    environment = mkOption {
       description = "Desktop environment to use";
-      type = lib.types.enum [
+      type = types.enum [
         # Would like this to be default, but it's not polished enough, especially in the Nix implementation
         # See [[./cosmic.nix]] for more information
         "cosmic"

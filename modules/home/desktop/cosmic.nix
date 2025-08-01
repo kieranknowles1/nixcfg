@@ -46,7 +46,7 @@
 
     settings = builtins.listToAttrs (lib.lists.flatten (map appSettings (builtins.attrNames cfg.settings)));
   in
-    lib.mkIf (hostConfig.custom.desktop.environment == "cosmic") {
+    lib.mkIf (hostConfig.custom.features.desktop && hostConfig.custom.desktop.environment == "cosmic") {
       home.file = settings;
 
       custom.desktop.cosmic.settings = {
