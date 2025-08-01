@@ -33,3 +33,4 @@ most of them. Following is a list that I would like for a first iteration:
 - [ ] Paperless NGX
 - [ ] Git
   - [ ] Back up my GitHub repos
+- [x] Documentation
