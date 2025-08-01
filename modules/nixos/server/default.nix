@@ -83,6 +83,8 @@
 
       services.nginx = {
         enable = true;
+        # Compress responses using sensible defaults
+        recommendedGzipSettings = true;
 
         virtualHosts =
           subhosts
