@@ -17,6 +17,15 @@
         example = "/path/to/html";
         description = "The root directory to be served";
       };
+      cache.enable = mkEnableOption "add cache headers to this vhost";
+      cache.expires = mkOption {
+        type = types.str;
+        default = "12w";
+        description = ''
+          The `cache-control max-age` header value as an Nginx
+          [time string](https://nginx.org/en/docs/syntax.html)
+        '';
+      };
     };
 
     subdomainType = types.submodule {
@@ -59,11 +68,18 @@
       inherit (subdomain) root;
       forceSSL = true; # Enable HTTPS and redirect HTTP to it
       enableACME = true; # Automatically obtain SSL certificates
+
+      extraConfig = ''
+        ${lib.optionalString subdomain.cache.enable "expires ${subdomain.cache.expires};"}
+      '';
     };
   in
     lib.mkIf cfg.enable {
       # TODO: Proper module for this
-      custom.server.root.root = pkgs.flake.portfolio;
+      custom.server.root = {
+        root = pkgs.flake.portfolio;
+        cache.enable = true;
+      };
 
       services.nginx = {
         enable = true;

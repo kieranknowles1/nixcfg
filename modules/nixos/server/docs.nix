@@ -24,6 +24,7 @@
         # done so and machine-specific ones don't matter for a server.
         # Probably want a builder to create docs then make home-manager extend it.
         root = config.home-manager.users.kieran.custom.docs-generate.build.combined.html;
+        cache.enable = true;
       };
     };
 }
