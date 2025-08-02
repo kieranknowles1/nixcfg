@@ -5,6 +5,7 @@ related (but mostly just NixOS).
 
 - [Troubleshooting](#troubleshooting)
   - [Corrupt Derivation](#corrupt-derivation)
+  - [Generation Rolled Back on Reboot](#generation-rolled-back-on-reboot)
   - [Nerd Fonts not Working](#nerd-fonts-not-working)
   - [Minecraft Unable to Start](#minecraft-unable-to-start)
   - [Occasional Buzzing](#occasional-buzzing)
@@ -22,6 +23,15 @@ In this instance, running `cat` showed the derivation to be an empty file.
 
 Solution: run `nix-store --delete /nix/store/bad-derivation.drv` to remove the
 corrupt file, which will be rebuilt the next time it is needed.
+
+## Generation Rolled Back on Reboot
+
+Issue: After rebooting, the system rolls back to a previous generation.
+
+Solution: ensure that the boot partition is mounted correctly in
+`hardware-configuration.nix`. This means `/boot` on x86 or `/boot/firmware` on
+Raspberry Pi, should be mounted as a VFAT filesystem based on its
+`/dev/disk/by-uuid`.
 
 ## Nerd Fonts not Working
 
