@@ -59,12 +59,13 @@
     };
 
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi?ref=27518152d10345308bc5340fd64c8d3ad5c88c92";
+      url = "github:nvmd/nixos-raspberrypi";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.argononed.follows = "";
       inputs.nixos-images.follows = "";
     };
 
+    # Run a fixed kernel to avoid needing to build it
     nixos-raspberrypi-kernellock = {
       url = "github:nvmd/nixos-raspberrypi?ref=27518152d10345308bc5340fd64c8d3ad5c88c92";
       inputs.nixpkgs.url = "github:nvmd/nixpkgs?ref=1cba0d4e9720ce8cd0e6b08ff185b92646fe2f90";
