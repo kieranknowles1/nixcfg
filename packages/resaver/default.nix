@@ -1,3 +1,4 @@
+# TODO: Resaver is on GitHub now, no need for this workaround, just build it from source
 {
   writeShellApplication,
   makeDesktopItem,
