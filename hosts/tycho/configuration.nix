@@ -6,11 +6,14 @@
   config,
   self,
   nixos-raspberrypi,
+  inputs,
   ...
 }: {
   imports = with nixos-raspberrypi.nixosModules; [
     ./hardware-configuration.nix
     {
+      boot.kernelPackages = inputs.nixos-raspberrypi-kernellock.packages.aarch64-linux.linuxPackages_rpi5;
+
       custom = {
         users = {
           users.kieran = import ../../users/kieran {inherit pkgs config self;};

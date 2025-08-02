@@ -41,11 +41,11 @@ This configuration is still **heavily** work in progress, and issues are to be
 expected including (listed here as a checklist to be fixed). Please ignore how
 I'm just blaming other people for all of these :).
 
-- [ ] Locked to nixos-25.05 rather than nixos-unstable. Requires
+- [x] Locked to nixos-25.05 rather than nixos-unstable. Requires
       [nixpkgs#398456](https://github.com/NixOS/nixpkgs/pull/398456) to be
       merged.
-- [ ] Difftastic fails with `<jemalloc>: Unsupported system page size`. Possible
-      upstream issue.
-- [ ] Comma fails with `nix-locate failed`.
+- [ ] Difftastic fails with `<jemalloc>: Unsupported system page size`.
+      [Possible upstream issue](https://github.com/nvmd/nixos-raspberrypi/issues/64).
+- [x] Comma fails with `nix-locate failed`.
       [Definite upstream issue](https://github.com/nix-community/comma/pull/103)
       and already fixed on nixpkgs-unstable.

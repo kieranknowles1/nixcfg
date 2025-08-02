@@ -17,7 +17,9 @@
   inputs = {
     # /// Core ///
     # This isn't quite the bleeding edge, but packages on master are less likely to be cached
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
+    # Use a fork as required by nixos-raspberrypi until https://github.com/NixOS/nixpkgs/pull/398456
+    # is merged
+    nixpkgs.url = "github:kieranknowles1/nixpkgs?ref=nixpkgs-unstable-readd-option";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
@@ -57,10 +59,17 @@
     };
 
     nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.argononed.follows = "";
+      inputs.nixos-images.follows = "";
+    };
+
+    # Run a fixed kernel to avoid needing to build it
+    nixos-raspberrypi-kernellock = {
       url = "github:nvmd/nixos-raspberrypi?ref=27518152d10345308bc5340fd64c8d3ad5c88c92";
-      # This depends on a fork of nixpkgs, can't follow the official one
-      # inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs.url = "github:nvmd/nixpkgs?ref=1cba0d4e9720ce8cd0e6b08ff185b92646fe2f90";
+      inputs.argononed.follows = "";
       inputs.nixos-images.follows = "";
     };
 
