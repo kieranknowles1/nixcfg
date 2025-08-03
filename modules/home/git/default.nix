@@ -8,7 +8,7 @@
   config = let
     details = config.custom.userDetails;
 
-    inherit (hostConfig.custom.ssh) authorizedKeys;
+    inherit (hostConfig.custom.ssh) keyOwners;
   in {
     programs.git = {
       # This is stored in a Git repo, so it wouldn't make sense to have a system without Git
@@ -53,13 +53,15 @@
         # Recurse into untracked directories - these need to be resolved by either tracking or ignoring them
         status.showUntrackedFiles = "all";
 
-        # TODO: Filter who each key can sign on behalf of. Currently, anyone can sign anything.
         gpg.ssh.allowedSignersFile = let
-          signerEntry = keyFile: "* ${builtins.readFile keyFile}";
+          # Owner can sign on behalf of themselves and no one else
+          signerEntry = owner: key: "${owner} ${key}";
+
+          ownerKeys = builtins.mapAttrs (owner: map (signerEntry owner)) keyOwners;
+          keyEntries = lib.lists.flatten (builtins.attrValues ownerKeys);
         in
           builtins.toPath (pkgs.writeText "allowed-signers" (
-            # TODO: Recognise any known key, even if it isn't allowed to SSH
-            builtins.concatStringsSep "\n" (map signerEntry authorizedKeys)
+            builtins.concatStringsSep "\n" keyEntries
           ));
       };
     };
