@@ -14,7 +14,8 @@
           The port to run a web interface on.
         '';
         type = types.port;
-        # TODO: Some central/automatic way to assign ports
+        # TODO: Use server port allocations for this. May as well move the whole
+        # module there.
         default = 3000;
       };
     };

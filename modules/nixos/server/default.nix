@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./docs.nix
+    ./ports.nix
   ];
 
   options.custom.server = let
@@ -113,7 +114,9 @@
           };
       };
 
-      # HTTP and HTTPS
-      networking.firewall.allowedTCPPorts = [80 443];
+      networking.firewall.allowedTCPPorts = with config.custom.server.ports.tcp; [
+        http
+        https
+      ];
     };
 }
