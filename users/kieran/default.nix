@@ -17,6 +17,9 @@ in {
     displayName = "Kieran";
     isSudoer = true;
     shell = pkgs.nushell;
+
+    # Allow me to SSH between any of my hosts
+    authorizedKeys = config.custom.ssh.keyOwners."kieranknowles11@hotmail.co.uk";
   };
 
   home = {

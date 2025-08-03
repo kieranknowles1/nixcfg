@@ -40,6 +40,15 @@
             '';
             type = types.package;
           };
+
+          authorizedKeys = mkOption {
+            description = ''
+              SSH keys authorized to connect as this user. Should be sourced
+              from `ssh.keyOwners` to allow anyone to validate their git commits.
+            '';
+            type = types.listOf types.str;
+            default = [];
+          };
         };
 
         home = mkOption {
@@ -110,6 +119,8 @@
       # sudo
       extraGroups =
         ["networkmanager"] ++ (lib.optional user.core.isSudoer "wheel");
+
+      openssh.authorizedKeys.keys = user.core.authorizedKeys;
     };
   in {
     home-manager = {
