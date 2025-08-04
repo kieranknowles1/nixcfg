@@ -65,8 +65,7 @@
 
     sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.actions;
     configFile = {
-      # TODO: Proper option for this
-      terminalArgs = ["alacritty" "--command"];
+      terminalScript = config.custom.terminal.runTermWait;
       commands = sortedActions;
     };
   in

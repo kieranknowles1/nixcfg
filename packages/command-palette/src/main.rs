@@ -37,10 +37,10 @@ impl CommandOutput {
 }
 
 fn run_command(config: &Config, command: &data::Command) -> std::io::Result<CommandOutput> {
-    let mut argv = if command.use_terminal {
-        config.terminal_args.iter().chain(&command.action)
+    let mut argv: Box<dyn Iterator<Item = &String>> = if command.use_terminal {
+        Box::new(std::iter::once(&config.terminal_script).chain(&command.action))
     } else {
-        command.action.iter().chain(&[])
+        Box::new(command.action.iter())
     };
 
     // argv should never be empty.
