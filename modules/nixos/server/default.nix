@@ -2,7 +2,13 @@
   lib,
   config,
   ...
-}: {
+}: let
+  mutexOptionsMsg = ''
+    Exactly one of the following options must be specified:
+    - `root`
+    - `proxyPort`
+  '';
+in {
   imports = [
     ./docs.nix
     ./ports.nix
@@ -13,10 +19,18 @@
 
     vhostOpts = {
       root = mkOption {
-        type = types.path;
+        type = types.nullOr types.path;
         example = "/path/to/html";
-        description = "The root directory to be served";
+        default = null;
+        description = "The root directory to be served.\n${mutexOptionsMsg}";
       };
+      proxyPort = mkOption {
+        type = types.nullOr types.port;
+        example = 8080;
+        default = null;
+        description = "The port to proxy connections to.\n${mutexOptionsMsg}";
+      };
+
       cache.enable = mkEnableOption "add cache headers to this vhost";
       cache.expires = mkOption {
         type = types.str;
@@ -65,6 +79,14 @@
       default = {};
       description = "Subdomains to serve on the server";
     };
+
+    baseDataDir = mkOption {
+      type = types.path;
+      example = "/path/to/server/data";
+      description = ''
+        Base directory for storing server data. Should be backed up regularly.
+      '';
+    };
   };
 
   config = let
@@ -78,7 +100,14 @@
       cfg.subdomains;
 
     mkVhost = subdomain: {
-      inherit (subdomain) root;
+      locations."/" = {
+        inherit (subdomain) root;
+        proxyPass =
+          if subdomain.proxyPort != null
+          then "http://127.0.0.1:${toString subdomain.proxyPort}"
+          else null;
+      };
+
       forceSSL = true; # Enable HTTPS and redirect HTTP to it
 
       sslCertificate = cfg.ssl.publicKeyFile;
@@ -88,8 +117,20 @@
         ${lib.optionalString subdomain.cache.enable "expires ${subdomain.cache.expires};"}
       '';
     };
+
+    isSet = val:
+      if val != null
+      then 1
+      else 0;
   in
     lib.mkIf cfg.enable {
+      assertions =
+        lib.attrsets.mapAttrsToList (name: subdomain: {
+          assertion = (isSet subdomain.root) + (isSet subdomain.proxyPort) == 1;
+          message = "config.custom.server.subdomains.${name}: \n${mutexOptionsMsg}";
+        })
+        cfg.subdomains;
+
       sops.secrets.ssl-private-key = {
         owner = config.services.nginx.user;
         key = cfg.ssl.privateKeySecret;
@@ -107,9 +148,6 @@
           };
       };
 
-      networking.firewall.allowedTCPPorts = with config.custom.server.ports.tcp; [
-        http
-        https
-      ];
+      networking.firewall.allowedTCPPorts = with cfg.ports.tcp; [http https];
     };
 }
