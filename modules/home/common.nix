@@ -9,9 +9,20 @@
   options.custom = let
     inherit (lib) mkOption mkPackageOption types;
   in {
-    terminal.package = mkPackageOption pkgs "terminal" {
-      # Shorter startup time than kitty
-      default = "alacritty";
+    terminal = {
+      package = mkPackageOption pkgs "terminal" {
+        # Shorter startup time than kitty
+        default = "alacritty";
+      };
+
+      runTermWait = mkOption {
+        type = types.path;
+        description = ''
+          Script to run a command inside a terminal and wait for the user to
+          manually exit.
+        '';
+        readOnly = true;
+      };
     };
 
     repoPath = mkOption {
@@ -50,6 +61,17 @@
   };
 
   config = {
+    custom.terminal.runTermWait = let
+      inherit (config.custom.terminal) package;
+      runwait = "${pkgs.flake.nix-utils}/bin/runwait";
+      cmdMap = {
+        "alacritty" = "${lib.getExe package} --command ${runwait}";
+      };
+    in
+      pkgs.writeShellScript "run-term-wait" ''
+        exec ${cmdMap.${package.pname}} "$@"
+      '';
+
     custom.docs-generate.jsonIgnoredOptions.home = [
       "repoPath"
       "fullRepoPath"
