@@ -18,6 +18,8 @@
     tcp = {
       http = 80;
       https = 443;
+
+      trilium = 8000;
     };
     udp = {
     };

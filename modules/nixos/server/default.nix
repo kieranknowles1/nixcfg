@@ -12,6 +12,7 @@ in {
   imports = [
     ./docs.nix
     ./ports.nix
+    ./trilium.nix
   ];
 
   options.custom.server = let
