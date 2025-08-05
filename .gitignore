@@ -12,3 +12,6 @@ target/
 
 # Godot generated files
 .godot
+
+# Typst output
+*.pdf
