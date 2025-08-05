@@ -32,6 +32,8 @@ in {
         description = "The port to proxy connections to.\n${mutexOptionsMsg}";
       };
 
+      webSockets = mkEnableOption "websockets";
+
       cache.enable = mkEnableOption "add cache headers to this vhost";
       cache.expires = mkOption {
         type = types.str;
@@ -109,10 +111,18 @@ in {
           if subdomain.proxyPort != null
           then "http://127.0.0.1:${toString subdomain.proxyPort}"
           else null;
+
+        proxyWebsockets = subdomain.webSockets;
       };
 
       forceSSL = true; # Enable HTTPS and redirect HTTP to it
 
+      # We're not using ACME as it's incompatible with Cloudflare proxies
+      # I'd rather not turn that off to reduce load from scraping, public pages
+      # are static and should have high cache hit rates
+      #
+      # Instead, use a Cloudflare origin CA, which is only recognised by
+      # Cloudflare's proxy to keep traffic secure
       sslCertificate = cfg.ssl.publicKeyFile;
       sslCertificateKey = config.sops.secrets.ssl-private-key.path;
 
@@ -121,6 +131,7 @@ in {
       '';
     };
 
+    # Returns 0 for null and 1 for anything else
     isSet = val:
       if val != null
       then 1

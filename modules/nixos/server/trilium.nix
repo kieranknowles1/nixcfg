@@ -32,6 +32,7 @@
         trilium.dataDir = lib.mkDefault "${cfg.baseDataDir}/trilium";
         subdomains.${cfgt.subdomain} = {
           proxyPort = cfg.ports.tcp.trilium;
+          webSockets = true;
         };
       };
 
