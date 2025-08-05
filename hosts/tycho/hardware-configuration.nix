@@ -19,6 +19,10 @@
     device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
     fsType = "ext4";
   };
+  fileSystems."/mnt/extern" = {
+    device = "/dev/disk/by-uuid/480fd0ec-5167-4163-a86e-5edf112961c4";
+    fsType = "btrfs";
+  };
 
   fileSystems."/boot/firmware" = {
     device = "/dev/disk/by-uuid/2175-794E";
