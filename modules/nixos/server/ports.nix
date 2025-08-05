@@ -19,7 +19,7 @@
       http = 80;
       https = 443;
 
-      trilium = 8000;
+      trilium = 8080;
     };
     udp = {
     };

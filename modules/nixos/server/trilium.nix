@@ -12,7 +12,7 @@
     subdomain = mkOption {
       type = types.str;
       description = "Subdomain for Trilium server";
-      default = "trilium";
+      default = "notes";
     };
 
     dataDir = mkOption {
