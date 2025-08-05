@@ -86,6 +86,8 @@ in {
       example = "/path/to/server/data";
       description = ''
         Base directory for storing server data. Should be backed up regularly.
+
+        Services will use subdirectories within this unless configured otherwise.
       '';
     };
   };

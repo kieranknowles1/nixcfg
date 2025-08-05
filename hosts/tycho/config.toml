@@ -13,5 +13,7 @@ waitOnline = true
 [server]
 enable = true
 hostname = "selwonk.uk"
+baseDataDir = "/mnt/extern/data"
 
 docs.enable = true
+trilium.enable = true
