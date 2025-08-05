@@ -1,7 +1,5 @@
 #import "@preview/moderner-cv:0.2.0": *
 
-// % FIXME: This should be built by Nix.
-
 #set par(
   justify: true
 )
