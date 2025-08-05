@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
@@ -11,7 +10,7 @@
     # TODO: Would like to run this on a server for syncing
     enable = mkEnableOption "Trilium client";
 
-    package = mkPackageOption pkgs "trilium-next" {};
+    package = mkPackageOption pkgs "trilium-next-desktop" {};
 
     export = {
       destinationDir = mkOption {
@@ -52,8 +51,8 @@
   in
     lib.mkIf cfg.enable {
       custom.trilium-client = {
-        package = lib.mkDefault inputs.trilium.packages.${pkgs.system}.desktop;
-
+        # TODO: Move export to a server-side systemd timer. Do we even need the
+        # client to be installed? Can we just use the web app?
         export = {
           destinationDir = lib.mkDefault "${config.home.homeDirectory}/Documents/trilium-export";
           finalPackage = cfg.export.package.override {
