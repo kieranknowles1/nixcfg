@@ -7,7 +7,6 @@
   options.custom.trilium-client = let
     inherit (lib) mkOption mkEnableOption mkPackageOption types;
   in {
-    # TODO: Would like to run this on a server for syncing
     enable = mkEnableOption "Trilium client";
 
     package = mkPackageOption pkgs "trilium-next-desktop" {};
@@ -51,8 +50,8 @@
   in
     lib.mkIf cfg.enable {
       custom.trilium-client = {
-        # TODO: Move export to a server-side systemd timer. Do we even need the
-        # client to be installed? Can we just use the web app?
+        # TODO: Move export to a server-side systemd timer. Keep the client
+        # installed for now at least, since it's more responsive than the web app.
         export = {
           destinationDir = lib.mkDefault "${config.home.homeDirectory}/Documents/trilium-export";
           finalPackage = cfg.export.package.override {

@@ -29,7 +29,7 @@ most of them. Following is a list that I would like for a first iteration:
 - [x] Portfolio
 - [ ] Dashboard
 - [ ] Immich
-- [ ] Trilium
+- [x] Trilium
 - [ ] Paperless NGX
 - [ ] Git
   - [ ] Back up my GitHub repos
