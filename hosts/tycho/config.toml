@@ -19,3 +19,13 @@ data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
 trilium.enable = true
+
+[backup.repositories.server]
+source = "/mnt/extern/data"
+destination.local = "/mnt/extern/restic"
+destination.remote = "backup/remote"
+
+owner = "backup"
+password = "backup/password"
+btrfs.useSnapshots = true
+btrfs.snapshotPath = "/mnt/extern/backup-snapshot"

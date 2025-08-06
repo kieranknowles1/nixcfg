@@ -39,13 +39,13 @@
 
       type = types.attrsOf (types.submodule {
         options = {
-          sources = mkOption {
+          source = mkOption {
             description = ''
               The absolute path to the directory to backup.
             '';
 
-            type = types.listOf types.str;
-            example = ["/home/bob/Documents" "/home/bob/.homework"];
+            type = types.str;
+            example = "/home/bob/Documents";
           };
 
           exclude = mkOption {
@@ -103,6 +103,26 @@
             type = types.str;
             example = "backup/password";
           };
+
+          btrfs = {
+            useSnapshots = mkOption {
+              description = ''
+                Whether to use snapshots for backups. Allows for live backups,
+                but requires files to be on a Btrfs filesystem.
+              '';
+              type = types.bool;
+              default = false;
+            };
+            snapshotPath = mkOption {
+              description = ''
+                Location to store snapshots during backups. Must be on the same
+                filesystem as the source files. File will only exist during the
+                backup process.
+              '';
+              type = types.str;
+              example = "/mnt/drive/backup-work-snapshot";
+            };
+          };
         };
       });
     };
@@ -138,10 +158,22 @@
     mkBackupPair = name: let
       cfgr = cfg.repositories.${name};
 
+      finalPath =
+        if cfgr.btrfs.useSnapshots
+        then cfgr.btrfs.snapshotPath
+        else cfgr.source;
+
       common = {
         inherit (cfgr) exclude;
         user = cfgr.owner;
-        paths = cfgr.sources;
+        paths = [finalPath];
+
+        backupPrepareCommand = lib.optionalString cfgr.btrfs.useSnapshots ''
+          btrfs subvolume snapshot --read-only "${cfgr.source}" "${cfgr.btrfs.snapshotPath}"
+        '';
+        backupCleanupCommand = lib.optionalString cfgr.btrfs.useSnapshots ''
+          btrfs subvolume delete "${cfgr.btrfs.snapshotPath}"
+        '';
 
         pruneOpts = [
           "--keep-daily ${toString cfgr.keep.daily}"
