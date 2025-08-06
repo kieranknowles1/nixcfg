@@ -25,7 +25,10 @@ source = "/mnt/extern/data"
 destination.local = "/mnt/extern/restic"
 destination.remote = "backup/remote"
 
-owner = "backup"
+exclude = ["trilium/log"]
+
+# Required to run as root for btrfs snapshots
+owner = "root"
 password = "backup/password"
 btrfs.useSnapshots = true
 btrfs.snapshotPath = "/mnt/extern/backup-snapshot"

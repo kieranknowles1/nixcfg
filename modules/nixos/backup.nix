@@ -2,6 +2,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.custom.backup = let
@@ -109,6 +110,9 @@
               description = ''
                 Whether to use snapshots for backups. Allows for live backups,
                 but requires files to be on a Btrfs filesystem.
+
+                Additionally requires that the backup is run as root so that
+                it has the ability to create snapshots.
               '';
               type = types.bool;
               default = false;
@@ -130,6 +134,7 @@
 
   config = let
     cfg = config.custom.backup;
+    btrfs = "${pkgs.btrfs-progs}/bin/btrfs";
 
     optionalSecret = owner: name: key:
       lib.optional (key != null) {
@@ -163,16 +168,18 @@
         then cfgr.btrfs.snapshotPath
         else cfgr.source;
 
-      common = {
+      common = tmpname: {
         inherit (cfgr) exclude;
         user = cfgr.owner;
         paths = [finalPath];
 
         backupPrepareCommand = lib.optionalString cfgr.btrfs.useSnapshots ''
-          btrfs subvolume snapshot --read-only "${cfgr.source}" "${cfgr.btrfs.snapshotPath}"
+          # Create a read-only snapshot of the source directory
+          mkdir --parents "${cfgr.btrfs.snapshotPath}"
+          ${btrfs} subvolume snapshot -r "${cfgr.source}" "${cfgr.btrfs.snapshotPath}/${tmpname}"
         '';
         backupCleanupCommand = lib.optionalString cfgr.btrfs.useSnapshots ''
-          btrfs subvolume delete "${cfgr.btrfs.snapshotPath}"
+          ${btrfs} subvolume delete "${cfgr.btrfs.snapshotPath}/${tmpname}"
         '';
 
         pruneOpts = [
@@ -193,15 +200,22 @@
     in [
       {
         inherit name;
-        value = common // {repository = cfgr.destination.local;};
+        value = (common "local") // {repository = cfgr.destination.local;};
       }
       {
         name = "${name}-remote";
-        value = common // {repositoryFile = getSecret (mkRemotePath name);};
+        value = (common "remote") // {repositoryFile = getSecret (mkRemotePath name);};
       }
     ];
   in
     lib.mkIf cfg.enable {
+      assertions =
+        lib.attrsets.mapAttrsToList (name: value: {
+          assertion = value.btrfs.useSnapshots == false || value.owner == "root";
+          message = "${name} must be run as root in order to work with btrfs snapshots";
+        })
+        cfg.repositories;
+
       # Make any secrets available in files to the owner of the backup
       sops.secrets = builtins.listToAttrs secrets;
 
