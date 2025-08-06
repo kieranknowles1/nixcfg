@@ -6,6 +6,15 @@
 }: {
   options.custom.backup = let
     inherit (lib) mkOption mkEnableOption types;
+
+    mkKeepOption = name: default:
+      mkOption {
+        inherit default;
+        description = ''
+          The number of ${name} backups to keep.
+        '';
+        type = types.int;
+      };
   in {
     enable = mkEnableOption "backups";
 
@@ -81,16 +90,7 @@
             example = "bob";
           };
 
-          keep = let
-            mkKeepOption = name: default:
-              mkOption {
-                inherit default;
-                description = ''
-                  The number of ${name} backups to keep.
-                '';
-                type = types.int;
-              };
-          in {
+          keep = {
             daily = mkKeepOption "daily" 7;
             weekly = mkKeepOption "weekly" 4;
             monthly = mkKeepOption "monthly" 12;
@@ -111,29 +111,24 @@
   config = let
     cfg = config.custom.backup;
 
+    optionalSecret = owner: name: key:
+      lib.optional (key != null) {
+        inherit name;
+        value = {
+          inherit owner key;
+        };
+      };
+
     mkPasswordPath = name: "backup/${name}/password";
     mkRemotePath = name: "backup/${name}/remote";
     getSecret = path: config.sops.secrets.${path}.path;
 
     # Generate all the secrets needed for a backup
     mkBackupSecrets = name: let
-      value = cfg.repositories.${name};
-    in [
-      {
-        name = mkPasswordPath name;
-        value = {
-          inherit (value) owner;
-          key = value.password;
-        };
-      }
-      {
-        name = mkRemotePath name;
-        value = {
-          inherit (value) owner;
-          key = value.destination.remote;
-        };
-      }
-    ];
+      repo = cfg.repositories.${name};
+    in
+      (optionalSecret repo.owner (mkPasswordPath name) repo.password)
+      ++ (optionalSecret repo.owner (mkRemotePath name) repo.destination.remote);
 
     backups = builtins.attrNames cfg.repositories;
     secrets = lib.lists.concatMap mkBackupSecrets backups;
