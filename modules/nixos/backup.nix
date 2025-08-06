@@ -134,38 +134,39 @@
     secrets = lib.lists.concatMap mkBackupSecrets backups;
 
     # Generate a backup configuration
-    mkBackup = name: pairName: config: repoOrRepoFile: {
-      inherit name;
-      value =
-        {
-          inherit (config) exclude;
-          user = config.owner;
-          paths = config.sources;
-
-          pruneOpts = [
-            "--keep-daily ${toString config.keep.daily}"
-            "--keep-weekly ${toString config.keep.weekly}"
-            "--keep-monthly ${toString config.keep.monthly}"
-          ];
-
-          # This is the default, but it's good to be explicit
-          timerConfig = {
-            # Run at midnight, every night
-            OnCalendar = "daily";
-            # If the system is offline at midnight, run soon after the next boot
-            Persistent = true;
-          };
-
-          passwordFile = getSecret (mkPasswordPath pairName);
-        }
-        // repoOrRepoFile;
-    };
 
     mkBackupPair = name: let
-      thisRepo = cfg.repositories.${name};
+      cfgr = cfg.repositories.${name};
+
+      common = {
+        inherit (cfgr) exclude;
+        user = cfgr.owner;
+        paths = cfgr.sources;
+
+        pruneOpts = [
+          "--keep-daily ${toString cfgr.keep.daily}"
+          "--keep-weekly ${toString cfgr.keep.weekly}"
+          "--keep-monthly ${toString cfgr.keep.monthly}"
+        ];
+
+        timerConfig = {
+          # Run at midnight, every night
+          OnCalendar = "daily";
+          # If the system is offline at midnight, run soon after the next boot
+          Persistent = true;
+        };
+
+        passwordFile = getSecret (mkPasswordPath name);
+      };
     in [
-      (mkBackup name name thisRepo {repository = thisRepo.destination.local;})
-      (mkBackup "${name}-remote" name thisRepo {repositoryFile = getSecret (mkRemotePath name);})
+      {
+        inherit name;
+        value = common // {repository = cfgr.destination.local;};
+      }
+      {
+        name = "${name}-remote";
+        value = common // {repositoryFile = getSecret (mkRemotePath name);};
+      }
     ];
   in
     lib.mkIf cfg.enable {
