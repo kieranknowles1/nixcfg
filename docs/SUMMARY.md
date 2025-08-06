@@ -10,6 +10,7 @@
 - [Usage](./usage/readme.md)
   - [Troubleshooting](./usage/troubleshooting.md)
   - [VR Support](./usage/vr.md)
+- [Lessons Learned](./lessons-learned.md)
 
 - [Planning](./plan/readme.md)
   - [Activate Mutable](./plan/activate-mutable.md)

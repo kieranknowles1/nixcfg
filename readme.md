@@ -7,9 +7,6 @@ This repository contains the NixOS configuration for my systems.
     - [Repository Structure](#repository-structure)
     - [Hosts](#hosts)
   - [Essential Resources](#essential-resources)
-  - [Lessons Learned](#lessons-learned)
-    - [Don't Use Wayland Yet](#dont-use-wayland-yet)
-    - [Make Sure You Have a User](#make-sure-you-have-a-user)
   - [Licensing](#licensing)
 
 ## Documentation
@@ -96,33 +93,6 @@ used.
   The official NixOS manual in a format that doesn't freeze with 32GB of RAM.
 - [Teu5us' Nix Library](https://teu5us.github.io/nix-lib.html) - Documentation
   for what the Nix library does and, more importantly, that the functions exist.
-
-## Lessons Learned
-
-Here are some mistakes I made and lessons learned while setting up this
-repository.
-
-### Don't Use Wayland Yet
-
-Wayland is still quite buggy for me. I've had issues with flickering and Proton
-games don't seem to work at all. Stick with X11 for now. Your choice will
-persist between reboots.
-
-Status June 2024: Wayland causes flickering in Skyrim when there's dropped
-frames, which I think is due to double buffering. The issue occurs on both GNOME
-Wayland and Hyprland. Stick with X11.
-
-### Make Sure You Have a User
-
-It's completely valid syntax to have a system without any usable users. Make
-sure your config generates at least one and that they have a password set and
-are in the `wheel` group to use `sudo`.
-
-If you fucked up and can't log in, boot into a live NixOS environment and mount
-both the root and boot partitions. Then, run `nixos-enter` to chroot into the
-system. You can then fix the configuration and rebuild. If applying the config
-fails, try setting your user's password anyway with `passwd <username>` and
-rebooting into your main OS.
 
 ## Licensing
 
