@@ -2,6 +2,8 @@
 
 repoPath = "/home/kieran/src/nixcfg"
 
+backup.enable = true
+
 [hardware]
 memorySize = 8
 raspberryPi.enable = true
@@ -13,7 +15,7 @@ waitOnline = true
 [server]
 enable = true
 hostname = "selwonk.uk"
-baseDataDir = "/mnt/extern/data"
+data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
 trilium.enable = true
