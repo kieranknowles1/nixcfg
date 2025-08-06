@@ -84,22 +84,6 @@ in {
     };
 
     data = {
-      backupAccessGroups = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        description = ''
-          List of groups that own the server data. The backup user will be a
-          member of these groups to gain read access.
-        '';
-      };
-      backupUser = mkOption {
-        type = types.str;
-        default = "backup";
-        description = ''
-          Name of the backup user. Will have read access to data.
-        '';
-      };
-
       baseDirectory = mkOption {
         type = types.path;
         example = "/path/to/server/data";
@@ -162,20 +146,6 @@ in {
           message = "config.custom.server.subdomains.${name}: \n${mutexOptionsMsg}";
         })
         cfg.subdomains;
-
-      users.users.${cfg.data.backupUser} = {
-        description = "Backup Runner";
-        group = "backup";
-        isSystemUser = true;
-      };
-      users.groups = lib.mkMerge [
-        {
-          backup = {};
-        }
-        (lib.genAttrs cfg.data.backupAccessGroups (_name: {
-          members = [cfg.data.backupUser];
-        }))
-      ];
 
       sops.secrets.ssl-private-key = {
         owner = config.services.nginx.user;

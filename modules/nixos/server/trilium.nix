@@ -29,7 +29,6 @@
   in
     lib.mkIf cfgt.enable {
       custom.server = {
-        data.backupAccessGroups = ["trilium"];
         trilium.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/trilium";
         subdomains.${cfgt.subdomain} = {
           proxyPort = cfg.ports.tcp.trilium;
