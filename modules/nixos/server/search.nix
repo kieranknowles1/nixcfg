@@ -56,12 +56,12 @@
             baseHref = "/";
             scopes = [
               {
-                title = "NixOS Modules";
+                name = "NixOS Modules";
                 modules = [cfgs.nixosModules];
                 urlPrefix = cfgs.githubUrl;
               }
               {
-                title = "Home Manager Modules";
+                name = "Home Manager Modules";
                 modules = [cfgs.homeModules];
                 urlPrefix = cfgs.githubUrl;
               }
