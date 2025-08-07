@@ -54,6 +54,7 @@
           cache.enable = true;
           root = mkMultiSearch {
             baseHref = "/";
+            title = "NüschtOS Search - NixOS Search, but German";
             scopes = [
               {
                 name = "NixOS Modules";
