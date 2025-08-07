@@ -28,7 +28,7 @@
     nixosModules = mkModuleOption "NixOS";
     homeModules = mkModuleOption "Home Manager";
 
-    githubPath = mkOption {
+    githubUrl = mkOption {
       type = types.str;
       default = "https://github.com/kieranknowles1/nixcfg/";
       description = ''
@@ -42,8 +42,6 @@
 
     cfg = config.custom.server;
     cfgs = cfg.search;
-
-    suffixUrl = suffix: "https://${cfgs.subdomain}.${cfg.hostname}/${suffix}/";
   in
     lib.mkIf cfgs.enable {
       custom.server.search = {
@@ -60,12 +58,12 @@
               {
                 title = "NixOS Modules";
                 modules = [cfgs.nixosModules];
-                urlPrefix = suffixUrl "nixos";
+                urlPrefix = cfgs.githubUrl;
               }
               {
                 title = "Home Manager Modules";
                 modules = [cfgs.homeModules];
-                urlPrefix = suffixUrl "home";
+                urlPrefix = cfgs.githubUrl;
               }
             ];
           };

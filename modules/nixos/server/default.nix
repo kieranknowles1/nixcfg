@@ -12,6 +12,7 @@ in {
   imports = [
     ./docs.nix
     ./ports.nix
+    ./search.nix
     ./trilium.nix
   ];
 
