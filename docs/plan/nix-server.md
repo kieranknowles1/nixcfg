@@ -25,11 +25,11 @@ While I have quite a few services defined in my existing
 [selfhosting](https://github.com/kieranknowles1/selfhosting) repo, I rarely use
 most of them. Following is a list that I would like for a first iteration:
 
-- [ ] Backups
+- [x] Backups
 - [x] Portfolio
 - [ ] Dashboard
 - [ ] Immich
-- [ ] Trilium
+- [x] Trilium
 - [ ] Paperless NGX
 - [ ] Git
   - [ ] Back up my GitHub repos

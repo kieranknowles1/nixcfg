@@ -2,6 +2,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.custom.backup = let
@@ -39,13 +40,13 @@
 
       type = types.attrsOf (types.submodule {
         options = {
-          sources = mkOption {
+          source = mkOption {
             description = ''
               The absolute path to the directory to backup.
             '';
 
-            type = types.listOf types.str;
-            example = ["/home/bob/Documents" "/home/bob/.homework"];
+            type = types.str;
+            example = "/home/bob/Documents";
           };
 
           exclude = mkOption {
@@ -103,6 +104,29 @@
             type = types.str;
             example = "backup/password";
           };
+
+          btrfs = {
+            useSnapshots = mkOption {
+              description = ''
+                Whether to use snapshots for backups. Allows for live backups,
+                but requires files to be on a Btrfs filesystem.
+
+                Additionally requires that the backup is run as root so that
+                it has the ability to create snapshots.
+              '';
+              type = types.bool;
+              default = false;
+            };
+            snapshotPath = mkOption {
+              description = ''
+                Location to store snapshots during backups. Must be on the same
+                filesystem as the source files. File will only exist during the
+                backup process.
+              '';
+              type = types.str;
+              example = "/mnt/drive/backup-work-snapshot";
+            };
+          };
         };
       });
     };
@@ -110,6 +134,7 @@
 
   config = let
     cfg = config.custom.backup;
+    btrfs = "${pkgs.btrfs-progs}/bin/btrfs";
 
     optionalSecret = owner: name: key:
       lib.optional (key != null) {
@@ -138,15 +163,39 @@
     mkBackupPair = name: let
       cfgr = cfg.repositories.${name};
 
-      common = {
+      finalPath =
+        if cfgr.btrfs.useSnapshots
+        then cfgr.btrfs.snapshotPath
+        else cfgr.source;
+
+      common = tmpname: {
         inherit (cfgr) exclude;
         user = cfgr.owner;
-        paths = cfgr.sources;
+        paths = [finalPath];
+
+        backupPrepareCommand = lib.optionalString cfgr.btrfs.useSnapshots ''
+          # Create a read-only snapshot of the source directory
+          mkdir --parents "${cfgr.btrfs.snapshotPath}"
+          ${btrfs} subvolume snapshot -r "${cfgr.source}" "${cfgr.btrfs.snapshotPath}/${tmpname}"
+        '';
+        backupCleanupCommand = lib.optionalString cfgr.btrfs.useSnapshots ''
+          ${btrfs} subvolume delete "${cfgr.btrfs.snapshotPath}/${tmpname}"
+        '';
 
         pruneOpts = [
           "--keep-daily ${toString cfgr.keep.daily}"
           "--keep-weekly ${toString cfgr.keep.weekly}"
           "--keep-monthly ${toString cfgr.keep.monthly}"
+        ];
+
+        # Report progress during backups. Not too often to avoid spamming the logs
+        progressFps = 0.1;
+
+        # Compress as much as possible. Bulk of my data is images which compress
+        # poorly, but I want to minimise costs for cloud storage. Backups run at
+        # midnight so I'm expecting plenty of CPU time to be free.
+        extraBackupArgs = [
+          "--compression=max"
         ];
 
         timerConfig = {
@@ -161,15 +210,22 @@
     in [
       {
         inherit name;
-        value = common // {repository = cfgr.destination.local;};
+        value = (common "local") // {repository = cfgr.destination.local;};
       }
       {
         name = "${name}-remote";
-        value = common // {repositoryFile = getSecret (mkRemotePath name);};
+        value = (common "remote") // {repositoryFile = getSecret (mkRemotePath name);};
       }
     ];
   in
     lib.mkIf cfg.enable {
+      assertions =
+        lib.attrsets.mapAttrsToList (name: value: {
+          assertion = value.btrfs.useSnapshots == false || value.owner == "root";
+          message = "${name} must be run as root in order to work with btrfs snapshots";
+        })
+        cfg.repositories;
+
       # Make any secrets available in files to the owner of the backup
       sops.secrets = builtins.listToAttrs secrets;
 

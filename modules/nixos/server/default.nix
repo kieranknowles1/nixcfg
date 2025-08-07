@@ -83,14 +83,16 @@ in {
       description = "Subdomains to serve on the server";
     };
 
-    baseDataDir = mkOption {
-      type = types.path;
-      example = "/path/to/server/data";
-      description = ''
-        Base directory for storing server data. Should be backed up regularly.
+    data = {
+      baseDirectory = mkOption {
+        type = types.path;
+        example = "/path/to/server/data";
+        description = ''
+          Base directory for storing server data. Should be backed up regularly.
 
-        Services will use subdirectories within this unless configured otherwise.
-      '';
+          Services will use subdirectories within this unless configured otherwise.
+        '';
+      };
     };
   };
 

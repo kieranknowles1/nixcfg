@@ -29,7 +29,7 @@
   in
     lib.mkIf cfgt.enable {
       custom.server = {
-        trilium.dataDir = lib.mkDefault "${cfg.baseDataDir}/trilium";
+        trilium.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/trilium";
         subdomains.${cfgt.subdomain} = {
           proxyPort = cfg.ports.tcp.trilium;
           webSockets = true;

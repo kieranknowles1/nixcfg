@@ -2,6 +2,8 @@
 
 repoPath = "/home/kieran/src/nixcfg"
 
+backup.enable = true
+
 [hardware]
 memorySize = 8
 raspberryPi.enable = true
@@ -13,7 +15,26 @@ waitOnline = true
 [server]
 enable = true
 hostname = "selwonk.uk"
-baseDataDir = "/mnt/extern/data"
+data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
 trilium.enable = true
+
+[backup.repositories.server]
+source = "/mnt/extern/data"
+destination.local = "/mnt/extern/restic"
+destination.remote = "backup/remote"
+
+exclude = [
+  "trilium/log", # Nothing we strongly care about
+  # Daily copy-paste backups of the database
+  # Since we're using a btrfs snapshot, SQLite can recover using
+  # the WAL at any point in time and there is no race condition
+  "trilium/backup",
+]
+
+# Required to run as root for btrfs snapshots
+owner = "root"
+password = "backup/password"
+btrfs.useSnapshots = true
+btrfs.snapshotPath = "/mnt/extern/backup-snapshot"
