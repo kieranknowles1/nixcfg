@@ -188,6 +188,16 @@
           "--keep-monthly ${toString cfgr.keep.monthly}"
         ];
 
+        # Report progress during backups. Not too often to avoid spamming the logs
+        progressFps = 0.1;
+
+        # Compress as much as possible. Bulk of my data is images which compress
+        # poorly, but I want to minimise costs for cloud storage. Backups run at
+        # midnight so I'm expecting plenty of CPU time to be free.
+        extraBackupArgs = [
+          "--compression=max"
+        ];
+
         timerConfig = {
           # Run at midnight, every night
           OnCalendar = "daily";
