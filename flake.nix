@@ -185,13 +185,17 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    # LOOK: Seems very useful for viewing documentation. Could set it up to cover
-    # everything but nixpkgs.
-    # nuschtosSearch = {
-    #   url = "github:NuschtOS/search";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-utils.follows = "flake-utils";
-    # };
+    nuschtosSearch = {
+      url = "github:NuschtOS/search";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.ixx.follows = "ixx";
+    };
+    ixx = {
+      url = "github:NuschtOS/ixx";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     # TODO: Remove once openmw is building on nixpkgs
     snowfall-lib = {

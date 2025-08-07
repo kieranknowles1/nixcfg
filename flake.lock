@@ -244,6 +244,29 @@
         "type": "github"
       }
     },
+    "ixx": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753377020,
+        "narHash": "sha256-b96ihus6atP6gBOyY+QzztKzf2lP4h3xf8QbRFUX6uE=",
+        "owner": "NuschtOS",
+        "repo": "ixx",
+        "rev": "ca1e2bd6149ca0ff30ff919a84098b512c826b77",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NuschtOS",
+        "repo": "ixx",
+        "type": "github"
+      }
+    },
     "mygui": {
       "locked": {
         "lastModified": 1716480759,
@@ -409,6 +432,32 @@
         "type": "github"
       }
     },
+    "nuschtosSearch": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "ixx": [
+          "ixx"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754301638,
+        "narHash": "sha256-aRgzcPDd2axHFOuMlPLuzmDptUM2JU8mUL3jfgbBeyc=",
+        "owner": "NuschtOS",
+        "repo": "search",
+        "rev": "a60091045273484c040a91f5c229ba298f8ecc27",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NuschtOS",
+        "repo": "search",
+        "type": "github"
+      }
+    },
     "openmw": {
       "inputs": {
         "fenix": "fenix",
@@ -443,12 +492,14 @@
         "flake-utils": "flake-utils",
         "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager",
+        "ixx": "ixx",
         "nix-index-database": "nix-index-database",
         "nixos-cosmic": "nixos-cosmic",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixos-raspberrypi-kernellock": "nixos-raspberrypi-kernellock",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-openmw": "nixpkgs-openmw",
+        "nuschtosSearch": "nuschtosSearch",
         "openmw": "openmw",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",
