@@ -18,6 +18,7 @@ hostname = "selwonk.uk"
 data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
+search.enable = true
 trilium.enable = true
 
 [backup.repositories.server]
