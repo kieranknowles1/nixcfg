@@ -15,6 +15,13 @@
         default = "alacritty";
       };
 
+      icon = mkOption {
+        description = "The terminal's icon. Set automatically";
+        type = types.path;
+        example = "/path/to/icon.svg";
+        readOnly = true;
+      };
+
       runTermWait = mkOption {
         type = types.path;
         description = ''
@@ -61,16 +68,22 @@
   };
 
   config = {
-    custom.terminal.runTermWait = let
+    custom.terminal = let
       inherit (config.custom.terminal) package;
       runwait = "${pkgs.flake.nix-utils}/bin/runwait";
       cmdMap = {
         "alacritty" = "${lib.getExe package} --command ${runwait}";
       };
-    in
-      pkgs.writeShellScript "run-term-wait" ''
+      iconMap = {
+        "alacritty" = "${package}/share/icons/hicolor/scalable/apps/Alacritty.svg";
+      };
+    in {
+      runTermWait = pkgs.writeShellScript "run-term-wait" ''
         exec ${cmdMap.${package.pname}} "$@"
       '';
+
+      icon = iconMap.${package.pname};
+    };
 
     custom.docs-generate.jsonIgnoredOptions.home = [
       "repoPath"

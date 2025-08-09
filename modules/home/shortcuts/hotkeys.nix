@@ -145,8 +145,7 @@ in {
             key = "t";
             alt = true;
             action = lib.getExe config.custom.terminal.package;
-            # TODO: Don't always use Alacritty icon
-            icon = "${config.custom.terminal.package}/share/icons/hicolor/scalable/apps/Alacritty.svg";
+            inherit (config.custom.terminal) icon;
             description = "Terminal";
           }
           {
