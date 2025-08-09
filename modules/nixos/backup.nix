@@ -163,12 +163,13 @@
     mkBackupPair = name: let
       cfgr = cfg.repositories.${name};
 
-      finalPath =
-        if cfgr.btrfs.useSnapshots
-        then cfgr.btrfs.snapshotPath
-        else cfgr.source;
 
-      common = tmpname: {
+      common = tmpname: let
+        finalPath =
+          if cfgr.btrfs.useSnapshots
+          then "${cfgr.btrfs.snapshotPath}/${tmpname}"
+          else cfgr.source;
+      in {
         inherit (cfgr) exclude;
         user = cfgr.owner;
         paths = [finalPath];
