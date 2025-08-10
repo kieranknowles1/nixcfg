@@ -11,7 +11,9 @@
 in {
   imports = [
     ./docs.nix
+    ./immich.nix
     ./ports.nix
+    ./postgresql.nix
     ./search.nix
     ./trilium.nix
   ];
