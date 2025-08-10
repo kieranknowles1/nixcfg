@@ -19,6 +19,7 @@ data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
 forgejo.enable = true
+immich.enable = true
 search.enable = true
 trilium.enable = true
 trilium.autoExport.enable = true
