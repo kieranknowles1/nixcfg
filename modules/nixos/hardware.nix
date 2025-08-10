@@ -67,5 +67,15 @@
         charger = mkPowerSaveSettings (!cfg.powerSave.batteryOnly);
       };
     };
+
+    # Workaround for https://github.com/nvmd/nixos-raspberrypi/issues/64
+    # TODO: Remove once upstream has a solution
+    nixpkgs.overlays = lib.optional cfg.raspberryPi.enable (_final: prev: {
+      jemalloc = prev.jemalloc.overrideAttrs (old: {
+        # --with-lg-path=(log2 page_size)
+        # since our page size is 16384 (2**14), we need 14
+        configureFlags = (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags) ++ ["--with-lg-page=14"];
+      });
+    });
   };
 }
