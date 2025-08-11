@@ -6,7 +6,6 @@ log() {
   echo "$(date +'%H:%M:%S') $1"
 }
 
-API_ROOT="http://127.0.0.1:37840/etapi"
 API_KEY=$(cat "$API_KEY_FILE")
 META_FILE="$DST_DIR/!!!meta.json"
 
@@ -63,7 +62,7 @@ if [ "$repo_clean" -gt 0 ]; then
   log "Changes detected, committing to git"
   git -C "$DST_DIR" add .
   git -C "$DST_DIR" commit -m "Update on $(date +'%Y-%m-%d %H:%M:%S')" > /dev/null
-  git -C "$DST_DIR" push
 else
   log "No changes since last export"
 fi
+git -C "$DST_DIR" push
