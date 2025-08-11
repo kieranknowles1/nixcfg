@@ -6,7 +6,19 @@
   options.custom.server.forgejo = let
     inherit (lib) mkOption mkEnableOption types;
   in {
-    enable = mkEnableOption "Forgejo Git server";
+    enable = mkEnableOption ''
+      Forgejo Git server.
+
+      NOTE: You may have to manually create the $${dataDir}/custom/conf directory.
+
+      NOTE: User creation is disabled. To add one, run the following command
+      to create an admin who can create other users:
+      ```sh
+      nix build nixpkgs#forgejo
+      sudo --user forgejo ./result/bin/gitea admin user create --admin --email $USER_EMAIL \
+        --username $USER_NAME --config $dataDir/custom/conf/app.ini --random-password
+      ```
+    '';
 
     subdomain = mkOption {
       type = types.str;
@@ -35,6 +47,7 @@
 
       services.forgejo = {
         enable = true;
+        stateDir = cfgf.dataDir;
 
         settings = {
           server = {
