@@ -24,4 +24,12 @@ final: prev: {
       devPkg.overrideAttrs (_oldAttrs: {
         src = inputs.src-openmw;
       });
+
+  difftastic =
+    if prev.system == "x86_64-linux"
+    then prev.difftastic
+    else
+      prev.difftastic.overrideAttrs (_oldAttrs: {
+        patches = [./difft-no-jemalloc.patch];
+      });
 }
