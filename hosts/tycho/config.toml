@@ -22,6 +22,8 @@ docs.enable = true
 forgejo.enable = true
 search.enable = true
 trilium.enable = true
+trilium.autoExport.enable = true
+trilium.autoExport.remote = "ssh://forgejo@localhost/kieran/trilium-export.git"
 
 [backup.repositories.server]
 source = "/mnt/extern/data"
