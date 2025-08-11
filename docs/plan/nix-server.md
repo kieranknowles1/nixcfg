@@ -29,6 +29,10 @@ most of them. Following is a list that I would like for a first iteration:
 - [x] Portfolio
 - [ ] Dashboard
 - [ ] Immich
+  - On hold until
+    [Jemalloc issue](https://github.com/nvmd/nixos-raspberrypi/issues/64) is
+    resolved.
+- [ ] Minecraft
 - [x] Trilium
 - [ ] Paperless NGX
 - [ ] Git

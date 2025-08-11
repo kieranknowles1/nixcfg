@@ -7,10 +7,12 @@
     Exactly one of the following options must be specified:
     - `root`
     - `proxyPort`
+    - `proxySocket`
   '';
 in {
   imports = [
     ./docs.nix
+    ./forgejo.nix
     ./ports.nix
     ./search.nix
     ./trilium.nix
@@ -19,19 +21,24 @@ in {
   options.custom.server = let
     inherit (lib) mkOption mkEnableOption types;
 
+    mkHostOpt = type: example: description:
+      mkOption {
+        inherit example;
+        type = types.nullOr type;
+        default = null;
+        description = "${description}\n${mutexOptionsMsg}";
+      };
+
     vhostOpts = {
-      root = mkOption {
-        type = types.nullOr types.path;
-        example = "/path/to/html";
-        default = null;
-        description = "The root directory to be served.\n${mutexOptionsMsg}";
-      };
-      proxyPort = mkOption {
-        type = types.nullOr types.port;
-        example = 8080;
-        default = null;
-        description = "The port to proxy connections to.\n${mutexOptionsMsg}";
-      };
+      root =
+        mkHostOpt types.path "/path/to/html"
+        "Absolute path to the root directory to be served.";
+      proxyPort =
+        mkHostOpt types.port 8080
+        "The port to proxy connections to.";
+      proxySocket =
+        mkHostOpt types.path "/path/to/socket.sock"
+        "Absolute path to socket to proxy connections to.";
 
       webSockets = mkEnableOption "websockets";
 
@@ -113,6 +120,8 @@ in {
         proxyPass =
           if subdomain.proxyPort != null
           then "http://127.0.0.1:${toString subdomain.proxyPort}"
+          else if subdomain.proxySocket != null
+          then "http://unix:${toString subdomain.proxySocket}"
           else null;
 
         proxyWebsockets = subdomain.webSockets;
@@ -134,16 +143,18 @@ in {
       '';
     };
 
-    # Returns 0 for null and 1 for anything else
-    isSet = val:
-      if val != null
-      then 1
-      else 0;
+    isSet = val: val != null;
   in
     lib.mkIf cfg.enable {
       assertions =
         lib.attrsets.mapAttrsToList (name: subdomain: {
-          assertion = (isSet subdomain.root) + (isSet subdomain.proxyPort) == 1;
+          assertion =
+            builtins.length (builtins.filter isSet [
+              subdomain.root
+              subdomain.proxyPort
+              subdomain.proxySocket
+            ])
+            == 1;
           message = "config.custom.server.subdomains.${name}: \n${mutexOptionsMsg}";
         })
         cfg.subdomains;

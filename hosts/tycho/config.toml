@@ -19,6 +19,7 @@ hostname = "selwonk.uk"
 data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
+forgejo.enable = true
 search.enable = true
 trilium.enable = true
 
