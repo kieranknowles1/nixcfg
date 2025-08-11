@@ -40,6 +40,9 @@
       # Point tools to our flake repository
       FLAKE = cfg.fullRepoPath;
       NH_FLAKE = FLAKE;
+
+      # This isn't automatically set on server
+      EDITOR = "nano";
     };
 
     custom.mutable.file = {
