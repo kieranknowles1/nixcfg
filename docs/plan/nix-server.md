@@ -35,7 +35,7 @@ most of them. Following is a list that I would like for a first iteration:
 - [ ] Minecraft
 - [x] Trilium
 - [ ] Paperless NGX
-- [ ] Git
+- [x] Git
   - [ ] Back up my GitHub repos
 - [x] Documentation
 
@@ -48,8 +48,9 @@ I'm just blaming other people for all of these :).
 - [x] Locked to nixos-25.05 rather than nixos-unstable. Requires
       [nixpkgs#398456](https://github.com/NixOS/nixpkgs/pull/398456) to be
       merged.
-- [ ] Difftastic fails with `<jemalloc>: Unsupported system page size`.
+- [x] Difftastic fails with `<jemalloc>: Unsupported system page size`.
       [Possible upstream issue](https://github.com/nvmd/nixos-raspberrypi/issues/64).
+      Patched to use system allocator.
 - [x] Comma fails with `nix-locate failed`.
       [Definite upstream issue](https://github.com/nix-community/comma/pull/103)
       and already fixed on nixpkgs-unstable.

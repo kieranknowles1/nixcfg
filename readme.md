@@ -44,7 +44,8 @@ they are named after ships from The Expanse.
 - [rocinante](hosts/rocinante/configuration.nix) - My main desktop.<br> Primary
   system for just about any task. Fast, powerful, and has a lot of storage.
 - [tycho](hosts/tycho/configuration.nix) - My server.<br> Used to host a variety
-  of services. _VERY WORK IN PROGRESS_
+  of services. Despite the name, it is not a build server. _VERY WORK IN
+  PROGRESS_
 
 ## Why NixOS
 
