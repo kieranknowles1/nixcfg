@@ -163,7 +163,6 @@
     mkBackupPair = name: let
       cfgr = cfg.repositories.${name};
 
-
       common = tmpname: let
         finalPath =
           if cfgr.btrfs.useSnapshots

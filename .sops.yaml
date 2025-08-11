@@ -40,4 +40,5 @@ creation_rules:
       - age:
           - *canterbury
           - *rocinante
-          - *tycho
+          # Doesn't need to know my desktop secrets
+          # - *tycho

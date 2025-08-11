@@ -4,4 +4,3 @@ office.enable = true
 
 [trilium-client]
 enable = true
-export.apiKeySecret = "trilium/apikey"
