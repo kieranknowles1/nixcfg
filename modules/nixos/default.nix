@@ -17,6 +17,7 @@
     ./server
     ./ssh
     ./theme.nix
+    ./timer.nix
     ./thunderbird.nix
     ./users.nix
     ./vr.nix

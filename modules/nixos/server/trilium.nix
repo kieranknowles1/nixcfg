@@ -134,66 +134,58 @@
           };
           users.groups.${cfge.systemUser} = {};
 
-          # TODO: Port home-manager timers module to reuse here. Will need adapting
-          # for NixOS side
-          systemd.timers."export-trilium" = {
-            wantedBy = ["timers.target"];
-            timerConfig = {
-              OnCalendar = cfge.schedule;
-              Persistent = true;
+          custom.timer."export-trilium" = let
+            finalExporter = cfge.package.override {
+              apiRoot = "http://localhost:${builtins.toString cfg.ports.tcp.trilium}/etapi";
+              apiKeyFile = config.sops.secrets."trilium-export/token".path;
+              destinationDir = "${config.users.users.${cfge.systemUser}.home}/export-staging";
             };
-          };
-          systemd.services."export-trilium" = {
-            serviceConfig = {
-              Type = "oneshot";
-              ExecStart = let
-                finalExporter = cfge.package.override {
-                  apiRoot = "http://localhost:${builtins.toString cfg.ports.tcp.trilium}/etapi";
-                  apiKeyFile = config.sops.secrets."trilium-export/token".path;
-                  destinationDir = "${config.users.users.${cfge.systemUser}.home}/export-staging";
-                };
 
-                app = pkgs.writeShellApplication {
-                  name = "export-trilium-job";
-                  runtimeInputs = [pkgs.git pkgs.openssh finalExporter];
-                  runtimeEnv = {
-                    EMAIL = cfge.user.email;
-                    NAME = cfge.user.name;
-                    REPO = cfge.remote;
-                    SSH_KEY = config.sops.secrets."trilium-export/sshKey".path;
-                  };
-                  text = ''
-                    stageDir="$HOME/export-staging"
-                    if [ ! -d "$stageDir" ]; then
-                      mkdir -p "$stageDir"
-                      cd "$stageDir"
-                      git init
-                      git remote add origin "$REPO"
+            app = pkgs.writeShellApplication {
+              name = "export-trilium-job";
+              runtimeInputs = [pkgs.git pkgs.openssh finalExporter];
+              runtimeEnv = {
+                EMAIL = cfge.user.email;
+                NAME = cfge.user.name;
+                REPO = cfge.remote;
+                SSH_KEY = config.sops.secrets."trilium-export/sshKey".path;
+              };
+              text = ''
+                stageDir="$HOME/export-staging"
+                if [ ! -d "$stageDir" ]; then
+                  # First-time setup, init a git repo and find localhost's fingerprint
+                  mkdir -p "$stageDir"
+                  cd "$stageDir"
+                  git init
+                  git remote add origin "$REPO"
 
-                      # We can trust localhost, add its fingerprint
-                      mkdir -p ~/.ssh
-                      ssh-keyscan localhost >> ~/.ssh/known_hosts
-                    fi
-                    cd "$stageDir"
-                    # Make sure all config is up-to-date
-                    ln --symbolic --force "$SSH_KEY" ~/.ssh/id_ed25519
-                    ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub
-                    echo "Attempting to push with public key $(cat ~/.ssh/id_ed25519.pub)"
-                    git config user.email "$EMAIL"
-                    git config user.name "$NAME"
-                    git config push.autoSetupRemote true
-                    git remote set-url origin "$REPO"
+                  # We can trust localhost, add its fingerprint
+                  mkdir -p ~/.ssh
+                  ssh-keyscan localhost >> ~/.ssh/known_hosts
+                fi
+                cd "$stageDir"
+                # Make sure all config is up-to-date
+                ln --symbolic --force "$SSH_KEY" ~/.ssh/id_ed25519
+                ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub
+                echo "Attempting to push with public key $(cat ~/.ssh/id_ed25519.pub)"
+                git config user.email "$EMAIL"
+                git config user.name "$NAME"
+                git config push.autoSetupRemote true
+                git remote set-url origin "$REPO"
 
-                    # Here's where the magic happens. The prior arcane rituals
-                    # make sure that Git can push in the export-notes script
-                    export-notes
-                  '';
-                };
-              in "${app}/bin/${app.name}";
-              User = cfge.systemUser;
-              # We copy all notes to /tmp during export
-              PrivateTmp = true;
+                # Here's where the magic happens. The prior arcane rituals
+                # make sure that Git can push in the export-notes script
+                export-notes
+              '';
             };
+          in {
+            inherit (cfge) schedule;
+            user = cfge.systemUser;
+            description = "Export Trilium notes";
+            command = "${app}/bin/${app.name}";
+            persistent = false;
+            # /tmp will contain a zip of all notes
+            privateTmp = true;
           };
         }
       )

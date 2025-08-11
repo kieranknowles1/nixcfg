@@ -37,7 +37,7 @@ in {
 
       timer."clean-skyrim-saves" = {
         description = "Clean orphaned SKSE co-save files";
-        frequency = "daily";
+        schedule = "daily";
         command = "${utilsBin} clean";
       };
     };
