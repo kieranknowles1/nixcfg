@@ -6,7 +6,6 @@ repoPath = "/home/kieran/Documents/src/nixcfg"
 
 printing.enable = true
 
-backup.enable = true
 [backup.repositories.documents]
 password = "backup/password"      # Path to the secret
 owner = "kieran"

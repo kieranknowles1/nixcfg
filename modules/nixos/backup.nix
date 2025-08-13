@@ -6,7 +6,7 @@
   ...
 }: {
   options.custom.backup = let
-    inherit (lib) mkOption mkEnableOption types;
+    inherit (lib) mkOption types;
 
     mkKeepOption = name: default:
       mkOption {
@@ -17,8 +17,6 @@
         type = types.int;
       };
   in {
-    enable = mkEnableOption "backups";
-
     repositories = mkOption {
       description = ''
         Backups to manage with Restic
@@ -217,21 +215,20 @@
         value = (common "remote") // {repositoryFile = getSecret (mkRemotePath name);};
       }
     ];
-  in
-    lib.mkIf cfg.enable {
-      assertions =
-        lib.attrsets.mapAttrsToList (name: value: {
-          assertion = value.btrfs.useSnapshots == false || value.owner == "root";
-          message = "${name} must be run as root in order to work with btrfs snapshots";
-        })
-        cfg.repositories;
+  in {
+    assertions =
+      lib.attrsets.mapAttrsToList (name: value: {
+        assertion = value.btrfs.useSnapshots == false || value.owner == "root";
+        message = "${name} must be run as root in order to work with btrfs snapshots";
+      })
+      cfg.repositories;
 
-      # Make any secrets available in files to the owner of the backup
-      sops.secrets = builtins.listToAttrs secrets;
+    # Make any secrets available in files to the owner of the backup
+    sops.secrets = builtins.listToAttrs secrets;
 
-      # Configure a pair of backups for each repository
-      services.restic.backups = builtins.listToAttrs (
-        builtins.concatMap mkBackupPair backups
-      );
-    };
+    # Configure a pair of backups for each repository
+    services.restic.backups = builtins.listToAttrs (
+      builtins.concatMap mkBackupPair backups
+    );
+  };
 }

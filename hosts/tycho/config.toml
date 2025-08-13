@@ -3,7 +3,6 @@
 repoPath = "/home/kieran/src/nixcfg"
 
 features.extras = true
-backup.enable = true
 
 [hardware]
 memorySize = 8
