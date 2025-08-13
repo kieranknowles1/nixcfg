@@ -215,6 +215,24 @@
         value = (common "remote") // {repositoryFile = getSecret (mkRemotePath name);};
       }
     ];
+
+    mkReduWrapper = name: backup:
+      pkgs.writeShellScriptBin "redu-${name}" ''
+        # This bit copy-pasted from the nixos module
+        set -a  # automatically export variables
+        ${lib.optionalString (backup.environmentFile != null) "source ${backup.environmentFile}"}
+        # set same environment variables as the systemd service
+        ${lib.pipe config.systemd.services."restic-backups-${name}".environment [
+          (lib.filterAttrs (n: v: v != null && n != "PATH"))
+          (lib.mapAttrs (_: v: "${v}"))
+          lib.toShellVars
+        ]}
+        PATH=${config.systemd.services."restic-backups-${name}".environment.PATH}:$PATH
+        PATH="$PATH:${pkgs.restic}/bin"
+
+        # But exec to redu instead
+        exec ${lib.getExe pkgs.redu} "$@"
+      '';
   in {
     assertions =
       lib.attrsets.mapAttrsToList (name: value: {
@@ -230,5 +248,9 @@
     services.restic.backups = builtins.listToAttrs (
       builtins.concatMap mkBackupPair backups
     );
+
+    # Define this for both local and remote repos, these may differ if the
+    # remote is append only
+    environment.systemPackages = lib.mapAttrsToList mkReduWrapper config.services.restic.backups;
   };
 }
