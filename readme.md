@@ -77,6 +77,8 @@ along with some of the solutions I've found:
   applications difficult. I created my `activate-mutable` module to handle this
   using normal files. While it was good practice for Rust, I'd prefer if
   NixOS/home-manager supported it natively.
+- No incremental package builds<br>While it's nice to be deterministic, it's not
+  so fun when you have to rebuild the kernel or a package fails to link.
 
 ## Essential Resources
 
