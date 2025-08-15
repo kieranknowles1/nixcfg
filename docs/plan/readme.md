@@ -51,8 +51,10 @@ If a task is cancelled, do not remove it from the list. Instead mark it with a
   - [ ] Update `rebuild update` as discussed in [Nix Server](./nix-server.md)
 - ❎ ~~Allow home-manager to be used independently of NixOS~~ No need, we run
   NixOS proper
-  - [ ] Minimise usage of `hostConfig`, then pass it in as an argument (overlays
-        should help with this)
+  - ❎ ~~Minimise usage of `hostConfig`, then pass it in as an argument
+    (overlays should help with this)~~ Not needed with NixOS proper, no idea
+    what I meant by "overlays should help with this", it's a completely
+    different thing.
   - ❎ ~~Put this on the server until we can run full NixOS on it~~ Running
     NixOS proper.
 - [ ] Automate running checks on the repo. Do these in nix's `checkPhase`?
