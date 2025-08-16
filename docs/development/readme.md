@@ -3,6 +3,7 @@
 Information on how to develop this repository.
 
 - [Development Information](#development-information)
+  - [Modules](#modules)
   - [Building](#building)
     - [Packages](#packages)
   - [Host Definition](#host-definition)
@@ -12,6 +13,27 @@ Information on how to develop this repository.
   - [Useful Tools](#useful-tools)
     - [`nix-tree`](#nix-tree)
     - [`nix repl`](#nix-repl)
+
+## Modules
+
+The `modules` directory defines NixOS and home-manager modueles, and is where
+the vast majority of config takes place. It contains the following
+subdirectories:
+
+- `home` home-manager modules
+- `nixos` NixOS modules
+- `shared` Modules loaded by both home-manager and NixOS, and fully compatable
+  between the two.
+- `mlib` Shared functions used between multiple home-manager or NixOS modules.
+  If these need to differentiate between the two, they MUST take a file-level
+  `mode` argument that can be either `home` or `nixos`. It cannot be included in
+  the top-level `flake.lib` due to module weirdness (specialArgs can't be used
+  in options definitions, but are needed for many of these functions)
+
+<!-- TODO: Document this -->
+<!--## Flake Library-->
+
+<!-- TODO: Consider removing/moving elsewhere-->
 
 ## Building
 

@@ -4,7 +4,7 @@
   ...
 }: let
   inherit
-    (import ../common/timerutil.nix lib "home")
+    (import ../modlib/timerutil.nix lib "home")
     timerOpt
     timerBlock
     serviceBlock
