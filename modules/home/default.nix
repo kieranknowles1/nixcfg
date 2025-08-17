@@ -9,7 +9,7 @@
     ./common.nix
     ./desktop
     ./discord.nix
-    ./docs
+    ./docs.nix
     ./editor
     ./espanso
     ./firefox.nix

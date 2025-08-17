@@ -2,7 +2,7 @@
 
 # Overrides to enable on desktop hosts
 
-docs-generate.enable = true
+docs-generate.install = true
 discord.enable = true
 
 telly.enable = true

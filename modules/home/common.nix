@@ -32,6 +32,7 @@
       };
     };
 
+    # TODO: Can we remove this from home side?
     repoPath = mkOption {
       description = ''
         Path to the flake repository on disk, relative to the home directory.
@@ -84,11 +85,6 @@
 
       icon = iconMap.${package.pname};
     };
-
-    custom.docs-generate.jsonIgnoredOptions.home = [
-      "repoPath"
-      "fullRepoPath"
-    ];
 
     # Use the repository path from the host, as long as it's within the home directory
     # This allows the path to be defined either in the host, or in home-manager.
