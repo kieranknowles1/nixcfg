@@ -8,6 +8,7 @@
     ./compat.nix
     ./core.nix
     ./desktop
+    ./docs.nix
     ./hardware.nix
     ./ledstate.nix
     ./llm.nix
