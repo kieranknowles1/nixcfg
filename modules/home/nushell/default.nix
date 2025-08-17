@@ -38,7 +38,7 @@
   in {
     custom.extraEnv = rec {
       # Point tools to our flake repository
-      FLAKE = cfg.fullRepoPath;
+      FLAKE = hostConfig.custom.repoPath;
       NH_FLAKE = FLAKE;
 
       # This isn't automatically set on server

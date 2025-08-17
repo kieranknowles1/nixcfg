@@ -26,7 +26,7 @@
           action = ["xdg-open" "${cfg.build.combined.html}/index.html"];
         };
 
-        home.file."${config.custom.repoPath}/docs/generated" = {
+        home.file."${config.custom.relativeRepoPath}/docs/generated" = {
           source = "${cfg.build.generated}/generated";
           recursive = true;
         };
