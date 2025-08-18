@@ -46,5 +46,6 @@ in {
     vscode-extensions = optionalOverlay inputs.vscode-extensions "default";
 
     overrides = import ./overrides.nix {inherit inputs;};
+    jemalloc-rpi = import ./jemalloc-rpi.nix;
   };
 }
