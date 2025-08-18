@@ -32,20 +32,13 @@
       };
     };
 
-    repoPath = mkOption {
+    relativeRepoPath = mkOption {
       description = ''
         Path to the flake repository on disk, relative to the home directory.
+        Set automatically based on the host's option
       '';
       type = types.path;
       example = "src/nixos";
-    };
-
-    fullRepoPath = mkOption {
-      description = ''
-        (Read-only, set automatically) The full path to the flake repository on disk.
-      '';
-      type = types.path;
-      readOnly = true;
     };
 
     userDetails = {
@@ -85,15 +78,10 @@
       icon = iconMap.${package.pname};
     };
 
-    custom.docs-generate.jsonIgnoredOptions.home = [
-      "repoPath"
-      "fullRepoPath"
-    ];
-
     # Use the repository path from the host, as long as it's within the home directory
     # This allows the path to be defined either in the host, or in home-manager.
     # As Nix is lazy, the assertion will not be evaluated until the path is used.
-    custom.repoPath = let
+    custom.relativeRepoPath = let
       inherit (config.home) homeDirectory;
       hostRepoPath = hostConfig.custom.repoPath;
 
@@ -103,7 +91,6 @@
         else builtins.throw "The repository path must be within the home directory";
     in
       lib.mkDefault homeRelativePath;
-    custom.fullRepoPath = "${config.home.homeDirectory}${config.custom.repoPath}";
 
     home.packages = let
       term =
@@ -132,7 +119,7 @@
       rebuild = lib.getExe pkgs.flake.rebuild;
     in
       lib.singleton {
-        action = [rebuild "--flake" config.custom.fullRepoPath "pull"];
+        action = [rebuild "--flake" hostConfig.custom.repoPath "pull"];
         description = "Update system from remote repository";
         useTerminal = true;
       };

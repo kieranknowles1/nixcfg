@@ -20,10 +20,7 @@
   in
     lib.mkIf cfg.enable {
       custom.server.subdomains.${cfg.subdomain} = {
-        # HACK: Ideally we'd generate docs host-side. All generic pages can be
-        # done so and machine-specific ones don't matter for a server.
-        # Probably want a builder to create docs then make home-manager extend it.
-        root = config.home-manager.users.kieran.custom.docs-generate.build.combined.html;
+        root = config.custom.docs-generate.build.combined.html;
         cache.enable = true;
       };
     };
