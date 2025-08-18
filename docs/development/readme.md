@@ -1,6 +1,7 @@
 # Development Information
 
-Information on how to develop this repository.
+Information on how to develop this repository. See also:
+[modules](../modules/readme.md) for specific modules.
 
 - [Development Information](#development-information)
   - [Modules](#modules)
@@ -93,19 +94,6 @@ additional complexity.
 
 See [users/kieran](../../users/kieran/default.nix) for an example user
 definition.
-
-## Documenting
-
-Documentation should be generated wherever possible, as this makes them tightly
-coupled to their code and more likely to be up-to-date.
-
-For more general information, such as this document, Markdown in the `docs`
-directory is used.
-
-Graphs may be generated using `graphviz` and `dot`, these are automatically
-converted to SVGs by buildStaticSite. While Mermaid is natively supported by
-GitHub, it is much less effective at preventing overlap and therefore unsuitable
-for my needs.
 
 ## Debugging
 

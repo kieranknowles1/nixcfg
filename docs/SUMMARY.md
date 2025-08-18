@@ -10,6 +10,8 @@
 - [Usage](./usage/readme.md)
   - [Troubleshooting](./usage/troubleshooting.md)
   - [VR Support](./usage/vr.md)
+- [Modules](./modules/readme.md)
+  - [Documentation](./modules/docs.md)
 - [Lessons Learned](./lessons-learned.md)
 
 - [Planning](./plan/readme.md)

@@ -49,6 +49,7 @@
         source = mkOptionDocs {
           module = self.nixosModules.default;
           title = "NixOS options";
+          # TODO: Point this an NixOS to GitHub, they aren't available on a server
           inherit (config.custom) repoPath;
         };
       };

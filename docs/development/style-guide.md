@@ -38,6 +38,9 @@ bold. For example, in [Activate Mutable Plan](../plan/activate-mutable.md):
 
 Keep it consise. Don't write a full paragraph when a single sentence will do.
 
+When possible, use [generated docs](../modules/docs.md) as specified in the
+linked page.
+
 ### Tables of Contents
 
 Tables of contents SHOULD be included in Markdown files with more than a few

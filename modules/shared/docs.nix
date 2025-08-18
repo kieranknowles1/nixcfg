@@ -22,12 +22,15 @@
         human-readable format as well as machine-readable.
       '';
 
-      example = {
+      example = lib.literalExpression ''
         "file-a.md" = {
           description = "Some generated stuff";
-          source = "./docs-generated/file-a.md";
+          source = ./docs-generated/file-a.md;
+          # Set to false if the file will be the same regardless of the host/user's
+          # config
+          dynamic = true;
         };
-      };
+      '';
 
       type = types.attrsOf (types.submodule {
         options = {
