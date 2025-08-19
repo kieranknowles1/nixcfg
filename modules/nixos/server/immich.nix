@@ -51,10 +51,8 @@
 
         database.port = cfg.ports.tcp.postgresql;
 
-        # Give the GPU for hardware transcoding
-        accelerationDevices = [
-          "/dev/dri/renderD128"
-        ];
+        # TODO: Hardware transcoding
+        # accelerationDevices = [???];
       };
     };
 }
