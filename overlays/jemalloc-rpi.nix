@@ -6,11 +6,13 @@ _final: prev: let
   fixupRs = pkg:
     if prev.system == "aarch64-linux"
     then
-      pkg.overrideAttrs (_oldAttrs: {
-        env = {
-          # log2(16384) as returned by
-          JEMALLOC_SYS_WITH_LG_PAGE = "14";
-        };
+      pkg.overrideAttrs (oldAttrs: {
+        env =
+          oldAttrs.env
+          // {
+            # log2(16384) as returned by
+            JEMALLOC_SYS_WITH_LG_PAGE = "14";
+          };
       })
     else pkg;
 
@@ -37,8 +39,8 @@ in {
   folly = disableChecks prev.folly;
   fizz = disableChecks prev.fizz;
 
-  # Needed to make postgres use overlays. Still not enough, see `postgresql.nix`
-  # for actually using these.
+  # Needed to make postgres use overlays. Ew
+  # Update postgres16, as that's what immich requires
 
   postgresql16Packages =
     prev.postgresql16Packages

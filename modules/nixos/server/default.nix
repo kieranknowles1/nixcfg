@@ -121,7 +121,7 @@ in {
         inherit (subdomain) root;
         proxyPass =
           if subdomain.proxyPort != null
-          then "http://127.0.0.1:${toString subdomain.proxyPort}"
+          then "http://localhost:${toString subdomain.proxyPort}"
           else if subdomain.proxySocket != null
           then "http://unix:${toString subdomain.proxySocket}"
           else null;
@@ -170,6 +170,8 @@ in {
         enable = true;
         # Compress responses using sensible defaults
         recommendedGzipSettings = true;
+        # Apply sensible defaults to reverse proxies
+        recommendedProxySettings = true;
 
         virtualHosts =
           subhosts
