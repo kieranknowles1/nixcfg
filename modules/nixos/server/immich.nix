@@ -37,6 +37,13 @@
         };
       };
 
+      # Workaround for https://github.com/nixos/nixpkgs/issues/418799
+      # needed for machine-learning to download models
+      users.users.immich = {
+        home = "/var/lib/immich";
+        createHome = true;
+      };
+
       services.immich = {
         enable = true;
         port = cfg.ports.tcp.immich;
