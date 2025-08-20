@@ -173,6 +173,9 @@ in {
         # Apply sensible defaults to reverse proxies
         recommendedProxySettings = true;
 
+        # Allow larger uploads, needed for things like Immich
+        clientMaxBodySize = "50000m";
+
         virtualHosts =
           subhosts
           // {
