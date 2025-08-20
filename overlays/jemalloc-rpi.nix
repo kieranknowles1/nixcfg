@@ -2,32 +2,35 @@ _nixpkgs: lib:
 # TODO: This entire overlay is only needed due to an upstream issue
 # See https://github.com/nvmd/nixos-raspberrypi/issues/64
 _final: prev: let
-  # Fix a package using https://crates.io/crates/tikv-jemalloc-sys
-  fixupRs = pkg:
+  # Apply `override` if on ARM. Do nothing otherwise
+  optionalOverride = override: pkg:
     if prev.system == "aarch64-linux"
-    then
-      pkg.overrideAttrs (oldAttrs: {
-        env =
-          oldAttrs.env
-          // {
-            # log2(16384) as returned by
-            JEMALLOC_SYS_WITH_LG_PAGE = "14";
-          };
-      })
+    then pkg.overrideAttrs override
     else pkg;
 
-  disableChecks = pkg:
-    pkg.overrideAttrs (_oldAttrs: {
-      doCheck = false;
-    });
-in {
-  jemalloc = prev.jemalloc.overrideAttrs (old: {
-    configureFlags =
-      (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
-      ++ [
-        "--with-lg-page=14"
-      ];
+  # Fix a package using https://crates.io/crates/tikv-jemalloc-sys
+  fixupRs = optionalOverride (oldAttrs: {
+    env =
+      oldAttrs.env
+      // {
+        # log2(16384) as returned by
+        JEMALLOC_SYS_WITH_LG_PAGE = "14";
+      };
   });
+
+  disableChecks = optionalOverride (_oldAttrs: {
+    doCheck = false;
+  });
+in {
+  jemalloc =
+    optionalOverride (old: {
+      configureFlags =
+        (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
+        ++ [
+          "--with-lg-page=14"
+        ];
+    })
+    prev.jemalloc;
 
   difftastic = fixupRs prev.difftastic;
 
