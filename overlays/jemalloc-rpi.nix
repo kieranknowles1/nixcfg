@@ -20,6 +20,8 @@ _final: prev: let
 
   disableChecks = optionalOverride (_oldAttrs: {
     doCheck = false;
+
+    pytestFlagsArray = ["-m" "'false'"];
   });
 in {
   jemalloc =
@@ -34,6 +36,19 @@ in {
 
   difftastic = fixupRs prev.difftastic;
 
+  # Needed to make postgres use overlays. This still isn't enough, ew.
+  # Update postgres16, as that's what immich requires
+
+  postgresql16Packages =
+    prev.postgresql16Packages
+    // {
+      pgvecto-rs = fixupRs prev.postgresql_16.pkgs.pgvecto-rs;
+    };
+
+  # Disable checks that are either
+  # - slow
+  # - flaky (some time out if we're under load)
+
   # This seems a bit flaky and is very slow
   valkey = disableChecks prev.valkey;
   # It's a hashmap, what could go wrong?
@@ -41,13 +56,12 @@ in {
   # Let's trust upstream
   folly = disableChecks prev.folly;
   fizz = disableChecks prev.fizz;
+  jellyfin-ffmpeg = disableChecks prev.jellyfin-ffmpeg;
 
-  # Needed to make postgres use overlays. Ew
-  # Update postgres16, as that's what immich requires
-
-  postgresql16Packages =
-    prev.postgresql16Packages
+  # That's a lot of trust to put on upstream :)
+  python313Packages =
+    prev.python313Packages
     // {
-      pgvecto-rs = fixupRs prev.postgresql_16.pkgs.pgvecto-rs;
+      moto = disableChecks prev.python313Packages.moto;
     };
 }
