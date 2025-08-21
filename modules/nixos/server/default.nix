@@ -87,6 +87,7 @@ in {
     };
 
     root = vhostOpts;
+    localRoot = vhostOpts;
     subdomains = mkOption {
       type = types.attrsOf subdomainType;
       default = {};
@@ -112,11 +113,11 @@ in {
     subhosts =
       lib.attrsets.mapAttrs' (name: subdomain: {
         name = "${name}.${cfg.hostname}";
-        value = mkVhost subdomain;
+        value = mkVhost subdomain true;
       })
       cfg.subdomains;
 
-    mkVhost = subdomain: {
+    mkVhost = subdomain: ssl: {
       locations."/" = {
         inherit (subdomain) root;
         proxyPass =
@@ -129,7 +130,7 @@ in {
         proxyWebsockets = subdomain.webSockets;
       };
 
-      forceSSL = true; # Enable HTTPS and redirect HTTP to it
+      forceSSL = ssl; # Enable HTTPS and redirect HTTP to it
 
       # We're not using ACME as it's incompatible with Cloudflare proxies
       # I'd rather not turn that off to reduce load from scraping, public pages
@@ -179,7 +180,8 @@ in {
         virtualHosts =
           subhosts
           // {
-            "${cfg.hostname}" = mkVhost cfg.root;
+            "${cfg.hostname}" = mkVhost cfg.root true;
+            "${config.networking.hostName}.local" = mkVhost cfg.localRoot false;
           };
       };
 

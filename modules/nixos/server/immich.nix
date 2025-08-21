@@ -52,6 +52,11 @@
           proxyPort = cfg.ports.tcp.immich;
           webSockets = true;
         };
+        # TODO: We can only have one local root as *.local doesn't support
+        # subdomains. Serving DNS would allow us to have multiple
+        # Assigning Immich for now as it benefits greatly from not needing a
+        # round trip via Cloudflare
+        localRoot = cfg.subdomains.${cfgi.subdomain};
       };
 
       # Workaround for https://github.com/nixos/nixpkgs/issues/418799
