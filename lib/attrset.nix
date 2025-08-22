@@ -24,6 +24,9 @@ rec {
     };
   };
   ```
+
+  # Arguments
+  **sets** (List\<AttrSet\>) : The sets to merge
   */
   deepMergeSets = sets:
     builtins.zipAttrsWith

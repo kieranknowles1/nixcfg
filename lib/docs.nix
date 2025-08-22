@@ -34,15 +34,14 @@ in rec {
   ```
 
   # Arguments
-  importer :: Path : The file to import all modules containing options
-  filter :: Func(AttrSet -> AttrSet) : A function to filter the options
+  **importer** (Path) : The file to import all modules containing options
+  **filter** (Func(AttrSet -> AttrSet)) : A function to filter the options
 
   NOTE: If the filter function selects a subset of the options (e.g, opts.foo), the schema will only contain the
   selected options and they will have to be manually merged at the appropriate place.
 
   # Returns
   Path : The path to the generated JSON file
-
 
   */
   mkJsonSchema = importer: filter: let
@@ -73,6 +72,9 @@ in rec {
   mkPackageDocs pkgs.flake
   => Markdown file
   ```
+
+  # Arguments
+  **packages** (AttrSet\<Package\>) : The packages to generate documentation for.
   */
   mkPackageDocs = packages: let
     # pkgs may contain other attributes, such as `nixpkgs.lib`, so we need to filter them out.

@@ -64,6 +64,7 @@
       };
       "user-options.schema.json" = mkSchema "Home Manager" self.homeManagerModules.default cfg.jsonIgnoredOptions.home;
 
+      # TODO: Also document builders
       "lib.md" = {
         description = "Nix Library";
         source = mkFunctionDocs ../../lib;

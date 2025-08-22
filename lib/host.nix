@@ -12,9 +12,13 @@
 
   # Arguments
 
-  rootConfig :: Module : The root configuration module for the host. This can be any Nix module, usually the path
-  to the host's configuration.nix file.
-  ```
+  **mkSystem** :: (Func) : The `nixosSystem` function to use for this host. Usually
+  `nixpkgs.lib.nixosSystem`.
+
+  **extraSpecialArgs** :: (Attrs) : Additional `specialArgs` to pass to `mkSystem`.
+
+  **rootConfig** :: (Module) : The root configuration module for the host. This
+  can be any Nix module, usually the path to the host's configuration.nix file.
   */
   mkHost = mkSystem: extraSpecialArgs: rootConfig:
     mkSystem {
@@ -41,7 +45,7 @@
   Paths are not supported. Nix expressions are preferred to configure more complex modules.
 
   # Arguments
-  path :: Path : The path to the TOML file to read
+  **path** (Path) : The path to the TOML file to read
 
   # Returns
   A TOML object with the `$schema` key removed
