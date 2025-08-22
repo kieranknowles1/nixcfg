@@ -19,44 +19,6 @@ in rec {
       ];
     };
 
-  # FIXME: This hasn't been working since the switch to flake-parts
-  # /*
-  # Generate documentation for the functions in the given directory.
-
-  # # Example
-  # ```nix
-  # mkFunctionDocs ./lib
-  # => ./result/index.md
-  # ```
-
-  # # Type
-  # mkFunctionDocs :: Path -> Path
-
-  # # Arguments
-  # path :: Path
-  # : The directory containing the functions to document.
-  # */
-  # mkFunctionDocs = path:
-  #   pkgs.runCommand "function-docs.md" {} ''
-  #     for file in $(find "${path}" -type f -name '*.nix'); do
-  #       # Skip default.nix files, including those in subdirectories via wildcards.
-  #       if [[ $file == *default.nix ]]; then
-  #         continue
-  #       fi
-
-  #       lib_name=$(basename "$file" .nix | tr '/' '.')
-  #       # https://stackoverflow.com/questions/1538676/uppercasing-first-letter-of-words-using-sed
-  #       # s| uses | as a delimiter, to avoid confusion with slashes
-  #       # \<. matches the first character of each word when combined with |g for global matching
-  #       # \U& converts the matched character to uppercase
-  #       human_name=$(echo "$lib_name" | sed 's|\<.|\U&|g')
-
-  #       # TODO: Find a way to make links between functions.
-  #       # TODO: Add extra hashes to make headers match the file
-  #       ${lib.getExe pkgs.nixdoc} --category "$lib_name" --description "$human_name" --file "$file" >> $out
-  #     done
-  #   '';
-
   /*
   Generate a JSON schema for options in the given directory
 

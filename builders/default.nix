@@ -30,6 +30,7 @@
           buildStaticSite = callPackage ./buildStaticSite {};
           buildScript = callPackage ./buildScript.nix {};
           fromHeif = callPackage ./fromHeif.nix {};
+          mkFunctionDocs = callPackage ./mkFunctionDocs.nix {};
           mkOptionDocs = callPackage ./mkOptionDocs.nix {};
         };
       };
