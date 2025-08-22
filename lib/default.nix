@@ -1,28 +1,14 @@
 {
-  flake-parts-lib,
   lib,
+  self,
+  inputs,
   ...
 }: {
-  options.flake = let
-    inherit (flake-parts-lib) mkSubmoduleOptions;
-    inherit (lib) mkOption types;
-  in
-    mkSubmoduleOptions {
-      lib = mkOption {
-        type = types.lazyAttrsOf types.attrs;
-        default = {};
-        description = ''
-          An extension of `nixpkgs.lib`
-        '';
-      };
-    };
-
-  imports = [
-    ./attrset.nix
-    ./docs.nix
-    ./host.nix
-    ./shell.nix
-  ];
-
-  config.flake.lib.license = lib.licenses.mit;
+  flake.lib = {
+    license = lib.licenses.mit;
+    attrset = import ./attrset.nix;
+    docs = import ./docs.nix {inherit lib inputs;};
+    host = import ./host.nix {inherit self inputs;};
+    shell = import ./shell.nix;
+  };
 }
