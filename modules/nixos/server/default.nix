@@ -14,6 +14,7 @@ in {
     ./docs.nix
     ./forgejo.nix
     ./immich.nix
+    ./paperless.nix
     ./ports.nix
     ./postgresql.nix
     ./search.nix

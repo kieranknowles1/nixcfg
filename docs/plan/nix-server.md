@@ -34,7 +34,7 @@ most of them. Following is a list that I would like for a first iteration:
     resolved.
 - [ ] Minecraft
 - [x] Trilium
-- [ ] Paperless NGX
+- [x] Paperless NGX
 - [x] Git
   - [ ] Back up my GitHub repos
 - [x] Documentation

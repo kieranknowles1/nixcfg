@@ -1,0 +1,53 @@
+{
+  config,
+  lib,
+  ...
+}: {
+  options.custom.server.paperless = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    enable = mkEnableOption "Paperless";
+    subdomain = mkOption {
+      type = types.str;
+      default = "papers";
+      description = "The subdomain for Paperless";
+    };
+    dataDir = mkOption {
+      type = types.path;
+      defaultText = "$${config.custom.server.data.baseDirectory}/paperless";
+      description = "The directory where Paperless will store its data";
+    };
+  };
+
+  config = let
+    cfg = config.custom.server;
+    cfgp = cfg.paperless;
+  in
+    lib.mkIf cfgp.enable {
+      custom.server = {
+        paperless.dataDir = "${cfg.data.baseDirectory}/paperless";
+        subdomains.${cfgp.subdomain} = {
+          proxyPort = cfg.ports.tcp.paperless;
+        };
+      };
+
+      services.paperless = {
+        inherit (cfgp) dataDir;
+        enable = true;
+        port = cfg.ports.tcp.paperless;
+
+        # Use SQLite as the database backend
+        database.createLocally = false;
+
+        settings = {
+          PAPERLESS_URL = "https://${cfgp.subdomain}.${cfg.hostname}";
+          # Allow Nginx to proxy to us
+          PAPERLESS_TRUSTED_PROXIES = "127.0.0.1";
+
+          PAPERLESS_OCR_LANGUAGE = "eng";
+          # Attempt to remove scanner artifacts
+          PAPERLESS_OCR_CLEAN = "clean";
+        };
+      };
+    };
+}

@@ -27,6 +27,8 @@
       postgresql = 5432;
 
       trilium = 8080;
+
+      paperless = 28981;
     };
     udp = {
     };
