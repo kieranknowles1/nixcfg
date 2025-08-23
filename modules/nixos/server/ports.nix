@@ -17,6 +17,7 @@
     # Keep these sorted by port number. Include anything that could be allocated
     # on the server. Use a service's default port from nixpkgs if possible,
     # but change if necessary.
+    # If a service supports unix sockets, use them instead of TCP.
     tcp = {
       ssh = 22;
       http = 80;

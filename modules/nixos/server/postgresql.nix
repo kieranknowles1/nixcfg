@@ -35,6 +35,7 @@
       services.postgresql = {
         # This module only exists so that others can depend on it and is thus
         # not configured by default.
+        # If a service supports SQLite, use that instead. Don't overcomplicate things.
         inherit (cfgp) dataDir package;
         enable = true;
 

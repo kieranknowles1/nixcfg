@@ -19,9 +19,10 @@ data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
 forgejo.enable = true
+grafana.enable = true
 immich.enable = true
 paperless.enable = true
-search.enable = true
+# search.enable = true # FiXME: This rebuilds from source every time rather than just the database
 trilium.enable = true
 trilium.autoExport.enable = true
 trilium.autoExport.remote = "ssh://forgejo@localhost/kieran/trilium-export.git"
