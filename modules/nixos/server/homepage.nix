@@ -6,8 +6,96 @@
   options.custom.server.homepage = let
     inherit (lib) mkOption mkEnableOption types;
 
-    widgetType = types.submodule {
+    secretType = types.submodule {
       options = {
+        id = mkOption {
+          type = types.str;
+          example = "MY_API_KEY";
+          description = ''
+            The ID of the secret. Must be unique.
+          '';
+        };
+        value = mkOption {
+          type = types.str;
+          example = "sops/to/value";
+          description = ''
+            The source of the secret in sops.yaml.
+          '';
+        };
+      };
+    };
+
+    serviceType = types.submodule {
+      options = {
+        group = mkOption {
+          type = types.str;
+          example = "Documents";
+          description = ''
+            The group name to which the widget belongs.
+          '';
+        };
+        name = mkOption {
+          type = types.str;
+          example = "My Documents";
+          description = ''
+            The name of the widget.
+          '';
+        };
+        description = mkOption {
+          type = types.str;
+          example = "My personal documents";
+          description = ''
+            A brief description of the widget.
+          '';
+        };
+        icon = mkOption {
+          type = types.str;
+          example = "fa-solid fa-folder";
+          description = ''
+            The icon to display for the widget.
+            See [homepage docs](https://gethomepage.dev/configs/services/#icons)
+
+            Most services are available from [Dashboard Icons](https://dashboardicons.com/).
+            Simply pass the name of the icon, preferably in SVG format.
+          '';
+        };
+        href = mkOption {
+          type = types.str;
+          example = "https://example.com";
+          description = ''
+            The URL to which the widget should link.
+          '';
+        };
+
+        widgetType = mkOption {
+          type = types.str;
+          example = "trilium";
+          description = ''
+            The type of widget to display.
+            See [homepage docs](https://gethomepage.dev/widgets/)
+          '';
+        };
+        widgetConfig = mkOption {
+          type = types.attrsOf types.str;
+          example = {
+            url = "https://docs.example.com";
+          };
+          description = ''
+            Config for the widget.
+          '';
+        };
+        widgetSecrets = mkOption {
+          type = types.attrsOf secretType;
+          example = {
+            apiKey = {
+              id = "MY_API_KEY";
+              value = "sops/to/value";
+            };
+          };
+          description = ''
+            Secrets for the widget. Provisioned by SOPS.
+          '';
+        };
       };
     };
   in {
@@ -18,10 +106,10 @@
       description = "The subdomain for gethomepage";
     };
 
-    widgets = mkOption {
-      type = types.listOf widgetType;
+    services = mkOption {
+      type = types.listOf serviceType;
       default = [];
-      description = "List of widgets to display on the homepage";
+      description = "List of services to display on the homepage";
     };
   };
 
@@ -75,6 +163,23 @@
             };
           }
         ];
+
+        services = let
+          groups = builtins.groupBy (s: s.group) cfgh.services;
+
+          toHome = s: {
+            ${s.name} = {
+              inherit (s) description icon href;
+            };
+          };
+
+          mappedGroups =
+            lib.attrsets.mapAttrsToList (name: grp: {
+              ${name} = map toHome grp;
+            })
+            groups;
+        in
+          mappedGroups;
       };
     };
 }
