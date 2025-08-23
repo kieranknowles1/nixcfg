@@ -71,7 +71,8 @@
 
         widget = {
           type = mkOption {
-            type = types.str;
+            type = types.nullOr types.str;
+            default = null;
             example = "trilium";
             description = ''
               The type of widget to display.
@@ -80,9 +81,11 @@
           };
 
           config = mkOption {
-            type = types.attrsOf types.str;
+            type = types.attrsOf types.anything;
+            default = {};
             example = {
               url = "https://docs.example.com";
+              fields = ["fields" "to" "display"];
             };
             description = ''
               Config for the widget.
@@ -91,8 +94,12 @@
 
           secrets = mkOption {
             type = types.attrsOf secretType;
+            default = {};
             example = {
-              apiKey = "my-api-key";
+              apiKey = {
+                id = "MY_API_KEY";
+                value = "sops/to/key";
+              };
             };
             description = ''
               Secrets for the widget.
@@ -141,6 +148,8 @@
         })
         neededSecrets);
 
+      # TODO: This exposes some things more than I'd like. Should
+      # place it behind auth
       services.homepage-dashboard = {
         enable = true;
         listenPort = cfg.ports.tcp.homepage;
@@ -199,13 +208,21 @@
             ${srv.name} = {
               inherit (srv) description icon href;
 
-              widget = lib.mkMerge [
+              # Widget requests are proxied through homepage. A preliminary
+              # check of the source code showed that arbritary endpoint access
+              # is not allowed. Still don't fully trust this, so want to put the
+              # service behind authentication.
+
+              # Using mkIf instead of optionalAttrs so that, if no widget is
+              # defined, the widget attribute will be omitted rather than set to
+              # an empty object.
+              widget = lib.mkIf (srv.widget.type != null) (lib.mkMerge [
                 {
                   inherit (srv.widget) type;
                 }
                 srv.widget.config
                 (builtins.mapAttrs (_name: secretFileRef) srv.widget.secrets)
-              ];
+              ]);
             };
           };
 
