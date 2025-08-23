@@ -39,8 +39,16 @@
         enable = true;
 
         settings = {
+          analytics = {
+            check_for_plugin_updates = false;
+            check_for_updates = false;
+            reporting_enabled = false;
+          };
+
           server = {
             protocol = "socket";
+            # Give nginx access to the socket
+            socket_mode = "0666";
           };
 
           database = {
