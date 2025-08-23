@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.custom.server.homepage = let
@@ -12,7 +13,8 @@
           type = types.str;
           example = "MY_API_KEY";
           description = ''
-            The ID of the secret. Must be unique.
+            The ID of the secret. Must be unique. It is therefore recommended
+            to prefix with the service name to avoid conflicts.
           '';
         };
         value = mkOption {
@@ -67,34 +69,35 @@
           '';
         };
 
-        widgetType = mkOption {
-          type = types.str;
-          example = "trilium";
-          description = ''
-            The type of widget to display.
-            See [homepage docs](https://gethomepage.dev/widgets/)
-          '';
-        };
-        widgetConfig = mkOption {
-          type = types.attrsOf types.str;
-          example = {
-            url = "https://docs.example.com";
+        widget = {
+          type = mkOption {
+            type = types.str;
+            example = "trilium";
+            description = ''
+              The type of widget to display.
+              See [homepage docs](https://gethomepage.dev/widgets/)
+            '';
           };
-          description = ''
-            Config for the widget.
-          '';
-        };
-        widgetSecrets = mkOption {
-          type = types.attrsOf secretType;
-          example = {
-            apiKey = {
-              id = "MY_API_KEY";
-              value = "sops/to/value";
+
+          config = mkOption {
+            type = types.attrsOf types.str;
+            example = {
+              url = "https://docs.example.com";
             };
+            description = ''
+              Config for the widget.
+            '';
           };
-          description = ''
-            Secrets for the widget. Provisioned by SOPS.
-          '';
+
+          secrets = mkOption {
+            type = types.attrsOf secretType;
+            example = {
+              apiKey = "my-api-key";
+            };
+            description = ''
+              Secrets for the widget.
+            '';
+          };
         };
       };
     };
@@ -116,11 +119,27 @@
   config = let
     cfg = config.custom.server;
     cfgh = cfg.homepage;
+
+    neededSecrets =
+      lib.lists.flatten
+      (map (srv: builtins.attrValues srv.widget.secrets) cfgh.services);
   in
     lib.mkIf cfgh.enable {
       custom.server.subdomains.${cfgh.subdomain} = {
         proxyPort = config.services.homepage-dashboard.listenPort;
       };
+
+      sops.secrets = builtins.listToAttrs (map (secret: {
+          name = "homepage/${secret.id}";
+          value = {
+            key = secret.value;
+            # FIXME: homepage uses a dynamic user, how do we
+            # assign it to own a secret?
+            # owner = "homepage-dashboard";
+            mode = "0444";
+          };
+        })
+        neededSecrets);
 
       services.homepage-dashboard = {
         enable = true;
@@ -164,12 +183,29 @@
           }
         ];
 
+        environmentFile = let
+          toEnv = secret: "HOMEPAGE_FILE_${secret.id}=${config.sops.secrets."homepage/${secret.id}".path}";
+        in
+          builtins.toString (pkgs.writeText "homepage.env"
+            (builtins.concatStringsSep "\n" (
+              builtins.map toEnv neededSecrets
+            )));
+
         services = let
           groups = builtins.groupBy (s: s.group) cfgh.services;
+          secretFileRef = sec: "{{HOMEPAGE_FILE_${sec.id}}}";
 
-          toHome = s: {
-            ${s.name} = {
-              inherit (s) description icon href;
+          toHome = srv: {
+            ${srv.name} = {
+              inherit (srv) description icon href;
+
+              widget = lib.mkMerge [
+                {
+                  inherit (srv.widget) type;
+                }
+                srv.widget.config
+                (builtins.mapAttrs (_name: secretFileRef) srv.widget.secrets)
+              ];
             };
           };
 

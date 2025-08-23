@@ -110,11 +110,15 @@
             description = "Personal knowledge base";
             icon = "triliumnext.svg";
             href = "https://${cfgt.subdomain}.${cfg.hostname}";
-            widgetType = "trilium";
-            widgetConfig.url = href;
-            widgetSecrets.key = {
-              id = "TRILIUM_ETAPI_TOKEN";
-              value = cfge.token;
+            widget = {
+              type = "trilium";
+              config.url = href;
+              secrets = {
+                key = {
+                  id = "TRILIUM_ETAPI_TOKEN";
+                  value = cfge.token;
+                };
+              };
             };
           };
         };
