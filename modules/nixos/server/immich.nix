@@ -75,8 +75,6 @@
             secrets.key = {
               id = "IMMICH_API_KEY";
               # Requires the `server.statistics` permission.
-              # This was not documented in Homepage, see the linked PR:
-              # https://github.com/gethomepage/homepage/pull/5706
               value = "immich/api-key";
             };
           };
