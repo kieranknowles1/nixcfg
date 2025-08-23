@@ -59,6 +59,28 @@
         # Assigning Immich for now as it benefits greatly from not needing a
         # round trip via Cloudflare
         localRoot = host;
+
+        homepage.services = lib.singleton rec {
+          group = "Media";
+          name = "Immich";
+          description = "Photo library";
+          href = "https://${cfgi.subdomain}.${cfg.hostname}";
+          icon = "immich.svg";
+          widget = {
+            type = "immich";
+            config = {
+              url = href;
+              version = 2; # Server version >= 1.118
+            };
+            secrets.key = {
+              id = "IMMICH_API_KEY";
+              # Requires the `server.statistics` permission.
+              # This was not documented in Homepage, see the linked PR:
+              # https://github.com/gethomepage/homepage/pull/5706
+              value = "immich/api-key";
+            };
+          };
+        };
       };
 
       # Workaround for https://github.com/nixos/nixpkgs/issues/418799
