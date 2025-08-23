@@ -112,7 +112,10 @@
             href = "https://${cfgt.subdomain}.${cfg.hostname}";
             widget = {
               type = "trilium";
-              config.url = href;
+              config = {
+                url = href;
+                fields = ["notesCount" "dbSize"];
+              };
               secrets = {
                 key = {
                   id = "TRILIUM_ETAPI_TOKEN";
