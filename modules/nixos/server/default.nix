@@ -13,6 +13,7 @@ in {
   imports = [
     ./docs.nix
     ./forgejo.nix
+    ./homepage.nix
     ./immich.nix
     ./paperless.nix
     ./ports.nix
