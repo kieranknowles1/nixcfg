@@ -134,6 +134,7 @@
     lib.mkIf cfgh.enable {
       custom.server.subdomains.${cfgh.subdomain} = {
         proxyPort = config.services.homepage-dashboard.listenPort;
+        requireAuth = true;
       };
 
       sops.secrets = builtins.listToAttrs (map (secret: {
@@ -148,8 +149,6 @@
         })
         neededSecrets);
 
-      # TODO: This exposes some things more than I'd like. Should
-      # place it behind auth
       services.homepage-dashboard = {
         enable = true;
         listenPort = cfg.ports.tcp.homepage;
