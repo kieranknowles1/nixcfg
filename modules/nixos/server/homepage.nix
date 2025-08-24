@@ -108,6 +108,30 @@
         };
       };
     };
+
+    groupType = types.submodule {
+      options = {
+        style = mkOption {
+          type = types.enum [ "column" "row"];
+          default = "column";
+          description = "Display group items as a column or row layout";
+        };
+        columns = mkOption {
+          type = types.int;
+          default = 4;
+          description = "Number of columns if using the `column` layout";
+        };
+        icon = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = ''
+            Icon to display for the group, prefixed with `mdi-` for MDI icons.
+            See [Material Design Icons](https://pictogrammers.com/library/mdi/)
+            for a list of available icons.
+          '';
+        };
+      };
+    };
   in {
     enable = mkEnableOption "gethomepage";
     subdomain = mkOption {
@@ -121,6 +145,12 @@
       default = [];
       description = "List of services to display on the homepage";
     };
+
+    groups = mkOption {
+      type = types.attrsOf groupType;
+      default = {};
+      description = "Group configs";
+    };
   };
 
   config = let
@@ -132,9 +162,17 @@
       (map (srv: builtins.attrValues srv.widget.secrets) cfgh.services);
   in
     lib.mkIf cfgh.enable {
-      custom.server.subdomains.${cfgh.subdomain} = {
-        proxyPort = config.services.homepage-dashboard.listenPort;
-        requireAuth = true;
+      custom.server = {
+        homepage.groups = {
+          Documents.icon = "mdi-folder-open";
+          Media.icon = "mdi-camera";
+          Meta.icon = "mdi-information-variant-circle";
+        };
+
+        subdomains.${cfgh.subdomain} = {
+          proxyPort = config.services.homepage-dashboard.listenPort;
+          requireAuth = true;
+        };
       };
 
       sops.secrets = builtins.listToAttrs (map (secret: {
@@ -154,10 +192,17 @@
         listenPort = cfg.ports.tcp.homepage;
         allowedHosts = "${cfgh.subdomain}.${cfg.hostname}";
 
+        settings = {
+          language = "en-GB";
+          theme = "dark";
+          color = "slate";
+
+          layout = cfgh.groups;
+        };
+
         widgets = [
           {
             datetime = {
-              locale = "en-GB"; # Day-month-year is objectively wrong
               format = {
                 dateStyle = "medium";
                 timeStyle = "short";
