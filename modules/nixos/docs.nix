@@ -33,7 +33,7 @@
     # Default generated pages
     custom.docs-generate.file = let
       cfg = config.custom.docs-generate;
-      inherit (self.builders.${pkgs.system}) mkOptionDocs;
+      inherit (self.builders.${pkgs.system}) mkOptionDocs mkFunctionDocs;
       mkSchema = name: module: hidden: let
         filterCustom = opts: opts.custom;
         filterNotHidden = opts: builtins.removeAttrs opts hidden;
@@ -63,6 +63,12 @@
         };
       };
       "user-options.schema.json" = mkSchema "Home Manager" self.homeManagerModules.default cfg.jsonIgnoredOptions.home;
+
+      # TODO: Also document builders
+      "lib.md" = {
+        description = "Nix Library";
+        source = mkFunctionDocs ../../lib;
+      };
 
       "packages.md" = let
         text = self.lib.docs.mkPackageDocs pkgs.flake;
