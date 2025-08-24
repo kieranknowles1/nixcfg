@@ -43,6 +43,25 @@
           # Bit confusing, HTTP_ADDR refers to a socket path when using unix sockets
           proxySocket = config.services.forgejo.settings.server.HTTP_ADDR;
         };
+
+        homepage.services = lib.singleton rec {
+          group = "Software";
+          name = "Forgejo";
+          description = "Git hosting";
+          icon = "forgejo.svg";
+          href = "https://${cfgf.subdomain}.${cfg.hostname}";
+          widget = {
+            type = "gitea";
+            config = {
+              url = href;
+              fields = ["repositories"];
+            };
+            secrets.key = {
+              id = "FORGEJO_TOKEN";
+              value = "forgejo/homepage-token";
+            };
+          };
+        };
       };
 
       services.forgejo = {
