@@ -45,7 +45,7 @@
         };
 
         homepage.services = lib.singleton rec {
-          group = "Software";
+          group = "Meta";
           name = "Forgejo";
           description = "Git hosting";
           icon = "forgejo.svg";

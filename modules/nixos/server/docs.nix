@@ -16,12 +16,22 @@
   };
 
   config = let
-    cfg = config.custom.server.docs;
+    cfg = config.custom.server;
+    cfgd = cfg.docs;
   in
     lib.mkIf cfg.enable {
-      custom.server.subdomains.${cfg.subdomain} = {
-        root = config.custom.docs-generate.build.combined.html;
-        cache.enable = true;
+      custom.server = {
+        subdomains.${cfgd.subdomain} = {
+          root = config.custom.docs-generate.build.combined.html;
+          cache.enable = true;
+        };
+        homepage.services = lib.singleton {
+          group = "Meta";
+          name = "Docs";
+          description = "Repository documentation";
+          icon = "mdi-book-open-variant";
+          href = "https://${cfgd.subdomain}.${cfg.hostname}";
+        };
       };
     };
 }
