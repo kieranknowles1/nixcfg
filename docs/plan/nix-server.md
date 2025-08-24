@@ -27,7 +27,7 @@ most of them. Following is a list that I would like for a first iteration:
 
 - [x] Backups
 - [x] Portfolio
-- [ ] Dashboard
+- [x] Dashboard
 - [x] Immich
   - On hold until
     [Jemalloc issue](https://github.com/nvmd/nixos-raspberrypi/issues/64) is

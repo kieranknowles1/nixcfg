@@ -13,6 +13,7 @@ in {
   imports = [
     ./docs.nix
     ./forgejo.nix
+    ./homepage.nix
     ./immich.nix
     ./paperless.nix
     ./ports.nix
@@ -43,6 +44,12 @@ in {
         mkHostOpt types.path "/path/to/socket.sock"
         "Absolute path to socket to proxy connections to.";
 
+      requireAuth = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Require basic authentication for this vhost";
+      };
+
       webSockets = mkEnableOption "websockets";
 
       cache.enable = mkEnableOption "add cache headers to this vhost";
@@ -66,6 +73,13 @@ in {
       type = types.str;
       example = "example.com";
       description = "The domain name of the server";
+    };
+
+    basicAuthSecret = mkOption {
+      type = types.str;
+      example = "sops/basic-auth-secret";
+      default = "nginx/basic-auth";
+      description = "SOPS secret path to the basic auth secret file";
     };
 
     ssl = {
@@ -129,6 +143,8 @@ in {
           else null;
 
         proxyWebsockets = subdomain.webSockets;
+
+        basicAuthFile = lib.mkIf subdomain.requireAuth config.sops.secrets.nginx-basic-auth.path;
       };
 
       forceSSL = ssl; # Enable HTTPS and redirect HTTP to it
@@ -166,6 +182,11 @@ in {
       sops.secrets.ssl-private-key = {
         owner = config.services.nginx.user;
         key = cfg.ssl.privateKeySecret;
+      };
+
+      sops.secrets.nginx-basic-auth = {
+        owner = config.services.nginx.user;
+        key = cfg.basicAuthSecret;
       };
 
       services.nginx = {

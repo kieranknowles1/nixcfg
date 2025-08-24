@@ -19,9 +19,10 @@ data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
 forgejo.enable = true
+homepage.enable = true
 immich.enable = true
 paperless.enable = true
-search.enable = true
+# search.enable = true # FIXME: This rebuilds everything, not just the index
 trilium.enable = true
 trilium.autoExport.enable = true
 trilium.autoExport.remote = "ssh://forgejo@localhost/kieran/trilium-export.git"

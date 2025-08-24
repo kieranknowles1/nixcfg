@@ -103,6 +103,27 @@
             proxyPort = cfg.ports.tcp.trilium;
             webSockets = true;
           };
+
+          homepage.services = lib.singleton rec {
+            group = "Documents";
+            name = "Trilium";
+            description = "Personal knowledge base";
+            icon = "triliumnext.svg";
+            href = "https://${cfgt.subdomain}.${cfg.hostname}";
+            widget = {
+              type = "trilium";
+              config = {
+                url = href;
+                fields = ["notesCount" "dbSize"];
+              };
+              secrets = {
+                key = {
+                  id = "TRILIUM_ETAPI_TOKEN";
+                  value = cfge.token;
+                };
+              };
+            };
+          };
         };
 
         services.trilium-server = {

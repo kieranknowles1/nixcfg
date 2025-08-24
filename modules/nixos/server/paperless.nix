@@ -29,6 +29,23 @@
         subdomains.${cfgp.subdomain} = {
           proxyPort = cfg.ports.tcp.paperless;
         };
+
+        homepage.services = lib.singleton rec {
+          group = "Documents";
+          name = "Paperless";
+          description = "Document management system";
+          icon = "paperless-ngx.svg";
+          href = "https://${cfgp.subdomain}.${cfg.hostname}";
+          # TODO: This isn't working currently
+          # widget = {
+          #   type = "paperlessngx";
+          #   config.url = href;
+          #   secrets.token = {
+          #     id = "PAPERELESS_TOKEN";
+          #     value = "paperless/token";
+          #   };
+          # };
+        };
       };
 
       services.paperless = {

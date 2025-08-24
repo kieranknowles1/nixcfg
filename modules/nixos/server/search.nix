@@ -47,7 +47,7 @@
     };
   };
 
-  config = let
+  config.custom.server = let
     inherit (inputs.nuschtosSearch.packages.${pkgs.system}) mkMultiSearch;
     ghUrl = "https://github.com/kieranknowles1/nixcfg/";
 
@@ -55,7 +55,7 @@
     cfgs = cfg.search;
   in
     lib.mkIf cfgs.enable {
-      custom.server.search.scopes = [
+      search.scopes = [
         {
           name = "NixOS Modules";
           modules = builtins.attrValues self.nixosModules;
@@ -81,7 +81,7 @@
         }
       ];
 
-      custom.server.subdomains = {
+      subdomains = {
         ${cfgs.subdomain} = {
           cache.enable = true;
           root = mkMultiSearch {
@@ -90,6 +90,14 @@
             title = "NüschtOS Search - NixOS Search, but German";
           };
         };
+      };
+
+      homepage.services = lib.singleton {
+        group = "Meta";
+        name = "Search";
+        description = "Nix options search";
+        icon = "nixos.svg";
+        href = "https://${cfgs.subdomain}.${cfg.hostname}";
       };
     };
 }
