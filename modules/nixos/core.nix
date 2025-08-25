@@ -83,10 +83,6 @@
     programs.nix-index.enable = false;
     programs.nix-index-database.comma.enable = true;
 
-    # Enable NTFS support. NOTE: If mounting in Nautilus fails with an error mentioning
-    # a bad superblock, try mounting it in the terminal instead.
-    boot.supportedFilesystems = ["ntfs"];
-
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
     # on your system were taken. It‘s perfectly fine and recommended to leave
