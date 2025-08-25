@@ -316,6 +316,31 @@
         "url": "https://git.clan.lol/clan/nix-select/archive/main.tar.gz"
       }
     },
+    "nix-topology": {
+      "inputs": {
+        "devshell": [],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": []
+      },
+      "locked": {
+        "lastModified": 1752093877,
+        "narHash": "sha256-P0TySh6sQl1EhfxjW9ZqGxEyUBSsEpdnchOe1QB0pLA=",
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "rev": "6a536c4b686ee4bcf07a7b0f8b823584560e2633",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "type": "github"
+      }
+    },
     "nixos-cosmic": {
       "inputs": {
         "flake-compat": [],
@@ -494,6 +519,7 @@
         "home-manager": "home-manager",
         "ixx": "ixx",
         "nix-index-database": "nix-index-database",
+        "nix-topology": "nix-topology",
         "nixos-cosmic": "nixos-cosmic",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixos-raspberrypi-kernellock": "nixos-raspberrypi-kernellock",

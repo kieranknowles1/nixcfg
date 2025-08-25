@@ -35,6 +35,7 @@ in {
 
   # Also add overlays consumed by the flake, makes activating everything easier
   vscode-extensions = optionalOverlay inputs.vscode-extensions "default";
+  nix-topology = optionalOverlay inputs.nix-topology "default";
 
   overrides = import ./overrides.nix {inherit inputs;};
   jemalloc-rpi = import ./jemalloc-rpi.nix inputs.nixpkgs lib;

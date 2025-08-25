@@ -123,13 +123,23 @@
       inputs.nix-darwin.follows = "";
     };
 
+    # Fancy homelab map
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+
+      inputs.devshell.follows = "";
+      inputs.pre-commit-hooks.follows = "";
+    };
+
     # Generate package sets for x86_64-linux and aarch64-linux. This can be
     # overridden by another flake that consumes this one.
     systems.url = "github:nix-systems/default-linux";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
 
     treefmt-nix = {
@@ -173,10 +183,9 @@
     # /// Unused Libraries ///
     # These are libraries that aren't used in the flake, but are included to avoid
     # duplicating inputs of other inputs.
-
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     # TODO: Remove once openmw is building on nixpkgs
@@ -254,6 +263,10 @@
         inherit pkgs self;
       };
 
+      devShells = import ./shells {
+        inherit pkgs;
+      };
+
       formatter = treefmtEval.${pkgs.system}.config.build.wrapper;
 
       packages = import ./packages {
@@ -261,8 +274,8 @@
         inherit system pkgs inputs self;
       };
 
-      devShells = import ./shells {
-        inherit pkgs;
+      topology = import ./topology.nix {
+        inherit pkgs inputs self;
       };
     }));
 }
