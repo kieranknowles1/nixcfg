@@ -221,10 +221,13 @@
 
       assets = import ./assets.nix;
 
+      lib = import ./lib {
+        inherit (nixpkgs) lib;
+        inherit self inputs;
+      };
+
       #   imports = [
-      #     ./checks
       #     ./hosts
-      #     ./lib
       #     ./modules
       #     ./shells
       #     # Extend nixpkgs with flake-specific overlays, for this
@@ -242,6 +245,11 @@
       builders = import ./builders {
         inherit (nixpkgs) lib;
         inherit pkgs inputs;
+      };
+
+      checks = import ./checks {
+        inherit (nixpkgs) lib;
+        inherit pkgs self;
       };
 
       packages = import ./packages {
