@@ -112,7 +112,7 @@
     groupType = types.submodule {
       options = {
         style = mkOption {
-          type = types.enum [ "column" "row"];
+          type = types.enum ["column" "row"];
           default = "column";
           description = "Display group items as a column or row layout";
         };
@@ -179,13 +179,24 @@
           name = "homepage/${secret.id}";
           value = {
             key = secret.value;
-            # FIXME: homepage uses a dynamic user, how do we
-            # assign it to own a secret?
-            # owner = "homepage-dashboard";
-            mode = "0444";
+            owner = "homepage-dashboard";
           };
         })
         neededSecrets);
+
+      # SOPS can't provision secrets for dynamic users. Use a regular user
+      # instead.
+      systemd.services.homepage-dashboard.serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        User = "homepage-dashboard";
+        Group = "homepage-dashboard";
+      };
+
+      users.groups.homepage-dashboard = {};
+      users.users.homepage-dashboard = {
+        isSystemUser = true;
+        group = "homepage-dashboard";
+      };
 
       services.homepage-dashboard = {
         enable = true;
