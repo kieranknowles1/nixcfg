@@ -207,31 +207,46 @@
     };
   };
 
-  outputs = {flake-parts, ...} @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = import inputs.systems;
-
-      flake = {
-        templates.default = {
-          path = ./template;
-          description = "A Nix flake with access to this flake's packages, utilities, and lib module";
-        };
-      };
-
-      imports = [
-        ./assets.nix
-        ./builders
-        ./checks
-        ./hosts
-        ./lib
-        ./modules
-        ./packages
-        ./shells
-        # Extend nixpkgs with flake-specific overlays, for this
-        # flake and its dependencies
-        ./overlays
-        # Format all file types in this flake and others
-        ./treefmt.nix
-      ];
+  outputs = {flake-utils, nixpkgs, ...}@ inputs: {
+    templates.default = {
+      path = ./template;
+      description = "A Nix flake with access to this flake's packages, utilities, and lib module";
     };
+    
+    assets = import ./assets.nix;
+    
+    # flake-parts.lib.mkFlake {inherit inputs;} {
+    #   systems = import inputs.systems;
+
+    #   flake = {
+    #     templates.default = {
+    #       path = ./template;
+    #       description = "A Nix flake with access to this flake's packages, utilities, and lib module";
+    #     };
+    #   };
+
+    #   imports = [
+    #     ./builders
+    #     ./checks
+    #     ./hosts
+    #     ./lib
+    #     ./modules
+    #     ./packages
+    #     ./shells
+    #     # Extend nixpkgs with flake-specific overlays, for this
+    #     # flake and its dependencies
+    #     ./overlays
+    #     # Format all file types in this flake and others
+    #     ./treefmt.nix
+    #   ];
+    } // (flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+      };
+    in {
+      packages = import ./packages.nix {
+        inherit (nixpkgs) lib;
+        inherit system pkgs;
+      };
+    }));
 }
