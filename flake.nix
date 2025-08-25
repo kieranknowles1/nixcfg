@@ -234,16 +234,11 @@
         inherit (nixpkgs) lib;
         inherit self inputs;
       };
-
-      #   imports = [
-      #     ./shells
-      #     # Format all file types in this flake and others
-      #     ./treefmt.nix
-      #   ];
     }
     // (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
         inherit system;
+        overlays = builtins.attrValues self.overlays;
       };
       # Eval the treefmt modules from ./treefmt.nix
       eachSystem = f: nixpkgs.lib.genAttrs (import inputs.systems) (system: f nixpkgs.legacyPackages.${system});
@@ -264,6 +259,10 @@
       packages = import ./packages {
         inherit (nixpkgs) lib;
         inherit system pkgs inputs self;
+      };
+
+      devShells = import ./shells {
+        inherit pkgs;
       };
     }));
 }
