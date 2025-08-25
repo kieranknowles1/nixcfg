@@ -94,9 +94,5 @@
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "23.11"; # Did you read the comment?
-
-    # This isn't very useful due to its format, especially the options page
-    # which struggles to render due to its size.
-    documentation.nixos.enable = false;
   };
 }

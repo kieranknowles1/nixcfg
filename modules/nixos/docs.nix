@@ -5,30 +5,44 @@
   config,
   ...
 }: {
-  options.custom.docs-generate = let
+  options.custom = let
     inherit (lib) mkOption types;
-  in {
-    jsonIgnoredOptions = let
-      mkIgnoredOptions = name:
-        mkOption {
-          description = ''
-            A list of ${name} options to ignore when generating a JSON schema.
 
-            NOTE: Only top-level options of options.custom are supported. I.e., options.custom.foo works,
-            but options.custom.foo.bar does not.
-          '';
-          type = types.listOf types.str;
-          example = ["foo" "bar"];
-          default = [];
-        };
-    in {
+    mkIgnoredOptions = name:
+      mkOption {
+        description = ''
+          A list of ${name} options to ignore when generating a JSON schema.
+
+          NOTE: Only top-level options of options.custom are supported. I.e., options.custom.foo works,
+          but options.custom.foo.bar does not.
+        '';
+        type = types.listOf types.str;
+        example = ["foo" "bar"];
+        default = [];
+      };
+  in {
+    docs = {
+      generateManCache = mkOption {
+        description = ''
+          Whether to generate man cache, required for carapace completions
+          and `whatis`. Slow to build on some systems.
+        '';
+        default = true;
+      };
+    };
+
+    docs-generate.jsonIgnoredOptions = {
       nixos = mkIgnoredOptions "NixOS";
       home = mkIgnoredOptions "Home Manager";
     };
   };
 
   config = {
-    documentation.man.generateCaches = true;
+    documentation.man.generateCaches = config.custom.docs.generateManCache;
+
+    # This isn't very useful due to its format, especially the options page
+    # which struggles to render due to its size.
+    documentation.nixos.enable = false;
 
     # Default generated pages
     custom.docs-generate.file = let
