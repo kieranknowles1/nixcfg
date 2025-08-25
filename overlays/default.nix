@@ -1,7 +1,6 @@
 {
   self,
   inputs,
-  config,
   lib,
   ...
 }: let
@@ -28,25 +27,15 @@
     then input.overlays.${name}
     else (_: _: {});
 in {
-  # TODO: Remove this once flake-parts has a proper way of handling overlays
-  perSystem = {system, ...}: {
-    _module.args.pkgs = import inputs.nixpkgs {
-      inherit system;
-      overlays = builtins.attrValues config.flake.overlays;
-    };
+  default = mkNamespace "flake" self.packages {
+    inherit (self) lib;
   };
 
-  flake.overlays = {
-    default = mkNamespace "flake" self.packages {
-      inherit (self) lib;
-    };
+  firefox-addons = mkNamespace "firefox-addons" inputs.firefox-addons.packages {};
 
-    firefox-addons = mkNamespace "firefox-addons" inputs.firefox-addons.packages {};
+  # Also add overlays consumed by the flake, makes activating everything easier
+  vscode-extensions = optionalOverlay inputs.vscode-extensions "default";
 
-    # Also add overlays consumed by the flake, makes activating everything easier
-    vscode-extensions = optionalOverlay inputs.vscode-extensions "default";
-
-    overrides = import ./overrides.nix {inherit inputs;};
-    jemalloc-rpi = import ./jemalloc-rpi.nix inputs.nixpkgs lib;
-  };
+  overrides = import ./overrides.nix {inherit inputs;};
+  jemalloc-rpi = import ./jemalloc-rpi.nix inputs.nixpkgs lib;
 }

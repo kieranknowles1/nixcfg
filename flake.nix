@@ -221,18 +221,22 @@
 
       assets = import ./assets.nix;
 
+      nixosConfigurations = import ./hosts {inherit self inputs;};
+      nixosModules.default = import ./modules/nixos;
+      homeManagerModules.default = import ./modules/home;
+
       lib = import ./lib {
         inherit (nixpkgs) lib;
         inherit self inputs;
       };
 
+      overlays = import ./overlays {
+        inherit (nixpkgs) lib;
+        inherit self inputs;
+      };
+
       #   imports = [
-      #     ./hosts
-      #     ./modules
       #     ./shells
-      #     # Extend nixpkgs with flake-specific overlays, for this
-      #     # flake and its dependencies
-      #     ./overlays
       #     # Format all file types in this flake and others
       #     ./treefmt.nix
       #   ];
@@ -241,6 +245,9 @@
       pkgs = import nixpkgs {
         inherit system;
       };
+      # Eval the treefmt modules from ./treefmt.nix
+      eachSystem = f: nixpkgs.lib.genAttrs (import inputs.systems) (system: f nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in {
       builders = import ./builders {
         inherit (nixpkgs) lib;
@@ -251,6 +258,8 @@
         inherit (nixpkgs) lib;
         inherit pkgs self;
       };
+
+      formatter = treefmtEval.${pkgs.system}.config.build.wrapper;
 
       packages = import ./packages {
         inherit (nixpkgs) lib;
