@@ -5,6 +5,7 @@ repoPath = "/home/kieran/src/nixcfg"
 features.extras = true
 
 docs.generateManCache = false # Takes over a minute on almost every rebuild.
+docs-generate.baseUrl = "https://github.com/kieranknowles1/nixcfg/blob/master"
 
 [hardware]
 memorySize = 8
@@ -20,7 +21,6 @@ hostname = "selwonk.uk"
 data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
-docs-generate.baseUrl = "https://github.com/kieranknowles1/nixcfg/blob/master"
 forgejo.enable = true
 homepage.enable = true
 immich.enable = true
