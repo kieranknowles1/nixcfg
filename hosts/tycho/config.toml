@@ -20,6 +20,7 @@ hostname = "selwonk.uk"
 data.baseDirectory = "/mnt/extern/data"
 
 docs.enable = true
+docs-generate.baseUrl = "https://github.com/kieranknowles1/nixcfg/blob/master"
 forgejo.enable = true
 homepage.enable = true
 immich.enable = true

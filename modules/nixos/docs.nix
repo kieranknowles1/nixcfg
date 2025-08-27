@@ -31,9 +31,18 @@
       };
     };
 
-    docs-generate.jsonIgnoredOptions = {
-      nixos = mkIgnoredOptions "NixOS";
-      home = mkIgnoredOptions "Home Manager";
+    docs-generate = {
+      jsonIgnoredOptions = {
+        nixos = mkIgnoredOptions "NixOS";
+        home = mkIgnoredOptions "Home Manager";
+      };
+      baseUrl = mkOption {
+        description = ''
+          The base URL for links to option declarations.
+        '';
+        defaultText = "config.custom.repoPath";
+        example = "https://git.example.com/user/repo/blob/main";
+      };
     };
   };
 
@@ -63,8 +72,7 @@
         source = mkOptionDocs {
           module = self.nixosModules.default;
           title = "NixOS options";
-          # TODO: Point this an NixOS to GitHub, they aren't available on a server
-          inherit (config.custom) repoPath;
+          inherit (cfg) baseUrl;
         };
       };
       "host-options.schema.json" = mkSchema "NixOS" self.nixosModules.default cfg.jsonIgnoredOptions.nixos;
@@ -73,7 +81,7 @@
         source = mkOptionDocs {
           module = self.homeManagerModules.default;
           title = "Home Manager options";
-          inherit (config.custom) repoPath;
+          inherit (cfg) baseUrl;
         };
       };
       "user-options.schema.json" = mkSchema "Home Manager" self.homeManagerModules.default cfg.jsonIgnoredOptions.home;
