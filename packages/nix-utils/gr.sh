@@ -8,14 +8,17 @@ showHelp() {
 Usage: $0 [mode]
 
 Possible modes:
-- url: Get the URL for the remote repository
+- open: Open the remote in the default browser
 - pr: Open a form to submit a pull request in the browser
+- url: Get the URL for the remote repository
 EOF
 }
 
 # Get the remote repo URL, assuming GitHub style paths
 getUrl() {
-  git remote get-url origin | sed -E 's|git@(.+):(.+)|https://\1/\2|'
+  git remote get-url origin | sed -E \
+    -e 's|^git@(.+):(.+)|https://\1/\2|' \
+    -e 's|\.git$||'
 }
 
 createPullRequest() {
@@ -31,10 +34,12 @@ createPullRequest() {
 case "$mode" in
   "help" | "-h" | "--help")
     showHelp
-  ;; "url")
-    getUrl
+  ;; "open")
+    xdg-open "$(getUrl)"
   ;; "pr")
     createPullRequest
+  ;; "url")
+    getUrl
   ;; *)
     showHelp
     exit 1
