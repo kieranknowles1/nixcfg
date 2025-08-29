@@ -53,6 +53,8 @@
     # which struggles to render due to its size.
     documentation.nixos.enable = false;
 
+    custom.docs-generate.baseUrl = lib.mkDefault config.custom.repoPath;
+
     # Default generated pages
     custom.docs-generate.file = let
       cfg = config.custom.docs-generate;
