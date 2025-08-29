@@ -57,10 +57,10 @@
       };
 
       programs = {
-        alejandra.enable = true; # Nix
         beautysh.enable = true; # Bash
         black.enable = true; # Python
         cmake-format.enable = true; # CMake
+        nixfmt.enable = true; # Nix
         rustfmt.enable = true; # Rust
         stylua.enable = true; # Lua
 
