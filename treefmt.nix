@@ -117,19 +117,20 @@
         };
       };
 
+      # FIXME: Not currently working
       # Formatters not included in the treefmt-nix repo
-      settings.formatter = {
-        phpstan = {
-          command = lib.getExe pkgs.phpPackages.phpstan;
-          options = [
-            "analyze"
-            "--level=max"
-            "--no-interaction"
-            "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
-          ];
-          includes = ["*.php"];
-        };
-      };
+      # settings.formatter = {
+      #   phpstan = {
+      #     command = lib.getExe pkgs.phpPackages.phpstan;
+      #     options = [
+      #       "analyze"
+      #       "--level=max"
+      #       "--no-interaction"
+      #       "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
+      #     ];
+      #     includes = ["*.php"];
+      #   };
+      # };
     };
   };
 in {
