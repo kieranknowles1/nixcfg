@@ -8,7 +8,8 @@
   nixos-raspberrypi,
   inputs,
   ...
-}: {
+}:
+{
   imports = with nixos-raspberrypi.nixosModules; [
     ./hardware-configuration.nix
     {
@@ -16,7 +17,7 @@
 
       custom = {
         users = {
-          users.kieran = import ../../users/kieran {inherit pkgs config self;};
+          users.kieran = import ../../users/kieran { inherit pkgs config self; };
         };
 
         # Renewal is manual, but I don't really care because certs last 15 years

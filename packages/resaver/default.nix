@@ -6,7 +6,8 @@
   lib,
   jq,
   jdk21,
-}: let
+}:
+let
   resaver = writeShellApplication {
     name = "resaver";
     runtimeInputs = [
@@ -24,24 +25,27 @@
     exec = "${lib.getExe resaver} %u";
   };
 in
-  symlinkJoin {
-    name = "resaver";
-    paths = [resaver desktopItem];
+symlinkJoin {
+  name = "resaver";
+  paths = [
+    resaver
+    desktopItem
+  ];
 
-    meta = {
-      license = lib.licenses.asl20;
-      description = "Skyrim and Fallout 4 savegame editor";
-      longDescription = ''
-        A savegame editor for Skyrim and Fallout 4, wrapped to be fetched automatically
-        from Nexus Mods with an API key.
+  meta = {
+    license = lib.licenses.asl20;
+    description = "Skyrim and Fallout 4 savegame editor";
+    longDescription = ''
+      A savegame editor for Skyrim and Fallout 4, wrapped to be fetched automatically
+      from Nexus Mods with an API key.
 
-        The first time the script is run, it will download the JAR file from Nexus Mods. Subsequent
-        calls will use the cached file.
+      The first time the script is run, it will download the JAR file from Nexus Mods. Subsequent
+      calls will use the cached file.
 
-        # Prerequisites
-        The API key of a premium Nexus Mods account must be stored at `~/.config/sops-nix/secrets/nexusmods/apikey`.
-      '';
+      # Prerequisites
+      The API key of a premium Nexus Mods account must be stored at `~/.config/sops-nix/secrets/nexusmods/apikey`.
+    '';
 
-      mainProgram = resaver.name;
-    };
-  }
+    mainProgram = resaver.name;
+  };
+}

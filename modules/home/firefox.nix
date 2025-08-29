@@ -5,25 +5,29 @@
   hostConfig,
   pkgs,
   ...
-}: {
-  options.custom.firefox = let
-    inherit (lib) mkOption types literalExpression;
-  in {
-    extraExtensions = mkOption {
-      type = types.listOf types.package;
-      default = [];
-      description = "Additional extensions to install";
-      example = literalExpression ''
-        with pkgs.firefox-addons; [
-          ublock-origin
-        ];
-      '';
+}:
+{
+  options.custom.firefox =
+    let
+      inherit (lib) mkOption types literalExpression;
+    in
+    {
+      extraExtensions = mkOption {
+        type = types.listOf types.package;
+        default = [ ];
+        description = "Additional extensions to install";
+        example = literalExpression ''
+          with pkgs.firefox-addons; [
+            ublock-origin
+          ];
+        '';
+      };
     };
-  };
 
-  config = let
-    cfg = config.custom.firefox;
-  in
+  config =
+    let
+      cfg = config.custom.firefox;
+    in
     lib.mkIf hostConfig.custom.features.desktop {
       programs.firefox = {
         enable = true;
@@ -57,7 +61,8 @@
 
           # To search available extensions, run
           # `nix flake show gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons | grep <search-term>`
-          extensions = with pkgs.firefox-addons;
+          extensions =
+            with pkgs.firefox-addons;
             [
               bitwarden # Password manager. Available everywhere
               # TODO: Manage config for extensions. How do we export?

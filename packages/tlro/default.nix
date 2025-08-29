@@ -13,10 +13,9 @@
   # Can be overridden per-invocation using the --short/long-options flag
   shortOpts ? true,
   longOpts ? true,
-  pages ?
-    import ./pages.nix {
-      inherit src-tldr nushell runCommand;
-    },
+  pages ? import ./pages.nix {
+    inherit src-tldr nushell runCommand;
+  },
   writeShellApplication,
 }:
 writeShellApplication rec {

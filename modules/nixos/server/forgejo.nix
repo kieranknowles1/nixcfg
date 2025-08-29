@@ -2,40 +2,44 @@
   config,
   lib,
   ...
-}: {
-  options.custom.server.forgejo = let
-    inherit (lib) mkOption mkEnableOption types;
-  in {
-    enable = mkEnableOption ''
-      Forgejo Git server.
+}:
+{
+  options.custom.server.forgejo =
+    let
+      inherit (lib) mkOption mkEnableOption types;
+    in
+    {
+      enable = mkEnableOption ''
+        Forgejo Git server.
 
-      NOTE: You may have to manually create the $${dataDir}/custom/conf directory.
+        NOTE: You may have to manually create the $${dataDir}/custom/conf directory.
 
-      NOTE: User creation is disabled. To add one, run the following command
-      to create an admin who can create other users:
-      ```sh
-      nix build nixpkgs#forgejo
-      sudo --user forgejo ./result/bin/gitea admin user create --admin --email $USER_EMAIL \
-        --username $USER_NAME --config $dataDir/custom/conf/app.ini --random-password
-      ```
-    '';
+        NOTE: User creation is disabled. To add one, run the following command
+        to create an admin who can create other users:
+        ```sh
+        nix build nixpkgs#forgejo
+        sudo --user forgejo ./result/bin/gitea admin user create --admin --email $USER_EMAIL \
+          --username $USER_NAME --config $dataDir/custom/conf/app.ini --random-password
+        ```
+      '';
 
-    subdomain = mkOption {
-      type = types.str;
-      default = "git";
-      description = "The subdomain for Forgejo.";
+      subdomain = mkOption {
+        type = types.str;
+        default = "git";
+        description = "The subdomain for Forgejo.";
+      };
+
+      dataDir = mkOption {
+        type = types.path;
+        description = "The directory where Forgejo will store its data.";
+      };
     };
 
-    dataDir = mkOption {
-      type = types.path;
-      description = "The directory where Forgejo will store its data.";
-    };
-  };
-
-  config = let
-    cfg = config.custom.server;
-    cfgf = cfg.forgejo;
-  in
+  config =
+    let
+      cfg = config.custom.server;
+      cfgf = cfg.forgejo;
+    in
     lib.mkIf cfgf.enable {
       custom.server = {
         forgejo.dataDir = "${cfg.data.baseDirectory}/forgejo";
@@ -54,7 +58,7 @@
             type = "gitea";
             config = {
               url = href;
-              fields = ["repositories"];
+              fields = [ "repositories" ];
             };
             secrets.key = {
               id = "FORGEJO_TOKEN";

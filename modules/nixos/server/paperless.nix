@@ -2,27 +2,31 @@
   config,
   lib,
   ...
-}: {
-  options.custom.server.paperless = let
-    inherit (lib) mkOption mkEnableOption types;
-  in {
-    enable = mkEnableOption "Paperless";
-    subdomain = mkOption {
-      type = types.str;
-      default = "papers";
-      description = "The subdomain for Paperless";
+}:
+{
+  options.custom.server.paperless =
+    let
+      inherit (lib) mkOption mkEnableOption types;
+    in
+    {
+      enable = mkEnableOption "Paperless";
+      subdomain = mkOption {
+        type = types.str;
+        default = "papers";
+        description = "The subdomain for Paperless";
+      };
+      dataDir = mkOption {
+        type = types.path;
+        defaultText = "$${config.custom.server.data.baseDirectory}/paperless";
+        description = "The directory where Paperless will store its data";
+      };
     };
-    dataDir = mkOption {
-      type = types.path;
-      defaultText = "$${config.custom.server.data.baseDirectory}/paperless";
-      description = "The directory where Paperless will store its data";
-    };
-  };
 
-  config = let
-    cfg = config.custom.server;
-    cfgp = cfg.paperless;
-  in
+  config =
+    let
+      cfg = config.custom.server;
+      cfgp = cfg.paperless;
+    in
     lib.mkIf cfgp.enable {
       custom.server = {
         paperless.dataDir = "${cfg.data.baseDirectory}/paperless";

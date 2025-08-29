@@ -4,7 +4,8 @@
   config,
   hostConfig,
   ...
-}: {
+}:
+{
   options.custom.theme = {
     wallpaper = lib.mkOption {
       description = "The wallpaper to use. Ideally a PNG image to avoid compression artifacts.";

@@ -3,12 +3,13 @@
   self,
   inputs,
   ...
-}: {
+}:
+{
   flake.lib = {
     license = lib.licenses.mit;
     attrset = import ./attrset.nix;
-    docs = import ./docs.nix {inherit lib inputs;};
-    host = import ./host.nix {inherit self inputs;};
+    docs = import ./docs.nix { inherit lib inputs; };
+    host = import ./host.nix { inherit self inputs; };
     shell = import ./shell.nix;
   };
 }

@@ -4,16 +4,20 @@
   config,
   hostConfig,
   ...
-}: {
-  options.custom.docs-generate = let
-    inherit (lib) mkEnableOption;
-  in {
-    install = mkEnableOption "install generated documentation for the flake and its options.";
-  };
+}:
+{
+  options.custom.docs-generate =
+    let
+      inherit (lib) mkEnableOption;
+    in
+    {
+      install = mkEnableOption "install generated documentation for the flake and its options.";
+    };
 
-  config = let
-    cfg = config.custom.docs-generate;
-  in
+  config =
+    let
+      cfg = config.custom.docs-generate;
+    in
     lib.mkMerge [
       {
         # Inherit host-wide pages
@@ -23,7 +27,10 @@
         custom.shortcuts.palette.actions = lib.singleton {
           description = "View documentation";
           # These are built from markdown where the convention is `readme.md` rather than `index.html`
-          action = ["xdg-open" "${cfg.build.combined.html}/index.html"];
+          action = [
+            "xdg-open"
+            "${cfg.build.combined.html}/index.html"
+          ];
         };
 
         home.file."${config.custom.relativeRepoPath}/docs/generated" = {

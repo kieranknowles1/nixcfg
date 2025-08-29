@@ -6,7 +6,7 @@
 writeShellApplication rec {
   name = "todos";
 
-  runtimeInputs = [ripgrep];
+  runtimeInputs = [ ripgrep ];
 
   text = builtins.readFile ./todos.sh;
 

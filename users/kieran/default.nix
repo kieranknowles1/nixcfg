@@ -2,17 +2,16 @@
   self,
   pkgs,
   config,
-}: let
+}:
+let
   inherit (self.lib.attrset) deepMergeSets;
   inherit (self.lib.host) readTomlFile;
 
   # We use TOML for host/user config, as they can be checked using schemas
   baseConfig = readTomlFile ./config.toml;
-  desktopConfig =
-    if config.custom.features.desktop
-    then readTomlFile ./config-desktop.toml
-    else {};
-in {
+  desktopConfig = if config.custom.features.desktop then readTomlFile ./config-desktop.toml else { };
+in
+{
   core = {
     displayName = "Kieran";
     isSudoer = true;
@@ -30,7 +29,10 @@ in {
 
     # Use a dedicated deepMergeSets function to merge the TOML files, as this
     # gives more easily understandable behaviour than options merging.
-    custom = deepMergeSets [desktopConfig baseConfig];
+    custom = deepMergeSets [
+      desktopConfig
+      baseConfig
+    ];
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release

@@ -3,7 +3,7 @@
   nushell,
   runCommand,
 }:
-runCommand "tldr-pages.db" {} ''
+runCommand "tldr-pages.db" { } ''
   ${nushell}/bin/nu ${./buildPages.nu} ${src-tldr} $out
 ''
 # }: let
@@ -17,4 +17,3 @@ runCommand "tldr-pages.db" {} ''
 #     cp --no-clobber ${platformPages "common"}/* $out
 #     cp ${platformPages "common"}/..md $out/
 #   ''
-

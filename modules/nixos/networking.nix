@@ -2,7 +2,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   options.custom.networking = {
     hostName = lib.mkOption {
       type = lib.types.str;
@@ -25,51 +26,50 @@
     };
   };
 
-  config = let
-    cfg = config.custom.networking;
-  in {
-    # Enable networking
-    networking = {
-      inherit (cfg) hostName;
+  config =
+    let
+      cfg = config.custom.networking;
+    in
+    {
+      # Enable networking
+      networking = {
+        inherit (cfg) hostName;
 
-      networkmanager.enable = true;
-      # This is handled by NetworkManager
-      wireless.enable = false;
+        networkmanager.enable = true;
+        # This is handled by NetworkManager
+        wireless.enable = false;
 
-      # Disable plugins we don't use
-      networkmanager.plugins = lib.mkForce [
-        # networkmanager-fortisslvpn # VPN plugin for Fortinet
-        # networkmanager-iodine # Tunnel to get through firewalls
-        # networkmanager-l2tp # Another VPN plugin
-        # networkmanager-openconnect # Cisco VPN plugin
-        # networkmanager-openvpn # Another VPN plugin
-        # networkmanager-vpnc # Another VPN plugin
-        # networkmanager-sstp # What do you know, another VPN
-      ];
-    };
-
-    # Enable resolving *.local hostnames via mDNS
-    services.avahi = {
-      enable = true;
-      nssmdns4 = true;
-      nssmdns6 = true;
-
-      # Expose our hostname to the network
-      publish = {
-        enable = true;
-
-        addresses = true;
-        domain = true;
-        hinfo = true;
-        userServices = true;
-        workstation = true;
+        # Disable plugins we don't use
+        networkmanager.plugins = lib.mkForce [
+          # networkmanager-fortisslvpn # VPN plugin for Fortinet
+          # networkmanager-iodine # Tunnel to get through firewalls
+          # networkmanager-l2tp # Another VPN plugin
+          # networkmanager-openconnect # Cisco VPN plugin
+          # networkmanager-openvpn # Another VPN plugin
+          # networkmanager-vpnc # Another VPN plugin
+          # networkmanager-sstp # What do you know, another VPN
+        ];
       };
-    };
 
-    # WARN: This assumes that only "multi-user.target" is wantedBy the network-online.target
-    systemd.units."network-online.target".wantedBy =
-      if cfg.waitOnline
-      then []
-      else lib.mkForce [];
-  };
+      # Enable resolving *.local hostnames via mDNS
+      services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        nssmdns6 = true;
+
+        # Expose our hostname to the network
+        publish = {
+          enable = true;
+
+          addresses = true;
+          domain = true;
+          hinfo = true;
+          userServices = true;
+          workstation = true;
+        };
+      };
+
+      # WARN: This assumes that only "multi-user.target" is wantedBy the network-online.target
+      systemd.units."network-online.target".wantedBy = if cfg.waitOnline then [ ] else lib.mkForce [ ];
+    };
 }

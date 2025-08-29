@@ -2,22 +2,25 @@
 # To add a known host, run `ssh-keyscan ${hostname}` and place the output in ./hosts/${hostname} (the file name is the full domain name)
 # The file should contain the remainder of the `ssh-ed25519` line
 # Similarly, public keys should be copied from ~/.ssh/id_ed25519.pub to ./keys/${hostname}.pub
-{lib, ...}: {
-  options.custom.ssh = let
-    inherit (lib) mkOption types;
-  in {
-    keyOwners = mkOption {
-      type = types.attrsOf (types.listOf types.str);
-      description = "Map of public key owners to their keys";
-      default = {};
-      example = {
-        "user@example.com" = [
-          "ssh-ed25519 ABC123"
-          "ssh-ed25519 XYZ789"
-        ];
+{ lib, ... }:
+{
+  options.custom.ssh =
+    let
+      inherit (lib) mkOption types;
+    in
+    {
+      keyOwners = mkOption {
+        type = types.attrsOf (types.listOf types.str);
+        description = "Map of public key owners to their keys";
+        default = { };
+        example = {
+          "user@example.com" = [
+            "ssh-ed25519 ABC123"
+            "ssh-ed25519 XYZ789"
+          ];
+        };
       };
     };
-  };
 
   config = {
     custom.ssh.keyOwners."kieranknowles11@hotmail.co.uk" = [
@@ -36,7 +39,7 @@
       # These are read from [[./hosts]] where the file name is the hostname and the content is the ed25519 signature
       # To get the signature of a host, run `ssh-keyscan ${hostname}` which will work for both local and remote hosts
       knownHosts = builtins.mapAttrs (name: _value: {
-        hostNames = [name];
+        hostNames = [ name ];
         publicKeyFile = ./hosts/${name};
       }) (builtins.readDir ./hosts);
     };

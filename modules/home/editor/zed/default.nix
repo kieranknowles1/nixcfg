@@ -5,29 +5,33 @@
   config,
   hostConfig,
   ...
-}: {
-  options.custom.editor.zed = let
-    inherit (lib) mkOption mkEnableOption types;
-  in {
-    enable = mkEnableOption "Zed";
-    desktopFile = mkOption {
-      description = "Name of the .desktop file";
-      default = "dev.zed.Zed.desktop";
-      type = types.str;
-      readOnly = true;
+}:
+{
+  options.custom.editor.zed =
+    let
+      inherit (lib) mkOption mkEnableOption types;
+    in
+    {
+      enable = mkEnableOption "Zed";
+      desktopFile = mkOption {
+        description = "Name of the .desktop file";
+        default = "dev.zed.Zed.desktop";
+        type = types.str;
+        readOnly = true;
+      };
+
+      command = mkOption {
+        description = "Command to run the editor";
+        default = "zeditor";
+        type = types.str;
+        readOnly = true;
+      };
     };
 
-    command = mkOption {
-      description = "Command to run the editor";
-      default = "zeditor";
-      type = types.str;
-      readOnly = true;
-    };
-  };
-
-  config = let
-    cfg = config.custom.editor.zed;
-  in
+  config =
+    let
+      cfg = config.custom.editor.zed;
+    in
     lib.mkIf cfg.enable {
       assertions = lib.singleton {
         assertion = hostConfig.custom.features.desktop;

@@ -3,30 +3,34 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   imports = [
     ./factorio.nix
     ./openmw
     ./skyrim
   ];
 
-  options.custom.games = let
-    inherit (lib) mkOption mkEnableOption types;
-  in {
-    enable = mkEnableOption "games";
+  options.custom.games =
+    let
+      inherit (lib) mkOption mkEnableOption types;
+    in
+    {
+      enable = mkEnableOption "games";
 
-    nexusModsKey = mkOption {
-      type = types.str;
-      description = ''
-        Secret containing the API key for Nexus Mods.
-      '';
-      example = "nexusmods/apikey";
+      nexusModsKey = mkOption {
+        type = types.str;
+        description = ''
+          Secret containing the API key for Nexus Mods.
+        '';
+        example = "nexusmods/apikey";
+      };
     };
-  };
 
-  config = let
-    cfg = config.custom.games;
-  in
+  config =
+    let
+      cfg = config.custom.games;
+    in
     lib.mkIf cfg.enable {
       home.packages = with pkgs; [
         # Ignore do not use warning. We have the required dependencies
