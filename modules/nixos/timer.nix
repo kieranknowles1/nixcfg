@@ -2,32 +2,31 @@
   lib,
   config,
   ...
-}: let
-  inherit
-    (import ../modlib/timerutil.nix lib "nixos")
+}:
+let
+  inherit (import ../modlib/timerutil.nix lib "nixos")
     timerOpt
     timerBlock
     serviceBlock
     ;
-in {
+in
+{
   options.custom.timer = timerOpt;
 
-  config = let
-    cfg = config.custom.timer;
-  in {
-    systemd.timers =
-      builtins.mapAttrs (_name: timer: {
+  config =
+    let
+      cfg = config.custom.timer;
+    in
+    {
+      systemd.timers = builtins.mapAttrs (_name: timer: {
         inherit (timer) description;
         timerConfig = timerBlock timer;
-        wantedBy = ["timers.target"];
-      })
-      cfg;
+        wantedBy = [ "timers.target" ];
+      }) cfg;
 
-    systemd.services =
-      builtins.mapAttrs (_name: timer: {
+      systemd.services = builtins.mapAttrs (_name: timer: {
         inherit (timer) description;
         serviceConfig = serviceBlock timer;
-      })
-      cfg;
-  };
+      }) cfg;
+    };
 }

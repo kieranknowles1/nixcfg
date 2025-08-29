@@ -2,13 +2,15 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   isCosmic = config.custom.desktop.environment == "cosmic";
-in {
+in
+{
   config = lib.mkIf isCosmic {
     nix.settings = {
-      substituters = ["https://cosmic.cachix.org/"];
-      trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
+      substituters = [ "https://cosmic.cachix.org/" ];
+      trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
     };
 
     services.desktopManager.cosmic = {

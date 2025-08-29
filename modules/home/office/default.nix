@@ -3,12 +3,15 @@
   config,
   lib,
   ...
-}: {
-  options.custom.office = let
-    inherit (lib) mkEnableOption;
-  in {
-    enable = mkEnableOption "office suite";
-  };
+}:
+{
+  options.custom.office =
+    let
+      inherit (lib) mkEnableOption;
+    in
+    {
+      enable = mkEnableOption "office suite";
+    };
 
   config = lib.mkIf config.custom.office.enable {
     # Add templates for office applications, if we are installing a suite

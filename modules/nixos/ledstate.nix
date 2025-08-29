@@ -7,15 +7,17 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.custom.ledState;
 
   set-led-state = lib.getExe cfg.package;
-in {
+in
+{
   options.custom.ledState = {
     enable = lib.mkEnableOption "run set-led-state without a password";
 
-    package = lib.mkPackageOption pkgs.flake "set-led-state" {};
+    package = lib.mkPackageOption pkgs.flake "set-led-state" { };
   };
 
   config = lib.mkIf cfg.enable {
@@ -26,11 +28,11 @@ in {
     # - Write the utility in Rust, and claim it was done for memory safety and not just because it's fun :)
     security.sudo.extraRules = [
       {
-        groups = ["wheel"]; # Require that the user is allowed to sudo
+        groups = [ "wheel" ]; # Require that the user is allowed to sudo
         commands = [
           {
             command = lib.getExe cfg.package; # Apply to the set-led-state command
-            options = ["NOPASSWD"]; # Don't require a password
+            options = [ "NOPASSWD" ]; # Don't require a password
           }
         ];
       }

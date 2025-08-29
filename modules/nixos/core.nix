@@ -5,31 +5,37 @@
   lib,
   self,
   ...
-}: {
-  options.custom = let
-    inherit (lib) mkOption types;
-  in {
-    # Flakes run as pure functions, and as such can't
-    # find the repository path on their own. This option
-    # is used instead.
-    repoPath = mkOption {
-      description = "Absolute path to the repository on disk";
-      type = types.str;
-    };
+}:
+{
+  options.custom =
+    let
+      inherit (lib) mkOption types;
+    in
+    {
+      # Flakes run as pure functions, and as such can't
+      # find the repository path on their own. This option
+      # is used instead.
+      repoPath = mkOption {
+        description = "Absolute path to the repository on disk";
+        type = types.str;
+      };
 
-    features = let
-      mkFeatureOption = description:
-        mkOption {
-          inherit description;
-          type = types.bool;
-          default = false;
+      features =
+        let
+          mkFeatureOption =
+            description:
+            mkOption {
+              inherit description;
+              type = types.bool;
+              default = false;
+            };
+        in
+        {
+          # TODO: Rename this to `desktop.enable`
+          desktop = mkFeatureOption "Whether the system is a desktop and should have a graphical environment enabled.";
+          extras = mkFeatureOption "nice-to-have, but not strictly necessary, features";
         };
-    in {
-      # TODO: Rename this to `desktop.enable`
-      desktop = mkFeatureOption "Whether the system is a desktop and should have a graphical environment enabled.";
-      extras = mkFeatureOption "nice-to-have, but not strictly necessary, features";
     };
-  };
 
   config = {
     nix.settings = {
@@ -40,7 +46,7 @@
       ];
 
       # Allow any sudoer to run protected Nix commands
-      trusted-users = ["@wheel"];
+      trusted-users = [ "@wheel" ];
     };
 
     # Apply all of the flake's overlays, as we need them for the system
@@ -63,7 +69,8 @@
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       [
         flake.nix-utils
         flake.todos

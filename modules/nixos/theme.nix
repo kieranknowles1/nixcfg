@@ -5,7 +5,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   stylix = {
     # No need to theme the system if it's a server
     enable = config.custom.features.desktop;
@@ -34,7 +35,7 @@
   # Disabling auto import would break home-manager inheritance and double import
   # breaks completely, so condition the import based on it being disabled
   # (and home disabling it anyway meaning we import an unused module)
-  home-manager.sharedModules =
-    lib.optional (!config.custom.features.desktop)
-    inputs.stylix.homeModules.stylix;
+  home-manager.sharedModules = lib.optional (
+    !config.custom.features.desktop
+  ) inputs.stylix.homeModules.stylix;
 }

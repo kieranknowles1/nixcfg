@@ -4,25 +4,28 @@
   lib,
   pkgs,
   ...
-}: {
-  options.custom.editor.vscode = let
-    inherit (lib) mkOption mkEnableOption types;
-  in {
-    enable = mkEnableOption "VS Code";
-    desktopFile = mkOption {
-      description = "Name of the .desktop file";
-      default = "code.desktop";
-      type = types.str;
-      readOnly = true;
-    };
+}:
+{
+  options.custom.editor.vscode =
+    let
+      inherit (lib) mkOption mkEnableOption types;
+    in
+    {
+      enable = mkEnableOption "VS Code";
+      desktopFile = mkOption {
+        description = "Name of the .desktop file";
+        default = "code.desktop";
+        type = types.str;
+        readOnly = true;
+      };
 
-    command = mkOption {
-      description = "Command to run the editor";
-      default = "code";
-      type = types.str;
-      readOnly = true;
+      command = mkOption {
+        description = "Command to run the editor";
+        default = "code";
+        type = types.str;
+        readOnly = true;
+      };
     };
-  };
 
   config = lib.mkIf config.custom.editor.vscode.enable {
     # Rebuild will fail if any assertion is false. VSCode requires a desktop environment, so isn't useful on servers.

@@ -5,55 +5,59 @@
   inputs,
   pkgs,
   ...
-}: {
-  options.custom.server.search = let
-    inherit (lib) mkOption mkEnableOption types;
+}:
+{
+  options.custom.server.search =
+    let
+      inherit (lib) mkOption mkEnableOption types;
 
-    scopeType = types.submodule {
-      options = {
-        name = mkOption {
-          type = types.str;
-          description = "Name of the scope shown in the description of options and scope filter dropdown";
-          example = "My Glorious Modules";
-        };
-        modules = mkOption {
-          type = types.listOf types.anything;
-          description = "List of modules to generate search for";
-        };
-        urlPrefix = mkOption {
-          type = types.str;
-          description = "Link to the module's Git repository";
-          example = "https://git.example.com/nixos";
+      scopeType = types.submodule {
+        options = {
+          name = mkOption {
+            type = types.str;
+            description = "Name of the scope shown in the description of options and scope filter dropdown";
+            example = "My Glorious Modules";
+          };
+          modules = mkOption {
+            type = types.listOf types.anything;
+            description = "List of modules to generate search for";
+          };
+          urlPrefix = mkOption {
+            type = types.str;
+            description = "Link to the module's Git repository";
+            example = "https://git.example.com/nixos";
+          };
         };
       };
+    in
+    {
+      enable = mkEnableOption "Options Search";
+
+      subdomain = mkOption {
+        type = types.str;
+        default = "search";
+        description = ''
+          The subdomain to use for options search.
+        '';
+      };
+
+      scopes = mkOption {
+        type = types.listOf scopeType;
+        default = [ ];
+        description = ''
+          List of scopes to generate search for.
+        '';
+      };
     };
-  in {
-    enable = mkEnableOption "Options Search";
 
-    subdomain = mkOption {
-      type = types.str;
-      default = "search";
-      description = ''
-        The subdomain to use for options search.
-      '';
-    };
+  config.custom.server =
+    let
+      inherit (inputs.nuschtosSearch.packages.${pkgs.system}) mkMultiSearch;
+      ghUrl = "https://github.com/kieranknowles1/nixcfg/";
 
-    scopes = mkOption {
-      type = types.listOf scopeType;
-      default = [];
-      description = ''
-        List of scopes to generate search for.
-      '';
-    };
-  };
-
-  config.custom.server = let
-    inherit (inputs.nuschtosSearch.packages.${pkgs.system}) mkMultiSearch;
-    ghUrl = "https://github.com/kieranknowles1/nixcfg/";
-
-    cfg = config.custom.server;
-    cfgs = cfg.search;
-  in
+      cfg = config.custom.server;
+      cfgs = cfg.search;
+    in
     lib.mkIf cfgs.enable {
       search.scopes = [
         {

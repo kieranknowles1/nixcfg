@@ -37,14 +37,16 @@
     };
   };
 
-  outputs = {
-    flake-parts,
-    nixcfg,
-    ...
-  } @ inputs: let
-    cfgLib = nixcfg.lib;
-  in
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    {
+      flake-parts,
+      nixcfg,
+      ...
+    }@inputs:
+    let
+      cfgLib = nixcfg.lib;
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
 
       imports = [
@@ -56,27 +58,29 @@
         # Shared across all systems
       };
 
-      perSystem = {pkgs, ...}: {
-        # Per system type
-        devShells = {
-          # Wrapper that preserves the user's default shell
-          # Usage: `nix develop [.#name=default]`
-          default = cfgLib.shell.mkShellEx pkgs.mkShellNoCC {
-            name = "dev";
-            packages = with pkgs; [
-              hello
-            ];
+      perSystem =
+        { pkgs, ... }:
+        {
+          # Per system type
+          devShells = {
+            # Wrapper that preserves the user's default shell
+            # Usage: `nix develop [.#name=default]`
+            default = cfgLib.shell.mkShellEx pkgs.mkShellNoCC {
+              name = "dev";
+              packages = with pkgs; [
+                hello
+              ];
 
-            shellHook = ''
-              echo "Hello, world!"
-            '';
+              shellHook = ''
+                echo "Hello, world!"
+              '';
+            };
+          };
+
+          packages = {
+            # Usage: `nix run [.#name=default]`
+            default = pkgs.hello;
           };
         };
-
-        packages = {
-          # Usage: `nix run [.#name=default]`
-          default = pkgs.hello;
-        };
-      };
     };
 }

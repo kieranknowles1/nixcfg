@@ -4,7 +4,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   config.environment = lib.mkIf config.custom.features.desktop {
     systemPackages = with pkgs; [
       thunderbird

@@ -3,7 +3,7 @@
   valgrind,
   writeShellApplication,
   target ? "unknown",
-  suppressions ? [./valgrind-ignore.supp],
+  suppressions ? [ ./valgrind-ignore.supp ],
 }:
 writeShellApplication rec {
   name = "checkleak";

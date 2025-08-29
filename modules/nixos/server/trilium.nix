@@ -3,98 +3,107 @@
   lib,
   pkgs,
   ...
-}: {
-  options.custom.server.trilium = let
-    inherit (lib) mkOption mkEnableOption mkPackageOption types;
-  in {
-    enable = mkEnableOption "Trilium server";
+}:
+{
+  options.custom.server.trilium =
+    let
+      inherit (lib)
+        mkOption
+        mkEnableOption
+        mkPackageOption
+        types
+        ;
+    in
+    {
+      enable = mkEnableOption "Trilium server";
 
-    subdomain = mkOption {
-      type = types.str;
-      description = "Subdomain for Trilium server";
-      default = "notes";
+      subdomain = mkOption {
+        type = types.str;
+        description = "Subdomain for Trilium server";
+        default = "notes";
+      };
+
+      dataDir = mkOption {
+        type = types.path;
+        description = "Path to the Trilium data directory";
+      };
+
+      autoExport = {
+        enable = mkEnableOption "auto export Trilium data to Git.";
+
+        package = mkPackageOption pkgs.flake "export-notes" { };
+
+        remote = mkOption {
+          type = types.str;
+          description = ''
+            URL for remote export. Only localhost over SSH is supported.
+            This is also not declarative in the slightest. Manually add the key
+            to Forgejo's authorized keys, ideally on behalf of a bot user.
+
+            NOTE: Username will likely not be the standard `git`, but rather
+            `forgejo`.
+          '';
+          example = "ssh://forgejo@localhost/user/export.git";
+        };
+
+        systemUser = mkOption {
+          type = types.str;
+          description = "Name of system user for exports";
+          default = "trilium-exporter";
+        };
+
+        token = mkOption {
+          type = types.str;
+          description = "Secret Trilium ETAPI token for authentication";
+          default = "trilium/export-token";
+        };
+        sshKey = mkOption {
+          type = types.str;
+          description = "Secret SSH private key for authentication";
+          default = "trilium/ssh-key";
+        };
+
+        user = {
+          remoteName = mkOption {
+            type = types.str;
+            description = "Name of bot user to push commits as.";
+            default = "export-bot";
+          };
+          name = mkOption {
+            type = types.str;
+            description = "Name to associate with commits";
+            # This can be anything I want, just like the email. Be silly
+            default = "Exportus Automatus";
+            example = "Dave";
+          };
+          email = mkOption {
+            type = types.str;
+            description = "Email to associate with commits";
+            default = "export@${config.custom.server.hostname}";
+            defaultText = "export@$${config.custom.server.hostname}";
+            example = "dave@example.com";
+          };
+        };
+        schedule = mkOption {
+          type = types.str;
+          description = ''
+            Schedule for automatic exports, expressed as a
+            [systemd OnCalendar](https://www.freedesktop.org/software/systemd/man/systemd.time.html#Calendar%20Events)
+          '';
+          # Run at 11pm instead of midnight so this completes well in time for the night's backup
+          default = "23:00:00";
+        };
+      };
+
+      package = mkPackageOption pkgs "trilium-next-server" { };
     };
 
-    dataDir = mkOption {
-      type = types.path;
-      description = "Path to the Trilium data directory";
-    };
-
-    autoExport = {
-      enable = mkEnableOption "auto export Trilium data to Git.";
-
-      package = mkPackageOption pkgs.flake "export-notes" {};
-
-      remote = mkOption {
-        type = types.str;
-        description = ''
-          URL for remote export. Only localhost over SSH is supported.
-          This is also not declarative in the slightest. Manually add the key
-          to Forgejo's authorized keys, ideally on behalf of a bot user.
-
-          NOTE: Username will likely not be the standard `git`, but rather
-          `forgejo`.
-        '';
-        example = "ssh://forgejo@localhost/user/export.git";
-      };
-
-      systemUser = mkOption {
-        type = types.str;
-        description = "Name of system user for exports";
-        default = "trilium-exporter";
-      };
-
-      token = mkOption {
-        type = types.str;
-        description = "Secret Trilium ETAPI token for authentication";
-        default = "trilium/export-token";
-      };
-      sshKey = mkOption {
-        type = types.str;
-        description = "Secret SSH private key for authentication";
-        default = "trilium/ssh-key";
-      };
-
-      user = {
-        remoteName = mkOption {
-          type = types.str;
-          description = "Name of bot user to push commits as.";
-          default = "export-bot";
-        };
-        name = mkOption {
-          type = types.str;
-          description = "Name to associate with commits";
-          # This can be anything I want, just like the email. Be silly
-          default = "Exportus Automatus";
-          example = "Dave";
-        };
-        email = mkOption {
-          type = types.str;
-          description = "Email to associate with commits";
-          default = "export@${config.custom.server.hostname}";
-          defaultText = "export@$${config.custom.server.hostname}";
-          example = "dave@example.com";
-        };
-      };
-      schedule = mkOption {
-        type = types.str;
-        description = ''
-          Schedule for automatic exports, expressed as a
-          [systemd OnCalendar](https://www.freedesktop.org/software/systemd/man/systemd.time.html#Calendar%20Events)
-        '';
-        # Run at 11pm instead of midnight so this completes well in time for the night's backup
-        default = "23:00:00";
-      };
-    };
-
-    package = mkPackageOption pkgs "trilium-next-server" {};
-  };
-
-  config = let
-    cfg = config.custom.server;
-    cfgt = cfg.trilium;
-    cfge = cfgt.autoExport;
-  in
+  config =
+    let
+      cfg = config.custom.server;
+      cfgt = cfg.trilium;
+      cfge = cfgt.autoExport;
+    in
     lib.mkMerge [
       (lib.mkIf cfgt.enable {
         custom.server = {
@@ -114,7 +123,10 @@
               type = "trilium";
               config = {
                 url = href;
-                fields = ["notesCount" "dbSize"];
+                fields = [
+                  "notesCount"
+                  "dbSize"
+                ];
               };
               secrets = {
                 key = {
@@ -134,28 +146,28 @@
           nginx.enable = false; # We handle this ourselves
         };
       })
-      (
-        lib.mkIf (cfgt.enable && cfge.enable) {
-          sops.secrets = {
-            "trilium-export/token" = {
-              key = cfge.token;
-              owner = cfge.systemUser;
-            };
-            "trilium-export/sshKey" = {
-              key = cfge.sshKey;
-              owner = cfge.systemUser;
-            };
+      (lib.mkIf (cfgt.enable && cfge.enable) {
+        sops.secrets = {
+          "trilium-export/token" = {
+            key = cfge.token;
+            owner = cfge.systemUser;
           };
-
-          users.users.${cfge.systemUser} = {
-            group = cfge.systemUser;
-            isSystemUser = true;
-            createHome = true;
-            home = "/var/lib/${cfge.systemUser}";
+          "trilium-export/sshKey" = {
+            key = cfge.sshKey;
+            owner = cfge.systemUser;
           };
-          users.groups.${cfge.systemUser} = {};
+        };
 
-          custom.timer."export-trilium" = let
+        users.users.${cfge.systemUser} = {
+          group = cfge.systemUser;
+          isSystemUser = true;
+          createHome = true;
+          home = "/var/lib/${cfge.systemUser}";
+        };
+        users.groups.${cfge.systemUser} = { };
+
+        custom.timer."export-trilium" =
+          let
             finalExporter = cfge.package.override {
               apiRoot = "http://localhost:${builtins.toString cfg.ports.tcp.trilium}/etapi";
               apiKeyFile = config.sops.secrets."trilium-export/token".path;
@@ -164,7 +176,11 @@
 
             app = pkgs.writeShellApplication {
               name = "export-trilium-job";
-              runtimeInputs = [pkgs.git pkgs.openssh finalExporter];
+              runtimeInputs = [
+                pkgs.git
+                pkgs.openssh
+                finalExporter
+              ];
               runtimeEnv = {
                 EMAIL = cfge.user.email;
                 NAME = cfge.user.name;
@@ -199,7 +215,8 @@
                 export-notes
               '';
             };
-          in {
+          in
+          {
             inherit (cfge) schedule;
             user = cfge.systemUser;
             description = "Export Trilium notes";
@@ -208,7 +225,6 @@
             # /tmp will contain a zip of all notes
             privateTmp = true;
           };
-        }
-      )
+      })
     ];
 }

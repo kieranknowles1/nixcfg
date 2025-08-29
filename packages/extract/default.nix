@@ -9,7 +9,8 @@
   unzip,
   unrar-free,
   gnutar,
-}: let
+}:
+let
   extract = writeShellApplication rec {
     name = "extract";
     runtimeInputs = [
@@ -48,7 +49,10 @@
     ];
   };
 in
-  symlinkJoin {
-    inherit (extract) name meta;
-    paths = [extract desktopItem];
-  }
+symlinkJoin {
+  inherit (extract) name meta;
+  paths = [
+    extract
+    desktopItem
+  ];
+}

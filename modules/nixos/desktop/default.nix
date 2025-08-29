@@ -2,21 +2,24 @@
   lib,
   config,
   ...
-}: {
-  options.custom.desktop = let
-    inherit (lib) mkOption types;
-  in {
-    environment = mkOption {
-      description = "Desktop environment to use";
-      type = types.enum [
-        # Would like this to be default, but it's not polished enough, especially in the Nix implementation
-        # See [[./cosmic.nix]] for more information
-        "cosmic"
-        "gnome"
-      ];
-      default = "gnome";
+}:
+{
+  options.custom.desktop =
+    let
+      inherit (lib) mkOption types;
+    in
+    {
+      environment = mkOption {
+        description = "Desktop environment to use";
+        type = types.enum [
+          # Would like this to be default, but it's not polished enough, especially in the Nix implementation
+          # See [[./cosmic.nix]] for more information
+          "cosmic"
+          "gnome"
+        ];
+        default = "gnome";
+      };
     };
-  };
 
   # Conditional imports tend to to cause infinite recursion, so we need to
   # condition within the imported file.

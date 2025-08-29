@@ -4,7 +4,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   options.custom.secrets = {
     ageKeyFile = lib.mkOption {
       description = "The absolute path to the age key file. This is NOT a Nix path, as then we would be storing the key in the Nix store. Should be able to decrypt the secrets file.";
@@ -18,14 +19,16 @@
     };
   };
 
-  config = let
-    cfg = config.custom.secrets;
-  in {
-    sops = {
-      defaultSopsFile = cfg.file;
-      defaultSopsFormat = "yaml";
+  config =
+    let
+      cfg = config.custom.secrets;
+    in
+    {
+      sops = {
+        defaultSopsFile = cfg.file;
+        defaultSopsFormat = "yaml";
 
-      age.keyFile = cfg.ageKeyFile;
+        age.keyFile = cfg.ageKeyFile;
+      };
     };
-  };
 }

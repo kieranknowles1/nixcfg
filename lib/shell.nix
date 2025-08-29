@@ -1,17 +1,19 @@
 {
   /*
-  Extended mkShell that uses the user's shell instead of bash
+    Extended mkShell that uses the user's shell instead of bash
 
-  # Arguments
-  **builder** (Function) : The builder to use for the shell. Usually
-  `pkgs.mkShellNoCC`.
+    # Arguments
+    **builder** (Function) : The builder to use for the shell. Usually
+    `pkgs.mkShellNoCC`.
 
-  **args** (AttrSet) : Arguments to pass to the shell builder.
+    **args** (AttrSet) : Arguments to pass to the shell builder.
 
-  Note that shellHook is executed as Bash, before execing the user's shell.
+    Note that shellHook is executed as Bash, before execing the user's shell.
   */
-  mkShellEx = builder: args:
-    builder (args
+  mkShellEx =
+    builder: args:
+    builder (
+      args
       // {
         # args // passes all arguments to mkShellNoCC, except those that are overridden below
 
@@ -28,5 +30,6 @@
           fi
           exec "$SHELL"
         '';
-      });
+      }
+    );
 }
