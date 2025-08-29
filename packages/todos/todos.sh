@@ -51,7 +51,7 @@ any_of() {
 }
 
 ANY_COMMENT=$(any_of "${COMMENT_STARTS[@]}")
-COMMENT_AND_TODO="$ANY_COMMENT.*$(any_of "${TODO_TAGS[@]}")"
+COMMENT_AND_TODO="$ANY_COMMENT\s*$(any_of "${TODO_TAGS[@]}")"
 query="($COMMENT_AND_TODO|$(any_of "${STANDALONE_TAGS[@]}"))"
 
 search() {
