@@ -29,17 +29,6 @@ pub fn get_previous_config_path(home: &Path) -> PathBuf {
     home.join(".config/activate-mutable-config.json")
 }
 
-/// Return `value` if it is `Some`, otherwise use the value of the environment variable `name`.
-pub fn or_environ(
-    value: Option<PathBuf>,
-    name: &str,
-) -> std::result::Result<PathBuf, std::env::VarError> {
-    match value {
-        Some(value) => Ok(value),
-        None => Ok(std::env::var(name)?.into()),
-    }
-}
-
 fn is_directory(path: &Path) -> Result<bool> {
     match metadata(path) {
         Ok(md) => Ok(md.is_dir()),
