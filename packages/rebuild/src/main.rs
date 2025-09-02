@@ -3,7 +3,7 @@
 use clap::{Parser, Subcommand};
 use core::str;
 use std::{
-    env, fs,
+    fs,
     path::{Path, PathBuf},
 };
 
@@ -11,26 +11,12 @@ mod git;
 mod nix;
 mod process;
 
-/// Configuration derived from the environment.
-struct Config {
-    /// The path to the flake repository.
-    flake: PathBuf,
-}
-
-impl Config {
-    fn new() -> Result<Self, env::VarError> {
-        Ok(Self {
-            flake: PathBuf::from(env::var("FLAKE")?),
-        })
-    }
-}
-
 /// Command-line options.
 #[derive(Parser)]
 struct Opt {
-    #[clap(short, long)]
-    /// The path to the flake repository. If not provided, the FLAKE environment variable is used.
-    flake: Option<PathBuf>,
+    #[clap(short, long, env)]
+    /// The path to the flake repository.
+    flake: PathBuf,
 
     #[clap(subcommand)]
     action: Action,
@@ -121,25 +107,12 @@ fn build_and_switch(repo_path: &Path, message: &str) -> std::io::Result<String> 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opt = Opt::parse();
 
-    let flake = match opt.flake {
-        Some(value) => value,
-        None => match Config::new() {
-            Ok(config) => config.flake,
-            Err(e) => {
-                eprintln!(
-                    "FLAKE environment variable not set. Use the --flake option or set the FLAKE environment variable."
-                );
-                return Err(Box::new(e));
-            }
-        },
-    };
-
-    println!("Using flake repository at '{}'. ", flake.display());
+    println!("Using flake repository at '{}'. ", &opt.flake.display());
 
     let status = match opt.action {
-        Action::Build(value) => value.run(&flake),
-        Action::Update(value) => value.run(&flake),
-        Action::Pull(value) => value.run(&flake),
+        Action::Build(value) => value.run(&opt.flake),
+        Action::Update(value) => value.run(&opt.flake),
+        Action::Pull(value) => value.run(&opt.flake),
     };
 
     match status {

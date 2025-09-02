@@ -5,5 +5,5 @@ edition = "2021"
 license = "MIT"
 
 [dependencies]
-clap = { version = "4.5.7", features = ["derive"] }
+clap = { version = "4.5.7", features = ["derive", "env"] }
 gethostname = "0.4.3"
