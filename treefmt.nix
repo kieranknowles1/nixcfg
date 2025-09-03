@@ -59,6 +59,7 @@
         cmake-format.enable = true; # CMake
         rustfmt.enable = true; # Rust
         stylua.enable = true; # Lua
+        typstyle.enable = true; # Typst
 
         # Like prettier, but written in memory-safe Rust
         # rather than JavaScript with it's garbage collection (ew)
