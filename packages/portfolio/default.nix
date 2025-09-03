@@ -20,8 +20,8 @@
   ]);
 
   cv = stdenv.mkDerivation {
-    name = "cv.pdf";
-    src = ./cv/cv.typ;
+    name = "cv";
+    src = ./cv;
     dontUnpack = true;
 
     nativeBuildInputs = [
@@ -29,7 +29,12 @@
     ];
 
     buildPhase = ''
-      typst compile $src $out --font-path=${fonts}
+      mkdir -p $out
+      for file in $src/*.typ; do
+        filename=$(basename "$file" .typ)
+        outfile="$out/''${filename}.pdf"
+        typst compile "$file" "$outfile" --font-path=${fonts}
+      done
     '';
   };
 in
@@ -44,7 +49,7 @@ in
         ln -s ${self.assets.mdi-icons}/svg $out/.build-only/mdi-icons
         ln -s ${self.assets.simple-icons}/icons $out/.build-only/simple-icons
 
-        ln -s ${cv} $out/cv-kieran-knowles.pdf
+        ln -s ${cv}/technical.pdf $out/cv-kieran-knowles.pdf
       '';
     };
     meta = {
@@ -66,4 +71,6 @@ in
         \[5\]: https://rosswintle.uk/2021/12/hang-on-php-is-a-static-site-generator/
       '';
     };
+    
+    passthru.cv = cv;
   }
