@@ -14,11 +14,7 @@
       inputs.treefmt-nix.flakeModule
     ];
 
-    perSystem.treefmt = {
-      pkgs,
-      config,
-      ...
-    }: {
+    perSystem.treefmt = _: {
       projectRootFile = "flake.nix";
 
       settings.global = {
