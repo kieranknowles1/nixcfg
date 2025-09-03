@@ -1,0 +1,5 @@
+#:schema https://raw.githubusercontent.com/crate-ci/typos/refs/heads/master/config.schema.json
+
+type.typst.extend-glob = ["*.typ"]
+[type.typst.extend-identifiers]
+typ = "typ"
