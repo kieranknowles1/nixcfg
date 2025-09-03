@@ -8,7 +8,8 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   flakeModule = {
     imports = [
       inputs.treefmt-nix.flakeModule
@@ -112,6 +113,24 @@
             "*.tex"
           ];
         };
+
+        # Autocorrect
+        typos = {
+          enable = true;
+          locale = "en-gb";
+
+          noCheckFilenames = true;
+
+          # Default includes everything, which is too broad and causes trouble
+          # when combining American and British (correct) English. Instead filter
+          # to a subset of files where misspellings matter more.
+          includes = lib.mkForce [
+            "*.md"
+            "*.typ"
+            "*.php"
+            "*.txt"
+          ];
+        };
       };
 
       # FIXME: Not currently working
@@ -130,7 +149,8 @@
       # };
     };
   };
-in {
+in
+{
   imports = [
     # Importing a module declared by the same module causes infinite recursion,
     # so we use a `let in` block to avoid that

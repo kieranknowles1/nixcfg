@@ -1,6 +1,6 @@
-# Magic Behavior
+# Magic Behaviour
 
-Certain "magic" behavior is implemented to enhance user experience and is
+Certain "magic" behaviour is implemented to enhance user experience and is
 documented here.
 
 ## Files

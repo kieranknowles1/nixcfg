@@ -13,7 +13,7 @@ for my needs.
 
 ## The `docs-generate` Module
 
-`docs-generate` provides an interface to geneate pages for the manual as either
+`docs-generate` provides an interface to generate pages for the manual as either
 Markdown or HTML via mdbook. When building HTML, any Markdown files will be
 converted and added to the book's table of contents. Any other files are copied
 as-is and can be referenced later.

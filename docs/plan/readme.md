@@ -21,8 +21,8 @@ directory, one file per project.
 
 ## Todo List
 
-Miscelaneous tasks I want to complete in the future. Tracked here rather than in
-issues so I can do all my work in one place.
+Miscellaneous tasks I want to complete in the future. Tracked here rather than
+in issues so I can do all my work in one place.
 
 If a task is cancelled, do not remove it from the list. Instead mark it with a
 ❎ and ~~strike through~~.

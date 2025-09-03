@@ -23,7 +23,7 @@ of guidelines for code and documentation.
 
 ## Documentation
 
-Requirement specificiations MUST use the
+Requirement specifications MUST use the
 [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method.
 
 Application-specific terms SHOULD be displayed in **bold**, and given a
@@ -36,7 +36,7 @@ bold. For example, in [Activate Mutable Plan](../plan/activate-mutable.md):
 > **Repo file** is converted to **deployed file** during the NixOS build
 > process.
 
-Keep it consise. Don't write a full paragraph when a single sentence will do.
+Keep it concise. Don't write a full paragraph when a single sentence will do.
 
 When possible, use [generated docs](../modules/docs.md) as specified in the
 linked page.

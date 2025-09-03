@@ -53,7 +53,7 @@ such as object-oriented, procedural, and event-driven.
 #cv-language(
   name: [C++],
   level: [Expert Knowledge],
-  comment: [Main language throughoug masters degree.],
+  comment: [Main language throughout masters degree.],
 )
 #cv-language(
   name: [Java],

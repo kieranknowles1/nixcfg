@@ -23,7 +23,7 @@ subdirectories:
 
 - `home` home-manager modules
 - `nixos` NixOS modules
-- `shared` Modules loaded by both home-manager and NixOS, and fully compatable
+- `shared` Modules loaded by both home-manager and NixOS, and fully compatible
   between the two.
 - `mlib` Shared functions used between multiple home-manager or NixOS modules.
   If these need to differentiate between the two, they MUST take a file-level
@@ -114,7 +114,7 @@ confbuild h docs-generate.build.generated
 
 ### `nix-tree`
 
-The `nix-tree` utility can be useful for visualizing what derivations are
+The `nix-tree` utility can be useful for visualising what derivations are
 included and why. This is not included in any configuration/shell, but can be
 run with `nix run nixpkgs#nix-tree`. This can be useful to find why a package is
 included when you didn't expect it to be.
