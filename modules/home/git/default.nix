@@ -68,7 +68,7 @@
 
     # Fancy TUI
     programs.lazygit = {
-      enable = hostConfig.custom.features.extras;
+      enable = true;
 
       # Lazygit uses YAML, but Nix doesn't support it.
       # https://github.com/SenchoPens/fromYaml is an option, but I

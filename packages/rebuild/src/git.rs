@@ -1,5 +1,4 @@
 // Module for working with Git
-// TODO: Could gitoxide or something similar be used instead?
 
 use std::{path::Path, process::Command};
 

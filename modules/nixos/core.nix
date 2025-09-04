@@ -16,19 +16,6 @@
       description = "Absolute path to the repository on disk";
       type = types.str;
     };
-
-    features = let
-      mkFeatureOption = description:
-        mkOption {
-          inherit description;
-          type = types.bool;
-          default = false;
-        };
-    in {
-      # TODO: Rename this to `desktop.enable`
-      desktop = mkFeatureOption "Whether the system is a desktop and should have a graphical environment enabled.";
-      extras = mkFeatureOption "nice-to-have, but not strictly necessary, features";
-    };
   };
 
   config = {

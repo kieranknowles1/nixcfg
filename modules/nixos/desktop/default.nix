@@ -4,8 +4,10 @@
   ...
 }: {
   options.custom.desktop = let
-    inherit (lib) mkOption types;
+    inherit (lib) mkOption mkEnableOption types;
   in {
+    enable = mkEnableOption "Desktop environment";
+
     environment = mkOption {
       description = "Desktop environment to use";
       type = types.enum [
@@ -25,9 +27,10 @@
     ./gnome.nix
 
     ./components.nix
+    (lib.mkRenamedOptionModule ["custom" "features" "desktop"] ["custom" "desktop" "enable"])
   ];
 
-  config = lib.mkIf config.custom.features.desktop {
+  config = lib.mkIf config.custom.desktop.enable {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
 

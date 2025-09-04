@@ -2,8 +2,6 @@
 
 repoPath = "/home/kieran/src/nixcfg"
 
-features.extras = true
-
 docs.generateManCache = false                                                  # Takes over a minute on almost every rebuild.
 docs-generate.baseUrl = "https://github.com/kieranknowles1/nixcfg/blob/master"
 

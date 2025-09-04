@@ -68,7 +68,7 @@
 
       # Use Starship as the prompt
       starship = {
-        enable = hostConfig.custom.features.extras;
+        enable = true;
         settings = builtins.fromTOML (builtins.readFile ./starship.toml);
       };
 

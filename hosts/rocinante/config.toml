@@ -1,13 +1,12 @@
 '$schema' = "../../docs/generated/host-options.schema.json"
 
-features.desktop = true
-features.extras = true
 repoPath = "/home/kieran/Documents/src/nixcfg"
 
 ledState.enable = true
 
 vr.enable = true
 
+desktop.enable = true
 desktop.environment = "gnome"
 
 [backup.repositories.documents]
