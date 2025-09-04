@@ -138,6 +138,13 @@
     };
 
     # /// Applications ///
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+
+      inputs.flake-compat.follows = "";
+    };
 
     # nixpkgs doesn't include the dependencies for master, so we override a separate flake
     # The source code could also be a flake input, but doing so would take a long time to update

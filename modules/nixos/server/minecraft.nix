@@ -23,6 +23,18 @@
         See [https://mcuuid.net/](https://mcuuid.net/).
       '';
     };
+
+    version = mkOption {
+      type = types.str;
+      default = "1.21.8";
+      description = "The version of Minecraft server to use.";
+    };
+    packWizHash = mkOption {
+      type = types.str;
+      default = "sha256-Xej4hlWLOOXl6YciJ0q/kNet4KFXLiQmfIuZGwCjFhg=";
+      example = "sha256-...";
+      description = "The hash of the Fabulously Optimized modpack.";
+    };
   };
 
   config = let
@@ -31,13 +43,31 @@
   in lib.mkIf cfgm.enable {
     custom.server.minecraft.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/minecraft";
 
-    services.minecraft-server = {
-      inherit (cfgm) whitelist;
+    services.minecraft-servers = {
+      inherit (cfgm) dataDir;
       enable = true;
       eula = true;
       openFirewall = true;
 
-      declarative = true;
+      servers.default = {
+        enable = true;
+        inherit (cfgm) whitelist;
+
+        package = pkgs.fabricServers."fabric-${builtins.replaceStrings ["."] ["_"] cfgm.version}";
+
+        serverProperties = {
+          port = cfg.ports.tcp.minecraft;
+        };
+
+        symlinks = let
+          modpack = pkgs.fetchPackwizModpack {
+            url = "https://raw.githubusercontent.com/Fabulously-Optimized/fabulously-optimized/refs/heads/main/Packwiz/${cfgm.version}/pack.toml";
+            packHash = cfgm.packWizHash;
+          };
+        in {
+          mods = "${modpack}/mods";
+        };
+      };
     };
   };
 }

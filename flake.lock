@@ -303,6 +303,30 @@
         "type": "github"
       }
     },
+    "nix-minecraft": {
+      "inputs": {
+        "flake-compat": [],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1756950642,
+        "narHash": "sha256-JybxDkwS6zqIbkFdeACJdUy8UOKeNRSi9fSUWUQB+mM=",
+        "owner": "Infinidoge",
+        "repo": "nix-minecraft",
+        "rev": "0ec356a4d55f05ec930f410fb138a45e275f6eec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Infinidoge",
+        "repo": "nix-minecraft",
+        "type": "github"
+      }
+    },
     "nix-select": {
       "locked": {
         "lastModified": 1755887746,
@@ -494,6 +518,7 @@
         "home-manager": "home-manager",
         "ixx": "ixx",
         "nix-index-database": "nix-index-database",
+        "nix-minecraft": "nix-minecraft",
         "nixos-cosmic": "nixos-cosmic",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixos-raspberrypi-kernellock": "nixos-raspberrypi-kernellock",
