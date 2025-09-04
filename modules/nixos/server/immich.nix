@@ -23,7 +23,7 @@
     lockedVersion = mkOption {
       type = types.str;
       description = "Locked version of Immich";
-      default = "1.138.0";
+      default = "1.138.1";
     };
 
     package = mkPackageOption pkgs "immich" {};
