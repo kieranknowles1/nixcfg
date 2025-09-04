@@ -24,6 +24,18 @@
       '';
     };
 
+    # TODO: Remove this once https://github.com/Infinidoge/nix-minecraft/pull/145 is resolved
+    # Will be obsolete with start/stop being automated
+    autoStart = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Whether to automatically start the Minecraft server.
+
+        Requires ~2GB of RAM, so disabled by default.
+      '';
+    };
+
     version = mkOption {
       type = types.str;
       default = "1.21.8";
@@ -43,6 +55,20 @@
   in lib.mkIf cfgm.enable {
     custom.server.minecraft.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/minecraft";
 
+    # Command to start server if it isn't already running, and connects to its console
+    # To exit, use `Ctrl+b, d`
+    # TODO: Remove once https://github.com/Infinidoge/nix-minecraft/issues/166 is resolved
+    # Will be obsolete with CLI
+    environment.systemPackages = lib.singleton (pkgs.writeShellScriptBin "mine-up" ''
+      SERVERNAME=default
+      SERVICE=minecraft-server-$SERVERNAME.service
+
+      if ! systemctl is-active $SERVICE; then
+        sudo systemctl start $SERVICE
+      fi
+      sudo -u minecraft ${lib.getExe pkgs.tmux} -S /run/minecraft/$SERVERNAME.sock attach
+    '');
+
     services.minecraft-servers = {
       inherit (cfgm) dataDir;
       enable = true;
@@ -51,7 +77,9 @@
 
       servers.default = {
         enable = true;
-        inherit (cfgm) whitelist;
+        inherit (cfgm) whitelist autoStart;
+        # "Always" interferes with /stop
+        restart = "no";
 
         package = pkgs.fabricServers."fabric-${builtins.replaceStrings ["."] ["_"] cfgm.version}";
 
