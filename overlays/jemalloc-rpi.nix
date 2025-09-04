@@ -36,15 +36,6 @@ in {
 
   difftastic = fixupRs prev.difftastic;
 
-  # Needed to make postgres use overlays. This still isn't enough, ew.
-  # Update postgres16, as that's what immich requires
-
-  postgresql16Packages =
-    prev.postgresql16Packages
-    // {
-      pgvecto-rs = fixupRs prev.postgresql_16.pkgs.pgvecto-rs;
-    };
-
   # Disable checks that are either
   # - slow
   # - flaky (some time out if we're under load)

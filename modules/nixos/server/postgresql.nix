@@ -68,13 +68,6 @@
           max_parallel_workers = 4;
           max_parallel_maintenance_workers = 2;
         };
-
-        # HACK: Workaround to make postgres use our overlays
-        extensions = lib.mkForce (_ps:
-          with pkgs.postgresql16Packages; [
-            pgvector
-            vectorchord
-          ]);
       };
     };
 }
