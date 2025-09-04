@@ -41,7 +41,7 @@
         # HACK: Workaround to make postgres use our overlays
         extensions = lib.mkForce (_ps:
           with pkgs.postgresql16Packages; [
-            pgvecto-rs
+            pgvector
             vectorchord
           ]);
       };
