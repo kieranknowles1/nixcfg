@@ -9,7 +9,7 @@
   # We use TOML for host/user config, as they can be checked using schemas
   baseConfig = readTomlFile ./config.toml;
   desktopConfig =
-    if config.custom.features.desktop
+    if config.custom.desktop.enable
     then readTomlFile ./config-desktop.toml
     else {};
 in {

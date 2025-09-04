@@ -94,7 +94,7 @@
 
     home.packages = let
       term =
-        lib.optional hostConfig.custom.features.desktop
+        lib.optional hostConfig.custom.desktop.enable
         config.custom.terminal.package;
 
       extras = with pkgs; [

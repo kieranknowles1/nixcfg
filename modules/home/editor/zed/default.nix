@@ -30,7 +30,7 @@
   in
     lib.mkIf cfg.enable {
       assertions = lib.singleton {
-        assertion = hostConfig.custom.features.desktop;
+        assertion = hostConfig.custom.desktop.enable;
         message = "Zed requires a desktop environment.";
       };
 

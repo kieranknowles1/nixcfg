@@ -128,7 +128,7 @@ in {
   in
     lib.mkIf cfg.enable {
       assertions = lib.singleton {
-        assertion = hostConfig.custom.features.desktop;
+        assertion = hostConfig.custom.desktop.enable;
         message = "Hotkeys require a desktop environment";
       };
 

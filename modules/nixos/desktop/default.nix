@@ -27,7 +27,6 @@
     ./gnome.nix
 
     ./components.nix
-    (lib.mkRenamedOptionModule ["custom" "features" "desktop"] ["custom" "desktop" "enable"])
   ];
 
   config = lib.mkIf config.custom.desktop.enable {

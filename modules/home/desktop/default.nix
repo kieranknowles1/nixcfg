@@ -32,7 +32,7 @@
   config = let
     cfg = config.custom.desktop;
   in
-    lib.mkIf hostConfig.custom.features.desktop {
+    lib.mkIf hostConfig.custom.desktop.enable {
       custom.desktop.templates = {
         "Empty File" = builtins.toFile "empty.txt" "";
       };

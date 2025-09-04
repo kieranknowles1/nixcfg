@@ -60,7 +60,7 @@
         file
         p7zip
       ]
-      ++ (lib.optionals config.custom.features.desktop [
+      ++ (lib.optionals config.custom.desktop.enable [
         fsearch # Everything clone. GUI only
       ]);
 

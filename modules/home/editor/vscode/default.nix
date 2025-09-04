@@ -28,7 +28,7 @@
     # Rebuild will fail if any assertion is false. VSCode requires a desktop environment, so isn't useful on servers.
     # If code isn't enabled, the assertion will never be checked due to the mkIf.
     assertions = lib.singleton {
-      assertion = hostConfig.custom.features.desktop;
+      assertion = hostConfig.custom.desktop.enable;
       message = "VS Code requires a desktop environment.";
     };
 

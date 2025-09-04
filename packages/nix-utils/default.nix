@@ -50,9 +50,10 @@ stdenv.mkDerivation {
       - `flake-tree`: Print the dependency tree of a flake, either as a Nushell table or Graphviz dot file
       - `gr`: Utilities for working with Git remotes
       - `install-godot-templates`: Install export templates for Godot (exports
-        will only work on NixOS, only intended for setting up builds.)
+        will only work on NixOS, only intended for testing export options)
+      - `rename-opt`: Rename references to a Nix option. Not guaranteed to catch all references.
       - `run`: Run a Nix package from the current repository
-      - `runwait`: Run remaining arguments as a command then wait indefiniindefinitely.
+      - `runwait`: Run remaining arguments as a command then wait indefinitely.
       - `venv`: Activate a Python virtual environment, shell-agnostic version
 
       All commands take the first argument as the target name, defaulting

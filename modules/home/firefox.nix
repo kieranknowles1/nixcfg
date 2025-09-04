@@ -24,7 +24,7 @@
   config = let
     cfg = config.custom.firefox;
   in
-    lib.mkIf hostConfig.custom.features.desktop {
+    lib.mkIf hostConfig.custom.desktop.enable {
       programs.firefox = {
         enable = true;
 

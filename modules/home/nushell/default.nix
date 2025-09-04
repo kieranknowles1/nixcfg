@@ -34,7 +34,7 @@
 
   config = let
     cfg = config.custom;
-    isDesktop = hostConfig.custom.features.desktop;
+    isDesktop = hostConfig.custom.desktop.enable;
   in {
     custom.extraEnv = rec {
       # Point tools to our flake repository
