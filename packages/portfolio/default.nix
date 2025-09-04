@@ -16,7 +16,7 @@
   };
 
   typst' = typst.withPackages (ps: [
-    ps.moderner-cv
+    ps.fontawesome
   ]);
 
   cv = stdenv.mkDerivation {

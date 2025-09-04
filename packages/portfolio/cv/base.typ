@@ -1,6 +1,9 @@
-#import "@preview/moderner-cv:0.2.0": *
+#import "lib/moderner-cv.typ": *
 
-// TODO: Add 1 line spacing between sections
+#set par(
+  justify: true,
+  spacing: 1em
+)
 
 #let template(
   statement: none,
@@ -20,10 +23,6 @@
     let _ = socials.remove("website")
   }
 
-  #set par(
-    justify: true,
-  )
-
   #show: moderner-cv.with(
     paper: "a4",
     font: "DejaVu Sans",
@@ -35,27 +34,6 @@
   )
 
   #statement
-
-  = Education
-
-  #cv-entry(
-    date: [2024 -- 2025],
-    title: "Computer Game Engineering Msc",
-    employer: "Newcastle University",
-  )
-
-  #cv-entry(
-    date: [2020 -- 2024],
-    title: "Computer Science Bsc",
-    employer: "Northumbria University",
-  )[First-Class Honours]
-
-  = Undergraduate Dissertation
-  #cv-line([Title], [CHEF - Cooking Helper for Everyone's Fridge])
-  #cv-line([Supervisor], [Nick Dalton])
-  #cv-line([Description], [A web application to help users find a variety of
-    recipes based on the ingredients they have, and that are similar to those
-    previously liked to help reduce food waste.])
 
   = Skills
 
@@ -119,6 +97,27 @@
     employer: [Out of Sight Charity],
     [Maintain website and update as needed.],
   )
+
+  = Education
+
+  #cv-entry(
+    date: [2024 -- 2025],
+    title: "Computer Game Engineering Msc",
+    employer: "Newcastle University",
+  )
+
+  #cv-entry(
+    date: [2020 -- 2024],
+    title: "Computer Science Bsc",
+    employer: "Northumbria University",
+  )[First-Class Honours]
+
+  = Undergraduate Dissertation
+  #cv-line([Title], [CHEF - Cooking Helper for Everyone's Fridge])
+  #cv-line([Supervisor], [Nick Dalton])
+  #cv-line([Description], [A web application to help users find a variety of
+    recipes based on the ingredients they have, and that are similar to those
+    previously liked to help reduce food waste.])
 
   = Interests
 
