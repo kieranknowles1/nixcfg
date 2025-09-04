@@ -1,7 +1,8 @@
 # Development Information
 
 Information on how to develop this repository. See also:
-[modules](../modules/readme.md) for specific modules.
+[modules](../modules/readme.md) for specific modules or
+[nix library](../generated/lib.md) for extensions to the Nix library.
 
 - [Development Information](#development-information)
   - [Modules](#modules)
@@ -25,16 +26,12 @@ subdirectories:
 - `nixos` NixOS modules
 - `shared` Modules loaded by both home-manager and NixOS, and fully compatible
   between the two.
-- `mlib` Shared functions used between multiple home-manager or NixOS modules.
+- `modlib` Shared functions used between multiple home-manager or NixOS modules.
   If these need to differentiate between the two, they MUST take a file-level
   `mode` argument that can be either `home` or `nixos`. It cannot be included in
-  the top-level `flake.lib` due to module weirdness (specialArgs can't be used
-  in options definitions, but are needed for many of these functions)
-
-<!-- TODO: Document this -->
-<!--## Flake Library-->
-
-<!-- TODO: Consider removing/moving elsewhere-->
+  the top-level `flake.lib` due to module weirdness (specialArgs and therefore
+  `flake.lib` can't be used in options definitions, but many of these functions
+  are intended to be used there)
 
 ## Building
 
@@ -100,7 +97,7 @@ definition.
 The `confbuild` and `confeval` commands are provided to build/display the value
 of a config path. To make a derivation debuggable, expose it as an option with
 `type = types.path` and set it to a derivation as is done in
-[home/docs/default.nix](../../modules/home/docs/default.nix).
+[home/docs/default.nix](../../modules/shared/docs.nix).
 
 ```nu
 # Per-host. Can be converted to a Nushell table for easier reading.
