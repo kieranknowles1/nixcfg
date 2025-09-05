@@ -30,6 +30,8 @@
           proxyPort = cfg.ports.tcp.paperless;
         };
 
+        postgresql.enable = true;
+
         homepage.services = lib.singleton rec {
           group = "Documents";
           name = "Paperless";
@@ -53,8 +55,8 @@
         enable = true;
         port = cfg.ports.tcp.paperless;
 
-        # Use SQLite as the database backend
-        database.createLocally = false;
+        # Use PostgreSQL as the database backend
+        database.createLocally = true;
 
         settings = {
           PAPERLESS_URL = "https://${cfgp.subdomain}.${cfg.hostname}";
