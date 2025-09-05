@@ -1,6 +1,9 @@
 # Readme
 
-This repository contains the NixOS configuration for my systems.
+This repository contains the NixOS configuration for my systems. Feel free to
+use it as a reference or inspiration. I make no guarantees about stability:
+breaking changes can and will be made at any time for any reason. Manual
+migration steps are not documented.
 
 - [Readme](#readme)
   - [Documentation](#documentation)
