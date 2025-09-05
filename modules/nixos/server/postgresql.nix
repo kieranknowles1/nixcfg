@@ -11,7 +11,22 @@
 
     dataDir = mkOption {
       type = types.path;
-      description = "The directory where PostgreSQL data will be stored.";
+      defaultText = "$${config.custom.server.data.baseDirectory}/postgresql";
+      description = ''
+        The directory where PostgreSQL data will be stored.
+
+        Ideally, this would be an SSD.
+      '';
+    };
+
+    backupDir = mkOption {
+      type = types.path;
+      defaultText = "$${config.custom.server.data.baseDirectory}/postgresql-backup";
+      description = ''
+        The directory where PostgreSQL backups will be stored.
+
+        Random I/O is not important here, so a HDD is fine.
+      '';
     };
 
     package = mkPackageOption pkgs "postgresql_16" {
@@ -30,6 +45,7 @@
     lib.mkIf cfgp.enable {
       custom.server.postgresql = {
         dataDir = "${cfg.data.baseDirectory}/postgresql";
+        backupDir = "${cfg.data.baseDirectory}/postgresql-backup";
       };
 
       services.postgresql = {
@@ -68,6 +84,22 @@
           max_parallel_workers = 4;
           max_parallel_maintenance_workers = 2;
         };
+      };
+
+      services.postgresqlBackup = {
+        enable = true;
+
+        location = cfgp.backupDir;
+        pgdumpOptions = "";
+
+        # Like Trilium, we want this to complete well before
+        # Restic starts.
+        startAt = "23:00:00";
+        backupAll = true;
+
+        # Restic does it's own compression, compressing here could
+        # interfere with its chunking.
+        compression = "none";
       };
     };
 }
