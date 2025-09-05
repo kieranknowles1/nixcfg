@@ -35,18 +35,6 @@
         Requires ~2GB of RAM, so disabled by default.
       '';
     };
-
-    version = mkOption {
-      type = types.str;
-      default = "1.21.8";
-      description = "The version of Minecraft server to use.";
-    };
-    packWizHash = mkOption {
-      type = types.str;
-      default = "sha256-Xej4hlWLOOXl6YciJ0q/kNet4KFXLiQmfIuZGwCjFhg=";
-      example = "sha256-...";
-      description = "The hash of the Fabulously Optimized modpack.";
-    };
   };
 
   config = let
@@ -81,19 +69,24 @@
         # "Always" interferes with /stop
         restart = "no";
 
-        package = pkgs.fabricServers."fabric-${builtins.replaceStrings ["."] ["_"] cfgm.version}";
+        package = pkgs.fabricServers.fabric-1_21_8;
 
         serverProperties = {
           port = cfg.ports.tcp.minecraft;
         };
 
         symlinks = let
-          modpack = pkgs.fetchPackwizModpack {
-            url = "https://raw.githubusercontent.com/Fabulously-Optimized/fabulously-optimized/refs/heads/main/Packwiz/${cfgm.version}/pack.toml";
-            packHash = cfgm.packWizHash;
+          fetchModrinth = modid: versionidName: hash: pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/${modid}/versions/${versionidName}.jar";
+            inherit hash;
           };
         in {
-          mods = "${modpack}/mods";
+          mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
+            # Memory optimizations
+            ferrite = fetchModrinth "uXXizFIs" "CtMpt7Jr/ferritecore-8.0.0-fabric" "sha256-K5C/AMKlgIw8U5cSpVaRGR+HFtW/pu76ujXpxMWijuo=";
+            # Performance optimizations
+            lithium = fetchModrinth "gvQqBUqZ" "pDfTqezk/lithium-fabric-0.18.0%2Bmc1.21.8" "sha256-kBPy+N/t6v20OBddTHZvW0E95WLc0RlaUAIwxVFxeH4=";
+          });
         };
       };
     };
