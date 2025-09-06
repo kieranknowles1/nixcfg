@@ -32,7 +32,7 @@ most of them. Following is a list that I would like for a first iteration:
   - On hold until
     [Jemalloc issue](https://github.com/nvmd/nixos-raspberrypi/issues/64) is
     resolved.
-- [ ] Minecraft
+- [x] Minecraft
 - [x] Trilium
 - [x] Paperless NGX
 - [x] Git
