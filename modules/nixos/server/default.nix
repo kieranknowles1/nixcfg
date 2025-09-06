@@ -15,6 +15,7 @@ in {
     ./forgejo.nix
     ./homepage.nix
     ./immich.nix
+    ./minecraft.nix
     ./paperless.nix
     ./ports.nix
     ./postgresql.nix

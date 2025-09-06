@@ -29,6 +29,8 @@
       trilium = 8080;
       homepage = 8082;
 
+      minecraft = 25565;
+
       paperless = 28981;
     };
     udp = {
