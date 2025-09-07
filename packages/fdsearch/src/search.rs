@@ -1,4 +1,7 @@
-use std::{process::Command, str::Utf8Error, string::FromUtf8Error};
+use std::{
+    process::{Command, ExitStatus},
+    str::Utf8Error,
+};
 
 use thiserror::Error;
 
@@ -8,6 +11,8 @@ pub enum Error {
     Io(#[from] std::io::Error),
     #[error(transparent)]
     Utf8(#[from] std::string::FromUtf8Error),
+    #[error("fd command failed ({code}):\n{message}")]
+    FdFailed { code: ExitStatus, message: String },
 }
 type Result<T> = std::result::Result<T, Error>;
 
@@ -15,6 +20,7 @@ pub struct SearchResult {
     raw: Vec<u8>,
     indices: Vec<usize>,
 }
+pub type QueryResult = Result<SearchResult>;
 
 impl SearchResult {
     pub fn num_entries(&self) -> usize {
@@ -28,12 +34,24 @@ impl SearchResult {
     }
 }
 
-pub fn search(query: &str) -> Result<SearchResult> {
-    let raw = Command::new("fd")
+pub fn search(query: &str) -> QueryResult {
+    let out = Command::new("fd")
         .arg("--full-path")
         .arg(query)
-        .output()?
-        .stdout;
+        // TODO: Use $HOME
+        .arg("/home/kieran/Documents")
+        .output()?;
+
+    let raw = match out.status.success() {
+        true => out.stdout,
+        false => {
+            return Err(Error::FdFailed {
+                code: out.status,
+                // If the error message is not UTF-8, we're really fucked
+                message: String::from_utf8(out.stderr).unwrap(),
+            });
+        }
+    };
 
     // Very basic heuristic: Assume an average line length of 80 characters
     // wordcount --chars / wordcount --lines returned 100 for my home directory,
