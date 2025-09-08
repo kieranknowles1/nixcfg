@@ -51,6 +51,7 @@
         subdomains.${cfga.subdomain} = {
           proxySocket = cfga.socket;
         };
+        postgresql.enable = true;
       };
 
       sops.secrets = let
@@ -62,6 +63,17 @@
       in {
         "authelia/jwtSecret" = provisionSecret cfga.secrets.jwtSecret;
         "authelia/storageEncryptionKey" = provisionSecret cfga.secrets.storageEncryptionKey;
+      };
+      
+      services.postgresql = let
+        authSettings = config.services.authelia.instances.default.settings.storage.postgres;
+      in {
+        ensureDatabases = [ authSettings.database ];
+        ensureUsers = lib.singleton {
+          name = authSettings.username;
+          # Make sure the user owns their own database
+          ensureDBOwnership = true;
+        };
       };
 
       # We're only protecting the one domain, so no
@@ -79,6 +91,7 @@
             settings
             {
               server.address = "unix://${cfga.socket}";
+              storage.postgres.address = "unix:///run/postgresql/.s.PGSQL.5432";
             }
           ];
 
