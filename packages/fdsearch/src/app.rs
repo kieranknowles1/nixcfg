@@ -1,6 +1,5 @@
-use std::f32;
-
 use eframe::egui::{self, ScrollArea, Ui};
+use egui_extras::{Column, TableBuilder};
 
 use crate::search::{QueryResult, search};
 
@@ -55,19 +54,35 @@ impl eframe::App for App {
                 self.cached_results = None;
             }
 
+            let text_height = egui::TextStyle::Body.resolve(ui.style()).size;
+
             maybe_error(ui, self.lazy_search(), |ui, results| {
-                ScrollArea::vertical().auto_shrink(false).show_rows(
-                    ui,
-                    ui.text_style_height(&egui::TextStyle::Body),
-                    results.num_entries(),
-                    |ui, range| {
-                        for index in range {
-                            // (hopefully) rare, so no proper handling.
-                            let line = results.entry(index).unwrap_or("INVALID UTF8");
-                            ui.label(line);
-                        }
-                    },
-                );
+                TableBuilder::new(ui)
+                    .striped(true)
+                    .resizable(false)
+                    .cell_layout(egui::Layout::left_to_right(egui::Align::Min))
+                    // .column(Column::remainder().clip(true))
+                    .column(Column::remainder())
+                    .column(Column::auto().at_least(64.0))
+                    .header(text_height, |mut header| {
+                        header.col(|ui| {
+                            ui.strong("Path");
+                        });
+                        header.col(|ui| {
+                            ui.strong("Size");
+                        });
+                    })
+                    .body(|mut body| {
+                        body.rows(text_height, results.num_entries(), |mut row| {
+                            let line = results.entry(row.index()).unwrap_or("INVALID UTF8");
+                            row.col(|ui| {
+                                ui.label(line);
+                            });
+                            row.col(|ui| {
+                                ui.label(format!("{}", line.len()));
+                            });
+                        })
+                    });
             });
         });
     }
