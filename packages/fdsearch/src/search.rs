@@ -18,6 +18,8 @@ type Result<T> = std::result::Result<T, Error>;
 
 pub struct SearchResult {
     raw: Vec<u8>,
+    // Indices of the first byte of each entry into raw, defined as the next byte
+    // after a null terminator
     indices: Vec<usize>,
 }
 pub type QueryResult = Result<SearchResult>;
@@ -29,13 +31,16 @@ impl SearchResult {
 
     pub fn entry(&self, index: usize) -> std::result::Result<&str, Utf8Error> {
         let start = self.indices[index];
-        let end = self.indices[index + 1];
+        // -1 to exclude the null terminator
+        let end = self.indices[index + 1] - 1;
         std::str::from_utf8(&self.raw[start..end])
     }
 }
 
 pub fn search(query: &str) -> QueryResult {
     let out = Command::new("fd")
+        // Unix filenames can contain new lines, blame John Unix
+        .arg("--print0")
         .arg("--full-path")
         .arg(query)
         // TODO: Use $HOME
@@ -60,11 +65,13 @@ pub fn search(query: &str) -> QueryResult {
     let mut indices = Vec::with_capacity(raw.len() / 80);
     indices.push(0);
     for (i, ch) in raw.iter().enumerate() {
-        if *ch == b'\n' {
-            indices.push(i);
+        if *ch == 0 {
+            // The next entry starts after the null terminator
+            indices.push(i + 1);
         }
     }
-    indices.push(raw.len());
+    // No need to push a final index, as fd prints null at the end
+    // indices.push(raw.len());
 
     Ok(SearchResult { raw: raw, indices })
 }
