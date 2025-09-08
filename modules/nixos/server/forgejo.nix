@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  self,
   ...
 }: {
   options.custom.server.forgejo = let
@@ -77,6 +78,13 @@
           service = {
             # This is not a public service
             DISABLE_REGISTRATION = true;
+          };
+
+          repository = {
+            # Don't like github wikis, prefer using the same repo as the rest
+            # of the project to keep everything in one place and easier to
+            # cross-reference.
+            DISABLED_REPO_UNITS = "repo.wiki";
           };
 
           database = {
