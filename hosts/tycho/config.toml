@@ -18,6 +18,7 @@ enable = true
 hostname = "selwonk.uk"
 data.baseDirectory = "/mnt/extern/data"
 
+authelia.enable = true
 docs.enable = true
 forgejo.enable = true
 homepage.enable = true

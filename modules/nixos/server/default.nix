@@ -11,6 +11,7 @@
   '';
 in {
   imports = [
+    ./authelia
     ./docs.nix
     ./forgejo.nix
     ./homepage.nix
