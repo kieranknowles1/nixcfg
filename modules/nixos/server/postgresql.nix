@@ -66,7 +66,7 @@
           # Connections num: 20
           # Data Storage: hdd
 
-          max_connections = 20;
+          max_connections = 50;
           shared_buffers = "1GB";
           effective_cache_size = "3GB";
           maintenance_work_mem = "256MB";
