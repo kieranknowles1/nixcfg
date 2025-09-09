@@ -1,4 +1,5 @@
 use std::{
+    path::PathBuf,
     process::{Command, ExitStatus},
     str::Utf8Error,
 };
@@ -37,14 +38,13 @@ impl SearchResult {
     }
 }
 
-pub fn search(query: &str) -> QueryResult {
+pub fn search(base: &PathBuf, query: &str) -> QueryResult {
     let out = Command::new("fd")
         // Unix filenames can contain new lines, blame John Unix
         .arg("--print0")
         .arg("--full-path")
         .arg(query)
-        // TODO: Use $HOME
-        .arg("/home/kieran/Documents")
+        .arg(base)
         .output()?;
 
     let raw = match out.status.success() {

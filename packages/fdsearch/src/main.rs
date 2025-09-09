@@ -1,9 +1,13 @@
+use clap::Parser;
 use eframe::egui;
 
 mod app;
+mod args;
 mod search;
 
 fn main() -> eframe::Result<()> {
+    let args = args::Args::parse();
+
     let options = eframe::NativeOptions {
         // TODO: Position on centre of main display. Currently hardcoded
         // to show on right monitor.
@@ -13,6 +17,6 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         "fdsearch",
         options,
-        Box::new(|cc| Ok(Box::new(app::App::default()))),
+        Box::new(|cc| Ok(Box::new(app::App::new(args)))),
     )
 }

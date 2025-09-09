@@ -1,21 +1,16 @@
 use eframe::egui::{self, ScrollArea, Ui};
 use egui_extras::{Column, TableBuilder};
 
-use crate::search::{QueryResult, search};
+use crate::{
+    args::Args,
+    search::{QueryResult, search},
+};
 
 pub struct App {
+    args: Args,
     query: String,
     // We want to cache results of the search query, even if it failed.
     cached_results: Option<QueryResult>,
-}
-
-impl Default for App {
-    fn default() -> Self {
-        Self {
-            query: String::new(),
-            cached_results: None,
-        }
-    }
 }
 
 fn maybe_error<T, E: std::error::Error>(
@@ -32,11 +27,19 @@ fn maybe_error<T, E: std::error::Error>(
 }
 
 impl App {
+    pub fn new(args: Args) -> Self {
+        Self {
+            args,
+            query: String::new(),
+            cached_results: None,
+        }
+    }
+
     fn lazy_search(&mut self) -> &QueryResult {
         match self.cached_results {
             Some(ref results) => &results,
             None => {
-                let results = search(&self.query);
+                let results = search(&self.args.base_path, &self.query);
                 self.cached_results = Some(results);
                 // SAFETY: We just set the value above.
                 unsafe { self.cached_results.as_ref().unwrap_unchecked() }
