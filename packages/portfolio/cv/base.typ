@@ -2,7 +2,7 @@
 
 #set par(
   justify: true,
-  spacing: 1em
+  spacing: 1em,
 )
 
 #let template(

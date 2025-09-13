@@ -71,6 +71,6 @@ in
         \[5\]: https://rosswintle.uk/2021/12/hang-on-php-is-a-static-site-generator/
       '';
     };
-    
+
     passthru.cv = cv;
   }
