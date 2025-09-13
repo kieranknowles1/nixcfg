@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Usage: `rename-opt <old> <new>`
 # Rename all references to the old option with the new one
