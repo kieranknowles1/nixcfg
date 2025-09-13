@@ -21,7 +21,6 @@
       export-blueprints = callPackage ./export-blueprints {};
       export-notes = callPackage ./export-notes {};
       extract = callPackage ./extract {};
-      factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
       keyboardvis = callPackage ./keyboardvis {};
       nix-utils = callPackage ./nix-utils {};
       openmw-luadata = callPackage ./openmw-luadata {};

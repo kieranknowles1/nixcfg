@@ -158,17 +158,10 @@
       inputs.snowfall-lib.follows = "snowfall-lib";
     };
 
-    src-openmw = {
-      url = "gitlab:kieranjohn1/openmw";
-      flake = false;
-    };
-
     # Using flake inputs for source lets us be on master without needing to manually update
     # hashes.
-    src-factorio-blueprint-decoder = {
-      # Branch name is a bit misleading, it represents the original repo with all
-      # PRs merged in. I use it so I have the latest without waiting for the PR
-      url = "github:kieranknowles1/factorio-blueprint-decoder?ref=turret_fix";
+    src-openmw = {
+      url = "gitlab:kieranjohn1/openmw";
       flake = false;
     };
 
