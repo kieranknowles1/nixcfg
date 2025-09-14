@@ -26,11 +26,8 @@
       inputs.home-manager.follows = "";
       inputs.nix-index-database.follows = "";
       inputs.nixos-cosmic.follows = "";
-      inputs.nixpkgs-openmw.follows = "";
-      inputs.openmw.follows = "";
-      inputs.snowfall-lib.follows = "";
       inputs.sops-nix.follows = "";
-      inputs.src-factorio-blueprint-decoder.follows = "";
+      inputs.src-openmw.follows = "";
       inputs.src-tldr.follows = "";
       inputs.stylix.follows = "";
       inputs.vscode-extensions.follows = "";

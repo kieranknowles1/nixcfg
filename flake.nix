@@ -146,18 +146,6 @@
       inputs.flake-compat.follows = "";
     };
 
-    # nixpkgs doesn't include the dependencies for master, so we override a separate flake
-    # The source code could also be a flake input, but doing so would take a long time to update
-    # TODO: Remove this once 0.48 is building on nixpkgs
-    # Keep this locked to avoid rebuilding whenever libs are updated
-    nixpkgs-openmw.url = "github:nixos/nixpkgs?ref=f21e4546e3ede7ae34d12a84602a22246b31f7e0";
-    openmw = {
-      url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
-      inputs.nixpkgs.follows = "nixpkgs-openmw";
-
-      inputs.snowfall-lib.follows = "snowfall-lib";
-    };
-
     # Using flake inputs for source lets us be on master without needing to manually update
     # hashes.
     src-openmw = {
@@ -179,12 +167,6 @@
       inputs.systems.follows = "systems";
     };
 
-    # TODO: Remove once openmw is building on nixpkgs
-    flake-utils-plus = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     nuschtosSearch = {
       url = "github:NuschtOS/search";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -195,15 +177,6 @@
       url = "github:NuschtOS/ixx";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-    };
-
-    # TODO: Remove once openmw is building on nixpkgs
-    snowfall-lib = {
-      url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils-plus.follows = "flake-utils-plus";
-
-      inputs.flake-compat.follows = "";
     };
   };
 

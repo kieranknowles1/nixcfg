@@ -14,14 +14,7 @@ final: prev: {
   });
 
   # My fork of OpenMW
-  openmw = let
-    devPkg = inputs.openmw.packages.${final.system}.openmw-dev;
-    is049 = prev.openmw.version != "0.48.0";
-  in
-    if is049
-    then builtins.throw "OpenMW has been updated on nixpkgs, openmw-nix should no longer be needed"
-    else
-      devPkg.overrideAttrs (_oldAttrs: {
-        src = inputs.src-openmw;
-      });
+  openmw = prev.openmw.overrideAttrs (_oldAttrs: {
+      src = inputs.src-openmw;
+    });
 }

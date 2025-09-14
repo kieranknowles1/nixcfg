@@ -1,6 +1,9 @@
 _nixpkgs: lib:
 # TODO: This entire overlay is only needed due to an upstream issue
 # See https://github.com/nvmd/nixos-raspberrypi/issues/64
+# Want to limit the scope here: overriding a package means cache misses for all
+# of its dependents, currently we have to rebuild several large packages which
+# takes 6+ hours on a pi.
 _final: prev: let
   # Apply `override` if on ARM. Do nothing otherwise
   optionalOverride = override: pkg:
