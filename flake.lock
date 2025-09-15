@@ -528,7 +528,6 @@
         "openmw": "openmw",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix",
-        "src-factorio-blueprint-decoder": "src-factorio-blueprint-decoder",
         "src-openmw": "src-openmw",
         "src-tldr": "src-tldr",
         "stylix": "stylix",
@@ -616,23 +615,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "src-factorio-blueprint-decoder": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1728508168,
-        "narHash": "sha256-qU2MXz7S2/rJ80JCiu/kjpusY0qBk8M1K7RtaDJMl6g=",
-        "owner": "kieranknowles1",
-        "repo": "factorio-blueprint-decoder",
-        "rev": "741959ae60f5e8b1a449365f58dcf7bc21f3ae1c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kieranknowles1",
-        "ref": "turret_fix",
-        "repo": "factorio-blueprint-decoder",
         "type": "github"
       }
     },

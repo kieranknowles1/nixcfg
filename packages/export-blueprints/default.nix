@@ -2,7 +2,6 @@
   self,
   buildScript,
   python3,
-  flake,
   nano,
 }:
 buildScript {
@@ -24,7 +23,6 @@ buildScript {
   };
 
   runtimeInputs = [
-    flake.factorio-blueprint-decoder
     nano
   ];
 }

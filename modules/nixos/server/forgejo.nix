@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  self,
   ...
 }: {
   options.custom.server.forgejo = let

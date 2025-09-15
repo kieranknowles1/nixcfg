@@ -40,55 +40,57 @@
   config = let
     cfg = config.custom.server;
     cfgm = cfg.minecraft;
-  in lib.mkIf cfgm.enable {
-    custom.server.minecraft.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/minecraft";
+  in
+    lib.mkIf cfgm.enable {
+      custom.server.minecraft.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/minecraft";
 
-    # Command to start server if it isn't already running, and connects to its console
-    # To exit, use `Ctrl+b, d`
-    # TODO: Remove once https://github.com/Infinidoge/nix-minecraft/issues/166 is resolved
-    # Will be obsolete with CLI
-    environment.systemPackages = lib.singleton (pkgs.writeShellScriptBin "mine-up" ''
-      SERVERNAME=default
-      SERVICE=minecraft-server-$SERVERNAME.service
+      # Command to start server if it isn't already running, and connects to its console
+      # To exit, use `Ctrl+b, d`
+      # TODO: Remove once https://github.com/Infinidoge/nix-minecraft/issues/166 is resolved
+      # Will be obsolete with CLI
+      environment.systemPackages = lib.singleton (pkgs.writeShellScriptBin "mine-up" ''
+        SERVERNAME=default
+        SERVICE=minecraft-server-$SERVERNAME.service
 
-      if ! systemctl is-active $SERVICE; then
-        sudo systemctl start $SERVICE
-      fi
-      sudo -u minecraft ${lib.getExe pkgs.tmux} -S /run/minecraft/$SERVERNAME.sock attach
-    '');
+        if ! systemctl is-active $SERVICE; then
+          sudo systemctl start $SERVICE
+        fi
+        sudo -u minecraft ${lib.getExe pkgs.tmux} -S /run/minecraft/$SERVERNAME.sock attach
+      '');
 
-    services.minecraft-servers = {
-      inherit (cfgm) dataDir;
-      enable = true;
-      eula = true;
-      openFirewall = true;
-
-      servers.default = {
+      services.minecraft-servers = {
+        inherit (cfgm) dataDir;
         enable = true;
-        inherit (cfgm) whitelist autoStart;
-        # "Always" interferes with /stop
-        restart = "no";
+        eula = true;
+        openFirewall = true;
 
-        package = pkgs.fabricServers.fabric-1_21_8;
+        servers.default = {
+          enable = true;
+          inherit (cfgm) whitelist autoStart;
+          # "Always" interferes with /stop
+          restart = "no";
 
-        serverProperties = {
-          port = cfg.ports.tcp.minecraft;
-        };
+          package = pkgs.fabricServers.fabric-1_21_8;
 
-        symlinks = let
-          fetchModrinth = modid: versionidName: hash: pkgs.fetchurl {
-            url = "https://cdn.modrinth.com/data/${modid}/versions/${versionidName}.jar";
-            inherit hash;
+          serverProperties = {
+            port = cfg.ports.tcp.minecraft;
           };
-        in {
-          mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
-            # Memory optimizations
-            ferrite = fetchModrinth "uXXizFIs" "CtMpt7Jr/ferritecore-8.0.0-fabric" "sha256-K5C/AMKlgIw8U5cSpVaRGR+HFtW/pu76ujXpxMWijuo=";
-            # Performance optimizations
-            lithium = fetchModrinth "gvQqBUqZ" "pDfTqezk/lithium-fabric-0.18.0%2Bmc1.21.8" "sha256-kBPy+N/t6v20OBddTHZvW0E95WLc0RlaUAIwxVFxeH4=";
-          });
+
+          symlinks = let
+            fetchModrinth = modid: versionidName: hash:
+              pkgs.fetchurl {
+                url = "https://cdn.modrinth.com/data/${modid}/versions/${versionidName}.jar";
+                inherit hash;
+              };
+          in {
+            mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
+              # Memory optimizations
+              ferrite = fetchModrinth "uXXizFIs" "CtMpt7Jr/ferritecore-8.0.0-fabric" "sha256-K5C/AMKlgIw8U5cSpVaRGR+HFtW/pu76ujXpxMWijuo=";
+              # Performance optimizations
+              lithium = fetchModrinth "gvQqBUqZ" "pDfTqezk/lithium-fabric-0.18.0%2Bmc1.21.8" "sha256-kBPy+N/t6v20OBddTHZvW0E95WLc0RlaUAIwxVFxeH4=";
+            });
+          };
         };
       };
     };
-  };
 }

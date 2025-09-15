@@ -8,7 +8,7 @@
 }: {
   stylix = {
     # No need to theme the system if it's a server
-    enable = config.custom.desktop.enable;
+    inherit (config.custom.desktop) enable;
 
     # Stylix can generate a theme from the wallpaper, but in the images I've tested it came out ugly
     # This is overridden in home-manager
