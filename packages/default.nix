@@ -21,6 +21,7 @@
       export-blueprints = callPackage ./export-blueprints {};
       export-notes = callPackage ./export-notes {};
       extract = callPackage ./extract {};
+      foodle = callPackage ./foodle/default.nix {};
       keyboardvis = callPackage ./keyboardvis {};
       nix-utils = callPackage ./nix-utils {};
       openmw-luadata = callPackage ./openmw-luadata {};
