@@ -1,16 +1,18 @@
-#import "lib/moderner-cv.typ": *
+#import "moderner-cv.typ": *
 
 #set par(
   justify: true,
   spacing: 1em,
 )
 
+#let assert_set(value, message) = assert(value != none, message: message)
+
 #let template(
   statement: none,
   tech_links: none,
 ) = [
-  #assert(statement != none, message: "Statement cannot be empty")
-  #assert(tech_links != none, message: "Tech links must be a boolean")
+  #assert_set(statement, "Statement cannot be empty")
+  #assert_set(tech_links, "Tech links must be a boolean")
   #let socials = (
     email: "kieranknowles11@hotmail.co.uk",
     github: "kieranknowles1",

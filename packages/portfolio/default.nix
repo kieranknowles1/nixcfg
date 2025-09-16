@@ -49,7 +49,7 @@ in
         ln -s ${self.assets.mdi-icons}/svg $out/.build-only/mdi-icons
         ln -s ${self.assets.simple-icons}/icons $out/.build-only/simple-icons
 
-        ln -s ${cv}/technical.pdf $out/cv-kieran-knowles.pdf
+        ln -s ${cv}/game-dev.pdf $out/cv-kieran-knowles.pdf
       '';
     };
     meta = {
