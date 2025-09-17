@@ -66,6 +66,8 @@
           PAPERLESS_OCR_LANGUAGE = "eng";
           # Attempt to remove scanner artifacts
           PAPERLESS_OCR_CLEAN = "clean";
+
+          # TODO: Name files in the format "$user_$document"
         };
       };
     };
