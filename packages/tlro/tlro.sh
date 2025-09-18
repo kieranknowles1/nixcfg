@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DEFAULT_PLATFORM=$PLATFORM
+
 # May be set by Nix
 SHORTOPTS=${SHORTOPTS:-0}
 LONGOPTS=${LONGOPTS:-0}
@@ -19,6 +21,10 @@ Usage: $0 [command]
     Show the version number and exit
   -p|--platform:
     Set the platform to use by default (Default: $PLATFORM)
+  --platforms:
+    List all available platforms
+  --languages:
+    List all available languages
   -L|--language:
     Set the language to use by default (Default: $LANGUAGE)
   -l|--list
@@ -42,6 +48,8 @@ query=""
 list=0
 shortopts=0
 longopts=0
+platforms=0
+languages=0
 while [[ $# -gt 0 ]]; do
   case $1 in
     -h|--help)
@@ -61,6 +69,12 @@ while [[ $# -gt 0 ]]; do
       ;;
     -l|--list)
       list=1
+      ;;
+    --platforms)
+      platforms=1
+      ;;
+    --languages)
+      languages=1
       ;;
     --short-options)
       shortopts=1
@@ -85,9 +99,15 @@ query="${query#-}"
 
 filterLanguage="language IN ('en', '$LANGUAGE')"
 
-if [[ "$list" == 1 ]]; then
+if [[ "$platforms" == 1 ]]; then
+  sqlite3 "$PAGES" "SELECT DISTINCT platform FROM pages WHERE $filterLanguage ORDER BY platform"
+  exit
+elif [[ "$languages" == 1 ]]; then
+  sqlite3 "$PAGES" "SELECT DISTINCT language FROM pages ORDER BY language"
+  exit
+elif [[ "$list" == 1 ]]; then
   # We use grep instead of WHERE to highlight matching pages
-  sqlite3 "$PAGES" "SELECT DISTINCT name FROM pages WHERE $filterLanguage ORDER BY name" | grep --color "$query"
+  sqlite3 "$PAGES" "SELECT DISTINCT name FROM pages WHERE $filterLanguage AND platform = '$PLATFORM' OR '$PLATFORM' = '$DEFAULT_PLATFORM' ORDER BY name" | grep --color "$query"
   exit
 fi
 
