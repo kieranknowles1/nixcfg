@@ -41,9 +41,14 @@ most of them. Following is a list that I would like for a first iteration:
 
 ## Known Issues
 
-This configuration is still **heavily** work in progress, and issues are to be
+This configuration is still ~~**heavily**~~ work in progress, and issues are to be
 expected including (listed here as a checklist to be fixed). Please ignore how
 I'm just blaming other people for all of these :).
+
+```admonish success
+As of September 2025, I'm happy to call the NixOS port a success. It's
+definitely not complete, but the current state covers all my needs.
+```
 
 - [x] Locked to nixos-25.05 rather than nixos-unstable. Requires
       [nixpkgs#398456](https://github.com/NixOS/nixpkgs/pull/398456) to be
