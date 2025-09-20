@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   mutexOptionsMsg = ''
@@ -121,6 +122,23 @@ in {
         '';
       };
     };
+
+    clearCacheKey = mkOption {
+      type = types.str;
+      default = "cloudflare/clearcache-key";
+      description = ''
+        SOPS secret path to a Cloudflare API key with the `Cache Purge` permission.
+        Permission should be restricted to the zone ass
+      '';
+    };
+
+    zoneIdSecret = mkOption {
+      type = types.str;
+      default = "cloudflare/zoneid";
+      description = ''
+        SOPS secret path to a Cloudflare zone ID.
+      '';
+    };
   };
 
   config = let
@@ -180,14 +198,16 @@ in {
         })
         cfg.subdomains;
 
-      sops.secrets.ssl-private-key = {
-        owner = config.services.nginx.user;
-        key = cfg.ssl.privateKeySecret;
-      };
+      sops.secrets = let
+        mkSecret = owner: key: {
+          inherit owner key;
+        };
+      in {
+        ssl-private-key = mkSecret config.services.nginx.user cfg.ssl.privateKeySecret;
+        nginx-basic-auth = mkSecret config.services.nginx.user cfg.basicAuthSecret;
 
-      sops.secrets.nginx-basic-auth = {
-        owner = config.services.nginx.user;
-        key = cfg.basicAuthSecret;
+        cf-zone-id = mkSecret "root" cfg.zoneIdSecret;
+        cf-clearcache-token = mkSecret "root" cfg.clearCacheKey;
       };
 
       services.nginx = {
@@ -209,5 +229,17 @@ in {
       };
 
       networking.firewall.allowedTCPPorts = with cfg.ports.tcp; [http https];
+
+      environment.systemPackages = lib.singleton (pkgs.writeShellScriptBin "clear-cloudflare-cache" ''
+        set -euo pipefail
+
+        ZONE_ID=$(cat ${config.sops.secrets.cf-zone-id.path})
+        CLEAR_CACHE_TOKEN=$(cat ${config.sops.secrets.cf-clearcache-token.path})
+
+        curl "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
+          --header 'Content-Type: application/json' \
+          --header "Authorization: Bearer $CLEAR_CACHE_TOKEN" \
+          --data '{"purge_everything": true}'
+      '');
     };
 }

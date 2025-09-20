@@ -54,5 +54,8 @@ I'm just blaming other people for all of these :).
 - [x] Comma fails with `nix-locate failed`.
       [Definite upstream issue](https://github.com/nix-community/comma/pull/103)
       and already fixed on nixpkgs-unstable.
-- [ ] Cloudflare cache can become outdated for static sites. Should configure
-      this to reset automatically/with a script after rebuild switch.
+- [x] ~~Cloudflare cache can become outdated for static sites. Should configure
+      this to reset automatically/with a script after rebuild switch.~~
+      Resolved with a `clear-cloudflare-cache` script that purges the cache. Must
+      be run manually as Nix intentionally does not signal when a static page
+      changes.
