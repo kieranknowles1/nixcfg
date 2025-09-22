@@ -68,15 +68,28 @@
       services.copyparty = {
         enable = true;
         settings = {
-          # Listen address
+          # Listen on a socket, faster and more secure than HTTP
           i = "unix:770:nginx:${socket}";
           # Get the real IP of a client from here
           xff-hdr = "x-forwarded-for";
           xff-src = "127.0.0.0/8";
+          # Use the second original IP. Nginx will add Cloudflare's proxy, while
+          # we want to use the second which Cloudflare gave us.
+          rproxy = -2;
+          # Don't complain that we can't generate a certificate, it's pointless
+          # with a reverse proxy
+          no-crt = true;
 
           # Use password hashing with recommended parameters
           ah-alg = "argon2";
           ah-salt = "rupj20zyxka7M9FaeM+4jPjs";
+
+          # Deduplicate files by converting to reflinks
+          # Changes to one will not propagate to others
+          dedup = true;
+          # TODO: Once python 3.14 is on nixpkgs, can use reflinks
+          hardlink-only = true;
+          # reflink = true;
         };
 
         accounts =
@@ -92,11 +105,19 @@
             # TODO: Configure this per-user
             A = "@acct";
           };
+
+          flags = {
+            # Index files search
+            e2d = true;
+            # Index metadata
+            e2t = true;
+          };
         };
       };
 
-      users = {
-        users.copyparty.extraGroups = ["nginx"];
+      users.users = {
+        # Nginx group membership is required to assign the socket's group
+        copyparty.extraGroups = ["nginx"];
       };
     };
 }
