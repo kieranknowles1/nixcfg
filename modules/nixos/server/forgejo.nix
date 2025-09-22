@@ -28,6 +28,7 @@
 
     dataDir = mkOption {
       type = types.path;
+      defaultText = "$${config.custom.server.data.baseDirectory}/forgejo";
       description = "The directory where Forgejo will store its data.";
     };
   };

@@ -42,6 +42,7 @@
     cfgm = cfg.minecraft;
   in
     lib.mkIf cfgm.enable {
+      # TODO: Integrate with homepage
       custom.server.minecraft.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/minecraft";
 
       # Command to start server if it isn't already running, and connects to its console
