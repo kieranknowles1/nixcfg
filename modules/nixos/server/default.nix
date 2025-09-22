@@ -12,6 +12,7 @@
   '';
 in {
   imports = [
+    ./copyparty.nix
     ./docs.nix
     ./forgejo.nix
     ./homepage.nix
