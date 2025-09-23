@@ -45,20 +45,13 @@
         '';
       };
 
-      custom.server = let
-        host = {
+      custom.server = {
+        immich.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/immich";
+        postgresql.enable = true; # Immich depends on this
+        subdomains.${cfgi.subdomain} = {
           proxyPort = cfg.ports.tcp.immich;
           webSockets = true;
         };
-      in {
-        immich.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/immich";
-        postgresql.enable = true; # Immich depends on this
-        subdomains.${cfgi.subdomain} = host;
-        # TODO: We can only have one local root as *.local doesn't support
-        # subdomains. Serving DNS would allow us to have multiple
-        # Assigning Immich for now as it benefits greatly from not needing a
-        # round trip via Cloudflare
-        localRoot = host;
 
         homepage.services = lib.singleton rec {
           group = "Media";

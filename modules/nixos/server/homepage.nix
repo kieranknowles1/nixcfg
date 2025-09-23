@@ -169,6 +169,14 @@
           Meta.icon = "mdi-information-variant-circle";
         };
 
+        # Widget requests are proxied through homepage. A preliminary
+        # check of the source code showed that arbritary endpoint access
+        # is not allowed. Still, the high attack surface coupled with somewhat
+        # personal information means I want to put the service behind
+        # authentication.
+        #
+        # Trust users on the same LAN, but require authentication for WAN access.
+        localRoot.proxyPort = config.services.homepage-dashboard.listenPort;
         subdomains.${cfgh.subdomain} = {
           proxyPort = config.services.homepage-dashboard.listenPort;
           requireAuth = true;
@@ -201,7 +209,11 @@
       services.homepage-dashboard = {
         enable = true;
         listenPort = cfg.ports.tcp.homepage;
-        allowedHosts = "${cfgh.subdomain}.${cfg.hostname}";
+        allowedHosts = builtins.concatStringsSep "," [
+          "${cfgh.subdomain}.${cfg.hostname}"
+          "${cfgh.subdomain}.${config.networking.hostName}.local"
+          "${config.networking.hostName}.local"
+        ];
 
         settings = {
           language = "en-GB";
@@ -263,14 +275,9 @@
             ${srv.name} = {
               inherit (srv) description icon href;
 
-              # Widget requests are proxied through homepage. A preliminary
-              # check of the source code showed that arbritary endpoint access
-              # is not allowed. Still don't fully trust this, so want to put the
-              # service behind authentication.
-
               # Using mkIf instead of optionalAttrs so that, if no widget is
               # defined, the widget attribute will be omitted rather than set to
-              # an empty object.
+              # an empty object, which Homepage would see as an error.
               widget = lib.mkIf (srv.widget.type != null) (lib.mkMerge [
                 {
                   inherit (srv.widget) type;
