@@ -165,6 +165,7 @@
       custom.server = {
         homepage.groups = {
           Documents.icon = "mdi-folder-open";
+          Games.icon = "mdi-controller";
           Media.icon = "mdi-camera";
           Meta.icon = "mdi-information-variant-circle";
         };
