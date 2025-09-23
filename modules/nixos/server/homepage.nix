@@ -47,7 +47,7 @@
           type = types.str;
           example = "My personal documents";
           description = ''
-            A brief description of the widget.
+            A brief description of the widget. Aim for 3 words or less.
           '';
         };
         icon = mkOption {
@@ -143,7 +143,12 @@
     services = mkOption {
       type = types.listOf serviceType;
       default = [];
-      description = "List of services to display on the homepage";
+      description = ''
+        List of services to display on the homepage.
+
+        All services that define a subdomain MUST also define a service here for
+        quick access.
+      '';
     };
 
     groups = mkOption {

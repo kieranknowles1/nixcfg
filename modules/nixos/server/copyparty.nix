@@ -46,10 +46,18 @@
   in
     lib.mkIf cfgc.enable {
       custom.server = {
-        # TODO: Integrate with homepage
         copyparty.dataDir = "${cfg.data.baseDirectory}/copyparty";
         subdomains.${cfgc.subdomain} = {
           proxySocket = socket;
+        };
+
+        # No widget here :(
+        homepage.services = lib.singleton {
+          group = "Media";
+          name = "Copyparty";
+          description = "File management";
+          icon = "copyparty.svg";
+          href = "https://${cfgc.subdomain}.${cfg.hostname}";
         };
       };
 
