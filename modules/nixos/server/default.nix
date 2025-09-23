@@ -226,6 +226,16 @@ in {
           // {
             "${cfg.hostname}" = mkVhost cfg.root true;
             "${config.networking.hostName}.local" = mkVhost cfg.localRoot false;
+
+            # 404 for any unknown subdomains
+            "_default" = {
+              default = true;
+              locations."/".return = 404;
+
+              forceSSL = true; # Enable HTTPS and redirect HTTP to it
+              sslCertificate = cfg.ssl.publicKeyFile;
+              sslCertificateKey = config.sops.secrets.ssl-private-key.path;
+            };
           };
       };
 
