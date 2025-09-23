@@ -101,19 +101,28 @@
           })
           cfgc.users;
 
-        volumes."/" = {
-          path = cfgc.dataDir;
-          access = {
-            # Give all users all permissions, including admin access
-            # TODO: Configure this per-user
-            A = "@acct";
-          };
+        volumes = let
+          mkVolume = path: extraflags: {
+            path = path;
+            access = {
+              # Give all users all permissions, including admin access
+              # TODO: Configure this per-user
+              A = "@acct";
+            };
 
-          flags = {
-            # Index files search
-            e2d = true;
-            # Index metadata
-            e2t = true;
+            flags = {
+              # Index files search
+              e2d = true;
+              # Index metadata
+              e2t = true;
+            } // extraflags;
+          };
+        in {
+          "/" = mkVolume cfgc.dataDir {};
+          "/oldies" = mkVolume "${cfg.data.baseDirectory}/immich-oldies" {
+            # Make sure Immich can read from uploads here
+            chmod_d = "755";
+            chmod_f = "644";
           };
         };
       };
