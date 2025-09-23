@@ -2,6 +2,7 @@
   self,
   buildScript,
   nushell,
+  imagemagick,
   paperlessUrl ? "http://localhost:28981",
   paperlessTokenFile ? "/run/secrets/paperless_token",
 }:
@@ -19,6 +20,8 @@ buildScript {
       and automatically upload them to a Paperless NGX instance.
     '';
   };
+
+  runtimeInputs = [imagemagick];
 
   runtimeEnv = {
     PAPERLESS_URL = paperlessUrl;
