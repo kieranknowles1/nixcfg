@@ -90,6 +90,9 @@
           # TODO: Once python 3.14 is on nixpkgs, can use reflinks
           hardlink-only = true;
           # reflink = true;
+
+          # Allow sharing files with others
+          shr = "/share";
         };
 
         accounts =
