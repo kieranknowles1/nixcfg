@@ -12,6 +12,7 @@
   '';
 in {
   imports = [
+    ./adguard.nix
     ./copyparty.nix
     ./docs.nix
     ./forgejo.nix

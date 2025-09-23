@@ -19,10 +19,13 @@
     # but change if necessary.
     tcp = {
       ssh = 22;
+      dns = 53;
       http = 80;
       https = 443;
 
       immich = 2283;
+
+      adguard = 3000;
 
       postgresql = 5432;
 
@@ -33,6 +36,7 @@
 
       paperless = 28981;
     };
+
     udp = {
       minecraft = 25565;
     };

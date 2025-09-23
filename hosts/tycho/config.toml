@@ -29,6 +29,7 @@ paperless.enable = true
 trilium.enable = true
 trilium.autoExport.enable = true
 trilium.autoExport.remote = "ssh://forgejo@localhost/kieran/trilium-export.git"
+adguard.enable = true
 
 [server.copyparty]
 enable = true
