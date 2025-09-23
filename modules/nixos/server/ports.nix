@@ -34,6 +34,7 @@
       paperless = 28981;
     };
     udp = {
+      minecraft = 25565;
     };
   };
 }
