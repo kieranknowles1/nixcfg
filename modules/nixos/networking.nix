@@ -3,17 +3,29 @@
   config,
   ...
 }: {
-  options.custom.networking = {
-    hostName = lib.mkOption {
-      type = lib.types.str;
+  options.custom.networking = let
+    inherit (lib) mkOption types;
+  in {
+    hostName = mkOption {
+      type = types.str;
       description = ''
         The hostname of the machine. Note that Nix uses this as the default target when
         building the OS. This is also available to avahi-enabled machines via `hostname.local`.
       '';
     };
 
-    waitOnline = lib.mkOption {
-      type = lib.types.bool;
+    fixedIp = mkOption {
+      type = types.str;
+      example = "192.168.1.100";
+      description = ''
+        Static IP address this machine expects. This is in no way checked or
+        enforced. It is the responsibility of the user to reserve this address
+        in their router's DHCP configuration.
+      '';
+    };
+
+    waitOnline = mkOption {
+      type = types.bool;
       default = false;
       description = ''
         Whether to wait for the network to be online before allowing login. This is recommended

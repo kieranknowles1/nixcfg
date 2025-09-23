@@ -11,6 +11,7 @@ raspberryPi.enable = true
 
 [networking]
 hostName = "tycho"
+fixedIp = "192.168.1.207"
 waitOnline = true
 
 [server]

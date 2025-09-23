@@ -103,19 +103,21 @@
 
         volumes = let
           mkVolume = path: extraflags: {
-            path = path;
+            inherit path;
             access = {
               # Give all users all permissions, including admin access
               # TODO: Configure this per-user
               A = "@acct";
             };
 
-            flags = {
-              # Index files search
-              e2d = true;
-              # Index metadata
-              e2t = true;
-            } // extraflags;
+            flags =
+              {
+                # Index files search
+                e2d = true;
+                # Index metadata
+                e2t = true;
+              }
+              // extraflags;
           };
         in {
           "/" = mkVolume cfgc.dataDir {};
