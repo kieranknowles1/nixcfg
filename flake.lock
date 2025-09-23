@@ -53,6 +53,29 @@
         "url": "https://git.clan.lol/clan/clan-core"
       }
     },
+    "copyparty": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758493304,
+        "narHash": "sha256-A1xuSrELZIZhoKejIME0yemc9KlxZp/tKNxrF4LHrcw=",
+        "owner": "9001",
+        "repo": "copyparty",
+        "rev": "1923a258797285ac75487d3d53665063a5bd67df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "9001",
+        "repo": "copyparty",
+        "type": "github"
+      }
+    },
     "factorio-blueprints": {
       "flake": false,
       "locked": {
@@ -411,6 +434,7 @@
     "root": {
       "inputs": {
         "clan-core": "clan-core",
+        "copyparty": "copyparty",
         "factorio-blueprints": "factorio-blueprints",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",

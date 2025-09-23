@@ -15,6 +15,12 @@
       description = "The directory where Minecraft server data will be stored.";
     };
 
+    subdomain = mkOption {
+      type = types.str;
+      default = "minecraft";
+      description = "The subdomain for the Minecraft server.";
+    };
+
     whitelist = mkOption {
       type = types.attrsOf types.str;
       default = {};
@@ -42,7 +48,25 @@
     cfgm = cfg.minecraft;
   in
     lib.mkIf cfgm.enable {
-      custom.server.minecraft.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/minecraft";
+      # TODO: Bluemap support
+      custom.server = {
+        minecraft.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/minecraft";
+
+        homepage.services = lib.singleton {
+          group = "Games";
+          name = "Minecraft";
+          href = "https://${cfgm.subdomain}.${cfg.hostname}";
+          icon = "minecraft.svg";
+          description = "Survival and crafting";
+          widget = {
+            type = "minecraft";
+            config = {
+              url = "udp://localhost:${builtins.toString cfg.ports.tcp.minecraft}";
+              fields = ["players" "status"];
+            };
+          };
+        };
+      };
 
       # Command to start server if it isn't already running, and connects to its console
       # To exit, use `Ctrl+b, d`

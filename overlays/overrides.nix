@@ -13,6 +13,11 @@ final: prev: {
     };
   });
 
+  # Use the same version of ffmpeg as Immich
+  copyparty = prev.copyparty.override {
+    ffmpeg = final.jellyfin-ffmpeg;
+  };
+
   # My fork of OpenMW
   openmw = prev.openmw.overrideAttrs (_oldAttrs: {
       src = inputs.src-openmw;
