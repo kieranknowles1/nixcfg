@@ -12,6 +12,8 @@
   - [VR Support](./usage/vr.md)
 - [Modules](./modules/readme.md)
   - [Documentation](./modules/docs.md)
+- [Server Reproduction](./reproduction/readme.md)
+  - [User Onboarding](./reproduction/onboarding.md)
 - [Lessons Learned](./lessons-learned.md)
 
 - [Planning](./plan/readme.md)
