@@ -16,7 +16,7 @@ in {
     ./copyparty.nix
     ./docs.nix
     ./forgejo.nix
-    ./homepage.nix
+    ./homepage
     ./immich.nix
     ./minecraft.nix
     ./paperless.nix
@@ -179,10 +179,12 @@ in {
 
     isSet = val: val != null;
 
-    mkSubHosts = ssl: tld: lib.attrsets.mapAttrs' (name: subdomain: {
-      name = "${name}.${tld}";
-      value = mkVhost subdomain ssl;
-    }) cfg.subdomains;
+    mkSubHosts = ssl: tld:
+      lib.attrsets.mapAttrs' (name: subdomain: {
+        name = "${name}.${tld}";
+        value = mkVhost subdomain ssl;
+      })
+      cfg.subdomains;
   in
     lib.mkIf cfg.enable {
       assertions =

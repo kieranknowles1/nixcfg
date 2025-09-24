@@ -221,6 +221,7 @@
           "${config.networking.hostName}.local"
         ];
 
+        customJS = builtins.readFile ./custom.js;
         settings = {
           language = "en-GB";
           theme = "dark";
