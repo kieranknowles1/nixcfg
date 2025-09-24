@@ -42,9 +42,18 @@
     cfg = config.custom.server;
     cfgc = cfg.copyparty;
 
-    socket = "/dev/shm/party.sock";
+    socket = "/run/copyparty/party.sock";
   in
     lib.mkIf cfgc.enable {
+      systemd.tmpfiles.settings.copyparty = {
+        # Type `z`: Chmod directory
+        "/run/copyparty".z = {
+          mode = "0755";
+          user = "copyparty";
+          group = "copyparty";
+        };
+      };
+
       custom.server = {
         copyparty.dataDir = "${cfg.data.baseDirectory}/copyparty";
         subdomains.${cfgc.subdomain} = {
