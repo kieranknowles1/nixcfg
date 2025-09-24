@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:$log$_planks",
+  "result": {
+    "count": 1,
+    "item": "minecraft:$log$_stairs"
+  }
+}
