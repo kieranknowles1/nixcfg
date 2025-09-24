@@ -9,6 +9,7 @@
 
 #let template(
   statement: none,
+  extra_skills: [],
   tech_links: none,
 ) = [
   #assert_set(statement, "Statement cannot be empty")
@@ -38,6 +39,8 @@
   #statement
 
   = Skills
+
+  #extra_skills
 
   // TODO: Skills for non-technical CVs
   #if tech_links [
@@ -75,8 +78,10 @@
 
   = Experience
 
-  See portfolio hosted at https://selwonk.uk for technical experience.
-  #par([])
+  #if tech_links [
+    See portfolio hosted at https://selwonk.uk for technical experience.
+    #par([])
+  ]
 
   #cv-entry-multiline(
     date: [2022 -- now],
@@ -114,12 +119,14 @@
     employer: "Northumbria University",
   )[First-Class Honours]
 
-  = Undergraduate Dissertation
-  #cv-line([Title], [CHEF - Cooking Helper for Everyone's Fridge])
-  #cv-line([Supervisor], [Nick Dalton])
-  #cv-line([Description], [A web application to help users find a variety of
-    recipes based on the ingredients they have, and that are similar to those
-    previously liked to help reduce food waste.])
+  #if tech_links [
+    = Undergraduate Dissertation
+    #cv-line([Title], [CHEF - Cooking Helper for Everyone's Fridge])
+    #cv-line([Supervisor], [Nick Dalton])
+    #cv-line([Description], [A web application to help users find a variety of
+      recipes based on the ingredients they have, and that are similar to those
+      previously liked to help reduce food waste.])
+  ]
 
   = Interests
 

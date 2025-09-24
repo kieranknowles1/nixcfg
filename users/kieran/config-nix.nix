@@ -4,7 +4,10 @@
   inputs,
   ...
 }: {
-  config.custom = {
+  config.custom = let
+    serverConfig = self.nixosConfigurations.tycho.config;
+    cfgs = serverConfig.custom.server;
+  in {
     # TODO: Can we cycle through wallpapers?
     theme.wallpaper = self.builders.${pkgs.stdenv.hostPlatform.system}.fromHeif ./wallpaper-2.heic;
 
@@ -36,5 +39,7 @@
         };
       };
     };
+
+    office.paperless.url = "https://${cfgs.paperless.subdomain}.${cfgs.hostname}";
   };
 }

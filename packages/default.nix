@@ -28,6 +28,7 @@
       portfolio = callPackage ./portfolio {};
       rebuild = callPackage ./rebuild {};
       resaver = callPackage ./resaver {};
+      scandoc = callPackage ./scandoc {};
       set-led-state = callPackage ./set-led-state {};
       skyrim-utils = callPackage ./skyrim-utils {};
       spriggit = callPackage ./spriggit.nix {};
