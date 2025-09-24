@@ -121,6 +121,14 @@
           default = 4;
           description = "Number of columns if using the `column` layout";
         };
+        sortOrder = mkOption {
+          type = types.int;
+          default = 0;
+          description = ''
+            Sort order of the group, higher numbers are displayed last.
+            Matching groups will be sorted alphabetically.
+          '';
+        };
         icon = mkOption {
           type = types.nullOr types.str;
           default = null;
@@ -168,11 +176,22 @@
   in
     lib.mkIf cfgh.enable {
       custom.server = {
-        homepage.groups = {
+        homepage.groups = let
+          # Like a DAG, but less confusing
+          sort = rec {
+            first = default - 1;
+            default = 0;
+            last = default + 1;
+          };
+        in {
           Documents.icon = "mdi-folder-open";
           Games.icon = "mdi-controller";
           Media.icon = "mdi-camera";
           Meta.icon = "mdi-information-variant-circle";
+          Infrastructure = {
+            icon = "mdi-server";
+            sortOrder = sort.last;
+          };
         };
 
         # Widget requests are proxied through homepage. A preliminary
@@ -227,7 +246,15 @@
           theme = "dark";
           color = "slate";
 
-          layout = cfgh.groups;
+          layout = let
+            pairs = lib.attrsets.mapAttrsToList (name: value: {inherit name value;}) cfgh.groups;
+
+            sortPredicate = a: b:
+              if a.value.sortOrder != b.value.sortOrder
+              then a.value.sortOrder < b.value.sortOrder
+              else a.name < b.name;
+          in
+            map (kv: {${kv.name} = kv.value;}) (builtins.sort sortPredicate pairs);
         };
 
         widgets = [
