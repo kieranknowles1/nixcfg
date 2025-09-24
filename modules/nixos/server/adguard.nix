@@ -21,6 +21,25 @@
     lib.mkIf cfga.enable {
       custom.server = {
         subdomains.${cfga.subdomain}.proxyPort = config.services.adguardhome.port;
+
+        homepage.services = lib.singleton rec {
+          group = "Infrastructure";
+          name = "AdGuard Home";
+          description = "Network-wide adblock";
+          icon = "adguard-home.svg";
+          href = "https://${cfga.subdomain}.${cfg.hostname}";
+          widget = {
+            type = "adguard";
+            config = {
+              url = href;
+              username = "homepage";
+            };
+            secrets.password = {
+              id = "ADGUARD_PASSWORD";
+              value = "adguard/homepage-password";
+            };
+          };
+        };
       };
 
       services.adguardhome = {
