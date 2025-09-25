@@ -12,7 +12,6 @@
   ];
 
   config.custom = {
-    networking.hostName = "canterbury";
     users = {
       users.kieran = import ../../users/kieran {inherit pkgs config self;};
       sharedConfig.custom = {
@@ -21,12 +20,14 @@
       };
     };
 
+    networking.hostName = "canterbury";
+    repoPath = "/home/kieran/Documents/src/nixcfg";
+
     secrets = {
       ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
       file = ./secrets.yaml;
     };
 
-    repoPath = "/home/kieran/Documents/src/nixcfg";
     printing.enable = true;
 
     desktop = {
