@@ -47,7 +47,7 @@
           type = types.str;
           example = "My personal documents";
           description = ''
-            A brief description of the widget.
+            A brief description of the widget. Aim for 3 words or less.
           '';
         };
         icon = mkOption {
@@ -121,6 +121,14 @@
           default = 4;
           description = "Number of columns if using the `column` layout";
         };
+        sortOrder = mkOption {
+          type = types.int;
+          default = 0;
+          description = ''
+            Sort order of the group, higher numbers are displayed last.
+            Matching groups will be sorted alphabetically.
+          '';
+        };
         icon = mkOption {
           type = types.nullOr types.str;
           default = null;
@@ -143,7 +151,12 @@
     services = mkOption {
       type = types.listOf serviceType;
       default = [];
-      description = "List of services to display on the homepage";
+      description = ''
+        List of services to display on the homepage.
+
+        All services that define a subdomain MUST also define a service here for
+        quick access.
+      '';
     };
 
     groups = mkOption {
@@ -163,12 +176,32 @@
   in
     lib.mkIf cfgh.enable {
       custom.server = {
-        homepage.groups = {
+        homepage.groups = let
+          # Like a DAG, but less confusing
+          sort = rec {
+            first = default - 1;
+            default = 0;
+            last = default + 1;
+          };
+        in {
           Documents.icon = "mdi-folder-open";
+          Games.icon = "mdi-controller";
           Media.icon = "mdi-camera";
           Meta.icon = "mdi-information-variant-circle";
+          Infrastructure = {
+            icon = "mdi-server";
+            sortOrder = sort.last;
+          };
         };
 
+        # Widget requests are proxied through homepage. A preliminary
+        # check of the source code showed that arbritary endpoint access
+        # is not allowed. Still, the high attack surface coupled with somewhat
+        # personal information means I want to put the service behind
+        # authentication.
+        #
+        # Trust users on the same LAN, but require authentication for WAN access.
+        localRoot.proxyPort = config.services.homepage-dashboard.listenPort;
         subdomains.${cfgh.subdomain} = {
           proxyPort = config.services.homepage-dashboard.listenPort;
           requireAuth = true;
@@ -201,14 +234,27 @@
       services.homepage-dashboard = {
         enable = true;
         listenPort = cfg.ports.tcp.homepage;
-        allowedHosts = "${cfgh.subdomain}.${cfg.hostname}";
+        allowedHosts = builtins.concatStringsSep "," [
+          "${cfgh.subdomain}.${cfg.hostname}"
+          "${cfgh.subdomain}.${config.networking.hostName}.local"
+          "${config.networking.hostName}.local"
+        ];
 
+        customJS = builtins.readFile ./custom.js;
         settings = {
           language = "en-GB";
           theme = "dark";
           color = "slate";
 
-          layout = cfgh.groups;
+          layout = let
+            pairs = lib.attrsets.mapAttrsToList (name: value: {inherit name value;}) cfgh.groups;
+
+            sortPredicate = a: b:
+              if a.value.sortOrder != b.value.sortOrder
+              then a.value.sortOrder < b.value.sortOrder
+              else a.name < b.name;
+          in
+            map (kv: {${kv.name} = kv.value;}) (builtins.sort sortPredicate pairs);
         };
 
         widgets = [
@@ -263,14 +309,9 @@
             ${srv.name} = {
               inherit (srv) description icon href;
 
-              # Widget requests are proxied through homepage. A preliminary
-              # check of the source code showed that arbritary endpoint access
-              # is not allowed. Still don't fully trust this, so want to put the
-              # service behind authentication.
-
               # Using mkIf instead of optionalAttrs so that, if no widget is
               # defined, the widget attribute will be omitted rather than set to
-              # an empty object.
+              # an empty object, which Homepage would see as an error.
               widget = lib.mkIf (srv.widget.type != null) (lib.mkMerge [
                 {
                   inherit (srv.widget) type;

@@ -42,14 +42,31 @@
     cfg = config.custom.server;
     cfgc = cfg.copyparty;
 
-    socket = "/dev/shm/party.sock";
+    socket = "/run/copyparty/party.sock";
   in
     lib.mkIf cfgc.enable {
+      systemd.tmpfiles.settings.copyparty = {
+        # Type `z`: Chmod directory
+        "/run/copyparty".z = {
+          mode = "0755";
+          user = "copyparty";
+          group = "copyparty";
+        };
+      };
+
       custom.server = {
-        # TODO: Integrate with homepage
         copyparty.dataDir = "${cfg.data.baseDirectory}/copyparty";
         subdomains.${cfgc.subdomain} = {
           proxySocket = socket;
+        };
+
+        # No widget here :(
+        homepage.services = lib.singleton {
+          group = "Media";
+          name = "Copyparty";
+          description = "File management";
+          icon = "copyparty.svg";
+          href = "https://${cfgc.subdomain}.${cfg.hostname}";
         };
       };
 
@@ -103,19 +120,21 @@
 
         volumes = let
           mkVolume = path: extraflags: {
-            path = path;
+            inherit path;
             access = {
               # Give all users all permissions, including admin access
               # TODO: Configure this per-user
               A = "@acct";
             };
 
-            flags = {
-              # Index files search
-              e2d = true;
-              # Index metadata
-              e2t = true;
-            } // extraflags;
+            flags =
+              {
+                # Index files search
+                e2d = true;
+                # Index metadata
+                e2t = true;
+              }
+              // extraflags;
           };
         in {
           "/" = mkVolume cfgc.dataDir {};

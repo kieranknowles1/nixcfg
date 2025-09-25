@@ -41,9 +41,9 @@ most of them. Following is a list that I would like for a first iteration:
 
 ## Known Issues
 
-This configuration is still ~~**heavily**~~ work in progress, and issues are to be
-expected including (listed here as a checklist to be fixed). Please ignore how
-I'm just blaming other people for all of these :).
+This configuration is still ~~**heavily**~~ work in progress, and issues are to
+be expected including (listed here as a checklist to be fixed). Please ignore
+how I'm just blaming other people for all of these :).
 
 ```admonish success
 As of September 2025, I'm happy to call the NixOS port a success. It's
@@ -60,7 +60,6 @@ definitely not complete, but the current state covers all my needs.
       [Definite upstream issue](https://github.com/nix-community/comma/pull/103)
       and already fixed on nixpkgs-unstable.
 - [x] ~~Cloudflare cache can become outdated for static sites. Should configure
-      this to reset automatically/with a script after rebuild switch.~~
-      Resolved with a `clear-cloudflare-cache` script that purges the cache. Must
-      be run manually as Nix intentionally does not signal when a static page
-      changes.
+      this to reset automatically/with a script after rebuild switch.~~ Resolved
+      with a `clear-cloudflare-cache` script that purges the cache. Must be run
+      manually as Nix intentionally does not signal when a static page changes.

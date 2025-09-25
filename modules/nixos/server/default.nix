@@ -12,10 +12,11 @@
   '';
 in {
   imports = [
+    ./adguard.nix
     ./copyparty.nix
     ./docs.nix
     ./forgejo.nix
-    ./homepage.nix
+    ./homepage
     ./immich.nix
     ./minecraft.nix
     ./paperless.nix
@@ -145,13 +146,6 @@ in {
   config = let
     cfg = config.custom.server;
 
-    subhosts =
-      lib.attrsets.mapAttrs' (name: subdomain: {
-        name = "${name}.${cfg.hostname}";
-        value = mkVhost subdomain true;
-      })
-      cfg.subdomains;
-
     mkVhost = subdomain: ssl: {
       locations."/" = {
         inherit (subdomain) root;
@@ -184,6 +178,13 @@ in {
     };
 
     isSet = val: val != null;
+
+    mkSubHosts = ssl: tld:
+      lib.attrsets.mapAttrs' (name: subdomain: {
+        name = "${name}.${tld}";
+        value = mkVhost subdomain ssl;
+      })
+      cfg.subdomains;
   in
     lib.mkIf cfg.enable {
       assertions =
@@ -221,9 +222,12 @@ in {
         # Allow larger uploads, needed for things like Immich
         clientMaxBodySize = "50000m";
 
-        virtualHosts =
-          subhosts
-          // {
+        # *.local can't use aliases since we don't have a certificate for .local,
+        # meaning clients will complain about invalid certificates
+        virtualHosts = lib.mkMerge [
+          (mkSubHosts true cfg.hostname)
+          (mkSubHosts false "${config.networking.hostName}.local")
+          {
             "${cfg.hostname}" = mkVhost cfg.root true;
             "${config.networking.hostName}.local" = mkVhost cfg.localRoot false;
 
@@ -236,7 +240,8 @@ in {
               sslCertificate = cfg.ssl.publicKeyFile;
               sslCertificateKey = config.sops.secrets.ssl-private-key.path;
             };
-          };
+          }
+        ];
       };
 
       networking.firewall.allowedTCPPorts = with cfg.ports.tcp; [http https];
