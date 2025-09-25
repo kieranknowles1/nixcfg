@@ -41,19 +41,4 @@
         rootConfig
       ];
     };
-
-  /*
-  Read a TOML and format it such that it can be used directly in a module's configuration.
-  Paths are not supported. Nix expressions are preferred to configure more complex modules.
-
-  # Arguments
-  **path** (Path) : The path to the TOML file to read
-
-  # Returns
-  A TOML object with the `$schema` key removed
-  */
-  readTomlFile = path: let
-    toml = builtins.fromTOML (builtins.readFile path);
-  in
-    builtins.removeAttrs toml ["$schema"];
 }
