@@ -4,7 +4,6 @@
 {
   pkgs,
   config,
-  self,
   nixos-raspberrypi,
   inputs,
   ...
@@ -21,7 +20,7 @@
   # Enable everything needed for this configuration
   custom = {
     users = {
-      users.kieran = import ../../users/kieran {inherit pkgs config self;};
+      users.kieran = import ../../users/kieran {inherit pkgs config;};
     };
 
     repoPath = "/home/kieran/src/nixcfg";

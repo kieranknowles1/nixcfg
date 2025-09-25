@@ -20,6 +20,6 @@ final: prev: {
 
   # My fork of OpenMW
   openmw = prev.openmw.overrideAttrs (_oldAttrs: {
-      src = inputs.src-openmw;
-    });
+    src = inputs.src-openmw;
+  });
 }
