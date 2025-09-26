@@ -1,10 +1,5 @@
 [
   {
-    "file": "attrset.nix",
-    "category": "attrset",
-    "title": "Attribute Sets"
-  },
-  {
     "file": "docs.nix",
     "category": "docs",
     "title": "Documentation"

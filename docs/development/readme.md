@@ -66,28 +66,33 @@ parts of the flake as needed. Only the `custom` key should be used in the host's
 configuration to avoid any code duplication. I am aware that this makes the host
 definitions tightly coupled to the flake, but believe this to be a worthwhile
 trade-off to limit the amount of code used to define a host, moving it to a
-central modules folder instead.
-
-JSON schemas are generated for the flake's options, found in
-[generated/host-options.schema.json](../generated/host-options.schema.json). A
-TOML language server can be pointed at this file to provide immediate feedback
-on options.
+central modules folder instead, and given how highly opinionated the flake is.
 
 See [hosts/rocinante](../../hosts/rocinante/) for an example host definition.
 
 ## User Definition
 
 Similar to hosts, users are defined in the `users` directory and again should
-only use the `custom` key. However, instead of being a plain Attribute Set, a
-user is a function taking in nixpkgs and the host's config, and returning an
-Attribute Set following the format described in
-[custom.user](../generated/host-options.md#customuser).
+only use the `custom` key. These should be functions returning the following:
 
-While JSON schemas are also available at
-[generated/user-options.schema.json](../generated/user-options.schema.json),
-these are not as useful as in hosts as users may need different configurations
-for different hosts, something impossible to represent in TOML without a lot of
-additional complexity.
+```nix
+# NixOS-side properties
+core = {
+  displayName = "John Smith";
+  isSudoer = true;
+  shell = pkgs.my-fancy-shell;
+
+  authorisedKeys = [
+    list of ssh keys
+  ];
+};
+
+# Home Manager module
+home = {
+  imports = [ ./all-there-is-to-import.nix];
+};
+home.stateVersion = "read-the-manual";
+```
 
 See [users/kieran](../../users/kieran/default.nix) for an example user
 definition.

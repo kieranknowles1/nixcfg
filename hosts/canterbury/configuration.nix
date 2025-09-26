@@ -4,7 +4,6 @@
 {
   pkgs,
   config,
-  self,
   ...
 }: {
   imports = [
@@ -13,7 +12,7 @@
 
   config.custom = {
     users = {
-      users.kieran = import ../../users/kieran {inherit pkgs config self;};
+      users.kieran = import ../../users/kieran {inherit pkgs config;};
       sharedConfig.custom = {
         office.enable = true;
         trilium-client.enable = true;

@@ -7,41 +7,26 @@
 }: {
   options.custom = let
     inherit (lib) mkOption types;
-
-    mkIgnoredOptions = name:
-      mkOption {
-        description = ''
-          A list of ${name} options to ignore when generating a JSON schema.
-
-          NOTE: Only top-level options of options.custom are supported. I.e., options.custom.foo works,
-          but options.custom.foo.bar does not.
-        '';
-        type = types.listOf types.str;
-        example = ["foo" "bar"];
-        default = [];
-      };
   in {
     docs = {
       generateManCache = mkOption {
+        type = types.bool;
+        default = true;
         description = ''
           Whether to generate man cache, required for carapace completions
           and `whatis`. Slow to build on some systems.
         '';
-        default = true;
       };
     };
 
     docs-generate = {
-      jsonIgnoredOptions = {
-        nixos = mkIgnoredOptions "NixOS";
-        home = mkIgnoredOptions "Home Manager";
-      };
       baseUrl = mkOption {
+        type = types.str;
+        defaultText = "config.custom.repoPath";
+        example = "https://git.example.com/user/repo/blob/main";
         description = ''
           The base URL for links to option declarations.
         '';
-        defaultText = "config.custom.repoPath";
-        example = "https://git.example.com/user/repo/blob/main";
       };
     };
   };
@@ -59,15 +44,6 @@
     custom.docs-generate.file = let
       cfg = config.custom.docs-generate;
       inherit (self.builders.${pkgs.system}) mkOptionDocs mkFunctionDocs;
-      mkSchema = name: module: hidden: let
-        filterCustom = opts: opts.custom;
-        filterNotHidden = opts: builtins.removeAttrs opts hidden;
-
-        text = self.lib.docs.mkJsonSchema module (opts: filterNotHidden (filterCustom opts));
-      in {
-        description = "${name} options schema";
-        source = pkgs.writeText "options.schema.json" text;
-      };
     in {
       "host-options.md" = {
         description = "NixOS options";
@@ -77,7 +53,6 @@
           inherit (cfg) baseUrl;
         };
       };
-      "host-options.schema.json" = mkSchema "NixOS" self.nixosModules.default cfg.jsonIgnoredOptions.nixos;
       "user-options.md" = {
         description = "Home Manager options";
         source = mkOptionDocs {
@@ -86,7 +61,6 @@
           inherit (cfg) baseUrl;
         };
       };
-      "user-options.schema.json" = mkSchema "Home Manager" self.homeManagerModules.default cfg.jsonIgnoredOptions.home;
 
       # TODO: Also document builders
       "lib.md" = {

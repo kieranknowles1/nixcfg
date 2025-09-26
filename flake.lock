@@ -18,41 +18,6 @@
         "type": "github"
       }
     },
-    "clan-core": {
-      "inputs": {
-        "data-mesher": [],
-        "disko": [],
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nix-darwin": [],
-        "nix-select": "nix-select",
-        "nixos-facter-modules": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "sops-nix": [],
-        "systems": [
-          "systems"
-        ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1757844545,
-        "narHash": "sha256-a0h6AeVynh4VIetM+FY6xjObVW+sAYzY1kxL2tq7sC0=",
-        "ref": "refs/heads/main",
-        "rev": "b494bdee21b6fcfa0de817877bb378c430c4a411",
-        "revCount": 9949,
-        "type": "git",
-        "url": "https://git.clan.lol/clan/clan-core"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.clan.lol/clan/clan-core"
-      }
-    },
     "copyparty": {
       "inputs": {
         "flake-utils": [
@@ -292,19 +257,6 @@
         "type": "github"
       }
     },
-    "nix-select": {
-      "locked": {
-        "lastModified": 1755887746,
-        "narHash": "sha256-lzWbpHKX0WAn/jJDoCijIDss3rqYIPawe46GDaE6U3g=",
-        "rev": "92c2574c5e113281591be01e89bb9ddb31d19156",
-        "type": "tarball",
-        "url": "https://git.clan.lol/api/v1/repos/clan/nix-select/archive/92c2574c5e113281591be01e89bb9ddb31d19156.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://git.clan.lol/clan/nix-select/archive/main.tar.gz"
-      }
-    },
     "nixos-cosmic": {
       "inputs": {
         "flake-compat": [],
@@ -433,7 +385,6 @@
     },
     "root": {
       "inputs": {
-        "clan-core": "clan-core",
         "copyparty": "copyparty",
         "factorio-blueprints": "factorio-blueprints",
         "firefox-addons": "firefox-addons",

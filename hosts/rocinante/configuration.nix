@@ -4,7 +4,6 @@
 {
   pkgs,
   config,
-  self,
   ...
 }: {
   imports = [
@@ -13,7 +12,7 @@
 
   custom = {
     users = {
-      users.kieran = import ../../users/kieran {inherit pkgs config self;};
+      users.kieran = import ../../users/kieran {inherit pkgs config;};
       sharedConfig.custom = {
         games.enable = true;
         desktop.modbright.enable = true;

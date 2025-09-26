@@ -1,13 +1,6 @@
 # Library functions for generating documentation.
 # Note that these functions return strings, and need to be written to files before inclusion in docs-generate.
-{
-  lib,
-  inputs,
-}: let
-  jsonLib = inputs.clan-core.lib.jsonschema {
-    # Options can be overridden here.
-  };
-in rec {
+{lib}: {
   # Evaluate a single module, ignoring any errors caused by missing inputs.
   evalUnchecked = module:
     lib.evalModules {
@@ -18,50 +11,6 @@ in rec {
         {config._module.check = false;}
       ];
     };
-
-  /*
-  Generate a JSON schema for options in the given directory
-
-  # Example
-  ```nix
-  mkJsonSchema ./modules/nixos (opts: opts.foo)
-  => JSON file
-
-  # TOML is preferred for configuration files as it supports comments
-  # and has a more nix-like syntax, but JSON and YAML could also be used.
-  config.foo = lib.host.readTomlFile ./config.toml
-
-  ```
-
-  # Arguments
-  **importer** (Path) : The file to import all modules containing options
-  **filter** (Func(AttrSet -> AttrSet)) : A function to filter the options
-
-  NOTE: If the filter function selects a subset of the options (e.g, opts.foo), the schema will only contain the
-  selected options and they will have to be manually merged at the appropriate place.
-
-  # Returns
-  Path : The path to the generated JSON file
-
-  */
-  mkJsonSchema = importer: filter: let
-    modulesEval = evalUnchecked importer;
-    filtered = filter modulesEval.options;
-    # We can override a different set of options here.
-    schemaNix = jsonLib.parseOptions filtered {};
-
-    # Allow the `$schema` key to be used, as additionalProperties is false.
-    schemaWithExtra =
-      schemaNix
-      // {
-        properties =
-          schemaNix.properties
-          // {
-            "$schema" = {type = "string";};
-          };
-      };
-  in
-    builtins.toJSON schemaWithExtra;
 
   /*
   Generate documentation for the packages in the given set.
