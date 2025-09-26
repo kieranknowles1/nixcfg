@@ -67,7 +67,9 @@
           # Attempt to remove scanner artifacts
           PAPERLESS_OCR_CLEAN = "clean";
 
-          # TODO: Name files in the format "$user_$document"
+          # Encode some metadata in filenames so we can retrieve documents
+          # (maybe not as efficiently) without a running instance.
+          PAPERLESS_FILENAME_FORMAT = "{{owner_username}}/{{correspondent}}/{{title}}";
         };
       };
     };
