@@ -45,14 +45,11 @@
     socket = "/run/copyparty/party.sock";
   in
     lib.mkIf cfgc.enable {
-      systemd.tmpfiles.settings.copyparty = {
-        # Type `z`: Chmod directory
-        "/run/copyparty".z = {
-          mode = "0755";
-          user = "copyparty";
-          group = "copyparty";
-        };
-      };
+      systemd.services.copyparty.postStart = ''
+        # preStart chmods to 700. We need 755 to have a safe
+        # place to store the socket that nginx can access.
+        chmod 755 /run/copyparty
+      '';
 
       custom.server = {
         copyparty.dataDir = "${cfg.data.baseDirectory}/copyparty";
@@ -119,12 +116,12 @@
           cfgc.users;
 
         volumes = let
-          mkVolume = path: extraflags: {
+          mkVolume = path: extraflags: defaultPerms: {
             inherit path;
             access = {
               # Give all users all permissions, including admin access
               # TODO: Configure this per-user
-              A = "@acct";
+              ${defaultPerms} = "@acct";
             };
 
             flags =
@@ -137,12 +134,14 @@
               // extraflags;
           };
         in {
-          "/" = mkVolume cfgc.dataDir {};
+          # All permissions
+          "/" = mkVolume cfgc.dataDir {} "A";
+          # Read, write, but not modify or delete
           "/oldies" = mkVolume "${cfg.data.baseDirectory}/immich-oldies" {
             # Make sure Immich can read from uploads here
             chmod_d = "755";
             chmod_f = "644";
-          };
+          } "rw";
         };
       };
 
