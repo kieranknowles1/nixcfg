@@ -126,6 +126,15 @@
           };
         };
 
+        custom.backup.defaultExclusions = [
+          # Nothing we strongly care about
+          "trilium/log"
+          # Daily copy-paste backups of the database
+          # Since we're using a btrfs snapshot, SQLite can recover using
+          # the WAL at any point in time and there is no race condition
+          "trilium/backup"
+        ];
+
         services.trilium-server = {
           enable = true;
           port = cfg.ports.tcp.trilium;

@@ -128,6 +128,17 @@
         };
       });
     };
+
+    # TODO: Browse redu and add anything that should be excluded
+    defaultExclusions = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      description = ''
+        A list of patterns to exclude from all backups.
+
+        See [Backing up - Excluding Files](https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files) for more information.
+      '';
+    };
   };
 
   config = let
@@ -167,7 +178,7 @@
           then "${cfgr.btrfs.snapshotPath}/${tmpname}"
           else cfgr.source;
       in {
-        inherit (cfgr) exclude;
+        exclude = cfgr.exclude ++ cfg.defaultExclusions;
         user = cfgr.owner;
         paths = [finalPath];
 
