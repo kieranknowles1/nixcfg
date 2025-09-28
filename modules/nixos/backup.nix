@@ -16,6 +16,26 @@
         '';
         type = types.int;
       };
+
+    mkExcludeOption = scope: mkOption {
+      description = ''
+        A list of patterns to exclude from ${scope}.
+
+        See [Backing up - Excluding Files](https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files) for more information.
+
+        WARN: Absolute paths are not supported in combination with btrfs snapshots,
+        as the snapshot is created in a different directory and therefore will not
+        match such patterns.
+      '';
+
+      type = types.listOf types.str;
+      default = [];
+      example = [
+        ".git"
+        "node_modules"
+        "already-in-git"
+      ];
+    };
   in {
     repositories = mkOption {
       description = ''
@@ -47,21 +67,7 @@
             example = "/home/bob/Documents";
           };
 
-          exclude = mkOption {
-            description = ''
-              A list of patterns to exclude from the backup.
-
-              See [Backing up - Excluding Files](https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files) for more information.
-            '';
-
-            type = types.listOf types.str;
-            default = [];
-            example = [
-              ".git"
-              "node_modules"
-              "already-in-git"
-            ];
-          };
+          exclude = mkExcludeOption "the backup";
 
           destination.local = mkOption {
             description = ''
@@ -130,15 +136,7 @@
     };
 
     # TODO: Browse redu and add anything that should be excluded
-    defaultExclusions = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        A list of patterns to exclude from all backups.
-
-        See [Backing up - Excluding Files](https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files) for more information.
-      '';
-    };
+    defaultExclusions = mkExcludeOption "all backups";
   };
 
   config = let
