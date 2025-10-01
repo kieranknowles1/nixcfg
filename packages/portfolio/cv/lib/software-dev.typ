@@ -2,6 +2,7 @@
 
 #let software-dev(
   area: none,
+  ..args,
 ) = [
   #assert_set(area, "area must be set")
   #template(
@@ -13,5 +14,6 @@
       such as object-oriented, procedural, and event-driven.
     ],
     tech_links: true,
+    ..args,
   )
 ]

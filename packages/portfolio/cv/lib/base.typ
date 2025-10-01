@@ -7,23 +7,31 @@
 
 #let assert_set(value, message) = assert(value != none, message: message)
 
-#let template(
-  statement: none,
-  extra_skills: [],
-  tech_links: none,
-) = [
-  #assert_set(statement, "Statement cannot be empty")
-  #assert_set(tech_links, "Tech links must be a boolean")
-  #let socials = (
+#let socials_list(tech_links) = {
+  let socials = (
     email: "kieranknowles11@hotmail.co.uk",
     github: "kieranknowles1",
     linkedin: "kieran-john-knowles",
     website: ("globe", "https://selwonk.uk", "selwonk.uk"),
     address: "Newcastle Upon Tyne, UK",
   )
-  #if not tech_links {
+
+  if not tech_links {
     let _ = socials.remove("github")
     let _ = socials.remove("website")
+  }
+
+  socials
+}
+
+#let template(
+  statement: none,
+  extra_skills: [],
+  tech_links: none,
+) = [
+  #{
+    assert_set(statement, "Statement cannot be empty")
+    assert_set(tech_links, "Tech links must be a boolean")
   }
 
   #show: moderner-cv.with(
@@ -33,7 +41,7 @@
 
     name: "Kieran Knowles",
     lang: "en",
-    social: socials,
+    social: socials_list(tech_links),
   )
 
   #statement
