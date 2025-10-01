@@ -50,6 +50,10 @@
         };
       };
 
+      custom.backup.defaultExclusions = [
+        "paperless/media/documents/thumbnails/"
+      ];
+
       services.paperless = {
         inherit (cfgp) dataDir;
         enable = true;

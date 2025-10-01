@@ -135,7 +135,6 @@
       });
     };
 
-    # TODO: Browse redu and add anything that should be excluded
     defaultExclusions = mkExcludeOption "all backups";
   };
 
