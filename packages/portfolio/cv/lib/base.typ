@@ -7,14 +7,16 @@
 
 #let assert_set(value, message) = assert(value != none, message: message)
 
-#let socials_list(tech_links) = {
-  let socials = (
-    email: "kieranknowles11@hotmail.co.uk",
-    github: "kieranknowles1",
-    linkedin: "kieran-john-knowles",
-    website: ("globe", "https://selwonk.uk", "selwonk.uk"),
-    address: "Newcastle Upon Tyne, UK",
-  )
+#let socials_list(tech_links, anonymous) = {
+  let socials = if anonymous { (:) } else {
+    (
+      email: "kieranknowles11@hotmail.co.uk",
+      github: "kieranknowles1",
+      linkedin: "kieran-john-knowles",
+      website: ("globe", "https://selwonk.uk", "selwonk.uk"),
+    )
+  }
+  socials.insert("address", "Newcastle Upon Tyne, UK")
 
   if not tech_links {
     let _ = socials.remove("github")
@@ -28,20 +30,50 @@
   statement: none,
   extra_skills: [],
   tech_links: none,
+  title: none,
+  anonymous: false,
 ) = [
   #{
+    if anonymous {
+      assert_set(title, "Title must be set for an anonymous CV")
+    }
     assert_set(statement, "Statement cannot be empty")
     assert_set(tech_links, "Tech links must be a boolean")
   }
+
+  #let job_entry(
+    date: none,
+    title: none,
+    employer: none,
+    job_type: none,
+    description,
+  ) = cv-entry-multiline(
+    date: if anonymous { none } else { date },
+    title: title,
+    employer: if anonymous { job_type } else { employer },
+    description,
+  )
+
+  #let education_entry(
+    date: none,
+    title: none,
+    employer: none,
+    result,
+  ) = cv-entry-multiline(
+    date: if anonymous { none } else { date },
+    title: title,
+    employer: if anonymous { none } else { employer },
+    result,
+  )
 
   #show: moderner-cv.with(
     paper: "a4",
     font: "DejaVu Sans",
     show-footer: false,
 
-    name: "Kieran Knowles",
+    name: if anonymous { title } else { "Kieran Knowles" },
     lang: "en",
-    social: socials_list(tech_links),
+    social: socials_list(tech_links, anonymous),
   )
 
   #statement
@@ -60,7 +92,7 @@
     #cv-language(
       name: [Java],
       level: [Extensive Knowledge],
-      comment: [Used for coursework at Northumbria University.],
+      comment: [Used for coursework at university.],
     )
     #cv-language(
       name: [TypeScript],
@@ -87,47 +119,52 @@
   = Experience
 
   #if tech_links [
-    See portfolio hosted at https://selwonk.uk for technical experience.
+    #if not anonymous [See portfolio hosted at https://selwonk.uk for technical experience.]
     #par([])
   ]
 
-  #cv-entry-multiline(
+  #job_entry(
     date: [2022 -- now],
     title: [Volunteer],
+    job_type: [Shop Assistant],
     employer: [Bright Charity, Northumbria Hospital],
     [Serving customers, restocking cafeteria and shop.
       Opening/closing as needed. Cashing up.],
   )
 
-  #cv-entry-multiline(
+  #job_entry(
     date: [2022--2024],
     title: [Volunteer],
+    job_type: [Animal Care],
     employer: [Pets Corner, Jesmond Dene],
     [Preparing feed, cleaning enclosures, answering visitor questions.],
   )
 
-  #cv-entry-multiline(
+  #job_entry(
     date: [as needed],
     title: [Website Maintainer],
+    job_type: [Local Charity],
     employer: [Out of Sight Charity],
     [Maintain website and update as needed.],
   )
 
   = Education
 
-  #cv-entry(
+  #education_entry(
     date: [2024 -- 2025],
     title: "Computer Game Engineering Msc",
     employer: "Newcastle University",
+    [Awaiting Results],
   )
 
-  #cv-entry(
+  #education_entry(
     date: [2020 -- 2024],
     title: "Computer Science Bsc",
     employer: "Northumbria University",
-  )[First-Class Honours]
+    [First-Class Honours],
+  )
 
-  #if tech_links [
+  #if tech_links and not anonymous [
     = Undergraduate Dissertation
     #cv-line([Title], [CHEF - Cooking Helper for Everyone's Fridge])
     #cv-line([Supervisor], [Nick Dalton])
@@ -136,15 +173,17 @@
       previously liked to help reduce food waste.])
   ]
 
-  = Interests
+  #if not anonymous [
+    = Interests
 
-  #cv-line([Gaming], [Enjoy playing single-player and co-op games in a
-    diverse range of genres. On PC and steam deck.])
+    #cv-line([Gaming], [Enjoy playing single-player and co-op games in a
+      diverse range of genres. On PC and steam deck.])
 
-  #cv-line([Animals], [Pet cats I enjoy spending time with. I love all
-    animals, which led to volunteering at Jesmond Dene])
+    #cv-line([Animals], [Pet cats I enjoy spending time with. I love all
+      animals, which led to volunteering at Jesmond Dene])
 
-  #cv-line([Walking], [Aiming for a 5-mile walk several times a week.])
+    #cv-line([Walking], [Aiming for a 5-mile walk several times a week.])
+  ]
 
   = References
   Available upon request.
