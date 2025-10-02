@@ -4,6 +4,7 @@
   pkgs,
   lib,
   self,
+  inputs,
   ...
 }: {
   options.custom = let
@@ -30,8 +31,16 @@
       trusted-users = ["@wheel"];
     };
 
-    # Apply all of the flake's overlays, as we need them for the system
-    nixpkgs.overlays = builtins.attrValues self.overlays;
+    # Apply any overlays we need
+    nixpkgs.overlays =
+      [
+        self.overlays.default
+        self.overlays.overrides
+        inputs.vscode-extensions.overlays.default
+        inputs.nix-minecraft.overlays.default
+        inputs.copyparty.overlays.default
+      ]
+      ++ lib.optional config.custom.hardware.raspberryPi.enable self.overlays.jemalloc-rpi;
 
     # Bootloader
     boot.loader.systemd-boot.enable = !config.custom.hardware.raspberryPi.enable;
