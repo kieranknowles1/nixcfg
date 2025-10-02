@@ -1,4 +1,3 @@
-_nixpkgs: lib:
 # TODO: This entire overlay is only needed due to an upstream issue
 # TODO: Look into https://github.com/Gabriella439/nix-diff to see WHY
 # the cache is being missed, rather than just disabling checks to hide the issue

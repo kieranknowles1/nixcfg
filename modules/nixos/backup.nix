@@ -17,25 +17,26 @@
         type = types.int;
       };
 
-    mkExcludeOption = scope: mkOption {
-      description = ''
-        A list of patterns to exclude from ${scope}.
+    mkExcludeOption = scope:
+      mkOption {
+        description = ''
+          A list of patterns to exclude from ${scope}.
 
-        See [Backing up - Excluding Files](https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files) for more information.
+          See [Backing up - Excluding Files](https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files) for more information.
 
-        WARN: Absolute paths are not supported in combination with btrfs snapshots,
-        as the snapshot is created in a different directory and therefore will not
-        match such patterns.
-      '';
+          WARN: Absolute paths are not supported in combination with btrfs snapshots,
+          as the snapshot is created in a different directory and therefore will not
+          match such patterns.
+        '';
 
-      type = types.listOf types.str;
-      default = [];
-      example = [
-        ".git"
-        "node_modules"
-        "already-in-git"
-      ];
-    };
+        type = types.listOf types.str;
+        default = [];
+        example = [
+          ".git"
+          "node_modules"
+          "already-in-git"
+        ];
+      };
   in {
     repositories = mkOption {
       description = ''

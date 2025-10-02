@@ -49,6 +49,6 @@ in {
     copyparty = optionalOverlay inputs.copyparty "default";
 
     overrides = import ./overrides.nix {inherit inputs;};
-    jemalloc-rpi = import ./jemalloc-rpi.nix inputs.nixpkgs lib;
+    jemalloc-rpi = import ./jemalloc-rpi.nix;
   };
 }
