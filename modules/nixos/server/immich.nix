@@ -20,12 +20,6 @@
       description = "Path to the Immich data directory";
     };
 
-    lockedVersion = mkOption {
-      type = types.str;
-      description = "Locked version of Immich";
-      default = "1.142.0";
-    };
-
     package = mkPackageOption pkgs "immich" {};
   };
 
@@ -34,17 +28,6 @@
     cfgi = cfg.immich;
   in
     lib.mkIf cfgi.enable {
-      assertions = lib.singleton {
-        assertion = cfgi.package.version == cfgi.lockedVersion;
-        message = ''
-          Immich is v${cfgi.package.version}, but expected v${cfgi.lockedVersion}.
-
-          Please check for breaking changes before updating the locked version.
-
-          https://github.com/immich-app/immich/releases
-        '';
-      };
-
       custom.server = {
         immich.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/immich";
         postgresql.enable = true; # Immich depends on this
