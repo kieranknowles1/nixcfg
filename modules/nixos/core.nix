@@ -34,11 +34,11 @@
     # Apply any overlays we need
     nixpkgs.overlays =
       [
-        self.overlays.default
-        self.overlays.overrides
         inputs.vscode-extensions.overlays.default
         inputs.nix-minecraft.overlays.default
         inputs.copyparty.overlays.default
+        self.overlays.default
+        self.overlays.overrides
       ]
       ++ lib.optional config.custom.hardware.raspberryPi.enable self.overlays.jemalloc-rpi;
 
