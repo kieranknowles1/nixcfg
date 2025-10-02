@@ -68,6 +68,15 @@
         };
       };
 
+      custom.backup.defaultExclusions = [
+        # No need to backup logs
+        "minecraft/*/logs"
+        # Fetched at runtime
+        "minecraft/*/libraries"
+        "minecraft/*/.fabric"
+        "minecraft/*/versions"
+      ];
+
       # Command to start server if it isn't already running, and connects to its console
       # To exit, use `Ctrl+b, d`
       # TODO: Remove once https://github.com/Infinidoge/nix-minecraft/issues/166 is resolved

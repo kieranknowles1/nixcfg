@@ -74,12 +74,12 @@
         };
       };
 
-      # Workaround for https://github.com/nixos/nixpkgs/issues/418799
-      # needed for machine-learning to download models
-      users.users.immich = {
-        home = "/var/lib/immich";
-        createHome = true;
-      };
+      custom.backup.defaultExclusions = [
+        # These are derived from source photos/videos. Excluding them
+        # saves ~5% space.
+        "immich/thumbs"
+        "immich/encoded-video"
+      ];
 
       services.immich = {
         enable = true;

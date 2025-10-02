@@ -88,13 +88,6 @@
       password = "backup/password";
       destination.local = "/mnt/extern/restic";
       destination.remote = "backup/remote";
-      exclude = [
-        "trilium/log" # Nothing we strongly care about
-        # Daily copy-paste backups of the database
-        # Since we're using a btrfs snapshot, SQLite can recover using
-        # the WAL at any point in time and there is no race condition
-        "trilium/backup"
-      ];
 
       # Creating btrfs snapshots requires root privileges
       owner = "root";

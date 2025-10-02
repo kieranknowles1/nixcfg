@@ -79,6 +79,17 @@
           modules = builtins.attrValues inputs.sops-nix.nixosModules;
           urlPrefix = "https://github.com/Mic92/sops-nix";
         }
+        {
+          name = "Minecraft";
+          modules = builtins.attrValues inputs.nix-minecraft.nixosModules;
+          urlPrefix = "https://github.com/Infinidoge/nix-minecraft";
+        }
+        # FIXME: Same issue as stylix
+        # {
+        #   name = "Copyparty";
+        #   modules = builtins.attrValues inputs.copyparty.nixosModules;
+        #   urlPrefix = "https://github.com/9001/copyparty";
+        # }
       ];
 
       subdomains = {
