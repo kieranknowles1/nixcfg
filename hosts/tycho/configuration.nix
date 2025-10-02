@@ -14,6 +14,8 @@
     raspberry-pi-5.base
     # Display support (may be unnecessary since we are a server)
     raspberry-pi-5.display-vc4
+    # Avoid issues from jemalloc expecting a hardcoded page size
+    raspberry-pi-5.page-size-16k
   ];
 
   boot.kernelPackages = inputs.nixos-raspberrypi-kernellock.packages.aarch64-linux.linuxPackages_rpi5;

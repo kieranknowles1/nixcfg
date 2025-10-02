@@ -1,5 +1,7 @@
 _nixpkgs: lib:
 # TODO: This entire overlay is only needed due to an upstream issue
+# TODO: Look into https://github.com/Gabriella439/nix-diff to see WHY
+# the cache is being missed, rather than just disabling checks to hide the issue
 # See https://github.com/nvmd/nixos-raspberrypi/issues/64
 # Want to limit the scope here: overriding a package means cache misses for all
 # of its dependents, currently we have to rebuild several large packages which
@@ -27,16 +29,6 @@ _final: prev: let
     pytestFlagsArray = ["-m" "'false'"];
   });
 in {
-  jemalloc =
-    optionalOverride (old: {
-      configureFlags =
-        (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
-        ++ [
-          "--with-lg-page=14"
-        ];
-    })
-    prev.jemalloc;
-
   difftastic = fixupRs prev.difftastic;
 
   # Disable checks that are either
@@ -47,15 +39,4 @@ in {
   valkey = disableChecks prev.valkey;
   # It's a hashmap, what could go wrong?
   redis = disableChecks prev.redis;
-  # Let's trust upstream
-  folly = disableChecks prev.folly;
-  fizz = disableChecks prev.fizz;
-  jellyfin-ffmpeg = disableChecks prev.jellyfin-ffmpeg;
-
-  # That's a lot of trust to put on upstream :)
-  python313Packages =
-    prev.python313Packages
-    // {
-      moto = disableChecks prev.python313Packages.moto;
-    };
 }
