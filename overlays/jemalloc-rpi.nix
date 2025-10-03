@@ -6,27 +6,23 @@
 # of its dependents, currently we have to rebuild several large packages which
 # takes 6+ hours on a pi.
 _final: prev: let
-  # Apply `override` if on ARM. Do nothing otherwise
-  optionalOverride = override: pkg:
-    if prev.system == "aarch64-linux"
-    then pkg.overrideAttrs override
-    else pkg;
-
   # Fix a package using https://crates.io/crates/tikv-jemalloc-sys
-  fixupRs = optionalOverride (oldAttrs: {
-    env =
-      oldAttrs.env
-      // {
-        # log2(16384) as returned by
-        JEMALLOC_SYS_WITH_LG_PAGE = "14";
-      };
-  });
+  fixupRs = pkg:
+    pkg.overrideAttrs (oldAttrs: {
+      env =
+        oldAttrs.env
+        // {
+          # log2(16384) as returned by
+          JEMALLOC_SYS_WITH_LG_PAGE = "14";
+        };
+    });
 
-  disableChecks = optionalOverride (_oldAttrs: {
-    doCheck = false;
+  disableChecks = pkg:
+    pkg.overrideAttrs (_oldAttrs: {
+      doCheck = false;
 
-    pytestFlagsArray = ["-m" "'false'"];
-  });
+      pytestFlagsArray = ["-m" "'false'"];
+    });
 in {
   difftastic = fixupRs prev.difftastic;
 

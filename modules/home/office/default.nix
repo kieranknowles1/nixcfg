@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: {
   options.custom.office = let
@@ -36,7 +37,7 @@
       };
 
       custom.firefox.extraExtensions = [
-        pkgs.firefox-addons.zotero-connector
+        inputs.firefox-addons.packages.${pkgs.system}.zotero-connector
       ];
 
       sops.secrets."paperless/apikey".key = "paperless/apikey";
