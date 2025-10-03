@@ -15,12 +15,6 @@
       description = "The directory where Minecraft server data will be stored.";
     };
 
-    subdomain = mkOption {
-      type = types.str;
-      default = "minecraft";
-      description = "The subdomain for the Minecraft server.";
-    };
-
     whitelist = mkOption {
       type = types.attrsOf types.str;
       default = {};
@@ -55,7 +49,7 @@
         homepage.services = lib.singleton {
           group = "Games";
           name = "Minecraft";
-          href = "https://${cfgm.subdomain}.${cfg.hostname}";
+          href = null;
           icon = "minecraft.svg";
           description = "Survival and crafting";
           widget = {

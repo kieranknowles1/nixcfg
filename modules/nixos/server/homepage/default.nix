@@ -62,10 +62,11 @@
           '';
         };
         href = mkOption {
-          type = types.str;
+          type = types.nullOr types.str;
           example = "https://example.com";
           description = ''
-            The URL to which the widget should link.
+            The URL to which the widget should link. If null, the widget will
+            not be clickable.
           '';
         };
 
