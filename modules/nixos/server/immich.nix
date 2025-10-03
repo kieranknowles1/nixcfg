@@ -36,7 +36,7 @@
           webSockets = true;
         };
 
-        homepage.services = lib.singleton rec {
+        homepage.services = lib.singleton {
           group = "Media";
           name = "Immich";
           description = "Photo library";
@@ -45,7 +45,7 @@
           widget = {
             type = "immich";
             config = {
-              url = href;
+              url = "http://${cfgi.subdomain}.${config.networking.hostName}.local";
               version = 2; # Server version >= 1.118
             };
             secrets.key = {

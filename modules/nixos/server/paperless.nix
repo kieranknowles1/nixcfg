@@ -32,7 +32,7 @@
 
         postgresql.enable = true;
 
-        homepage.services = lib.singleton rec {
+        homepage.services = lib.singleton {
           group = "Documents";
           name = "Paperless";
           description = "Document management system";
@@ -41,7 +41,7 @@
           # TODO: This isn't working currently
           # widget = {
           #   type = "paperlessngx";
-          #   config.url = href;
+          #   config.url = "http://${cfgp.subdomain}.${config.networking.hostName}.local";
           #   secrets.token = {
           #     id = "PAPERELESS_TOKEN";
           #     value = "paperless/token";

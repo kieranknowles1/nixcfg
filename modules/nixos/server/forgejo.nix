@@ -45,7 +45,7 @@
           proxySocket = config.services.forgejo.settings.server.HTTP_ADDR;
         };
 
-        homepage.services = lib.singleton rec {
+        homepage.services = lib.singleton {
           group = "Meta";
           name = "Forgejo";
           description = "Git hosting";
@@ -54,7 +54,7 @@
           widget = {
             type = "gitea";
             config = {
-              url = href;
+              url = "http://${cfgf.subdomain}.${config.networking.hostName}.local";
               fields = ["repositories"];
             };
             secrets.key = {

@@ -104,7 +104,7 @@
             webSockets = true;
           };
 
-          homepage.services = lib.singleton rec {
+          homepage.services = lib.singleton {
             group = "Documents";
             name = "Trilium";
             description = "Personal knowledge base";
@@ -113,7 +113,7 @@
             widget = {
               type = "trilium";
               config = {
-                url = href;
+                url = "http://${cfgt.subdomain}.${config.networking.hostName}.local";
                 fields = ["notesCount" "dbSize"];
               };
               secrets = {

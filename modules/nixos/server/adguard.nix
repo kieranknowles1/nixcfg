@@ -22,7 +22,7 @@
       custom.server = {
         subdomains.${cfga.subdomain}.proxyPort = config.services.adguardhome.port;
 
-        homepage.services = lib.singleton rec {
+        homepage.services = lib.singleton {
           group = "Infrastructure";
           name = "AdGuard Home";
           description = "Network-wide adblock";
@@ -31,7 +31,7 @@
           widget = {
             type = "adguard";
             config = {
-              url = href;
+              url = "http://${cfga.subdomain}.${config.networking.hostName}.local";
               username = "homepage";
             };
             secrets.password = {
