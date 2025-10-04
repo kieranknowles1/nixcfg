@@ -182,7 +182,7 @@
     #cv-line([Animals], [Pet cats I enjoy spending time with. I love all
       animals, which led to volunteering at Jesmond Dene])
 
-    #cv-line([Walking], [Aiming for a 5-mile walk several times a week.])
+    #cv-line([Walking], [Walk 5 miles several times a week.])
   ]
 
   = References
