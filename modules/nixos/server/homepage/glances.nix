@@ -48,6 +48,12 @@
       enable = true;
       port = cfg.ports.tcp.glances;
       openFirewall = false;
+
+      # FIXME: glances has an unreasonably high CPU usage
+      extraArgs = [
+        "--webserver"
+        "--disable-webui"
+      ];
     };
   };
 }

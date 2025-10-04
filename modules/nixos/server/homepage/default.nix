@@ -311,6 +311,7 @@
           # 5 min period is useless for this metric, and to avoid unsatisfying
           # empty space in the top left corner. Also avoids having a prime number
           # of items which wouldn't align well.
+          # PS: WE HAVE 8 ITEMS, 8 ISN'T PRIME YOU IDIOT
           {
             glances = mkGlancesDisk "/" "Internal";
           }
