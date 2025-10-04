@@ -35,6 +35,8 @@
       minecraft = 25565;
 
       paperless = 28981;
+
+      glances = 61208;
     };
 
     udp = {

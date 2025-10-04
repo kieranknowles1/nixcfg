@@ -4,6 +4,10 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./glances.nix
+  ];
+
   options.custom.server.homepage = let
     inherit (lib) mkOption mkEnableOption types;
 
@@ -263,7 +267,18 @@
             map (kv: {${kv.name} = kv.value;}) (builtins.sort sortPredicate pairs);
         };
 
-        widgets = [
+        widgets = let
+          mkGlancesDisk = disk: label: {
+            url = "http://localhost:${builtins.toString cfg.ports.tcp.glances}";
+            version = 4;
+            cpu = false;
+            mem = false;
+            cputemp = false;
+            uptime = false;
+            expanded = false;
+            inherit disk label;
+          };
+        in [
           {
             datetime = {
               format = {
@@ -286,16 +301,10 @@
             };
           }
           {
-            resources = {
-              label = "Internal";
-              disk = "/";
-            };
+            glances = mkGlancesDisk "/" "Internal";
           }
           {
-            resources = {
-              label = "External";
-              disk = "/mnt/extern";
-            };
+            glances = mkGlancesDisk "/mnt/extern" "External";
           }
         ];
 
