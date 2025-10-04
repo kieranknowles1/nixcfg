@@ -45,7 +45,7 @@
         };
         description = mkOption {
           type = types.str;
-          example = "My personal documents";
+          example = "Personal Knowledge Base";
           description = ''
             A brief description of the widget. Aim for 3 words or less.
           '';
@@ -176,6 +176,11 @@
       (map (srv: builtins.attrValues srv.widget.secrets) cfgh.services);
   in
     lib.mkIf cfgh.enable {
+      warnings = lib.optional (!cfg.adguard.enable) ''
+        You have enabled homepage without AdGuard, service widgets will not function
+        as they rely on AdGuard to resolve *.hostname.local addresses.
+      '';
+
       custom.server = {
         homepage.groups = let
           # Like a DAG, but less confusing
