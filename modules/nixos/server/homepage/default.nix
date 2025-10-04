@@ -48,14 +48,14 @@
           '';
         };
         description = mkOption {
-          type = types.str;
+          type = types.nullOr types.str;
           example = "Personal Knowledge Base";
           description = ''
             A brief description of the widget. Aim for 3 words or less.
           '';
         };
         icon = mkOption {
-          type = types.str;
+          type = types.nullOr types.str;
           example = "fa-solid fa-folder";
           description = ''
             The icon to display for the widget.
@@ -75,6 +75,7 @@
         };
 
         widget = {
+          # TODO: This is a bit redundant and could go under config
           type = mkOption {
             type = types.nullOr types.str;
             default = null;
@@ -124,7 +125,7 @@
         columns = mkOption {
           type = types.int;
           default = 4;
-          description = "Number of columns if using the `column` layout";
+          description = "Number of columns per row if using the `row` style";
         };
         sortOrder = mkOption {
           type = types.int;
@@ -189,15 +190,23 @@
         homepage.groups = let
           # Like a DAG, but less confusing
           sort = rec {
-            first = default - 1;
+            first = default - 100;
             default = 0;
-            last = default + 1;
+            last = default + 100;
           };
-        in {
+        in rec {
           Documents.icon = "mdi-folder-open";
           Games.icon = "mdi-controller";
           Media.icon = "mdi-camera";
           Meta.icon = "mdi-information-variant-circle";
+          Metrics = {
+            icon = "mdi-chart-line";
+            sortOrder = Infrastructure.sortOrder - 1;
+            style = "row";
+            # 3 columns, and we have 6 metrics. How convenient that it isn't
+            # prime!
+            columns = 3;
+          };
           Infrastructure = {
             icon = "mdi-server";
             sortOrder = sort.last;
@@ -268,8 +277,9 @@
         };
 
         widgets = let
+          glancesUrl = "http://localhost:${builtins.toString cfg.ports.tcp.glances}";
           mkGlancesDisk = disk: label: {
-            url = "http://localhost:${builtins.toString cfg.ports.tcp.glances}";
+            url = glancesUrl;
             version = 4;
             cpu = false;
             mem = false;
@@ -288,18 +298,19 @@
             };
           }
           {
-            resources = {
-              label = "System";
-              cpu = true;
-              memory = true;
-              cputemp = true;
-              tempmin = 0;
-              tempmax = 100;
-              units = "metric";
-              refresh = 5000;
-              network = true;
+            glances = {
+              url = glancesUrl;
+              version = 4;
+              cpu = false;
+              mem = false;
+              cputemp = false;
+              uptime = true;
             };
           }
+          # Display disk usage in the smaller top bar, both as a line graph with
+          # 5 min period is useless for this metric, and to avoid unsatisfying
+          # empty space in the top left corner. Also avoids having a prime number
+          # of items which wouldn't align well.
           {
             glances = mkGlancesDisk "/" "Internal";
           }
