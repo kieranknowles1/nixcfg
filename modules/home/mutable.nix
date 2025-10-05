@@ -78,6 +78,8 @@
   in {
     custom.mutable.repository = lib.mkDefault self;
 
+    home.packages = [cfg.package];
+
     home.activation.activate-mutable = let
       configTransform = lib.attrsets.mapAttrsToList (name: value:
         {
