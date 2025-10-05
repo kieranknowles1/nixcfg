@@ -37,6 +37,8 @@ fn restore_file(repo_path: &Path, home_path: &Path, transformer: Option<&Path>) 
         true => {
             // Replace the repository file with the up-to-date home file.
             let contents = Files::read_transformed(home_path, transformer)?;
+            // This follows symlinks, meaning the link target will be updated
+            // rather than replacing the link itself.
             std::fs::write(repo_path, contents)?;
 
             Ok(())

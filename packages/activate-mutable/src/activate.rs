@@ -81,6 +81,11 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
                 }
             };
             std::fs::create_dir_all(&dir)?;
+            // This follows symlinks, meaning the target of a symlink is copied
+            // rather than the link itself, even if it's a relative path and
+            // a link would be OK.
+            // This doesn't cause any issues when restoring files, as the same
+            // is true for fs::write meaning the link target is updated.
             std::fs::copy(&entry.source, &destination)?;
             // Paths in the Nix store are always read-only, disable this
             let mut permissions = std::fs::metadata(&entry.source)?.permissions();
