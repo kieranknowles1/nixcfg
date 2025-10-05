@@ -91,6 +91,11 @@
         "diskio"
         "network"
 
+        # Average waiting processes
+        # We don't display this, but annoyingly homepage requires the endpoint
+        # to be active
+        "load"
+
         # Temperature
         "sensors"
         # Disk usage
