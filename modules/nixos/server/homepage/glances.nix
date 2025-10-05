@@ -36,23 +36,82 @@
     # };
 
     custom.server.homepage.services = [
+      (mkMetric "About" "info")
       (mkMetric "CPU Usage" "cpu")
       (mkMetric "Memory Usage" "memory")
       (mkMetric "Network Usage" "network:end0")
-      (mkMetric "Top Processes" "process")
       (mkMetric "CPU Temperature" "sensor:cpu_thermal 0")
       (mkMetric "Disk I/O" "disk:sda1")
     ];
 
-    services.glances = {
+    services.glances = let
+      # HACK: Glances doesn't let us selectively enable plugins, so we have to
+      # brute force it a bit
+      # It seems
+      allPlugins = [
+        "sensors"
+        "system"
+        "programlist"
+        "ports"
+        "uptime"
+        "core"
+        "vms"
+        "processlist"
+        "percpu"
+        "fs"
+        "version"
+        "amps"
+        "ip"
+        "mem"
+        "cpu"
+        "wifi"
+        "load"
+        "network"
+        "containers"
+        "memswap"
+        "folders"
+        "cloud"
+        "help"
+        "diskio"
+        "gpu"
+        "quicklook"
+        "psutilversion"
+        "raid"
+        "now"
+        "irq"
+        "connections"
+        "alert"
+        "processcount"
+      ];
+      usedPlugins = [
+        # Self explanatory
+        "cpu"
+        "mem"
+        "uptime"
+        "diskio"
+        "network"
+
+        # Temperature
+        "sensors"
+        # Disk usage
+        "fs"
+
+        # OS info
+        "quicklook"
+        "system"
+      ];
+
+      disablePlugins = lib.lists.subtractLists usedPlugins allPlugins;
+    in {
       enable = true;
       port = cfg.ports.tcp.glances;
       openFirewall = false;
 
-      # FIXME: glances has an unreasonably high CPU usage
       extraArgs = [
         "--webserver"
         "--disable-webui"
+
+        "--disable-plugin" (builtins.concatStringsSep "," disablePlugins)
       ];
     };
   };
