@@ -14,7 +14,7 @@
     cfg = config.custom.server;
     cfgh = cfg.homepage;
 
-    mkMetric = name: metric: {
+    _mkMetric = chart: name: metric: {
       inherit name;
       group = "Metrics";
       href = null;
@@ -25,10 +25,14 @@
         config = {
           url = "http://localhost:${builtins.toString cfg.ports.tcp.glances}";
           version = 4;
-          inherit metric;
+          inherit chart metric;
         };
       };
     };
+    mkMetric = _mkMetric true;
+    # Don't display a chart for disk usage, a 5 minute period is
+    # useless there
+    mkDiskMetric = _mkMetric false;
   in lib.mkIf cfgh.enable {
     # No subdomain - this is only used internally by homepage
     # custom.server.subdomains.${cfgg.subdomain} = {
@@ -42,6 +46,8 @@
       (mkMetric "Network Usage" "network:end0")
       (mkMetric "CPU Temperature" "sensor:cpu_thermal 0")
       (mkMetric "Disk I/O" "disk:sda1")
+      (mkDiskMetric "SD Card" "fs:/")
+      (mkDiskMetric "Primary HDD" "fs:/mnt/extern")
     ];
 
     services.glances = let

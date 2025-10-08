@@ -127,6 +127,11 @@
           default = 4;
           description = "Number of columns per row if using the `row` style";
         };
+        useEqualHeights = mkOption {
+          type = types.bool;
+          default = false;
+          description = "Use equal heights for items in the group";
+        };
         sortOrder = mkOption {
           type = types.int;
           default = 0;
@@ -203,9 +208,10 @@
             icon = "mdi-chart-line";
             sortOrder = Infrastructure.sortOrder - 1;
             style = "row";
-            # 3 columns, and we have 6 metrics. How convenient that it isn't
+            # 4 columns, and we have 8 metrics. How convenient that it isn't
             # prime!
-            columns = 3;
+            columns = 4;
+            useEqualHeights = true;
           };
           Infrastructure = {
             icon = "mdi-server";
@@ -289,14 +295,11 @@
             inherit disk label;
           };
         in [
-          {
-            datetime = {
-              format = {
-                dateStyle = "medium";
-                timeStyle = "short";
-              };
-            };
-          }
+          # Top bar. This displays as the following:
+          # Desktop - Uptime, search, weather, time
+          # Mobile - Uptime \n search, weather \n time
+          # Unfortunately, I don't see a way to force weather and time to be
+          # on the same row on mobile, so it looks a bit ugly
           {
             glances = {
               url = glancesUrl;
@@ -307,16 +310,33 @@
               uptime = true;
             };
           }
-          # Display disk usage in the smaller top bar, both as a line graph with
-          # 5 min period is useless for this metric, and to avoid unsatisfying
-          # empty space in the top left corner. Also avoids having a prime number
-          # of items which wouldn't align well.
-          # PS: WE HAVE 8 ITEMS, 8 ISN'T PRIME YOU IDIOT
           {
-            glances = mkGlancesDisk "/" "Internal";
+            search = {
+              provider = "duckduckgo";
+              # Can still type to search, services will be prioritized
+              focus = false;
+              showSearchSuggestions = true;
+              # Open in current tab
+              target = "_self";
+            };
           }
           {
-            glances = mkGlancesDisk "/mnt/extern" "External";
+            openmeteo = {
+              latitude = 54.97;
+              longitude = -1.61;
+              timezone = "Europe/London";
+              units = "metric";
+              cache = 5; # Avoid making too many requests
+              format.maximumFractionalDigits = 1;
+            };
+          }
+          {
+            datetime = {
+              format = {
+                dateStyle = "medium";
+                timeStyle = "short";
+              };
+            };
           }
         ];
 
