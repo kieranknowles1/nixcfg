@@ -43,7 +43,7 @@
       (mkMetric "About" "info")
       (mkMetric "CPU Usage" "cpu")
       (mkMetric "Memory Usage" "memory")
-      (mkMetric "Network Usage" "network:end0")
+      (mkMetric "Network I/O" "network:end0")
       (mkMetric "CPU Temperature" "sensor:cpu_thermal 0")
       (mkMetric "Disk I/O" "disk:sda1")
       (mkDiskMetric "SD Card" "fs:/")
