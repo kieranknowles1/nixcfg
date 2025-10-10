@@ -107,6 +107,10 @@
 
           # Allow sharing files with others
           shr = "/share";
+
+          # Display human-readable sizes
+          # Mode 2c: 3 significant figures with colour coded orders of magnitude
+          ui-filesz = "2c";
         };
 
         accounts =
@@ -130,6 +134,8 @@
                 e2d = true;
                 # Index metadata
                 e2t = true;
+
+                mte = "+.up_at";
               }
               // extraflags;
           };
