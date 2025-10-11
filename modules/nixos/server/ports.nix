@@ -29,6 +29,7 @@
 
       postgresql = 5432;
 
+      archiveteam = 8001;
       trilium = 8080;
       homepage = 8082;
 
