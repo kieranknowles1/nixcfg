@@ -29,6 +29,10 @@
         containers.archiveteam = {
           image = "atdr.meo.ws/archiveteam/warrior-dockerfile";
           ports = ["${builtins.toString config.custom.server.ports.tcp.archiveteam}:8001"];
+
+          volumes = [
+            "archiveteam-warrior-projects:/home/warrior/projects"
+          ];
         };
       };
     };
