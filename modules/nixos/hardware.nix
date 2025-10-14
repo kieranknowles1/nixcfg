@@ -31,6 +31,16 @@
         turbo = "never";
       };
   in {
+    # Use nvmd's cache server for RPI specific derivations
+    nix.settings = lib.mkIf cfg.raspberryPi.enable {
+      substituters = [
+        "https://nixos-raspberrypi.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+      ];
+    };
+
     # See https://nixos.wiki/wiki/Nvidia
     # TODO: Should this be enabled on all desktops?
     hardware.graphics = nvidiaOnly {

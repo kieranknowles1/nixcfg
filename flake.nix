@@ -1,15 +1,6 @@
 {
   description = "The NixOS configuration for my systems";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://nixos-raspberrypi.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
-    ];
-  };
-
   # Dependencies for the flake
   # The syntax `inputs.xxx.follows = ""` removes the input from another flake, this is useful
   # when the input is unused by us to avoid fetching unnecessary data. (I believe flake inputs
