@@ -54,6 +54,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.argononed.follows = "";
       inputs.nixos-images.follows = "";
+      inputs.flake-compat.follows = "";
     };
 
     # Run a fixed kernel to avoid needing to build it
@@ -90,7 +91,6 @@
     vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     # /// Utilities ///
