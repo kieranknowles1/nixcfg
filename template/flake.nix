@@ -18,14 +18,18 @@
 
       # Disable inputs not needed outside of nixcfg
       # These can be re-enabled if needed
-      inputs.clan-core.follows = "";
+      inputs.copyparty.follows = "";
       inputs.factorio-blueprints.follows = "";
       inputs.firefox-addons.follows = "";
-      inputs.flake-utils-plus.follows = "";
       inputs.flake-utils.follows = "";
       inputs.home-manager.follows = "";
+      inputs.ixx.follows = "";
       inputs.nix-index-database.follows = "";
+      inputs.nix-minecraft.follows = "";
       inputs.nixos-cosmic.follows = "";
+      inputs.nixos-raspberrypi-kernellock.follows = "";
+      inputs.nixos-raspberrypi.follows = "";
+      inputs.nuschtosSearch.follows = "";
       inputs.sops-nix.follows = "";
       inputs.src-openmw.follows = "";
       inputs.src-tldr.follows = "";
