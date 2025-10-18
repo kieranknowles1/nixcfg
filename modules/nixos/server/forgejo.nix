@@ -87,18 +87,13 @@
             DISABLED_REPO_UNITS = "repo.wiki";
           };
 
-          database = {
-            SQLITE_JOURNAL_MODE = "WAL";
-          };
-
           ui = {
             # 1mb, in bytes. UI gets unwieldy well before this
             MAX_DISPLAY_FILE_SIZE = 1 * 1024 * 1024;
           };
         };
 
-        # No need to complicate things
-        database.type = "sqlite3";
+        database.type = "postgres";
       };
     };
 }
