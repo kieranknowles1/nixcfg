@@ -21,12 +21,14 @@
       export-blueprints = callPackage ./export-blueprints {};
       export-notes = callPackage ./export-notes {};
       extract = callPackage ./extract {};
-      factorio-blueprint-decoder = callPackage ./factorio-blueprint-decoder.nix {};
+      foodle = callPackage ./foodle/default.nix {};
+      keyboardvis = callPackage ./keyboardvis {};
       nix-utils = callPackage ./nix-utils {};
       openmw-luadata = callPackage ./openmw-luadata {};
       portfolio = callPackage ./portfolio {};
       rebuild = callPackage ./rebuild {};
       resaver = callPackage ./resaver {};
+      scandoc = callPackage ./scandoc {};
       set-led-state = callPackage ./set-led-state {};
       skyrim-utils = callPackage ./skyrim-utils {};
       spriggit = callPackage ./spriggit.nix {};

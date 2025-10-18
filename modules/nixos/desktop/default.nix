@@ -3,10 +3,14 @@
   config,
   ...
 }: {
-  options.custom = {
-    desktop.environment = lib.mkOption {
+  options.custom.desktop = let
+    inherit (lib) mkOption mkEnableOption types;
+  in {
+    enable = mkEnableOption "Desktop environment";
+
+    environment = mkOption {
       description = "Desktop environment to use";
-      type = lib.types.enum [
+      type = types.enum [
         # Would like this to be default, but it's not polished enough, especially in the Nix implementation
         # See [[./cosmic.nix]] for more information
         "cosmic"
@@ -25,7 +29,7 @@
     ./components.nix
   ];
 
-  config = lib.mkIf config.custom.features.desktop {
+  config = lib.mkIf config.custom.desktop.enable {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
 

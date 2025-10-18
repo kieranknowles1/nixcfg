@@ -83,6 +83,12 @@ function feedbackSection(string $from, int $marks, string $quote): string {
   HTML;
 }
 
+function credlyBadge(string $imgname, string $name, string $id): string {
+    return <<<HTML
+    <a class="credly-badge" href="https://www.credly.com/badges/{$id}/public_url" target="_blank"><img src="{$imgname}" alt="{$name}"></a>
+  HTML;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -106,7 +112,7 @@ function feedbackSection(string $from, int $marks, string $quote): string {
         <h2>About Me</h2>
         <!-- TODO: Fill this in -->
         <a href="./cv-kieran-knowles.pdf" target="_blank"><?echo getIcon(IconPack::MDI, 'file-document')?> CV Download</a>
-        <div class="twopane">
+        <div class="threepane">
             <section>
                 <h3>Contact</h3>
                 <ul class="links-list">
@@ -127,6 +133,13 @@ function feedbackSection(string $from, int $marks, string $quote): string {
                     <li><?echo getIcon(IconPack::SI, 'python')?> Python</li>
                     <li><?echo getIcon(IconPack::SI, 'typescript')?> Typescript</li>
                 </ul>
+            </section>
+
+            <section>
+                <h3>Certifications</h3>
+                <script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
+                <?php echo credlyBadge('microsoft-certified-azure-fundamentals.png', 'Microsoft Certified: Azure Fundamentals', '05ab3b69-8861-46a1-ad75-402d30e8a48a')?>
+                <?php echo credlyBadge('ccna-introduction-to-networks.png', 'CCNA: Introduction to Networks', '7e147b42-920c-4c46-bc33-2d3c5aa32739')?>
             </section>
         </div>
     </header>

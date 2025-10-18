@@ -18,20 +18,20 @@
 
       # Disable inputs not needed outside of nixcfg
       # These can be re-enabled if needed
-      inputs.clan-core.follows = "";
+      inputs.copyparty.follows = "";
       inputs.factorio-blueprints.follows = "";
       inputs.firefox-addons.follows = "";
-      inputs.flake-utils-plus.follows = "";
       inputs.flake-utils.follows = "";
       inputs.home-manager.follows = "";
+      inputs.ixx.follows = "";
       inputs.nix-index-database.follows = "";
+      inputs.nix-minecraft.follows = "";
       inputs.nixos-cosmic.follows = "";
-      inputs.nixpkgs-openmw.follows = "";
-      inputs.nixpkgs-stable.follows = "";
-      inputs.openmw.follows = "";
-      inputs.snowfall-lib.follows = "";
+      inputs.nixos-raspberrypi-kernellock.follows = "";
+      inputs.nixos-raspberrypi.follows = "";
+      inputs.nuschtosSearch.follows = "";
       inputs.sops-nix.follows = "";
-      inputs.src-factorio-blueprint-decoder.follows = "";
+      inputs.src-openmw.follows = "";
       inputs.src-tldr.follows = "";
       inputs.stylix.follows = "";
       inputs.vscode-extensions.follows = "";
@@ -60,7 +60,7 @@
       perSystem = {pkgs, ...}: {
         # Per system type
         devShells = {
-          # Wrapper that sets the magic DEVSHELL variable, and preserves the user's default shell
+          # Wrapper that preserves the user's default shell
           # Usage: `nix develop [.#name=default]`
           default = cfgLib.shell.mkShellEx pkgs.mkShellNoCC {
             name = "dev";

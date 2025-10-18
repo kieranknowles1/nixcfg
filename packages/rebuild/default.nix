@@ -1,12 +1,16 @@
-{rustPlatform}:
-rustPlatform.buildRustPackage {
+{
+  rustPlatform,
+  self,
+}:
+rustPlatform.buildRustPackage rec {
   pname = "rebuild";
-  version = "2.2.0";
+  version = "2.4.1";
   src = ./.;
 
   cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
+    inherit (self.lib) license;
     description = "Wrapper for common Nix build workflows";
     longDescription = ''
       Rebuild the system and commit the changes to the repository.
@@ -15,6 +19,6 @@ rustPlatform.buildRustPackage {
       builder's hostname, and a diff of packages.
     '';
 
-    mainProgram = "rebuild";
+    mainProgram = pname;
   };
 }

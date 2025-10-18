@@ -1,15 +1,16 @@
 # Readme
 
-This repository contains the NixOS configuration for my systems.
+This repository contains the NixOS configuration for my systems. Feel free to
+use it as a reference or inspiration. I make no guarantees about stability:
+breaking changes can and will be made at any time for any reason. Manual
+migration steps are not documented.
 
 - [Readme](#readme)
   - [Documentation](#documentation)
     - [Repository Structure](#repository-structure)
     - [Hosts](#hosts)
   - [Essential Resources](#essential-resources)
-  - [Lessons Learned](#lessons-learned)
-    - [Don't Use Wayland Yet](#dont-use-wayland-yet)
-    - [Make Sure You Have a User](#make-sure-you-have-a-user)
+  - [Licensing](#licensing)
 
 ## Documentation
 
@@ -46,7 +47,8 @@ they are named after ships from The Expanse.
 - [rocinante](hosts/rocinante/configuration.nix) - My main desktop.<br> Primary
   system for just about any task. Fast, powerful, and has a lot of storage.
 - [tycho](hosts/tycho/configuration.nix) - My server.<br> Used to host a variety
-  of services.
+  of services. Despite the name, it is not a build server. _VERY WORK IN
+  PROGRESS_
 
 ## Why NixOS
 
@@ -78,6 +80,8 @@ along with some of the solutions I've found:
   applications difficult. I created my `activate-mutable` module to handle this
   using normal files. While it was good practice for Rust, I'd prefer if
   NixOS/home-manager supported it natively.
+- No incremental package builds<br>While it's nice to be deterministic, it's not
+  so fun when you have to rebuild the kernel or a package fails to link.
 
 ## Essential Resources
 
@@ -96,29 +100,8 @@ used.
 - [Teu5us' Nix Library](https://teu5us.github.io/nix-lib.html) - Documentation
   for what the Nix library does and, more importantly, that the functions exist.
 
-## Lessons Learned
+## Licensing
 
-Here are some mistakes I made and lessons learned while setting up this
-repository.
-
-### Don't Use Wayland Yet
-
-Wayland is still quite buggy for me. I've had issues with flickering and Proton
-games don't seem to work at all. Stick with X11 for now. Your choice will
-persist between reboots.
-
-Status June 2024: Wayland causes flickering in Skyrim when there's dropped
-frames, which I think is due to double buffering. The issue occurs on both GNOME
-Wayland and Hyprland. Stick with X11.
-
-### Make Sure You Have a User
-
-It's completely valid syntax to have a system without any usable users. Make
-sure your config generates at least one and that they have a password set and
-are in the `wheel` group to use `sudo`.
-
-If you fucked up and can't log in, boot into a live NixOS environment and mount
-both the root and boot partitions. Then, run `nixos-enter` to chroot into the
-system. You can then fix the configuration and rebuild. If applying the config
-fails, try setting your user's password anyway with `passwd <username>` and
-rebooting into your main OS.
+This repository and all its contents are available under the
+[MIT License](./license.txt). However, certain packages are under different
+licenses. This is documented under in individual `meta` attributes.

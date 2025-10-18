@@ -20,15 +20,10 @@
     "metrics": false
   },
 
-  "features": {
-    // Fancy open source AI completions
-    // Basically copilot but I don't have to pay for it
-    "edit_prediction_provider": "zed"
-  },
-
   // Keep most lines under 80 characters, and consider refactoring if exceeding
   // 120.
   "wrap_guides": [80, 120],
+
 
   // See https://github.com/zed-industries/extensions/tree/main/extensions
   // These will be fetched on first run, as they currently can't be installed via Nix
@@ -100,6 +95,22 @@
       "arguments": ["--stdin", "{buffer_path}"]
     }
   },
+  
+  // ========================
+  // -- Specific Workflows --
+  // ========================
+  "ssh_connections": [
+    {
+      "host": "tycho.local",
+      "projects": [
+        {
+          "paths": [
+            "/home/kieran/src/nixcfg"
+          ]
+        }
+      ]
+    }
+  ],
 
   // ======================
   // -- Language Servers --
@@ -133,6 +144,9 @@
       // intelephense is also available, but non-free
       "language_servers": ["phpactor"],
       // PSR12 requires 4 spaces, not 2
+      "tab_size": 4
+    },
+    "Python": {
       "tab_size": 4
     },
     // https://zed.dev/docs/languages/rust
@@ -172,13 +186,19 @@
         "language_server_worse_reflection.inlay_hints.params": true
       }
     },
+    "pylsp": {
+      "settings": {
+
+      }
+    },
     "yaml-language-server": {
       // https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#language-server-settings
       "settings": {
         "yaml": {
           "schemas": {
             "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/config.schema.json": "*/espanso/config/**/*.yml",
-            "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json": "*/espanso/match/**/*.yml"
+            "https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json": "*/espanso/match/**/*.yml",
+            "https://carapace.sh/schemas/command.json": "**/carapace.yaml"
           }
         }
       }

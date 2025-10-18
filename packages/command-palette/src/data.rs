@@ -29,9 +29,8 @@ pub struct Command {
 #[serde(deny_unknown_fields)]
 #[serde(rename_all = "camelCase")]
 pub struct Config {
-    /// Program name and arguments to run a command in a terminal.
-    pub terminal_args: Vec<String>,
-    // TODO: Also pass zenity through the config file
+    /// Script to run a command in a terminal and wait for the user to exit.
+    pub terminal_script: String,
     /// The commands to display.
     pub commands: Vec<Command>,
 }

@@ -1,11 +1,12 @@
 use std::fs::File;
-use std::io::{BufRead, BufReader, Read};
+use std::io::{BufRead, BufReader, Read, Seek};
 use std::string::FromUtf8Error;
 
 use thiserror::Error;
 
-use crate::constants::*;
-use crate::value::{Table, Value};
+use crate::byteconv::ByteConv;
+use crate::tag::{FORMAT_VERSION, Tag};
+use crate::value::{Color, Table, Value, Vec2, Vec3};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -37,7 +38,7 @@ pub fn decode(file: &str) -> Result<Value> {
         Err(Error::data("File is empty"))?;
     }
 
-    let version = reader.u8()?;
+    let version: u8 = reader.read()?;
     if version != FORMAT_VERSION {
         Err(Error::data(&format!(
             "Invalid format version: 0x{:02X}, expected 0x{:02X}",
@@ -56,13 +57,13 @@ pub fn decode(file: &str) -> Result<Value> {
     Ok(value)
 }
 
-struct PrimitiveReader<T: Read> {
+struct PrimitiveReader<T: Read + Seek> {
     reader: BufReader<T>,
 }
 
 /// Helper to read and decode Lua primitives
 /// Expects all data to be little-endian
-impl<T: Read> PrimitiveReader<T> {
+impl<T: Read + Seek> PrimitiveReader<T> {
     fn new(reader: T) -> Self {
         Self {
             reader: BufReader::new(reader),
@@ -76,41 +77,19 @@ impl<T: Read> PrimitiveReader<T> {
         Ok(self.reader.fill_buf()?.is_empty())
     }
 
-    /// Read a single byte
-    /// Consumes 1 byte
-    fn u8(&mut self) -> Result<u8> {
-        let mut buf = [0u8; 1];
+    /// Read a primitive and consume it
+    fn read<V: ByteConv<SIZE>, const SIZE: usize>(&mut self) -> Result<V> {
+        let mut buf = [0u8; SIZE];
         self.reader.read_exact(&mut buf)?;
 
-        Ok(buf[0])
+        Ok(V::from_bytes(&buf))
     }
 
-    /// Read a single byte without consuming the buffer
-    fn peek_u8(&mut self) -> Result<u8> {
-        let buf = self.reader.fill_buf()?;
-        if buf.is_empty() {
-            Err(Error::data("Unexpected EOF"))?;
-        }
-
-        Ok(buf[0])
-    }
-
-    /// Read a 32-bit unsigned integer
-    /// Consumes 4 bytes
-    fn u32(&mut self) -> Result<u32> {
-        let mut buf = [0u8; 4];
-        self.reader.read_exact(&mut buf)?;
-
-        Ok(u32::from_le_bytes(buf))
-    }
-
-    /// Read a double-precision float
-    /// Consumes 8 bytes
-    fn f64(&mut self) -> Result<f64> {
-        let mut buf = [0u8; 8];
-        self.reader.read_exact(&mut buf)?;
-
-        Ok(f64::from_le_bytes(buf))
+    /// Read a primitive without consuming it
+    fn peek<V: ByteConv<SIZE>, const SIZE: usize>(&mut self) -> Result<V> {
+        let val = self.read()?;
+        self.reader.seek_relative(-(SIZE as i64))?;
+        Ok(val)
     }
 
     /// Read a fixed-size string
@@ -126,62 +105,64 @@ impl<T: Read> PrimitiveReader<T> {
 /// Decode a value from the reader
 /// Consumes as much data as needed to decode the value
 /// Recurses into tables
-fn read_value<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
-    let tag = reader.u8()?;
+fn read_value<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Value> {
+    let tag = reader.read()?;
 
     match tag {
-        T_NUMBER => {
-            let number = reader.f64()?;
+        Tag::Number => {
+            let number = reader.read()?;
             Ok(Value::Number(number))
         }
-        T_LONG_STRING => {
-            let length = reader.u32()? as usize;
-            let string = reader.string(length)?;
+        Tag::LongString => {
+            let length: u32 = reader.read()?;
+            let string = reader.string(length as usize)?;
             Ok(Value::String(string))
         }
-        T_BOOLEAN => {
-            let value = reader.u8()?;
+        Tag::Boolean => {
+            let value: u8 = reader.read()?;
             Ok(Value::Boolean(value != 0))
         }
-        T_TABLE_START => {
-            let table = read_table(reader)?;
-            Ok(Value::Table(table))
+        Tag::TableStart => Ok(Value::Table(read_table(reader)?)),
+        Tag::Vec2 => {
+            let x = reader.read()?;
+            let y = reader.read()?;
+            Ok(Value::Vec2(Vec2 { x, y }))
         }
-        T_VEC2 => {
-            let x = reader.f64()?;
-            let y = reader.f64()?;
-            Ok(Value::Vec2(x, y))
+        Tag::Vec3 => {
+            let x = reader.read()?;
+            let y = reader.read()?;
+            let z = reader.read()?;
+            Ok(Value::Vec3(Vec3 { x, y, z }))
         }
-        // Every bit after the flag is part of the length, so we can use a range and mask
-        0x20..=0x3F => {
-            let length = (tag & MASK_SHORT_STRING) as usize;
-            let string = reader.string(length)?;
+        Tag::Color => {
+            let r = reader.read()?;
+            let g = reader.read()?;
+            let b = reader.read()?;
+            let a = reader.read()?;
+            Ok(Value::Color(Color { r, g, b, a }))
+        }
+        Tag::ShortString(length) => {
+            let string = reader.string(length as usize)?;
             Ok(Value::String(string))
         }
-        _ => Err(Error::data(&format!("Unknown tag: 0x{:02X}", tag))),
+        Tag::TableEnd => Err(Error::data("Table end outside of table key")),
     }
 }
 
 /// Decode a table from the reader
 /// Assumes that the buffer points to the first byte after TABLE_START
-fn read_table<T: Read>(reader: &mut PrimitiveReader<T>) -> Result<Table> {
+fn read_table<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Table> {
     let mut table = Table::new();
 
     // Read until we see TABLE_END in place of the key's type
     loop {
-        let tag = reader.peek_u8()?;
-        if tag == T_TABLE_END {
-            reader.u8()?; // Consume the TABLE_END
+        let tag: Tag = reader.peek()?;
+        if tag == Tag::TableEnd {
+            reader.read::<Tag, 1>()?; // Consume the TABLE_END
             return Ok(table);
         }
 
-        // Table keys can be any type, but JSON only allows strings
-        // so expect that for now
-        // TODO: Use a different format that supports non-string keys
-        let key = match read_value(reader)? {
-            Value::String(s) => s,
-            _ => Err(Error::data("Table key must be a string"))?,
-        };
+        let key = read_value(reader)?;
         let value = read_value(reader)?;
         table.insert(key, value);
     }

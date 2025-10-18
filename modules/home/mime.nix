@@ -4,29 +4,12 @@
   lib,
   pkgs,
   ...
-}: let
-  # Base directory for MIME definitions. The definitions themselves
-  # are stored in the `packages` subdirectory.
-  mimeDirectory = "${config.xdg.dataHome}/mime";
-
-  # Convert a MIME type to a definition file name
-  toFileName = type: "${builtins.replaceStrings ["/"] ["-"] type}.xml";
-
-  toHomeFileEntry = name: value: {
-    name = "${mimeDirectory}/packages/${toFileName name}";
-    value = {
-      source = value.definitionFile;
-    };
-  };
-
-  toXdgAssociation = name: value: {
-    inherit name; # Name is the MIME type
-    value = value.defaultApp;
-  };
-in {
-  options.custom.mime = {
+}: {
+  options.custom.mime = let
+    inherit (lib) mkOption types options;
+  in {
     # TODO: Rename this to something more general, like `types` or `associations`
-    definition = lib.mkOption {
+    definition = mkOption {
       description = ''
         A list of MIME definitions and associated default applications.
 
@@ -45,15 +28,15 @@ in {
         };
       };
 
-      type = lib.types.attrsOf (lib.types.submodule {
+      type = types.attrsOf (types.submodule {
         options = {
-          definitionFile = lib.mkOption {
+          definitionFile = mkOption {
             description = "The path to the MIME definition file";
-            type = lib.types.nullOr lib.types.path;
+            type = types.nullOr types.path;
             default = null;
-            example = lib.options.literalExpression "./definitions/application-x-foo.xml";
+            example = options.literalExpression "./definitions/application-x-foo.xml";
           };
-          defaultApp = lib.mkOption {
+          defaultApp = mkOption {
             description = ''
               The name of the *.desktop file to use as the default application
 
@@ -65,7 +48,7 @@ in {
 
               This is not checked, so should be the first thing you verify if things aren't working as expected.
             '';
-            type = lib.types.nullOr lib.types.str;
+            type = types.nullOr types.str;
             default = null;
             example = "myapp.desktop";
           };
@@ -76,23 +59,48 @@ in {
     };
   };
 
-  config = {
-    # Copy definitions into the user's mime directory
-    home.file =
+  config = let
+    cfg = config.custom.mime;
+
+    # Base directory for MIME definitions. The definitions themselves
+    # are stored in the `packages` subdirectory.
+    mimeDirectory = "${config.xdg.dataHome}/mime";
+
+    # Convert a MIME type to a definition file name
+    toFileName = type: "${builtins.replaceStrings ["/"] ["-"] type}.xml";
+
+    toHomeFileEntry = name: value: {
+      name = "${mimeDirectory}/packages/${toFileName name}";
+      value = {
+        source = value.definitionFile;
+      };
+    };
+
+    toXdgAssociation = name: value: {
+      inherit name; # Name is the MIME type
+      value = value.defaultApp;
+    };
+
+    definitionFiles =
       lib.attrsets.mapAttrs' toHomeFileEntry
-      (lib.attrsets.filterAttrs (_name: value: value.definitionFile != null) config.custom.mime.definition);
+      (lib.attrsets.filterAttrs (_name: value: value.definitionFile != null) cfg.definition);
+  in {
+    # Copy definitions into the user's mime directory
+    home.file = definitionFiles;
 
     xdg.mimeApps = {
-      enable = config.custom.mime.definition != {};
+      enable = cfg.definition != {};
 
       associations.added =
         lib.attrsets.mapAttrs' toXdgAssociation
-        (lib.attrsets.filterAttrs (_name: value: value.defaultApp != null) config.custom.mime.definition);
+        (lib.attrsets.filterAttrs (_name: value: value.defaultApp != null) cfg.definition);
     };
 
     # Update the user's mime database when rebuilding
-    home.activation.update-mime-database = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      run ${pkgs.shared-mime-info}/bin/update-mime-database "${mimeDirectory}"
-    '';
+    home.activation = lib.mkIf (definitionFiles != {}) {
+      update-mime-database = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        run ${pkgs.shared-mime-info}/bin/update-mime-database "${mimeDirectory}"
+      '';
+    };
   };
 }

@@ -9,25 +9,36 @@
   options.custom = let
     inherit (lib) mkOption mkPackageOption types;
   in {
-    terminal.package = mkPackageOption pkgs "terminal" {
-      # Shorter startup time than kitty
-      default = "alacritty";
+    terminal = {
+      package = mkPackageOption pkgs "terminal" {
+        # Shorter startup time than kitty
+        default = "alacritty";
+      };
+
+      icon = mkOption {
+        description = "The terminal's icon. Set automatically";
+        type = types.path;
+        example = "/path/to/icon.svg";
+        readOnly = true;
+      };
+
+      runTermWait = mkOption {
+        type = types.path;
+        description = ''
+          Script to run a command inside a terminal and wait for the user to
+          manually exit.
+        '';
+        readOnly = true;
+      };
     };
 
-    repoPath = mkOption {
+    relativeRepoPath = mkOption {
       description = ''
         Path to the flake repository on disk, relative to the home directory.
+        Set automatically based on the host's option
       '';
       type = types.path;
       example = "src/nixos";
-    };
-
-    fullRepoPath = mkOption {
-      description = ''
-        (Read-only, set automatically) The full path to the flake repository on disk.
-      '';
-      type = types.path;
-      readOnly = true;
     };
 
     userDetails = {
@@ -50,15 +61,27 @@
   };
 
   config = {
-    custom.docs-generate.jsonIgnoredOptions.home = [
-      "repoPath"
-      "fullRepoPath"
-    ];
+    custom.terminal = let
+      inherit (config.custom.terminal) package;
+      runwait = "${pkgs.flake.nix-utils}/bin/runwait";
+      cmdMap = {
+        "alacritty" = "${lib.getExe package} --command ${runwait}";
+      };
+      iconMap = {
+        "alacritty" = "${package}/share/icons/hicolor/scalable/apps/Alacritty.svg";
+      };
+    in {
+      runTermWait = pkgs.writeShellScript "run-term-wait" ''
+        exec ${cmdMap.${package.pname}} "$@"
+      '';
+
+      icon = iconMap.${package.pname};
+    };
 
     # Use the repository path from the host, as long as it's within the home directory
     # This allows the path to be defined either in the host, or in home-manager.
     # As Nix is lazy, the assertion will not be evaluated until the path is used.
-    custom.repoPath = let
+    custom.relativeRepoPath = let
       inherit (config.home) homeDirectory;
       hostRepoPath = hostConfig.custom.repoPath;
 
@@ -68,14 +91,10 @@
         else builtins.throw "The repository path must be within the home directory";
     in
       lib.mkDefault homeRelativePath;
-    custom.fullRepoPath = "${config.home.homeDirectory}${config.custom.repoPath}";
-
-    # Inherit any overlays from the host to avoid duplication
-    nixpkgs.overlays = hostConfig.nixpkgs.overlays;
 
     home.packages = let
       term =
-        lib.optional hostConfig.custom.features.desktop
+        lib.optional hostConfig.custom.desktop.enable
         config.custom.terminal.package;
 
       extras = with pkgs; [
@@ -100,12 +119,9 @@
       rebuild = lib.getExe pkgs.flake.rebuild;
     in
       lib.singleton {
-        action = [rebuild "--flake" config.custom.fullRepoPath "pull"];
+        action = [rebuild "--flake" hostConfig.custom.repoPath "pull"];
         description = "Update system from remote repository";
         useTerminal = true;
       };
-
-    # Fuzzy finder for use in scripts
-    programs.television.enable = true;
   };
 }

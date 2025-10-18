@@ -6,10 +6,10 @@
   config,
   ...
 }: {
-  config = lib.mkIf (config.custom.features.desktop && (config.custom.desktop.environment == "gnome")) {
+  config = lib.mkIf (config.custom.desktop.enable && (config.custom.desktop.environment == "gnome")) {
     # Enable the GNOME Desktop Environment.
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
+    services.displayManager.gdm.enable = true;
+    services.desktopManager.gnome.enable = true;
 
     # Remove unneeded packages
     services.xserver.excludePackages = with pkgs; [

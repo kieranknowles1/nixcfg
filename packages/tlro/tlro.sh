@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DEFAULT_PLATFORM=$PLATFORM
+
 # May be set by Nix
 SHORTOPTS=${SHORTOPTS:-0}
 LONGOPTS=${LONGOPTS:-0}
@@ -16,7 +18,15 @@ Usage: $0 [command]
   -h|--help:
     Show this help message and exit
   -v|--version:
-    Show the version number and eixt
+    Show the version number and exit
+  -p|--platform:
+    Set the platform to use by default (Default: $PLATFORM)
+  --platforms:
+    List all available platforms
+  --languages:
+    List all available languages
+  -L|--language:
+    Set the language to use by default (Default: $LANGUAGE)
   -l|--list
     List all the pages to the standard output.
     If a command is provided, filter pages based on it.
@@ -38,6 +48,8 @@ query=""
 list=0
 shortopts=0
 longopts=0
+platforms=0
+languages=0
 while [[ $# -gt 0 ]]; do
   case $1 in
     -h|--help)
@@ -47,8 +59,22 @@ while [[ $# -gt 0 ]]; do
       echo "tlro version $VERSION, client specification 2.3"
       exit
       ;;
+    -p|--platform)
+      PLATFORM="$2"
+      shift
+      ;;
+    -L|--language)
+      LANGUAGE="$2"
+      shift
+      ;;
     -l|--list)
       list=1
+      ;;
+    --platforms)
+      platforms=1
+      ;;
+    --languages)
+      languages=1
       ;;
     --short-options)
       shortopts=1
@@ -71,15 +97,22 @@ done
 # Remove leading dashes from when we appended
 query="${query#-}"
 
-if [[ "$query" == "" ]]; then
-  showhelp
+filterLanguage="language IN ('en', '$LANGUAGE')"
+
+if [[ "$platforms" == 1 ]]; then
+  sqlite3 "$PAGES" "SELECT DISTINCT platform FROM pages WHERE $filterLanguage ORDER BY platform"
+  exit
+elif [[ "$languages" == 1 ]]; then
+  sqlite3 "$PAGES" "SELECT DISTINCT language FROM pages ORDER BY language"
+  exit
+elif [[ "$list" == 1 ]]; then
+  # We use grep instead of WHERE to highlight matching pages
+  sqlite3 "$PAGES" "SELECT DISTINCT name FROM pages WHERE $filterLanguage AND platform = '$PLATFORM' OR '$PLATFORM' = '$DEFAULT_PLATFORM' ORDER BY name" | grep --color "$query"
+  exit
 fi
 
-if [[ "$list" == 1 ]]; then
-  # The information here is intended for the user
-  # shellcheck disable=SC2012
-  ls "$PAGES" | sed 's|\.md||' | grep --color "$query"
-  exit
+if [[ "$query" == "" ]]; then
+  showhelp
 fi
 
 if [[ "$shortopts" == 0 && "$longopts" == 0 ]]; then
@@ -95,26 +128,37 @@ else
   arg_replace='\2'
 fi
 
-# TODO: Carapace completions
 # TODO: Add TLDR pages based on meta attributes of my packages, will need restructuring to fit in with the standard
 
-# All arguments, separated by and with spaces replaced by `-`
-# and lowercased
-IFS='-'
-path="$PAGES/$query.md"
+result=$(sqlite3 -json "$PAGES" <<SQL
+  SELECT language, platform, contents FROM pages WHERE $filterLanguage AND name = '$query'
+    ORDER BY
+      -- Check the platform on which we are running first, try common second, then other platforms in an unspecified order
+      (CASE WHEN platform = '$PLATFORM' THEN 100 WHEN platform = 'common' THEN 50 ELSE 0 END) +
+      -- Check the user's language first, showing the localised page if available even if it is not platform-specific
+      (CASE WHEN language = '$LANGUAGE' THEN 200 ELSE 0 END)
+    DESC LIMIT 1
+SQL
+)
 
-if [[ ! -f "$path" ]]; then
+if [[ "$result" = "" ]]; then
   echo "Page '$query' not found." >&2
   exit 1
 fi
 
+finalPlatform=$(jq -r '.[0].platform' <<< "$result")
+if [[ "$finalPlatform" != "$PLATFORM" && "$finalPlatform" != "common" ]]; then
+  echo "WARNING: Page '$query' is not available on platform '$PLATFORM'. Using version from '$finalPlatform' instead."
+fi
+
+contents=$(jq -r '.[0].contents' <<< "$result")
 # Reformat things a bit
 # 1. Only show short/long-form versions of arguments accodring to $LONGOPTS
 # 2. Replace example code blocks with bold (we're on the terminal, so assume a monospaced font)
 # 3. Show editable placeholders as code blocks (mdcat uses orange for these)
 # $ is being used as part of the sed expression, not for variable expansion
 # shellcheck disable=SC2016
-sed --regexp-extended "s/$SED_ARGUMENT_PATTERN/$arg_replace/" "$path" \
+sed --regexp-extended "s/$SED_ARGUMENT_PATTERN/$arg_replace/" <<< "$contents" \
   | sed --regexp-extended 's|^`(.+)`$|**\1**|' \
   | perl -pe 's|\{\{(.+?)\}\}|`\1`|g' \
   | mdcat

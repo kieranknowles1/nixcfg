@@ -1,6 +1,7 @@
 {
   nushell,
   stdenv,
+  self,
 }:
 stdenv.mkDerivation {
   pname = "nix-utils";
@@ -39,15 +40,20 @@ stdenv.mkDerivation {
   '';
 
   meta = {
+    inherit (self.lib) license;
     description = "Miscellaneous shell utilities";
     longDescription = ''
       Single-word commands for common tasks, including:
+      - `check`: Build a check for the current flake
       - `confbuild`: Build a derivation specified as a Nix option
       - `confeval`: Evaluate a Nix option's value, as JSON
-      - `check`: Build a check for the current flake
-      - `gr`: Utilities for working with Git remotes
       - `flake-tree`: Print the dependency tree of a flake, either as a Nushell table or Graphviz dot file
+      - `gr`: Utilities for working with Git remotes
+      - `install-godot-templates`: Install export templates for Godot (exports
+        will only work on NixOS, only intended for testing export options)
+      - `rename-opt`: Rename references to a Nix option. Not guaranteed to catch all references.
       - `run`: Run a Nix package from the current repository
+      - `runwait`: Run remaining arguments as a command then wait indefinitely.
       - `venv`: Activate a Python virtual environment, shell-agnostic version
 
       All commands take the first argument as the target name, defaulting

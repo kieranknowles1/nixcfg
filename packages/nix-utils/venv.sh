@@ -7,7 +7,7 @@ venv="${1:-venv}"
 
 if [ ! -d "$venv" ]; then
   echo "Could not find virtual environment: $venv"
-  return 1
+  exit 1
 fi
 
 # This script is meant to be used anywhere. We check for the venv above.

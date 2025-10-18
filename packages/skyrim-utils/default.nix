@@ -1,5 +1,8 @@
-{rustPlatform}:
-rustPlatform.buildRustPackage {
+{
+  rustPlatform,
+  self,
+}:
+rustPlatform.buildRustPackage rec {
   pname = "skyrim-utils";
   version = "1.3.1";
   src = ./.;
@@ -7,6 +10,7 @@ rustPlatform.buildRustPackage {
   cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
+    inherit (self.lib) license;
     description = "Utilities for Skyrim debugging";
     longDescription = ''
       A collection of utilities for debugging Skyrim and its mods.
@@ -19,6 +23,6 @@ rustPlatform.buildRustPackage {
       used Python instead of Rust.
     '';
 
-    mainProgram = "skyrim-utils";
+    mainProgram = pname;
   };
 }

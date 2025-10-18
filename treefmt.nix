@@ -14,11 +14,7 @@
       inputs.treefmt-nix.flakeModule
     ];
 
-    perSystem.treefmt = {
-      pkgs,
-      config,
-      ...
-    }: {
+    perSystem.treefmt = _: {
       projectRootFile = "flake.nix";
 
       settings.global = {
@@ -31,6 +27,9 @@
           # Godot scenes/resources. Managed by the editor
           "*.tscn"
           "*.tres"
+          "**/project.godot"
+          "*.import"
+          "*.uid"
 
           # Unity assets. Managed by the editor
           "*.asset"
@@ -60,6 +59,7 @@
         cmake-format.enable = true; # CMake
         rustfmt.enable = true; # Rust
         stylua.enable = true; # Lua
+        typstyle.enable = true; # Typst
 
         # Like prettier, but written in memory-safe Rust
         # rather than JavaScript with it's garbage collection (ew)
@@ -77,8 +77,6 @@
         php-cs-fixer = {
           enable = true;
           configFile = ./.php-cs-fixer.php;
-          # Hasn't been updated to PHP 8.4 yet
-          package = pkgs.php83Packages.php-cs-fixer;
         };
 
         taplo.enable = true; # TOML
@@ -114,21 +112,38 @@
             "*.tex"
           ];
         };
-      };
 
-      # Formatters not included in the treefmt-nix repo
-      settings.formatter = {
-        phpstan = {
-          command = lib.getExe pkgs.php84Packages.phpstan;
-          options = [
-            "analyze"
-            "--level=max"
-            "--no-interaction"
-            "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
+        # Autocorrect
+        typos = {
+          enable = true;
+          locale = "en-gb";
+
+          # Default includes everything, which is too broad and causes trouble
+          # when combining American and British (correct) English. Instead filter
+          # to a subset of files where misspellings matter more.
+          includes = lib.mkForce [
+            "*.md"
+            "*.typ"
+            "*.php"
+            "*.txt"
           ];
-          includes = ["*.php"];
         };
       };
+
+      # FIXME: Not currently working
+      # Formatters not included in the treefmt-nix repo
+      # settings.formatter = {
+      #   phpstan = {
+      #     command = lib.getExe pkgs.phpPackages.phpstan;
+      #     options = [
+      #       "analyze"
+      #       "--level=max"
+      #       "--no-interaction"
+      #       "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
+      #     ];
+      #     includes = ["*.php"];
+      #   };
+      # };
     };
   };
 in {

@@ -33,9 +33,10 @@ COMMENT_STARTS=(
 )
 
 TODO_TAGS=(
-  'TODO'
-  'FIXME'
-  'HACK'
+  'TODO' # Generic task to perform
+  'FIXME' # Something is broken
+  'HACK' # Ugly code that should be refactored
+  'LOOK' # Someting to do more research on
   '\[ \]' # Markdown task list
 )
 
@@ -50,7 +51,7 @@ any_of() {
 }
 
 ANY_COMMENT=$(any_of "${COMMENT_STARTS[@]}")
-COMMENT_AND_TODO="$ANY_COMMENT.*$(any_of "${TODO_TAGS[@]}")"
+COMMENT_AND_TODO="$ANY_COMMENT\s*$(any_of "${TODO_TAGS[@]}")"
 query="($COMMENT_AND_TODO|$(any_of "${STANDALONE_TAGS[@]}"))"
 
 search() {

@@ -8,6 +8,12 @@
     inherit (lib) mkOption mkEnableOption types;
   in {
     nvidia.enable = mkEnableOption "Nvidia drivers";
+    raspberryPi.enable = mkEnableOption "Raspberry Pi hardware";
+
+    powerSave = {
+      enable = mkEnableOption "power saving profiles";
+      batteryOnly = mkEnableOption "power saving only when on battery";
+    };
 
     memorySize = mkOption {
       description = "Available RAM, in GB";
@@ -18,7 +24,23 @@
   config = let
     cfg = config.custom.hardware;
     nvidiaOnly = lib.mkIf cfg.nvidia.enable;
+
+    mkPowerSaveSettings = active:
+      lib.mkIf active {
+        governer = "powersave";
+        turbo = "never";
+      };
   in {
+    # Use nvmd's cache server for RPI specific derivations
+    nix.settings = lib.mkIf cfg.raspberryPi.enable {
+      substituters = [
+        "https://nixos-raspberrypi.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+      ];
+    };
+
     # See https://nixos.wiki/wiki/Nvidia
     # TODO: Should this be enabled on all desktops?
     hardware.graphics = nvidiaOnly {
@@ -45,5 +67,15 @@
         size = config.custom.hardware.memorySize * 1536;
       }
     ];
+
+    services.power-profiles-daemon.enable = !config.services.auto-cpufreq.enable;
+
+    services.auto-cpufreq = {
+      inherit (cfg.powerSave) enable;
+      settings = {
+        battery = mkPowerSaveSettings cfg.powerSave.enable;
+        charger = mkPowerSaveSettings (!cfg.powerSave.batteryOnly);
+      };
+    };
   };
 }

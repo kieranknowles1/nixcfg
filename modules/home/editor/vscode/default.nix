@@ -28,7 +28,7 @@
     # Rebuild will fail if any assertion is false. VSCode requires a desktop environment, so isn't useful on servers.
     # If code isn't enabled, the assertion will never be checked due to the mkIf.
     assertions = lib.singleton {
-      assertion = hostConfig.custom.features.desktop;
+      assertion = hostConfig.custom.desktop.enable;
       message = "VS Code requires a desktop environment.";
     };
 
@@ -48,7 +48,6 @@
         yzhang.markdown-all-in-one
 
         # Language support
-        jnoortheen.nix-ide # Nix IDE
         redhat.vscode-yaml # We have some YAML files in the repo
         tamasfe.even-better-toml # Same for TOML
         thenuprojectcontributors.vscode-nushell-lang # Nushell config
@@ -57,42 +56,36 @@
 
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
 
-        # GLSL
-        slevesque.shader
-        dtoplak.vscode-glsllint
-
         # Godot
         geequlim.godot-tools
         mrorz.language-gettext # Used for translations
       ];
     };
 
-    home.packages = with pkgs; [
-      # Required by jnoortheen.nix-ide
-      nil
-
-      # Required by dtoplak.vscode-glsllint
-      glslang
-    ];
+    stylix.targets = {
+      # Don't manage the VSCode theme, as I like the default dark and managing
+      # with Stylix conflicts with home-manager's settings.json
+      vscode.enable = false;
+    };
 
     custom.aliases.code = {
       exec = "codium";
       mnemonic = "[cod]ium";
     };
 
-    custom.mutable.file = config.custom.mutable.provisionDir {
-      baseRepoPath = "modules/home/editor/vscode";
-      baseSystemPath = "${config.xdg.configHome}/VSCodium/User";
-      files = [
-        "settings.json"
-        "keybindings.json"
-        # TODO: VSCode snippets are compatable with Zed, move these to a shared dir and copy to both editors
-        "snippets/cmake.json"
-        "snippets/cpp.json"
-        "snippets/nix.json"
-        "snippets/python.json"
-        "snippets/shellscript.json"
-      ];
+    custom.mutable.file = {
+      "${config.xdg.configHome}/VSCodium/User/settings.json" = {
+        repoPath = "modules/home/editor/vscode/settings.json";
+        source = ./settings.json;
+      };
+      "${config.xdg.configHome}/VSCodium/User/keybindings.json" = {
+        repoPath = "modules/home/editor/vscode/keybindings.json";
+        source = ./keybindings.json;
+      };
+      "${config.xdg.configHome}/VSCodium/User/snippets" = {
+        repoPath = "modules/home/editor/common/snippets";
+        source = ../common/snippets;
+      };
     };
   };
 }

@@ -30,7 +30,7 @@
   in
     lib.mkIf cfg.enable {
       assertions = lib.singleton {
-        assertion = hostConfig.custom.features.desktop;
+        assertion = hostConfig.custom.desktop.enable;
         message = "Zed requires a desktop environment.";
       };
 
@@ -44,7 +44,6 @@
         extraPackages = with pkgs; [
           nixd # Nix
 
-          php # PHP
           phpactor
 
           taplo # TOML
@@ -59,13 +58,19 @@
       };
 
       # As normal, use our own activate-mutable so we can edit config in place
-      custom.mutable.file = config.custom.mutable.provisionDir {
-        baseRepoPath = "modules/home/editor/zed";
-        baseSystemPath = "${config.xdg.configHome}/zed";
-        files = [
-          "settings.json"
-          "keymap.json"
-        ];
+      custom.mutable.file = {
+        "${config.xdg.configHome}/zed/settings.json" = {
+          repoPath = "modules/home/editor/zed/settings.json";
+          source = ./settings.json;
+        };
+        "${config.xdg.configHome}/zed/keymap.json" = {
+          repoPath = "modules/home/editor/zed/keymap.json";
+          source = ./keymap.json;
+        };
+        "${config.xdg.configHome}/zed/snippets" = {
+          repoPath = "modules/home/editor/common/snippets";
+          source = ../common/snippets;
+        };
       };
     };
 }

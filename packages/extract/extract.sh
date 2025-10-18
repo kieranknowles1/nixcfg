@@ -44,6 +44,9 @@ extractFile() {
   # None of this would be necessary if developers had decided on a consistent
   # interface for extracting files. But that ship sailed 20 years ago
   case "$type" in
+    application/x-compressed-tar)
+      tar -xzf "$file"
+      ;;
     application/x-7z-compressed)
       7z x "$file" -o"$out"
       ;;

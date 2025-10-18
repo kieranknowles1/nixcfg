@@ -11,9 +11,6 @@ struct Opts {
     /// A JSON file containing the options to display.
     #[clap(long)]
     file: String,
-    /// The path to the Zenity executable.
-    #[clap(long)]
-    zenity: String,
 }
 
 struct CommandOutput {
@@ -40,10 +37,10 @@ impl CommandOutput {
 }
 
 fn run_command(config: &Config, command: &data::Command) -> std::io::Result<CommandOutput> {
-    let mut argv = if command.use_terminal {
-        config.terminal_args.iter().chain(&command.action)
+    let mut argv: Box<dyn Iterator<Item = &String>> = if command.use_terminal {
+        Box::new(std::iter::once(&config.terminal_script).chain(&command.action))
     } else {
-        command.action.iter().chain(&[])
+        Box::new(command.action.iter())
     };
 
     // argv should never be empty.
@@ -61,7 +58,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opts = Opts::parse();
     let config = data::from_file(&opts.file)?;
 
-    let choice = dialog::pick_command(&opts.zenity, &config.commands)?;
+    let choice = dialog::pick_command(&config.commands)?;
 
     let output = run_command(&config, &choice)?;
 
@@ -71,10 +68,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             "Error running command {}",
             output.combine().unwrap_or_default()
         );
-        dialog::show_message(&opts.zenity, &message, dialog::MessageKind::Error)?;
+        dialog::show_message(&message, dialog::MessageKind::Error)?;
     } else if let Some(combined) = output.combine() {
         // The command ran successfully. Show the output if we have any.
-        dialog::show_message(&opts.zenity, &combined, dialog::MessageKind::Info)?;
+        dialog::show_message(&combined, dialog::MessageKind::Info)?;
     }
     // Don't show anything if there was no output and the command ran successfully.
 

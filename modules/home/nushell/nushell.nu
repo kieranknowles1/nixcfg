@@ -12,30 +12,9 @@ alias "log warn" = __log "yellow" "Warning"
 alias "log error" = __log "red" "Error"
 
 # === Commands and Aliases ===
-alias __orig_nix-shell = nix-shell
-alias nix-shell = nix-shell --command "DEVSHELL=1 nu"
 
 alias void = ignore
 alias discard = ignore
-
-def __telly [
-    channel: string
-]: nothing -> string {
-    let choice = tv $channel
-    if $choice == "" {
-        error make {msg: "Cancelled"}
-    }
-    return $choice
-}
-def __tellyexec [channel: string, command: string] {
-    run-external $command (__telly $channel)
-}
-# Fuzzy search and cd to a Git repository
-def --env tvg [] { cd (__telly git-repos)}
-# Fuzzy search and open a file, by its name
-alias tvf = __tellyexec files $env.GUIEDITOR
-# Fuzzy search and open a file, by its contents
-alias tvc = __tellyexec text $env.GUIEDITOR
 
 # Split a string on newlines, like Bash's `read`
 def "from lines" []: string -> list<string> {
@@ -49,6 +28,13 @@ def repodu [
     cd $repo
     let files = git ls-files | from lines
     ls **/* | where name in $files | get size | math sum
+}
+
+def sizediff [
+    a: path
+    b: path
+] {
+  (ls $a | get 0.size) - (ls $b | get 0.size)
 }
 
 # Create a new directory and cd into it
@@ -98,8 +84,9 @@ alias devr = dev --repo $env.FLAKE
 
 # === Welcome Message ===
 def __get_nixpkgs_last_update [] {
-    let flake = $env.FLAKE + "/flake.lock"
-    let nixpkgs_utc_time = open $flake | from json | get nodes.nixpkgs.locked.lastModified
+    let lock = open ($env.FLAKE + "/flake.lock") | from json
+    let main_nixpkgs = $lock.nodes.root.inputs.nixpkgs
+    let nixpkgs_utc_time = $lock.nodes | get $main_nixpkgs | get locked.lastModified
 
     # NuShell uses nanoseconds since epoch, while flake.lock uses seconds since epoch
     let nixpkgs_utc_nano = $nixpkgs_utc_time * 1_000_000_000
@@ -125,7 +112,8 @@ def __show_welcome_message [] {
     }
 }
 
-# Show a welcome message unless we're in a Nix shell
-if not ($env.DEVSHELL? | default false | into bool) {
+# Show a welcome message unless we're in a sub shell
+if not ($env.__NU_INIT? | default false | into bool) {
     __show_welcome_message
+    $env.__NU_INIT = true
 }

@@ -26,9 +26,11 @@
         builders = let
           callPackage = lib.customisation.callPackageWith (pkgs // inputs);
         in {
+          buildGodotApp = callPackage ./buildGodotApp.nix {};
           buildStaticSite = callPackage ./buildStaticSite {};
           buildScript = callPackage ./buildScript.nix {};
           fromHeif = callPackage ./fromHeif.nix {};
+          mkFunctionDocs = callPackage ./mkFunctionDocs.nix {};
           mkOptionDocs = callPackage ./mkOptionDocs.nix {};
         };
       };

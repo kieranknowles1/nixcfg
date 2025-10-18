@@ -23,12 +23,14 @@ module : The root module to generate documentation for. E.g., self.nixosModules.
 
 title : The title to include in the generated documentation
 
-repoPath : The path to the repository containing the module
+baseUrl : The base URL for option declaration paths.
+
+prefix : A prefix to remove from declaration paths.
 */
 {
   module,
   title,
-  repoPath,
+  baseUrl,
   prefix ? (toString self),
 }: let
   eval = self.lib.docs.evalUnchecked module;
@@ -40,7 +42,7 @@ repoPath : The path to the repository containing the module
         declarations =
           map (decl: rec {
             name = lib.removePrefix "${prefix}/" decl;
-            url = "${repoPath}/${name}";
+            url = "${baseUrl}/${name}";
           })
           opt.declarations;
       };

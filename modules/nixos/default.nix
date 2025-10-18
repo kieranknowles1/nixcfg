@@ -4,18 +4,23 @@
   imports = [
     ../shared
 
+    ./archiveteam.nix
     ./backup.nix
     ./cache
+    ./compat.nix
     ./core.nix
     ./desktop
+    ./docs.nix
     ./hardware.nix
     ./ledstate.nix
     ./llm.nix
     ./locale.nix
     ./networking.nix
     ./printing.nix
+    ./server
     ./ssh
     ./theme.nix
+    ./timer.nix
     ./thunderbird.nix
     ./users.nix
     ./vr.nix

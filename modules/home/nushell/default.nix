@@ -34,15 +34,15 @@
 
   config = let
     cfg = config.custom;
-    isDesktop = hostConfig.custom.features.desktop;
+    isDesktop = hostConfig.custom.desktop.enable;
   in {
-    # TODO: Link to the shell set on the host side, a NuShell specific file isn't the best place for this
-    xdg.configFile."default-shell".source = lib.getExe config.programs.nushell.package;
-
     custom.extraEnv = rec {
       # Point tools to our flake repository
-      FLAKE = cfg.fullRepoPath;
+      FLAKE = hostConfig.custom.repoPath;
       NH_FLAKE = FLAKE;
+
+      # This isn't automatically set on server
+      EDITOR = "nano";
     };
 
     custom.mutable.file = {
@@ -64,12 +64,6 @@
 
         # Load my custom config
         extraConfig = "source user-config.nu";
-      };
-
-      # Use Carapace to generate completions
-      carapace = {
-        enable = true;
-        enableNushellIntegration = true;
       };
 
       # Use Starship as the prompt

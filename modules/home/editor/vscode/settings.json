@@ -70,37 +70,6 @@
     // "[x]" // Disable this as it represents a completed task.
   ],
 
-  // =====
-  //  C++
-  // =====
-  // This is C++, using software developed by Microsoft. Microsoft doesn't use C++ very well, so we're in for a ride
-  // of insane defaults, poor design, and the downright weird. For fun, I've marked the terrible defaults with WTF.
-  "cmake.showOptionsMovedNotification": false, // WTF: I didn't even use the extension before this was added, why would I care?
-  "cmake.pinnedCommands": [
-    "workbench.action.tasks.configureTaskRunner",
-    "workbench.action.tasks.runTask"
-  ], // WTF: The extension is aggressive about setting its defaults, and overwrites an explicit empty array
-  "cmake.configureOnOpen": false, // WTF: I don't want you to touch anyting when I open a file
-  "cmake.configureOnEdit": false, // Finally something that isn't WTF, I still don't want it
-  "C_Cpp.autoAddFileAssociations": false, // WTF: Don't mess with my files, why are you even looking at them?
-  "cmake.showConfigureWithDebuggerNotification": false, // WTF: If I wanted a debugger I would search for one
-
-  // =====
-  //  Nix
-  // =====
-  "nix.enableLanguageServer": true,
-  // TODO: Consider switching to nixd
-  "nix.serverPath": "nil",
-  "nix.serverSettings": {
-    "nil": {
-      "formatting": {
-        // Use whatever the workspace has set for nix files
-        "command": ["nix", "fmt", "--", "--stdin", ".nix"]
-      }
-    }
-  },
-  "nix.formatterPath": "nix fmt -- --stdin dummy.nix",
-
   // ========
   //  Python
   // ========

@@ -2,12 +2,30 @@
 # To add a known host, run `ssh-keyscan ${hostname}` and place the output in ./hosts/${hostname} (the file name is the full domain name)
 # The file should contain the remainder of the `ssh-ed25519` line
 # Similarly, public keys should be copied from ~/.ssh/id_ed25519.pub to ./keys/${hostname}.pub
-{
-  config,
-  lib,
-  ...
-}: {
+{lib, ...}: {
+  options.custom.ssh = let
+    inherit (lib) mkOption types;
+  in {
+    keyOwners = mkOption {
+      type = types.attrsOf (types.listOf types.str);
+      description = "Map of public key owners to their keys";
+      default = {};
+      example = {
+        "user@example.com" = [
+          "ssh-ed25519 ABC123"
+          "ssh-ed25519 XYZ789"
+        ];
+      };
+    };
+  };
+
   config = {
+    custom.ssh.keyOwners."kieranknowles11@hotmail.co.uk" = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgWyhSODClMBaiNI4EjqTeWUxnBjjKV9zyyVHh8DV1f kieran@canterbury"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpPVX1L4/sGfQv6grn6dgiKQUPJ+/TSL9BL+vXgajlj kieran@tycho"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFUXZ7Ui31mraAmFucCKSOgISaqnbckwwsLg8ZbIaXY kieran@rocinante"
+    ];
+
     services.openssh = {
       enable = true;
 
@@ -22,15 +40,5 @@
         publicKeyFile = ./hosts/${name};
       }) (builtins.readDir ./hosts);
     };
-
-    # Accept any of my public keys, read from [[./keys]]
-    # TODO: Secret management to automatically add the private keys
-    # TODO: Should this be in the user's config? authorized_keys is a user-level setting
-    users.users =
-      lib.attrsets.mapAttrs (_name: _user: {
-        openssh.authorizedKeys.keyFiles =
-          map (name: ./keys/${name}) (builtins.attrNames (builtins.readDir ./keys));
-      })
-      config.custom.users.users;
   };
 }

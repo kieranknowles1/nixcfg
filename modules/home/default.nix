@@ -5,6 +5,7 @@
     ../shared
 
     ./aliases.nix
+    ./carapace.nix
     ./common.nix
     ./desktop
     ./discord.nix
@@ -17,10 +18,10 @@
     ./llm.nix
     ./mime.nix
     ./mutable.nix
-    ./portfolio.nix
     ./nushell
     ./office
     ./shortcuts
+    ./telly
     ./theme.nix
     ./timer.nix
     ./trilium.nix

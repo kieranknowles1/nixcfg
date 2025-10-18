@@ -7,9 +7,10 @@
   # are lazily fetched, but I'd rather be explicit)
   inputs = {
     # /// Core ///
-    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
-    # This isn't quite the bleeding edge, but packages on master are not always cached
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
+    # This isn't quite the bleeding edge, but packages on master are less likely to be cached
+    # Use a fork as required by nixos-raspberrypi until https://github.com/NixOS/nixpkgs/pull/398456
+    # is merged
+    nixpkgs.url = "github:kieranknowles1/nixpkgs?ref=nixpkgs-unstable-readd-option";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
@@ -22,13 +23,11 @@
     };
 
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix";
       inputs.flake-parts.follows = "flake-parts";
-      inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
 
-      inputs.flake-compat.follows = "";
       # Remove some inputs that are not used by this flake
       inputs.base16-fish.follows = "";
       inputs.base16-helix.follows = "";
@@ -48,6 +47,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
 
       inputs.flake-compat.follows = "";
+    };
+
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.argononed.follows = "";
+      inputs.nixos-images.follows = "";
+      inputs.flake-compat.follows = "";
+    };
+
+    # Run a fixed kernel to avoid needing to build it
+    nixos-raspberrypi-kernellock = {
+      url = "github:nvmd/nixos-raspberrypi?ref=27518152d10345308bc5340fd64c8d3ad5c88c92";
+      inputs.nixpkgs.url = "github:nvmd/nixpkgs?ref=1cba0d4e9720ce8cd0e6b08ff185b92646fe2f90";
+      inputs.argononed.follows = "";
+      inputs.nixos-images.follows = "";
     };
 
     # Prebuilt nix-index database, as building it takes a long time
@@ -76,29 +91,9 @@
     vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     # /// Utilities ///
-
-    # Used to generate schemas for config files. This lets a JSON/YAML/TOML/whatever the next format is
-    # language server provide completions, type checking, and documentation by linking to the schema.
-    # We prefer TOML as it allows comments and has a nix-like syntax, but YAML could have its uses.
-    # See [[./lib/docs.nix]] for more information. This is a much more convenient way to find options than generated markdown.
-    # TODO: Could use more of this to provision servers
-    clan-core = {
-      url = "git+https://git.clan.lol/clan/clan-core";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-
-      inputs.data-mesher.follows = "";
-      inputs.disko.follows = "";
-      inputs.sops-nix.follows = "";
-      inputs.nixos-facter-modules.follows = "";
-      inputs.nix-darwin.follows = "";
-    };
 
     # Generate package sets for x86_64-linux and aarch64-linux. This can be
     # overridden by another flake that consumes this one.
@@ -115,30 +110,24 @@
     };
 
     # /// Applications ///
-
-    # nixpkgs doesn't include the dependencies for master, so we override a separate flake
-    # The source code could also be a flake input, but doing so would take a long time to update
-    # TODO: Remove this once 0.48 is building on nixpkgs
-    # Keep this locked to avoid rebuilding whenever libs are updated
-    nixpkgs-openmw.url = "github:nixos/nixpkgs?ref=f21e4546e3ede7ae34d12a84602a22246b31f7e0";
-    openmw = {
-      url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
-      inputs.nixpkgs.follows = "nixpkgs-openmw";
-
-      inputs.snowfall-lib.follows = "snowfall-lib";
+    copyparty = {
+      url = "github:9001/copyparty";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
-    src-openmw = {
-      url = "gitlab:kieranjohn1/openmw";
-      flake = false;
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+
+      inputs.flake-compat.follows = "";
     };
 
     # Using flake inputs for source lets us be on master without needing to manually update
     # hashes.
-    src-factorio-blueprint-decoder = {
-      # Branch name is a bit misleading, it represents the original repo with all
-      # PRs merged in. I use it so I have the latest without waiting for the PR
-      url = "github:kieranknowles1/factorio-blueprint-decoder?ref=turret_fix";
+    src-openmw = {
+      url = "gitlab:kieranjohn1/openmw";
       flake = false;
     };
 
@@ -156,27 +145,16 @@
       inputs.systems.follows = "systems";
     };
 
-    # TODO: Remove once openmw is building on nixpkgs
-    flake-utils-plus = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
-    # TODO: Seems very useful for viewing documentation. Could set it up to cover
-    # everything but nixpkgs.
-    # nuschtosSearch = {
-    #   url = "github:NuschtOS/search";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-utils.follows = "flake-utils";
-    # };
-
-    # TODO: Remove once openmw is building on nixpkgs
-    snowfall-lib = {
-      url = "github:snowfallorg/lib";
+    nuschtosSearch = {
+      url = "github:NuschtOS/search";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils-plus.follows = "flake-utils-plus";
-
-      inputs.flake-compat.follows = "";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.ixx.follows = "ixx";
+    };
+    ixx = {
+      url = "github:NuschtOS/ixx";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -192,6 +170,7 @@
       };
 
       imports = [
+        ./assets.nix
         ./builders
         ./checks
         ./hosts

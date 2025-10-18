@@ -4,20 +4,27 @@
   config,
   ...
 }: {
-  options.custom.shortcuts.palette = {
-    package = lib.mkPackageOption pkgs.flake "command-palette" {};
+  options.custom.shortcuts.palette = let
+    inherit (lib) mkOption mkEnableOption mkPackageOption types;
+    mkBindingOption = name: type: default:
+      mkOption {
+        inherit type default;
+        description = "${name} to open the command palette.";
+      };
+    mkModifierOption = name: default: mkBindingOption "Whether the ${name} key must be held" types.bool default;
+  in {
+    enable = mkEnableOption "command palette";
 
-    binding = lib.mkOption {
-      description = ''
-        The keybinding to open the command palette.
-      '';
+    package = mkPackageOption pkgs.flake "command-palette" {};
 
-      type = lib.types.str;
-      # Use alt + shift + p as it's similar to the standard "ctrl + shift + p", but doesn't conflict with other palletes
-      default = "alt + shift + p";
+    binding = {
+      key = mkBindingOption "The key" types.str "p";
+      alt = mkModifierOption "alt" true;
+      shift = mkModifierOption "shift" true;
+      ctrl = mkModifierOption "ctrl" false;
     };
 
-    actions = lib.mkOption {
+    actions = mkOption {
       description = ''
         A list of actions to be displayed in the command palette.
         Each action is a set containing a command to be executed and a description of the action.
@@ -25,18 +32,18 @@
 
       default = [];
 
-      type = lib.types.listOf (lib.types.submodule {
+      type = types.listOf (types.submodule {
         options = {
-          action = lib.mkOption {
-            type = lib.types.listOf (lib.types.either lib.types.str lib.types.path);
+          action = mkOption {
+            type = types.listOf (types.either types.str types.path);
             description = "The command to be executed when the action is selected. The first element is the command, the rest are arguments.";
           };
-          description = lib.mkOption {
-            type = lib.types.str;
+          description = mkOption {
+            type = types.str;
             description = "A brief description of the action";
           };
-          useTerminal = lib.mkOption {
-            type = lib.types.bool;
+          useTerminal = mkOption {
+            type = types.bool;
             description = "Whether the command should be run in a terminal";
             default = false;
           };
@@ -52,28 +59,32 @@
   };
 
   config = let
-    cfg = config.custom.shortcuts;
+    cfg = config.custom.shortcuts.palette;
 
-    palette = lib.getExe cfg.palette.package;
-    zenity = lib.getExe pkgs.zenity;
+    palette = lib.getExe cfg.package;
 
-    sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.palette.actions;
+    sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.actions;
     configFile = {
-      # TODO: Proper option for this
-      terminalArgs = ["alacritty" "--command"];
+      terminalScript = config.custom.terminal.runTermWait;
       commands = sortedActions;
     };
   in
-    lib.mkIf (cfg.enable && (builtins.length cfg.palette.actions > 0)) {
+    lib.mkIf (cfg.enable && (builtins.length cfg.actions > 0)) {
+      assertions = lib.singleton {
+        assertion = config.custom.shortcuts.hotkeys.enable;
+        message = "Hotkeys are required for the command palette to be accessible";
+      };
+
       custom.shortcuts.palette = {
         finalConfig = pkgs.writeText "actions.json" (builtins.toJSON configFile);
       };
 
-      custom.shortcuts.hotkeys.keys = {
-        "${cfg.palette.binding}" = {
+      custom.shortcuts.hotkeys.keys = [
+        {
+          inherit (cfg.binding) key ctrl alt shift;
           description = "Open the command palette";
-          action = "${palette} --zenity ${zenity} --file ${cfg.palette.finalConfig}";
-        };
-      };
+          action = "${palette} --file ${cfg.finalConfig}";
+        }
+      ];
     };
 }

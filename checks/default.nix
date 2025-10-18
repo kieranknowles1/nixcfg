@@ -1,4 +1,8 @@
 {self, ...}: {
+  imports = [
+    ./tests
+  ];
+
   perSystem = {pkgs, ...}: {
     checks = let
       # Make a check that will succeed if the script exits 0, and fail otherwise.

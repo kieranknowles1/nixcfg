@@ -105,6 +105,25 @@ Two panes shown either side-by-side or vertically depending on orientation
   }
 }
 
+.threepane {
+  display: flex;
+}
+
+@media screen and (orientation: landscape) {
+  .threepane {
+    flex-direction: row;
+  }
+  .threepane > * {
+    width: calc(100% / 3);
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .threepane {
+    flex-direction: column;
+  }
+}
+
 /* An indented list of links, each is expected to have an icon */
 ul.links-list li {
   list-style-type: none;
@@ -131,4 +150,9 @@ canvas {
 .flexbox {
   display: flex;
   justify-content: center;
+}
+
+.credly-badge {
+  width: 50%;
+  height: auto;
 }

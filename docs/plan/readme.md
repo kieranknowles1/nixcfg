@@ -21,8 +21,8 @@ directory, one file per project.
 
 ## Todo List
 
-Miscelaneous tasks I want to complete in the future. Tracked here rather than in
-issues so I can do all my work in one place.
+Miscellaneous tasks I want to complete in the future. Tracked here rather than
+in issues so I can do all my work in one place.
 
 If a task is cancelled, do not remove it from the list. Instead mark it with a
 ❎ and ~~strike through~~.
@@ -43,16 +43,20 @@ If a task is cancelled, do not remove it from the list. Instead mark it with a
   - [x] PDFs with Firefox, overriding LibreOffice
   - [x] Skyrim and Fallout 4 saves with ReSaver (already defined mime type, just
         need to set the program)
-- ❎ ~~Port my server to NixOS.~~ Putting this on hold for now as Raspberry Pi 5
-  is currently unsupported.
+- [x] Port my server to NixOS. ~~Putting this on hold for now as Raspberry Pi 5
+      is currently unsupported.~~ it works!, let's do it!
   - [x] Build ISO
         [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
-  - [ ] Remove anything not needed for a server
+  - [x] Remove anything not needed for a server
   - [ ] Update `rebuild update` as discussed in [Nix Server](./nix-server.md)
-- [ ] Allow home-manager to be used independently of NixOS
-  - [ ] Minimise usage of `hostConfig`, then pass it in as an argument (overlays
-        should help with this)
-  - [ ] Put this on the server until we can run full NixOS on it
+- ❎ ~~Allow home-manager to be used independently of NixOS~~ No need, we run
+  NixOS proper
+  - ❎ ~~Minimise usage of `hostConfig`, then pass it in as an argument
+    (overlays should help with this)~~ Not needed with NixOS proper, no idea
+    what I meant by "overlays should help with this", it's a completely
+    different thing.
+  - ❎ ~~Put this on the server until we can run full NixOS on it~~ Running
+    NixOS proper.
 - [ ] Automate running checks on the repo. Do these in nix's `checkPhase`?
   - [x] Links in Markdown
   - [ ] Links in comments
@@ -71,8 +75,8 @@ If a task is cancelled, do not remove it from the list. Instead mark it with a
 - [x] Hotkeys for brightness. Either `Alt+Home/End` or media keys.
 - [ ] Fix `nixd` in Zed
 - [ ] Fix nerd fonts in Zed
-- [ ] Tidy docs-generate, split into multiple files, one for defaults and
-      another for generating HTML.
+- ❎ ~~Tidy docs-generate, split into multiple files, one for defaults and
+  another for generating HTML.~~ Unnecessary with mdbook.
   - ❎ ~~Only rebuild changed generated docs, rather than all of them.~~ No
     longer needed after switch to mdbook, as it is much faster than Pandoc.
   - [x] Rewrite store paths for options to point to the repo instead

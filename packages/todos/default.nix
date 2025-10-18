@@ -1,6 +1,7 @@
 {
   writeShellApplication,
   ripgrep,
+  self,
 }:
 writeShellApplication rec {
   name = "todos";
@@ -10,6 +11,7 @@ writeShellApplication rec {
   text = builtins.readFile ./todos.sh;
 
   meta = {
+    inherit (self.lib) license;
     description = "List all TODOs in a directory";
     longDescription = ''
       Recursively search a directory for TODO comments in files.

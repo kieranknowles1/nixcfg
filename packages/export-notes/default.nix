@@ -1,7 +1,10 @@
 {
+  self,
   writeShellApplication,
   unzip,
+  curl,
   jq,
+  apiRoot ? "http://127.0.0.1:37840/etapi",
   # runtimeEnv doesn't support shell expansions,
   # need absolute paths
   # File containing Trilium's API key. Should be deployed with SOPS
@@ -21,6 +24,7 @@ writeShellApplication rec {
 
   runtimeInputs = [
     unzip
+    curl
     jq
   ];
 
@@ -30,11 +34,13 @@ writeShellApplication rec {
     ROOT_NOTE = rootNote;
     AUTO_COMMIT = autoCommit;
     FORMAT = format;
+    API_ROOT = apiRoot;
   };
 
   text = builtins.readFile ./export-notes.sh;
 
   meta = {
+    inherit (self.lib) license;
     description = "Export notes from Trilium to Git";
     longDescription = ''
       Fetch notes from Trilium as HTML with metadata, then commit the changes to a Git repository.

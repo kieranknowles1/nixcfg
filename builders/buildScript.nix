@@ -4,7 +4,7 @@
   writeShellApplication,
 }:
 /*
-// TODO: Replace this with pkgs.writeScriptBin, as this can take any interpreter
+Can't use `pkgs.writeScriptBin` for this as it doesn't support the meta argument.
 Package a script as a standalone executable, similar to `pkgs.writeShellScriptBin`.
 
 Only works with simple scripts, that is, a single file with no dependencies
@@ -21,7 +21,9 @@ version :: String : The version of the script.
 
 meta :: AttrSet : Metadata for the package. See [Meta-attributes](https://ryantm.github.io/nixpkgs/stdenv/meta/) for more information.
 
-runtimeInputs :: List = null : A list of packages to include on the PATH when running the script.
+runtimeInputs :: List = [] : A list of packages to include on the PATH when running the script.
+
+runtimeEnv :: AttrSet = {} : Environment variables to set when running the script.
 ```nix
 python312.withPackages (python-pkgs: [
   python-pkgs.requests
@@ -34,7 +36,8 @@ python312.withPackages (python-pkgs: [
   src,
   version ? "1.0",
   meta ? {},
-  runtimeInputs ? null,
+  runtimeInputs ? [],
+  runtimeEnv ? {},
 }: let
   meta' =
     meta
@@ -46,12 +49,12 @@ python312.withPackages (python-pkgs: [
   # If we need to include additional packages on the PATH, generate a wrapper
   # that extends PATH with the runtime inputs.
   runtime' =
-    if runtimeInputs == null
+    if runtimeInputs == [] && runtimeEnv == {}
     then runtime
     else
       writeShellApplication {
         name = "${runtime.name}-with-path";
-        inherit runtimeInputs;
+        inherit runtimeInputs runtimeEnv;
         text = ''
           exec ${lib.getExe runtime} "$@"
         '';

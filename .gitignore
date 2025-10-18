@@ -9,3 +9,12 @@ target/
 
 # mdBook output
 /book/
+
+# Godot generated files
+.godot
+
+# Typst output
+*.pdf
+
+# Rebuild error output
+.rebuild-diff

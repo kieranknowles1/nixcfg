@@ -1,6 +1,7 @@
 use std::io::Write;
 
-use crate::constants::*;
+use crate::byteconv::ByteConv;
+use crate::tag::{FORMAT_VERSION, MAX_SHORTSTRING_LENGTH, Tag};
 use crate::value::{Table, Value};
 
 type Result<T> = std::io::Result<T>;
@@ -14,16 +15,8 @@ impl<T: Write> PrimitiveWriter<T> {
         Self { writer }
     }
 
-    fn u8(&mut self, value: u8) -> Result<()> {
-        self.writer.write_all(&[value])
-    }
-
-    fn u32(&mut self, value: u32) -> Result<()> {
-        self.writer.write_all(&value.to_le_bytes())
-    }
-
-    fn f64(&mut self, value: f64) -> Result<()> {
-        self.writer.write_all(&value.to_le_bytes())
+    fn write<V: ByteConv<SIZE>, const SIZE: usize>(&mut self, value: V) -> Result<()> {
+        self.writer.write_all(&value.to_bytes())
     }
 }
 
@@ -31,7 +24,7 @@ pub fn encode(value: Value, writer: &mut impl Write) -> Result<()> {
     let mut writer = PrimitiveWriter::new(writer);
 
     // Write the format version, then pass off to the recursive function
-    writer.u8(FORMAT_VERSION)?;
+    writer.write(FORMAT_VERSION)?;
     write_value(value, &mut writer)?;
 
     Ok(())
@@ -40,12 +33,12 @@ pub fn encode(value: Value, writer: &mut impl Write) -> Result<()> {
 fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
     match value {
         Value::Number(n) => {
-            write.u8(T_NUMBER)?;
-            write.f64(n)?;
+            write.write(Tag::Number)?;
+            write.write(n)?;
         }
         Value::Boolean(b) => {
-            write.u8(T_BOOLEAN)?;
-            write.u8(if b { 1 } else { 0 })?;
+            write.write(Tag::Boolean)?;
+            write.write(u8::from(b))?;
         }
         Value::String(s) => {
             write_string(&s, write)?;
@@ -53,10 +46,23 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
         Value::Table(t) => {
             write_table(t, write)?;
         }
-        Value::Vec2(x, y) => {
-            write.u8(T_VEC2)?;
-            write.f64(x)?;
-            write.f64(y)?;
+        Value::Vec2(v) => {
+            write.write(Tag::Vec2)?;
+            write.write(v.x)?;
+            write.write(v.y)?;
+        }
+        Value::Vec3(v) => {
+            write.write(Tag::Vec3)?;
+            write.write(v.x)?;
+            write.write(v.y)?;
+            write.write(v.z)?;
+        }
+        Value::Color(c) => {
+            write.write(Tag::Color)?;
+            write.write(c.r)?;
+            write.write(c.g)?;
+            write.write(c.b)?;
+            write.write(c.a)?;
         }
     }
 
@@ -64,13 +70,13 @@ fn write_value(value: Value, write: &mut PrimitiveWriter<impl Write>) -> Result<
 }
 
 fn write_table(table: Table, write: &mut PrimitiveWriter<impl Write>) -> Result<()> {
-    write.u8(T_TABLE_START)?;
+    write.write(Tag::TableStart)?;
     for (key, value) in table {
-        write_string(&key, write)?;
+        write_value(key, write)?;
         write_value(value, write)?;
     }
 
-    write.u8(T_TABLE_END)?;
+    write.write(Tag::TableEnd)?;
 
     Ok(())
 }
@@ -88,13 +94,14 @@ fn write_string(string: &str, write: &mut PrimitiveWriter<impl Write>) -> Result
         string.len() as u32
     };
 
-    if length <= MASK_SHORT_STRING.into() {
-        // Short string format. Length is stored in the lower 5 bits
-        write.u8(FLAG_SHORT_STRING | length as u8)?;
+    if length <= MAX_SHORTSTRING_LENGTH.into() {
+        // Short string format. Length is stored in the lower bits
+        // SAFETY: MAX_SHORTSTRING_LENGTH is a u8
+        write.write(Tag::ShortString(length as u8))?;
     } else {
         // Long string format. Length is stored in a 32-bit integer
-        write.u8(T_LONG_STRING)?;
-        write.u32(length)?;
+        write.write(Tag::LongString)?;
+        write.write(length)?;
     }
 
     write.writer.write_all(string.as_bytes())?;

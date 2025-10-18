@@ -1,8 +1,11 @@
 # Development Information
 
-Information on how to develop this repository.
+Information on how to develop this repository. See also:
+[modules](../modules/readme.md) for specific modules or
+[nix library](../generated/lib.md) for extensions to the Nix library.
 
 - [Development Information](#development-information)
+  - [Modules](#modules)
   - [Building](#building)
     - [Packages](#packages)
   - [Host Definition](#host-definition)
@@ -12,6 +15,23 @@ Information on how to develop this repository.
   - [Useful Tools](#useful-tools)
     - [`nix-tree`](#nix-tree)
     - [`nix repl`](#nix-repl)
+
+## Modules
+
+The `modules` directory defines NixOS and home-manager modueles, and is where
+the vast majority of config takes place. It contains the following
+subdirectories:
+
+- `home` home-manager modules
+- `nixos` NixOS modules
+- `shared` Modules loaded by both home-manager and NixOS, and fully compatible
+  between the two.
+- `modlib` Shared functions used between multiple home-manager or NixOS modules.
+  If these need to differentiate between the two, they MUST take a file-level
+  `mode` argument that can be either `home` or `nixos`. It cannot be included in
+  the top-level `flake.lib` due to module weirdness (specialArgs and therefore
+  `flake.lib` can't be used in options definitions, but many of these functions
+  are intended to be used there)
 
 ## Building
 
@@ -46,51 +66,43 @@ parts of the flake as needed. Only the `custom` key should be used in the host's
 configuration to avoid any code duplication. I am aware that this makes the host
 definitions tightly coupled to the flake, but believe this to be a worthwhile
 trade-off to limit the amount of code used to define a host, moving it to a
-central modules folder instead.
-
-JSON schemas are generated for the flake's options, found in
-[generated/host-options.schema.json](../generated/host-options.schema.json). A
-TOML language server can be pointed at this file to provide immediate feedback
-on options.
+central modules folder instead, and given how highly opinionated the flake is.
 
 See [hosts/rocinante](../../hosts/rocinante/) for an example host definition.
 
 ## User Definition
 
 Similar to hosts, users are defined in the `users` directory and again should
-only use the `custom` key. However, instead of being a plain Attribute Set, a
-user is a function taking in nixpkgs and the host's config, and returning an
-Attribute Set following the format described in
-[custom.user](../generated/host-options.md#customuser).
+only use the `custom` key. These should be functions returning the following:
 
-While JSON schemas are also available at
-[generated/user-options.schema.json](../generated/user-options.schema.json),
-these are not as useful as in hosts as users may need different configurations
-for different hosts, something impossible to represent in TOML without a lot of
-additional complexity.
+```nix
+# NixOS-side properties
+core = {
+  displayName = "John Smith";
+  isSudoer = true;
+  shell = pkgs.my-fancy-shell;
+
+  authorisedKeys = [
+    list of ssh keys
+  ];
+};
+
+# Home Manager module
+home = {
+  imports = [ ./all-there-is-to-import.nix];
+};
+home.stateVersion = "read-the-manual";
+```
 
 See [users/kieran](../../users/kieran/default.nix) for an example user
 definition.
-
-## Documenting
-
-Documentation should be generated wherever possible, as this makes them tightly
-coupled to their code and more likely to be up-to-date.
-
-For more general information, such as this document, Markdown in the `docs`
-directory is used.
-
-Graphs may be generated using `graphviz` and `dot`, these are automatically
-converted to SVGs by buildStaticSite. While Mermaid is natively supported by
-GitHub, it is much less effective at preventing overlap and therefore unsuitable
-for my needs.
 
 ## Debugging
 
 The `confbuild` and `confeval` commands are provided to build/display the value
 of a config path. To make a derivation debuggable, expose it as an option with
 `type = types.path` and set it to a derivation as is done in
-[docs.nix](../../modules/home/docs.nix).
+[home/docs/default.nix](../../modules/shared/docs.nix).
 
 ```nu
 # Per-host. Can be converted to a Nushell table for easier reading.
@@ -104,7 +116,7 @@ confbuild h docs-generate.build.generated
 
 ### `nix-tree`
 
-The `nix-tree` utility can be useful for visualizing what derivations are
+The `nix-tree` utility can be useful for visualising what derivations are
 included and why. This is not included in any configuration/shell, but can be
 run with `nix run nixpkgs#nix-tree`. This can be useful to find why a package is
 included when you didn't expect it to be.
