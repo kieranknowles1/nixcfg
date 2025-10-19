@@ -29,6 +29,12 @@ pub fn build_output(flake: &Path, target: &str, out_link: &Path) -> std::io::Res
     check_ok(status, "nom build")
 }
 
+pub fn diff_systems(old: &Path, new: &Path) -> std::io::Result<String> {
+    let diff = Command::new("nvd").arg("diff").arg(old).arg(new).output()?;
+    check_ok(diff.status, "nvd diff")?;
+    Ok(String::from_utf8(diff.stdout).unwrap())
+}
+
 /// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
 pub fn fancy_build(flake: &Path) -> std::io::Result<String> {
     let result = TempLink::new()?;
@@ -38,14 +44,7 @@ pub fn fancy_build(flake: &Path) -> std::io::Result<String> {
     );
     build_output(flake, &target, &result.path())?;
 
-    let diff_output = Command::new("nvd")
-        .arg("diff")
-        .arg("/run/current-system")
-        .arg(result.path())
-        .output()?;
-
-    check_ok(diff_output.status, "nvd diff")?;
-    Ok(String::from_utf8(diff_output.stdout).unwrap())
+    diff_systems(Path::new("/run/current-system"), &result.path())
 }
 
 pub struct GenerationMeta {
