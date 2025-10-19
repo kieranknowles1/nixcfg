@@ -67,12 +67,23 @@ impl UpdateOpt {
         nix::build_output(flake, ".#all-configurations", &initial.path())?;
 
         // Step 2: Update flake.lock with the latest inputs
-        // nix::update_flake_inputs()?;
+        nix::update_flake_inputs()?;
         // git::stage_all()?;
 
         // Step 3: Build new hosts
+        let updated = TempLink::new()?;
+        nix::build_output(flake, ".#all-configurations", &updated.path())?;
 
         // Step 4: Diff the old and new hosts into ./docs/changelog
+        // initial and updated point to a directory symlink containing each
+        // NixOS configuration. Run `nvd diff` on each of them
+        for entry in fs::read_dir(initial.path())? {
+            let entry = entry?;
+            let a = entry.path();
+            let b = updated.path().join(entry.file_name());
+            let diff = nix::diff_systems(&a, &b)?;
+            println!("{}", diff);
+        }
 
         // Step 5: Push new hosts to each system
 
