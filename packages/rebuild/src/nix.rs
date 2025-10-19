@@ -6,39 +6,9 @@ use std::process::Command;
 use std::str;
 
 use gethostname::gethostname;
-use serde::Deserialize;
-use thiserror::Error;
+use tempfile::{NamedTempFile, tempdir};
 
-use crate::process::check_ok;
-
-#[derive(Debug, Error)]
-pub enum ListHostsError {
-    #[error(transparent)]
-    Io(#[from] std::io::Error),
-    #[error(transparent)]
-    Json(#[from] serde_json::Error),
-}
-
-#[derive(Deserialize)]
-#[serde(rename_all = "camelCase")]
-struct FlakeShowOutput {
-    // Using a BTreeMap to have a well-defined order of keys.
-    nixos_configurations: BTreeMap<String, serde::de::IgnoredAny>,
-}
-
-pub fn list_hosts(flake: &Path) -> Result<Vec<String>, ListHostsError> {
-    let output = Command::new("nix")
-        .current_dir(flake)
-        .arg("flake")
-        .arg("show")
-        .arg("--json")
-        .output()?;
-    check_ok(output.status, "nix flake show")?;
-
-    let json: FlakeShowOutput = serde_json::from_slice(&output.stdout)?;
-
-    Ok(json.nixos_configurations.keys().cloned().collect())
-}
+use crate::process::{TempLink, check_ok};
 
 pub fn update_flake_inputs() -> std::io::Result<()> {
     let status = Command::new("nix").arg("flake").arg("update").status()?;
@@ -46,31 +16,32 @@ pub fn update_flake_inputs() -> std::io::Result<()> {
     check_ok(status, "nix flake update")
 }
 
-/// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
-pub fn fancy_build(repo_path: &Path) -> std::io::Result<String> {
-    let build_status = Command::new("nh")
-        .arg("os")
+pub fn build_output(flake: &Path, target: &str, out_link: &Path) -> std::io::Result<()> {
+    // Run in `nom`, a wrapper that gives a fancy progress indicator
+    let status = Command::new("nom")
+        .current_dir(flake)
         .arg("build")
-        .arg(repo_path)
+        .arg(target)
+        .arg("--out-link")
+        .arg(out_link)
         .status()?;
 
-    // We put build and diff in the same function as the diff only works after a build but
-    // before a switch. This guarantees that we don't call it at the wrong time.
-    check_ok(build_status, "nh os build")?;
+    check_ok(status, "nom build")
+}
 
-    // nixos-rebuild doesn't have anything to do since we've already built the system
-    // it will link the new generation to ./result for us to diff
-    let dump_link_output = Command::new("nixos-rebuild")
-        .arg("build")
-        .arg("--flake")
-        .arg(repo_path)
-        .output()?; // We use output to suppress stdout
-    check_ok(dump_link_output.status, "nixos-rebuild build")?;
+/// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
+pub fn fancy_build(flake: &Path) -> std::io::Result<String> {
+    let result = TempLink::new()?;
+    let target = format!(
+        ".#nixosConfigurations.{}.config.system.build.toplevel",
+        gethostname().to_string_lossy()
+    );
+    build_output(flake, &target, &result.path())?;
 
     let diff_output = Command::new("nvd")
         .arg("diff")
         .arg("/run/current-system")
-        .arg("./result")
+        .arg(result.path())
         .output()?;
 
     check_ok(diff_output.status, "nvd diff")?;
@@ -98,6 +69,7 @@ impl GenerationMeta {
 /// Apply the configuration. Returns the metadata of the new generation.
 /// No BuildToken here as nixos-rebuild produces the same output, just without the fancy bits.
 pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> {
+    // TODO: Can we switch to ./result directly
     let status = Command::new("sudo")
         .arg("nixos-rebuild")
         .arg("switch")

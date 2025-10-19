@@ -6,6 +6,9 @@ use std::{
     fs,
     path::{Path, PathBuf},
 };
+use tempfile::{NamedTempFile, tempdir};
+
+use crate::process::TempLink;
 
 mod git;
 mod nix;
@@ -60,8 +63,8 @@ impl BuildOpt {
 impl UpdateOpt {
     fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
         // Step 1: Build all hosts in their current state for later comparison
-        let host_list = nix::list_hosts(flake)?;
-        println!("{:?}", host_list);
+        let initial = TempLink::new()?;
+        nix::build_output(flake, ".#all-configurations", &initial.path())?;
 
         // Step 2: Update flake.lock with the latest inputs
         // nix::update_flake_inputs()?;
@@ -99,8 +102,8 @@ fn store_diff(repo_path: &Path, diff: &str) -> std::io::Result<()> {
     fs::write(diff_path(repo_path), diff)
 }
 
-/// Build a set of hosts in parallel and link their outputs to the specified directory
-fn build_hosts(repo_path: &Path, hosts: &[&str], output_dir: &Path) -> std::io::Result<()> {
+/// Build all hosts in parallel and link their outputs to the specified directory
+fn build_all_hosts(repo_path: &Path, hosts: &[&str], output_dir: &Path) -> std::io::Result<()> {
     todo!("Implement")
 }
 
