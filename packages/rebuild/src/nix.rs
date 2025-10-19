@@ -1,12 +1,44 @@
 // Module for functions used during Nix build/switch.
 
+use std::collections::BTreeMap;
 use std::path::Path;
 use std::process::Command;
 use std::str;
 
 use gethostname::gethostname;
+use serde::Deserialize;
+use thiserror::Error;
 
 use crate::process::check_ok;
+
+#[derive(Debug, Error)]
+pub enum ListHostsError {
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
+    #[error(transparent)]
+    Json(#[from] serde_json::Error),
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct FlakeShowOutput {
+    // Using a BTreeMap to have a well-defined order of keys.
+    nixos_configurations: BTreeMap<String, serde::de::IgnoredAny>,
+}
+
+pub fn list_hosts(flake: &Path) -> Result<Vec<String>, ListHostsError> {
+    let output = Command::new("nix")
+        .current_dir(flake)
+        .arg("flake")
+        .arg("show")
+        .arg("--json")
+        .output()?;
+    check_ok(output.status, "nix flake show")?;
+
+    let json: FlakeShowOutput = serde_json::from_slice(&output.stdout)?;
+
+    Ok(json.nixos_configurations.keys().cloned().collect())
+}
 
 pub fn update_flake_inputs() -> std::io::Result<()> {
     let status = Command::new("nix").arg("flake").arg("update").status()?;

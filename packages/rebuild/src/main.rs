@@ -49,24 +49,42 @@ struct UpdateOpt {
 struct PullOpt {}
 
 impl BuildOpt {
-    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
+    fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
         git::stage_all()?;
         let msg = build_and_switch(&flake, &self.message.join("\n\n"))?;
-        git::commit(&msg)
+        git::commit(&msg)?;
+        Ok(())
     }
 }
 
 impl UpdateOpt {
-    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
-        nix::update_flake_inputs()?;
-        git::stage_all()?;
-        let msg = build_and_switch(&flake, &self.message)?;
-        git::commit(&msg)
+    fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
+        // Step 1: Build all hosts in their current state for later comparison
+        let host_list = nix::list_hosts(flake)?;
+        println!("{:?}", host_list);
+
+        // Step 2: Update flake.lock with the latest inputs
+        // nix::update_flake_inputs()?;
+        // git::stage_all()?;
+
+        // Step 3: Build new hosts
+
+        // Step 4: Diff the old and new hosts into ./docs/changelog
+
+        // Step 5: Push new hosts to each system
+
+        // Step 6: Commit all changes
+
+        // TODO: Remove this bit, no longer correct
+        // let msg = build_and_switch(&flake, &self.message)?;
+        // git::commit(&msg)
+
+        todo!("Implement")
     }
 }
 
 impl PullOpt {
-    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
+    fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
         git::pull(&flake)?;
         build_and_switch(&flake, "Pull latest changes")?;
         Ok(())
@@ -79,6 +97,11 @@ fn diff_path(repo_path: &Path) -> PathBuf {
 
 fn store_diff(repo_path: &Path, diff: &str) -> std::io::Result<()> {
     fs::write(diff_path(repo_path), diff)
+}
+
+/// Build a set of hosts in parallel and link their outputs to the specified directory
+fn build_hosts(repo_path: &Path, hosts: &[&str], output_dir: &Path) -> std::io::Result<()> {
+    todo!("Implement")
 }
 
 /// Build the latest configuration and switch to it
@@ -122,7 +145,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Err(e) => {
             eprintln!("Error running a Git or Nix command: {}", e);
-            Err(Box::new(e))
+            Err(e)
         }
     }
 }
