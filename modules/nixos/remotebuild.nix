@@ -9,6 +9,7 @@
         hostName = "tycho.local";
         sshUser = "kieran";
         sshKey = "/home/${sshUser}/.ssh/id_ed25519";
+        maxJobs = 4;
       };
 
       settings = {
