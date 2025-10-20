@@ -1,6 +1,6 @@
 // Module for working with Git
 
-use std::{path::Path, process::Command};
+use std::process::Command;
 
 use crate::process::check_ok;
 
@@ -19,15 +19,4 @@ pub fn commit(message: &str) -> Result<(), std::io::Error> {
         .arg(message)
         .status()?;
     check_ok(commit_status, "git commit")
-}
-
-/// Pull the latest changes from the remote.
-/// This is a simple wrapper around `git pull`.
-/// It does not handle conflicts.
-pub fn pull(repo_path: &Path) -> std::io::Result<()> {
-    let status = Command::new("git")
-        .current_dir(repo_path)
-        .arg("pull")
-        .status()?;
-    check_ok(status, "git pull")
 }

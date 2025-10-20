@@ -31,8 +31,6 @@ enum Action {
     Build(BuildOpt),
     /// Update flake inputs and commit the changes.
     Update(UpdateOpt),
-    /// Pull the latest changes and switch to them.
-    Pull(PullOpt),
 }
 
 #[derive(Parser)]
@@ -47,9 +45,6 @@ struct UpdateOpt {
     #[arg(default_value = "Update flake inputs")]
     message: String,
 }
-
-#[derive(Parser)]
-struct PullOpt {}
 
 impl BuildOpt {
     fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
@@ -118,14 +113,6 @@ impl UpdateOpt {
     }
 }
 
-impl PullOpt {
-    fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
-        git::pull(&flake)?;
-        build_and_switch(&flake, "Pull latest changes")?;
-        Ok(())
-    }
-}
-
 fn diff_path(repo_path: &Path) -> PathBuf {
     repo_path.join(".rebuild-diff")
 }
@@ -165,7 +152,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let status = match opt.action {
         Action::Build(value) => value.run(&opt.flake),
         Action::Update(value) => value.run(&opt.flake),
-        Action::Pull(value) => value.run(&opt.flake),
     };
 
     match status {

@@ -112,16 +112,5 @@
         mnemonic = "[w]hat's [t]hat [f]or";
       };
     };
-
-    # Add a command palette entry to rebuild while pulling,
-    # this is a fairly common operation for me.
-    custom.shortcuts.palette.actions = let
-      rebuild = lib.getExe pkgs.flake.rebuild;
-    in
-      lib.singleton {
-        action = [rebuild "--flake" hostConfig.custom.repoPath "pull"];
-        description = "Update system from remote repository";
-        useTerminal = true;
-      };
   };
 }
