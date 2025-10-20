@@ -3,10 +3,10 @@
 use clap::{Parser, Subcommand};
 use core::str;
 use std::{
-    fs,
+    fs::{self, File},
+    io::Write,
     path::{Path, PathBuf},
 };
-use tempfile::{NamedTempFile, tempdir};
 
 use crate::process::TempLink;
 
@@ -60,6 +60,15 @@ impl BuildOpt {
     }
 }
 
+fn datestamp() -> String {
+    chrono::Local::now().format("%m-%d-%y").to_string()
+}
+
+fn update_changelog_filepath(flake: &Path) -> PathBuf {
+    let date = datestamp();
+    flake.join(format!("docs/changelog/update-{}.md", date))
+}
+
 impl UpdateOpt {
     fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
         // Step 1: Build all hosts in their current state for later comparison
@@ -68,7 +77,6 @@ impl UpdateOpt {
 
         // Step 2: Update flake.lock with the latest inputs
         nix::update_flake_inputs()?;
-        // git::stage_all()?;
 
         // Step 3: Build new hosts
         let updated = TempLink::new()?;
@@ -77,21 +85,29 @@ impl UpdateOpt {
         // Step 4: Diff the old and new hosts into ./docs/changelog
         // initial and updated point to a directory symlink containing each
         // NixOS configuration. Run `nvd diff` on each of them
+        let mut changelog = File::create(update_changelog_filepath(flake))?;
+        writeln!(changelog, "# Update on {}", datestamp())?;
+
         for entry in fs::read_dir(initial.path())? {
             let entry = entry?;
+            let sysname = entry.file_name();
             let a = entry.path();
             let b = updated.path().join(entry.file_name());
+
             let diff = nix::diff_systems(&a, &b)?;
-            println!("{}", diff);
+            println!("{diff}");
+
+            writeln!(
+                changelog,
+                "\n## {}\n```\n{}\n```\n",
+                sysname.to_string_lossy(),
+                diff
+            )?;
         }
 
         // Step 5: Push new hosts to each system
 
         // Step 6: Commit all changes
-
-        // TODO: Remove this bit, no longer correct
-        // let msg = build_and_switch(&flake, &self.message)?;
-        // git::commit(&msg)
 
         todo!("Implement")
     }
@@ -111,11 +127,6 @@ fn diff_path(repo_path: &Path) -> PathBuf {
 
 fn store_diff(repo_path: &Path, diff: &str) -> std::io::Result<()> {
     fs::write(diff_path(repo_path), diff)
-}
-
-/// Build all hosts in parallel and link their outputs to the specified directory
-fn build_all_hosts(repo_path: &Path, hosts: &[&str], output_dir: &Path) -> std::io::Result<()> {
-    todo!("Implement")
 }
 
 /// Build the latest configuration and switch to it

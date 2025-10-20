@@ -5,6 +5,7 @@ edition = "2021"
 license = "MIT"
 
 [dependencies]
+chrono = "0.4.42"
 clap = { version = "4.5.7", features = ["derive", "env"] }
 gethostname = "0.4.3"
 tempfile = "3.23.0"

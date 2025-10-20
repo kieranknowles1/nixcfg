@@ -1,12 +1,10 @@
 // Module for functions used during Nix build/switch.
 
-use std::collections::BTreeMap;
 use std::path::Path;
 use std::process::Command;
 use std::str;
 
 use gethostname::gethostname;
-use tempfile::{NamedTempFile, tempdir};
 
 use crate::process::{TempLink, check_ok};
 
