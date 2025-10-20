@@ -105,11 +105,14 @@ impl UpdateOpt {
             )?;
         }
 
-        // Step 5: Push new hosts to each system
+        // Step 5: Activate new configuration
+        // Don't push to other systems yet as there's a chance something's broken
+        // This must be done manually
+        nix::switch_configuration(flake)?;
 
         // Step 6: Commit all changes
 
-        todo!("Implement")
+        Ok(())
     }
 }
 

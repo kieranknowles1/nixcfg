@@ -63,9 +63,7 @@ impl GenerationMeta {
     }
 }
 
-/// Apply the configuration. Returns the metadata of the new generation.
-/// No BuildToken here as nixos-rebuild produces the same output, just without the fancy bits.
-pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> {
+pub fn switch_configuration(repo_path: &Path) -> std::io::Result<()> {
     // TODO: Can we switch to ./result directly
     let status = Command::new("sudo")
         .arg("nixos-rebuild")
@@ -74,7 +72,13 @@ pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> 
         .arg(repo_path)
         .status()?;
 
-    check_ok(status, "nixos-rebuild switch")?;
+    check_ok(status, "nixos-rebuild switch")
+}
+
+/// Apply the configuration. Returns the metadata of the new generation.
+/// No BuildToken here as nixos-rebuild produces the same output, just without the fancy bits.
+pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> {
+    switch_configuration(repo_path)?;
 
     let output = Command::new("nixos-rebuild")
         .arg("list-generations")
