@@ -111,6 +111,8 @@ impl UpdateOpt {
         nix::switch_configuration(flake)?;
 
         // Step 6: Commit all changes
+        git::stage_all()?;
+        git::commit("flake: update inputs")?;
 
         Ok(())
     }
