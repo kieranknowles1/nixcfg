@@ -48,7 +48,7 @@ If a task is cancelled, do not remove it from the list. Instead mark it with a
   - [x] Build ISO
         [https://www.youtube.com/watch?v=-G8mN6HJSZE](https://www.youtube.com/watch?v=-G8mN6HJSZE)
   - [x] Remove anything not needed for a server
-  - [ ] Update `rebuild update` as discussed in [Nix Server](./nix-server.md)
+  - [x] Update `rebuild update` as discussed in [Nix Server](./nix-server.md)
 - ❎ ~~Allow home-manager to be used independently of NixOS~~ No need, we run
   NixOS proper
   - ❎ ~~Minimise usage of `hostConfig`, then pass it in as an argument
