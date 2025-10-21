@@ -42,7 +42,9 @@ pub fn fancy_build(flake: &Path) -> std::io::Result<String> {
     );
     build_output(flake, &target, &result.path())?;
 
-    diff_systems(Path::new("/run/current-system"), &result.path())
+    let diff = diff_systems(Path::new("/run/current-system"), &result.path())?;
+    println!("{diff}");
+    Ok(diff)
 }
 
 pub struct GenerationMeta {
