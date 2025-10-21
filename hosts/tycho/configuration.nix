@@ -58,6 +58,7 @@
         cache.enable = true;
       };
 
+      actual.enable = true;
       adguard.enable = true;
       docs.enable = true;
       forgejo.enable = true;

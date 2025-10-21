@@ -12,6 +12,7 @@
   '';
 in {
   imports = [
+    ./actual.nix
     ./adguard.nix
     ./copyparty.nix
     ./docs.nix
