@@ -33,7 +33,7 @@
 
         actual.dataDir = "${cfg.data.baseDirectory}/actual";
       };
-      custom.servicedir.${cfga.dataDir} = {
+      custom.mkdir.${cfga.dataDir} = {
         user = "actual";
         group = "actual";
       };
