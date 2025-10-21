@@ -14,10 +14,10 @@
     ./ledstate.nix
     ./llm.nix
     ./locale.nix
+    ./mkdir.nix
     ./networking.nix
     ./printing.nix
     ./remotebuild.nix
-    ./servicedir.nix
     ./server
     ./ssh
     ./theme.nix

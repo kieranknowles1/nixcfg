@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: {
-  options.custom.servicedir = let
+  options.custom.mkdir = let
     inherit (lib) mkOption mkEnableOption types;
 
-    serviceDirType = types.submodule {
+    mkdirType = types.submodule {
       options = {
         user = mkOption {
           type = types.str;
@@ -27,13 +27,13 @@
       };
     };
   in mkOption {
-    type = types.attrsOf serviceDirType;
+    type = types.attrsOf mkdirType;
     default = {};
     description = "Directories created automatically if they do not exist";
   };
 
   config = let
-    cfg = config.custom.servicedir;
+    cfg = config.custom.mkdir;
   in {
     systemd.tmpfiles.rules = lib.flatten (lib.mapAttrsToList (dir: opts: [
       # Create directory if it does not exist, owned by user and group, with permissions
