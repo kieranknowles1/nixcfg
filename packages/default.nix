@@ -15,6 +15,7 @@
   in {
     packages = {
       activate-mutable = callPackage ./activate-mutable {};
+      all-configurations = callPackage ./all-configurations.nix {};
       combine-blueprints = callPackage ./combine-blueprints {};
       command-palette = callPackage ./command-palette {};
       checkleak = callPackage ./checkleak {};

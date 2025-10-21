@@ -6,7 +6,7 @@ use std::str;
 
 use gethostname::gethostname;
 
-use crate::process::check_ok;
+use crate::process::{TempLink, check_ok};
 
 pub fn update_flake_inputs() -> std::io::Result<()> {
     let status = Command::new("nix").arg("flake").arg("update").status()?;
@@ -14,35 +14,35 @@ pub fn update_flake_inputs() -> std::io::Result<()> {
     check_ok(status, "nix flake update")
 }
 
-/// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
-pub fn fancy_build(repo_path: &Path) -> std::io::Result<String> {
-    let build_status = Command::new("nh")
-        .arg("os")
+pub fn build_output(flake: &Path, target: &str, out_link: &Path) -> std::io::Result<()> {
+    // Run in `nom`, a wrapper that gives a fancy progress indicator
+    let status = Command::new("nom")
+        .current_dir(flake)
         .arg("build")
-        .arg(repo_path)
+        .arg(target)
+        .arg("--out-link")
+        .arg(out_link)
         .status()?;
 
-    // We put build and diff in the same function as the diff only works after a build but
-    // before a switch. This guarantees that we don't call it at the wrong time.
-    check_ok(build_status, "nh os build")?;
+    check_ok(status, "nom build")
+}
 
-    // nixos-rebuild doesn't have anything to do since we've already built the system
-    // it will link the new generation to ./result for us to diff
-    let dump_link_output = Command::new("nixos-rebuild")
-        .arg("build")
-        .arg("--flake")
-        .arg(repo_path)
-        .output()?; // We use output to suppress stdout
-    check_ok(dump_link_output.status, "nixos-rebuild build")?;
+pub fn diff_systems(old: &Path, new: &Path) -> std::io::Result<String> {
+    let diff = Command::new("nvd").arg("diff").arg(old).arg(new).output()?;
+    check_ok(diff.status, "nvd diff")?;
+    Ok(String::from_utf8(diff.stdout).unwrap())
+}
 
-    let diff_output = Command::new("nvd")
-        .arg("diff")
-        .arg("/run/current-system")
-        .arg("./result")
-        .output()?;
+/// Build the system with a fancy progress bar. Returns a diff between the current system and the build.
+pub fn fancy_build(flake: &Path) -> std::io::Result<String> {
+    let result = TempLink::new()?;
+    let target = format!(
+        ".#nixosConfigurations.{}.config.system.build.toplevel",
+        gethostname().to_string_lossy()
+    );
+    build_output(flake, &target, &result.path())?;
 
-    check_ok(diff_output.status, "nvd diff")?;
-    Ok(String::from_utf8(diff_output.stdout).unwrap())
+    diff_systems(Path::new("/run/current-system"), &result.path())
 }
 
 pub struct GenerationMeta {
@@ -63,9 +63,8 @@ impl GenerationMeta {
     }
 }
 
-/// Apply the configuration. Returns the metadata of the new generation.
-/// No BuildToken here as nixos-rebuild produces the same output, just without the fancy bits.
-pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> {
+pub fn switch_configuration(repo_path: &Path) -> std::io::Result<()> {
+    // TODO: Can we switch to ./result directly
     let status = Command::new("sudo")
         .arg("nixos-rebuild")
         .arg("switch")
@@ -73,7 +72,13 @@ pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> 
         .arg(repo_path)
         .status()?;
 
-    check_ok(status, "nixos-rebuild switch")?;
+    check_ok(status, "nixos-rebuild switch")
+}
+
+/// Apply the configuration. Returns the metadata of the new generation.
+/// No BuildToken here as nixos-rebuild produces the same output, just without the fancy bits.
+pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> {
+    switch_configuration(repo_path)?;
 
     let output = Command::new("nixos-rebuild")
         .arg("list-generations")

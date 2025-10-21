@@ -43,3 +43,15 @@ systemctl show home-manager-kieran.service | grep ExecStart
 # Manually run the activation script
 /nix/store/hash-of-home-generations-home-manager-generation/activate
 ```
+
+## INC03 Backup Before You Troubleshoot
+
+If something goes wrong, make sure to backup before performing any potentially
+destructive actions. Forgejo was migrated to Postgres instead of SQLite, and
+soon after the system was switched to a different branch for another feature,
+that didn't have the Postgres commit.
+
+To resolve the issue, I attempted to delete the Postgres database and recreate
+it from the backup, not realising that Forgejo was trying to access the now
+deleted SQLite database. Fortunately, this occurred only 2 hours after an
+automatic backup meaning data loss was minimal.

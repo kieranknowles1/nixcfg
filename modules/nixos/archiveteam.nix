@@ -16,6 +16,7 @@
     lib.mkIf cfg.enable {
       assertions = [
         {
+          # TODO: Run under x86 emulation
           assertion = pkgs.stdenv.hostPlatform.isx86_64;
           message = ''
             ArchiveTeam Warrior requires a x86_64 architecture.

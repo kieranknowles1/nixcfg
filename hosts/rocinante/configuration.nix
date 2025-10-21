@@ -42,7 +42,6 @@
 
     compat = {
       appimage.enable = true;
-      arm.enable = true;
     };
 
     backup.repositories.documents = {

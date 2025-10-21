@@ -3,9 +3,12 @@
 use clap::{Parser, Subcommand};
 use core::str;
 use std::{
-    fs,
+    fs::{self, File},
+    io::Write,
     path::{Path, PathBuf},
 };
+
+use crate::process::TempLink;
 
 mod git;
 mod nix;
@@ -28,8 +31,6 @@ enum Action {
     Build(BuildOpt),
     /// Update flake inputs and commit the changes.
     Update(UpdateOpt),
-    /// Pull the latest changes and switch to them.
-    Pull(PullOpt),
 }
 
 #[derive(Parser)]
@@ -45,30 +46,69 @@ struct UpdateOpt {
     message: String,
 }
 
-#[derive(Parser)]
-struct PullOpt {}
-
 impl BuildOpt {
-    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
+    fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
         git::stage_all()?;
         let msg = build_and_switch(&flake, &self.message.join("\n\n"))?;
-        git::commit(&msg)
+        git::commit(&msg)?;
+        Ok(())
     }
+}
+
+fn datestamp() -> String {
+    chrono::Local::now().format("%d-%m-%y").to_string()
+}
+
+fn update_changelog_filepath(flake: &Path) -> PathBuf {
+    let date = datestamp();
+    flake.join(format!("docs/changelog/update-{}.md", date))
 }
 
 impl UpdateOpt {
-    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
-        nix::update_flake_inputs()?;
-        git::stage_all()?;
-        let msg = build_and_switch(&flake, &self.message)?;
-        git::commit(&msg)
-    }
-}
+    fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
+        // Step 1: Build all hosts in their current state for later comparison
+        let initial = TempLink::new()?;
+        nix::build_output(flake, ".#all-configurations", &initial.path())?;
 
-impl PullOpt {
-    fn run(&self, flake: &Path) -> Result<(), std::io::Error> {
-        git::pull(&flake)?;
-        build_and_switch(&flake, "Pull latest changes")?;
+        // Step 2: Update flake.lock with the latest inputs
+        nix::update_flake_inputs()?;
+
+        // Step 3: Build new hosts
+        let updated = TempLink::new()?;
+        nix::build_output(flake, ".#all-configurations", &updated.path())?;
+
+        // Step 4: Diff the old and new hosts into ./docs/changelog
+        // initial and updated point to a directory symlink containing each
+        // NixOS configuration. Run `nvd diff` on each of them
+        let mut changelog = File::create(update_changelog_filepath(flake))?;
+        writeln!(changelog, "# Update on {}", datestamp())?;
+
+        for entry in fs::read_dir(initial.path())? {
+            let entry = entry?;
+            let sysname = entry.file_name();
+            let a = entry.path();
+            let b = updated.path().join(entry.file_name());
+
+            let diff = nix::diff_systems(&a, &b)?;
+            println!("{diff}");
+
+            writeln!(
+                changelog,
+                "\n## {}\n```\n{}\n```\n",
+                sysname.to_string_lossy(),
+                diff
+            )?;
+        }
+
+        // Step 5: Activate new configuration
+        // Don't push to other systems yet as there's a chance something's broken
+        // This must be done manually
+        nix::switch_configuration(flake)?;
+
+        // Step 6: Commit all changes
+        git::stage_all()?;
+        git::commit("flake: update inputs")?;
+
         Ok(())
     }
 }
@@ -112,7 +152,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let status = match opt.action {
         Action::Build(value) => value.run(&opt.flake),
         Action::Update(value) => value.run(&opt.flake),
-        Action::Pull(value) => value.run(&opt.flake),
     };
 
     match status {
@@ -122,7 +161,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Err(e) => {
             eprintln!("Error running a Git or Nix command: {}", e);
-            Err(Box::new(e))
+            Err(e)
         }
     }
 }
