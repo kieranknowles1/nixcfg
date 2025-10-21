@@ -17,6 +17,7 @@
     ./networking.nix
     ./printing.nix
     ./remotebuild.nix
+    ./servicedir.nix
     ./server
     ./ssh
     ./theme.nix
