@@ -6,7 +6,6 @@ How to use systems configured with this repository.
   - [Backups](#backups)
   - [Dev Shells](#dev-shells)
   - [Using in Another Flake](#using-in-another-flake)
-  - [Firefox](#firefox)
   - [Wine](#wine)
   - [Mutable Files](#mutable-files)
 
@@ -37,11 +36,6 @@ flake, components can then be used as needed. A template for this is provided
 and can be used with `nix flake init --template github:kieranknowles1/nixcfg`.
 Be warned that breaking changes can and will be introduced here without warning,
 so updating inputs may require changes to the consuming flake.
-
-## Firefox
-
-Firefox along with a set of extensions aimed at usability is provisioned through
-`home-manager` in [modules/home/firefox.nix](../../modules/home/firefox.nix).
 
 ## Wine
 
