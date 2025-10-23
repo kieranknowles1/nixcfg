@@ -29,6 +29,7 @@
       custom.server = {
         subdomains.${cfga.subdomain} = {
           proxyPort = cfg.ports.tcp.actual;
+          webSockets = true;
         };
 
         actual.dataDir = "${cfg.data.baseDirectory}/actual";
