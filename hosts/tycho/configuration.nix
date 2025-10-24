@@ -60,6 +60,7 @@
 
       actual.enable = true;
       adguard.enable = true;
+      authelia.enable = true;
       docs.enable = true;
       forgejo.enable = true;
       homepage.enable = true;

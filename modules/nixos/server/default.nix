@@ -24,6 +24,7 @@ in {
     ./ports.nix
     ./postgresql.nix
     ./search.nix
+    ./authelia
     ./trilium.nix
   ];
 
