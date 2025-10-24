@@ -28,6 +28,7 @@
     lib.mkIf hostConfig.custom.desktop.enable {
       programs.firefox = {
         enable = true;
+        # FIXME: Use en-gb for autocorrect and locale
 
         policies = {
           AutofillCreditCardEnabled = false;
