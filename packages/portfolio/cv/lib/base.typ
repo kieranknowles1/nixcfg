@@ -87,31 +87,37 @@
     #cv-language(
       name: [C++],
       level: [Expert Knowledge],
+      experience: 3,
       comment: [Main language throughout masters degree.],
     )
     #cv-language(
       name: [Java],
       level: [Extensive Knowledge],
+      experience: 1,
       comment: [Used for coursework at university.],
     )
     #cv-language(
       name: [TypeScript],
       level: [Extensive Knowledge],
+      experience: 1,
       comment: [Language for dissertation.],
     )
     #cv-language(
       name: [Rust],
       level: [Basic Knowledge],
+      experience: 1,
       comment: [Some small projects, nowhere near an expert.],
     )
     #cv-language(
       name: [Python],
       level: [Extensive Knowledge],
+      experience: 2,
       comment: [Used in scripts.],
     )
     #cv-language(
       name: [Linux],
       level: [Expert Knowledge],
+      experience: 2,
       comment: [Used on both servers and desktops.],
     )
   ]

@@ -24,6 +24,7 @@
 //
 // Current changes:
 // - 1em spacing above headings
+// - add "years experience" to cv-language
 
 #import "@preview/fontawesome:0.5.0": *
 
@@ -298,10 +299,11 @@
   )
 }
 
-#let cv-language(name: [], level: [], comment: []) = {
+#let cv-language(name: [], level: [], experience: [], comment: []) = {
+  let years = if experience != 1 [years] else [year]
   _cv-line(
     align(right, name),
-    stack(dir: ltr, level, align(right, emph(comment))),
+    stack(dir: ltr, [#level (#experience #years)], align(right, emph(comment))),
   )
 }
 
