@@ -38,6 +38,8 @@ most of them. Following is a list that I would like for a first iteration:
 - [x] Git
   - [ ] Back up my GitHub repos
 - [x] Documentation
+- [ ] Single Sign On
+  - [ ] Certificates for *.local. Necessary for Authelia to communicate with other services without a round-trip through Cloudflare.
 
 ## Known Issues
 

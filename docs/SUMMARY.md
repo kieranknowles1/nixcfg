@@ -7,6 +7,7 @@
 - [Development](./development/readme.md)
   - [Style Guide](./development/style-guide.md)
   - [Magic Behaviour](./development/magic.md)
+  - [Common Hurdles](./development/hurdles.md)
 - [Usage](./usage/readme.md)
   - [Troubleshooting](./usage/troubleshooting.md)
   - [VR Support](./usage/vr.md)

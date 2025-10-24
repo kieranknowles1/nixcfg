@@ -16,7 +16,7 @@
   config.custom.server.ports = {
     # Keep these sorted by port number. Include anything that could be allocated
     # on the server. Use a service's default port from nixpkgs if possible,
-    # but change if necessary.
+    # if there's a conflict bump until a free port is found.
     tcp = {
       ssh = 22;
       dns = 53;
@@ -26,6 +26,7 @@
       immich = 2283;
 
       adguard = 3000;
+      actual = 3001;
 
       postgresql = 5432;
 
