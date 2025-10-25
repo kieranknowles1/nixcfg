@@ -161,6 +161,12 @@
             # are
             # password = {???}
           };
+
+          # Ensure that system time is accurate enough to validate TOTP.
+          ntp = {
+            address = "udp://time.cloudflare.com:123";
+            version = 4;
+          };
         };
 
         session = {
@@ -180,13 +186,6 @@
         #   ## The secret to encrypt the session data. This is only used with Redis / Redis Sentinel.
         #   ## Secret can also be set using a secret: https://www.authelia.com/c/secrets
         #   secret: 'insecure_session_secret'
-
-        #   ## Cookies configures the list of allowed cookie domains for sessions to be created on.
-        #   ## Undefined values will default to the values below.
-        #   # cookies:
-        #   #   -
-        #       ## The name of the session cookie.
-        #       # name: 'authelia_session'
 
         #   ##
         #   ## Redis Provider
@@ -219,70 +218,6 @@
 
         #     ## The target number of idle connections to have open ready for work. Useful when opening connections is slow.
         #     # minimum_idle_connections: 0
-
-        #     ## The Redis TLS configuration. If defined will require a TLS connection to the Redis instance(s).
-        #     # tls:
-        #       ## The server subject name to check the servers certificate against during the validation process.
-        #       ## This option is not required if the certificate has a SAN which matches the host option.
-        #       # server_name: 'myredis.example.com'
-
-        #       ## Skip verifying the server certificate entirely. In preference to setting this we strongly recommend you add the
-        #       ## certificate or the certificate of the authority signing the certificate to the certificates directory which is
-        #       ## defined by the `certificates_directory` option at the top of the configuration.
-        #       ## It's important to note the public key should be added to the directory, not the private key.
-        #       ## This option is strongly discouraged but may be useful in some self-signed situations where validation is not
-        #       ## important to the administrator.
-        #       # skip_verify: false
-
-        #       ## Minimum TLS version for the connection.
-        #       # minimum_version: 'TLS1.2'
-
-        #       ## Maximum TLS version for the connection.
-        #       # maximum_version: 'TLS1.3'
-
-        #       ## The certificate chain used with the private_key if the server requests TLS Client Authentication
-        #       ## i.e. Mutual TLS.
-        #       # certificate_chain: |
-        #         # -----BEGIN CERTIFICATE-----
-        #         # ...
-        #         # -----END CERTIFICATE-----
-        #         # -----BEGIN CERTIFICATE-----
-        #         # ...
-        #         # -----END CERTIFICATE-----
-
-        #       ## The private key used with the certificate_chain if the server requests TLS Client Authentication
-        #       ## i.e. Mutual TLS.
-        #       # private_key: |
-        #         # -----BEGIN PRIVATE KEY-----
-        #         # ...
-        #         # -----END PRIVATE KEY-----
-
-        #     ## The Redis HA configuration options.
-        #     ## This provides specific options to Redis Sentinel, sentinel_name must be defined (Master Name).
-        #     # high_availability:
-        #       ## Sentinel Name / Master Name.
-        #       # sentinel_name: 'mysentinel'
-
-        #       ## Specific username for Redis Sentinel. The node username and password is configured above.
-        #       # sentinel_username: 'sentinel_specific_user'
-
-        #       ## Specific password for Redis Sentinel. The node username and password is configured above.
-        #       # sentinel_password: 'sentinel_specific_pass'
-
-        #       ## The additional nodes to pre-seed the redis provider with (for sentinel).
-        #       ## If the host in the above section is defined, it will be combined with this list to connect to sentinel.
-        #       ## For high availability to be used you must have either defined; the host above or at least one node below.
-        #       # nodes:
-        #         # - host: 'sentinel-node1'
-        #         #   port: 6379
-        #         # - host: 'sentinel-node2'
-        #         #   port: 6379
-
-        #       ## Choose the host with the lowest latency.
-        #       # route_by_latency: false
-
-        #       ## Choose the host randomly.
-        #       # route_randomly: false
 
         access_control = {
           default_policy = "deny";
@@ -625,10 +560,6 @@
 # ##
 # # server:
 
-#   ## Set the path on disk to Authelia assets.
-#   ## Useful to allow overriding of specific static assets.
-#   # asset_path: '/config/assets/'
-
 #   ## Disables writing the health check vars to /app/.healthcheck.env which makes healthcheck.sh return exit code 0.
 #   ## This is disabled by default if either /app/.healthcheck.env or /app/healthcheck.sh do not exist.
 #   # disable_healthcheck: false
@@ -699,48 +630,6 @@
 #       # legacy:
 #         # implementation: 'Legacy'
 #         # authn_strategies: []
-
-# ##
-# ## Telemetry Configuration
-# ##
-# # telemetry:
-
-#   ##
-#   ## Metrics Configuration
-#   ##
-#   # metrics:
-#     ## Enable Metrics.
-#     # enabled: false
-
-#     ## The address for the Metrics server to listen on in the address common syntax.
-#     ## Formats:
-#     ##  - [<scheme>://]<hostname>[:<port>][/<path>]
-#     ##  - [<scheme>://][hostname]:<port>[/<path>]
-#     ## Square brackets indicate optional portions of the format. Scheme must be 'tcp', 'tcp4', 'tcp6', 'unix', or 'fd'.
-#     ## The default scheme is 'unix' if the address is an absolute path otherwise it's 'tcp'. The default port is '9959'.
-#     ## If the path is not specified it defaults to `/metrics`.
-#     # address: 'tcp://:9959/metrics'
-
-#     ## Metrics Server Buffers configuration.
-#     # buffers:
-
-#       ## Read buffer.
-#       # read: 4096
-
-#       ## Write buffer.
-#       # write: 4096
-
-#     ## Metrics Server Timeouts configuration.
-#     # timeouts:
-
-#       ## Read timeout in the duration common syntax.
-#       # read: '6 seconds'
-
-#       ## Write timeout in the duration common syntax.
-#       # write: '6 seconds'
-
-#       ## Idle timeout in the duration common syntax.
-#       # idle: '30 seconds'
 
 # ##
 # ## TOTP Configuration
@@ -921,55 +810,6 @@
 #     # skip_second_factor: false
 
 # ##
-# ## NTP Configuration
-# ##
-# ## This is used to validate the servers time is accurate enough to validate TOTP.
-# # ntp:
-#   ## The address of the NTP server to connect to in the address common syntax.
-#   ## Format: [<scheme>://]<hostname>[:<port>].
-#   ## Square brackets indicate optional portions of the format. Scheme must be 'udp', 'udp4', or 'udp6'.
-#   ## The default scheme is 'udp'. The default port is '123'.
-#   # address: 'udp://time.cloudflare.com:123'
-
-#   ## NTP version.
-#   # version: 4
-
-#   ## Maximum allowed time offset between the host and the NTP server in the duration common syntax.
-#   # max_desync: '3 seconds'
-
-#   ## Disables the NTP check on startup entirely. This means Authelia will not contact a remote service at all if you
-#   ## set this to true, and can operate in a truly offline mode.
-#   # disable_startup_check: false
-
-#   ## The default of false will prevent startup only if we can contact the NTP server and the time is out of sync with
-#   ## the NTP server more than the configured max_desync. If you set this to true, an error will be logged but startup
-#   ## will continue regardless of results.
-#   # disable_failure: false
-
-# ##
-# ## Definitions
-# ##
-# ## The definitions are used in other areas as reference points to reduce duplication.
-# ##
-# # definitions:
-#   ## The user attribute definitions.
-#   # user_attributes:
-#     ## The name of the definition.
-#     # definition_name:
-#       ## The common expression language expression for this definition.
-#       # expression: ''
-
-#   ## The network definitions.
-#   # network:
-#     ## The name of the definition followed by the list of CIDR network addresses in this definition.
-#     # internal:
-#       # - '10.10.0.0/16'
-#       # - '172.16.0.0/12'
-#       # - '192.168.2.0/24'
-#     # VPN:
-#       # - '10.9.0.0/16'
-
-# ##
 # ## Password Policy Configuration.
 # ##
 # # password_policy:
@@ -1002,23 +842,6 @@
 
 #     ## Configures the minimum score allowed.
 #     # min_score: 3
-
-# ##
-# ## Privacy Policy Configuration
-# ##
-# ## Parameters used for displaying the privacy policy link and drawer.
-# # privacy_policy:
-
-#   ## Enables the display of the privacy policy using the policy_url.
-#   # enabled: false
-
-#   ## Enables the display of the privacy policy drawer which requires users accept the privacy policy
-#   ## on a per-browser basis.
-#   # require_user_acceptance: false
-
-#   ## The URL of the privacy policy document. Must be an absolute URL and must have the 'https://' scheme.
-#   ## If the privacy policy enabled option is true, this MUST be provided.
-#   # policy_url: ''
 
 # ##
 # ## Regulation Configuration
