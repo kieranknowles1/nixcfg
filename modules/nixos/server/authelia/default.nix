@@ -161,12 +161,12 @@
             # are
             # password = {???}
           };
+        };
 
-          # Ensure that system time is accurate enough to validate TOTP.
-          ntp = {
-            address = "udp://time.cloudflare.com:123";
-            version = 4;
-          };
+        # Ensure that system time is accurate enough to validate TOTP codes.
+        ntp = {
+          address = "udp://time.cloudflare.com:123";
+          version = 4;
         };
 
         session = {
@@ -521,6 +521,17 @@
         #       ## Automatically adds the origin portion of all redirect URI's on all clients to the list of allowed_origins,
         #       ## provided they have the scheme http or https and do not have the hostname of localhost.
         #       # allowed_origins_from_client_redirect_uris: false
+
+        # Display my domain name in apps
+        totp.issuer = cfg.hostname;
+
+        # Require a secure password based on the zxcvbn library
+        # rather than simple rules
+        password_policy.zxcvbn = {
+          enabled = true;
+          # "safely unguessable"
+          min_score = 3;
+        };
       };
 
       secrets = {
@@ -632,56 +643,6 @@
 #         # authn_strategies: []
 
 # ##
-# ## TOTP Configuration
-# ##
-# ## Parameters used for TOTP generation.
-# # totp:
-#   ## Disable TOTP.
-#   # disable: false
-
-#   ## The issuer name displayed in the Authenticator application of your choice.
-#   # issuer: 'authelia.com'
-
-#   ## The TOTP algorithm to use.
-#   ## It is CRITICAL you read the documentation before changing this option:
-#   ## https://www.authelia.com/c/totp#algorithm
-#   # algorithm: 'SHA1'
-
-#   ## The number of digits a user has to input. Must either be 6 or 8.
-#   ## Changing this option only affects newly generated TOTP configurations.
-#   ## It is CRITICAL you read the documentation before changing this option:
-#   ## https://www.authelia.com/c/totp#digits
-#   # digits: 6
-
-#   ## The period in seconds a Time-based One-Time Password is valid for.
-#   ## Changing this option only affects newly generated TOTP configurations.
-#   # period: 30
-
-#   ## The skew controls number of Time-based One-Time Passwords either side of the current one that are valid.
-#   ## Warning: before changing skew read the docs link below.
-#   # skew: 1
-#   ## See: https://www.authelia.com/c/totp#input-validation to read
-#   ## the documentation.
-
-#   ## The size of the generated shared secrets. Default is 32 and is sufficient in most use cases, minimum is 20.
-#   # secret_size: 32
-
-#   ## The allowed algorithms for a user to pick from.
-#   # allowed_algorithms:
-#   # - 'SHA1'
-
-#   ## The allowed digits for a user to pick from.
-#   # allowed_digits:
-#   # - 6
-
-#   ## The allowed periods for a user to pick from.
-#   # allowed_periods:
-#   # - 30
-
-#   ## Disable the reuse security policy which prevents replays of one-time password code values.
-#   # disable_reuse_security_policy: false
-
-# ##
 # ## WebAuthn Configuration
 # ##
 # ## Parameters used for WebAuthn.
@@ -763,19 +724,6 @@
 #     # validate_status_prohibited: ~
 
 # ##
-# ## Duo Push API Configuration
-# ##
-# ## Parameters used to contact the Duo API. Those are generated when you protect an application of type
-# ## "Partner Auth API" in the management panel.
-# # duo_api:
-#   # disable: false
-#   # hostname: 'api-123456789.example.com'
-#   # integration_key: 'ABCDEF'
-#   ## Secret can also be set using a secret: https://www.authelia.com/c/secrets
-#   # secret_key: '1234567890abcdefghifjkl'
-#   # enable_self_enrollment: false
-
-# ##
 # ## Identity Validation Configuration
 # ##
 # ## This configuration tunes the identity validation flows.
@@ -809,39 +757,7 @@
 #     ## authentication.
 #     # skip_second_factor: false
 
-# ##
-# ## Password Policy Configuration.
-# ##
-# # password_policy:
 
-#   ## The standard policy allows you to tune individual settings manually.
-#   # standard:
-#     # enabled: false
-
-#     ## Require a minimum length for passwords.
-#     # min_length: 8
-
-#     ## Require a maximum length for passwords.
-#     # max_length: 0
-
-#     ## Require uppercase characters.
-#     # require_uppercase: true
-
-#     ## Require lowercase characters.
-#     # require_lowercase: true
-
-#     ## Require numeric characters.
-#     # require_number: true
-
-#     ## Require special characters.
-#     # require_special: true
-
-#   ## zxcvbn is a well known and used password strength algorithm. It does not have tunable settings.
-#   # zxcvbn:
-#     # enabled: false
-
-#     ## Configures the minimum score allowed.
-#     # min_score: 3
 
 # ##
 # ## Regulation Configuration
