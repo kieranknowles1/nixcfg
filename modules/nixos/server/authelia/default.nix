@@ -7,6 +7,32 @@
   options.custom.server.authelia = let
     inherit (lib) mkOption mkEnableOption types;
 
+    clientType = types.submodule {
+      options = {
+        name = mkOption {
+          type = types.str;
+          description = "The client's human-readable name.";
+        };
+        secretHash = mkOption {
+          type = types.str;
+          description = ''
+            Hash of the client's secret. The associated secret should be stored
+            separately in SOPS and visible to the client only.
+
+            Generate a secret using the following command:
+            ```sh
+            authelia crypto rand --length 72 --charset rfc3986
+            ```
+          '';
+        };
+        redirects = mkOption {
+          type = types.listOf types.str;
+          example = ["https://example.com/oidc/callback"];
+          description = "List of redirect URIs for the client. MUST be HTTPS.";
+        };
+      };
+    };
+
     mkSecret = format: default: name: mkOption {
       inherit default;
       type = types.str;
@@ -28,6 +54,11 @@
       type = types.path;
       defaultText = "$${config.custom.server.data.baseDirectory}/authelia";
       description = "The directory where Authelia will store its data";
+    };
+
+    oidcClients = mkOption {
+      type = types.attrsOf clientType;
+      description = "List of OIDC clients for Authelia. Each service should be a client";
     };
 
     jwtSecret = mkAlphaSecret "authelia/jwt-secret" "JWT";
@@ -524,7 +555,11 @@
         #         # -----END PRIVATE KEY-----
 
         identity_providers.oidc = {
-
+          clients = lib.mapAttrsToList (name: client: {
+            client_id = name;
+            client_secret = client.secretHash;
+            redirect_uris = client.redirects;
+          }) cfga.oidcClients;
         };
 
         # TODO: Finish configuring

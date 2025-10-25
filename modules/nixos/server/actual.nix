@@ -6,7 +6,7 @@
   options.custom.server.actual = let
     inherit (lib) mkOption mkEnableOption types;
   in {
-    enable = mkEnableOption "Actual Finance";
+    enable = mkEnableOption "Actual Budget";
 
     subdomain = mkOption {
       type = types.str;
@@ -33,6 +33,14 @@
         };
 
         actual.dataDir = "${cfg.data.baseDirectory}/actual";
+
+        authelia.oidcClients.actual = {
+          name = "Actual Budget";
+          secretHash = "$pbkdf2-sha512$310000$fjLYx4VmbvjboaVpA8lJDg$qPLpfbyxqbL2XVkJtO1.XLuxPxY9GhoN9t54aX5zbzW52oHjYMAL4f071/DbW.boQ.DPvii6zjBA9wn6F8gcGA";
+          redirects = [
+            "https://${cfga.subdomain}.${cfg.hostname}/openid/callback"
+          ];
+        };
       };
       custom.mkdir.${cfga.dataDir} = {
         user = "actual";
