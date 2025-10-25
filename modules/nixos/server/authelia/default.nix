@@ -6,6 +6,15 @@
 }: {
   options.custom.server.authelia = let
     inherit (lib) mkOption mkEnableOption types;
+
+    mkSecret = format: default: name: mkOption {
+      inherit default;
+      type = types.str;
+      description = ''
+        SOPS path to Authelia's ${name} secret. Should be ${format}.
+      '';
+    };
+    mkAlphaSecret = mkSecret "at least 64 random characters";
   in {
     enable = mkEnableOption "Authelia";
 
@@ -21,21 +30,10 @@
       description = "The directory where Authelia will store its data";
     };
 
-    jwtSecret = mkOption {
-      type = types.str;
-      default = "authelia/jwt-secret";
-      description = ''
-        SOPS path to Authelia's JWT secret. Should be at least 64 random characters.
-      '';
-    };
-
-    storageKeySecret = mkOption {
-      type = types.str;
-      default = "authelia/storage-key";
-      description = ''
-        SOPS path to Authelia's storage key secret. Should be at least 64 random characters.
-      '';
-    };
+    jwtSecret = mkAlphaSecret "authelia/jwt-secret" "JWT";
+    storageKeySecret = mkAlphaSecret "authelia/storage-key" "Storage Key";
+    hmacSecret = mkAlphaSecret "authelia/hmac-secret" "HMAC";
+    jwkRsaSecret = mkSecret "a RSA private key. The public key is not required" "authelia/jwk-rsa-secret" "RSA private key";
   };
 
   config = let
@@ -66,15 +64,16 @@
       };
     };
 
-    sops.secrets = {
-      "authelia/jwt-secret" = {
-        key = cfga.jwtSecret;
+    sops.secrets = let
+      secret = key: {
+        inherit key;
         owner = "authelia-default";
       };
-      "authelia/storage-key" = {
-        key = cfga.storageKeySecret;
-        owner = "authelia-default";
-      };
+    in {
+      "authelia/jwt-secret" = secret cfga.jwtSecret;
+      "authelia/storage-key" = secret cfga.storageKeySecret;
+      "authelia/oidc-hmac-secret" = secret cfga.hmacSecret;
+      "authelia/jwk-rsa-secret" = secret cfga.jwkRsaSecret;
     };
 
     services.postgresql = {
@@ -174,7 +173,6 @@
         #   ## Important: Kubernetes (or HA) users must read https://www.authelia.com/t/statelessness
         #   ##
         #   # file:
-        #     # path: '/config/users_database.yml'
         #     # watch: false
         #     # search:
         #       # email: false
@@ -188,24 +186,6 @@
         #         # parallelism: 4
         #         # key_length: 32
         #         # salt_length: 16
-        #       # scrypt:
-        #         # variant: 'scrypt'
-        #         # iterations: 16
-        #         # block_size: 8
-        #         # parallelism: 1
-        #         # key_length: 32
-        #         # salt_length: 16
-        #       # pbkdf2:
-        #         # variant: 'sha512'
-        #         # iterations: 310000
-        #         # salt_length: 16
-        #       # sha2crypt:
-        #         # variant: 'sha512'
-        #         # iterations: 50000
-        #         # salt_length: 16
-        #       # bcrypt:
-        #         # variant: 'standard'
-        #         # cost: 12
 
         session = {
           cookies = lib.singleton {
@@ -543,73 +523,361 @@
         #         # ...
         #         # -----END PRIVATE KEY-----
 
+        identity_providers.oidc = {
 
+        };
+
+        # TODO: Finish configuring
+        # ##
+        # ## Identity Providers
+        # ##
+        # # identity_providers:
+
+        #   ##
+        #   ## OpenID Connect (Identity Provider)
+        #   ##
+        #   ## It's recommended you read the documentation before configuration of this section.
+        #   ## See: https://www.authelia.com/c/oidc/provider
+        #   # oidc:
+        #     ## The hmac_secret is used to sign OAuth2 tokens (authorization code, access tokens and refresh tokens).
+        #     ## HMAC Secret can also be set using a secret: https://www.authelia.com/c/secrets
+        #     # hmac_secret: 'this_is_a_secret_abc123abc123abc'
+
+        #     ## Enables additional debug messages.
+        #     # enable_client_debug_messages: false
+
+        #     ## SECURITY NOTICE: It's not recommended changing this option and values below 8 are strongly discouraged.
+        #     # minimum_parameter_entropy: 8
+
+        #     ## SECURITY NOTICE: It's not recommended changing this option, and highly discouraged to have it set to 'never'
+        #     ## for security reasons.
+        #     # enforce_pkce: 'public_clients_only'
+
+        #     ## SECURITY NOTICE: It's not recommended changing this option. We encourage you to read the documentation and fully
+        #     ## understanding it before enabling this option.
+        #     # enable_jwt_access_token_stateless_introspection: false
+
+        #     ## The signing algorithm used for signing the discovery and metadata responses. An issuer JWK with a matching
+        #     ## algorithm must be available when configured. Most clients completely ignore this and it has a performance cost.
+        #     # discovery_signed_response_alg: 'none'
+
+        #     ## The signing key id used for signing the discovery and metadata responses. An issuer JWK with a matching key id
+        #     ## must be available when configured. Most clients completely ignore this and it has a performance cost.
+        #     # discovery_signed_response_key_id: ''
+
+        #     ## Authorization Policies which can be utilized by clients. The 'policy_name' is an arbitrary value that you pick
+        #     ## which is utilized as the value for the 'authorization_policy' on the client.
+        #     # authorization_policies:
+        #       # policy_name:
+        #         # default_policy: 'two_factor'
+        #         # rules:
+        #           # - policy: 'one_factor'
+        #           #   subject: 'group:services'
+        #           #   networks:
+        #               #  - '192.168.1.0/24'
+
+        #     ## The lifespans configure the expiration for these token types in the duration common syntax. In addition to this
+        #     ## syntax the lifespans can be customized per-client.
+        #     # lifespans:
+        #       ## Configures the default/fallback lifespan for given token types. This behaviour applies to all clients and all
+        #       ## grant types but you can override this behaviour using the custom lifespans.
+        #       # access_token: '1 hour'
+        #       # authorize_code: '1 minute'
+        #       # id_token: '1 hour'
+        #       # refresh_token: '90 minutes'
+
+        #     ## Cross-Origin Resource Sharing (CORS) settings.
+        #     # cors:
+        #       ## List of endpoints in addition to the metadata endpoints to permit cross-origin requests on.
+        #       # endpoints:
+        #         #  - 'authorization'
+        #         #  - 'pushed-authorization-request'
+        #         #  - 'token'
+        #         #  - 'revocation'
+        #         #  - 'introspection'
+        #         #  - 'userinfo'
+
+        #       ## List of allowed origins.
+        #       ## Any origin with https is permitted unless this option is configured or the
+        #       ## allowed_origins_from_client_redirect_uris option is enabled.
+        #       # allowed_origins:
+        #         # - 'https://example.com'
+
+        #       ## Automatically adds the origin portion of all redirect URI's on all clients to the list of allowed_origins,
+        #       ## provided they have the scheme http or https and do not have the hostname of localhost.
+        #       # allowed_origins_from_client_redirect_uris: false
+
+        #     ## Clients is a list of registered clients and their configuration.
+        #     ## It's recommended you read the documentation before configuration of a registered client.
+        #     ## See: https://www.authelia.com/c/oidc/registered-clients
+        #     # clients:
+        #       # -
+        #         ## The Client ID is the OAuth 2.0 and OpenID Connect 1.0 Client ID which is used to link an application to a
+        #         ## configuration.
+        #         # client_id: 'myapp'
+
+        #         ## The description to show to users when they end up on the consent screen. Defaults to the ID above.
+        #         # client_name: 'My Application'
+
+        #         ## The client secret is a shared secret between Authelia and the consumer of this client.
+        #         # yamllint disable-line rule:line-length
+        #         # client_secret: '$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng'  # The digest of 'insecure_secret'.
+
+        #         ## Sector Identifiers are occasionally used to generate pairwise subject identifiers. In most cases this is not
+        #         ## necessary. It is critical to read the documentation for more information.
+        #         # sector_identifier_uri: 'https://example.com/sector.json'
+
+        #         ## Sets the client to public. This should typically not be set, please see the documentation for usage.
+        #         # public: false
+
+        #         ## Redirect URI's specifies a list of valid case-sensitive callbacks for this client.
+        #         # redirect_uris:
+        #           # - 'https://oidc.example.com:8080/oauth2/callback'
+
+        #         ## Request URI's specifies a list of valid case-sensitive TLS-secured URIs for this client for use as
+        #         ## URIs to fetch Request Objects.
+        #         # request_uris:
+        #           # - 'https://oidc.example.com:8080/oidc/request-object.jwk'
+
+        #         ## Audience this client is allowed to request.
+        #         # audience: []
+
+        #         ## Scopes this client is allowed to request.
+        #         # scopes:
+        #           # - 'openid'
+        #           # - 'groups'
+        #           # - 'email'
+        #           # - 'profile'
+
+        #         ## Grant Types configures which grants this client can obtain.
+        #         ## It's not recommended to define this unless you know what you're doing.
+        #         # grant_types:
+        #           # - 'authorization_code'
+
+        #         ## Response Types configures which responses this client can be sent.
+        #         ## It's not recommended to define this unless you know what you're doing.
+        #         # response_types:
+        #           # - 'code'
+
+        #         ## Response Modes configures which response modes this client supports.
+        #         # response_modes:
+        #           # - 'form_post'
+        #           # - 'query'
+
+        #         ## The policy to require for this client; one_factor or two_factor. Can also be the key names for the
+        #         ## authorization policies section.
+        #         # authorization_policy: 'two_factor'
+
+        #         ## The custom lifespan name to use for this client. This must be configured independent of the client before
+        #         ## utilization. Custom lifespans are reusable similar to authorization policies.
+        #         # lifespan: ''
+
+        #         ## The consent mode controls how consent is obtained.
+        #         # consent_mode: 'auto'
+
+        #         ## This value controls the duration a consent on this client remains remembered when the consent mode is
+        #         ## configured as 'auto' or 'pre-configured' in the duration common syntax.
+        #         # pre_configured_consent_duration: '1 week'
+
+        #         ## Requires the use of Pushed Authorization Requests for this client when set to true.
+        #         # require_pushed_authorization_requests: false
+
+        #         ## Enforces the use of PKCE for this client when set to true.
+        #         # require_pkce: false
+
+        #         ## Enforces the use of PKCE for this client when configured, and enforces the specified challenge method.
+        #         ## Options are 'plain' and 'S256'.
+        #         # pkce_challenge_method: 'S256'
+
+        #         ## The signing algorithm used for signing the authorization responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_signed_response_alg
+        #         # authorization_signed_response_alg: 'RS256'
+
+        #         ## The signing key id used for signing the authorization responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_signed_response_key_id
+        #         # authorization_signed_response_key_id: ''
+
+        #         ## The content encryption algorithm used for encrypting the authorization responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_encrypted_response_alg
+        #         # authorization_encrypted_response_alg: 'none'
+
+        #         ## The encryption algorithm used for encrypting the authorization responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_encrypted_response_enc
+        #         # authorization_encrypted_response_enc: 'A128CBC-HS256'
+
+        #         ## The content encryption key id used for encrypting the authorization responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_encrypted_response_key_id
+        #         # authorization_encrypted_response_key_id: ''
+
+        #         ## The signing algorithm used for signing the ID Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#id_token_signed_response_alg
+        #         # id_token_signed_response_alg: 'RS256'
+
+        #         ## The signing key id used for signing the ID Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#id_token_signed_response_key_id
+        #         # id_token_signed_response_key_id: ''
+
+        #         ## The content encryption algorithm used for encrypting the ID Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#id_token_encrypted_response_alg
+        #         # id_token_encrypted_response_alg: 'none'
+
+        #         ## The encryption algorithm used for encrypting the ID Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#id_token_encrypted_response_enc
+        #         # id_token_encrypted_response_enc: 'A128CBC-HS256'
+
+        #         ## The content encryption key id used for encrypting the ID Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_encrypted_response_key_id
+        #         # id_token_encrypted_response_key_id: ''
+
+        #         ## The signing algorithm used for signing the Access Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_signed_response_alg
+        #         # access_token_signed_response_alg: 'none'
+
+        #         ## The signing key id used for signing the Access Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_signed_response_key_id
+        #         # access_token_signed_response_key_id: ''
+
+        #         ## The content encryption algorithm used for encrypting the Access Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_encrypted_response_alg
+        #         # access_token_encrypted_response_alg: 'none'
+
+        #         ## The encryption algorithm used for encrypting the Access Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_encrypted_response_enc
+        #         # access_token_encrypted_response_enc: 'A128CBC-HS256'
+
+        #         ## The content encryption key id used for encrypting the Access Tokens in Access Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_encrypted_response_key_id
+        #         # access_token_encrypted_response_key_id: ''
+
+        #         ## The signing algorithm used for signing the User Info Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_signed_response_alg
+        #         # userinfo_signed_response_alg: 'none'
+
+        #         ## The signing key id used for signing the User Info Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_signed_response_key_id
+        #         # userinfo_signed_response_key_id: ''
+
+        #         ## The content encryption algorithm used for encrypting the User Info Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_encrypted_response_alg
+        #         # userinfo_encrypted_response_alg: 'none'
+
+        #         ## The encryption algorithm used for encrypting the User Info Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_encrypted_response_enc
+        #         # userinfo_encrypted_response_enc: 'A128CBC-HS256'
+
+        #         ## The content encryption key id used for encrypting the User Info Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_encrypted_response_key_id
+        #         # userinfo_encrypted_response_key_id: ''
+
+        #         ## The signing algorithm used for signing the Introspection Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#introspection_signed_response_alg
+        #         # introspection_signed_response_alg: 'none'
+
+        #         ## The signing key id used for Introspection responses. An issuer JWK with a matching key id must be available
+        #         ## when configured.
+        #         # introspection_signed_response_key_id: ''
+
+        #         ## The content encryption algorithm used for encrypting the Introspection Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#introspection_encrypted_response_alg
+        #         # introspection_encrypted_response_alg: 'none'
+
+        #         ## The encryption algorithm used for encrypting the Introspection Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#introspection_encrypted_response_enc
+        #         # introspection_encrypted_response_enc: 'A128CBC-HS256'
+
+        #         ## The content encryption key id used for encrypting the Introspection Request responses.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#introspection_encrypted_response_key_id
+        #         # introspection_encrypted_response_key_id: ''
+
+        #         ## The signature algorithm which must be used for request objects.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#request_object_signing_alg
+        #         # request_object_signing_alg: 'RS256'
+
+        #         ## The content encryption algorithm which must be used for request objects.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#request_object_encryption_alg
+        #         # request_object_encryption_alg: ''
+
+        #         ## The encryption algorithm which must be used for request objects.
+        #         ## Please read the documentation before adjusting this option.
+        #         ## See: https://www.authelia.com/c/oidc/registered-clients#request_object_encryption_enc
+        #         # request_object_encryption_enc: ''
+
+        #         ## The permitted client authentication method for the Token Endpoint for this client.
+        #         ## For confidential client types this value defaults to 'client_secret_basic' and for the public client types it
+        #         ## defaults to 'none' per the specifications.
+        #         # token_endpoint_auth_method: 'client_secret_basic'
+
+        #         ## The permitted client authentication signing algorithm for the Token Endpoint for this client when using
+        #         ## the 'client_secret_jwt' or 'private_key_jwt' token_endpoint_auth_method.
+        #         # token_endpoint_auth_signing_alg: 'RS256'
+
+        #         ## The permitted client authentication method for the Revocation Endpoint for this client.
+        #         ## For confidential client types this value defaults to 'client_secret_basic' and for the public client types it
+        #         ## defaults to 'none' per the specifications.
+        #         # revocation_endpoint_auth_method: 'client_secret_basic'
+
+        #         ## The permitted client authentication signing algorithm for the Revocation Endpoint for this client when using
+        #         ## the 'client_secret_jwt' or 'private_key_jwt' revocation_endpoint_auth_method.
+        #         # revocation_endpoint_auth_signing_alg: 'RS256'
+
+        #         ## The permitted client authentication method for the Introspection Endpoint for this client.
+        #         ## For confidential client types this value defaults to 'client_secret_basic' and for the public client types it
+        #         ## defaults to 'none' per the specifications.
+        #         # introspection_endpoint_auth_method: 'client_secret_basic'
+
+        #         ## The permitted client authentication signing algorithm for the Introspection Endpoint for this client when
+        #         ## using the 'client_secret_jwt' or 'private_key_jwt' introspection_endpoint_auth_method.
+        #         # introspection_endpoint_auth_signing_alg: 'RS256'
+
+        #         ## The permitted client authentication method for the Pushed Authorization Request Endpoint for this client.
+        #         ## For confidential client types this value defaults to 'client_secret_basic' and for the public client types it
+        #         ## defaults to 'none' per the specifications.
+        #         # pushed_authorization_request_endpoint_auth_method: 'client_secret_basic'
+
+        #         ## The permitted client authentication signing algorithm for the Pushed Authorization Request Endpoint for this
+        #         ## client when using the 'client_secret_jwt' or 'private_key_jwt'
+        #         ## pushed_authorization_request_endpoint_auth_method.
+        #         # pushed_authorization_request_endpoint_auth_signing_alg: 'RS256'
+
+        #         ## Trusted public keys configuration for request object signing for things such as 'private_key_jwt'.
+        #         ## URL of the HTTPS endpoint which serves the keys. Please note the 'jwks_uri' and the 'jwks' option below
+        #         ## are mutually exclusive.
+        #         # jwks_uri: 'https://app.example.com/jwks.json'
       };
 
       secrets = {
         jwtSecretFile = config.sops.secrets."authelia/jwt-secret".path;
         storageEncryptionKeyFile = config.sops.secrets."authelia/storage-key".path;
+
+        oidcHmacSecretFile = config.sops.secrets."authelia/oidc-hmac-secret".path;
+        oidcIssuerPrivateKeyFile = config.sops.secrets."authelia/jwk-rsa-secret".path;
       };
-
-
-      #   ##
-      #   ## PostgreSQL (Storage Provider)
-      #   ##
-      #   # postgres:
-
-      #     ## The database name to use.
-      #     # database: 'authelia'
-
-      #     ## The schema name to use.
-      #     # schema: 'public'
-
-      #     ## The username used for SQL authentication.
-      #     # username: 'authelia'
-
-      #     ## The password used for SQL authentication.
-      #     ## Can also be set using a secret: https://www.authelia.com/c/secrets
-      #     # password: 'mypassword'
-
-      #     ## The connection timeout in the duration common syntax.
-      #     # timeout: '5 seconds'
-
-      #     ## PostgreSQL TLS settings. Configuring this requires TLS.
-      #     # tls:
-      #       ## The server subject name to check the servers certificate against during the validation process.
-      #       ## This option is not required if the certificate has a SAN which matches the address options hostname.
-      #       # server_name: 'postgres.example.com'
-
-      #       ## Skip verifying the server certificate entirely. In preference to setting this we strongly recommend you add the
-      #       ## certificate or the certificate of the authority signing the certificate to the certificates directory which is
-      #       ## defined by the `certificates_directory` option at the top of the configuration.
-      #       ## It's important to note the public key should be added to the directory, not the private key.
-      #       ## This option is strongly discouraged but may be useful in some self-signed situations where validation is not
-      #       ## important to the administrator.
-      #       # skip_verify: false
-
-      #       ## Minimum TLS version for the connection.
-      #       # minimum_version: 'TLS1.2'
-
-      #       ## Maximum TLS version for the connection.
-      #       # maximum_version: 'TLS1.3'
-
-      #       ## The certificate chain used with the private_key if the server requests TLS Client Authentication
-      #       ## i.e. Mutual TLS.
-      #       # certificate_chain: |
-      #         # -----BEGIN CERTIFICATE-----
-      #         # ...
-      #         # -----END CERTIFICATE-----
-      #         # -----BEGIN CERTIFICATE-----
-      #         # ...
-      #         # -----END CERTIFICATE-----
-
-      #       ## The private key used with the certificate_chain if the server requests TLS Client Authentication
-      #       ## i.e. Mutual TLS.
-      #       # private_key: |
-      #         # -----BEGIN PRIVATE KEY-----
-      #         # ...
-      #         # -----END PRIVATE KEY-----
-
     };
   };
 }
@@ -1054,407 +1322,5 @@
 
 #   ## The length of time before a banned user can login again in the duration common syntax.
 #   # ban_time: '5 minutes'
-
-# ##
-# ## Identity Providers
-# ##
-# # identity_providers:
-
-#   ##
-#   ## OpenID Connect (Identity Provider)
-#   ##
-#   ## It's recommended you read the documentation before configuration of this section.
-#   ## See: https://www.authelia.com/c/oidc/provider
-#   # oidc:
-#     ## The hmac_secret is used to sign OAuth2 tokens (authorization code, access tokens and refresh tokens).
-#     ## HMAC Secret can also be set using a secret: https://www.authelia.com/c/secrets
-#     # hmac_secret: 'this_is_a_secret_abc123abc123abc'
-
-#     ## The JWK's issuer option configures multiple JSON Web Keys. It's required that at least one of the JWK's
-#     ## configured has the RS256 algorithm. For RSA keys (RS or PS) the minimum is a 2048 bit key.
-#     # jwks:
-#     # -
-#       ## Key ID embedded into the JWT header for key matching. Must be an alphanumeric string with 7 or less characters.
-#       ## This value is automatically generated if not provided. It's recommended to not configure this.
-#       # key_id: 'example'
-
-#       ## The key algorithm used with this key.
-#       # algorithm: 'RS256'
-
-#       ## The key use expected with this key. Currently only 'sig' is supported.
-#       # use: 'sig'
-
-#       ## Required Private Key in PEM DER form.
-#       # key: |
-#         # -----BEGIN PRIVATE KEY-----
-#         # ...
-#         # -----END PRIVATE KEY-----
-
-
-#       ## Optional matching certificate chain in PEM DER form that matches the key. All certificates within the chain
-#       ## must be valid and current, and from top to bottom each certificate must be signed by the subsequent one.
-#       # certificate_chain: |
-#         # -----BEGIN CERTIFICATE-----
-#         # ...
-#         # -----END CERTIFICATE-----
-#         # -----BEGIN CERTIFICATE-----
-#         # ...
-#         # -----END CERTIFICATE-----
-
-#     ## Enables additional debug messages.
-#     # enable_client_debug_messages: false
-
-#     ## SECURITY NOTICE: It's not recommended changing this option and values below 8 are strongly discouraged.
-#     # minimum_parameter_entropy: 8
-
-#     ## SECURITY NOTICE: It's not recommended changing this option, and highly discouraged to have it set to 'never'
-#     ## for security reasons.
-#     # enforce_pkce: 'public_clients_only'
-
-#     ## SECURITY NOTICE: It's not recommended changing this option. We encourage you to read the documentation and fully
-#     ## understanding it before enabling this option.
-#     # enable_jwt_access_token_stateless_introspection: false
-
-#     ## The signing algorithm used for signing the discovery and metadata responses. An issuer JWK with a matching
-#     ## algorithm must be available when configured. Most clients completely ignore this and it has a performance cost.
-#     # discovery_signed_response_alg: 'none'
-
-#     ## The signing key id used for signing the discovery and metadata responses. An issuer JWK with a matching key id
-#     ## must be available when configured. Most clients completely ignore this and it has a performance cost.
-#     # discovery_signed_response_key_id: ''
-
-#     ## Authorization Policies which can be utilized by clients. The 'policy_name' is an arbitrary value that you pick
-#     ## which is utilized as the value for the 'authorization_policy' on the client.
-#     # authorization_policies:
-#       # policy_name:
-#         # default_policy: 'two_factor'
-#         # rules:
-#           # - policy: 'one_factor'
-#           #   subject: 'group:services'
-#           #   networks:
-#               #  - '192.168.1.0/24'
-
-#     ## The lifespans configure the expiration for these token types in the duration common syntax. In addition to this
-#     ## syntax the lifespans can be customized per-client.
-#     # lifespans:
-#       ## Configures the default/fallback lifespan for given token types. This behaviour applies to all clients and all
-#       ## grant types but you can override this behaviour using the custom lifespans.
-#       # access_token: '1 hour'
-#       # authorize_code: '1 minute'
-#       # id_token: '1 hour'
-#       # refresh_token: '90 minutes'
-
-#     ## Cross-Origin Resource Sharing (CORS) settings.
-#     # cors:
-#       ## List of endpoints in addition to the metadata endpoints to permit cross-origin requests on.
-#       # endpoints:
-#         #  - 'authorization'
-#         #  - 'pushed-authorization-request'
-#         #  - 'token'
-#         #  - 'revocation'
-#         #  - 'introspection'
-#         #  - 'userinfo'
-
-#       ## List of allowed origins.
-#       ## Any origin with https is permitted unless this option is configured or the
-#       ## allowed_origins_from_client_redirect_uris option is enabled.
-#       # allowed_origins:
-#         # - 'https://example.com'
-
-#       ## Automatically adds the origin portion of all redirect URI's on all clients to the list of allowed_origins,
-#       ## provided they have the scheme http or https and do not have the hostname of localhost.
-#       # allowed_origins_from_client_redirect_uris: false
-
-#     ## Clients is a list of registered clients and their configuration.
-#     ## It's recommended you read the documentation before configuration of a registered client.
-#     ## See: https://www.authelia.com/c/oidc/registered-clients
-#     # clients:
-#       # -
-#         ## The Client ID is the OAuth 2.0 and OpenID Connect 1.0 Client ID which is used to link an application to a
-#         ## configuration.
-#         # client_id: 'myapp'
-
-#         ## The description to show to users when they end up on the consent screen. Defaults to the ID above.
-#         # client_name: 'My Application'
-
-#         ## The client secret is a shared secret between Authelia and the consumer of this client.
-#         # yamllint disable-line rule:line-length
-#         # client_secret: '$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng'  # The digest of 'insecure_secret'.
-
-#         ## Sector Identifiers are occasionally used to generate pairwise subject identifiers. In most cases this is not
-#         ## necessary. It is critical to read the documentation for more information.
-#         # sector_identifier_uri: 'https://example.com/sector.json'
-
-#         ## Sets the client to public. This should typically not be set, please see the documentation for usage.
-#         # public: false
-
-#         ## Redirect URI's specifies a list of valid case-sensitive callbacks for this client.
-#         # redirect_uris:
-#           # - 'https://oidc.example.com:8080/oauth2/callback'
-
-#         ## Request URI's specifies a list of valid case-sensitive TLS-secured URIs for this client for use as
-#         ## URIs to fetch Request Objects.
-#         # request_uris:
-#           # - 'https://oidc.example.com:8080/oidc/request-object.jwk'
-
-#         ## Audience this client is allowed to request.
-#         # audience: []
-
-#         ## Scopes this client is allowed to request.
-#         # scopes:
-#           # - 'openid'
-#           # - 'groups'
-#           # - 'email'
-#           # - 'profile'
-
-#         ## Grant Types configures which grants this client can obtain.
-#         ## It's not recommended to define this unless you know what you're doing.
-#         # grant_types:
-#           # - 'authorization_code'
-
-#         ## Response Types configures which responses this client can be sent.
-#         ## It's not recommended to define this unless you know what you're doing.
-#         # response_types:
-#           # - 'code'
-
-#         ## Response Modes configures which response modes this client supports.
-#         # response_modes:
-#           # - 'form_post'
-#           # - 'query'
-
-#         ## The policy to require for this client; one_factor or two_factor. Can also be the key names for the
-#         ## authorization policies section.
-#         # authorization_policy: 'two_factor'
-
-#         ## The custom lifespan name to use for this client. This must be configured independent of the client before
-#         ## utilization. Custom lifespans are reusable similar to authorization policies.
-#         # lifespan: ''
-
-#         ## The consent mode controls how consent is obtained.
-#         # consent_mode: 'auto'
-
-#         ## This value controls the duration a consent on this client remains remembered when the consent mode is
-#         ## configured as 'auto' or 'pre-configured' in the duration common syntax.
-#         # pre_configured_consent_duration: '1 week'
-
-#         ## Requires the use of Pushed Authorization Requests for this client when set to true.
-#         # require_pushed_authorization_requests: false
-
-#         ## Enforces the use of PKCE for this client when set to true.
-#         # require_pkce: false
-
-#         ## Enforces the use of PKCE for this client when configured, and enforces the specified challenge method.
-#         ## Options are 'plain' and 'S256'.
-#         # pkce_challenge_method: 'S256'
-
-#         ## The signing algorithm used for signing the authorization responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_signed_response_alg
-#         # authorization_signed_response_alg: 'RS256'
-
-#         ## The signing key id used for signing the authorization responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_signed_response_key_id
-#         # authorization_signed_response_key_id: ''
-
-#         ## The content encryption algorithm used for encrypting the authorization responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_encrypted_response_alg
-#         # authorization_encrypted_response_alg: 'none'
-
-#         ## The encryption algorithm used for encrypting the authorization responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_encrypted_response_enc
-#         # authorization_encrypted_response_enc: 'A128CBC-HS256'
-
-#         ## The content encryption key id used for encrypting the authorization responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_encrypted_response_key_id
-#         # authorization_encrypted_response_key_id: ''
-
-#         ## The signing algorithm used for signing the ID Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#id_token_signed_response_alg
-#         # id_token_signed_response_alg: 'RS256'
-
-#         ## The signing key id used for signing the ID Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#id_token_signed_response_key_id
-#         # id_token_signed_response_key_id: ''
-
-#         ## The content encryption algorithm used for encrypting the ID Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#id_token_encrypted_response_alg
-#         # id_token_encrypted_response_alg: 'none'
-
-#         ## The encryption algorithm used for encrypting the ID Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#id_token_encrypted_response_enc
-#         # id_token_encrypted_response_enc: 'A128CBC-HS256'
-
-#         ## The content encryption key id used for encrypting the ID Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#authorization_encrypted_response_key_id
-#         # id_token_encrypted_response_key_id: ''
-
-#         ## The signing algorithm used for signing the Access Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_signed_response_alg
-#         # access_token_signed_response_alg: 'none'
-
-#         ## The signing key id used for signing the Access Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_signed_response_key_id
-#         # access_token_signed_response_key_id: ''
-
-#         ## The content encryption algorithm used for encrypting the Access Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_encrypted_response_alg
-#         # access_token_encrypted_response_alg: 'none'
-
-#         ## The encryption algorithm used for encrypting the Access Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_encrypted_response_enc
-#         # access_token_encrypted_response_enc: 'A128CBC-HS256'
-
-#         ## The content encryption key id used for encrypting the Access Tokens in Access Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#access_token_encrypted_response_key_id
-#         # access_token_encrypted_response_key_id: ''
-
-#         ## The signing algorithm used for signing the User Info Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_signed_response_alg
-#         # userinfo_signed_response_alg: 'none'
-
-#         ## The signing key id used for signing the User Info Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_signed_response_key_id
-#         # userinfo_signed_response_key_id: ''
-
-#         ## The content encryption algorithm used for encrypting the User Info Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_encrypted_response_alg
-#         # userinfo_encrypted_response_alg: 'none'
-
-#         ## The encryption algorithm used for encrypting the User Info Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_encrypted_response_enc
-#         # userinfo_encrypted_response_enc: 'A128CBC-HS256'
-
-#         ## The content encryption key id used for encrypting the User Info Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#userinfo_encrypted_response_key_id
-#         # userinfo_encrypted_response_key_id: ''
-
-#         ## The signing algorithm used for signing the Introspection Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#introspection_signed_response_alg
-#         # introspection_signed_response_alg: 'none'
-
-#         ## The signing key id used for Introspection responses. An issuer JWK with a matching key id must be available
-#         ## when configured.
-#         # introspection_signed_response_key_id: ''
-
-#         ## The content encryption algorithm used for encrypting the Introspection Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#introspection_encrypted_response_alg
-#         # introspection_encrypted_response_alg: 'none'
-
-#         ## The encryption algorithm used for encrypting the Introspection Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#introspection_encrypted_response_enc
-#         # introspection_encrypted_response_enc: 'A128CBC-HS256'
-
-#         ## The content encryption key id used for encrypting the Introspection Request responses.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#introspection_encrypted_response_key_id
-#         # introspection_encrypted_response_key_id: ''
-
-#         ## The signature algorithm which must be used for request objects.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#request_object_signing_alg
-#         # request_object_signing_alg: 'RS256'
-
-#         ## The content encryption algorithm which must be used for request objects.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#request_object_encryption_alg
-#         # request_object_encryption_alg: ''
-
-#         ## The encryption algorithm which must be used for request objects.
-#         ## Please read the documentation before adjusting this option.
-#         ## See: https://www.authelia.com/c/oidc/registered-clients#request_object_encryption_enc
-#         # request_object_encryption_enc: ''
-
-#         ## The permitted client authentication method for the Token Endpoint for this client.
-#         ## For confidential client types this value defaults to 'client_secret_basic' and for the public client types it
-#         ## defaults to 'none' per the specifications.
-#         # token_endpoint_auth_method: 'client_secret_basic'
-
-#         ## The permitted client authentication signing algorithm for the Token Endpoint for this client when using
-#         ## the 'client_secret_jwt' or 'private_key_jwt' token_endpoint_auth_method.
-#         # token_endpoint_auth_signing_alg: 'RS256'
-
-#         ## The permitted client authentication method for the Revocation Endpoint for this client.
-#         ## For confidential client types this value defaults to 'client_secret_basic' and for the public client types it
-#         ## defaults to 'none' per the specifications.
-#         # revocation_endpoint_auth_method: 'client_secret_basic'
-
-#         ## The permitted client authentication signing algorithm for the Revocation Endpoint for this client when using
-#         ## the 'client_secret_jwt' or 'private_key_jwt' revocation_endpoint_auth_method.
-#         # revocation_endpoint_auth_signing_alg: 'RS256'
-
-#         ## The permitted client authentication method for the Introspection Endpoint for this client.
-#         ## For confidential client types this value defaults to 'client_secret_basic' and for the public client types it
-#         ## defaults to 'none' per the specifications.
-#         # introspection_endpoint_auth_method: 'client_secret_basic'
-
-#         ## The permitted client authentication signing algorithm for the Introspection Endpoint for this client when
-#         ## using the 'client_secret_jwt' or 'private_key_jwt' introspection_endpoint_auth_method.
-#         # introspection_endpoint_auth_signing_alg: 'RS256'
-
-#         ## The permitted client authentication method for the Pushed Authorization Request Endpoint for this client.
-#         ## For confidential client types this value defaults to 'client_secret_basic' and for the public client types it
-#         ## defaults to 'none' per the specifications.
-#         # pushed_authorization_request_endpoint_auth_method: 'client_secret_basic'
-
-#         ## The permitted client authentication signing algorithm for the Pushed Authorization Request Endpoint for this
-#         ## client when using the 'client_secret_jwt' or 'private_key_jwt'
-#         ## pushed_authorization_request_endpoint_auth_method.
-#         # pushed_authorization_request_endpoint_auth_signing_alg: 'RS256'
-
-#         ## Trusted public keys configuration for request object signing for things such as 'private_key_jwt'.
-#         ## URL of the HTTPS endpoint which serves the keys. Please note the 'jwks_uri' and the 'jwks' option below
-#         ## are mutually exclusive.
-#         # jwks_uri: 'https://app.example.com/jwks.json'
-
-#         ## Trusted public keys configuration for request object signing for things such as 'private_key_jwt'.
-#         ## List of JWKs known and registered with this client. It's recommended to use the 'jwks_uri' option if
-#         ## available due to key rotation. Please note the 'jwks' and the 'jwks_uri' option above are mutually exclusive.
-#         # jwks:
-#           # -
-#             ## Key ID used to match the JWT's to an individual identifier. This option is required if configured.
-#             # key_id: 'example'
-
-#             ## The key algorithm expected with this key.
-#             # algorithm: 'RS256'
-
-#             ## The key use expected with this key. Currently only 'sig' is supported.
-#             # use: 'sig'
-
-#             ## Required Public Key in PEM DER form.
-#             # key: |
-#               # -----BEGIN RSA PUBLIC KEY-----
-#               # ...
-#               # -----END RSA PUBLIC KEY-----
-
-#             ## The matching certificate chain in PEM DER form that matches the key if available.
-#             # certificate_chain: |
-#               # -----BEGIN CERTIFICATE-----
-#               # ...
-#               # -----END CERTIFICATE-----
-#               # -----BEGIN CERTIFICATE-----
-#               # ...
-#               # -----END CERTIFICATE-----
 
 # 1700 lines :)
