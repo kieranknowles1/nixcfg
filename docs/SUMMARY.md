@@ -4,6 +4,11 @@
 
 # Static
 
+<!-- TODO: Split this into two main sections: developer guide and user guide.
+Dev guide is for myself, user guide for anyone I set up to use my services,
+or would want to use a desktop running NixOS (psycho, now I've given myself a full-time tech support role, how could I do this to myself?)
+-->
+
 - [Development](./development/readme.md)
   - [Style Guide](./development/style-guide.md)
   - [Magic Behaviour](./development/magic.md)
