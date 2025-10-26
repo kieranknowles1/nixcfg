@@ -5,6 +5,7 @@
   imagemagick,
   paperlessUrl ? "http://localhost:28981",
   paperlessTokenFile ? "/run/secrets/paperless_token",
+  scanner ? "airscan:e0:HP DeskJet 2800 series [9B19C1]",
 }:
 buildScript {
   runtime = nushell;
@@ -26,5 +27,6 @@ buildScript {
   runtimeEnv = {
     PAPERLESS_URL = paperlessUrl;
     PAPERLESS_API_KEY_FILE = paperlessTokenFile;
+    SCANNER = scanner;
   };
 }

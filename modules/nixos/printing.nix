@@ -13,7 +13,7 @@
       enable = mkEnableOption "printing";
       scanner.device = mkOption {
         type = types.str;
-        default = "escl:https://192.168.1.138:443";
+        default = "airscan:e0:HP DeskJet 2800 series [9B19C1]";
         description = "Scanner device URI";
       };
     };

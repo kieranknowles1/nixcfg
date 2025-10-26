@@ -2,14 +2,15 @@
 
 let PAPERLESS_API_KEY = open $env.PAPERLESS_API_KEY_FILE
 let PAPERLESS_URL = $env.PAPERLESS_URL
+# This is sourced from the host configuration rather than dynamically
+# as scanimage -L is slow
+let SCANNER = $env.SCANNER
 
 def scan [
   out: path
 ] {
-  # TODO: Automatically detect device address, builtin camera is also detected,
-  # but we don't want to use it.
   (scanimage --format jpeg --mode Color
-    --device "escl:https://192.168.1.138:443"
+    --device $SCANNER
     --resolution 300 --output-file $out err> /dev/null
   )
 }

@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  hostConfig,
   lib,
   inputs,
   ...
@@ -55,6 +56,7 @@
         (pkgs.flake.scandoc.override {
           paperlessUrl = cfg.paperless.url;
           paperlessTokenFile = config.sops.secrets."paperless/apikey".path;
+          scanner = hostConfig.custom.printing.scanner.device;
         })
       ];
     };
