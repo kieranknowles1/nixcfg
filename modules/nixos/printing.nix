@@ -36,6 +36,13 @@
         enable = true;
       };
     };
-    hardware.sane.enable = true;
+    hardware.sane = {
+      enable = true;
+      # Problem: There are 18 competing standards for printing, now it's 19,
+      # now it's 20
+      extraBackends = [
+        pkgs.sane-airscan
+      ];
+    };
   };
 }
