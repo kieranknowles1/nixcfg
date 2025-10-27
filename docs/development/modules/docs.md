@@ -23,7 +23,7 @@ as-is and can be referenced later.
   description = "Some generated stuff";
   source = ./docs-generated/file-a.md;
   # Set to false if the file will be the same regardless of the host/user's
-  # config
+  # config. This determines which subsection it is placed under.
   dynamic = true;
 };
 ```
