@@ -1,7 +1,7 @@
 # Development Information
 
 Information on how to develop this repository. See also:
-[modules](../modules/readme.md) for specific modules or
+[modules](./modules/readme.md) for specific modules or
 [nix library](../generated/lib.md) for extensions to the Nix library.
 
 - [Development Information](#development-information)

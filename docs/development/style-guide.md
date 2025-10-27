@@ -38,7 +38,7 @@ bold. For example, in [Activate Mutable Plan](../plan/activate-mutable.md):
 
 Keep it concise. Don't write a full paragraph when a single sentence will do.
 
-When possible, use [generated docs](../modules/docs.md) as specified in the
+When possible, use [generated docs](./modules/docs.md) as specified in the
 linked page.
 
 ### Tables of Contents
