@@ -15,15 +15,19 @@ or would want to use a desktop running NixOS (psycho, now I've given myself a fu
   - [Common Hurdles](./development/hurdles.md)
   - [Modules](./development/modules/readme.md)
     - [Documentation](./development/modules/docs.md)
+  - [Planning](./development/plan/readme.md)
+    - [Activate Mutable](./development/plan/activate-mutable.md)
+    - [Nix Server](./development/plan/nix-server.md)
+
+<!--- [Administration](./administration/readme.md)
+
+- [User Guide](./usage/readme.md)-->
+
 - [Usage](./usage/readme.md)
   - [Troubleshooting](./usage/troubleshooting.md)
   - [VR Support](./usage/vr.md)
 - [Server Reproduction](./reproduction/readme.md)
   - [User Onboarding](./reproduction/onboarding.md)
 - [Lessons Learned](./lessons-learned.md)
-
-- [Planning](./plan/readme.md)
-  - [Activate Mutable](./plan/activate-mutable.md)
-  - [Nix Server](./plan/nix-server.md)
 
 # Generated
