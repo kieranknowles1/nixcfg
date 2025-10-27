@@ -18,3 +18,7 @@ target/
 
 # Rebuild error output
 .rebuild-diff
+
+# Node output
+node_modules/
+dist/
