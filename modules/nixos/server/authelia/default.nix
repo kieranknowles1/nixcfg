@@ -79,7 +79,7 @@
       subdomains.${cfga.subdomain} = {
         proxySocket = socket;
       };
-      
+
       homepage.services = lib.singleton {
         group = "Infrastructure";
         name = "Authelia";
@@ -484,7 +484,7 @@
 
         # Require email verification for sensitive actions such as changing passwords
         # or adding a TOTP device
-        elevated_session = {
+        identity_validation.elevated_session = {
           # Codes last 5 minutes from generation
           code_lifespan = "5 minutes";
           # Elevated sessions last 10 minutes before needing to renew
