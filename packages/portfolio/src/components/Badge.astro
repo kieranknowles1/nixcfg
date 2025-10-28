@@ -1,0 +1,20 @@
+---
+interface Props {
+  imgname: string;
+  name: string;
+  id: string;
+}
+
+const {
+  imgname,
+  name,
+  id,
+} = Astro.props;
+---
+<a
+  class="credly-badge"
+  href={`https://www.credly.com/badges/${id}/public_url`}
+  target="_blank"
+>
+  <img src={imgname} alt={name}>
+</a>
