@@ -134,6 +134,17 @@
           address = "unix://${socket}?umask=0111";
         };
 
+        # Temporarily block an IP if it appears to be attempting a brute force attack
+        regulation = {
+          modes = [ "ip" ];
+          # 3 failed attempts within 2 minutes results in a 5 minute ban, effectively
+          # limits the attacker to 1.5 attempts per minute without affecting legitimate
+          # users too much.
+          max_retries = 3;
+          find_time = "2 minutes";
+          ban_time = "5 minutes";
+        };
+
         log = {
           level = "debug";
           format = "json";
@@ -157,8 +168,7 @@
             # Reload the database when something changes
             watch = true;
 
-            # Leave password hashing to the whatever the recommended defaults
-            # are
+            # Leave password hashing at the recommended defaults
             # password = {???}
           };
         };
@@ -175,49 +185,6 @@
             authelia_url = "https://${cfga.subdomain}.${cfg.hostname}";
           };
         };
-
-        # TODO: Finish configuraing
-        # ##
-        # ## Session Provider Configuration
-        # ##
-        # ## The session cookies identify the user once logged in.
-        # ## The available providers are: `memory`, `redis`. Memory is the provider unless redis is defined.
-        # session:
-        #   ## The secret to encrypt the session data. This is only used with Redis / Redis Sentinel.
-        #   ## Secret can also be set using a secret: https://www.authelia.com/c/secrets
-        #   secret: 'insecure_session_secret'
-
-        #   ##
-        #   ## Redis Provider
-        #   ##
-        #   ## Important: Kubernetes (or HA) users must read https://www.authelia.com/t/statelessness
-        #   ##
-        #   # redis:
-        #     # host: '127.0.0.1'
-        #     # port: 6379
-        #     ## Use a unix socket instead
-        #     # host: '/var/run/redis/redis.sock'
-
-        #     ## The connection timeout in the duration common syntax.
-        #     # timeout: '5 seconds'
-
-        #     ## The maximum number of retries on a failed command. Set it to 0 to disable retries.
-        #     # max_retries: 3
-
-        #     ## Username used for redis authentication. This is optional and a new feature in redis 6.0.
-        #     # username: 'authelia'
-
-        #     ## Password can also be set using a secret: https://www.authelia.com/c/secrets
-        #     # password: 'authelia'
-
-        #     ## This is the Redis DB Index https://redis.io/commands/select (sometimes referred to as database number, DB, etc).
-        #     # database_index: 0
-
-        #     ## The maximum number of concurrent active connections to Redis.
-        #     # maximum_active_connections: 8
-
-        #     ## The target number of idle connections to have open ready for work. Useful when opening connections is slow.
-        #     # minimum_idle_connections: 0
 
         access_control = {
           default_policy = "deny";
@@ -454,24 +421,6 @@
         #   ## It's recommended you read the documentation before configuration of this section.
         #   ## See: https://www.authelia.com/c/oidc/provider
         #   # oidc:
-        #     ## The hmac_secret is used to sign OAuth2 tokens (authorization code, access tokens and refresh tokens).
-        #     ## HMAC Secret can also be set using a secret: https://www.authelia.com/c/secrets
-        #     # hmac_secret: 'this_is_a_secret_abc123abc123abc'
-
-        #     ## Enables additional debug messages.
-        #     # enable_client_debug_messages: false
-
-        #     ## SECURITY NOTICE: It's not recommended changing this option and values below 8 are strongly discouraged.
-        #     # minimum_parameter_entropy: 8
-
-        #     ## SECURITY NOTICE: It's not recommended changing this option, and highly discouraged to have it set to 'never'
-        #     ## for security reasons.
-        #     # enforce_pkce: 'public_clients_only'
-
-        #     ## SECURITY NOTICE: It's not recommended changing this option. We encourage you to read the documentation and fully
-        #     ## understanding it before enabling this option.
-        #     # enable_jwt_access_token_stateless_introspection: false
-
         #     ## The signing algorithm used for signing the discovery and metadata responses. An issuer JWK with a matching
         #     ## algorithm must be available when configured. Most clients completely ignore this and it has a performance cost.
         #     # discovery_signed_response_alg: 'none'
@@ -525,6 +474,15 @@
         # Display my domain name in apps
         totp.issuer = cfg.hostname;
 
+        # Require email verification for sensitive actions such as changing passwords
+        # or adding a TOTP device
+        elevated_session = {
+          # Codes last 5 minutes from generation
+          code_lifespan = "5 minutes";
+          # Elevated sessions last 10 minutes before needing to renew
+          elevation_lifespan = "10 minutes";
+        };
+
         # Require a secure password based on the zxcvbn library
         # rather than simple rules
         password_policy.zxcvbn = {
@@ -550,16 +508,8 @@
 ##############################################################################
 # Sourced from https://github.com/authelia/authelia/blob/master/config.template.yml
 
-##
-## Notes:
-##
-##    - the comments in this configuration file are helpful but users should consult the official documentation on the
+##      The comments in this configuration file are helpful but users should consult the official documentation on the
 ##      website at https://www.authelia.com/ or https://www.authelia.com/configuration/prologue/introduction/
-
-# ## Certificates directory specifies where Authelia will load trusted certificates (public portion) from in addition to
-# ## the system certificates store.
-# ## They should be in base64 format, and have one of the following extensions: *.cer, *.crt, *.pem.
-# # certificates_directory: '/config/certificates/'
 
 # ## Set the default 2FA method for new users and for when a user has a preferred method configured that has been
 # ## disabled. This setting must be a method that is enabled.
@@ -574,49 +524,6 @@
 #   ## Disables writing the health check vars to /app/.healthcheck.env which makes healthcheck.sh return exit code 0.
 #   ## This is disabled by default if either /app/.healthcheck.env or /app/healthcheck.sh do not exist.
 #   # disable_healthcheck: false
-
-#   ## Authelia by default doesn't accept TLS communication on the server port. This section overrides this behaviour.
-#   # tls:
-#     ## The path to the DER base64/PEM format private key.
-#     # key: ''
-
-#     ## The path to the DER base64/PEM format public certificate.
-#     # certificate: ''
-
-#     ## The list of certificates for client authentication.
-#     # client_certificates: []
-
-#   ## Server headers configuration/customization.
-#   # headers:
-
-#     ## The CSP Template. Read the docs.
-#     # csp_template: ''
-
-#   ## Server Buffers configuration.
-#   # buffers:
-
-#     ## Buffers usually should be configured to be the same value.
-#     ## Explanation at https://www.authelia.com/c/server#buffer-sizes
-#     ## Read buffer size adjusts the server's max incoming request size in bytes.
-#     ## Write buffer size does the same for outgoing responses.
-
-#     ## Read buffer.
-#     # read: 4096
-
-#     ## Write buffer.
-#     # write: 4096
-
-#   ## Server Timeouts configuration.
-#   # timeouts:
-
-#     ## Read timeout in the duration common syntax.
-#     # read: '6 seconds'
-
-#     ## Write timeout in the duration common syntax.
-#     # write: '6 seconds'
-
-#     ## Idle timeout in the duration common syntax.
-#     # idle: '30 seconds'
 
 #   ## Server Endpoints configuration.
 #   ## This section is considered advanced and it SHOULD NOT be configured unless you've read the relevant documentation.
@@ -662,17 +569,6 @@
 
 #   ## The interaction timeout for WebAuthn dialogues in the duration common syntax.
 #   # timeout: '60 seconds'
-
-#   ## Authenticator Filtering.
-#   # filtering:
-#     ## Prohibits registering Authenticators that claim they can export their credentials in some way.
-#     # prohibit_backup_eligibility: false
-
-#     ## Permitted AAGUID's. If configured specifically only allows the listed AAGUID's.
-#     # permitted_aaguids: []
-
-#     ## Prohibited AAGUID's. If configured prohibits the use of specific AAGUID's.
-#     # prohibited_aaguids: []
 
 #   ## Selection Criteria controls the preferences for registration.
 #   # selection_criteria:
@@ -736,47 +632,5 @@
 
 #     ## The algorithm used for the Reset Password JWT.
 #     # jwt_algorithm: 'HS256'
-
-#   ## Elevated Session flows. Adjusts the flow which require elevated sessions for example managing credentials, adding,
-#   ## removing, etc.
-#   # elevated_session:
-#     ## Maximum allowed lifetime after the One-Time Code is generated that it is considered valid.
-#     # code_lifespan: '5 minutes'
-
-#     ## Maximum allowed lifetime after the user uses the One-Time Code and the user must perform the validation again in
-#     ## the duration common syntax.
-#     # elevation_lifespan: '10 minutes'
-
-#     ## Number of characters the one-time password contains.
-#     # characters: 8
-
-#     ## In addition to the One-Time Code requires the user performs a second factor authentication.
-#     # require_second_factor: false
-
-#     ## Skips the elevation requirement and entry of the One-Time Code if the user has performed second factor
-#     ## authentication.
-#     # skip_second_factor: false
-
-
-
-# ##
-# ## Regulation Configuration
-# ##
-# ## This mechanism prevents attackers from brute forcing the first factor. It bans the user if too many attempts are made
-# ## in a short period of time.
-# # regulation:
-#   ## Regulation Mode.
-#   # modes:
-#     # - 'user'
-
-#   ## The number of failed login attempts before user is banned. Set it to 0 to disable regulation.
-#   # max_retries: 3
-
-#   ## The time range during which the user can attempt login before being banned in the duration common syntax. The user
-#   ## is banned if the authentication failed 'max_retries' times in a 'find_time' seconds window.
-#   # find_time: '2 minutes'
-
-#   ## The length of time before a banned user can login again in the duration common syntax.
-#   # ban_time: '5 minutes'
 
 # 1700 lines :)
