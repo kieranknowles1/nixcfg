@@ -215,6 +215,8 @@
           };
           Infrastructure = {
             icon = "mdi-server";
+            style = "row";
+            columns = 2;
             sortOrder = sort.last;
           };
         };

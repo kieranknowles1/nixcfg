@@ -79,6 +79,14 @@
       subdomains.${cfga.subdomain} = {
         proxySocket = socket;
       };
+      
+      homepage.services = lib.singleton {
+        group = "Infrastructure";
+        name = "Authelia";
+        description = "Single Sign-On";
+        icon = "authelia.svg";
+        href = "https://${cfga.subdomain}.${cfg.hostname}";
+      };
 
       authelia.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/authelia";
     };
