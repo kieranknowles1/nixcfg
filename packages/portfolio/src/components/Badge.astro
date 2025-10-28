@@ -1,6 +1,6 @@
 ---
 interface Props {
-  imgname: string;
+  imgname: ImageMetadata;
   name: string;
   id: string;
 }
@@ -10,11 +10,14 @@ const {
   name,
   id,
 } = Astro.props;
+
+// We deliberately don't use the <Image> component to avoid making any changes
+// to the source image, as it contains a watermark to validate authenticity
 ---
 <a
   class="credly-badge"
   href={`https://www.credly.com/badges/${id}/public_url`}
   target="_blank"
 >
-  <img src={imgname} alt={name}>
+  <img src={imgname.src} alt={name}>
 </a>
