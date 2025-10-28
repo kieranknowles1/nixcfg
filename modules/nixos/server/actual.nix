@@ -34,6 +34,14 @@
 
         actual.dataDir = "${cfg.data.baseDirectory}/actual";
 
+        homepage.services = lib.singleton {
+          group = "Documents";
+          name = "Actual";
+          description = "Personal finance manager";
+          icon = "actual-budget.svg";
+          href = "https://${cfga.subdomain}.${cfg.hostname}";
+        };
+
         authelia.oidcClients.actual = {
           name = "Actual Budget";
           secretHash = "$pbkdf2-sha512$310000$fjLYx4VmbvjboaVpA8lJDg$qPLpfbyxqbL2XVkJtO1.XLuxPxY9GhoN9t54aX5zbzW52oHjYMAL4f071/DbW.boQ.DPvii6zjBA9wn6F8gcGA";
