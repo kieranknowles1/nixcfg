@@ -1,5 +1,3 @@
-'use strict'
-
 // Get a required element by its ID, throwing if not found
 // Does not verify element type, only that it exists
 function getById<T>(id: string): T {

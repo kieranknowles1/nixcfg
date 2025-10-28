@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Badge from '../components/Badge.astro';
+import GameOfLife from '../components/GameOfLife.astro';
 
 import { Icon } from 'astro-icon/components';
 
@@ -55,12 +56,6 @@ import ccnaIntroductionToNetworks from '../assets/ccna-introduction-to-networks.
 //             <li><a href="#csc8503">CSC8503 Advanced Game Technologies</a></li>
 //         </ul>
 //      </nav>
-
-//     <canvas id="gameoflife" width="500" height="250"></canvas>
-//     <div class="flexbox">
-//         <button id="gameoflife_pause" type="button">Pause</button>
-//         <button id="gameoflife_reset" type="button">Reset</button>
-//     </div>
 
 //     <main>
 //         <h2>Projects</h2>
@@ -219,8 +214,10 @@ import ccnaIntroductionToNetworks from '../assets/ccna-introduction-to-networks.
           id='7e147b42-920c-4c46-bc33-2d3c5aa32739'
         />
       </section>
-   </div>
- </header>
+    </div>
+  </header>
+
+  <GameOfLife />
 
   <footer>
     <p>Icons sourced from <a href="https://pictogrammers.com/">Material Design Icons</a> and <a href="https://github.com/coreui/coreui-icons">CoreUI Brands</a></p>
