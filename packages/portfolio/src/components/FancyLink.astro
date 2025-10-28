@@ -1,0 +1,16 @@
+---
+// Fancy link with fancy icon, intended to be placed in a ul.links-list
+import { Icon } from 'astro-icon/components'
+interface Props {
+  icon: string,
+  name: string,
+  href: string,
+}
+const {
+  icon,
+  name,
+  href,
+} = Astro.props;
+
+---
+<li><Icon name={icon} />{name}: <a href={href}>{href}</a></li>
