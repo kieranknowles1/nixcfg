@@ -1,7 +1,8 @@
 {
   stdenv,
   self,
-  hostPlatform,
+  nodejs,
+  importNpmLock,
   symlinkJoin,
   dejavu_fonts,
   font-awesome,
@@ -38,20 +39,38 @@
     '';
   };
 in
-  self.builders.${hostPlatform.system}.buildStaticSite {
+  stdenv.mkDerivation {
     name = "portfolio";
-    src = stdenv.mkDerivation {
-      name = "portfolio-src";
-      src = ./src;
-      buildPhase = ''
-        mkdir -p $out $out/.build-only
-        cp -r $src/* $out
-        ln -s ${self.assets.mdi-icons}/svg $out/.build-only/mdi-icons
-        ln -s ${self.assets.simple-icons}/icons $out/.build-only/simple-icons
+    src = ./.;
 
-        ln -s ${cv}/game-dev.pdf $out/cv-kieran-knowles.pdf
-      '';
+    buildInputs = [
+      nodejs
+    ];
+    passthru.cv = cv;
+
+    ASTRO_TELEMETRY_DISABLED = 1;
+
+    MODULES = importNpmLock.buildNodeModules {
+      package = builtins.fromJSON (builtins.readFile ./package.json);
+      packageLock = builtins.fromJSON (builtins.readFile ./package-lock.json);
+      inherit nodejs;
     };
+    CV = cv;
+
+    buildPhase = ''
+      rm package.json package-lock.json
+      ln -s $MODULES/node_modules node_modules
+      ln -s $MODULES/package.json package.json
+      ln -s $MODULES/package-lock.json package-lock.json
+
+      npm run build
+    '';
+
+    installPhase = ''
+      mv dist $out
+      cp $CV/game-dev.pdf $out/cv-kieran-knowles.pdf
+    '';
+
     meta = {
       inherit (self.lib) license;
       description = "My personal portfolio";
@@ -62,8 +81,10 @@ in
         It's a static website. You don't need 566KB of JavaScript\[1\], 82
         trackers\[2\], 8 elements per word\[3\], and God knows how many ads
         to display a simple portfolio.\[4\]
-        You don't need a static site generator that spits out 2000 lines of HTML. Just
-        use PHP, and make your code deterministic.\[5\]
+
+        This rant made much more sense when I was using PHP, but Astro is a true
+        SSG that spits out HTML, not JavaScript, and lets me avoid PHP.
+
         \[1\]: https://gist.github.com/Restuta/cda69e50a853aa64912d\
         \[2\]: https://pressgazette.co.uk/website-tracking-software/\
         \[3\]: https://www.bbc.co.uk/news/technology-46508234
@@ -71,6 +92,4 @@ in
         \[5\]: https://rosswintle.uk/2021/12/hang-on-php-is-a-static-site-generator/
       '';
     };
-
-    passthru.cv = cv;
   }
