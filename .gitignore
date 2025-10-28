@@ -18,3 +18,8 @@ target/
 
 # Rebuild error output
 .rebuild-diff
+
+# Astro output
+node_modules/
+.astro/
+dist/

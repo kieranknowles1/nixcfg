@@ -1,0 +1,20 @@
+---
+interface Props {
+  id: string
+  lazyload: boolean
+}
+const {
+  id,
+  lazyload
+} = Astro.props
+
+// TODO: Find a middle ground between embeds with tracking and just linking to the video
+// Maybe an img that turns into an embed on click? Or just host it ourselves
+---
+<iframe
+  loading={lazyload ? 'lazy' : 'eager'}
+  class="video" width="560" height="315"
+  src={`https://www.youtube-nocookie.com/embed/${id}`}
+  title="YouTube video player"
+  allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin">
+</iframe>

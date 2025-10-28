@@ -1,0 +1,50 @@
+---
+import FancyLink from './FancyLink.astro';
+import Video from '../components/Video.astro';
+
+interface Props {
+  id: string
+  videoId: string
+  title: string
+  links: {
+    itchio: string
+    github: string
+  },
+
+  feedback: {
+    author: string,
+    rating: number
+  },
+  lazyload: boolean
+}
+// TODO: Gallery
+const {
+  id,
+  videoId,
+  title,
+  links,
+  feedback,
+  lazyload
+} = Astro.props
+
+---
+<article id={id}>
+  <h3>{title}</h3>
+  <Video id={videoId} lazyload={lazyload} />
+  <div class="twopane">
+    <div>
+      <ul class="links-list">
+        <FancyLink name="GitHub" icon="cib:github" href={links.github} />
+        <FancyLink name="Itch.io" icon="cib:itch-io" href={links.itchio} />
+      </ul>
+      <slot name="summary"/>
+      <slot name="bullets"/>
+    </div>
+    <div>
+      <h4>Feedback</h4>
+      <p>Rating: {feedback.rating}/100</p>
+      <slot name="feedback"/>
+      <cite>{feedback.author}</cite>
+    </div>
+  </div>
+</article>
