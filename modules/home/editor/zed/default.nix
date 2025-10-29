@@ -44,8 +44,6 @@
         extraPackages = with pkgs; [
           nixd # Nix
 
-          phpactor
-
           taplo # TOML
           neocmakelsp # CMake
           clang-tools # C++

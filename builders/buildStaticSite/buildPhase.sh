@@ -40,9 +40,6 @@ while IFS= read -r -d "" file; do
         -Nstyle=filled -Ecolor=white \
         -Tsvg "$file" -o "$(replaceExtension "$out_relative" "svg")"
       ;;
-    php)
-      php -f "$BUILD_HELPERS/buildFile.php" "$file" > "$(replaceExtension "$out_relative" "html")"
-      ;;
     ts)
       tsc "${TS_OPTS[@]}" "$file" --outFile "$(replaceExtension "$out_relative" "js")"
       ;;

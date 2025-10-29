@@ -83,7 +83,8 @@ in
         to display a simple portfolio.\[4\]
 
         This rant made much more sense when I was using PHP, but Astro is a true
-        SSG that spits out HTML, not JavaScript, and lets me avoid PHP.
+        SSG that spits out HTML, not JavaScript, and lets me avoid PHP, even though
+        it is also a static site generator. \[5\]
 
         \[1\]: https://gist.github.com/Restuta/cda69e50a853aa64912d\
         \[2\]: https://pressgazette.co.uk/website-tracking-software/\

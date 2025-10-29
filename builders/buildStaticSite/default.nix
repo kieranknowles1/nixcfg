@@ -2,7 +2,6 @@
   graphviz,
   html-tidy,
   jq,
-  php,
   stdenv,
   typescript,
 }:
@@ -16,7 +15,6 @@ built themselves. Intended for resources that may or may not be required.
 Supported file types and their transformations:
 - Dot: Rendered to SVG with Graphviz. Default style is overridden. to work
   better in a dark theme.
-- PHP: Executed with a safe mode enabled interpreter. Output is saved as HTML.
 - TypeScript: Checked and compiled to JavaScript
 - All other files: Copied to the output directory.
 
@@ -33,7 +31,6 @@ stdenv.mkDerivation (args
       graphviz
       html-tidy
       jq
-      php
       typescript
     ];
 

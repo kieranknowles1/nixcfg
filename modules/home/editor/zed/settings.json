@@ -24,7 +24,6 @@
   // 120.
   "wrap_guides": [80, 120],
 
-
   // See https://github.com/zed-industries/extensions/tree/main/extensions
   // These will be fetched on first run, as they currently can't be installed via Nix
   // The `list-zed-extensions` command is provided to generate this list
@@ -35,7 +34,6 @@
     "neocmake": true,
     "nix": true,
     "nu": true,
-    "php": true,
     "quill": true,
     "toml": true
   },
@@ -95,7 +93,7 @@
       "arguments": ["--stdin", "{buffer_path}"]
     }
   },
-  
+
   // ========================
   // -- Specific Workflows --
   // ========================
@@ -139,13 +137,6 @@
     "Nu": {
       "language_servers": ["nu"]
     },
-    // https://zed.dev/docs/languages/php
-    "PHP": {
-      // intelephense is also available, but non-free
-      "language_servers": ["phpactor"],
-      // PSR12 requires 4 spaces, not 2
-      "tab_size": 4
-    },
     "Python": {
       "tab_size": 4
     },
@@ -177,18 +168,8 @@
         }
       }
     },
-    "phpactor": {
-      // https://phpactor.readthedocs.io/en/master/reference/configuration.html
-      "initialization_options": {
-        // Enable all inlay hints, Zed can filter unwanted ones later
-        "language_server_worse_reflection.inlay_hints.enable": true,
-        "language_server_worse_reflection.inlay_hints.types": true,
-        "language_server_worse_reflection.inlay_hints.params": true
-      }
-    },
     "pylsp": {
       "settings": {
-
       }
     },
     "yaml-language-server": {

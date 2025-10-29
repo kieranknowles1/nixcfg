@@ -74,11 +74,6 @@
           ];
         };
 
-        php-cs-fixer = {
-          enable = true;
-          configFile = ./.php-cs-fixer.php;
-        };
-
         taplo.enable = true; # TOML
 
         yamlfmt.enable = true; # YAML
@@ -124,26 +119,10 @@
           includes = lib.mkForce [
             "*.md"
             "*.typ"
-            "*.php"
             "*.txt"
           ];
         };
       };
-
-      # FIXME: Not currently working
-      # Formatters not included in the treefmt-nix repo
-      # settings.formatter = {
-      #   phpstan = {
-      #     command = lib.getExe pkgs.phpPackages.phpstan;
-      #     options = [
-      #       "analyze"
-      #       "--level=max"
-      #       "--no-interaction"
-      #       "--autoload-file=${config.programs.php-cs-fixer.package}/share/php/php-cs-fixer/vendor/autoload.php"
-      #     ];
-      #     includes = ["*.php"];
-      #   };
-      # };
     };
   };
 in {
