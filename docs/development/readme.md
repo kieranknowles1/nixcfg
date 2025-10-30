@@ -1,13 +1,14 @@
 # Development Information
 
 Information on how to develop this repository. See also:
-[modules](../modules/readme.md) for specific modules or
+[modules](./modules/readme.md) for specific modules or
 [nix library](../generated/lib.md) for extensions to the Nix library.
 
 - [Development Information](#development-information)
   - [Modules](#modules)
   - [Building](#building)
-    - [Packages](#packages)
+  - [Dev Shells](#dev-shells)
+  - [Using in Another Flake](#using-in-another-flake)
   - [Host Definition](#host-definition)
   - [User Definition](#user-definition)
   - [Documenting](#documenting)
@@ -26,54 +27,59 @@ subdirectories:
 - `nixos` NixOS modules
 - `shared` Modules loaded by both home-manager and NixOS, and fully compatible
   between the two.
-- `modlib` Shared functions used between multiple home-manager or NixOS modules.
-  If these need to differentiate between the two, they MUST take a file-level
-  `mode` argument that can be either `home` or `nixos`. It cannot be included in
-  the top-level `flake.lib` due to module weirdness (specialArgs and therefore
-  `flake.lib` can't be used in options definitions, but many of these functions
-  are intended to be used there)
+- `modlib` Shared libraries used between multiple home-manager or NixOS modules.
+
+If a shared library needs to differentiate between the two, they MUST take a
+file-level `mode` argument that can be either `home` or `nixos`. These libraries
+cannot be included in the top-level `flake.lib` due to module weirdness
+(specialArgs and therefore `flake.lib` can't be used in options definitions, but
+many of these functions are intended to be used there)
 
 ## Building
 
 A `rebuild` utility is provided for common build workflows, such as updating
-packages or rebuilding then committing changes. Use `run rebuild` while in the
-flake's directory to run this utility. Building and updating automatically
-commit changes including a diff of installed packages/versions in their
-messages.
+packages or rebuilding then committing changes. The utility automatically
+commits staged changes along with a diff of installed packages and their
+versions.
 
-It is advised to use `rebuild build` when adding new packages or editing
-`config.toml` in order to track NixOS's generation number and when dependencies
-were introduced.
+It is advised to use `rebuild build` when adding new packages or editing a
+host's `configuration.nix` to track which generation number the changes were
+made in for easier rollbacks.
 
 `rebuild update` should be run at least once every two weeks to keep inputs up
-to date. NuShell will print a reminder if this is overdue. After an update, **do
-not** push changes until after a reboot to ensure that drivers were not broken.
+to date. NuShell will print a reminder if this is overdue. This builds and diffs
+all hosts, not just the currently active one, to give a full picture of what
+deployment will do. After an update, **do not** push changes until after a
+reboot and ensure no obvious issues arise. After pushing, other hosts must be
+manually updated.
 
-For more information, run `rebuild --help`.
+## Dev Shells
 
-### Packages
+Dev shells are provided for development of various languages/projects. These can
+be entered with `devr <shell>`. A list of available shells can be found with
+`nix flake show`.
 
-When updating hashes for packages, replace the old hash with an empty string
-first to force a download, otherwise Nix will see the old hash and treat it as
-pointing to the cached download.
+## Using in Another Flake
 
-<!-- TODO: Can this be automated? Not sure if this statement is even accurate -->
+This repository can be used as an input to another flake same as any other
+flake, components can then be used as needed. A template for this is provided
+and can be used with `nix flake init --template github:kieranknowles1/nixcfg`.
+Be warned that breaking changes can and will be introduced here without warning,
+so updating inputs may require changes to the consuming flake.
 
 ## Host Definition
 
 Each host is defined as a subdirectory of the `hosts` directory and enables
-parts of the flake as needed. Only the `custom` key should be used in the host's
-configuration to avoid any code duplication. I am aware that this makes the host
-definitions tightly coupled to the flake, but believe this to be a worthwhile
-trade-off to limit the amount of code used to define a host, moving it to a
-central modules folder instead, and given how highly opinionated the flake is.
+parts of the flake as needed. While not required, it is recommended to only set
+options under the `custom` key here to avoid code duplication between hosts.
 
 See [hosts/rocinante](../../hosts/rocinante/) for an example host definition.
 
 ## User Definition
 
 Similar to hosts, users are defined in the `users` directory and again should
-only use the `custom` key. These should be functions returning the following:
+only use the `custom` key. These should be functions imported by hosts and
+returning the following:
 
 ```nix
 # NixOS-side properties
@@ -99,14 +105,14 @@ definition.
 
 ## Debugging
 
-The `confbuild` and `confeval` commands are provided to build/display the value
-of a config path. To make a derivation debuggable, expose it as an option with
-`type = types.path` and set it to a derivation as is done in
+The `confbuild` and `confeval` commands are provided as shorthands to build or
+display a NixOS option. Derivations used internally can be exposed here as
+options with `type = types.path`, as is done in
 [home/docs/default.nix](../../modules/shared/docs.nix).
 
 ```nu
 # Per-host. Can be converted to a Nushell table for easier reading.
-confeval n features | from json
+confeval n custom.hardware | from json
 
 # Per-user. Builds are linked to ./result
 confbuild h docs-generate.build.generated
@@ -114,18 +120,22 @@ confbuild h docs-generate.build.generated
 
 ## Useful Tools
 
+### Comma
+
+Applications can be run without installing them using the `,` command, great for
+when a command is needed one-off.
+
 ### `nix-tree`
 
-The `nix-tree` utility can be useful for visualising what derivations are
-included and why. This is not included in any configuration/shell, but can be
-run with `nix run nixpkgs#nix-tree`. This can be useful to find why a package is
-included when you didn't expect it to be.
+`nix-tree` is a utility that visualises what derivations are included and what
+depends on them. This is useful to find why a library is included when you
+didn't expect it to be.
 
 ### `nix repl`
 
-The `:lf` command in `nix repl` can be used to load a flake's outputs into the
-repl, allowing you to interactively explore its outputs and test out functions.
-For example:
+`nix repl` can load the current flake using `:lf .` and allows you to
+interactively explore its outputs and test expressions. This is an alternative
+to `confeval` that supports tab completion and the full Nix language.
 
 ```nix
 # Load the flake from $PWD

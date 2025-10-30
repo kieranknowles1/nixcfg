@@ -30,9 +30,9 @@ option_path="$2"
 prefix=".#nixosConfigurations.$(hostname).config"
 
 if [ "$mode" == "home" ] || [ "$mode" == "h" ]; then
-  prefix="$prefix.home-manager.users.$USER.custom"
+  prefix="$prefix.home-manager.users.$USER"
 elif [ "$mode" == "nixos" ] || [ "$mode" == "n" ]; then
-  prefix="$prefix.custom"
+  prefix="$prefix"
 else
   error "Mode could not be determined from script name: $0"
 fi

@@ -28,7 +28,7 @@ Requirement specifications MUST use the
 
 Application-specific terms SHOULD be displayed in **bold**, and given a
 definition the first time they are used. Future references only require being
-bold. For example, in [Activate Mutable Plan](../plan/activate-mutable.md):
+bold. For example, in [Activate Mutable Plan](./plan/activate-mutable.md):
 
 > ... this script takes the **deployed file** as input, and outputs a file,
 > **repo file**, that is suitable for version control...
@@ -38,7 +38,7 @@ bold. For example, in [Activate Mutable Plan](../plan/activate-mutable.md):
 
 Keep it concise. Don't write a full paragraph when a single sentence will do.
 
-When possible, use [generated docs](../modules/docs.md) as specified in the
+When possible, use [generated docs](./modules/docs.md) as specified in the
 linked page.
 
 ### Tables of Contents
