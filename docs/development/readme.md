@@ -7,6 +7,8 @@ Information on how to develop this repository. See also:
 - [Development Information](#development-information)
   - [Modules](#modules)
   - [Building](#building)
+  - [Dev Shells](#dev-shells)
+  - [Using in Another Flake](#using-in-another-flake)
   - [Host Definition](#host-definition)
   - [User Definition](#user-definition)
   - [Documenting](#documenting)
@@ -50,6 +52,20 @@ all hosts, not just the currently active one, to give a full picture of what
 deployment will do. After an update, **do not** push changes until after a
 reboot and ensure no obvious issues arise. After pushing, other hosts must be
 manually updated.
+
+## Dev Shells
+
+Dev shells are provided for development of various languages/projects. These can
+be entered with `devr <shell>`. A list of available shells can be found with
+`nix flake show`.
+
+## Using in Another Flake
+
+This repository can be used as an input to another flake same as any other
+flake, components can then be used as needed. A template for this is provided
+and can be used with `nix flake init --template github:kieranknowles1/nixcfg`.
+Be warned that breaking changes can and will be introduced here without warning,
+so updating inputs may require changes to the consuming flake.
 
 ## Host Definition
 
