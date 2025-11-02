@@ -10,8 +10,8 @@
   #assert_set(area, "area must be set")
   #template(
     statement: [Ambitious and hard working graduate with a passion for #area.
-      Received a first-class honours in computer science#maybe_anon([ at Northumbria University]).
-      Currently awaiting results for my master’s degree in game engineering#maybe_anon([ at Newcastle University]),
+      Received a first-class honours in computer science#maybe_anon([ at Northumbria University])
+      and completed my master's degree in game engineering#maybe_anon([ at Newcastle University])
       achieving grades of 95% or higher in all assignments. Skilled in multiple
       programming languages and paradigms such as object-oriented, procedural, and event-driven.
     ],

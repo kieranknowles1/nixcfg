@@ -171,6 +171,15 @@
   )
 
   #if tech_links and not anonymous [
+    = Postgraduate Dissertation
+    #cv-line([Title], [Vindolanda VR])
+    #cv-line(
+      [Description],
+      [A virtual reality recreation of the Roman fort of Vindolanda and the
+        nearby Castle Nick featuring a tour guide to teach about the site, a tutorial for
+        new VR users, and an archery range.],
+    )
+
     = Undergraduate Dissertation
     #cv-line([Title], [CHEF - Cooking Helper for Everyone's Fridge])
     #cv-line([Supervisor], [Nick Dalton])
