@@ -4,6 +4,7 @@ set -euo pipefail
 MIN=0.2
 MAX=1.0
 STATEFILE=/tmp/brightness
+PIDFILE=/tmp/brightness.pid
 
 STEPS=10
 DISPLAYS=$(xrandr --query | grep ' connected' | awk '{print $1}')
@@ -37,6 +38,13 @@ if [[ -z "$adjust" ]]; then
   showhelp
 fi
 
+# Kill any previous instance to reduce flashing
+# Without this, screens will flash if pressing the hotkey quickly
+if [[ -f $PIDFILE ]]; then
+  kill $(cat $PIDFILE) || true
+fi
+echo $$ > $PIDFILE
+
 current=$(if [[ -f $STATEFILE ]]; then cat $STATEFILE; else echo 1.0; fi)
 newvalue=$(awk -v c="$current" -v a="$adjust" -v min="$MIN" -v max="$MAX" 'BEGIN {
   result = c + a;
@@ -58,3 +66,5 @@ for ((step=0; step<STEPS; step++)); do
   # xrandr is fairly slow, so use that on its own as a delay time
   # sleep $STEPDELAY
 done
+
+rm -f $PIDFILE
