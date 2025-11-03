@@ -120,7 +120,7 @@
           cfgc.users;
 
         volumes = let
-          mkVolume = path: extraflags: defaultPerms: {
+          mkVolume = extraflags: path: defaultPerms: {
             inherit path;
             access = {
               # Give all users all permissions, including admin access
@@ -139,15 +139,21 @@
               }
               // extraflags;
           };
+
+          # TODO: Change group to a shared "immich-copyparty" group
+          mkImmichVolume = mkVolume {
+            # Make sure Immich can read uploads and write metadata in new files
+            chmod_d = "777"; # RWX-RWX-RX-
+            # Copyparty needs write access to delete partial uploads. Users
+            # cannot delete as they lack the "d" permission.
+            chmod_f = "644"; # RW-R-R
+          };
         in {
           # All permissions
-          "/" = mkVolume cfgc.dataDir {} "A";
+          "/" = mkVolume {} cfgc.dataDir "A";
           # Read, write, but not modify or delete
-          "/oldies" = mkVolume "${cfg.data.baseDirectory}/immich-oldies" {
-            # Make sure Immich can read from uploads here
-            chmod_d = "755";
-            chmod_f = "644";
-          } "rw";
+          "/oldies" = mkImmichVolume "${cfg.data.baseDirectory}/immich-oldies" "rw";
+          "/camera" = mkImmichVolume "${cfg.data.baseDirectory}/immich-camera" "rw";
         };
       };
 
