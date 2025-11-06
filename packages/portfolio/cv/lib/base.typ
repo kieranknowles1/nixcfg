@@ -16,7 +16,7 @@
       website: ("globe", "https://selwonk.uk", "selwonk.uk"),
     )
   }
-  socials.insert("address", "Newcastle Upon Tyne, UK")
+  socials.insert("address", "Cramlington, UK")
 
   if not tech_links {
     let _ = socials.remove("github")
