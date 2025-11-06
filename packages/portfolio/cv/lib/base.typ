@@ -71,7 +71,7 @@
     font: "DejaVu Sans",
     show-footer: false,
 
-    name: if anonymous { title } else { "Kieran Knowles" },
+    name: if anonymous { title } else { "Kieran John Knowles" },
     lang: "en",
     social: socials_list(tech_links, anonymous),
   )
