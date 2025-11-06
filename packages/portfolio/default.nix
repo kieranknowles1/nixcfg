@@ -17,7 +17,7 @@
   };
 
   typst' = typst.withPackages (ps: [
-    ps.fontawesome
+    ps.fontawesome_0_5_0
   ]);
 
   cv = stdenv.mkDerivation {

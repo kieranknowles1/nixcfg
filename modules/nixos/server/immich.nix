@@ -28,6 +28,10 @@
     cfgi = cfg.immich;
   in
     lib.mkIf cfgi.enable {
+      # Overriding Python libraries is an absolute PITA, so ignore the warnings
+      # instead.
+      nixpkgs.config.allowUnsupportedSystem = true;
+
       custom.server = {
         immich.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/immich";
         postgresql.enable = true; # Immich depends on this
