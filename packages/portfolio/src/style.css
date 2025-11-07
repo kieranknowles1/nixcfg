@@ -90,6 +90,11 @@ Two panes shown either side-by-side or vertically depending on orientation
   display: flex;
 }
 
+.centre-child {
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (orientation: landscape) {
   .twopane {
     flex-direction: row;

@@ -11,11 +11,11 @@ interface Props {
     github: string
   },
 
-  feedback: {
+  feedback?: {
     author: string,
     rating: number
   },
-  lazyload: boolean
+  lazyload?: boolean
 }
 // TODO: Gallery
 const {
@@ -24,14 +24,19 @@ const {
   title,
   links,
   feedback,
-  lazyload
+  lazyload = false
 } = Astro.props
+
+const hasFeedback = feedback !== undefined;
+if (hasFeedback && !Astro.slots.has('feedback')) {
+  throw new Error('Project component requires a feedback slot if `feedback` prop is provided');
+}
 
 ---
 <article id={id}>
   <h3>{title}</h3>
   <Video id={videoId} lazyload={lazyload} />
-  <div class="twopane">
+  <div class={hasFeedback ? "twopane" : "centre-child"}>
     <div>
       <ul class="links-list">
         <FancyLink name="GitHub" icon="cib:github" href={links.github} />
@@ -40,11 +45,11 @@ const {
       <slot name="summary"/>
       <slot name="bullets"/>
     </div>
-    <div>
+    {hasFeedback && <div>
       <h4>Feedback</h4>
       <p>Rating: {feedback.rating}/100</p>
       <slot name="feedback"/>
       <cite>{feedback.author}</cite>
-    </div>
+    </div>}
   </div>
 </article>
