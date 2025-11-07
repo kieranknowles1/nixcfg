@@ -14,6 +14,7 @@ import ccnaIntroductionToNetworks from '../assets/ccna-introduction-to-networks.
   <h1>Kieran Knowles</h1>
   <nav>
     <ul>
+      <li><a href="#vindolanda">Vindolanda VR</a></li>
       <li><a href="#blitzbox">BlitzBox</a></li>
       <li><a href="#csc8502">Advanced Graphics</a></li>
       <li><a href="#csc8503">Advanced Games Technologies</a></li>
@@ -68,6 +69,32 @@ import ccnaIntroductionToNetworks from '../assets/ccna-introduction-to-networks.
   <main>
     <h2>Projects</h2>
     <Project
+      id="vindolanda" title="Vindolanda VR" videoId='CaM-xLr3iG0'
+      links={{
+        itchio: 'https://kieranknowles.itch.io/vindolanda-vr',
+        github: 'https://github.com/kieranknowles1/vindolanda-vr',
+      }}
+    >
+      <p slot="summary">
+        A Virtual Reality recreation of the Roman fort of Vindolanda in Unity as
+        part of my dissertation. Includes:
+      </p>
+      <ul slot="bullets">
+        <li>The fort as it was during Emperor Hadrian's reign</li>
+        <li>Milecastle 39 "Castle Nick", where the Sycamore Gap tree once stood</li>
+        <li>Tutorial targeted at players with no prior VR experience</li>
+        <li>A guided tour of the various structures</li>
+        <li>Realistic bow animations using vertex animation textures</li>
+        <li>NPC dialogue with the player and other NPCs</li>
+        <li>Automated text-to-speech dialogue generation</li>
+        <li>Quest system with markers for the current objective</li>
+        <li>Save-load functionality to restore positions and quest states</li>
+        <li>For once, no Linux support :(</li>
+      </ul>
+    </Project>
+
+    <Project
+      lazyload
       id="blitzbox" title="Blitzbox" videoId='xMGoUh14qWc'
       links={{
         itchio: 'https://abarnett.itch.io/blitzbox',
@@ -89,7 +116,7 @@ import ccnaIntroductionToNetworks from '../assets/ccna-introduction-to-networks.
         <li>Automatic mesh conversion during build, for an order of magnitude speedup</li>
         <li>TrueType font rendering via a texture atlas</li>
         <li>Memory leak detection using Valgrind</li>
-        <li>As always, Linux support through SDL2</li>
+        <li>As usual, Linux support through SDL2</li>
       </ul>
       <blockquote slot="feedback">
         Absolutely excellent. A fully feature-complete game that plays well, looks great and is truly cross
