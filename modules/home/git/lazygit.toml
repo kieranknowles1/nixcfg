@@ -18,5 +18,5 @@ nerdFontsVersion = "3"
 # Don't touch HEAD unless I say
 autoForwardBranches = "none"
 
-[git.paging]
+[[git.pagers]]
 externalDiffCommand = "difft --color auto --display side-by-side"
