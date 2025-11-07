@@ -10,19 +10,16 @@
 
     inherit (hostConfig.custom.ssh) keyOwners;
   in {
+    # Fancy diffs
+    programs.difftastic = {
+      enable = true;
+      # Use as default diff for git
+      git.enable = true;
+    };
+    
     programs.git = {
       # This is stored in a Git repo, so it wouldn't make sense to have a system without Git
       enable = true;
-
-      userName = details.firstName;
-      userEmail = details.email;
-
-      # Fancy diffs
-      difftastic.enable = true;
-      aliases = {
-        difft = "diff";
-        diffp = "diff --no-ext-diff";
-      };
 
       # Sign commits with SSH
       signing = {
@@ -31,7 +28,10 @@
         signByDefault = true;
       };
 
-      extraConfig = {
+      settings = {
+        user.name = details.firstName;
+        user.email = details.email;
+        
         init.defaultBranch = "main";
 
         # Save a bit of disk space
@@ -43,6 +43,11 @@
         # If pulling while behind, rebase instead of merging
         pull.rebase = true;
 
+        aliases = {
+          difft = "diff";
+          diffp = "diff --no-ext-diff";
+        };
+        
         # Shortcuts for URLs
         url = {
           "git@github.com:kieranknowles1/".insteadOf = "kk:";
