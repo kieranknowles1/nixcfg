@@ -12,5 +12,7 @@ const {
   href,
 } = Astro.props;
 
+// Instruct screen readers to ignore the icon, as its meaning is conveyed by the
+// link's label
 ---
-<li><Icon name={icon} />{name}: <a href={href}>{href}</a></li>
+<li><Icon role="presentation" name={icon} /> {name}: <a href={href}>{href}</a></li>
