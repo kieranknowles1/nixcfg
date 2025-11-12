@@ -37,6 +37,9 @@ pub async fn route(
     let json = serde_json::to_string(&stats)?;
 
     let mut res = Response::new(Full::new(Bytes::from(json)));
+    // TODO: This may only be needed for development
+    res.headers_mut()
+        .insert("Access-Control-Allow-Origin", HeaderValue::from_static("*"));
     res.headers_mut()
         .insert("Content-Type", HeaderValue::from_static("application/json"));
     Ok(res)
