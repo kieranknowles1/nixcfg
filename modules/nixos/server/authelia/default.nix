@@ -196,12 +196,15 @@
             };
           };
 
+          # Access control rules. These DO NOT apply to OpenID Connect services
+          # such as Actualbudget
           access_control = {
             default_policy = "deny";
             rules = [
+              # Anything to do with my services -> 2FA
               {
                 domain = "*.${cfg.hostname}";
-                policy = "one_factor";
+                policy = "two_factor";
               }
             ];
           };
@@ -370,47 +373,8 @@
           #     ## It's not important what it is except if your email server only allows local delivery.
           #     # startup_check_address: 'test@authelia.com'
 
-          #     ## By default we require some form of TLS. This disables this check though is not advised.
-          #     # disable_require_tls: false
-
           #     ## Disables sending HTML formatted emails.
           #     # disable_html_emails: false
-
-          #     # tls:
-          #       ## The server subject name to check the servers certificate against during the validation process.
-          #       ## This option is not required if the certificate has a SAN which matches the address options hostname.
-          #       # server_name: 'smtp.example.com'
-
-          #       ## Skip verifying the server certificate entirely. In preference to setting this we strongly recommend you add the
-          #       ## certificate or the certificate of the authority signing the certificate to the certificates directory which is
-          #       ## defined by the `certificates_directory` option at the top of the configuration.
-          #       ## It's important to note the public key should be added to the directory, not the private key.
-          #       ## This option is strongly discouraged but may be useful in some self-signed situations where validation is not
-          #       ## important to the administrator.
-          #       # skip_verify: false
-
-          #       ## Minimum TLS version for the connection.
-          #       # minimum_version: 'TLS1.2'
-
-          #       ## Maximum TLS version for the connection.
-          #       # maximum_version: 'TLS1.3'
-
-          #       ## The certificate chain used with the private_key if the server requests TLS Client Authentication
-          #       ## i.e. Mutual TLS.
-          #       # certificate_chain: |
-          #         # -----BEGIN CERTIFICATE-----
-          #         # ...
-          #         # -----END CERTIFICATE-----
-          #         # -----BEGIN CERTIFICATE-----
-          #         # ...
-          #         # -----END CERTIFICATE-----
-
-          #       ## The private key used with the certificate_chain if the server requests TLS Client Authentication
-          #       ## i.e. Mutual TLS.
-          #       # private_key: |
-          #         # -----BEGIN PRIVATE KEY-----
-          #         # ...
-          #         # -----END PRIVATE KEY-----
 
           identity_providers.oidc = {
             clients =
@@ -418,82 +382,51 @@
                 client_id = name;
                 client_secret = client.secretHash;
                 redirect_uris = client.redirects;
+                authorization_policy = "default";
+
+                # Remember the user's consent to share data with apps
+                # GDPR isn't really impacted since everything is internal,
+                # it's just telling users what the individual app will have access to.
+                pre_configured_consent_duration = "1 week";
               })
               cfga.oidcClients;
+
+            # Require 2FA by default
+            authorization_policies.default = {
+              default_policy = "deny";
+
+              rules = [
+                {
+                  subject = "group:human";
+                  policy = "two_factor";
+                }
+              ];
+            };
+
+            cors = {
+              # Only allow origins that are used by a client as a redirect URI
+              # Protects against CSRF attacks
+              allowed_origins_from_client_redirect_uris = true;
+            };
           };
-
-          # TODO: Finish configuring
-          # ##
-          # ## Identity Providers
-          # ##
-          # # identity_providers:
-
-          #   ##
-          #   ## OpenID Connect (Identity Provider)
-          #   ##
-          #   ## It's recommended you read the documentation before configuration of this section.
-          #   ## See: https://www.authelia.com/c/oidc/provider
-          #   # oidc:
-          #     ## The signing algorithm used for signing the discovery and metadata responses. An issuer JWK with a matching
-          #     ## algorithm must be available when configured. Most clients completely ignore this and it has a performance cost.
-          #     # discovery_signed_response_alg: 'none'
-
-          #     ## The signing key id used for signing the discovery and metadata responses. An issuer JWK with a matching key id
-          #     ## must be available when configured. Most clients completely ignore this and it has a performance cost.
-          #     # discovery_signed_response_key_id: ''
-
-          #     ## Authorization Policies which can be utilized by clients. The 'policy_name' is an arbitrary value that you pick
-          #     ## which is utilized as the value for the 'authorization_policy' on the client.
-          #     # authorization_policies:
-          #       # policy_name:
-          #         # default_policy: 'two_factor'
-          #         # rules:
-          #           # - policy: 'one_factor'
-          #           #   subject: 'group:services'
-          #           #   networks:
-          #               #  - '192.168.1.0/24'
-
-          #     ## The lifespans configure the expiration for these token types in the duration common syntax. In addition to this
-          #     ## syntax the lifespans can be customized per-client.
-          #     # lifespans:
-          #       ## Configures the default/fallback lifespan for given token types. This behaviour applies to all clients and all
-          #       ## grant types but you can override this behaviour using the custom lifespans.
-          #       # access_token: '1 hour'
-          #       # authorize_code: '1 minute'
-          #       # id_token: '1 hour'
-          #       # refresh_token: '90 minutes'
-
-          #     ## Cross-Origin Resource Sharing (CORS) settings.
-          #     # cors:
-          #       ## List of endpoints in addition to the metadata endpoints to permit cross-origin requests on.
-          #       # endpoints:
-          #         #  - 'authorization'
-          #         #  - 'pushed-authorization-request'
-          #         #  - 'token'
-          #         #  - 'revocation'
-          #         #  - 'introspection'
-          #         #  - 'userinfo'
-
-          #       ## List of allowed origins.
-          #       ## Any origin with https is permitted unless this option is configured or the
-          #       ## allowed_origins_from_client_redirect_uris option is enabled.
-          #       # allowed_origins:
-          #         # - 'https://example.com'
-
-          #       ## Automatically adds the origin portion of all redirect URI's on all clients to the list of allowed_origins,
-          #       ## provided they have the scheme http or https and do not have the hostname of localhost.
-          #       # allowed_origins_from_client_redirect_uris: false
 
           # Display my domain name in apps
           totp.issuer = cfg.hostname;
 
           # Require email verification for sensitive actions such as changing passwords
           # or adding a TOTP device
-          identity_validation.elevated_session = {
-            # Codes last 5 minutes from generation
-            code_lifespan = "5 minutes";
-            # Elevated sessions last 10 minutes before needing to renew
-            elevation_lifespan = "10 minutes";
+          identity_validation = {
+            elevated_session = {
+              # Codes last 5 minutes from generation
+              code_lifespan = "5 minutes";
+              # Elevated sessions last 10 minutes before needing to renew
+              elevation_lifespan = "10 minutes";
+            };
+
+            reset_password = {
+              # Keep codes valid for 5 minutes
+              jwt_lifespan = "5 minutes";
+            };
           };
 
           # Require a secure password based on the zxcvbn library
@@ -606,16 +539,4 @@
 #     ## recommended that this is not configured as there are safe defaults. This option is ineffectual if validate_status
 #     ## is false, or validate_status_permitted has values.
 #     # validate_status_prohibited: ~
-# ##
-# ## Identity Validation Configuration
-# ##
-# ## This configuration tunes the identity validation flows.
-# identity_validation:
-#   ## Reset Password flow. Adjusts how the reset password flow operates.
-#   reset_password:
-#     ## Maximum allowed time before the JWT is generated and when the user uses it in the duration common syntax.
-#     # jwt_lifespan: '5 minutes'
-#     ## The algorithm used for the Reset Password JWT.
-#     # jwt_algorithm: 'HS256'
-# 1700 lines :)
 
