@@ -16,7 +16,8 @@ pub struct CombinedResponse {
 macro_rules! fill_option {
     ($field:ident, $type:ty) => {
         if crate::cli().$field {
-            Some(<$type>::fetch())
+            // TODO: Does this spawn all then wait, or run one at a time?
+            Some(<$type>::fetch().await)
         } else {
             None
         }
@@ -24,7 +25,7 @@ macro_rules! fill_option {
 }
 
 impl CombinedResponse {
-    pub fn fetch() -> Self {
+    pub async fn fetch() -> Self {
         Self {
             sysinfo: fill_option!(enable_sysinfo, SysInfo),
         }
@@ -34,7 +35,7 @@ impl CombinedResponse {
 pub async fn route(
     _: Request<hyper::body::Incoming>,
 ) -> Result<Response<Full<Bytes>>, serde_json::Error> {
-    let stats = CombinedResponse::fetch();
+    let stats = CombinedResponse::fetch().await;
     let json = serde_json::to_string(&stats)?;
 
     let mut res = Response::new(Full::new(Bytes::from(json)));
