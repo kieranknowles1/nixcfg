@@ -1,18 +1,8 @@
 import { Component } from 'preact'
 import { formatSize } from './utils'
+import { type CombinedResponse } from './bindings/CombinedResponse'
 
-// TODO: Generate from Rust types
-interface ApiResponse {
-  sysinfo: {
-    mem: {
-      total: number
-      used: number
-    },
-    cpu_usage: number
-  }
-}
-
-export class App extends Component<{}, { metrics?: ApiResponse }> {
+export class App extends Component<{}, { metrics?: CombinedResponse }> {
   timer?: number
 
   constructor(props: {}) {
@@ -22,7 +12,7 @@ export class App extends Component<{}, { metrics?: ApiResponse }> {
 
   async refresh() {
     const res = await fetch('http://localhost:4321');
-    const data: ApiResponse = await res.json();
+    const data: CombinedResponse = await res.json();
     this.setState({ metrics: data });
   }
 

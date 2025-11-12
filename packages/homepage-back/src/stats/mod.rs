@@ -7,7 +7,8 @@ use crate::stats::sysinfo::SysInfo;
 mod sysinfo;
 
 #[serde_with::skip_serializing_none]
-#[derive(Serialize)]
+#[derive(Serialize, ts_rs::TS)]
+#[ts(export, optional_fields)]
 pub struct CombinedResponse {
     sysinfo: Option<SysInfo>,
 }

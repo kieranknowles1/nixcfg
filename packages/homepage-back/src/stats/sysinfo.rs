@@ -1,7 +1,7 @@
 use serde::Serialize;
 use sysinfo::{CpuRefreshKind, MemoryRefreshKind, RefreshKind, System};
 
-#[derive(Serialize)]
+#[derive(Serialize, ts_rs::TS)]
 pub struct SysInfo {
     pub mem: MemInfo,
     /// CPU usage, as the sum of all cores.
@@ -9,7 +9,7 @@ pub struct SysInfo {
     pub cpu_usage: f32,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, ts_rs::TS)]
 pub struct MemInfo {
     /// Total RAM available in bytes.
     pub total: u64,

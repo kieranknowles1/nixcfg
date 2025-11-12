@@ -7,6 +7,10 @@ result
 # Rust compiler output
 target/
 
+# Generated TypeScript bindings
+# Used by homepage
+bindings/
+
 # mdBook output
 /book/
 
