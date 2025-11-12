@@ -14,7 +14,7 @@ mod stats;
 
 #[derive(clap::Parser)]
 struct Cli {
-    #[clap(long, env = "HOMEPAGE_PORT", default_value = "3000")]
+    #[clap(long, env = "HOMEPAGE_PORT", default_value = "4321")]
     port: u16,
 
     #[clap(long, env = "HOMEPAGE_ENABLE_SYSINFO", default_value = "false")]
@@ -39,9 +39,11 @@ async fn route(
     }
 }
 
-#[tokio::main]
+// This is expected to be a low-demand service, so run everything on the
+// main thread
+#[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Listen on port 3000
+    // Listen on port 4321
     let addr = SocketAddr::from(([127, 0, 0, 1], cli().port));
     let listener = TcpListener::bind(addr).await?;
 
