@@ -6,15 +6,26 @@ use crate::stats::sysinfo::SysInfo;
 
 mod sysinfo;
 
+#[serde_with::skip_serializing_none]
 #[derive(Serialize)]
 pub struct CombinedResponse {
-    sys_info: SysInfo,
+    sysinfo: Option<SysInfo>,
+}
+
+macro_rules! fill_option {
+    ($field:ident, $type:ty) => {
+        if crate::cli().$field {
+            Some(<$type>::fetch())
+        } else {
+            None
+        }
+    };
 }
 
 impl CombinedResponse {
     pub fn fetch() -> Self {
         Self {
-            sys_info: SysInfo::fetch(),
+            sysinfo: fill_option!(enable_sysinfo, SysInfo),
         }
     }
 }

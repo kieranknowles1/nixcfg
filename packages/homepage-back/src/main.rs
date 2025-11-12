@@ -16,6 +16,9 @@ mod stats;
 struct Cli {
     #[clap(long, env = "HOMEPAGE_PORT", default_value = "3000")]
     port: u16,
+
+    #[clap(long, env = "HOMEPAGE_ENABLE_SYSINFO", default_value = "false")]
+    enable_sysinfo: bool,
 }
 
 static CLI: OnceLock<Cli> = OnceLock::new();
