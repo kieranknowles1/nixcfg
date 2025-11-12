@@ -32,7 +32,8 @@ prefix=".#nixosConfigurations.$(hostname).config"
 if [ "$mode" == "home" ] || [ "$mode" == "h" ]; then
   prefix="$prefix.home-manager.users.$USER"
 elif [ "$mode" == "nixos" ] || [ "$mode" == "n" ]; then
-  prefix="$prefix"
+  # Nothing to do. no-op to make Bash happy
+  true
 else
   error "Mode could not be determined from script name: $0"
 fi

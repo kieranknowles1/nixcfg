@@ -284,16 +284,6 @@
 
         widgets = let
           glancesUrl = "http://localhost:${builtins.toString cfg.ports.tcp.glances}";
-          mkGlancesDisk = disk: label: {
-            url = glancesUrl;
-            version = 4;
-            cpu = false;
-            mem = false;
-            cputemp = false;
-            uptime = false;
-            expanded = false;
-            inherit disk label;
-          };
         in [
           # Top bar. This displays as the following:
           # Desktop - Uptime, search, weather, time

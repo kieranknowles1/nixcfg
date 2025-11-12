@@ -141,6 +141,9 @@ in {
       # Plain text from ~/.ssh
       "**/ssh/hosts/**"
       "**/ssh/keys/**"
+
+      # Update changelogs
+      "docs/changelog/*.md"
     ];
   };
 }

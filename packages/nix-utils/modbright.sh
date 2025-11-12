@@ -41,7 +41,7 @@ fi
 # Kill any previous instance to reduce flashing
 # Without this, screens will flash if pressing the hotkey quickly
 if [[ -f $PIDFILE ]]; then
-  kill $(cat $PIDFILE) || true
+  kill "$(cat $PIDFILE)" || true
 fi
 echo $$ > $PIDFILE
 

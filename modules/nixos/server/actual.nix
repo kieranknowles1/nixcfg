@@ -47,7 +47,7 @@
         # Allow Actual to write to its data directory
         # nixpkgs sets ProtectSystem=strict, which mounts most
         # directories read-only. Whitelist only what Actual needs.
-        ReadWritePaths = [ cfga.dataDir ];
+        ReadWritePaths = [cfga.dataDir];
       };
       users.groups.actual = {};
       users.users.actual = {

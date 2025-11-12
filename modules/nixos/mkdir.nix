@@ -1,11 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   options.custom.mkdir = let
-    inherit (lib) mkOption mkEnableOption types;
+    inherit (lib) mkOption types;
 
     mkdirType = types.submodule {
       options = {
@@ -26,21 +25,23 @@
         };
       };
     };
-  in mkOption {
-    type = types.attrsOf mkdirType;
-    default = {};
-    description = "Directories created automatically if they do not exist";
-  };
+  in
+    mkOption {
+      type = types.attrsOf mkdirType;
+      default = {};
+      description = "Directories created automatically if they do not exist";
+    };
 
   config = let
     cfg = config.custom.mkdir;
   in {
     systemd.tmpfiles.rules = lib.flatten (lib.mapAttrsToList (dir: opts: [
-      # Create directory if it does not exist, owned by user and group, with permissions
-      # Do not clean based on age
-      "d '${dir}' ${opts.permissions} ${opts.user} ${opts.group} - -"
-      # chmod/chown directory to match requested permissions and ownership
-      "z '${dir}' ${opts.permissions} ${opts.user} ${opts.group} - -"
-    ]) cfg);
+        # Create directory if it does not exist, owned by user and group, with permissions
+        # Do not clean based on age
+        "d '${dir}' ${opts.permissions} ${opts.user} ${opts.group} - -"
+        # chmod/chown directory to match requested permissions and ownership
+        "z '${dir}' ${opts.permissions} ${opts.user} ${opts.group} - -"
+      ])
+      cfg);
   };
 }

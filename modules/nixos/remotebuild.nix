@@ -1,4 +1,8 @@
-{lib, config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   config = lib.mkIf (config.networking.hostName != "tycho") {
     nix = {
       # Build derivations on remote machines if they are a better fit
