@@ -8,6 +8,7 @@ mod sysinfo;
 
 macro_rules! impl_metrics {
     ($($name:ident: $type:ty => ($cli:ident)),*) => {
+        // Each metric is represented by an optional field
         #[serde_with::skip_serializing_none]
         #[derive(Serialize, ts_rs::TS)]
         #[ts(export, optional_fields)]
@@ -15,17 +16,43 @@ macro_rules! impl_metrics {
             $($name: Option<$type>,)*
         }
 
+        // Whether this metric is enabled, represented by a boolean
         #[derive(Serialize, ts_rs::TS)]
         #[ts(export)]
         pub struct EnabledMetrics {
             $($name: bool,)*
         }
 
+        // Generate list of enabled metrics
         impl EnabledMetrics {
             pub fn from_cli() -> Self {
+                let cli = crate::cli();
                 Self {
-                    $($name: crate::cli().$cli,)*
+                    $($name: cli.$cli,)*
                 }
+            }
+        }
+
+        // Fetch all enabled metrics
+        impl CombinedResponse {
+            pub async fn fetch() -> Self {
+                let cli = crate::cli();
+
+                // Spawn all jobs simultaneously
+                $(
+                    let $name = async {
+                        if cli.$cli {
+                            Some(<$type>::fetch().await)
+                        } else {
+                            None
+                        }
+                    };
+                )*
+
+                // Await all jobs, which may complete in any order
+                let ($($name,)*) = tokio::join!($($name,)*);
+
+                Self { $($name,)* }
             }
         }
     };
@@ -34,25 +61,6 @@ macro_rules! impl_metrics {
 impl_metrics! (
     sysinfo: SysInfo => (enable_sysinfo)
 );
-
-macro_rules! fill_option {
-    ($field:ident, $type:ty) => {
-        if crate::cli().$field {
-            // TODO: Does this spawn all then wait, or run one at a time?
-            Some(<$type>::fetch().await)
-        } else {
-            None
-        }
-    };
-}
-
-impl CombinedResponse {
-    pub async fn fetch() -> Self {
-        Self {
-            sysinfo: fill_option!(enable_sysinfo, SysInfo),
-        }
-    }
-}
 
 pub async fn info_route(
     _: Request<hyper::body::Incoming>,
