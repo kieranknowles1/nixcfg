@@ -1,5 +1,6 @@
 import type { SysInfo } from "./bindings/SysInfo";
 import Graph from "./components/Graph";
+import Section from "./components/Section";
 import { GIGABYTE } from "./utils";
 
 export interface MetricsProps {
@@ -9,7 +10,7 @@ export interface MetricsProps {
 export default function Metrics(props: MetricsProps) {
   const totalMemBytes = (props.samples.length > 0 && props.samples[0]?.mem.total) || 0
   return (
-    <section className="grid grid-cols-4">
+    <Section title="Metrics" columns={4}>
       <Graph
         range={{min: 0, max: 100}}
         samples={props.samples.map(s => s?.cpu.average)}
@@ -18,6 +19,6 @@ export default function Metrics(props: MetricsProps) {
         range={{min: 0, max: totalMemBytes / GIGABYTE}}
         samples={props.samples.map(s => s && s.mem.used / GIGABYTE)}
       />
-    </section>
+    </Section>
   )
 }

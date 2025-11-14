@@ -1,9 +1,9 @@
 import { Line } from "react-chartjs-2"
+import Widget from "./Widget"
 
 export type Sample = number | bigint | undefined
 
 export interface GraphProps {
-  className?: string
   samples: Sample[]
   range: {
     min: number,
@@ -12,8 +12,9 @@ export interface GraphProps {
 }
 
 export default function Graph(props: GraphProps) {
-  return <div className={props.className}>
+  return <Widget className="grid grid-cols-1">
     <Line
+      className="col-start-1 row-start-1"
       options={{
         // Animation would move a point up/down based on what the next point to
         // the right sent it, this doesn't look right as we want the graph to travel
@@ -39,11 +40,13 @@ export default function Graph(props: GraphProps) {
         datasets: [{
           xAxisID: 'xAxis',
           yAxisID: 'yAxis',
-          borderColor: 'white',
-          backgroundColor: 'white',
           data: props.samples
         }]
       }}
     />
-  </div>
+    <div className="col-start-1 row-start-1 relative">
+      <span className="font-bold">Label</span>
+      <span className="absolute bottom-0 flex">Test</span>
+    </div>
+  </Widget>
 }
