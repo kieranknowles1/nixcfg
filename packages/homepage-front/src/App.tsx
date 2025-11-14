@@ -1,7 +1,7 @@
 import type { CombinedResponse } from "./bindings/CombinedResponse"
 import { useState } from "react"
 import useInterval from "./useInterval"
-import Graph from "./Graph"
+import Metrics from "./Metrics"
 
 const API_ROOT = "http://localhost:4321"
 const UPDATE_INTERVAL = 1000
@@ -19,14 +19,19 @@ function App() {
 
         setMetrics(newMetrics)
       })
+      .catch(e => {
+        const newMetrics = [...metrics, {}]
+        if (newMetrics.length > SAMPLES) newMetrics.shift()
+        setMetrics(newMetrics)
+      })
   }, UPDATE_INTERVAL, true)
+
+  // TODO: Endpoint to check what's available
+  const baseline = metrics.length > 0 ? metrics[0] : {}
 
   return (
     <>
-      <Graph
-        range={{min: 0, max: 100}}
-        samples={metrics.map(m => m.sysinfo?.cpu.average)}
-      />
+      {baseline.sysinfo && <Metrics samples={metrics.map(m => m.sysinfo)} />}
     </>
   )
 }
