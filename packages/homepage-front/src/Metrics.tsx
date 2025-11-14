@@ -2,6 +2,7 @@ import type { SysInfo } from "./bindings/SysInfo";
 import Graph from "./components/Graph";
 import Section from "./components/Section";
 import { GIGABYTE, latest } from "./utils";
+import ChartLineIcon from 'mdi-react/ChartLineIcon'
 
 export interface MetricsProps {
   samples: SysInfo[]
@@ -12,7 +13,7 @@ export default function Metrics(props: MetricsProps) {
   const latestDat = latest(props.samples)
 
   return (
-    <Section title="Metrics" columns={4}>
+    <Section title="Metrics" icon={<ChartLineIcon className="inline" />} columns={4}>
       <Graph
         title="CPU Usage"
         description={props.samples[0].cpu.name}
