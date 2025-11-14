@@ -1,6 +1,7 @@
 import type { SysInfo } from "./bindings/SysInfo";
 import Graph from "./components/Graph";
 import Section from "./components/Section";
+import DiskGraph from "./DiskGraph";
 import { GIGABYTE, latest } from "./utils";
 import ChartLineIcon from 'mdi-react/ChartLineIcon'
 
@@ -19,14 +20,18 @@ export default function Metrics(props: MetricsProps) {
         description={props.samples[0].cpu.name}
         value={`${Math.round(latestDat?.cpu.average || 0)}% Used`}
         range={{min: 0, max: 100}}
-        samples={props.samples.map(s => s?.cpu.average)}
+        samples={[props.samples.map(s => s?.cpu.average)]}
       />
       <Graph
         title="Memory Usage"
         description={`${(totalMemBytes / GIGABYTE).toFixed(1)}GB Total`}
         value={`${((latestDat?.mem.used || 0) / GIGABYTE).toFixed(1)}GB Used`}
         range={{min: 0, max: totalMemBytes / GIGABYTE}}
-        samples={props.samples.map(s => s && s.mem.used / GIGABYTE)}
+        samples={[props.samples.map(s => s && s.mem.used / GIGABYTE)]}
+      />
+      <DiskGraph
+        name="Internal Disk"
+        samples={props.samples.map(s => s.disk["/dev/nvme0n1p2"]!)}
       />
     </Section>
   )

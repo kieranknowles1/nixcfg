@@ -4,7 +4,7 @@ import Widget from "./Widget"
 export type Sample = number | bigint | undefined
 
 export interface GraphProps {
-  samples: Sample[]
+  samples: Sample[][]
   range: {
     min: number,
     max: number
@@ -15,6 +15,13 @@ export interface GraphProps {
 }
 
 export default function Graph(props: GraphProps) {
+  var longestDataset: Sample[] | undefined = undefined
+  for (const s of props.samples) {
+    if (s.length > (longestDataset?.length ?? 0)) {
+      longestDataset = s
+    }
+  }
+
   return <Widget className="grid grid-cols-1">
     <Line
       className="col-start-1 row-start-1"
@@ -39,12 +46,13 @@ export default function Graph(props: GraphProps) {
       }}
       data={{
         // This is invisible, but required for anything to show at all
-        labels: props.samples,
-        datasets: [{
-          xAxisID: 'xAxis',
-          yAxisID: 'yAxis',
-          data: props.samples
-        }]
+        labels: longestDataset,
+        // TODO: Use different colours for each dataset
+        datasets: props.samples.map(s => {return {
+          xAxisID: "xAxis",
+          yAxisID: "yAxis",
+          data: s
+        }})
       }}
     />
     <div className="col-start-1 row-start-1 relative">
