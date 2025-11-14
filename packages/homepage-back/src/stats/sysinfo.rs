@@ -18,8 +18,10 @@ pub struct SysInfo {
 #[derive(Serialize, ts_rs::TS)]
 pub struct MemInfo {
     /// Total RAM available in bytes.
+    #[ts(as = "f64")]
     pub total: u64,
     /// Total RAM used in bytes.
+    #[ts(as = "f64")]
     pub used: u64,
 }
 
@@ -34,12 +36,16 @@ pub struct CpuInfo {
 #[derive(Serialize, ts_rs::TS)]
 pub struct DiskInfo {
     /// Total disk capacity in bytes.
+    #[ts(as = "f64")]
     pub capacity: u64,
     /// Disk space available in bytes.
+    #[ts(as = "f64")]
     pub free: u64,
     /// Current write speed in bytes per second.
+    #[ts(as = "f64")]
     pub write_speed: u64,
     /// Current read speed in bytes per second.
+    #[ts(as = "f64")]
     pub read_speed: u64,
 }
 
