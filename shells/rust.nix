@@ -11,7 +11,7 @@ flake.lib.shell.mkShellEx mkShell {
   name = "rust";
 
   # Packages to put on the PATH
-  packages = [
+  nativeBuildInputs = [
     cargo
     rustc
     pkg-config # Needed for rust-analyzer
