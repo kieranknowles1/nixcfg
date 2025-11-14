@@ -23,7 +23,7 @@ function App() {
     fetch(`${API_ROOT}/info`)
       .then(res => res.json() as Promise<EnabledMetrics>)
       .then(setEnabled)
-  })
+  }, [])
 
   useInterval(() => {
     fetch(`${API_ROOT}/metrics`)
