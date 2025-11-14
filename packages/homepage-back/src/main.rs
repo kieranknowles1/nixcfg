@@ -4,6 +4,7 @@ use std::sync::OnceLock;
 use clap::Parser;
 use http_body_util::Full;
 use hyper::body::Bytes;
+use hyper::header::HeaderValue;
 use hyper::server::conn::http1;
 use hyper::service::service_fn;
 use hyper::{Request, Response, StatusCode};
@@ -29,14 +30,22 @@ fn cli() -> &'static Cli {
 async fn route(
     req: Request<hyper::body::Incoming>,
 ) -> Result<Response<Full<Bytes>>, serde_json::Error> {
-    match req.uri().path() {
-        "/" => stats::route(req).await,
+    let mut res = match req.uri().path() {
+        "/info" => stats::info_route(req).await,
+        "/metrics" => stats::route(req).await,
         _ => {
             let mut res = Response::new(Full::new(Bytes::from("Not Found")));
             *res.status_mut() = StatusCode::NOT_FOUND;
             Ok(res)
         }
-    }
+    }?;
+
+    // TODO: This may only be needed for development
+    res.headers_mut()
+        .insert("Access-Control-Allow-Origin", HeaderValue::from_static("*"));
+    res.headers_mut()
+        .insert("Content-Type", HeaderValue::from_static("application/json"));
+    Ok(res)
 }
 
 // This is expected to be a low-demand service, so run everything on the

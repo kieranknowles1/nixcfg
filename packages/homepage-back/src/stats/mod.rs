@@ -1,17 +1,39 @@
 use http_body_util::Full;
-use hyper::{Request, Response, body::Bytes, header::HeaderValue};
+use hyper::{Request, Response, body::Bytes};
 use serde::Serialize;
 
 use crate::stats::sysinfo::SysInfo;
 
 mod sysinfo;
 
-#[serde_with::skip_serializing_none]
-#[derive(Serialize, ts_rs::TS)]
-#[ts(export, optional_fields)]
-pub struct CombinedResponse {
-    sysinfo: Option<SysInfo>,
+macro_rules! impl_metrics {
+    ($($name:ident: $type:ty => ($cli:ident)),*) => {
+        #[serde_with::skip_serializing_none]
+        #[derive(Serialize, ts_rs::TS)]
+        #[ts(export, optional_fields)]
+        pub struct CombinedResponse {
+            $($name: Option<$type>,)*
+        }
+
+        #[derive(Serialize, ts_rs::TS)]
+        #[ts(export)]
+        pub struct EnabledMetrics {
+            $($name: bool,)*
+        }
+
+        impl EnabledMetrics {
+            pub fn from_cli() -> Self {
+                Self {
+                    $($name: crate::cli().$cli,)*
+                }
+            }
+        }
+    };
 }
+
+impl_metrics! (
+    sysinfo: SysInfo => (enable_sysinfo)
+);
 
 macro_rules! fill_option {
     ($field:ident, $type:ty) => {
@@ -32,17 +54,20 @@ impl CombinedResponse {
     }
 }
 
+pub async fn info_route(
+    _: Request<hyper::body::Incoming>,
+) -> Result<Response<Full<Bytes>>, serde_json::Error> {
+    let info = EnabledMetrics::from_cli();
+    let json = serde_json::to_string(&info)?;
+
+    Ok(Response::new(Full::new(Bytes::from(json))))
+}
+
 pub async fn route(
     _: Request<hyper::body::Incoming>,
 ) -> Result<Response<Full<Bytes>>, serde_json::Error> {
     let stats = CombinedResponse::fetch().await;
     let json = serde_json::to_string(&stats)?;
 
-    let mut res = Response::new(Full::new(Bytes::from(json)));
-    // TODO: This may only be needed for development
-    res.headers_mut()
-        .insert("Access-Control-Allow-Origin", HeaderValue::from_static("*"));
-    res.headers_mut()
-        .insert("Content-Type", HeaderValue::from_static("application/json"));
-    Ok(res)
+    Ok(Response::new(Full::new(Bytes::from(json))))
 }
