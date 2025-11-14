@@ -10,8 +10,8 @@ export interface GraphProps {
     max: number
   },
   title: string,
-  description?: string | number,
-  value?: string | number,
+  description: string,
+  value: string,
 }
 
 export default function Graph(props: GraphProps) {
@@ -48,9 +48,9 @@ export default function Graph(props: GraphProps) {
       }}
     />
     <div className="col-start-1 row-start-1 relative">
-      <span className="font-bold text-white">{props.title}</span>
-      <span className="absolute bottom-0 flex italic text-gray-50 text-sm">{props.description}</span>
-      <span className="absolute bottom-0 right-0 text-gray-50">{props.value}</span>
+      <span className="font-bold text-lg text-white">{props.title}</span>
+      <span className="absolute bottom-0 flex italic text-gray-50">{props.description}</span>
+      <span className="absolute bottom-0 right-0 italic text-gray-50">{props.value}</span>
     </div>
   </Widget>
 }

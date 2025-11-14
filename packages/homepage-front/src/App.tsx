@@ -29,13 +29,16 @@ function App() {
     fetch(`${API_ROOT}/metrics`)
       .then(res => res.json() as Promise<CombinedResponse>)
       .then(upsertMetric)
-      // If the server fails to respond, add a period of no data
-      .catch(_ => { upsertMetric({}) })
   }, UPDATE_INTERVAL, true)
+
+  // Don't render anything until we get our first packet
+  if (metrics.length == 0) {
+    return
+  }
 
   return (
     <>
-      {enabled?.sysinfo && <Metrics samples={metrics.map(m => m.sysinfo)} />}
+      {enabled?.sysinfo && <Metrics samples={metrics.map(m => m.sysinfo!)} />}
     </>
   )
 }

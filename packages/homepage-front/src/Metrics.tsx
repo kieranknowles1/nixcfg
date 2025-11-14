@@ -1,21 +1,21 @@
 import type { SysInfo } from "./bindings/SysInfo";
 import Graph from "./components/Graph";
 import Section from "./components/Section";
-import { any, GIGABYTE, latest } from "./utils";
+import { GIGABYTE, latest } from "./utils";
 
 export interface MetricsProps {
-  samples: Array<SysInfo | undefined>
+  samples: SysInfo[]
 }
 
 export default function Metrics(props: MetricsProps) {
-  const totalMemBytes = any(props.samples)?.mem.total || 0
+  const totalMemBytes = props.samples[0].mem.total
   const latestDat = latest(props.samples)
 
   return (
     <Section title="Metrics" columns={4}>
       <Graph
         title="CPU Usage"
-        description={any(props.samples)?.cpu.name}
+        description={props.samples[0].cpu.name}
         value={`${Math.round(latestDat?.cpu.average || 0)}% Used`}
         range={{min: 0, max: 100}}
         samples={props.samples.map(s => s?.cpu.average)}
