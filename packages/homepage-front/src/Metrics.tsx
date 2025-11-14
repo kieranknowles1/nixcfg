@@ -7,19 +7,17 @@ export interface MetricsProps {
 }
 
 export default function Metrics(props: MetricsProps) {
-  const totalMemBytes = props.samples.length > 0 ? props.samples[0].mem.total : 0
+  const totalMemBytes = (props.samples.length > 0 && props.samples[0]?.mem.total) || 0
   return (
-    <>
-      <p>CPU Usage</p>
+    <section className="grid grid-cols-4">
       <Graph
         range={{min: 0, max: 100}}
         samples={props.samples.map(s => s?.cpu.average)}
       />
-      <p>Memory Usage</p>
       <Graph
         range={{min: 0, max: totalMemBytes / GIGABYTE}}
-        samples={props.samples.map(s => s?.mem.used / GIGABYTE)}
+        samples={props.samples.map(s => s && s.mem.used / GIGABYTE)}
       />
-    </>
+    </section>
   )
 }
