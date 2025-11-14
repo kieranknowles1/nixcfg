@@ -27,6 +27,8 @@ pub struct MemInfo {
 
 #[derive(Serialize, ts_rs::TS)]
 pub struct CpuInfo {
+    /// CPU model name.
+    pub name: String,
     /// CPU usage, averaged between all cores.
     pub average: f32,
     /// Usage of the core with highest load
@@ -100,6 +102,7 @@ impl SysInfo {
                 used: sys.used_memory(),
             },
             cpu: CpuInfo {
+                name: sys.cpus()[0].brand().to_owned(),
                 average: sys.global_cpu_usage(),
                 max: max_core,
             },
