@@ -65,14 +65,17 @@
   )
 
   let social(icon, link_prefix, username) = [
+    #let link_text = if link_prefix.starts-with("https://") {
+      link_prefix.replace("https://", "")
+    } else { "" }
     #if emphasise [
       #emph[#text(socials-colour)[#fa-icon(icon) #link(
           link_prefix + username,
-        )[#username]]]
+        )[#link_text#username]]]
     ] else [
       #text(socials-colour)[#fa-icon(icon) #link(
           link_prefix + username,
-        )[#username]]
+        )[#link_text#username]]
     ]
   ]
 
