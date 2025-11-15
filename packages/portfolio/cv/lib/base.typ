@@ -160,7 +160,7 @@
     date: [2024 -- 2025],
     title: "Computer Game Engineering Msc",
     employer: "Newcastle University",
-    [Awaiting Results],
+    [Distinction],
   )
 
   #education_entry(
