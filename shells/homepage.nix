@@ -6,7 +6,13 @@
 }:
 rust.overrideAttrs (oldAttrs: let
   nodeLaunch = writeShellScriptBin "node-launch" ''
+    # Prepare type bindings
+    cd $FLAKE/packages/homepage-back
+    cargo test
     cd $FLAKE/packages/homepage-front
+    rm -r src/bindings
+    mv ../homepage-back/bindings src/bindings
+
     npm run dev
   '';
 
