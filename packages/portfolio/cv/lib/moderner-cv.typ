@@ -25,6 +25,7 @@
 // Current changes:
 // - 1em spacing above headings
 // - add "years experience" to cv-language
+// - Display full URL for social media links
 
 #import "@preview/fontawesome:0.5.0": *
 
