@@ -111,6 +111,14 @@
           # Display human-readable sizes
           # Mode 2c: 3 significant figures with colour coded orders of magnitude
           ui-filesz = "2c";
+
+          # Index files search
+          e2d = true;
+          # Index metadata
+          e2t = true;
+
+          # Include upload timestamp
+          mte = "+.up_at";
         };
 
         accounts =
@@ -120,34 +128,41 @@
           cfgc.users;
 
         volumes = let
-          mkVolume = extraflags: path: defaultPerms: {
-            inherit path;
+          mkVolume = flags: path: defaultPerms: {
+            inherit path flags;
             access = {
               # Give all users all permissions, including admin access
               # TODO: Configure this per-user
               ${defaultPerms} = "@acct";
             };
-
-            flags =
-              {
-                # Index files search
-                e2d = true;
-                # Index metadata
-                e2t = true;
-
-                mte = "+.up_at";
-              }
-              // extraflags;
           };
 
           # TODO: Change group to a shared "immich-copyparty" group
-          mkImmichVolume = mkVolume {
-            # Make sure Immich can read uploads and write metadata in new files
-            chmod_d = "777"; # RWX-RWX-RX-
-            # Copyparty needs write access to delete partial uploads. Users
-            # cannot delete as they lack the "d" permission.
-            chmod_f = "644"; # RW-R-R
-          };
+          mkImmichVolume = let
+            fields = ["ISO" "ShutterSpeed" "Aperture" "DateTimeOriginal"];
+            jq = lib.getExe pkgs.jq;
+            exiftool = lib.getExe pkgs.exiftool;
+            extractScript = pkgs.writeShellScript "extract-metadata" ''
+              ${exiftool} -json ${builtins.concatStringsSep " " (map (f: "-${f}") fields)} "$1" | ${jq} '.[0]'
+            '';
+          in
+            mkVolume {
+              # Make sure Immich can read uploads and write metadata in new files
+              chmod_d = "777"; # RWX-RWX-RX-
+              # Copyparty needs write access to delete partial uploads. Users
+              # cannot delete as they lack the "d" permission.
+              chmod_f = "644"; # RW-R-R
+
+              # Extract EXIF metadata from images
+              mte = "${builtins.concatStringsSep "," fields}";
+              # Documentation on this is terrible, but I've been able to reverse engineer it.
+              # `mtp` takes the form `tags,comma,separated=options,comma,separated,command`
+              # `command` should output a JSON object with a key for each `tag` on stdout
+              # Options prefixed with `e` filter operations by file extension, case insensitive
+              # All tags must be enabled using the `mte` flag
+              # Adding a script is not retroactive to existing uploads
+              mtp = "${builtins.concatStringsSep "," fields}=ejpg,ejpeg,eraw,${extractScript}";
+            };
         in {
           # All permissions
           "/" = mkVolume {} cfgc.dataDir "A";
