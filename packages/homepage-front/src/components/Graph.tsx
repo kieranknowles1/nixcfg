@@ -22,7 +22,7 @@ export default function Graph(props: GraphProps) {
     }
   }
 
-  return <Widget className="grid grid-cols-1">
+  return <Widget>
     <Line
       className="col-start-1 row-start-1"
       options={{
@@ -56,9 +56,9 @@ export default function Graph(props: GraphProps) {
       }}
     />
     <div className="col-start-1 row-start-1 relative">
-      <span className="font-bold text-lg text-white">{props.title}</span>
-      <span className="absolute bottom-0 flex italic text-gray-50">{props.description}</span>
-      <span className="absolute bottom-0 right-0 italic text-gray-50">{props.value}</span>
+      <h3 className="font-bold text-lg">{props.title}</h3>
+      <span className="absolute bottom-0 flex italic">{props.description}</span>
+      <span className="absolute bottom-0 right-0 italic">{props.value}</span>
     </div>
   </Widget>
 }

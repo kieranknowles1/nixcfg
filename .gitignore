@@ -10,6 +10,7 @@ target/
 # Generated TypeScript bindings
 # Used by homepage
 bindings/
+third_party/
 
 # mdBook output
 /book/

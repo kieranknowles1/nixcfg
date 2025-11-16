@@ -3,6 +3,10 @@ import { useEffect, useState } from "react"
 import useInterval from "./useInterval"
 import Metrics from "./Metrics"
 import { type EnabledMetrics } from "./bindings/EnabledMetrics"
+import FolderOpenIcon from "mdi-react/FolderOpenIcon"
+import Section from "./components/Section"
+import TriliumWidget from "./TriliumWidget"
+import { latest } from "./utils"
 
 const API_ROOT = "http://localhost:4321"
 const UPDATE_INTERVAL = 1000
@@ -38,6 +42,20 @@ function App() {
 
   return (
     <>
+      <Section
+        type="multicolumn"
+        columns={4}
+      >
+        <Section
+          type="row"
+          columns={1}
+          title="Documents"
+          icon={<FolderOpenIcon className="inline" />}
+        >
+          <TriliumWidget data={latest(metrics).trilium!} />
+
+        </Section>
+      </Section>
       {enabled?.sysinfo && <Metrics samples={metrics.map(m => m.sysinfo!)} />}
     </>
   )

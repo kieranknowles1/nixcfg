@@ -14,7 +14,7 @@ export default function Metrics(props: MetricsProps) {
   const latestDat = latest(props.samples)
 
   return (
-    <Section title="Metrics" icon={<ChartLineIcon className="inline" />} columns={4}>
+    <Section type="row" title="Metrics" icon={<ChartLineIcon className="inline" />} columns={4}>
       <Graph
         title="CPU Usage"
         description={props.samples[0].cpu.name}
