@@ -18,8 +18,44 @@ struct Cli {
     #[clap(long, env = "HOMEPAGE_PORT", default_value = "4321")]
     port: u16,
 
-    #[clap(long, env = "HOMEPAGE_ENABLE_SYSINFO", default_value = "false")]
-    enable_sysinfo: bool,
+    #[clap(flatten)]
+    sysinfo: SysInfoOpts,
+
+    #[clap(flatten)]
+    trilium: TriliumOpts,
+}
+
+#[derive(clap::Args)]
+struct SysInfoOpts {
+    #[clap(
+        name = "enable-sysinfo",
+        long,
+        env = "HOMEPAGE_SYSINFO_ENABLE",
+        default_value = "false"
+    )]
+    enable: bool,
+}
+
+#[derive(clap::Args)]
+#[group(required = false)]
+struct TriliumOpts {
+    #[clap(
+        name = "enable-trilium",
+        long,
+        env = "HOMEPAGE_TRILIUM_ENABLE",
+        default_value = "false",
+        requires = "url",
+        requires = "api_file"
+    )]
+    enable: bool,
+
+    /// Base URL for Trilium
+    #[clap(long = "trilium-url", env = "HOMEPAGE_TRILIUM_URL")]
+    url: Option<String>,
+
+    /// File containing an ETAPI key for Trilium
+    #[clap(long = "trilium-api-file", env = "HOMEPAGE_TRILIUM_API_FILE")]
+    api_file: Option<String>,
 }
 
 static CLI: OnceLock<Cli> = OnceLock::new();
