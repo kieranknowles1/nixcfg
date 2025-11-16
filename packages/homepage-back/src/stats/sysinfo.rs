@@ -1,4 +1,4 @@
-use std::{collections::HashMap, time::Duration};
+use std::{collections::HashMap, convert::Infallible, time::Duration};
 
 use serde::Serialize;
 use sysinfo::{CpuRefreshKind, Disks, MemoryRefreshKind, RefreshKind, System};
@@ -57,7 +57,7 @@ fn average_speed(sample: u64, duration: Duration) -> u64 {
 }
 
 impl SysInfo {
-    pub async fn fetch() -> Self {
+    pub async fn fetch() -> Result<Self, Infallible> {
         let cpu_refresh = CpuRefreshKind::nothing().with_cpu_usage();
         let mut sys = System::new_with_specifics(
             RefreshKind::nothing()
@@ -96,7 +96,7 @@ impl SysInfo {
             .reduce(f32::max) // Can't use max due to NaN behavior
             .unwrap(); // Assume we have data for at least one core
 
-        Self {
+        Ok(Self {
             mem: MemInfo {
                 total: sys.total_memory(),
                 used: sys.used_memory(),
@@ -107,6 +107,6 @@ impl SysInfo {
                 max: max_core,
             },
             disk: disk_stats,
-        }
+        })
     }
 }

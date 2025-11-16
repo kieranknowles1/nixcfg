@@ -2,9 +2,10 @@ use http_body_util::Full;
 use hyper::{Request, Response, body::Bytes};
 use serde::Serialize;
 
-use crate::stats::sysinfo::SysInfo;
+use crate::stats::{sysinfo::SysInfo, trilium::TriliumData};
 
 mod sysinfo;
+mod trilium;
 
 macro_rules! impl_metrics {
     ($($name:ident: $type:ty => ($cli:ident)),*) => {
@@ -28,7 +29,7 @@ macro_rules! impl_metrics {
             pub fn from_cli() -> Self {
                 let cli = crate::cli();
                 Self {
-                    $($name: cli.$cli,)*
+                    $($name: cli.$cli.enable,)*
                 }
             }
         }
@@ -41,8 +42,12 @@ macro_rules! impl_metrics {
                 // Spawn all jobs simultaneously
                 $(
                     let $name = async {
-                        if cli.$cli {
-                            Some(<$type>::fetch().await)
+                        if cli.$cli.enable {
+                            let res = <$type>::fetch().await;
+                            if let Err(msg) = &res {
+                                eprintln!("Failed to fetch {}: {}", stringify!($type), msg);
+                            }
+                            res.ok()
                         } else {
                             None
                         }
@@ -59,7 +64,8 @@ macro_rules! impl_metrics {
 }
 
 impl_metrics! (
-    sysinfo: SysInfo => (enable_sysinfo)
+    sysinfo: SysInfo => (sysinfo),
+    trilium: TriliumData => (trilium)
 );
 
 pub async fn info_route(
