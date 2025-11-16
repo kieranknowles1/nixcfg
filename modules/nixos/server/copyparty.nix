@@ -137,7 +137,6 @@
             };
           };
 
-          # TODO: Change group to a shared "immich-copyparty" group
           mkImmichVolume = let
             fields = ["ISO" "ShutterSpeed" "Aperture" "DateTimeOriginal"];
             jq = lib.getExe pkgs.jq;
@@ -147,11 +146,13 @@
             '';
           in
             mkVolume {
-              # Make sure Immich can read uploads and write metadata in new files
-              chmod_d = "777"; # RWX-RWX-RX-
+              # Immich needs write access to create sidecar metadata files. It
+              # does not and cannot write images owned by copyparty.
+              chmod_d = "770"; # RWX-RWX
               # Copyparty needs write access to delete partial uploads. Users
               # cannot delete as they lack the "d" permission.
-              chmod_f = "644"; # RW-R-R
+              chmod_f = "640"; # RW-R
+              gid = config.custom.gids.immich-copyparty;
 
               # Extract EXIF metadata from images
               mte = "${builtins.concatStringsSep "," fields}";
@@ -174,7 +175,14 @@
 
       users.users = {
         # Nginx group membership is required to assign the socket's group
-        copyparty.extraGroups = ["nginx"];
+        # `immich-copyparty` gives both services shared access to read-only external library volumes
+        # TODO: Use a shared group for nginx-copyparty-socket
+        copyparty.extraGroups = ["nginx" "immich-copyparty"];
+        immich.extraGroups = ["immich-copyparty"];
+      };
+
+      users.groups.immich-copyparty = {
+        gid = config.custom.gids.immich-copyparty;
       };
     };
 }
