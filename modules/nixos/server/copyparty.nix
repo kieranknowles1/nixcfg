@@ -138,7 +138,7 @@
           };
 
           mkImmichVolume = let
-            fields = ["ISO" "ShutterSpeed" "Aperture" "DateTimeOriginal"];
+            fields = ["FocalLength" "ISO" "ShutterSpeed" "Aperture" "DateTimeOriginal"];
             jq = lib.getExe pkgs.jq;
             exiftool = lib.getExe pkgs.exiftool;
             extractScript = pkgs.writeShellScript "extract-metadata" ''
