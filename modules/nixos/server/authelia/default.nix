@@ -65,6 +65,20 @@
     storageKeySecret = mkAlphaSecret "authelia/storage-key" "Storage Key";
     hmacSecret = mkAlphaSecret "authelia/hmac-secret" "HMAC";
     jwkRsaSecret = mkSecret "a RSA private key. The public key is not required" "authelia/jwk-rsa-secret" "RSA private key";
+    smtp = {
+      username = mkOption {
+        type = types.str;
+        example = "my-smtp-user";
+        description = "SMTP username";
+      };
+      # NOT mkAlphaSecret as, at least for AWS, these are set by Amazon SES and not user-defined
+      password = mkSecret "SMTP password" "authelia/smtp/password" "SMTP password";
+      endpoint = mkOption {
+        type = types.str;
+        example = "smtp://example.com";
+        description = "SMTP endpoint";
+      };
+    };
   };
 
   config = let
@@ -113,6 +127,8 @@
         "authelia/storage-key" = secret cfga.storageKeySecret;
         "authelia/oidc-hmac-secret" = secret cfga.hmacSecret;
         "authelia/jwk-rsa-secret" = secret cfga.jwkRsaSecret;
+
+        "authelia/smtp/password" = secret cfga.smtp.password;
       };
 
       services.postgresql = {
@@ -318,63 +334,15 @@
           #     #   subject: 'user:bob'
           #     #   policy: 'two_factor'
 
-          # TODO: Switch to SMTP
-          notifier.filesystem = {
-            filename = "${cfga.dataDir}/notification.txt";
+          notifier.smtp = let
+            fileRef = file: "{{- fileContent \"${file}\" }}";
+          in {
+            address = cfga.smtp.endpoint;
+            inherit (cfga.smtp) username;
+            password = fileRef config.sops.secrets."authelia/smtp/password".path;
+
+            sender = "Authelia <auth@${cfg.hostname}>";
           };
-
-          # TODO: Finish configuring
-
-          # ##
-          # ## Notification Provider
-          # ##
-          # ## Notifications are sent to users when they require a password reset, a WebAuthn registration or a TOTP registration.
-          # ## The available providers are: filesystem, smtp. You must use only one of these providers.
-          # # notifier:
-          #   ## You can disable the notifier startup check by setting this to true.
-          #   # disable_startup_check: false
-
-          #   ##
-          #   ## SMTP (Notification Provider)
-          #   ##
-          #   ## Use a SMTP server for sending notifications. Authelia uses the PLAIN or LOGIN methods to authenticate.
-          #   ## [Security] By default Authelia will:
-          #   ##   - force all SMTP connections over TLS including unauthenticated connections
-          #   ##      - use the disable_require_tls boolean value to disable this requirement
-          #   ##        (only works for unauthenticated connections)
-          #   ##   - validate the SMTP server x509 certificate during the TLS handshake against the hosts trusted certificates
-          #   ##     (configure in tls section)
-          #   # smtp:
-          #     ## The address of the SMTP server to connect to in the address common syntax.
-          #     # address: 'smtp://127.0.0.1:25'
-
-          #     ## The connection timeout in the duration common syntax.
-          #     # timeout: '5 seconds'
-
-          #     ## The username used for SMTP authentication.
-          #     # username: 'test'
-
-          #     ## The password used for SMTP authentication.
-          #     ## Can also be set using a secret: https://www.authelia.com/c/secrets
-          #     # password: 'password'
-
-          #     ## The sender is used to is used for the MAIL FROM command and the FROM header.
-          #     ## If this is not defined and the username is an email, we use the username as this value. This can either be just
-          #     ## an email address or the RFC5322 'Name <email address>' format.
-          #     # sender: 'Authelia <admin@example.com>'
-
-          #     ## HELO/EHLO Identifier. Some SMTP Servers may reject the default of localhost.
-          #     # identifier: 'localhost'
-
-          #     ## Subject configuration of the emails sent. {title} is replaced by the text from the notifier.
-          #     # subject: '[Authelia] {title}'
-
-          #     ## This address is used during the startup check to verify the email configuration is correct.
-          #     ## It's not important what it is except if your email server only allows local delivery.
-          #     # startup_check_address: 'test@authelia.com'
-
-          #     ## Disables sending HTML formatted emails.
-          #     # disable_html_emails: false
 
           identity_providers.oidc = {
             clients =

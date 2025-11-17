@@ -60,7 +60,6 @@
 
       actual.enable = true;
       adguard.enable = true;
-      authelia.enable = true;
       docs.enable = true;
       forgejo.enable = true;
       homepage.enable = true;
@@ -69,6 +68,12 @@
       # FIXME: This rebuilds the whole webapp on options change, not just the index
       # which takes over a minute whenever options change
       # search.enable = true;
+
+      authelia = {
+        enable = true;
+        smtp.username = "AKIA4HIUFKO4HYENRIPH";
+        smtp.endpoint = "smtp://email-smtp.eu-north-1.amazonaws.com";
+      };
 
       minecraft = {
         enable = true;
