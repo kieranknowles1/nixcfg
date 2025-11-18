@@ -50,12 +50,6 @@ in {
         mkHostOpt types.path "/path/to/socket.sock"
         "Absolute path to socket to proxy connections to.";
 
-      requireAuth = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Require basic authentication for this vhost";
-      };
-
       webSockets = mkEnableOption "websockets";
 
       cache.enable = mkEnableOption "add cache headers to this vhost";
@@ -70,7 +64,52 @@ in {
     };
 
     subdomainType = types.submodule {
-      options = vhostOpts;
+      # Auth is not supported for the root domain. No need for it currently
+      # so not bothering with implementation
+      options =
+        vhostOpts
+        // {
+          # NOTE: This is implemented in the `authelia` module.
+          # ACL rules are much more complex than this, but this gives a
+          # good enough starting point for most use cases.
+          authorization = let
+            authEnum = types.enum [
+              "none"
+              "one_factor"
+              "two_factor"
+            ];
+          in {
+            policy = mkOption {
+              type = authEnum;
+              default = "none";
+              description = ''
+                Authorization policy for this vhost. Values other than `none`
+                require that Authelia is configured.
+                - None: No authentication or authorization required.
+                - One Factor: Username and password required.
+                - Two Factor: Username, password, and 2FA required.
+              '';
+            };
+            subject = let
+              strList = types.listOf types.str;
+            in
+              mkOption {
+                type = types.nullOr (types.either strList (types.listOf strList));
+                example = ["group:admins"];
+                description = ''
+                  Authelia subjects to restrict access to. If null, all authenticated
+                  users are authorized. A user is granted access if they match ANY subject.
+                  If an entry is a list, it applies as an AND condition.
+                  `["group:admins" "group:dev"]` would require that a user is both
+                  an admin and a developer.
+
+
+                  See [Authelia Documentation](https://www.authelia.com/configuration/security/access-control/)
+                  for more information on subjects.
+                '';
+              };
+          };
+        };
     };
   in {
     enable = mkEnableOption "server hosting";
@@ -79,13 +118,6 @@ in {
       type = types.str;
       example = "example.com";
       description = "The domain name of the server";
-    };
-
-    basicAuthSecret = mkOption {
-      type = types.str;
-      example = "sops/basic-auth-secret";
-      default = "nginx/basic-auth";
-      description = "SOPS secret path to the basic auth secret file";
     };
 
     ssl = {
@@ -220,7 +252,10 @@ in {
       # error_page 401 =302 https://auth.example.com/?rd=$target_url;
     '';
 
-    mkVhost = subdomain: ssl: {
+    mkVhost = root: subdomain: ssl: let
+      # Authorization is not currently supported for the root domain. (plain selwonk.uk)
+      requireAuth = !root && subdomain.authorization.policy != "none";
+    in {
       locations."/" = {
         inherit (subdomain) root;
         proxyPass =
@@ -232,10 +267,8 @@ in {
 
         proxyWebsockets = subdomain.webSockets;
 
-        # basicAuthFile = lib.mkIf subdomain.requireAuth config.sops.secrets.nginx-basic-auth.path;
-
         extraConfig = ''
-          ${lib.optionalString subdomain.requireAuth "include ${authelia-authrequest};"}
+          ${lib.optionalString requireAuth "include ${authelia-authrequest};"}
         '';
       };
 
@@ -252,7 +285,7 @@ in {
 
       extraConfig = ''
         ${lib.optionalString subdomain.cache.enable "expires ${subdomain.cache.expires};"}
-        ${lib.optionalString subdomain.requireAuth "include ${authelia-location};"}
+        ${lib.optionalString requireAuth "include ${authelia-location};"}
       '';
     };
 
@@ -261,7 +294,7 @@ in {
     mkSubHosts = ssl: tld:
       lib.attrsets.mapAttrs' (name: subdomain: {
         name = "${name}.${tld}";
-        value = mkVhost subdomain ssl;
+        value = mkVhost false subdomain ssl;
       })
       cfg.subdomains;
   in
@@ -285,7 +318,6 @@ in {
         };
       in {
         ssl-private-key = mkSecret config.services.nginx.user cfg.ssl.privateKeySecret;
-        nginx-basic-auth = mkSecret config.services.nginx.user cfg.basicAuthSecret;
 
         cf-zone-id = mkSecret "root" cfg.zoneIdSecret;
         cf-clearcache-token = mkSecret "root" cfg.clearCacheKey;
@@ -307,8 +339,8 @@ in {
           (mkSubHosts true cfg.hostname)
           (mkSubHosts false "${config.networking.hostName}.local")
           {
-            "${cfg.hostname}" = mkVhost cfg.root true;
-            "${config.networking.hostName}.local" = mkVhost cfg.localRoot false;
+            "${cfg.hostname}" = mkVhost true cfg.root true;
+            "${config.networking.hostName}.local" = mkVhost true cfg.localRoot false;
 
             # 404 for any unknown subdomains
             "_default" = {
