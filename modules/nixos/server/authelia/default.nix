@@ -79,6 +79,13 @@
         description = "SMTP endpoint";
       };
     };
+
+    socket = mkOption {
+      type = types.str;
+      example = "/run/authelia/authelia.sock";
+      description = "Socket path for Authelia";
+      readOnly = true;
+    };
   };
 
   config = let
@@ -103,6 +110,7 @@
         };
 
         authelia.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/authelia";
+        authelia.socket = socket;
       };
       custom.mkdir = {
         ${socketDir} = {
@@ -158,6 +166,11 @@
           server = {
             # TODO: Limit access to nginx via group
             address = "unix://${socket}?umask=0111";
+
+            # Provide an endpoint for Nginx to authenticate requests
+            endpoints.authz.auth-request = {
+              implementation = "AuthRequest";
+            };
           };
 
           # Temporarily block an IP if it appears to be attempting a brute force attack
@@ -426,34 +439,6 @@
 # ## disabled. This setting must be a method that is enabled.
 # ## Options are totp, webauthn, mobile_push.
 # # default_2fa_method: ''
-# ##
-# ## Server Configuration
-# ##
-# # server:
-#   ## Disables writing the health check vars to /app/.healthcheck.env which makes healthcheck.sh return exit code 0.
-#   ## This is disabled by default if either /app/.healthcheck.env or /app/healthcheck.sh do not exist.
-#   # disable_healthcheck: false
-#   ## Server Endpoints configuration.
-#   ## This section is considered advanced and it SHOULD NOT be configured unless you've read the relevant documentation.
-#   # endpoints:
-#     ## Enables the pprof endpoint.
-#     # enable_pprof: false
-#     ## Enables the expvars endpoint.
-#     # enable_expvars: false
-#     ## Configure the authz endpoints.
-#     # authz:
-#       # forward-auth:
-#         # implementation: 'ForwardAuth'
-#         # authn_strategies: []
-#       # ext-authz:
-#         # implementation: 'ExtAuthz'
-#         # authn_strategies: []
-#       # auth-request:
-#         # implementation: 'AuthRequest'
-#         # authn_strategies: []
-#       # legacy:
-#         # implementation: 'Legacy'
-#         # authn_strategies: []
 # ##
 # ## WebAuthn Configuration
 # ##
