@@ -111,6 +111,14 @@
           # Display human-readable sizes
           # Mode 2c: 3 significant figures with colour coded orders of magnitude
           ui-filesz = "2c";
+
+          # Index files search
+          e2d = true;
+          # Index metadata
+          e2t = true;
+
+          # Include upload timestamp
+          mte = "+.up_at";
         };
 
         accounts =
@@ -120,40 +128,61 @@
           cfgc.users;
 
         volumes = let
-          mkVolume = path: extraflags: defaultPerms: {
-            inherit path;
+          mkVolume = flags: path: defaultPerms: {
+            inherit path flags;
             access = {
               # Give all users all permissions, including admin access
               # TODO: Configure this per-user
               ${defaultPerms} = "@acct";
             };
-
-            flags =
-              {
-                # Index files search
-                e2d = true;
-                # Index metadata
-                e2t = true;
-
-                mte = "+.up_at";
-              }
-              // extraflags;
           };
+
+          mkImmichVolume = let
+            fields = ["FocalLength" "ISO" "ShutterSpeed" "Aperture" "DateTimeOriginal"];
+            jq = lib.getExe pkgs.jq;
+            exiftool = lib.getExe pkgs.exiftool;
+            extractScript = pkgs.writeShellScript "extract-metadata" ''
+              ${exiftool} -json ${builtins.concatStringsSep " " (map (f: "-${f}") fields)} "$1" | ${jq} '.[0]'
+            '';
+          in
+            mkVolume {
+              # Immich needs write access to create sidecar metadata files. It
+              # does not and cannot write images owned by copyparty.
+              chmod_d = "770"; # RWX-RWX
+              # Copyparty needs write access to delete partial uploads. Users
+              # cannot delete as they lack the "d" permission.
+              chmod_f = "640"; # RW-R
+              gid = config.custom.gids.immich-copyparty;
+
+              # Extract EXIF metadata from images
+              mte = "${builtins.concatStringsSep "," fields}";
+              # Documentation on this is terrible, but I've been able to reverse engineer it.
+              # `mtp` takes the form `tags,comma,separated=options,comma,separated,command`
+              # `command` should output a JSON object with a key for each `tag` on stdout
+              # Options prefixed with `e` filter operations by file extension, case insensitive
+              # All tags must be enabled using the `mte` flag
+              # Adding a script is not retroactive to existing uploads
+              mtp = "${builtins.concatStringsSep "," fields}=ejpg,ejpeg,eraw,${extractScript}";
+            };
         in {
           # All permissions
-          "/" = mkVolume cfgc.dataDir {} "A";
+          "/" = mkVolume {} cfgc.dataDir "A";
           # Read, write, but not modify or delete
-          "/oldies" = mkVolume "${cfg.data.baseDirectory}/immich-oldies" {
-            # Make sure Immich can read from uploads here
-            chmod_d = "755";
-            chmod_f = "644";
-          } "rw";
+          "/oldies" = mkImmichVolume "${cfg.data.baseDirectory}/immich-oldies" "rw";
+          "/camera" = mkImmichVolume "${cfg.data.baseDirectory}/immich-camera" "rw";
         };
       };
 
       users.users = {
         # Nginx group membership is required to assign the socket's group
-        copyparty.extraGroups = ["nginx"];
+        # `immich-copyparty` gives both services shared access to read-only external library volumes
+        # TODO: Use a shared group for nginx-copyparty-socket
+        copyparty.extraGroups = ["nginx" "immich-copyparty"];
+        immich.extraGroups = ["immich-copyparty"];
+      };
+
+      users.groups.immich-copyparty = {
+        gid = config.custom.gids.immich-copyparty;
       };
     };
 }

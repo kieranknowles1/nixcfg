@@ -88,3 +88,11 @@ If a task is cancelled, do not remove it from the list. Instead mark it with a
       changes.
 - [ ] Document `builders`, `lib`, and `shells` outputs. Want to plan out how to
       do this.
+- [ ] Single sign on for all services
+  - [x] Actual
+  - [ ] Immich
+  - [ ] Trillium
+  - [ ] Homepage
+  - [ ] Forgejo
+  - [ ] Paperless
+  - [ ] Copyparty

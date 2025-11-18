@@ -18,10 +18,10 @@
           example = "smiths";
           description = "Group who owns the directory";
         };
-        permissions = mkOption {
+        mode = mkOption {
           type = types.str;
           default = "700";
-          description = "Permissions to assign to the directory";
+          description = "Access mode to assign to the directory";
         };
       };
     };
@@ -38,9 +38,9 @@
     systemd.tmpfiles.rules = lib.flatten (lib.mapAttrsToList (dir: opts: [
         # Create directory if it does not exist, owned by user and group, with permissions
         # Do not clean based on age
-        "d '${dir}' ${opts.permissions} ${opts.user} ${opts.group} - -"
+        "d '${dir}' ${opts.mode} ${opts.user} ${opts.group} - -"
         # chmod/chown directory to match requested permissions and ownership
-        "z '${dir}' ${opts.permissions} ${opts.user} ${opts.group} - -"
+        "z '${dir}' ${opts.mode} ${opts.user} ${opts.group} - -"
       ])
       cfg);
   };

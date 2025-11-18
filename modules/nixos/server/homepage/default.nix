@@ -215,6 +215,8 @@
           };
           Infrastructure = {
             icon = "mdi-server";
+            style = "row";
+            columns = 2;
             sortOrder = sort.last;
           };
         };
@@ -229,7 +231,12 @@
         localRoot.proxyPort = config.services.homepage-dashboard.listenPort;
         subdomains.${cfgh.subdomain} = {
           proxyPort = config.services.homepage-dashboard.listenPort;
-          requireAuth = true;
+          # Don't want this to be publicly exposed (at least on the internet, LAN is fine)
+          # But there's nothing sensitive enough to warrant two-factor authentication.
+          authorization = {
+            policy = "one_factor";
+            subject = ["group:admins"];
+          };
         };
       };
 

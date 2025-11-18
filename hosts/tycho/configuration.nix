@@ -69,6 +69,12 @@
       # which takes over a minute whenever options change
       # search.enable = true;
 
+      authelia = {
+        enable = true;
+        smtp.username = "AKIA4HIUFKO4HYENRIPH";
+        smtp.endpoint = "smtp://email-smtp.eu-north-1.amazonaws.com";
+      };
+
       minecraft = {
         enable = true;
         whitelist.kieranknowles1 = "55b348b0-9713-42ca-922f-f2e763296ff0";

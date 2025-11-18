@@ -24,6 +24,7 @@ in {
     ./ports.nix
     ./postgresql.nix
     ./search.nix
+    ./authelia
     ./trilium.nix
   ];
 
@@ -49,12 +50,6 @@ in {
         mkHostOpt types.path "/path/to/socket.sock"
         "Absolute path to socket to proxy connections to.";
 
-      requireAuth = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Require basic authentication for this vhost";
-      };
-
       webSockets = mkEnableOption "websockets";
 
       cache.enable = mkEnableOption "add cache headers to this vhost";
@@ -69,7 +64,52 @@ in {
     };
 
     subdomainType = types.submodule {
-      options = vhostOpts;
+      # Auth is not supported for the root domain. No need for it currently
+      # so not bothering with implementation
+      options =
+        vhostOpts
+        // {
+          # NOTE: This is implemented in the `authelia` module.
+          # ACL rules are much more complex than this, but this gives a
+          # good enough starting point for most use cases.
+          authorization = let
+            authEnum = types.enum [
+              "none"
+              "one_factor"
+              "two_factor"
+            ];
+          in {
+            policy = mkOption {
+              type = authEnum;
+              default = "none";
+              description = ''
+                Authorization policy for this vhost. Values other than `none`
+                require that Authelia is configured.
+                - None: No authentication or authorization required.
+                - One Factor: Username and password required.
+                - Two Factor: Username, password, and 2FA required.
+              '';
+            };
+            subject = let
+              strList = types.listOf types.str;
+            in
+              mkOption {
+                type = types.nullOr (types.either strList (types.listOf strList));
+                example = ["group:admins"];
+                description = ''
+                  Authelia subjects to restrict access to. If null, all authenticated
+                  users are authorized. A user is granted access if they match ANY subject.
+                  If an entry is a list, it applies as an AND condition.
+                  `["group:admins" "group:dev"]` would require that a user is both
+                  an admin and a developer.
+
+
+                  See [Authelia Documentation](https://www.authelia.com/configuration/security/access-control/)
+                  for more information on subjects.
+                '';
+              };
+          };
+        };
     };
   in {
     enable = mkEnableOption "server hosting";
@@ -78,13 +118,6 @@ in {
       type = types.str;
       example = "example.com";
       description = "The domain name of the server";
-    };
-
-    basicAuthSecret = mkOption {
-      type = types.str;
-      example = "sops/basic-auth-secret";
-      default = "nginx/basic-auth";
-      description = "SOPS secret path to the basic auth secret file";
     };
 
     ssl = {
@@ -147,7 +180,82 @@ in {
   config = let
     cfg = config.custom.server;
 
-    mkVhost = subdomain: ssl: {
+    authelia-location = pkgs.writeText "authelia-location.conf" ''
+      # https://www.authelia.com/integration/proxies/nginx/#standard-example
+      set $upstream_authelia http://unix:${cfg.authelia.socket}:/api/authz/auth-request;
+
+      ## Virtual endpoint created by nginx to forward auth requests.
+      location /internal/authelia/authz {
+          ## Essential Proxy Configuration
+          internal;
+          proxy_pass $upstream_authelia;
+
+          ## Headers
+          ## The headers starting with X-* are required.
+          proxy_set_header X-Original-Method $request_method;
+          proxy_set_header X-Original-URL $scheme://$http_host$request_uri;
+          proxy_set_header X-Forwarded-For $remote_addr;
+          proxy_set_header Content-Length "";
+          proxy_set_header Connection "";
+
+          ## Basic Proxy Configuration
+          proxy_pass_request_body off;
+          proxy_next_upstream error timeout invalid_header http_500 http_502 http_503; # Timeout if the real server is dead
+          proxy_redirect http:// $scheme://;
+          proxy_http_version 1.1;
+          proxy_cache_bypass $cookie_session;
+          proxy_no_cache $cookie_session;
+          proxy_buffers 4 32k;
+          client_body_buffer_size 128k;
+
+          ## Advanced Proxy Configuration
+          send_timeout 5m;
+          proxy_read_timeout 240;
+          proxy_send_timeout 240;
+          proxy_connect_timeout 240;
+      }
+    '';
+
+    authelia-authrequest = pkgs.writeText "authelia-authrequest.conf" ''
+      # https://www.authelia.com/integration/proxies/nginx/#standard-example
+      ## Send a subrequest to Authelia to verify if the user is authenticated and has permission to access the resource.
+      auth_request /internal/authelia/authz;
+
+      ## Save the upstream metadata response headers from Authelia to variables.
+      auth_request_set $user $upstream_http_remote_user;
+      auth_request_set $groups $upstream_http_remote_groups;
+      auth_request_set $name $upstream_http_remote_name;
+      auth_request_set $email $upstream_http_remote_email;
+
+      ## Inject the metadata response headers from the variables into the request made to the backend.
+      proxy_set_header Remote-User $user;
+      proxy_set_header Remote-Groups $groups;
+      proxy_set_header Remote-Email $email;
+      proxy_set_header Remote-Name $name;
+
+      ## Configure the redirection when the authz failure occurs. Lines starting with 'Modern Method' and 'Legacy Method'
+      ## should be commented / uncommented as pairs. The modern method uses the session cookies configuration's authelia_url
+      ## value to determine the redirection URL here. It's much simpler and compatible with the mutli-cookie domain easily.
+
+      ## Modern Method: Set the $redirection_url to the Location header of the response to the Authz endpoint.
+      auth_request_set $redirection_url $upstream_http_location;
+
+      ## Modern Method: When there is a 401 response code from the authz endpoint redirect to the $redirection_url.
+      error_page 401 =302 $redirection_url;
+
+      ## Legacy Method: Set $target_url to the original requested URL.
+      ## This requires http_set_misc module, replace 'set_escape_uri' with 'set' if you don't have this module.
+      # set_escape_uri $target_url $scheme://$http_host$request_uri;
+
+      ## Legacy Method: When there is a 401 response code from the authz endpoint redirect to the portal with the 'rd'
+      ## URL parameter set to $target_url. This requires users update 'auth.example.com/' with their external authelia URL.
+      # error_page 401 =302 https://auth.example.com/?rd=$target_url;
+    '';
+
+    mkVhost = root: subdomain: ssl: let
+      # Authorization is not currently supported for the root domain. (plain selwonk.uk)
+      requireAuth = !root && subdomain.authorization.policy != "none";
+    in {
       locations."/" = {
         inherit (subdomain) root;
         proxyPass =
@@ -159,7 +267,9 @@ in {
 
         proxyWebsockets = subdomain.webSockets;
 
-        basicAuthFile = lib.mkIf subdomain.requireAuth config.sops.secrets.nginx-basic-auth.path;
+        extraConfig = ''
+          ${lib.optionalString requireAuth "include ${authelia-authrequest};"}
+        '';
       };
 
       forceSSL = ssl; # Enable HTTPS and redirect HTTP to it
@@ -175,6 +285,7 @@ in {
 
       extraConfig = ''
         ${lib.optionalString subdomain.cache.enable "expires ${subdomain.cache.expires};"}
+        ${lib.optionalString requireAuth "include ${authelia-location};"}
       '';
     };
 
@@ -183,7 +294,7 @@ in {
     mkSubHosts = ssl: tld:
       lib.attrsets.mapAttrs' (name: subdomain: {
         name = "${name}.${tld}";
-        value = mkVhost subdomain ssl;
+        value = mkVhost false subdomain ssl;
       })
       cfg.subdomains;
   in
@@ -207,7 +318,6 @@ in {
         };
       in {
         ssl-private-key = mkSecret config.services.nginx.user cfg.ssl.privateKeySecret;
-        nginx-basic-auth = mkSecret config.services.nginx.user cfg.basicAuthSecret;
 
         cf-zone-id = mkSecret "root" cfg.zoneIdSecret;
         cf-clearcache-token = mkSecret "root" cfg.clearCacheKey;
@@ -229,8 +339,8 @@ in {
           (mkSubHosts true cfg.hostname)
           (mkSubHosts false "${config.networking.hostName}.local")
           {
-            "${cfg.hostname}" = mkVhost cfg.root true;
-            "${config.networking.hostName}.local" = mkVhost cfg.localRoot false;
+            "${cfg.hostname}" = mkVhost true cfg.root true;
+            "${config.networking.hostName}.local" = mkVhost true cfg.localRoot false;
 
             # 404 for any unknown subdomains
             "_default" = {

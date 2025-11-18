@@ -1,5 +1,5 @@
 {lib, ...}: {
-  options.custom.server.ports = let
+  options.custom = let
     inherit (lib) mkOption types;
 
     mkPortOption = protocol:
@@ -9,15 +9,27 @@
         default = {};
       };
   in {
-    tcp = mkPortOption "tcp";
-    udp = mkPortOption "udp";
+    server.ports = {
+      tcp = mkPortOption "tcp";
+      udp = mkPortOption "udp";
+    };
+
+    gids = mkOption {
+      type = types.attrsOf types.int;
+      description = ''
+        Group IDs. Should only be used in exceptional circumstances where
+        services REQUIRE integer IDs instead of names. Normally, you should
+        let NixOS allocate them automatically.
+      '';
+      default = {};
+    };
   };
 
-  config.custom.server.ports = {
+  config.custom = {
     # Keep these sorted by port number. Include anything that could be allocated
     # on the server. Use a service's default port from nixpkgs if possible,
     # if there's a conflict bump until a free port is found.
-    tcp = {
+    server.ports.tcp = {
       ssh = 22;
       dns = 53;
       http = 80;
@@ -41,10 +53,20 @@
       glances = 61208;
     };
 
-    udp = {
+    server.ports.udp = {
       dns = 53;
 
       minecraft = 25565;
+    };
+
+    # Keep these sorted by ID number and justify each
+    gids = {
+      # Start at 32000. NixOS uses a couple of the 31k range itself, so this
+      # seems like a safe range that shouldn't conflict
+      # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix
+
+      # Copyparty's `gid` chown option requires an ID, names are not accepted.
+      immich-copyparty = 32000;
     };
   };
 }
