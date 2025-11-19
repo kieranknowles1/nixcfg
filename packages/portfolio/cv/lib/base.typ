@@ -106,7 +106,7 @@
       name: [Rust],
       level: [Basic Knowledge],
       experience: 1,
-      comment: [Some small projects, nowhere near an expert.],
+      comment: [Tools on personal desktop.],
     )
     #cv-language(
       name: [Python],
@@ -134,8 +134,15 @@
     title: [Volunteer],
     job_type: [Shop Assistant],
     employer: [Bright Charity, Northumbria Hospital],
-    [Serving customers, restocking cafeteria and shop.
-      Opening/closing as needed. Cashing up.],
+    [
+      - Serving customers
+      - Responding effectively to customer queries
+      - Resolving customer complaints
+      - Accepting cash and card payments
+      - Stocking and restocking
+      - Ensuring cleanliness of the shop
+      - Adhering to relevant health and safety regulations
+    ],
   )
 
   #job_entry(
@@ -143,7 +150,13 @@
     title: [Volunteer],
     job_type: [Animal Care],
     employer: [Pets Corner, Jesmond Dene],
-    [Preparing feed, cleaning enclosures, answering visitor questions.],
+    [
+      - Cleaning enclosures
+      - Preparing feed
+      - Answering visitor questions and queries
+      - Ensuring animal welfare, through conducting regular health checks
+      - Constantly communicating with keepers to ensure animal healthcare standards were upheld
+    ],
   )
 
   #job_entry(
@@ -151,7 +164,13 @@
     title: [Website Maintainer],
     job_type: [Local Charity],
     employer: [Out of Sight Charity],
-    [Maintain website and update as needed.],
+    [
+      - Refactor website for better maintainability
+      - Automate repetitive tasks for generating event pages
+      - Correct broken links to point to the correct targets
+      - Update information as requested by charity
+      - Document changes as implemented
+    ],
   )
 
   = Education
@@ -176,8 +195,18 @@
     #cv-line(
       [Description],
       [A virtual reality recreation of the Roman fort of Vindolanda and the
-        nearby Castle Nick featuring a tour guide to teach about the site, a tutorial for
+        nearby Castle Nick in the Unity game engine, featuring a tour guide to teach about the site, a tutorial for
         new VR users, and an archery range.],
+    )
+    #cv-bullets(
+      [Skills Required],
+      [
+        - Historical research
+        - Knowledge of the Unity engine
+        - Attention to detail
+        - Optimisation
+        - Working to a deadline
+      ],
     )
 
     = Undergraduate Dissertation
@@ -186,6 +215,14 @@
     #cv-line([Description], [A web application to help users find a variety of
       recipes based on the ingredients they have, and that are similar to those
       previously liked to help reduce food waste.])
+    #cv-bullets(
+      [Skills Required],
+      [
+        - REST API implementation
+        - React front end development
+        - Node back end development
+      ],
+    )
   ]
 
   #if not anonymous [
@@ -195,7 +232,12 @@
       diverse range of genres. On PC and steam deck.])
 
     #cv-line([Animals], [Pet cats I enjoy spending time with. I love all
-      animals, which led to volunteering at Jesmond Dene])
+      animals, which led to volunteering at Jesmond Dene.])
+
+    #cv-line(
+      [Photography],
+      [Keep a camera with me for any opportunities that arise.],
+    )
 
     #cv-line([Walking], [Walk 5 miles several times a week.])
   ]

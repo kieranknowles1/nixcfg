@@ -14,6 +14,8 @@
       and a master's degree with distinction in game engineering#maybe_anon([ at Newcastle University])
       achieving grades of 95% or higher in all assignments. Skilled in multiple
       programming languages and paradigms such as object-oriented, procedural, and event-driven.
+
+      I currently volunteer to maintain a website for a charitable organisation. I am actively searching for my first graduate role in implementation, tools development, or cross-platform support.
     ],
     tech_links: true,
     anonymous: anonymous,

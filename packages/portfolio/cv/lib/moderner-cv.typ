@@ -26,6 +26,8 @@
 // - 1em spacing above headings
 // - add "years experience" to cv-language
 // - Display full URL for social media links
+// - Use British English for spell checking
+// - Allow bullet points in job entries
 
 #import "@preview/fontawesome:0.5.0": *
 
@@ -193,6 +195,7 @@
   socials-colour: light-gray,
   emphasise-header: false,
   lang: "en",
+  region: "gb",
   font: "New Computer Modern",
   image: none,
   image-frame-stroke: auto,
@@ -213,6 +216,7 @@
   #set text(
     font: font,
     lang: lang,
+    region: region,
   )
 
   #show heading: it => {
@@ -264,6 +268,14 @@
   )
 }
 
+#let cv-bullets(left-side, right-side) = {
+  _cv-line(
+    align(right, left-side),
+    // Bullet lists use `block` which can't appear inside a paragraph
+    right-side,
+  )
+}
+
 #let cv-entry(
   date: [],
   title: [],
@@ -292,7 +304,7 @@
     emph(employer),
     ..description.pos(),
   )
-  cv-line(
+  cv-bullets(
     date,
     elements.slice(0, -1).join(", ")
       + linebreak()
