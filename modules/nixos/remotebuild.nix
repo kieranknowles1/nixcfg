@@ -14,6 +14,15 @@
         sshUser = "kieran";
         sshKey = "/home/${sshUser}/.ssh/id_ed25519";
         maxJobs = 4;
+
+        # Default for any system
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "gccarch-armv8-a"
+        ];
       };
 
       settings = {
