@@ -5,7 +5,6 @@
   pkgs,
   config,
   nixos-raspberrypi,
-  inputs,
   ...
 }: {
   imports = with nixos-raspberrypi.nixosModules; [
@@ -18,7 +17,6 @@
     raspberry-pi-5.page-size-16k
   ];
 
-  boot.kernelPackages = inputs.nixos-raspberrypi-kernellock.packages.aarch64-linux.linuxPackages_rpi5;
   # Enable everything needed for this configuration
   custom = {
     users = {

@@ -27,7 +27,6 @@
       inputs.nix-index-database.follows = "";
       inputs.nix-minecraft.follows = "";
       inputs.nixos-cosmic.follows = "";
-      inputs.nixos-raspberrypi-kernellock.follows = "";
       inputs.nixos-raspberrypi.follows = "";
       inputs.nuschtosSearch.follows = "";
       inputs.sops-nix.follows = "";

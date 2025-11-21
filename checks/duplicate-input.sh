@@ -3,9 +3,7 @@ set -euo pipefail
 
 lock_file="$1/flake.lock"
 
-# nixos-raspberrypi-kernellock uses a specific nixpkgs to
-# avoid recompiling the kernel
-EXPECTED='"nixpkgs_2"'
+EXPECTED=''
 
 # Very simple check for duplicate inputs, Nix names these with _<number>,
 # while the convention is to use hyphens. Shouldn't cause false positives unless
