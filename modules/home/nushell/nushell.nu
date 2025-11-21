@@ -95,6 +95,12 @@ def __get_nixpkgs_last_update [] {
     return $nixpkgs_timestamp
 }
 
+def __booted_matches_current [] {
+  let booted = readlink /run/booted-system
+  let current = readlink /run/current-system
+  $booted == $current
+}
+
 # Display our own welcome message
 def __show_welcome_message [] {
     let nixpkgs_timestamp = __get_nixpkgs_last_update
@@ -104,8 +110,15 @@ def __show_welcome_message [] {
 
     let ago = (date now) - $nixpkgs_timestamp
 
-    print $"Welcome to (ansi green)Nushell(ansi reset)!"
+    print $"Welcome to (ansi green)Nushell(ansi reset) on (ansi purple)(hostname)(ansi reset)!"
     print $"Nixpkgs was last updated (ansi cyan)($last_update_relative)(ansi reset)."
+
+    let match = if (__booted_matches_current) {
+      $"(ansi green)matches(ansi reset)"
+    } else {
+      $"(ansi red)differs from(ansi reset)"
+    }
+    print $"Current system ($match) booted system."
 
     if ($ago > $NIXPKGS_UPDATE_SUGGESION) {
       log info "It may be time to update your Nixpkgs!"
