@@ -36,6 +36,37 @@
       type = types.attrsOf userType;
       description = "Users who can access Copyparty";
     };
+
+    photos = {
+      extensions = mkOption {
+        type = types.listOf types.str;
+        default = [
+          "jpg"
+          "jpeg"
+          # Canon raw. Other formats will probably work, but I only have the one camera.
+          "cr2"
+        ];
+        description = ''
+          File extensions to index as photos and extract `metaFields` from.
+        '';
+      };
+
+      metaFields = mkOption {
+        type = types.listOf types.str;
+        default = [
+          "Aperture"
+          "DateTimeOriginal"
+          "FileNumber"
+          "FocalLength"
+          "ISO"
+          "ShutterSpeed"
+        ];
+        description = ''
+          EXIF metadata fields to extract from photos and index, will be
+          displayed in photo directory listings.
+        '';
+      };
+    };
   };
 
   config = let
@@ -138,11 +169,12 @@
           };
 
           mkImmichVolume = let
-            fields = ["FocalLength" "ISO" "ShutterSpeed" "Aperture" "DateTimeOriginal"];
             jq = lib.getExe pkgs.jq;
             exiftool = lib.getExe pkgs.exiftool;
+            formatFlags = builtins.concatStringsSep "," (map (ext: "e${ext}") cfgc.photos.extensions);
+            metaFlags = builtins.concatStringsSep "," cfgc.photos.metaFields;
             extractScript = pkgs.writeShellScript "extract-metadata" ''
-              ${exiftool} -json ${builtins.concatStringsSep " " (map (f: "-${f}") fields)} "$1" | ${jq} '.[0]'
+              ${exiftool} -json ${builtins.concatStringsSep " " (map (f: "-${f}") cfgc.photos.metaFields)} "$1" | ${jq} '.[0]'
             '';
           in
             mkVolume {
@@ -155,14 +187,14 @@
               gid = config.custom.gids.immich-copyparty;
 
               # Extract EXIF metadata from images
-              mte = "${builtins.concatStringsSep "," fields}";
+              mte = metaFlags;
               # Documentation on this is terrible, but I've been able to reverse engineer it.
               # `mtp` takes the form `tags,comma,separated=options,comma,separated,command`
               # `command` should output a JSON object with a key for each `tag` on stdout
               # Options prefixed with `e` filter operations by file extension, case insensitive
               # All tags must be enabled using the `mte` flag
               # Adding a script is not retroactive to existing uploads
-              mtp = "${builtins.concatStringsSep "," fields}=ejpg,ejpeg,eraw,${extractScript}";
+              mtp = "${metaFlags}=${formatFlags},${extractScript}";
             };
         in {
           # All permissions
