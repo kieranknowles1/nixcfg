@@ -55,3 +55,23 @@ To resolve the issue, I attempted to delete the Postgres database and recreate
 it from the backup, not realising that Forgejo was trying to access the now
 deleted SQLite database. Fortunately, this occurred only 2 hours after an
 automatic backup meaning data loss was minimal.
+
+## INC04 Don't Use the Standard Kernel on Raspberry Pi
+
+Whilst waiting three hours for a kernel to build is annoying, it's better than
+having no functioning kernel as happened when I tried to switch to the standard
+kernel, which caused the system to fail to boot.
+
+Recovering the system to the previous build required the following steps:
+
+1. Mount the SD card on a functioning system.
+2. Replace the various `/boot/firmware/nixos-kernels/default-*` files with the
+   previous build's versions, prefixed with their generation number.
+3. Replace `kernel.img` and `initrd` with the versions referenced by the
+   previous generation.
+4. Replace `systemConfig=/nix/store/` in `nixos-init` with whatever the previous
+   generation used.
+5. Replace the generation referenced in `cmdline.txt`, again with the previous
+   generation's system derivation.
+6. Pray it works, if not, rummage around for places I forgot to document and try
+   again, or run a full-scale backup fire drill.
