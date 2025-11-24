@@ -20,3 +20,13 @@ pub fn commit(message: &str) -> Result<(), std::io::Error> {
         .status()?;
     check_ok(commit_status, "git commit")
 }
+
+/// Check if the working directory is clean (no changes, staged or otherwise)
+pub fn is_clean() -> Result<bool, std::io::Error> {
+    let output = Command::new("git")
+        .arg("status")
+        .arg("--porcelain")
+        .output()?;
+    check_ok(output.status, "git status --porcelain")?;
+    Ok(output.stdout.is_empty())
+}

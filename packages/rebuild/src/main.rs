@@ -66,6 +66,12 @@ fn update_changelog_filepath(flake: &Path) -> PathBuf {
 
 impl UpdateOpt {
     fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
+        // We want a commit that cleanly distinguishes old and new generations,
+        // any uncommitted changes could change the build output and thus break
+        // reproducibility.
+        if !git::is_clean()? {
+            return Err("Refusing to operate on a dirty working tree".into());
+        }
         // Step 1: Build all hosts in their current state for later comparison
         let initial = TempLink::new()?;
         nix::build_output(flake, ".#all-configurations", &initial.path())?;
