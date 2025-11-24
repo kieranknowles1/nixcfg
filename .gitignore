@@ -8,7 +8,7 @@ result
 target/
 
 # mdBook output
-/book/
+/docs/book/
 
 # Godot generated files
 .godot

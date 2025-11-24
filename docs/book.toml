@@ -5,10 +5,6 @@ multilingual = false
 src = "."
 title = "Book of NixOS"
 
-[build]
-build-dir = "../book"
-create-missing = false
-
 [preprocessor]
 
 [preprocessor.admonish]
