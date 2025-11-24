@@ -63,7 +63,17 @@
 
     palette = lib.getExe cfg.package;
 
-    sortedActions = lib.lists.sort (a: b: a.description < b.description) cfg.actions;
+    hotkeyActions = let
+      filteredKeys = builtins.filter (key: key.palette) config.custom.shortcuts.hotkeys.keys;
+    in
+      map (key: {
+        # TODO: Proper support for passing arguments to actions
+        action = lib.splitString " " key.action;
+        description = "${key.description} (${key.keySym})";
+      })
+      filteredKeys;
+
+    sortedActions = lib.lists.sort (a: b: a.description < b.description) (cfg.actions ++ hotkeyActions);
     configFile = {
       terminalScript = config.custom.terminal.runTermWait;
       commands = sortedActions;

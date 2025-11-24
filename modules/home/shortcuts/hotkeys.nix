@@ -8,7 +8,7 @@
 }: let
   inherit (pkgs) sxhkd;
 
-  keySym = binding:
+  toKeySym = binding:
     builtins.concatStringsSep " + " (
       (lib.optional binding.ctrl "ctrl")
       ++ (lib.optional binding.alt "alt")
@@ -19,11 +19,11 @@
   mkDocs = bindings: visBinding: let
     bindingList =
       lib.lists.forEach bindings
-      (binding: "- `${keySym binding}` - ${binding.description}");
+      (binding: "- `${binding.keySym}` - ${binding.description}");
 
     visText = ''
       ```admonish hint
-      Use ${keySym visBinding} to visualise all keyboard shortcuts.
+      Use ${toKeySym visBinding} to visualise all keyboard shortcuts.
       ```
     '';
   in ''
@@ -56,7 +56,7 @@ in {
         syntax of keybindings.
       '';
 
-      type = types.listOf (types.submodule {
+      type = types.listOf (types.submodule ({config, ...}: {
         options = {
           key = mkOption {
             type = types.str;
@@ -88,13 +88,29 @@ in {
             '';
           };
 
+          palette = mkOption {
+            type = types.bool;
+            default = false;
+            description = ''
+              Include this keybinding in the command palette.
+            '';
+          };
+
           icon = mkOption {
             type = types.nullOr types.path;
             description = "Icon to be displayed in `keyboardvis`";
             default = null;
           };
+
+          keySym = mkOption {
+            type = types.str;
+            description = "The hotkey's keysym as used by `sxhkd`";
+            readOnly = true;
+          };
         };
-      });
+
+        config.keySym = toKeySym config;
+      }));
     };
 
     visualiser = {
@@ -169,6 +185,7 @@ in {
           inherit (cfg.visualiser.binding) key ctrl alt shift;
           action = "${lib.getExe cfg.visualiser.package} -- ${cfg.visualiser.build.config}";
           description = "Visualise hotkeys";
+          palette = true;
         });
 
       # Generate documentation
@@ -184,7 +201,7 @@ in {
         package = sxhkd;
 
         keybindings = builtins.listToAttrs (map (e: {
-            name = keySym e;
+            name = e.keySym;
             value = e.action;
           })
           cfg.keys);
