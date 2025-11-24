@@ -50,6 +50,7 @@
       imports = [
         # Can be overridden with https://flake.parts/options/treefmt-nix options
         nixcfg.flakeModules.treefmt
+        ./docs
       ];
 
       flake = {
@@ -71,11 +72,6 @@
               echo "Hello, world!"
             '';
           };
-        };
-
-        packages = {
-          # Usage: `nix run [.#name=default]`
-          default = pkgs.hello;
         };
       };
     };
