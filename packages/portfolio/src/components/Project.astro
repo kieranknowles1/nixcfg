@@ -4,11 +4,12 @@ import Video from '../components/Video.astro';
 
 interface Props {
   id: string
-  videoId: string
+  videoId?: string
   title: string
-  links: {
-    itchio: string
-    github: string
+  links?: {
+    itchio?: string
+    github?: string
+    site?: string
   },
 
   feedback?: {
@@ -35,12 +36,13 @@ if (hasFeedback && !Astro.slots.has('feedback')) {
 ---
 <article id={id}>
   <h3>{title}</h3>
-  <Video id={videoId} lazyload={lazyload} />
+  {videoId && <Video id={videoId} lazyload={lazyload} />}
   <div class={hasFeedback ? "twopane" : "centre-child"}>
     <div>
       <ul class="links-list">
-        <FancyLink name="GitHub" icon="cib:github" href={links.github} />
-        <FancyLink name="Itch.io" icon="cib:itch-io" href={links.itchio} />
+        {links?.github && <FancyLink name="GitHub" icon="cib:github" href={links.github} />}
+        {links?.itchio && <FancyLink name="Itch.io" icon="cib:itch-io" href={links.itchio} />}
+        {links?.site && <FancyLink name="Site" icon="mdi:web" href={links.site} />}
       </ul>
       <slot name="summary"/>
       <slot name="bullets"/>

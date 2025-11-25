@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Project from '../components/Project.astro';
+---
+<Layout>
+  <h2>Web Development</h2>
+  <Project
+    id="outofsight"
+    title="Out of Sight"
+    links={{
+      site: 'https://outofsight.org.uk',
+    }}
+    <!-- TODO: Screenshot -->
+  >
+    <p slot="summary">
+      Web page for a local charity shop that provides aid to visually impaired
+      children and hosts regular community events. Based on the Wix platform
+      which I have kept up-to-date as events are scheduled and hosted.
+    </p>
+  </Project>
+  <!-- TODO: G2 site, once it's ready -->
+</Layout>
