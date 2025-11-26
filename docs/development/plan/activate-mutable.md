@@ -45,9 +45,47 @@ Link previous config file after activation for future reference. If previous is
 not found, treat as if it was an empty file. Store in
 `~/.config/activate-mutable-config.json`.
 
-![Activate Mutable Flowchart](./activate-mutable-flowchart.svg) The flowchart
-depicts the following potential states of a file, and the actions taken based on
-them.
+```dot process
+# TODO: Decide on a tool to use for editing dot graphs
+strict digraph {
+    # Start
+    Provision [colour=lightblue]
+
+    Provision -> {
+        "Exist"
+        "Not Exist"
+    }
+
+    "Not Exist" -> "Copy New"
+
+    Exist -> {
+        "=Old"
+        "=New"
+        "Not in Old"
+        "Not new or Old"
+    }
+
+    "=Old" -> "Copy New"
+    "=New" -> "Do Nothing"
+    "Not in Old" -> "Log Warning"
+
+    "Not new or Old" -> {
+        "Warn"
+        "Replace"
+    }
+
+    "Warn" -> "Log Warning"
+    "Replace" -> "Copy New"
+
+    # End
+    "Copy New" [colour=green]
+    "Do Nothing" [colour=green]
+    "Log Warning" [colour=orange]
+}
+```
+
+The above flowchart depicts the following potential states of a file, and the
+actions taken based on them.
 
 States:
 

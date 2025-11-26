@@ -136,6 +136,8 @@
         buildInputs = with pkgs; [
           mdbook
           mdbook-admonish
+          graphviz
+          mdbook-graphviz
         ];
       } ''
         mkdir -p $out
