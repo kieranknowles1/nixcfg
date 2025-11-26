@@ -116,7 +116,6 @@
 
     # Step 2: Combine static and generated markdown. Not used directly but
     # convenient for later
-    # buildStaticSite does some pre-processing which converts graphs to SVG
     combined.markdown = pkgs.symlinkJoin {
       name = "combined-docs-md";
       # Index before static to override SUMMARY.md
