@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }: {
   options.custom.docs-generate = let
@@ -118,13 +117,10 @@
     # Step 2: Combine static and generated markdown. Not used directly but
     # convenient for later
     # buildStaticSite does some pre-processing which converts graphs to SVG
-    combined.markdown = self.builders.${pkgs.system}.buildStaticSite {
+    combined.markdown = pkgs.symlinkJoin {
       name = "combined-docs-md";
-      src = pkgs.symlinkJoin {
-        name = "combined-docs-md";
-        # Index before static to override SUMMARY.md
-        paths = [cfg.build.generated index static];
-      };
+      # Index before static to override SUMMARY.md
+      paths = [cfg.build.generated index static];
     };
 
     # Step 3: Build HTML from combined markdown
