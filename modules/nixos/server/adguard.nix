@@ -55,10 +55,12 @@
             {
               domain = "*.${hostname}.local";
               answer = ip;
+              enabled = true;
             }
             {
               domain = "${hostname}.local";
               answer = ip;
+              enabled = true;
             }
           ];
         };
