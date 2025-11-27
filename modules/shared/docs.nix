@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }: {
   options.custom.docs-generate = let
@@ -73,6 +72,8 @@
     };
   };
 
+  config.warnings = lib.optional (builtins.compareVersions pkgs.mdbook.version "0.5.0" > 0) "mdbook 0.5.0 makes mdbook-admonish obsolete";
+
   config.custom.docs-generate.build = let
     cfg = config.custom.docs-generate;
     static = ../../docs;
@@ -117,14 +118,10 @@
 
     # Step 2: Combine static and generated markdown. Not used directly but
     # convenient for later
-    # buildStaticSite does some pre-processing which converts graphs to SVG
-    combined.markdown = self.builders.${pkgs.system}.buildStaticSite {
+    combined.markdown = pkgs.symlinkJoin {
       name = "combined-docs-md";
-      src = pkgs.symlinkJoin {
-        name = "combined-docs-md";
-        # Index before static to override SUMMARY.md
-        paths = [cfg.build.generated index static];
-      };
+      # Index before static to override SUMMARY.md
+      paths = [cfg.build.generated index static];
     };
 
     # Step 3: Build HTML from combined markdown
@@ -136,6 +133,8 @@
         buildInputs = with pkgs; [
           mdbook
           mdbook-admonish
+          graphviz
+          mdbook-graphviz
         ];
       } ''
         mkdir -p $out

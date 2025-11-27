@@ -6,10 +6,10 @@ coupled to their code and more likely to be up-to-date.
 For more general information, such as this document, Markdown in the `docs`
 directory is used.
 
-Graphs may be generated using `graphviz` and `dot`, these are automatically
-converted to SVGs by buildStaticSite. While Mermaid is natively supported by
-GitHub, it is much less effective at preventing overlap and therefore unsuitable
-for my needs.
+Graphviz graphs may be generated from code blocks with the `dot process`
+language. These are rendered to SVGs during build, while Mermaid is natively
+supported by GitHub, it is much less effective at preventing overlap and
+therefore unsuitable for my needs.
 
 ## The `docs-generate` Module
 
