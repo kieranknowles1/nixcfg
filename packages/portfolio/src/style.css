@@ -77,6 +77,12 @@ img {
   height: auto;
 }
 
+[data-icon] {
+  /* Bottom of container and scaled to match font size */
+  font-size: 1.25em;
+  vertical-align: bottom;
+}
+
 figcaption {
   font-style: italic;
 }
@@ -150,13 +156,6 @@ ul.links-list li {
   1em for the bullet, 0.2em for a space after the <img.icon>
   */
   margin-left: -1.2em;
-}
-
-img.icon {
-  width: 1em;
-  height: 1em;
-  /* The icons are black by default, invert them to work with the dark theme */
-  filter: invert(1);
 }
 
 /* Game of Life section */
