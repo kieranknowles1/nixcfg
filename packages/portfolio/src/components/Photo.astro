@@ -1,0 +1,34 @@
+---
+import assert from "assert"
+import { Picture } from "astro:assets"
+
+import ExifReader from 'exifreader'
+import { readFileSync } from "fs"
+
+interface Props {
+  src: ImageMetadata
+  alt: string
+}
+
+const {
+  src,
+  alt
+} = Astro.props;
+
+// HACK: Astro gives ImageMetadata.src in a weird format
+const pattern = /\/@fs(.+)\?/
+const srcFs = src.src.match(pattern)?.[1]
+assert(srcFs, "srcFs is undefined")
+
+const exifData = await ExifReader.load(srcFs)
+
+---
+<figure>
+  <Picture
+    src={src}
+    alt={alt}
+  />
+  <figcaption>
+    ISO {exifData.ISOSpeedRatings?.value}
+  </figcaption>
+</figure>

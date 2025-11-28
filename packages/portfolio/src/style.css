@@ -72,6 +72,11 @@ article {
   border-radius: 4pt;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /*
 Two panes shown either side-by-side or vertically depending on orientation
 

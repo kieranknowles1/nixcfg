@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "astro": "^5.16.2",
-    "astro-icon": "^1.1.5"
+    "astro-icon": "^1.1.5",
+    "exifreader": "^4.32.0"
   },
   "devDependencies": {
     "@iconify-json/cib": "^1.2.3",
