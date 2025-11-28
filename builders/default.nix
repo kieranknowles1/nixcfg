@@ -27,6 +27,7 @@
           callPackage = lib.customisation.callPackageWith (pkgs // inputs);
         in {
           buildGodotApp = callPackage ./buildGodotApp.nix {};
+          buildWorkspacePackage = callPackage ./buildWorkspacePackage.nix {};
           buildScript = callPackage ./buildScript.nix {};
           fromHeif = callPackage ./fromHeif.nix {};
           mkFunctionDocs = callPackage ./mkFunctionDocs.nix {};
