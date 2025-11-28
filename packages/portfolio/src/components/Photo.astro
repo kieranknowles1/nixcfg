@@ -22,6 +22,22 @@ assert(srcFs, "srcFs is undefined")
 
 const exifData = await ExifReader.load(srcFs)
 
+type Tag = ExifReader.XmpTag | ExifReader.NumberTag | ExifReader.NumberArrayTag | undefined
+
+function exifField(field: Tag, label: string) {
+  if (field == undefined) return undefined
+
+  return `${label}${field.description}`
+}
+console.log(exifData)
+
+const fields = [
+  exifField(exifData.ISOSpeedRatings, "ISO "),
+  exifField(exifData.ExposureTime, ""),
+  exifField(exifData.ApertureValue, "f/"),
+  exifField(exifData.FocalLength, ""),
+]
+
 ---
 <figure>
   <Picture
@@ -29,6 +45,6 @@ const exifData = await ExifReader.load(srcFs)
     alt={alt}
   />
   <figcaption>
-    ISO {exifData.ISOSpeedRatings?.value}
+    {fields.filter(f => f !== undefined).join(", ")}
   </figcaption>
 </figure>
