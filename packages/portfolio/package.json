@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@iconify-json/material-symbols": "^1.2.48",
     "astro": "^5.16.2",
     "astro-icon": "^1.1.5",
     "exifreader": "^4.32.0"

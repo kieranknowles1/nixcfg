@@ -1,9 +1,9 @@
 ---
 import assert from "assert"
 import { Picture } from "astro:assets"
+import { Icon } from "astro-icon/components"
 
 import ExifReader from 'exifreader'
-import { readFileSync } from "fs"
 
 interface Props {
   src: ImageMetadata
@@ -22,20 +22,18 @@ assert(srcFs, "srcFs is undefined")
 
 const exifData = await ExifReader.load(srcFs)
 
-type Tag = ExifReader.XmpTag | ExifReader.NumberTag | ExifReader.NumberArrayTag | undefined
-
-function exifField(field: Tag, label: string) {
-  if (field == undefined) return undefined
-
-  return `${label}${field.description}`
+interface ExifField {
+  icon: string
+  value?: string
 }
+
 console.log(exifData)
 
-const fields = [
-  exifField(exifData.ISOSpeedRatings, "ISO "),
-  exifField(exifData.ExposureTime, ""),
-  exifField(exifData.ApertureValue, "f/"),
-  exifField(exifData.FocalLength, ""),
+const fields: ExifField[] = [
+  { icon: "material-symbols:exposure", value: exifData.ISOSpeedRatings && `ISO ${exifData.ISOSpeedRatings?.description}`},
+  { icon: "material-symbols:timer", value: exifData.ExposureTime?.description },
+  { icon: "material-symbols:camera", value: exifData.FNumber?.description },
+  { icon: "material-symbols:photo-camera", value: exifData.FocalLength?.description },
 ]
 
 ---
@@ -45,6 +43,8 @@ const fields = [
     alt={alt}
   />
   <figcaption>
-    {fields.filter(f => f !== undefined).join(", ")}
+    {fields.filter(f => f.value !== undefined).map(f => <>
+      <Icon name={f.icon} /> {f.value}
+    </>)}
   </figcaption>
 </figure>
