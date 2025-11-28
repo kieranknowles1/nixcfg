@@ -27,8 +27,6 @@ interface ExifField {
   value?: string
 }
 
-console.log(exifData)
-
 const fields: ExifField[] = [
   { icon: "material-symbols:exposure", value: exifData.ISOSpeedRatings && `ISO ${exifData.ISOSpeedRatings?.description}`},
   { icon: "material-symbols:timer", value: exifData.ExposureTime?.description },
