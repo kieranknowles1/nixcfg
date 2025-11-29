@@ -1,13 +1,10 @@
 {
-  rustPlatform,
+  buildWorkspacePackage,
   self,
 }:
-rustPlatform.buildRustPackage rec {
+buildWorkspacePackage {
   pname = "rebuild";
-  version = "3.0.2";
   src = ./.;
-
-  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     inherit (self.lib) license;
@@ -18,7 +15,5 @@ rustPlatform.buildRustPackage rec {
       The commit message contains metadata such as a generation number, the
       builder's hostname, and a diff of packages.
     '';
-
-    mainProgram = pname;
   };
 }

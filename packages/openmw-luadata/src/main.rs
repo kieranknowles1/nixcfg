@@ -109,7 +109,7 @@ fn main() -> Result<()> {
             drop_starts_with,
         } => {
             let mut data = reader::decode(&file)?;
-            if let Value::Table(ref mut table) = &mut data {
+            if let Value::Table(table) = &mut data {
                 // We have to decode everything, even parts we're dropping as, tables
                 // don't store their length: it has to be inferred from the data.
                 cleanup(table, &drop, &drop_starts_with);
