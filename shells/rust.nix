@@ -1,5 +1,6 @@
 {
   cargo,
+  clippy,
   rustc,
   mkShell,
   openssl,
@@ -13,6 +14,7 @@ flake.lib.shell.mkShellEx mkShell {
   # Packages to put on the PATH
   packages = [
     cargo
+    clippy
     rustc
     pkg-config # Needed for rust-analyzer
   ];
