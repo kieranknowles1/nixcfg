@@ -1,5 +1,5 @@
 use std::fs::{exists, remove_file};
-use std::os::unix::fs::symlink;
+use std::os::unix::fs::{PermissionsExt, symlink};
 use std::path::{Path, PathBuf};
 
 use clap::Parser;
@@ -89,7 +89,9 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
             std::fs::copy(&entry.source, &destination)?;
             // Paths in the Nix store are always read-only, disable this
             let mut permissions = std::fs::metadata(&entry.source)?.permissions();
-            permissions.set_readonly(false);
+            let mode = 0o600; // Owner read/write, no other access
+
+            permissions.set_mode(mode);
             std::fs::set_permissions(&destination, permissions)?;
 
             Ok(())

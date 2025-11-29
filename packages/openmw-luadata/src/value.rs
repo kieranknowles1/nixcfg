@@ -28,7 +28,7 @@ pub struct Color {
 /// A value in the storage file. When serializing to JSON, values will be tagged with their type
 /// to allow for round-tripping.
 /// Serde handles all of this for us, and automagically generates code to serialize and deserialize
-#[derive(Serialize, Deserialize, Debug, PartialEq, PartialOrd)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub enum Value {
     Number(f64),
     Boolean(bool),
@@ -55,5 +55,11 @@ impl Ord for Value {
             (Value::Color(a), Value::Color(b)) => a.partial_cmp(b).unwrap(),
             _ => panic!("Cannot compare different types"),
         }
+    }
+}
+
+impl PartialOrd for Value {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
     }
 }
