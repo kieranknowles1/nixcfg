@@ -25,5 +25,9 @@ rustPlatform.buildRustPackage {
   patchPhase = ''
     ln -s ${../Cargo.lock} .
     ${patchPhase}
+
+    # TODO: Support inheriting workspace properties
+    # Hack to allow building packages that expect to find a workspace
+    sed --in-place 's|workspace = true||g' Cargo.toml
   '';
 }
