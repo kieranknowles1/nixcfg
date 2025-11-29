@@ -10,3 +10,6 @@ clap = { version = "4.5.7", features = ["derive", "env"] }
 gethostname = "1.1.0"
 tempfile = "3.23.0"
 thiserror = "2.0.17"
+
+[lints]
+workspace = true

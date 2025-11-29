@@ -8,3 +8,6 @@ members = [
   "packages/set-led-state",
   "packages/skyrim-utils",
 ]
+
+[workspace.lints.clippy]
+pedantic = "warn"
