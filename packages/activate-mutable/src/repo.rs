@@ -33,7 +33,7 @@ pub struct Opt {
 fn restore_file(repo_path: &Path, home_path: &Path, transformer: Option<&Path>) -> Result<()> {
     println!("Restoring file {:?} to {:?}", home_path, repo_path);
 
-    match std::fs::exists(&repo_path)? {
+    match std::fs::exists(repo_path)? {
         true => {
             // Replace the repository file with the up-to-date home file.
             let contents = Files::read_transformed(home_path, transformer)?;

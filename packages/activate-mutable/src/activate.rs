@@ -80,7 +80,7 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
                     )));
                 }
             };
-            std::fs::create_dir_all(&dir)?;
+            std::fs::create_dir_all(dir)?;
             // This follows symlinks, meaning the target of a symlink is copied
             // rather than the link itself, even if it's a relative path and
             // a link would be OK.
@@ -144,7 +144,7 @@ pub fn run(args: Opt) -> Result<bool> {
     for entry in &config {
         let old_entry = find_entry(&active_config, &entry.destination);
 
-        match process_entry(&args.home_directory, &entry, old_entry) {
+        match process_entry(&args.home_directory, entry, old_entry) {
             Ok(()) => (),
             Err(e) => {
                 eprintln!("Error applying {}: {}", entry.destination.display(), e);

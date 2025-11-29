@@ -31,7 +31,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 /// Decode a lua storage file in OpenMW's format
 /// NOTE: Assumes that values are encoded in little-endian
 pub fn decode(file: &str) -> Result<Value> {
-    let file = File::open(&file)?;
+    let file = File::open(file)?;
     let mut reader = PrimitiveReader::new(file);
 
     if reader.at_end()? {

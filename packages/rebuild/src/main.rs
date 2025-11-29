@@ -49,7 +49,7 @@ struct UpdateOpt {
 impl BuildOpt {
     fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
         git::stage_all()?;
-        let msg = build_and_switch(&flake, &self.message.join("\n\n"))?;
+        let msg = build_and_switch(flake, &self.message.join("\n\n"))?;
         git::commit(&msg)?;
         Ok(())
     }

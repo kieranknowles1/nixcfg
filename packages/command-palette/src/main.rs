@@ -60,7 +60,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let choice = dialog::pick_command(&config.commands)?;
 
-    let output = run_command(&config, &choice)?;
+    let output = run_command(&config, choice)?;
 
     if output.code != Some(0) {
         // An error occurred, show a dialog box even if we don't have any output.

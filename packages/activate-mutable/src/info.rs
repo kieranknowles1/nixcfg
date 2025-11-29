@@ -66,8 +66,8 @@ pub fn run(args: Opt) -> Result<()> {
         let destination = resolve_directory(&args.home, &entry.destination)?;
         let files = Files::read(entry, None, &destination)?;
 
-        let prefix_spoke = if base_dir == None { "" } else { "├──" };
-        let prefix_line = if base_dir == None { "" } else { "│   " };
+        let prefix_spoke = if base_dir.is_none() { "" } else { "├──" };
+        let prefix_line = if base_dir.is_none() { "" } else { "│   " };
 
         println!(
             "{}{}",

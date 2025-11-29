@@ -97,10 +97,7 @@ pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> 
 
     let number = match lines.get(1) {
         Some(line) => line.split_whitespace().next().unwrap().to_string(),
-        None => Err(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Failed to get generation number",
-        ))?,
+        None => Err(std::io::Error::other("Failed to get generation number"))?,
     };
 
     Ok(GenerationMeta {

@@ -2,11 +2,10 @@
 
 use clap::{Args, Parser};
 use regex::Regex;
-use shellexpand;
 use std::collections::HashSet;
 use std::fs::{self, DirEntry};
 use std::io::Result;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 #[derive(Parser)]
 enum Arguments {
@@ -23,7 +22,7 @@ struct CleanArgs {}
 
 impl CleanArgs {
     fn run(&self, save_dir: &[PathBuf]) -> Result<()> {
-        let save_files = SaveFiles::collect(&save_dir)?;
+        let save_files = SaveFiles::collect(save_dir)?;
 
         let orphans = save_files.get_orphans();
 
@@ -83,7 +82,7 @@ struct SaveFiles {
 /// Get the extension of a file as a plain string rather than an OsStr
 /// Returns None if the file has no extension or if the extension is not valid UTF-8
 /// (which should never happen, but Linux allows newlines so who knows what else is possible)
-fn extension_plain_str(path: &PathBuf) -> Option<&str> {
+fn extension_plain_str(path: &Path) -> Option<&str> {
     match path.extension() {
         Some(ext) => ext.to_str(),
         None => None,

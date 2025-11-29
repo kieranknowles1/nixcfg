@@ -16,7 +16,7 @@ pub enum Error {
 
 /// Show a dialog box with the given commands.
 /// Returns the selected command.
-pub fn pick_command<'a>(commands: &'a Vec<data::Command>) -> Result<&'a data::Command> {
+pub fn pick_command(commands: &[data::Command]) -> Result<&data::Command> {
     let mut zenity = process::Command::new("zenity");
     zenity
         .arg("--list")

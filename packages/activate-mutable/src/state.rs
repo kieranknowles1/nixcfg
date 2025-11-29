@@ -34,8 +34,8 @@ impl Files {
             Some(o) => Some(Self::read_transformed(&o.source, transform)?),
             None => None,
         };
-        let home = match std::fs::exists(&destination)? {
-            true => Some(Self::read_transformed(&destination, transform)?),
+        let home = match std::fs::exists(destination)? {
+            true => Some(Self::read_transformed(destination, transform)?),
             false => None,
         };
 
@@ -52,10 +52,7 @@ impl Files {
                 let out = Command::new(trans).arg(file).output()?;
                 match out.status.success() {
                     true => Ok(out.stdout),
-                    false => Err(std::io::Error::new(
-                        std::io::ErrorKind::Other,
-                        "Transform failed",
-                    )),
+                    false => Err(std::io::Error::other("Transform failed")),
                 }
             }
             None => std::fs::read(file),
@@ -63,7 +60,7 @@ impl Files {
     }
 
     pub fn compare(&self) -> ExistingMatch {
-        if self.home == None {
+        if self.home.is_none() {
             // File doesn't exist in home - will be deployed no matter what
             ExistingMatch::NotInHome
         } else if self.home.as_ref() == Some(&self.store) {

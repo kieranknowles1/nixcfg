@@ -1,6 +1,6 @@
 // Utilities for running subprocesses
 
-use std::io::{Error, ErrorKind, Result};
+use std::io::{Error, Result};
 use std::path::PathBuf;
 use std::process::ExitStatus;
 
@@ -30,16 +30,13 @@ impl TempLink {
 pub fn check_ok(status: ExitStatus, command: &str) -> Result<()> {
     match status.code() {
         Some(0) => Ok(()),
-        Some(code) => Err(Error::new(
-            ErrorKind::Other,
-            format!("Command '{}' failed with exit code {}", command, code),
-        )),
-        None => Err(Error::new(
-            ErrorKind::Other,
-            format!(
-                "Command '{}' was terminated abnormally. Did you press Ctrl+C?",
-                command
-            ),
-        )),
+        Some(code) => Err(Error::other(format!(
+            "Command '{}' failed with exit code {}",
+            command, code
+        ))),
+        None => Err(Error::other(format!(
+            "Command '{}' was terminated abnormally. Did you press Ctrl+C?",
+            command
+        ))),
     }
 }
