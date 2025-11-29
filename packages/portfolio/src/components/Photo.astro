@@ -1,5 +1,4 @@
 ---
-import assert from "assert"
 import { Picture } from "astro:assets"
 import { Icon } from "astro-icon/components"
 
@@ -15,10 +14,9 @@ const {
   alt
 } = Astro.props;
 
-// HACK: Astro gives ImageMetadata.src in a weird format
+// HACK: Astro gives ImageMetadata.src in a weird format, which differs between development and production
 const pattern = /\/@fs(.+)\?/
-const srcFs = src.src.match(pattern)?.[1]
-assert(srcFs, "srcFs is undefined")
+const srcFs = src.src.match(pattern)?.[1] || `${process.cwd()}/dist/${src.src}`
 
 const exifData = await ExifReader.load(srcFs)
 
