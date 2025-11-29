@@ -42,7 +42,7 @@ fn describe_status(status: ExistingMatch) -> ColoredString {
 ///     Cyan: Ok
 ///     Yellow: Be careful
 ///     Red: Error
-pub fn run(args: Opt) -> Result<()> {
+pub fn run(args: &Opt) -> Result<()> {
     let config = read_config(&get_previous_config_path(&args.home))?;
 
     let mut base_dir = None;
@@ -70,15 +70,13 @@ pub fn run(args: Opt) -> Result<()> {
         let prefix_line = if base_dir.is_none() { "" } else { "│   " };
 
         println!(
-            "{}{}",
-            prefix_spoke,
+            "{prefix_spoke}{}",
             entry.destination.to_string_lossy().bold()
         );
-        println!("{}  Repository: {}", prefix_line, repo);
-        println!("{}  On conflict: {}", prefix_line, on_conflict);
+        println!("{prefix_line}  Repository: {repo}");
+        println!("{prefix_line}  On conflict: {on_conflict}");
         println!(
-            "{}  Status: {}",
-            prefix_line,
+            "{prefix_line}  Status: {}",
             describe_status(files.compare())
         );
     }

@@ -78,7 +78,6 @@ pub fn switch_configuration(repo_path: &Path) -> std::io::Result<()> {
 }
 
 /// Apply the configuration. Returns the metadata of the new generation.
-/// No BuildToken here as nixos-rebuild produces the same output, just without the fancy bits.
 pub fn apply_configuration(repo_path: &Path) -> std::io::Result<GenerationMeta> {
     switch_configuration(repo_path)?;
 

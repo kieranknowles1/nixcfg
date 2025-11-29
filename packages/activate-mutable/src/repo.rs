@@ -31,7 +31,11 @@ pub struct Opt {
 }
 
 fn restore_file(repo_path: &Path, home_path: &Path, transformer: Option<&Path>) -> Result<()> {
-    println!("Restoring file {:?} to {:?}", home_path, repo_path);
+    println!(
+        "Restoring file {} to {}",
+        home_path.display(),
+        repo_path.display()
+    );
 
     match std::fs::exists(repo_path)? {
         true => {
@@ -52,7 +56,7 @@ fn restore_file(repo_path: &Path, home_path: &Path, transformer: Option<&Path>) 
 }
 
 /// Restore files to the repository.
-pub fn run(args: Opt) -> Result<()> {
+pub fn run(args: &Opt) -> Result<()> {
     println!(
         "Restoring files using $HOME={} and $FLAKE={}",
         args.home.display(),
@@ -71,10 +75,10 @@ pub fn run(args: Opt) -> Result<()> {
             None => {
                 eprintln!(
                     "No repository path specified for {:?}, cannot restore",
-                    home
+                    home.display()
                 );
             }
-        };
+        }
     }
 
     Ok(())

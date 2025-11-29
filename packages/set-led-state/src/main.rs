@@ -19,21 +19,15 @@ fn list_leds(name: &str) -> io::Result<impl Iterator<Item = fs::DirEntry>> {
     let all_leds = fs::read_dir("/sys/class/leds")?;
     // LED names are in the form of `device::name`, so we want to search for directories that
     // end with `::name`.
-    let ending = format!("::{}", name);
+    let ending = format!("::{name}");
 
     // The `move` keyword causes the closure to take ownership of the `ending` variable, which
     // is required because the closure outlives the `list_leds` function.
-    let filtered = all_leds.filter_map(move |entry| {
-        let entry = entry.ok()?;
-        let file_name = entry.file_name(); // Make the borrow checker happy
-        let name = file_name.to_str()?;
-        match name.ends_with(&ending) {
-            true => Some(entry),
-            false => None,
-        }
-    });
+    let filtered = all_leds
+        .filter_map(Result::ok)
+        .filter(move |e| e.file_name().to_str().is_some_and(|f| f.ends_with(&ending)));
 
-    Ok(filtered.into_iter())
+    Ok(filtered)
 }
 
 fn set_led_state(led: &fs::DirEntry, state: &State) -> io::Result<()> {

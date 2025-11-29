@@ -35,28 +35,26 @@ pub fn pick_command(commands: &[data::Command]) -> Result<&data::Command> {
 
     let output = zenity.output()?;
 
-    match output.status.success() {
-        true => {
-            // Zenity prints the chosen row to stdout. This should always be valid UTF-8.
-            let index = String::from_utf8(output.stdout).unwrap();
-            let index = index.trim().parse::<usize>().unwrap();
+    if output.status.success() {
+        // Zenity prints the chosen row to stdout. This should always be valid UTF-8.
+        let index = String::from_utf8(output.stdout).unwrap();
+        let index = index.trim().parse::<usize>().unwrap();
 
-            Ok(&commands[index])
-        }
-        false => {
-            // Assume the user cancelled the dialog. No stderr expected.
-            Err(Error::Cancelled)
-        }
+        Ok(&commands[index])
+    } else {
+        // Assume the user cancelled the dialog. No stderr expected.
+        Err(Error::Cancelled)
     }
 }
 
+#[derive(Clone, Copy)]
 pub enum MessageKind {
     Info,
     Error,
 }
 
 impl MessageKind {
-    pub fn as_arg(&self) -> &'static str {
+    pub fn as_arg(self) -> &'static str {
         match self {
             MessageKind::Info => "--info",
             MessageKind::Error => "--error",

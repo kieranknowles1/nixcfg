@@ -31,12 +31,10 @@ pub fn check_ok(status: ExitStatus, command: &str) -> Result<()> {
     match status.code() {
         Some(0) => Ok(()),
         Some(code) => Err(Error::other(format!(
-            "Command '{}' failed with exit code {}",
-            command, code
+            "Command '{command}' failed with exit code {code}"
         ))),
         None => Err(Error::other(format!(
-            "Command '{}' was terminated abnormally. Did you press Ctrl+C?",
-            command
+            "Command '{command}' was terminated abnormally. Did you press Ctrl+C?"
         ))),
     }
 }

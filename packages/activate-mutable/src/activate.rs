@@ -47,7 +47,7 @@ enum MatchOutcome {
 
 impl MatchOutcome {
     // See flow chart in plan.
-    fn from_contents(files: &Files, on_conflict: &ConflictStrategy) -> Self {
+    fn from_contents(files: &Files, on_conflict: ConflictStrategy) -> Self {
         match files.compare() {
             ExistingMatch::NotInHome => MatchOutcome::CopyNew,
             ExistingMatch::EqualOld => MatchOutcome::CopyNew,
@@ -64,7 +64,7 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
     let destination = resolve_directory(home, &entry.destination)?;
     let files = Files::read(entry, old_entry, &destination)?;
 
-    let state = MatchOutcome::from_contents(&files, &entry.on_conflict);
+    let state = MatchOutcome::from_contents(&files, entry.on_conflict);
     match state {
         MatchOutcome::DoNothing => Ok(()),
         MatchOutcome::Conflict => Err(Error::Conflict {
@@ -117,7 +117,7 @@ fn write_current_config(home: &Path, config_path: &Path) -> Result<()> {
 
 /// Run the activation process, copying files specified in the config to the home directory.
 /// Returns true if any non-fatal errors occurred.
-pub fn run(args: Opt) -> Result<bool> {
+pub fn run(args: &Opt) -> Result<bool> {
     println!(
         "Installing mutable files to {} using config {}",
         args.home_directory.display(),

@@ -28,6 +28,7 @@ impl Error {
 
 pub type Result<T> = std::result::Result<T, Error>;
 
+#[allow(clippy::doc_markdown)]
 /// Decode a lua storage file in OpenMW's format
 /// NOTE: Assumes that values are encoded in little-endian
 pub fn decode(file: &str) -> Result<Value> {
@@ -41,8 +42,7 @@ pub fn decode(file: &str) -> Result<Value> {
     let version: u8 = reader.read()?;
     if version != FORMAT_VERSION {
         Err(Error::data(&format!(
-            "Invalid format version: 0x{:02X}, expected 0x{:02X}",
-            version, FORMAT_VERSION
+            "Invalid format version: 0x{version:02X}, expected 0x{FORMAT_VERSION:02X}"
         )))?;
     }
 
@@ -150,7 +150,7 @@ fn read_value<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Value> 
 }
 
 /// Decode a table from the reader
-/// Assumes that the buffer points to the first byte after TABLE_START
+/// Assumes that the buffer points to the first byte after `TABLE_START`
 fn read_table<T: Read + Seek>(reader: &mut PrimitiveReader<T>) -> Result<Table> {
     let mut table = Table::new();
 

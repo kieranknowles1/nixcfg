@@ -85,8 +85,8 @@ fn cleanup(table: &mut Table, drop_paths: &Vec<String>, drop_starts_with: &Vec<S
                 Value::String(str) => {
                     if str.starts_with(pat) {
                         // Clones the string, removing the borrow that would keep
-                        // it from being dropped
-                        Some(str.to_string())
+                        // it from being dropped from the table we borrowed from
+                        Some(str.to_owned())
                     } else {
                         None
                     }
@@ -119,7 +119,7 @@ fn main() -> Result<()> {
 
             let json = ron::ser::to_string_pretty(&data, config)?;
 
-            println!("{}", json);
+            println!("{json}");
         }
         Opt::Encode { input, output } => {
             let input = std::fs::File::open(&input)?;

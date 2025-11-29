@@ -5,6 +5,7 @@ use crate::config::ConfigEntry;
 pub type Result<T> = std::io::Result<T>;
 pub type FileContents = Vec<u8>;
 
+#[derive(Clone, Copy)]
 pub enum ExistingMatch {
     /// The home file is identical to the new file.
     EqualNew,

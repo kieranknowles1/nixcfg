@@ -41,10 +41,7 @@ struct BuildOpt {
 }
 
 #[derive(Parser)]
-struct UpdateOpt {
-    #[arg(default_value = "Update flake inputs")]
-    message: String,
-}
+struct UpdateOpt {}
 
 impl BuildOpt {
     fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
@@ -61,11 +58,11 @@ fn datestamp() -> String {
 
 fn update_changelog_filepath(flake: &Path) -> PathBuf {
     let date = datestamp();
-    flake.join(format!("docs/changelog/update-{}.md", date))
+    flake.join(format!("docs/changelog/update-{date}.md"))
 }
 
 impl UpdateOpt {
-    fn run(&self, flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
+    fn run(flake: &Path) -> Result<(), Box<dyn std::error::Error>> {
         // We want a commit that cleanly distinguishes old and new generations,
         // any uncommitted changes could change the build output and thus break
         // reproducibility.
@@ -157,16 +154,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let status = match opt.action {
         Action::Build(value) => value.run(&opt.flake),
-        Action::Update(value) => value.run(&opt.flake),
+        Action::Update(_) => UpdateOpt::run(&opt.flake),
     };
 
     match status {
-        Ok(_) => {
+        Ok(()) => {
             println!("Successfully built, applied, and committed configuration");
             Ok(())
         }
         Err(e) => {
-            eprintln!("Error running a Git or Nix command: {}", e);
+            eprintln!("Error running a Git or Nix command: {e}");
             Err(e)
         }
     }

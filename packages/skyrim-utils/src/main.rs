@@ -21,7 +21,7 @@ enum Arguments {
 struct CleanArgs {}
 
 impl CleanArgs {
-    fn run(&self, save_dir: &[PathBuf]) -> Result<()> {
+    fn run(save_dir: &[PathBuf]) -> Result<()> {
         let save_files = SaveFiles::collect(save_dir)?;
 
         let orphans = save_files.get_orphans();
@@ -40,13 +40,13 @@ impl CleanArgs {
 struct LatestArgs {}
 
 impl LatestArgs {
-    fn run(&self, save_dir: &[PathBuf]) -> Result<()> {
-        let latest = SaveFiles::get_latest(save_dir)?;
+    fn run(save_dir: &[PathBuf]) -> Result<()> {
+        let latest = SaveFiles::get_latest(save_dir);
 
         match latest {
             Some(path) => open::that(path)?,
             None => println!("No save files found"),
-        };
+        }
 
         Ok(())
     }
@@ -56,18 +56,18 @@ impl LatestArgs {
 struct CrashArgs {}
 
 impl CrashArgs {
-    fn run(&self, log_dir: &[PathBuf]) -> Result<()> {
+    fn run(log_dir: &[PathBuf]) -> Result<()> {
         let pattern = Regex::new(r"crash-.*\.log").unwrap(); // We know this pattern is valid
 
         let latest = latest_file_matching_predicate(log_dir, |file| {
             let name = file.file_name();
             pattern.is_match(&name.to_string_lossy())
-        })?;
+        });
 
         match latest {
             Some(file) => open::that(file.path())?,
             None => println!("No crash logs found"),
-        };
+        }
 
         Ok(())
     }
@@ -79,7 +79,7 @@ struct SaveFiles {
     skse_files: HashSet<PathBuf>,
 }
 
-/// Get the extension of a file as a plain string rather than an OsStr
+/// Get the extension of a file as a plain string rather than an `OsStr`
 /// Returns None if the file has no extension or if the extension is not valid UTF-8
 /// (which should never happen, but Linux allows newlines so who knows what else is possible)
 fn extension_plain_str(path: &Path) -> Option<&str> {
@@ -92,7 +92,7 @@ fn extension_plain_str(path: &Path) -> Option<&str> {
 fn latest_file_matching_predicate(
     dirs: &[PathBuf],
     predicate: impl Fn(&DirEntry) -> bool,
-) -> Result<Option<DirEntry>> {
+) -> Option<DirEntry> {
     fn get_modified_time(file: &DirEntry) -> Option<std::time::SystemTime> {
         match file.metadata() {
             Ok(metadata) => metadata.modified().ok(),
@@ -100,15 +100,12 @@ fn latest_file_matching_predicate(
         }
     }
 
-    let newest = dirs
-        .iter()
+    dirs.iter()
         .flat_map(fs::read_dir) // Read directory entries, ignoring errors
         .flatten() // Flatten the directory into a list of files
-        .flat_map(Result::ok) // Ignore any errors reading file meta
+        .filter_map(Result::ok) // Ignore any errors reading file meta
         .filter(predicate)
-        .max_by_key(get_modified_time);
-
-    Ok(newest)
+        .max_by_key(get_modified_time)
 }
 
 impl SaveFiles {
@@ -126,7 +123,7 @@ impl SaveFiles {
                         match extension_plain_str(&path) {
                             Some("ess") => ess_files.insert(path),
                             Some("skse") => skse_files.insert(path),
-                            _ => continue, // It is valid to have files in the directory that are not .ess or .skse files
+                            _ => true, // It is valid to have files in the directory that are not .ess or .skse files
                         };
                     }
                 }
@@ -140,16 +137,12 @@ impl SaveFiles {
         })
     }
 
-    fn get_latest(dir: &[PathBuf]) -> Result<Option<PathBuf>> {
+    fn get_latest(dir: &[PathBuf]) -> Option<PathBuf> {
         let latest = latest_file_matching_predicate(dir, |file| {
             extension_plain_str(&file.path()) == Some("ess")
         });
 
-        match latest {
-            Ok(Some(file)) => Ok(Some(file.path())),
-            Ok(None) => Ok(None),
-            Err(e) => Err(e),
-        }
+        latest.map(|f| f.path())
     }
 
     /// Get all .skse files that do not have a corresponding .ess file
@@ -178,9 +171,9 @@ fn main() -> Result<()> {
     let log_dir = vec![data_dir.join("SKSE")];
 
     match args {
-        Arguments::Clean(clean_args) => clean_args.run(&save_dirs),
-        Arguments::Latest(latest_args) => latest_args.run(&save_dirs),
-        Arguments::Crash(crash_args) => crash_args.run(&log_dir),
+        Arguments::Clean(_) => CleanArgs::run(&save_dirs),
+        Arguments::Latest(_) => LatestArgs::run(&save_dirs),
+        Arguments::Crash(_) => CrashArgs::run(&log_dir),
     }?;
 
     Ok(())

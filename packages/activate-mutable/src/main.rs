@@ -22,23 +22,24 @@ enum Opt {
 
 fn main() -> Result<ExitCode, Box<dyn std::error::Error>> {
     let any_errors = match Opt::parse() {
-        Opt::Activate(args) => activate::run(args)?,
+        Opt::Activate(args) => activate::run(&args)?,
         Opt::Repo(args) => {
-            repo::run(args)?;
+            repo::run(&args)?;
             false
         }
         Opt::Info(args) => {
-            info::run(args)?;
+            info::run(&args)?;
             false
         }
     };
 
     // If any errors occurred, return a non-zero exit code.
-    let code = match any_errors {
+    let code = if any_errors {
         // Exit codes are not standardized, closest I could find were those in sysexits.h.
         // code 74 is EX_IOERR, which seems the closest to "file conflict".
-        true => ExitCode::from(74),
-        false => ExitCode::SUCCESS,
+        ExitCode::from(74)
+    } else {
+        ExitCode::SUCCESS
     };
 
     Ok(code)
