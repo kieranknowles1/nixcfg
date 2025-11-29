@@ -49,8 +49,7 @@ impl MatchOutcome {
     // See flow chart in plan.
     fn from_contents(files: &Files, on_conflict: ConflictStrategy) -> Self {
         match files.compare() {
-            ExistingMatch::NotInHome => MatchOutcome::CopyNew,
-            ExistingMatch::EqualOld => MatchOutcome::CopyNew,
+            ExistingMatch::NotInHome | ExistingMatch::EqualOld => MatchOutcome::CopyNew,
             ExistingMatch::EqualNew => MatchOutcome::DoNothing,
             ExistingMatch::Conflict => match on_conflict {
                 ConflictStrategy::Warn => MatchOutcome::Conflict,
@@ -67,18 +66,13 @@ fn process_entry(home: &Path, entry: &ConfigEntry, old_entry: Option<&ConfigEntr
     let state = MatchOutcome::from_contents(&files, entry.on_conflict);
     match state {
         MatchOutcome::DoNothing => Ok(()),
-        MatchOutcome::Conflict => Err(Error::Conflict {
-            file: destination.to_path_buf(),
-        }),
+        MatchOutcome::Conflict => Err(Error::Conflict { file: destination }),
         MatchOutcome::CopyNew => {
-            let dir = match destination.parent() {
-                Some(dir) => dir,
-                None => {
-                    return Err(Error::Io(std::io::Error::new(
-                        std::io::ErrorKind::NotFound,
-                        "Parent directory not found",
-                    )));
-                }
+            let Some(dir) = destination.parent() else {
+                return Err(Error::Io(std::io::Error::new(
+                    std::io::ErrorKind::NotFound,
+                    "Parent directory not found",
+                )));
             };
             std::fs::create_dir_all(dir)?;
             // This follows symlinks, meaning the target of a symlink is copied
@@ -137,7 +131,7 @@ pub fn run(args: &Opt) -> Result<bool> {
     // Write current config after reading what was there previously
     write_current_config(&args.home_directory, &args.config_file)?;
     if args.force {
-        for entry in config.iter_mut() {
+        for entry in &mut config {
             entry.on_conflict = ConflictStrategy::Replace;
         }
     }

@@ -47,8 +47,8 @@ pub fn run(args: &Opt) -> Result<()> {
 
     let mut base_dir = None;
     for entry in &config {
-        if entry.base_destination != base_dir {
-            base_dir = entry.base_destination.clone();
+        if entry.base_destination.as_ref() != base_dir {
+            base_dir = entry.base_destination.as_ref();
             if let Some(base_dir) = &base_dir {
                 println!("{}", base_dir.to_string_lossy().bold());
             }

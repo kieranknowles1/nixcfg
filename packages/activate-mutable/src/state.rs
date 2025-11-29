@@ -35,9 +35,11 @@ impl Files {
             Some(o) => Some(Self::read_transformed(&o.source, transform)?),
             None => None,
         };
-        let home = match std::fs::exists(destination)? {
-            true => Some(Self::read_transformed(destination, transform)?),
-            false => None,
+
+        let home = if std::fs::exists(destination)? {
+            Some(Self::read_transformed(destination, transform)?)
+        } else {
+            None
         };
 
         Ok(Self {
@@ -51,9 +53,10 @@ impl Files {
         match transform {
             Some(trans) => {
                 let out = Command::new(trans).arg(file).output()?;
-                match out.status.success() {
-                    true => Ok(out.stdout),
-                    false => Err(std::io::Error::other("Transform failed")),
+                if out.status.success() {
+                    Ok(out.stdout)
+                } else {
+                    Err(std::io::Error::other("Transform failed"))
                 }
             }
             None => std::fs::read(file),

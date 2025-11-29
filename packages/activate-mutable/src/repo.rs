@@ -37,21 +37,20 @@ fn restore_file(repo_path: &Path, home_path: &Path, transformer: Option<&Path>) 
         repo_path.display()
     );
 
-    match std::fs::exists(repo_path)? {
-        true => {
-            // Replace the repository file with the up-to-date home file.
-            let contents = Files::read_transformed(home_path, transformer)?;
-            // This follows symlinks, meaning the link target will be updated
-            // rather than replacing the link itself.
-            std::fs::write(repo_path, contents)?;
+    if std::fs::exists(repo_path)? {
+        // Replace the repository file with the up-to-date home file.
+        let contents = Files::read_transformed(home_path, transformer)?;
+        // This follows symlinks, meaning the link target will be updated
+        // rather than replacing the link itself.
+        std::fs::write(repo_path, contents)?;
 
-            Ok(())
-        }
+        Ok(())
+    } else {
         // Don't let us restore files if they don't exist. Basic check against misconfiguration.
-        false => Err(Error::Io(std::io::Error::new(
+        Err(Error::Io(std::io::Error::new(
             std::io::ErrorKind::NotFound,
             "File not found in repository",
-        ))),
+        )))
     }
 }
 

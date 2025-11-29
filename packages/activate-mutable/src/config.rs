@@ -40,20 +40,17 @@ fn is_directory(path: &Path) -> Result<bool> {
 }
 
 fn process_config_entry(entry: &ConfigEntry, out: &mut Config) -> Result<()> {
-    match is_directory(&entry.source)? {
-        true => {
-            let children = std::fs::read_dir(&entry.source)?;
-            for child in children {
-                let child = child?;
-                let new_entry = entry.extend(&child.file_name());
-                process_config_entry(&new_entry, out)?;
-            }
-            Ok(())
+    if is_directory(&entry.source)? {
+        let children = std::fs::read_dir(&entry.source)?;
+        for child in children {
+            let child = child?;
+            let new_entry = entry.extend(&child.file_name());
+            process_config_entry(&new_entry, out)?;
         }
-        false => {
-            out.push(entry.clone());
-            Ok(())
-        }
+        Ok(())
+    } else {
+        out.push(entry.clone());
+        Ok(())
     }
 }
 
@@ -82,9 +79,10 @@ pub fn resolve_directory(
     path: &Path,
 ) -> std::result::Result<PathBuf, DirectoryTraversalError> {
     let full = home.join(path);
-    match is_subdirectory(home, &full) {
-        true => Ok(full),
-        false => Err(DirectoryTraversalError { file: full }),
+    if is_subdirectory(home, &full) {
+        Ok(full)
+    } else {
+        Err(DirectoryTraversalError { file: full })
     }
 }
 

@@ -88,6 +88,8 @@ impl<T: Read + Seek> PrimitiveReader<T> {
     /// Read a primitive without consuming it
     fn peek<V: ByteConv<SIZE>, const SIZE: usize>(&mut self) -> Result<V> {
         let val = self.read()?;
+        // No reasonable ByteConv would wrap a i64
+        #[allow(clippy::cast_possible_wrap)]
         self.reader.seek_relative(-(SIZE as i64))?;
         Ok(val)
     }
