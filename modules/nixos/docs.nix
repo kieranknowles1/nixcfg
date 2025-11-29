@@ -5,35 +5,20 @@
   config,
   ...
 }: {
-  options.custom = let
+  options.custom.docs-generate = let
     inherit (lib) mkOption types;
   in {
-    docs = {
-      generateManCache = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          Whether to generate man cache, required for carapace completions
-          and `whatis`. Slow to build on some systems.
-        '';
-      };
-    };
-
-    docs-generate = {
-      baseUrl = mkOption {
-        type = types.str;
-        defaultText = "config.custom.repoPath";
-        example = "https://git.example.com/user/repo/blob/main";
-        description = ''
-          The base URL for links to option declarations.
-        '';
-      };
+    baseUrl = mkOption {
+      type = types.str;
+      defaultText = "config.custom.repoPath";
+      example = "https://git.example.com/user/repo/blob/main";
+      description = ''
+        The base URL for links to option declarations.
+      '';
     };
   };
 
   config = {
-    documentation.man.generateCaches = config.custom.docs.generateManCache;
-
     # This isn't very useful due to its format, especially the options page
     # which struggles to render due to its size.
     documentation.nixos.enable = false;

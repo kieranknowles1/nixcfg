@@ -29,8 +29,6 @@
       raspberryPi.enable = true;
     };
 
-    # Takes over a minute on almost every rebuild.
-    docs.generateManCache = false;
     docs-generate.baseUrl = "https://github.com/kieranknowles1/nixcfg/blob/master";
 
     networking = {
