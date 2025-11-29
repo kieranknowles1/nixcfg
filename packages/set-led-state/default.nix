@@ -1,13 +1,10 @@
 {
+  buildWorkspacePackage,
   self,
-  rustPlatform,
 }:
-rustPlatform.buildRustPackage rec {
+buildWorkspacePackage {
   pname = "set-led-state";
-  version = "1.0.0";
   src = ./.;
-
-  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     inherit (self.lib) license;
@@ -17,7 +14,5 @@ rustPlatform.buildRustPackage rec {
 
       Is writing this in Rust overkill? Yes. But you can't stop me.
     '';
-
-    mainProgram = pname;
   };
 }

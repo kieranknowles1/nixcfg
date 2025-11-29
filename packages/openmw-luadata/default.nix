@@ -1,13 +1,10 @@
 {
-  rustPlatform,
+  buildWorkspacePackage,
   self,
 }:
-rustPlatform.buildRustPackage rec {
+buildWorkspacePackage {
   pname = "openmw-luadata";
-  version = "3.0.0";
   src = ./.;
-
-  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     inherit (self.lib) license;
@@ -19,7 +16,5 @@ rustPlatform.buildRustPackage rec {
       RON to a binary file. RON is used over JSON as it supports structs and
       non-string keys, both needed to represent Lua tables.
     '';
-
-    mainProgram = pname;
   };
 }

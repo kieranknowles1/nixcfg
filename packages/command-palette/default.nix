@@ -1,20 +1,16 @@
 {
+  buildWorkspacePackage,
   self,
-  rustPlatform,
   zenity,
 }:
-rustPlatform.buildRustPackage rec {
+buildWorkspacePackage {
   pname = "command-palette";
-  version = "3.0.0";
   src = ./.;
 
   patchPhase = ''
     # Don't require that zenity is on PATH
     sed -i 's|"zenity"|"${zenity}/bin/zenity"|g' src/dialog.rs
   '';
-
-  cargoLock.lockFile = ./Cargo.lock;
-
   meta = {
     inherit (self.lib) license;
     description = "A simple command palette for running scripts";
@@ -31,7 +27,5 @@ rustPlatform.buildRustPackage rec {
       2.0 is incompatible with 1.0, as input is now a JSON array, rather than a
       newline-separated list.
     '';
-
-    mainProgram = pname;
   };
 }

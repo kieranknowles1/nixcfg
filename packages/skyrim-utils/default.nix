@@ -1,13 +1,10 @@
 {
-  rustPlatform,
+  buildWorkspacePackage,
   self,
 }:
-rustPlatform.buildRustPackage rec {
+buildWorkspacePackage {
   pname = "skyrim-utils";
-  version = "1.3.1";
   src = ./.;
-
-  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     inherit (self.lib) license;
@@ -22,7 +19,5 @@ rustPlatform.buildRustPackage rec {
       Don't look here for code quality, I made it in a hurry and should have
       used Python instead of Rust.
     '';
-
-    mainProgram = pname;
   };
 }

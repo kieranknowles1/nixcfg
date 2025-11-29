@@ -1,13 +1,10 @@
 {
-  rustPlatform,
+  buildWorkspacePackage,
   self,
 }:
-rustPlatform.buildRustPackage rec {
+buildWorkspacePackage {
   pname = "activate-mutable";
-  version = "3.1.1";
   src = ./.;
-
-  cargoLock.lockFile = ./Cargo.lock;
 
   meta = {
     inherit (self.lib) license;
@@ -19,7 +16,5 @@ rustPlatform.buildRustPackage rec {
       Can be used either as part of home-manager activation, or standalone to
       bring changes back to the repository.
     '';
-
-    mainProgram = pname;
   };
 }
