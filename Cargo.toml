@@ -3,6 +3,7 @@ resolver = "3" # Rust 2024 edition
 members = [
   "packages/activate-mutable",
   "packages/command-palette",
+  "packages/homepage-back",
   "packages/openmw-luadata",
   "packages/rebuild",
   "packages/set-led-state",
