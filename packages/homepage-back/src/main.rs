@@ -2,8 +2,7 @@ use std::{env, net::SocketAddr, sync::OnceLock};
 
 use http_body_util::Full;
 use hyper::{
-    Request, Response, StatusCode, body::Bytes, header::HeaderValue, server::conn::http1,
-    service::service_fn,
+    Request, Response, body::Bytes, header::HeaderValue, server::conn::http1, service::service_fn,
 };
 use hyper_util::rt::TokioIo;
 use tokio::net::TcpListener;
@@ -25,21 +24,8 @@ fn default_port() -> u16 {
     8080
 }
 
-fn not_found() -> Response<Full<Bytes>> {
-    Response::builder()
-        .status(StatusCode::NOT_FOUND)
-        .body(Full::new(Bytes::from_static(b"{\"error\": \"Not Found\"}")))
-        .unwrap()
-}
-
-async fn route(
-    req: Request<hyper::body::Incoming>,
-) -> Result<Response<Full<Bytes>>, service::Error> {
-    let mut res = match req.uri().path() {
-        "/system" => crate::service::static_route().await?,
-        "/status" => crate::service::route().await?,
-        _ => not_found(),
-    };
+async fn route(_: Request<hyper::body::Incoming>) -> Result<Response<Full<Bytes>>, service::Error> {
+    let mut res = crate::service::route().await?;
 
     // TODO: Is this header the correct one for production?
     res.headers_mut()
