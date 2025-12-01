@@ -66,13 +66,12 @@
           modules = builtins.attrValues self.homeManagerModules;
           urlPrefix = ghUrl;
         }
-        # TODO: Handle Stylix. This fails to import due to a missing `pkgs` attribute
-        # and will need separate "home" and "nixos" scopes.
-        # {
-        #   name = "Stylix";
-        #   modules = (builtins.attrValues inputs.stylix.nixosModules) ++ (builtins.attrValues inputs.stylix.homeManagerModules);
-        #   urlPrefix = "https://github.com/nix-community/stylix";
-        # }
+        # TODO: Need separate "home" and "nixos" scopes.
+        {
+          name = "Stylix";
+          modules = (builtins.attrValues inputs.stylix.nixosModules) ++ (builtins.attrValues inputs.stylix.homeManagerModules);
+          urlPrefix = "https://github.com/nix-community/stylix";
+        }
         {
           name = "SOPS";
           # Home and NixOS options are functionally identical, so only show one.
@@ -84,19 +83,23 @@
           modules = builtins.attrValues inputs.nix-minecraft.nixosModules;
           urlPrefix = "https://github.com/Infinidoge/nix-minecraft";
         }
-        # FIXME: Same issue as stylix
-        # {
-        #   name = "Copyparty";
-        #   modules = builtins.attrValues inputs.copyparty.nixosModules;
-        #   urlPrefix = "https://github.com/9001/copyparty";
-        # }
+        {
+          name = "Copyparty";
+          modules = builtins.attrValues inputs.copyparty.nixosModules;
+          urlPrefix = "https://github.com/9001/copyparty";
+        }
       ];
 
       subdomains = {
         ${cfgs.subdomain} = {
           cache.enable = true;
           root = mkMultiSearch {
-            inherit (cfgs) scopes;
+            scopes = map (scope:
+              scope
+              // {
+                specialArgs.pkgs = pkgs;
+              })
+            cfgs.scopes;
             baseHref = "/";
             title = "NüschtOS Search - NixOS Search, but German";
           };
