@@ -6,6 +6,8 @@
   inherit pkgs;
 
   modules = [
+    ./editor.nix
+    ./lsp.nix
     ./theme.nix
   ];
 }).neovim

@@ -109,7 +109,8 @@
     };
 
     nvf = {
-      url = "github:notashelf/nvf";
+      # TODO: Follow main once 0.8 is merged
+      url = "github:notashelf/nvf?ref=v0.8";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
