@@ -38,6 +38,7 @@ TODO_TAGS=(
   'HACK' # Ugly code that should be refactored
   'LOOK' # Someting to do more research on
   '\[ \]' # Markdown task list
+  'WTF' # What the fuck? Why did it break when an unrelated change was made?
 )
 
 STANDALONE_TAGS=(

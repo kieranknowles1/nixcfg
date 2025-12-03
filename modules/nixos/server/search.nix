@@ -67,11 +67,12 @@
           urlPrefix = ghUrl;
         }
         # TODO: Need separate "home" and "nixos" scopes.
-        {
-          name = "Stylix";
-          modules = (builtins.attrValues inputs.stylix.nixosModules) ++ (builtins.attrValues inputs.stylix.homeManagerModules);
-          urlPrefix = "https://github.com/nix-community/stylix";
-        }
+        # WTF: This worked when NVF was added, but breaks when standalone.
+        # {
+        #   name = "Stylix";
+        #   modules = (builtins.attrValues inputs.stylix.nixosModules) ++ (builtins.attrValues inputs.stylix.homeManagerModules);
+        #   urlPrefix = "https://github.com/nix-community/stylix";
+        # }
         {
           name = "SOPS";
           # Home and NixOS options are functionally identical, so only show one.
