@@ -16,6 +16,17 @@ alias "log error" = __log "red" "Error"
 alias void = ignore
 alias discard = ignore
 
+# What's That For? Display the previous command's TLDR page
+#
+# Example:
+# > awk --help
+# > **wall of text**
+# > wtf
+def wtf [] {
+  let cmd = history | last | get command | split row ' ' | first
+  tldr $cmd
+}
+
 # Split a string on newlines, like Bash's `read`
 def "from lines" []: string -> list<string> {
     split row "\n"

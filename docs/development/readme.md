@@ -5,7 +5,7 @@ Information on how to develop this repository. See also:
 [nix library](../generated/lib.md) for extensions to the Nix library.
 
 - [Development Information](#development-information)
-  - [Modules](#modules)
+  - [Assets](#assets)
   - [Building](#building)
   - [Dev Shells](#dev-shells)
   - [Using in Another Flake](#using-in-another-flake)
@@ -17,23 +17,16 @@ Information on how to develop this repository. See also:
     - [`nix-tree`](#nix-tree)
     - [`nix repl`](#nix-repl)
 
-## Modules
+## Assets
 
-The `modules` directory defines NixOS and home-manager modueles, and is where
-the vast majority of config takes place. It contains the following
-subdirectories:
+Binary blobs, such as photos and videos, are stored in their own `nixcfg-assets`
+repository to reduce their overhead on the main monorepo. Rather than using a
+flake input, which would have to be downloaded in full for any change, these are
+exposed as individual files under the `assets` flake output which are lazily
+downloaded.
 
-- `home` home-manager modules
-- `nixos` NixOS modules
-- `shared` Modules loaded by both home-manager and NixOS, and fully compatible
-  between the two.
-- `modlib` Shared libraries used between multiple home-manager or NixOS modules.
-
-If a shared library needs to differentiate between the two, they MUST take a
-file-level `mode` argument that can be either `home` or `nixos`. These libraries
-cannot be included in the top-level `flake.lib` due to module weirdness
-(specialArgs and therefore `flake.lib` can't be used in options definitions, but
-many of these functions are intended to be used there)
+After pushing `nixcfg-assets`, run `sync-assets` to update the manifest so that
+configurations can reference new versions.
 
 ## Building
 
