@@ -10,6 +10,7 @@
       enableTreesitter = true;
 
       nix.enable = true;
+      markdown.enable = true;
       rust.enable = true;
     };
 
