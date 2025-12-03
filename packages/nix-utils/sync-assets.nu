@@ -16,9 +16,6 @@ def collect_data [
 }
 
 # Synchronise asset hashes with an external repository
-def main [
-  # Repository containing binary blobs
-  assets: path
-] {
-  collect_data $assets | save --force asset-manifest.json
+def main [] {
+  collect_data ~/Documents/src/nixcfg-assets/ | save --force asset-manifest.json
 }
