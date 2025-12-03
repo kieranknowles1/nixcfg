@@ -107,10 +107,6 @@
         exec = "tlro";
         mnemonic = "[t]oo [l]ong [d]idn't [r]ead";
       };
-      wtf = {
-        exec = "tlro";
-        mnemonic = "[w]hat's [t]hat [f]or";
-      };
     };
   };
 }
