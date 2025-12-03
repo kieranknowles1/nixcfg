@@ -1,14 +1,11 @@
 ---
+
+import LayoutBase from "../../selwonklib/astro/layouts/LayoutBase.astro"
+
 import "../style.css"
 ---
-<!doctype html>
-<html lang="en-GB">
-	<head>
-    <meta charset="UTF-8">
-    <title>Kieran Knowles</title>
-		<meta name="generator" content={Astro.generator} />
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+<LayoutBase
+  title="Kieran Knowles"
+>
+  <slot />
+</LayoutBase>
