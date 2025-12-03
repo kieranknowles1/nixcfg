@@ -12,7 +12,9 @@
   in
     lib.mkIf hostConfig.custom.desktop.enable {
       # TODO: Can we cycle through wallpapers?
-      theme.wallpaper = self.builders.${pkgs.stdenv.hostPlatform.system}.fromHeif ./wallpaper-2.heic;
+      theme.wallpaper =
+        self.builders.${pkgs.stdenv.hostPlatform.system}.fromHeif
+        self.assets."wallpapers/wallpaper-2.heic";
 
       docs-generate.install = true;
       discord.enable = true;
