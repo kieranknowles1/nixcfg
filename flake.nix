@@ -73,6 +73,11 @@
       flake = false;
     };
 
+    selwonklib = {
+      url = "github:kieranknowles1/selwonklib";
+      flake = false;
+    };
+
     # /// Extensions ///
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons&ref=master";
