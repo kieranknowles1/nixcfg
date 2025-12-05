@@ -252,12 +252,28 @@ in {
       # error_page 401 =302 https://auth.example.com/?rd=$target_url;
     '';
 
-    mkVhost = root: subdomain: ssl: let
+    mkVhost = isRoot: subdomain: ssl: let
       # Authorization is not currently supported for the root domain. (plain selwonk.uk)
-      requireAuth = !root && subdomain.authorization.policy != "none";
+      requireAuth = !isRoot && subdomain.authorization.policy != "none";
     in {
       locations."/" = {
-        inherit (subdomain) root;
+        # Pre-compress static files, recommendedGzipSettings sets gzip_static on;
+        # which will serve $file.gz if it exists, saving bandwidth and CPU cycles.
+        root = lib.mkIf (subdomain.root != null) (pkgs.runCommand "static-precompressed" {
+            buildInputs = [pkgs.gzip];
+          } ''
+            mkdir -p $out
+
+            while read -r file; do
+              # Replace $src with $out
+              outfile="$out/$(realpath --relative-to ${subdomain.root} "$file")"
+              mkdir -p "$(dirname "$outfile")"
+              ln -s "$file" "$outfile"
+              gzip -9 --stdout "$file" > "$outfile.gz"
+            done < <(find "${subdomain.root}" -type f)
+          '');
+
+        # inherit (subdomain) root;
         proxyPass =
           if subdomain.proxyPort != null
           then "http://localhost:${toString subdomain.proxyPort}"
