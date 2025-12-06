@@ -57,6 +57,12 @@ in
     };
     CV = cv;
 
+    patchPhase = ''
+      # This is included as a submodule during development, but needs to be linked
+      # as a flake input for Nix to see it
+      ln -s ${self.inputs.selwonklib} selwonklib
+    '';
+
     buildPhase = ''
       rm package.json package-lock.json
       ln -s $MODULES/node_modules node_modules

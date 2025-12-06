@@ -6,21 +6,9 @@ import Project from '../components/Project.astro';
 
 import { Icon } from 'astro-icon/components';
 
-import azFundamentals from '../assets/microsoft-certified-azure-fundamentals.png';
-import ccnaIntroductionToNetworks from '../assets/ccna-introduction-to-networks.png';
 ---
 
 <Layout>
-  <h1>Kieran Knowles</h1>
-  <nav>
-    <ul>
-      <li><a href="#vindolanda">Vindolanda VR</a></li>
-      <li><a href="#blitzbox">BlitzBox</a></li>
-      <li><a href="#csc8502">Advanced Graphics</a></li>
-      <li><a href="#csc8503">Advanced Games Technologies</a></li>
-    </ul>
-  </nav>
-
   <header>
     <h2>About Me</h2>
     <!-- TODO: Fill this in -->
@@ -52,19 +40,18 @@ import ccnaIntroductionToNetworks from '../assets/ccna-introduction-to-networks.
         <h3>Certifications</h3>
         <script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
         <Badge
-          imgname={azFundamentals}
+          imgpath='/microsoft-certified-azure-fundamentals.png'
           name='Microsoft Certified: Azure Fundamentals'
           id='05ab3b69-8861-46a1-ad75-402d30e8a48a'
         />
         <Badge
-          imgname={ccnaIntroductionToNetworks}
+          imgpath='/ccna-introduction-to-networks.png'
           name='CCNA: Introduction to Networks'
           id='7e147b42-920c-4c46-bc33-2d3c5aa32739'
         />
       </section>
     </div>
   </header>
-
   <GameOfLife />
   <main>
     <h2>Projects</h2>
@@ -198,9 +185,4 @@ import ccnaIntroductionToNetworks from '../assets/ccna-introduction-to-networks.
       </blockquote>
     </Project>
   </main>
-
-  <footer>
-    <p>Icons sourced from <a href="https://pictogrammers.com/">Material Design Icons</a> and <a href="https://github.com/coreui/coreui-icons">CoreUI Brands</a></p>
-    <p>© 2025 Kieran Knowles</p>
-  </footer>
 </Layout>

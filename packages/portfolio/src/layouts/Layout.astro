@@ -1,14 +1,26 @@
 ---
+
+import LayoutBase from "../../selwonklib/astro/layouts/LayoutBase.astro"
+
 import "../style.css"
 ---
-<!doctype html>
-<html lang="en-GB">
-	<head>
-    <meta charset="UTF-8">
-    <title>Kieran Knowles</title>
-		<meta name="generator" content={Astro.generator} />
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+<LayoutBase
+  title="Kieran Knowles"
+>
+  <h1>Kieran Knowles</h1>
+  <nav>
+    <ul>
+      <li><a href="/#vindolanda">Vindolanda VR</a></li>
+      <li><a href="/#blitzbox">BlitzBox</a></li>
+      <li><a href="/#csc8502">Advanced Graphics</a></li>
+      <li><a href="/#csc8503">Advanced Games Technologies</a></li>
+    </ul>
+  </nav>
+
+  <slot />
+
+  <footer>
+    <p>Icons sourced from <a href="https://pictogrammers.com/">Material Design Icons</a> and <a href="https://github.com/coreui/coreui-icons">CoreUI Brands</a></p>
+    <p>© 2025 Kieran Knowles</p>
+  </footer>
+</LayoutBase>

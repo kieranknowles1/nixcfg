@@ -364,6 +364,7 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nuschtosSearch": "nuschtosSearch",
+        "selwonklib": "selwonklib",
         "sops-nix": "sops-nix",
         "src-openmw": "src-openmw",
         "src-tldr": "src-tldr",
@@ -391,6 +392,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "selwonklib": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1764805915,
+        "narHash": "sha256-T7PNiGmOBvg3NZimPy35MU2P2tniQqpWnlyzMBxVc9Y=",
+        "owner": "kieranknowles1",
+        "repo": "selwonklib",
+        "rev": "7650a6817d988d9f2e55ff5b7f5a2cccbccda32b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kieranknowles1",
+        "repo": "selwonklib",
         "type": "github"
       }
     },

@@ -22,4 +22,5 @@ target/
 # Astro output
 node_modules/
 .astro/
+.cache/
 dist/
