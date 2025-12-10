@@ -6,8 +6,6 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs) sxhkd;
-
   toKeySym = binding:
     builtins.concatStringsSep " + " (
       (lib.optional binding.ctrl "ctrl")
@@ -143,10 +141,16 @@ in {
     removeAction = entry: builtins.removeAttrs entry ["action"];
   in
     lib.mkIf cfg.enable {
-      assertions = lib.singleton {
-        assertion = hostConfig.custom.desktop.enable;
-        message = "Hotkeys require a desktop environment";
-      };
+      assertions = [
+        {
+          assertion = hostConfig.custom.desktop.enable;
+          message = "Hotkeys require a desktop environment";
+        }
+        {
+          assertion = hostConfig.security.wrappers ? swhkd;
+          message = "swhkd requires a SUID wrapper";
+        }
+      ];
 
       custom.shortcuts.hotkeys.visualiser = {
         build.config =
@@ -198,7 +202,7 @@ in {
       # Apply options
       services.sxhkd = {
         enable = true;
-        package = sxhkd;
+        package = pkgs.flake.swhkd;
 
         keybindings = builtins.listToAttrs (map (e: {
             name = e.keySym;
@@ -207,21 +211,22 @@ in {
           cfg.keys);
       };
 
-      # Enable xsession which starts sxhkd
-      xsession.enable = true;
+      # TODO: Hack to run swhkd for wayland support. Will probably become
+      # permanent lol
+      systemd.user.services.swhkd = {
+        Unit = {
+          Description = "Simple Wayland Hotkey Daemon";
+          BindsTo = "default.target";
+        };
 
-      # Restart sxhkd when reloading the configuration
-      # Activation scripts are run on boot, and when switching to a new configuration
-      home.activation."restart-sxhkd" = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        restart_sxhkd() {
-          local pid=$(${pkgs.procps}/bin/pidof sxhkd)
-          if [ -n "$pid" ]; then
-            # Send SIGUSR1 to reload the configuration
-            ${pkgs.coreutils}/bin/kill -USR1 $pid
-          fi
-        }
-
-        run restart_sxhkd
-      '';
+        Service = {
+          type = "Simple";
+          ExecStart = pkgs.writeShellScript "swhkd-runner" ''
+            PATH="/run/wrappers/bin:$PATH"
+            swhks & exec swhkd --config ${config.xdg.configHome}/sxhkd/sxhkdrc
+          '';
+        };
+        Install.WantedBy = ["default.target"];
+      };
     };
 }
