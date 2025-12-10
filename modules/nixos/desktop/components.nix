@@ -26,5 +26,12 @@
       # Make sure our archive manager has priority
       "application/zip" = "extract.desktop";
     };
+
+    security.wrappers.swhkd = {
+      setuid = true;
+      owner = "root";
+      group = "root";
+      source = "${pkgs.flake.swhkd}/bin/swhkd";
+    };
   };
 }

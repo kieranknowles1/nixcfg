@@ -33,6 +33,7 @@
       set-led-state = callPackage ./set-led-state {};
       skyrim-utils = callPackage ./skyrim-utils {};
       spriggit = callPackage ./spriggit.nix {};
+      swhkd = callPackage ./swhkd.nix {};
       todos = callPackage ./todos {};
       tlro = callPackage ./tlro {};
     };
