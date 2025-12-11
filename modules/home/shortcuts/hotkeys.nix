@@ -226,7 +226,7 @@ in {
             swhks & exec swhkd --config ${config.xdg.configHome}/sxhkd/sxhkdrc
           '';
         };
-        Install.WantedBy = ["default.target"];
+        Install.WantedBy = ["graphical-session.target"];
       };
     };
 }
