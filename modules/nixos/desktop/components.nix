@@ -27,11 +27,19 @@
       "application/zip" = "extract.desktop";
     };
 
+    # Wayland requires suid/capabilities for hotkeys :( who cares about accessability
+    # laws anyway?
+    # FIXME: Don't install these if not used for home-manager
     security.wrappers.swhkd = {
       setuid = true;
       owner = "root";
       group = "root";
       source = "${pkgs.flake.swhkd}/bin/swhkd";
+    };
+
+    services.espanso = {
+      enable = true;
+      package = pkgs.espanso-wayland;
     };
   };
 }
