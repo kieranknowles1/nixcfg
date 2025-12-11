@@ -46,3 +46,15 @@ $ activate-mutable info
 #   Repository: modules/some-file
 #   On conflict: Warn
 ```
+
+## Fuzzy Search
+
+The `telly` home-manager module provides fuzzy find utilities based on
+[Television](https://github.com/alexpasmantier/television). The following
+`commands` and **shortcuts** are available:
+
+- **Ctrl+t**: Find file for prompt
+- **Ctrl+r**: Search history
+- `tvg`: Find and CD into git repository
+- `tvf`: Open a file, by its name
+- `tvc`: Open a file, by its contents
