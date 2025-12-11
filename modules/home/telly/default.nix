@@ -6,7 +6,7 @@
   options.custom.telly = let
     inherit (lib) mkEnableOption;
   in {
-    enable = mkEnableOption "Telly";
+    enable = mkEnableOption "Telly fuzzy find utilities";
   };
 
   config = let
@@ -16,7 +16,8 @@
       programs.television = {
         enable = true;
         settings = builtins.fromTOML (builtins.readFile ./config.toml);
-        # TODO: Nushell integration once its supported for ctrl+t completions
+        # NuShell is supported for Ctrl+t - find file and Ctrl+r - search history
+        # via /vendor/autoload
       };
 
       programs.nushell.extraConfig = builtins.readFile ./telly.nu;
