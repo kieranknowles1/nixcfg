@@ -10,3 +10,10 @@ matches:
       - ":surname"
       - ":sname:"
     replace: "{{surname}}"
+  - trigger: ":today:"
+    replace: "{{today}}"
+    vars:
+      - name: today
+        type: date
+        params:
+          format: "%d\t%m\t%y"
