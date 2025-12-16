@@ -7,6 +7,7 @@
   dejavu_fonts,
   font-awesome,
   typst,
+  system,
 }: let
   fonts = symlinkJoin {
     name = "fonts";
@@ -38,6 +39,12 @@
       done
     '';
   };
+
+  assets = self.builders.${system}.assetsDir {
+    name = "portfolio-assets";
+    # TODO: Filter to what's needed
+    filter = _path: true;
+  };
 in
   stdenv.mkDerivation {
     name = "portfolio";
@@ -46,7 +53,9 @@ in
     buildInputs = [
       nodejs
     ];
-    passthru.cv = cv;
+    passthru = {
+      inherit cv assets;
+    };
 
     ASTRO_TELEMETRY_DISABLED = 1;
 
