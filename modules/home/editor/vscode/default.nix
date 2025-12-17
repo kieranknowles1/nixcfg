@@ -51,8 +51,6 @@
         redhat.vscode-yaml # We have some YAML files in the repo
         tamasfe.even-better-toml # Same for TOML
         thenuprojectcontributors.vscode-nushell-lang # Nushell config
-        ms-python.python # Used for several scripts in the repo
-        ms-python.vscode-pylance
 
         joelday.papyrus-lang-vscode # Essential for Skyrim and Fallout 4 modding
 
