@@ -1,6 +1,8 @@
 {
   config,
   lib,
+  pkgs,
+  inputs,
   ...
 }: {
   options.custom.server.paperless = let
@@ -56,6 +58,7 @@
 
       services.paperless = {
         inherit (cfgp) dataDir;
+        package = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.paperless-ngx;
         enable = true;
         port = cfg.ports.tcp.paperless;
 

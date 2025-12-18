@@ -11,6 +11,8 @@
     # Use a fork as required by nixos-raspberrypi until https://github.com/NixOS/nixpkgs/pull/398456
     # is merged
     nixpkgs.url = "github:kieranknowles1/nixpkgs?ref=nixpkgs-unstable-readd-option";
+    # FIXME: Paperless isn't building on unstable
+    nixpkgs-stable.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
