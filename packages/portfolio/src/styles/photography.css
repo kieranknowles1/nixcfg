@@ -1,5 +1,25 @@
+/*
+
+Display photography in a grid format.
+This contains a mix of landscape and portrait images, shot in a 1.5:1 aspect
+ratio.
+
+A landscape image occupies a space of 3x2 cells, 3x2 for portrait. These are
+mixed in the grid to create a disordered and visually interesting layout.
+
+On mobile, this is adjusted to a single column due to the limited screen width.
+
+The tricky part is arranging the images to avoid having too much empty space,
+but keeping the result visually interesting.
+
+// TODO: Arrange images, maybe get them printed and mess around. Some of them
+would also work just as well or better if cropped to a 1:1 aspect ratio.
+
+*/
+
 main {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 article {
@@ -11,14 +31,26 @@ img {
   height: auto;
 }
 
-@media (min-width: 768px) {
-  main {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.landscape {
+  grid-row: span 2;
+  grid-column: span 3;
 }
+
+.portrait {
+  grid-row: span 3;
+  grid-column: span 2;
+}
+
+/* Manual layout means that splitting more than one breakpoint is tricky, so
+not bothering and only supporting one*/
+/*@media (min-width: 768px) {
+  main {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}*/
 
 @media (min-width: 1024px) {
   main {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(11, 1fr);
   }
 }

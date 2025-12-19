@@ -4,24 +4,27 @@ import { Picture } from "astro:assets"
 
 interface Props {
   img: ImageMetadata,
-  alt: string,
+  description: string,
   eager?: boolean,
+  orientation?: 'portrait' | 'landscape',
   rescale?: number
 }
 
 const {
   img,
-  alt,
+  description,
   eager = false,
-  rescale = 0.2
+  orientation = 'landscape',
+  rescale = 0.2,
 } = Astro.props;
 
 // TODO: Display ISO, focal length, aperture, and exposure time
 // TODO: Click for larger version
+// TODO: Display description when clicked
 ---
-<article>
+<article class={orientation}>
   <Picture
-    src={img} alt={alt}
+    src={img} alt={description}
     loading={eager ? 'eager' : 'lazy'}
     width={img.width * rescale}
     height={img.height * rescale}
