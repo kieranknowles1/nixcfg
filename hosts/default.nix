@@ -5,7 +5,9 @@
 }: let
   inherit (self.lib.host) mkHost;
   mkDefaultHost = mkHost inputs.nixpkgs.lib.nixosSystem {};
-  mkRpiHost = mkHost inputs.nixos-raspberrypi.lib.nixosSystem {inherit (inputs) nixos-raspberrypi;};
+  mkRpiHost = mkHost inputs.nixos-raspberrypi.lib.nixosSystem {
+    inherit (inputs) nixos-raspberrypi nixos-raspberrypi-kernellock;
+  };
 in {
   flake.nixosConfigurations = {
     canterbury = mkDefaultHost ./canterbury/configuration.nix;

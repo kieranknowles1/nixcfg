@@ -5,6 +5,7 @@
   pkgs,
   config,
   nixos-raspberrypi,
+  nixos-raspberrypi-kernellock,
   ...
 }: {
   imports = with nixos-raspberrypi.nixosModules; [
@@ -16,6 +17,10 @@
     # Avoid issues from jemalloc expecting a hardcoded page size
     raspberry-pi-5.page-size-16k
   ];
+
+  boot.kernelPackages =
+    pkgs.lib.mkForce
+    nixos-raspberrypi-kernellock.packages.${pkgs.system}.linuxPackages_rpi5;
 
   # Enable everything needed for this configuration
   custom = {
@@ -63,7 +68,7 @@
       paperless.enable = true;
       # FIXME: This rebuilds the whole webapp on options change, not just the index
       # which takes over a minute whenever options change
-      search.enable = true;
+      # search.enable = true;
 
       authelia = {
         enable = true;
