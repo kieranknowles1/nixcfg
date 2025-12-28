@@ -18,6 +18,12 @@ Status December 2025: It works well enough on Nvidia. Good thing since GNOME has
 dropped X11 support. Anything to do with hotkeys, such as sxhkd and Espanso, is
 broken and needs complete hacks to get working.
 
+### The Moderately Sized List of Things Wayland Broke (And If They've Been Fixed Yet)
+
+1. ~~Flickering in xwayland apps when they drop frames~~
+2. No hotkeys without root processes
+3. No push to talk due to #2
+
 ## INC01 Make Sure You Have a User
 
 It's completely valid syntax to have a system without any usable users. Make
