@@ -8,7 +8,7 @@
   # Target name, for scripts to use
   name ? "unknown",
   # Additional libraries and tools to include
-  libraries ? [],
+  packages ? [],
   # Key-value options to pass to CMake configure
   options ? {},
 }: let
@@ -28,7 +28,7 @@ in
         gdb
         checkleak'
       ]
-      ++ libraries;
+      ++ packages;
 
     shellHook = ''
       # mkcd into build if not already
