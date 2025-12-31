@@ -52,6 +52,19 @@
         ];
       };
 
+      settings.formatter = {
+        clang-format.options = [
+          "--style=${builtins.toJSON {
+            # Pointers are part of the type. Multiple declarations per line is
+            # a bad idea.
+            PointerAlignment = "Left";
+            # Reduce write amplification - adding one member should only require
+            # rewriting one line.
+            EnumTrailingComma = "Insert";
+          }}"
+        ];
+      };
+
       programs = {
         alejandra.enable = true; # Nix
         beautysh.enable = true; # Bash
@@ -120,6 +133,10 @@
             "*.md"
             "*.typ"
             "*.txt"
+          ];
+
+          excludes = lib.mkForce [
+            "**/CMakeLists.txt"
           ];
         };
       };
