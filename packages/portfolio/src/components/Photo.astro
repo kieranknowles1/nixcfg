@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from "astro"
 import { Picture } from "astro:assets"
+import { Icon } from "astro-icon/components"
 import meta from '../../exif.json'
 
 interface Props {
@@ -23,8 +24,7 @@ const filename = img.src.match(/\/([a-z-]*)[.]/)?.at(1)
 const filemeta = meta.filter(
   e => filename && e.FileName.startsWith(filename)
 ).at(0)
-
-console.log(filemeta)
+if (filemeta == undefined) throw new Error("Failed to get file metadata")
 
 // TODO: Display ISO, focal length, aperture, and exposure time
 // TODO: Click for larger version
@@ -37,4 +37,10 @@ console.log(filemeta)
     width={img.width * rescale}
     height={img.height * rescale}
   />
+  <!-- TODO: Overlay this on the image -->
+  <p>
+    <Icon name="mdi:timer" title="Exposure"/>{filemeta.ExposureTime}s
+    <Icon name="mdi:magnify-plus" title="Focal Length"/>{filemeta.FocalLength}
+    <Icon name="bx:aperture" title="Aperture"/>{filemeta.Aperture}
+  </p>
 </article>
