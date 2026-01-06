@@ -1,7 +1,5 @@
 ---
 import FancyLink from './FancyLink.astro';
-// TODO: Find a middle ground between embeds with tracking and just linking to the video
-// Maybe an img that turns into an embed on click? Or just host it ourselves
 import Video from '../../selwonklib/astro/components/Video.astro';
 
 interface Props {
@@ -17,7 +15,6 @@ interface Props {
     author: string,
     rating: number
   },
-  lazyload?: boolean
 }
 // TODO: Gallery
 const {
@@ -26,7 +23,6 @@ const {
   title,
   links,
   feedback,
-  lazyload = false
 } = Astro.props
 
 const hasFeedback = feedback !== undefined;
@@ -37,7 +33,7 @@ if (hasFeedback && !Astro.slots.has('feedback')) {
 ---
 <article id={id}>
   <h3>{title}</h3>
-  <Video id={videoId} lazyload={lazyload} />
+  <Video url={`https://r2.selwonk.uk/${videoId}`} />
   <div class={hasFeedback ? "twopane" : "centre-child"}>
     <div>
       <ul class="links-list">
