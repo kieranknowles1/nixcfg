@@ -440,11 +440,11 @@
     "selwonklib": {
       "flake": false,
       "locked": {
-        "lastModified": 1765311107,
-        "narHash": "sha256-sSN1W+oxZRMBFz47p3I3Z6WYt8514DhXvLV/6XIvcMI=",
+        "lastModified": 1767705577,
+        "narHash": "sha256-WS2B2qaRioBDn1Yn+7ffDmrDjP5JPGwT9SEvAfqjdYU=",
         "owner": "kieranknowles1",
         "repo": "selwonklib",
-        "rev": "d72de1d911b242f598baf18224b0316a32a0728e",
+        "rev": "d822680ed4b3889f7da3cf445696f5a6263f8b2f",
         "type": "github"
       },
       "original": {
