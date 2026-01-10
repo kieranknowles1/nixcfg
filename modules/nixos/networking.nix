@@ -45,8 +45,6 @@
       inherit (cfg) hostName;
 
       networkmanager.enable = true;
-      # This is handled by NetworkManager
-      wireless.enable = false;
 
       # Disable plugins we don't use
       networkmanager.plugins = lib.mkForce [
