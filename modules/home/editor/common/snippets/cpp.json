@@ -12,13 +12,26 @@
   // 	],
   // 	"description": "Log output to console"
   // }
-  "Include Guard": {
-    "prefix": "#ifndef",
+  "Class Declaration": {
+    "prefix": "#pragma",
     "body": [
-      "#ifndef $1_H",
-      "#define $1_H",
+      "#pragma once",
       "",
-      "#endif"
+      "namespace selwonk::vulkan {",
+      "class $1 {",
+      "  $2",
+      "};",
+      "} // namespace selwonk::vulkan"
+    ]
+  },
+  "Class Definition": {
+    "prefix": "#include",
+    "body": [
+      "#include \"$1\"",
+      "",
+      "namespace selwonk::vulkan {",
+      "$2",
+      "} // namespace selwonk::vulkan"
     ]
   }
 }
