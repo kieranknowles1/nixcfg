@@ -53,5 +53,10 @@
       destination.local = "/home/kieran/Backups/Documents";
       destination.remote = "backup/remote";
     };
+    
+    cache = {
+      mode = "send";
+      send.privateKeySecret = "cache/privateKey";
+    };
   };
 }

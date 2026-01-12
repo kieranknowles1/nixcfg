@@ -52,5 +52,8 @@
       destination.local = "/home/kieran/Backups/Documents"; # Local path
       destination.remote = "backup/remote"; # Path to the secret
     };
+
+    # TODO: home network is too slow for now, reenable later
+    cache.mode = "receive";
   };
 }
