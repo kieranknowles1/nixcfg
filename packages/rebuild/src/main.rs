@@ -90,6 +90,12 @@ impl UpdateOpt {
         writeln!(changelog, "# Update on {}", datestamp())?;
 
         for entry in fs::read_dir(initial.path())? {
+            let entry = entry?.file_name();
+            let sysname = entry.to_string_lossy();
+            writeln!(changelog, " - [{}](#{})", &sysname, &sysname)?;
+        }
+
+        for entry in fs::read_dir(initial.path())? {
             let entry = entry?;
             let sysname = entry.file_name();
             let a = entry.path();
