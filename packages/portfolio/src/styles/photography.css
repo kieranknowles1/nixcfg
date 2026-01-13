@@ -66,6 +66,6 @@ not bothering and only supporting one*/
 
 @media (min-width: 1024px) {
   main {
-    grid-template-columns: repeat(11, 1fr);
+    grid-template-columns: repeat(8, 1fr);
   }
 }

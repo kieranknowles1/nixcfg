@@ -13,21 +13,21 @@ import warmSisters from '../../assets/photography/warm-sisters.jpg';
 import stillSplash from '../../assets/photography/still-splash.jpg';
 import churchVista from '../../assets/photography/church-vista.jpg';
 import coastalRainbow from '../../assets/photography/coastal-rainbow.jpg';
+import moon from '../../assets/photography/moon.jpg';
 
-// TODO: Photo of moon to fill gap
-// TODO: Lay out according to physical collage
 // TODO: Gimp removed exif, need to restore it
 ---
 <Layout>
   <main>
-    <Photo img={millieStare} orientation='landscape' eager description="Millie, a tabby cat giving a moody stare into the distance." />
-    <Photo img={guardian} orientation='landscape' eager description="A black bird standing on a railing in front of St. Mary's Lighthouse, as if guarding it." />
-    <Photo img={readyToPeck} orientation='square' eager description="A swan separated from its flock, ready to peck the lens." />
-    <Photo img={swanClose} orientation='portrait' description="A swan up close, ready to cause a stir." />
-    <Photo img={friendlyHorse} orientation='square' description="A white horse standing in a field, friendly and curious." />
-    <Photo img={warmSisters} orientation='landscape' description="Millie, a tabby, and Cookie, a tuxedo cat, facing each other while sleeping on a radiator." />
-    <Photo img={stillSplash} orientation='landscape' description="A still-frame of a wave crashing against Cullercoats bay." />
+    <Photo eager img={friendlyHorse} orientation='square' description="A white horse standing in a field, friendly and curious." />
+    <Photo eager img={coastalRainbow} orientation='landscape' description="A rainbow arching over the sea." />
+    <Photo eager img={stillSplash} orientation='landscape' description="A still-frame of a wave crashing against Cullercoats bay." />
+    <Photo eager img={guardian} orientation='landscape' description="A black bird standing on a railing in front of St. Mary's Lighthouse, as if guarding it." />
+    <Photo eager img={warmSisters} orientation='landscape' description="Millie, a tabby, and Cookie, a tuxedo cat, facing each other while sleeping on a radiator." />
+    <Photo eager img={swanClose} orientation='portrait' description="A swan up close, ready to cause a stir." />
+    <Photo img={millieStare} orientation='landscape' description="Millie, a tabby cat giving a moody stare into the distance." />
+    <Photo img={readyToPeck} orientation='square' description="A swan separated from its flock, ready to peck the lens." />
+    <Photo img={moon} orientation='smallsquare' description="The moon" />
     <Photo img={churchVista} orientation='ultrawide' description="A vista of Long Sands beach in Cullercoats, featuring St. George's Church." />
-    <Photo img={coastalRainbow} orientation='landscape' description="A rainbow arching over the sea." />
   </main>
 </Layout>
