@@ -3,6 +3,7 @@
   lib,
   ...
 }: {
+  # External assets. Use `sync-assets` from nix-utils to update
   options.flake = let
     inherit (flake-parts-lib) mkSubmoduleOptions;
     inherit (lib) mkOption types;
