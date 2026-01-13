@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+h3 {
+    font-size: var(--text-lg);
+    color: var(--color-white);
+}
+
+h4 {
+    color: var(--color-gray-100);
+}
+
+span {
+    color: var(--color-gray-100);
+}
