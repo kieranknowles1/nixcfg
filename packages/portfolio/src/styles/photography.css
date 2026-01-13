@@ -41,6 +41,21 @@ img, picture {
   grid-column: span 2;
 }
 
+.square {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+.smallsquare {
+  grid-row: span 1;
+  grid-column: span 1;
+}
+
+.ultrawide {
+  grid-row: span 1;
+  grid-column: span 3;
+}
+
 /* Manual layout means that splitting more than one breakpoint is tricky, so
 not bothering and only supporting one*/
 /*@media (min-width: 768px) {

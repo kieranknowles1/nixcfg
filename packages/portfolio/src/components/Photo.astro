@@ -10,7 +10,7 @@ interface Props {
   img: ImageMetadata,
   description: string,
   eager?: boolean,
-  orientation?: 'portrait' | 'landscape',
+  orientation: 'portrait' | 'landscape' | 'square' | 'smallsquare' | 'ultrawide',
   rescale?: number
 }
 
@@ -18,7 +18,7 @@ const {
   img,
   description,
   eager = false,
-  orientation = 'landscape',
+  orientation,
   rescale = 0.2,
 } = Astro.props;
 
