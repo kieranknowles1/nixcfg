@@ -41,5 +41,7 @@
       enable = true;
       package = pkgs.espanso-wayland;
     };
+
+    services.flatpak.enable = true;
   };
 }
