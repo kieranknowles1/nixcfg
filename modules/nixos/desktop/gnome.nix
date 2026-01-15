@@ -22,12 +22,9 @@
 
     # TODO: Consider not having any of GNOME's default apps installed, and be explicit about what I want.
     environment.gnome.excludePackages = with pkgs; [
-      # GNOME's built-in browser
-      epiphany
+      papers # Firefox can handle PDFs
+      showtime # VLC is better for videos
       gnome-console # Managed by home-manager
-      # GNOME's document viewer. Firefox does a better job at this
-      evince
-      gedit # Replaced by vscode, but that is managed by home-manager
       gnome-connections # I have no need for remote desktop
       gnome-tour # Basic intro to GNOME
       gnome-text-editor # Use an IDE instead
@@ -43,9 +40,10 @@
       gnome-maps # I use my phone for maps
       gnome-music # Not using this
       gnome-shell-extensions # Not using any of these
+      gnome-software # It's not sideloading, it's installing software
       gnome-system-monitor # I use Resouces
       gnome-weather # I use my phone for weather
-      simple-scan # I have no scanner
+      simple-scan # My scandoc script does this better for my requirements
       totem # Video player. Use VLC instead
       yelp # I use the web for documentation
       snapshot # I don't have a webcam
