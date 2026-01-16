@@ -22,6 +22,7 @@
 
     # TODO: Consider not having any of GNOME's default apps installed, and be explicit about what I want.
     environment.gnome.excludePackages = with pkgs; [
+      epiphany # Firefox > WebKit
       papers # Firefox can handle PDFs
       showtime # VLC is better for videos
       gnome-console # Managed by home-manager
