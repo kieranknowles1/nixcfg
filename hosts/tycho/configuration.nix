@@ -22,6 +22,8 @@
     pkgs.lib.mkForce
     nixos-raspberrypi-kernellock.packages.${pkgs.system}.linuxPackages_rpi5;
 
+  boot.loader.raspberryPi.bootloader = "kernel";
+
   # Enable everything needed for this configuration
   custom = {
     users = {
