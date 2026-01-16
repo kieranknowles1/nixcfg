@@ -46,6 +46,9 @@
         enable = true;
         port = cfg.ports.tcp.adguard;
 
+        # If DNS is down, then we need direct access
+        openFirewall = true;
+
         settings = {
           # Support Avahi-like .local extensions with subdomains
           filtering.rewrites = let
@@ -63,6 +66,7 @@
               enabled = true;
             }
           ];
+          schema_version = 31;
         };
       };
 
