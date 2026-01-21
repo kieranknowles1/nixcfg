@@ -252,6 +252,65 @@ in {
       # error_page 401 =302 https://auth.example.com/?rd=$target_url;
     '';
 
+    # From nixpkgs nginx
+    # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
+    # and Nginx Server Configs - https://github.com/h5bp/server-configs-nginx
+    compressMimeTypes = [
+      "application/atom+xml"
+      "application/geo+json"
+      "application/javascript" # Deprecated by IETF RFC 9239, but still widely used
+      "application/json"
+      "application/ld+json"
+      "application/manifest+json"
+      "application/rdf+xml"
+      "application/vnd.ms-fontobject"
+      "application/wasm"
+      "application/x-rss+xml"
+      "application/x-web-app-manifest+json"
+      "application/xhtml+xml"
+      "application/xliff+xml"
+      "application/xml"
+      "font/collection"
+      "font/otf"
+      "font/ttf"
+      "image/bmp"
+      "image/svg+xml"
+      "image/vnd.microsoft.icon"
+      "text/cache-manifest"
+      "text/calendar"
+      "text/css"
+      "text/csv"
+      "text/html"
+      "text/javascript"
+      "text/markdown"
+      "text/plain"
+      "text/vcard"
+      "text/vnd.rim.location.xloc"
+      "text/vtt"
+      "text/x-component"
+      "text/xml"
+    ];
+
+    precompress = root: (pkgs.runCommand "static-precompressed" {
+        buildInputs = [pkgs.gzip];
+      } ''
+        COMPRESS_MIMES="${builtins.concatStringsSep "|" compressMimeTypes}"
+        mkdir -p $out
+
+        while read -r file; do
+          # Replace $src with $out
+          outfile="$out/$(realpath --relative-to ${root} "$file")"
+          mkdir -p "$(dirname "$outfile")"
+          ln -s "$file" "$outfile"
+
+          # Only compress files that Nginx will serve compressed
+          mime="$(file --mime-type -b $file)"
+          if [[ "$COMPRESS_MIMES" == *"$mime"* ]]; then
+            gzip -9 --stdout "$file" > "$outfile.gz"
+          fi
+        done < <(find "${root}" -type f)
+      '');
+
     mkVhost = isRoot: subdomain: ssl: let
       # Authorization is not currently supported for the root domain. (plain selwonk.uk)
       requireAuth = !isRoot && subdomain.authorization.policy != "none";
@@ -259,19 +318,7 @@ in {
       locations."/" = {
         # Pre-compress static files, recommendedGzipSettings sets gzip_static on;
         # which will serve $file.gz if it exists, saving bandwidth and CPU cycles.
-        root = lib.mkIf (subdomain.root != null) (pkgs.runCommand "static-precompressed" {
-            buildInputs = [pkgs.gzip];
-          } ''
-            mkdir -p $out
-
-            while read -r file; do
-              # Replace $src with $out
-              outfile="$out/$(realpath --relative-to ${subdomain.root} "$file")"
-              mkdir -p "$(dirname "$outfile")"
-              ln -s "$file" "$outfile"
-              gzip -9 --stdout "$file" > "$outfile.gz"
-            done < <(find "${subdomain.root}" -type f)
-          '');
+        root = lib.mkIf (subdomain.root != null) (precompress subdomain.root);
 
         # inherit (subdomain) root;
         proxyPass =
