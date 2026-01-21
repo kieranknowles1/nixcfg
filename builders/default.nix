@@ -26,6 +26,7 @@
         builders = let
           callPackage = lib.customisation.callPackageWith (pkgs // inputs);
         in {
+          assetsDir = callPackage ./assetsDir.nix {inherit lib;};
           buildGodotApp = callPackage ./buildGodotApp.nix {};
           buildWorkspacePackage = callPackage ./buildWorkspacePackage.nix {};
           buildScript = callPackage ./buildScript.nix {};

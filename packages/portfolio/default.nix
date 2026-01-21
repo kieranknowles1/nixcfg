@@ -1,12 +1,14 @@
 {
   stdenv,
   self,
+  exiftool,
   nodejs,
   importNpmLock,
   symlinkJoin,
   dejavu_fonts,
   font-awesome,
   typst,
+  system,
 }: let
   fonts = symlinkJoin {
     name = "fonts";
@@ -38,15 +40,24 @@
       done
     '';
   };
+
+  assets = self.builders.${system}.assetsDir {
+    name = "portfolio-assets";
+    # TODO: Filter to what's needed
+    filter = _path: true;
+  };
 in
   stdenv.mkDerivation {
     name = "portfolio";
     src = ./.;
 
     buildInputs = [
+      exiftool
       nodejs
     ];
-    passthru.cv = cv;
+    passthru = {
+      inherit cv assets;
+    };
 
     ASTRO_TELEMETRY_DISABLED = 1;
 
@@ -61,9 +72,12 @@ in
       # This is included as a submodule during development, but needs to be linked
       # as a flake input for Nix to see it
       ln -s ${self.inputs.selwonklib} selwonklib
+      ln -s ${assets} assets
     '';
 
     buildPhase = ''
+      bash ${./getexifdata.sh}
+
       rm package.json package-lock.json
       ln -s $MODULES/node_modules node_modules
       ln -s $MODULES/package.json package.json

@@ -24,3 +24,5 @@ node_modules/
 .astro/
 .cache/
 dist/
+/packages/portfolio/assets
+/packages/portfolio/exif.json
