@@ -22,7 +22,7 @@ const {
   rescale = 0.2,
 } = Astro.props;
 
-const filename = img.src.match(/\/([a-z-]*)[.]/)?.at(1)
+const filename = img.src.match(/\/([a-z0-9]{32}-)?([a-z-]*)[.]/)?.at(2)
 const filemeta = meta.filter(
   e => filename && e.FileName.startsWith(filename)
 ).at(0)

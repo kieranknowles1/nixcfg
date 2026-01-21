@@ -1,6 +1,7 @@
 {
   stdenv,
   self,
+  exiftool,
   nodejs,
   importNpmLock,
   symlinkJoin,
@@ -51,6 +52,7 @@ in
     src = ./.;
 
     buildInputs = [
+      exiftool
       nodejs
     ];
     passthru = {
@@ -70,9 +72,12 @@ in
       # This is included as a submodule during development, but needs to be linked
       # as a flake input for Nix to see it
       ln -s ${self.inputs.selwonklib} selwonklib
+      ln -s ${assets} assets
     '';
 
     buildPhase = ''
+      bash ${./getexifdata.sh}
+
       rm package.json package-lock.json
       ln -s $MODULES/node_modules node_modules
       ln -s $MODULES/package.json package.json
