@@ -43,8 +43,6 @@
     compat = {
       appimage.enable = true;
     };
-    
-    archiveteam.enable = true;
 
     backup.repositories.documents = {
       password = "backup/password";
