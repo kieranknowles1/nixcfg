@@ -14,8 +14,8 @@
         nautilus
       ];
       systemPackages = with pkgs; [
-        xfce.thunar
-        xfce.xfconf
+        thunar
+        xfconf
         flake.extract
       ];
     };
