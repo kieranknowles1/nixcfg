@@ -1,4 +1,8 @@
-{self, ...}: {
+{
+  self,
+  lib,
+  ...
+}: {
   imports = [
     ./tests
   ];
@@ -24,6 +28,17 @@
       duplicate-input = mkCheck ./duplicate-input.sh [pkgs.jq] "Check for duplicate flake inputs";
       markdown-links = mkCheck ./markdown-links.sh [pkgs.lychee] "Check for broken internal links in markdown files";
       symlinks = mkCheck ./symlinks.sh [] "Check for broken symlinks";
+      warnings = let
+        hosts = builtins.attrValues self.nixosConfigurations;
+        allWarnings = lib.flatten (map (host: host.config.warnings) hosts);
+        ok = allWarnings == [];
+      in
+        # Don't need to print warnings manually, nix does that while evaluating
+        pkgs.runCommand "warnings" {} (
+          if ok
+          then "touch $out"
+          else "exit 1"
+        );
     };
   };
 }
