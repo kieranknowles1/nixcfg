@@ -72,8 +72,6 @@
     };
   };
 
-  config.warnings = lib.optional (builtins.compareVersions pkgs.mdbook.version "0.5.0" > 0) "mdbook 0.5.0 makes mdbook-admonish obsolete";
-
   config.custom.docs-generate.build = let
     cfg = config.custom.docs-generate;
     static = ../../docs;
@@ -132,7 +130,6 @@
 
         buildInputs = with pkgs; [
           mdbook
-          mdbook-admonish
           graphviz
           mdbook-graphviz
         ];

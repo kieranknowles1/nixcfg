@@ -20,9 +20,8 @@
       (binding: "- `${binding.keySym}` - ${binding.description}");
 
     visText = ''
-      ```admonish hint
-      Use ${toKeySym visBinding} to visualise all keyboard shortcuts.
-      ```
+      > [!TIP]
+      > Use ${toKeySym visBinding} to visualise all keyboard shortcuts.
     '';
   in ''
     # Keyboard shortcuts
