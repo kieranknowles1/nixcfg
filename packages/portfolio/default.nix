@@ -1,5 +1,6 @@
 {
   stdenv,
+  lib,
   self,
   exiftool,
   nodejs,
@@ -43,8 +44,7 @@
 
   assets = self.builders.${system}.assetsDir {
     name = "portfolio-assets";
-    # TODO: Filter to what's needed
-    filter = _path: true;
+    filter = lib.hasPrefix "photography";
   };
 in
   stdenv.mkDerivation {
