@@ -29,6 +29,10 @@ body {
   color: var(--foreground-text-color);
 }
 
+h1 a {
+  color: var(--foreground-text-color);
+}
+
 nav ul {
   padding: 0;
 }
