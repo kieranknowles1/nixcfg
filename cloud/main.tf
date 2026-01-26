@@ -9,7 +9,7 @@ terraform {
 
 provider "aws" {
   # Stockholm
-  region = "eu-north-1"
+  region = var.region
 }
 
 # TODO: Manage DNS DKIM records
@@ -20,10 +20,13 @@ provider "aws" {
 #   dkim_records = module.mail.dkim_records
 # }
 
+# TODO: Manage videos used by portfolio (cloudflare R2)
+
 module "mail" {
   source = "./mail"
 
   domain = "selwonk.uk"
+  region = var.region
 }
 
 variable "default_tags" {

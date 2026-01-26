@@ -1,0 +1,12 @@
+output "smtp_username" {
+  value = module.mail.smtp_username
+}
+
+output "smtp_endpoint" {
+  value = "email-smtp.${var.region}.amazonaws.com"
+}
+
+output "smtp_password" {
+  sensitive = true
+  value = module.mail.smtp_password
+}
