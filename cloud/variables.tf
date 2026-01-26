@@ -3,3 +3,8 @@ variable "region" {
   # Stockholm
   default = "eu-north-1"
 }
+
+variable "domain" {
+  type = string
+  default = "selwonk.uk"
+}

@@ -25,13 +25,6 @@ provider "aws" {
 module "mail" {
   source = "./mail"
 
-  domain = "selwonk.uk"
+  domain = var.domain
   region = var.region
-}
-
-variable "default_tags" {
-  type = map(string)
-  default = {
-    Name = "selwonk-hcl"
-  }
 }
