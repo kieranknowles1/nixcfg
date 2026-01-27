@@ -10,6 +10,13 @@ terraform {
 provider "aws" {
   # Stockholm
   region = var.region
+
+  default_tags {
+    tags = {
+      Environment = "production"
+      Project = "selwonk"
+    }
+  }
 }
 
 # TODO: Manage DNS DKIM records
