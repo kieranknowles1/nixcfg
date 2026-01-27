@@ -29,8 +29,8 @@ provider "aws" {
 
 # TODO: Manage videos used by portfolio (cloudflare R2)
 
-module "anomaly" {
-  source = "./anomaly"
+module "budget" {
+  source = "./budget"
 
   alert_email = var.alert_email
   project = var.project
