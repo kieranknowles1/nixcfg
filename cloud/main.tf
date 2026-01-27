@@ -14,7 +14,7 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = "production"
-      Project = "selwonk"
+      Project = var.project
     }
   }
 }
@@ -28,6 +28,13 @@ provider "aws" {
 # }
 
 # TODO: Manage videos used by portfolio (cloudflare R2)
+
+module "anomaly" {
+  source = "./anomaly"
+
+  alert_email = var.alert_email
+  project = var.project
+}
 
 module "mail" {
   source = "./mail"

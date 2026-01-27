@@ -1,3 +1,4 @@
+# TODO: Use these outputs in authelia
 output "smtp_username" {
   value = module.mail.smtp_username
 }

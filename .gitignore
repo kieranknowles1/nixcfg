@@ -7,10 +7,12 @@ result
 # Rust compiler output
 target/
 
-# OpenTofu output
+# OpenTofu providers
 .terraform
+# Sensitive information
 *.tfstate
 *.tfstate.backup
+*.tfvars
 
 # mdBook output
 /docs/book/
