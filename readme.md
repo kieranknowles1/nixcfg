@@ -21,6 +21,7 @@ details how to develop in the repository, and use systems configured with it.
 
 - [builders](builders/) Helpers to build packages or transform files. Think of
   it as `pkgs.stdenv` for `lib`.
+- [cloud](cloud/) Cloud infrastructure as code declared using OpenTofu.
 - [docs](docs/readme.md) - Documentation generated during the build process.
 - [hosts](hosts/) - Configuration for each host.
 - [modules](modules/) - Modules included by the hosts.
