@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/photography.css'
+
+import Photo from '../components/Photo.astro';
+
+import millieStare from '../../assets/photography/moody-millie.jpg';
+import guardian from '../../assets/photography/guardian.jpg';
+import readyToPeck from '../../assets/photography/ready-to-peck.jpg';
+import swanClose from '../../assets/photography/swan-up-close.jpg';
+import friendlyHorse from '../../assets/photography/friendly-horse.jpg';
+import warmSisters from '../../assets/photography/warm-sisters.jpg';
+import stillSplash from '../../assets/photography/still-splash.jpg';
+import churchVista from '../../assets/photography/church-vista.jpg';
+import coastalRainbow from '../../assets/photography/coastal-rainbow.jpg';
+import moon from '../../assets/photography/moon.jpg';
+
+---
+<Layout>
+  <main>
+    <Photo eager img={friendlyHorse} orientation='square' description="A white horse standing in a field, friendly and curious." />
+    <Photo eager img={coastalRainbow} orientation='landscape' description="A rainbow arching over the sea." />
+    <Photo eager img={stillSplash} orientation='landscape' description="A still-frame of a wave crashing against Cullercoats bay." />
+    <Photo eager img={guardian} orientation='landscape' description="A black bird standing on a railing in front of St. Mary's Lighthouse, as if guarding it." />
+    <Photo eager img={warmSisters} orientation='landscape' description="Millie, a tabby, and Cookie, a tuxedo cat, facing each other while sleeping on a radiator." />
+    <Photo eager img={swanClose} orientation='portrait' description="A swan up close, ready to cause a stir." />
+    <Photo img={millieStare} orientation='landscape' description="Millie, a tabby cat giving a moody stare into the distance." />
+    <Photo img={readyToPeck} orientation='square' description="A swan separated from its flock, ready to peck the lens." />
+    <Photo img={moon} orientation='smallsquare' description="The moon" />
+    <Photo img={churchVista} orientation='ultrawide' description="A vista of Long Sands beach in Cullercoats, featuring St. George's Church." />
+  </main>
+</Layout>

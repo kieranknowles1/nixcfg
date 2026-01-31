@@ -110,6 +110,8 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    import-tree.url = "github:vic/import-tree";
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -170,25 +172,27 @@
 
       flake = {
         templates.default = {
-          path = ./template;
+          path = ./_to-port/template;
           description = "A Nix flake with access to this flake's packages, utilities, and lib module";
         };
       };
 
       imports = [
-        ./assets.nix
-        ./builders
-        ./checks
-        ./hosts
-        ./lib
-        ./modules
-        ./packages
-        ./shells
+        # TODO: Port to dendritic
+        # (inputs.import-tree ./modules)
+        ./_to-port/assets.nix
+        ./_to-port/builders
+        ./_to-port/checks
+        ./_to-port/hosts
+        ./_to-port/lib
+        ./_to-port/modules
+        ./_to-port/packages
+        ./_to-port/shells
         # Extend nixpkgs with flake-specific overlays, for this
         # flake and its dependencies
-        ./overlays
+        ./_to-port/overlays
         # Format all file types in this flake and others
-        ./treefmt.nix
+        ./_to-port/treefmt.nix
       ];
     };
 }

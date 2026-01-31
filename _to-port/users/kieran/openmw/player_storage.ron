@@ -1,0 +1,643 @@
+Table({
+    String("OMWInputBindings"): Table({
+        String("Grab_physics_object_button"): Table({
+            String("button"): Number(29.0),
+            String("device"): String("keyboard"),
+            String("key"): String("GrabPhysicsObject"),
+            String("type"): String("action"),
+        }),
+    }),
+    String("SettingsLuaPhysicsControls"): Table({
+        String("GrabPhysicsObjectButton"): String("Grab_physics_object_button"),
+    }),
+    String("SettingsLuaPhysicsControlsArguments"): Table({
+        String("GrabPhysicsObjectButton"): Table({
+            String("key"): String("GrabPhysicsObject"),
+            String("type"): String("action"),
+        }),
+    }),
+    String("SettingsOMWCameraHeadBobbing"): Table({
+        String("enabled"): Boolean(false),
+        String("height"): Number(3.0),
+        String("roll"): Number(0.2),
+        String("step"): Number(90.0),
+    }),
+    String("SettingsOMWCameraHeadBobbingArguments"): Table({
+        String("height"): Table({
+            String("disabled"): Boolean(true),
+        }),
+        String("roll"): Table({
+            String("disabled"): Boolean(true),
+            String("max"): Number(90.0),
+            String("min"): Number(0.0),
+        }),
+        String("step"): Table({
+            String("disabled"): Boolean(true),
+            String("min"): Number(1.0),
+        }),
+    }),
+    String("SettingsOMWCameraThirdPerson"): Table({
+        String("autoSwitchShoulder"): Boolean(true),
+        String("deferredPreviewRotation"): Boolean(false),
+        String("ignoreNC"): Boolean(false),
+        String("move360"): Boolean(true),
+        String("move360TurnSpeed"): Number(5.0),
+        String("povAutoSwitch"): Boolean(false),
+        String("previewIfStandStill"): Boolean(true),
+        String("shoulderOffsetX"): Number(30.0),
+        String("shoulderOffsetY"): Number(-10.0),
+        String("slowViewChange"): Boolean(false),
+        String("viewOverShoulder"): Boolean(true),
+        String("zoomOutWhenMoveCoef"): Number(20.0),
+    }),
+    String("SettingsOMWCameraThirdPersonArguments"): Table({
+        String("autoSwitchShoulder"): Table({
+            String("disabled"): Boolean(false),
+        }),
+        String("move360TurnSpeed"): Table({
+            String("disabled"): Boolean(false),
+        }),
+        String("shoulderOffsetX"): Table({
+            String("disabled"): Boolean(false),
+        }),
+        String("shoulderOffsetY"): Table({
+            String("disabled"): Boolean(false),
+        }),
+        String("zoomOutWhenMoveCoef"): Table({
+            String("disabled"): Boolean(false),
+        }),
+    }),
+    String("SettingsOMWControls"): Table({
+        String("smoothControllerMovement"): Boolean(true),
+        String("toggleSneak"): Boolean(true),
+    }),
+    String("SettingsOMWMusic"): Table({
+        String("CombatMusicEnabled"): Boolean(false),
+    }),
+    String("SettingsPlayerAttributesNCGDMW"): Table({
+        String("attributeGrowthRate"): String("attrGrowthSlow"),
+        String("growthFactorFromMajorSkills"): Number(100.0),
+        String("growthFactorFromMinorSkills"): Number(100.0),
+        String("growthFactorFromMiscSkills"): Number(50.0),
+        String("luckGrowthRate"): String("luckGrowthLow"),
+        String("startValuesRatio"): String("full"),
+        String("uncapperMaxValue"): Number(1000.0),
+    }),
+    String("SettingsPlayerAttributesNCGDMWArguments"): Table({
+        String("attributeGrowthRate"): Table({
+            String("items"): Table({
+                Number(1.0): String("attrGrowthSlow"),
+                Number(2.0): String("attrGrowthStandard"),
+                Number(3.0): String("attrGrowthFast"),
+            }),
+            String("l10n"): String("NCGDMW"),
+            String("values"): Table({
+                Number(1.0): Number(1.0),
+                Number(2.0): Number(2.0),
+                Number(3.0): Number(3.0),
+            }),
+        }),
+        String("growthFactorFromMajorSkills"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(1000.0),
+            String("min"): Number(0.0),
+        }),
+        String("growthFactorFromMinorSkills"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(1000.0),
+            String("min"): Number(0.0),
+        }),
+        String("growthFactorFromMiscSkills"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(1000.0),
+            String("min"): Number(0.0),
+        }),
+        String("luckGrowthRate"): Table({
+            String("items"): Table({
+                Number(1.0): String("luckGrowthNone"),
+                Number(2.0): String("luckGrowthLow"),
+                Number(3.0): String("luckGrowthMed"),
+                Number(4.0): String("luckGrowthHigh"),
+            }),
+            String("l10n"): String("NCGDMW"),
+            String("values"): Table({
+                Number(1.0): Number(0.0),
+                Number(2.0): Number(0.25),
+                Number(3.0): Number(0.5),
+                Number(4.0): Number(1.0),
+            }),
+        }),
+        String("perAttributeUncapper"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(9999.0),
+            String("min"): Number(5.0),
+        }),
+        String("startValuesRatio"): Table({
+            String("items"): Table({
+                Number(1.0): String("none"),
+                Number(2.0): String("quarter"),
+                Number(3.0): String("half"),
+                Number(4.0): String("threeQuarters"),
+                Number(5.0): String("full"),
+            }),
+            String("l10n"): String("NCGDMW"),
+            String("values"): Table({
+                Number(1.0): Number(0.0),
+                Number(2.0): Number(0.25),
+                Number(3.0): Number(0.5),
+                Number(4.0): Number(0.75),
+                Number(5.0): Number(1.0),
+            }),
+        }),
+        String("uncapperMaxValue"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(9999.0),
+            String("min"): Number(5.0),
+        }),
+    }),
+    String("SettingsPlayerHealthNCGDMW"): Table({
+        String("baseHPRatio"): String("full"),
+        String("deathCounter"): Boolean(false),
+        String("perLevelHPGain"): String("hpGrowthMed"),
+        String("stateBasedHP"): Boolean(true),
+    }),
+    String("SettingsPlayerHealthNCGDMWArguments"): Table({
+        String("baseHPRatio"): Table({
+            String("items"): Table({
+                Number(1.0): String("full"),
+                Number(2.0): String("3/4"),
+                Number(3.0): String("1/2"),
+                Number(4.0): String("1/4"),
+            }),
+            String("l10n"): String("NCGDMW"),
+            String("values"): Table({
+                Number(1.0): Number(1.0),
+                Number(2.0): Number(0.75),
+                Number(3.0): Number(0.5),
+                Number(4.0): Number(0.25),
+            }),
+        }),
+        String("perLevelHPGain"): Table({
+            String("items"): Table({
+                Number(1.0): String("hpGrowthNone"),
+                Number(2.0): String("hpGrowthLow"),
+                Number(3.0): String("hpGrowthMed"),
+                Number(4.0): String("hpGrowthHigh"),
+            }),
+            String("l10n"): String("NCGDMW"),
+            String("values"): Table({
+                Number(1.0): Number(0.0),
+                Number(2.0): Number(0.02),
+                Number(3.0): Number(0.04),
+                Number(4.0): Number(0.08),
+            }),
+        }),
+    }),
+    String("SettingsPlayerMBSPNCGDMW"): Table({
+        String("magickaXPRate"): String("10"),
+        String("mbspEnabled"): Boolean(true),
+        String("refundEnabled"): Boolean(true),
+        String("refundMult"): String("4"),
+        String("refundStart"): Number(35.0),
+    }),
+    String("SettingsPlayerMBSPNCGDMWArguments"): Table({
+        String("magickaXPRate"): Table({
+            String("items"): Table({
+                Number(1.0): String("5"),
+                Number(2.0): String("10"),
+                Number(3.0): String("15"),
+                Number(4.0): String("20"),
+                Number(5.0): String("25"),
+            }),
+            String("l10n"): String("NCGDMW"),
+        }),
+        String("refundMult"): Table({
+            String("items"): Table({
+                Number(1.0): String("1"),
+                Number(2.0): String("2"),
+                Number(3.0): String("3"),
+                Number(4.0): String("4"),
+                Number(5.0): String("5"),
+            }),
+            String("l10n"): String("NCGDMW"),
+        }),
+        String("refundStart"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(1000.0),
+            String("min"): Number(1.0),
+        }),
+    }),
+    String("SettingsPlayerMagickaNCGDMW"): Table({
+        String("refundEnabled"): Boolean(false),
+        String("refundMult"): String("4"),
+        String("refundStart"): Number(35.0),
+    }),
+    String("SettingsPlayerMagickaNCGDMWArguments"): Table({
+        String("refundMult"): Table({
+            String("items"): Table({
+                Number(1.0): String("1"),
+                Number(2.0): String("2"),
+                Number(3.0): String("3"),
+                Number(4.0): String("4"),
+                Number(5.0): String("5"),
+            }),
+            String("l10n"): String("NCGDMW"),
+        }),
+        String("refundStart"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(1000.0),
+            String("min"): Number(1.0),
+        }),
+    }),
+    String("SettingsPlayerNCGDMW"): Table({
+        String("debugMode"): Boolean(false),
+        String("showIntro"): Boolean(true),
+        String("showMessagesLog"): Boolean(true),
+        String("statsMenuKey"): Number(63.0),
+        String("statsMenuWidth"): Number(1100.0),
+    }),
+    String("SettingsPlayerNCGDMWArguments"): Table({
+        String("statsMenuWidth"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(2000.0),
+            String("min"): Number(800.0),
+        }),
+    }),
+    String("SettingsPlayerSkillUsesNCGDMW"): Table({
+        String("skillUse-acrobatics-Fall"): Number(3.0),
+        String("skillUse-acrobatics-Jump"): Number(0.1),
+        String("skillUse-alchemy-CreatePotion"): Number(2.0),
+        String("skillUse-alchemy-UseIngredient"): Number(0.5),
+        String("skillUse-alteration-Success"): Number(1.0),
+        String("skillUse-armorer-Repair"): Number(0.75),
+        String("skillUse-athletics-RunOneSecond"): Number(0.02),
+        String("skillUse-athletics-SwimOneSecond"): Number(0.03),
+        String("skillUse-axe-SuccessfulHit"): Number(0.75),
+        String("skillUse-block-Success"): Number(2.5),
+        String("skillUse-bluntweapon-SuccessfulHit"): Number(0.75),
+        String("skillUse-conjuration-Success"): Number(1.0),
+        String("skillUse-destruction-Success"): Number(1.0),
+        String("skillUse-enchant-CastOnStrike"): Number(0.05),
+        String("skillUse-enchant-CreateMagicItem"): Number(10.0),
+        String("skillUse-enchant-Recharge"): Number(2.5),
+        String("skillUse-enchant-UseMagicItem"): Number(0.2),
+        String("skillUse-handtohand-SuccessfulHit"): Number(0.75),
+        String("skillUse-heavyarmor-HitByOpponent"): Number(0.75),
+        String("skillUse-illusion-Success"): Number(1.0),
+        String("skillUse-lightarmor-HitByOpponent"): Number(1.0),
+        String("skillUse-longblade-SuccessfulHit"): Number(0.75),
+        String("skillUse-marksman-SuccessfulHit"): Number(0.75),
+        String("skillUse-mediumarmor-HitByOpponent"): Number(1.0),
+        String("skillUse-mercantile-Bribe"): Number(1.0),
+        String("skillUse-mercantile-Success"): Number(0.3),
+        String("skillUse-mysticism-Success"): Number(1.0),
+        String("skillUse-restoration-Success"): Number(1.0),
+        String("skillUse-security-DisarmTrap"): Number(2.5),
+        String("skillUse-security-PickLock"): Number(2.5),
+        String("skillUse-shortblade-SuccessfulHit"): Number(0.75),
+        String("skillUse-sneak-AvoidNotice"): Number(0.5),
+        String("skillUse-sneak-PickPocket"): Number(5.0),
+        String("skillUse-spear-SuccessfulHit"): Number(0.75),
+        String("skillUse-speechcraft-Fail"): Number(0.0),
+        String("skillUse-speechcraft-Success"): Number(1.0),
+        String("skillUse-unarmored-HitByOpponent"): Number(1.25),
+    }),
+    String("SettingsPlayerSkillUsesNCGDMWArguments"): Table({
+        String("skillUse-acrobatics-Fall"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-acrobatics-Jump"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-alchemy-CreatePotion"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-alchemy-UseIngredient"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-alteration-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-armorer-Repair"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-athletics-RunOneSecond"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-athletics-SwimOneSecond"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-axe-SuccessfulHit"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-block-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-bluntweapon-SuccessfulHit"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-conjuration-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-destruction-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-enchant-CastOnStrike"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-enchant-CreateMagicItem"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-enchant-Recharge"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-enchant-UseMagicItem"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-handtohand-SuccessfulHit"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-heavyarmor-HitByOpponent"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-illusion-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-lightarmor-HitByOpponent"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-longblade-SuccessfulHit"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-marksman-SuccessfulHit"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-mediumarmor-HitByOpponent"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-mercantile-Bribe"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-mercantile-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-mysticism-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-restoration-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-security-DisarmTrap"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-security-PickLock"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-shortblade-SuccessfulHit"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-sneak-AvoidNotice"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-sneak-PickPocket"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-spear-SuccessfulHit"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-speechcraft-Fail"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-speechcraft-Success"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+        String("skillUse-unarmored-HitByOpponent"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(0.0),
+        }),
+    }),
+    String("SettingsPlayerSkillUsesScaledNCGDMW"): Table({
+        String("acrobaticsSkillScalingEnabled"): Boolean(true),
+        String("acrobaticsSkillScalingRange"): Table({
+            Number(1.0): Number(0.0),
+            Number(2.0): Number(400.0),
+        }),
+        String("alchemySkillScalingEnabled"): Boolean(true),
+        String("alchemySkillScalingRange"): Table({
+            Number(1.0): Number(10.0),
+            Number(2.0): Number(250.0),
+        }),
+        String("armorSkillScalingEnabled"): Boolean(true),
+        String("armorSkillScalingRange"): Table({
+            Number(1.0): Number(10.0),
+            Number(2.0): Number(400.0),
+        }),
+        String("athleticsSkillScalingEnabled"): Boolean(true),
+        String("athleticsSkillScalingRange"): Table({
+            Number(1.0): Number(10.0),
+            Number(2.0): Number(200.0),
+        }),
+        String("magickaBasedSkillScalingEnabled"): Boolean(true),
+        String("magickaBasedSkillScalingRange"): Table({
+            Number(1.0): Number(10.0),
+            Number(2.0): Number(200.0),
+        }),
+        String("securitySkillScalingEnabled"): Boolean(true),
+        String("securitySkillScalingRange"): Table({
+            Number(1.0): Number(10.0),
+            Number(2.0): Number(200.0),
+        }),
+        String("skillScalingDebugNotifsEnabled"): Boolean(false),
+        String("weaponSkillScalingEnabled"): Boolean(true),
+        String("weaponSkillScalingRange"): Table({
+            Number(1.0): Number(10.0),
+            Number(2.0): Number(200.0),
+        }),
+    }),
+    String("SettingsPlayerSkillUsesScaledNCGDMWArguments"): Table({
+        String("acrobaticsSkillScalingRange"): Table({
+            String("max"): Number(400.0),
+            String("min"): Number(0.0),
+        }),
+        String("alchemySkillScalingRange"): Table({
+            String("max"): Number(350.0),
+            String("min"): Number(0.0),
+        }),
+        String("armorSkillScalingRange"): Table({
+            String("max"): Number(400.0),
+            String("min"): Number(0.0),
+        }),
+        String("athleticsSkillScalingRange"): Table({
+            String("max"): Number(200.0),
+            String("min"): Number(0.0),
+        }),
+        String("magickaBasedSkillScalingRange"): Table({
+            String("max"): Number(200.0),
+            String("min"): Number(0.0),
+        }),
+        String("securitySkillScalingRange"): Table({
+            String("max"): Number(200.0),
+            String("min"): Number(0.0),
+        }),
+        String("weaponSkillScalingRange"): Table({
+            String("max"): Number(200.0),
+            String("min"): Number(0.0),
+        }),
+    }),
+    String("SettingsPlayerSkillsNCGDMW"): Table({
+        String("capSkillTraining"): Boolean(true),
+        String("carryOverExcessSkillGain"): Boolean(true),
+        String("perSkillUncapper"): Table({}),
+        String("progressiveTrainingDuration"): Boolean(true),
+        String("skillDecayRate"): String("skillDecayStandard"),
+        String("skillGainFactorRange"): Table({
+            Number(1.0): Number(125.0),
+            Number(2.0): Number(25.0),
+        }),
+        String("skillIncreaseFromBooks"): Boolean(true),
+        String("uncapperMaxValue"): Number(1000.0),
+    }),
+    String("SettingsPlayerSkillsNCGDMWArguments"): Table({
+        String("perSkillUncapper"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(9999.0),
+            String("min"): Number(5.0),
+        }),
+        String("skillDecayRate"): Table({
+            String("items"): Table({
+                Number(1.0): String("skillDecayNone"),
+                Number(2.0): String("skillDecaySlow"),
+                Number(3.0): String("skillDecayStandard"),
+                Number(4.0): String("skillDecayFast"),
+            }),
+            String("l10n"): String("NCGDMW"),
+            String("values"): Table({
+                Number(1.0): Number(0.0),
+                Number(2.0): Number(1.0),
+                Number(3.0): Number(2.0),
+                Number(4.0): Number(3.0),
+            }),
+        }),
+        String("skillGainFactorRange"): Table({
+            String("desc"): Boolean(true),
+            String("log"): Boolean(true),
+            String("max"): Number(1000.0),
+            String("min"): Number(1.0),
+        }),
+        String("uncapperMaxValue"): Table({
+            String("integer"): Boolean(true),
+            String("max"): Number(9999.0),
+            String("min"): Number(5.0),
+        }),
+    }),
+    String("SettingsPotionThrower"): Table({
+        String("DisplayMessages"): Boolean(true),
+        String("Enabled"): Boolean(true),
+        String("IconDisplayMode"): String("constant"),
+        String("PotionInfoFadeSeconds"): Number(5.0),
+        String("SoundEffects"): Boolean(true),
+    }),
+    String("SettingsPotionThrowerArguments"): Table({
+        String("IconDisplayMode"): Table({
+            String("disabled"): Boolean(false),
+            String("items"): Table({
+                Number(1.0): String("constant"),
+                Number(2.0): String("armed"),
+                Number(3.0): String("never"),
+            }),
+            String("l10n"): String("PotionThrower"),
+        }),
+    }),
+    String("Settings_MD_HitAndMissIndicators_HIT"): Table({
+        String("COLOR"): Color((r: 1.0, g: 0.2, b: 0.29803923, a: 1.0)),
+        String("DURATION"): Number(1.0),
+        String("ENABLED"): Boolean(true),
+        String("FLOAT_SPEED"): Number(0.1),
+        String("TEXT_SIZE"): Number(18.0),
+    }),
+    String("Settings_MD_HitAndMissIndicators_MISS"): Table({
+        String("COLOR"): Color((r: 1.0, g: 1.0, b: 1.0, a: 1.0)),
+        String("DURATION"): Number(1.0),
+        String("ENABLED"): Boolean(true),
+        String("FLOAT_SPEED"): Number(0.1),
+        String("TEXT_SIZE"): Number(18.0),
+    }),
+    String("Settings_MD_HitAndMissIndicators_PUNCH"): Table({
+        String("COLOR"): Color((r: 0.2, g: 0.8, b: 0.29803923, a: 1.0)),
+        String("DURATION"): Number(1.0),
+        String("ENABLED"): Boolean(true),
+        String("FLOAT_SPEED"): Number(0.1),
+        String("TEXT_SIZE"): Number(18.0),
+    }),
+    String("Settings_TamrielData_page01Main_group01Main"): Table({
+        String("Settings_TamrielData_page01Main_group01Main_restrictEquipment"): Boolean(true),
+    }),
+    String("Settings_TamrielData_page01Main_group02Magic"): Table({
+        String("Settings_TamrielData_page01Main_group02Magic_miscSpells"): Boolean(true),
+    }),
+    String("Settings_TamrielData_page01Main_group99Misc"): Table({
+        String("Settings_TamrielData_page01Main_group99Misc_debugLogging"): Boolean(false),
+    }),
+    String("Settings_TamrielRebuilt_Misc"): Table({
+        String("FiremothComp"): Boolean(true),
+    }),
+    String("Settings_openmw_dynamic_music_1000_general"): Table({
+        String("GENERAL_EXTERIOR_DELAY"): Number(0.0),
+        String("GENERAL_INTERIOR_REGIONS"): Boolean(false),
+        String("GENERAL_USE_DEFAULT_SOUNDBANK"): Boolean(true),
+    }),
+    String("Settings_openmw_dynamic_music_2000_combat"): Table({
+        String("COMBAT_ENEMIES_IGNORE"): String(""),
+        String("COMBAT_ENEMIES_IGNORE_RESPECT_LEVEL_DIFFERENCE"): Boolean(true),
+        String("COMBAT_ENEMIES_INCLUDE"): String(""),
+        String("COMBAT_MIN_ENEMY_LEVEL"): Number(5.0),
+        String("COMBAT_MIN_LEVEL_DIFFERENCE"): Number(2.0),
+        String("COMBAT_PLAY_COMBAT_MUSIC"): Boolean(true),
+    }),
+    String("Settings_tt_visiblerings"): Table({
+        String("defaultModel"): String("meshes/c/c_ring_common05_skins.nif"),
+        String("frameSkip"): Number(20.0),
+    }),
+    String("Settings_tt_visibleringsArguments"): Table({
+        String("frameSkip"): Table({
+            String("max"): Number(100.0),
+            String("min"): Number(1.0),
+        }),
+    }),
+})

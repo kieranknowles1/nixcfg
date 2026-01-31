@@ -1,0 +1,77 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+# Documentation: https://starship.rs/config/
+
+# Config for the Starship prompt
+# Can include icons from nerd-fonts: https://www.nerdfonts.com/cheat-sheet
+# These may not be visible if your editor does not use a nerd font, and spaces
+# may be needed to avoid overlap. More obvious if your editor uses the font
+
+# ================
+#  Global Options
+# ================
+
+# More obvious than the default
+continuation_prompt = "[▶▶](bright-black) "
+
+# Warning when battery is low, with a higher threshold than default
+[[battery.display]]
+threshold = 25
+discharging_symbol = '󱊢 '
+style = 'bold orange'
+[[battery.display]]
+threshold = 10
+discharging_symbol = '󱊡 '
+style = 'bold red'
+
+[character]
+# Display a cross if the last command failed (non-zero exit code)
+error_symbol = "[✗](bold red)"
+
+[directory]
+truncation_length = 8
+
+# Warning if memory usage is too high
+[memory_usage]
+disabled = false
+symbol = "🐏 "
+
+# Icon when sudo credentials are not required
+[sudo]
+disabled = false
+
+# ===================
+#  Workload Specific
+# ===================
+
+[cmake]
+# The CMake icon is too small to be legible, so use a blue Makefile icon instead
+symbol = " "
+style = "bold bright-blue"
+
+[git_metrics]
+# Show number of added/deleted lines since the last commit
+disabled = false
+
+[git_status]
+# Show how far ahead/behind we are compared to origin
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇡${ahead_count}⇣${behind_count}"
+
+# Show the number of modified, untracked, and staged files
+# Use the Greek Delta to represent modified but unstaged files as this means "change"
+# Use the letter "U" instead of "?" to make it clear what it represents
+conflicted = "!${count}"
+deleted = "${count}"
+modified = "Δ${count}"
+renamed = "»${count}"
+staged = "+${count}"
+stashed = " ${count}"
+untracked = "U${count}"
+
+[nix_shell]
+# Don't care about the distinction between pure and impure
+format = "via [$symbol$name]($style) "
+symbol = " "
+# This gives us more contrast from other modules
+style = "bold cyan"

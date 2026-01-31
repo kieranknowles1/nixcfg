@@ -1,0 +1,45 @@
+Table({
+    String("SettingsLuaPhysics"): Table({
+        String("CrimeSystemActive"): Boolean(true),
+        String("DebrisPerExteriorCell"): Number(300.0),
+        String("DebrisPerInteriorCell"): Number(400.0),
+        String("SFXVolume"): Number(1.0),
+        String("SelfCollisions"): Boolean(true),
+    }),
+    String("SettingsLuaPhysicsArguments"): Table({
+        String("DebrisPerExteriorCell"): Table({
+            String("max"): Number(10000.0),
+            String("min"): Number(1.0),
+        }),
+        String("DebrisPerInteriorCell"): Table({
+            String("max"): Number(10000.0),
+            String("min"): Number(1.0),
+        }),
+        String("SFXVolume"): Table({
+            String("max"): Number(10.0),
+            String("min"): Number(0.0),
+        }),
+    }),
+    String("SettingsLuaPhysicsAux"): Table({
+        String("NoCollisionOnShift"): Boolean(false),
+    }),
+    String("SettingsMercyCAOBehavior"): Table({
+        String("ScaredProbModifier"): Number(1.0),
+        String("StandGroundProbModifier"): Number(1.0),
+        String("SurrenderHealthFraction"): Number(0.33),
+    }),
+    String("SettingsMercyCAOBehaviorArguments"): Table({
+        String("ScaredProbModifier"): Table({
+            String("max"): Number(100000.0),
+            String("min"): Number(0.0),
+        }),
+        String("StandGroundProbModifier"): Table({
+            String("max"): Number(100000.0),
+            String("min"): Number(0.0),
+        }),
+        String("SurrenderHealthFraction"): Table({
+            String("max"): Number(1.0),
+            String("min"): Number(0.0),
+        }),
+    }),
+})

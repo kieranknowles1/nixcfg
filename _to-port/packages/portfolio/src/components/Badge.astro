@@ -1,0 +1,27 @@
+---
+
+import { Image } from "astro:assets"
+
+interface Props {
+  imgpath: string;
+  name: string;
+  id: string;
+}
+
+const {
+  imgpath,
+  name,
+  id,
+} = Astro.props;
+
+// We deliberately don't take a path rather than ImageMetadata to avoid making
+// any changes to the source image, as it contains a watermark to validate
+// authenticity
+---
+<a
+  class="credly-badge"
+  href={`https://www.credly.com/badges/${id}/public_url`}
+  target="_blank"
+>
+  <Image src={imgpath} alt={name} loading='eager' width={204} height={204} />
+</a>

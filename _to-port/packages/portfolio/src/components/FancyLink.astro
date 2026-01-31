@@ -1,0 +1,18 @@
+---
+// Fancy link with fancy icon, intended to be placed in a ul.links-list
+import { Icon } from 'astro-icon/components'
+interface Props {
+  icon: string,
+  name: string,
+  href: string,
+}
+const {
+  icon,
+  name,
+  href,
+} = Astro.props;
+
+// Instruct screen readers to ignore the icon, as its meaning is conveyed by the
+// link's label
+---
+<li><Icon role="presentation" name={icon} /> {name}: <a href={href}>{href}</a></li>

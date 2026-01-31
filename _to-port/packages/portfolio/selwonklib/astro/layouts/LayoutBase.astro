@@ -1,0 +1,48 @@
+---
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+    favicon?: ImageMetadata,
+    title: string,
+    /**
+     * @deprecated Using Google Fonts without consent may violate GDPR.
+     * See: https://www.cookieyes.com/documentation/google-fonts-and-gdpr/
+     *
+     * Host fonts locally instead.
+     */
+    googleFonts?: string[]
+}
+
+const {
+    favicon,
+    title,
+    googleFonts
+} = Astro.props
+
+if (googleFonts !== undefined) {
+  console.warn('Using Google Fonts is deprecated as it may violate GDPR.');
+}
+
+import '../styles/base.css'
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+        {favicon && <link rel="icon" href={favicon.src} />}
+		<title>{title}</title>
+
+        {googleFonts && <>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            {googleFonts.map(font =>
+                <link href=`https://fonts.googleapis.com/css2?family=${font.replaceAll(' ', '+')}&display=swap` rel="stylesheet"/>
+            )}
+        </>}
+	</head>
+	<body>
+        <slot />
+	</body>
+</html>

@@ -1,0 +1,185 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Badge from '../components/Badge.astro';
+import GameOfLife from '../components/GameOfLife.astro';
+import Project from '../components/Project.astro';
+
+import { Icon } from 'astro-icon/components';
+
+---
+
+<Layout>
+  <header>
+    <h2>About Me</h2>
+    <!-- TODO: Fill this in -->
+    <a href="./cv-kieran-knowles.pdf" target="_blank"><Icon name="mdi:file-document" />CV Download</a>
+    <div class="threepane">
+      <section>
+        <h3>Contact</h3>
+        <ul class="links-list">
+          <li><Icon name="mdi:email"/>Email: <a href="mailto:contact@selwonk.uk">contact@selwonk.uk</a></li>
+          <li><Icon name="cib:github"/> GitHub: <a href="https://github.com/kieranknowles1">https://github.com/kieranknowles1</a></li>
+          <li><Icon name="cib:linkedin"/> LinkedIn: <a href="https://www.linkedin.com/in/kieran-john-knowles/">https://www.linkedin.com/in/kieran-john-knowles/</a></li>
+          <li><Icon name="cib:itch-io"/> itch.io: <a href="https://kieranknowles.itch.io/">https://kieranknowles.itch.io/</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Skills</h3>
+        <p>Programming in:</p>
+        <ul class="links-list">
+          <li><Icon name="cib:cplusplus"/> C++</li>
+          <li><Icon name="cib:rust" /> Rust (fairly limited) <!-- :) --></li>
+          <li><Icon name="mdi:coffee"/> Java</li>
+          <li><Icon name="cib:python"/> Python</li>
+          <li><Icon name="cib:typescript"/> Typescript</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Certifications</h3>
+        <script type="text/javascript" async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
+        <Badge
+          imgpath='/microsoft-certified-azure-fundamentals.png'
+          name='Microsoft Certified: Azure Fundamentals'
+          id='05ab3b69-8861-46a1-ad75-402d30e8a48a'
+        />
+        <Badge
+          imgpath='/ccna-introduction-to-networks.png'
+          name='CCNA: Introduction to Networks'
+          id='7e147b42-920c-4c46-bc33-2d3c5aa32739'
+        />
+      </section>
+    </div>
+  </header>
+  <GameOfLife />
+  <main>
+    <h2>Projects</h2>
+    <Project
+      id="vindolanda" title="Vindolanda VR" videoId='vindolanda.webm'
+      links={{
+        itchio: 'https://kieranknowles.itch.io/vindolanda-vr',
+        github: 'https://github.com/kieranknowles1/vindolanda-vr',
+      }}
+    >
+      <p slot="summary">
+        A Virtual Reality recreation of the Roman fort of Vindolanda in Unity as
+        part of my dissertation. Includes:
+      </p>
+      <ul slot="bullets">
+        <li>The fort as it was during Emperor Hadrian's reign</li>
+        <li>Milecastle 39 "Castle Nick", where the Sycamore Gap tree once stood</li>
+        <li>Tutorial targeted at players with no prior VR experience</li>
+        <li>A guided tour of the various structures</li>
+        <li>Realistic bow animations using vertex animation textures</li>
+        <li>NPC dialogue with the player and other NPCs</li>
+        <li>Automated text-to-speech dialogue generation</li>
+        <li>Quest system with markers for the current objective</li>
+        <li>Save-load functionality to restore positions and quest states</li>
+        <li>For once, no Linux support :(</li>
+      </ul>
+    </Project>
+
+    <Project
+      id="blitzbox" title="Blitzbox" videoId='blitzbox.webm'
+      links={{
+        itchio: 'https://abarnett.itch.io/blitzbox',
+        github: 'https://github.com/kieranknowles1/csc8508-team-project',
+      }}
+      feedback={{
+        author: "Dr G Ushaw",
+        rating: 100,
+      }}
+    >
+      <p slot="summary">
+        A gravity manipulation boomer shooter built for the CSC8508 Team Project module by
+        a team of eight. My work includes:
+      </p>
+      <ul slot="bullets">
+        <li>Full PS5 support, including cross-platform multiplayer</li>
+        <li>Multithreaded asset loading via a thread pool</li>
+        <li>Controller input on all platforms</li>
+        <li>Automatic mesh conversion during build, for an order of magnitude speedup</li>
+        <li>TrueType font rendering via a texture atlas</li>
+        <li>Memory leak detection using Valgrind</li>
+        <li>As usual, Linux support through SDL2</li>
+      </ul>
+      <blockquote slot="feedback">
+        Absolutely excellent. A fully feature-complete game that plays well, looks great and is truly cross
+        platform. Great to see good teamwork throughout the project with lots of individual efforts coming
+        together in a consistent and well presented piece of work. Single player works very well with great
+        use of bots, the online tech also very good, including multi-platform play. PS5 is very good, as is
+        the editor.
+      </blockquote>
+    </Project>
+
+    <Project
+      id="csc8502"
+      videoId="8502.webm"
+      title="CSC8502 Advanced Graphics for Games"
+      links={{
+        github: 'https://github.com/kieranknowles1/csc8502-advanced-graphics',
+        itchio: 'https://kieranknowles.itch.io/csc8502',
+      }}
+      feedback={{
+        rating: 94,
+        author: 'Dr G Ushaw'
+      }}
+    >
+      <p slot="summary">
+        A 3D graphics engine based on OpenGL. Features include:
+      </p>
+      <ul slot="bullets">
+          <li>Deferred rendering capable of handling 500 lights at 1440p 60fps</li>
+          <li>Shadow mapping with projected textures and no hard limits</li>
+          <li>Tessellated terrain</li>
+          <li>Built-in video recording, capturing each frame as a PNG image</li>
+          <li>Linux support via SDL2</li>
+      </ul>
+      <blockquote slot="feedback">
+        Excellent piece of work showcasing multiple graphical techniques in a cohesive scene.
+        All of the core concepts are in place and well integrated, with particularly good terrain.
+        Many more advanced techniques are also included, with great use of lighting in general
+        (including multiple shadow maps). Nice to see tessellation place as well as good
+        understanding of the uses for frame buffers etc. An excellent addition to your portfolio.
+      </blockquote>
+    </Project>
+
+    <Project
+      id="csc8503"
+      videoId="8503.webm"
+      title="CSC8503 Advanced Game Technologies"
+      links={{
+        github: 'https://github.com/kieranknowles1/csc8503-advanced-game-technologies/',
+        itchio: 'https://kieranknowles.itch.io/small-feline-big-deadline',
+      }}
+      feedback={{
+        rating: 95,
+        author: "Dr RG Davison"
+      }}
+    >
+      <p slot="summary">A game engine primarily focused on networking, including:</p>
+      <ul slot="bullets">
+        <li>Client-server architecture with lazily sent delta states</li>
+        <li>UDP networking via the ENet library</li>
+        <li>AI agents controlled by nested state machines and A* pathfinding</li>
+        <li>Physics engine with support for OOBBs, constraints, and raycasting</li>
+        <li>Spatial partitioning using quadtrees</li>
+        <li>As before, Linux support</li>
+      </ul>
+      <blockquote slot="feedback">
+        A nice game world, with some strong additions throughout. There's added elasticity and some
+        new collision volume code, along with separate static and dynamic collision lists for performance.
+        There's some extra work on constraints to add some additional expressiveness to the physics system.
+        Good use of raycasting to keep the camera in a useful position relative to the player.
+        <br>
+        There's a lot of network code implemented, and it is well integrated into the gameplay. The AI
+        makes good use of hierarchical state machines, and implements both pathfinding itself, and moving
+        through the world to reach waypoints well.
+        <br>
+        While more could have been done on the physics side, there's been a lot of thought put into making
+        an effective networking solution, that maintains the consistency of the game world.
+      </blockquote>
+    </Project>
+  </main>
+</Layout>

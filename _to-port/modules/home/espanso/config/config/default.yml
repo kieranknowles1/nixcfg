@@ -1,0 +1,8 @@
+# Suppress startup and config change notifications
+show_notifications: false
+# Espanso doesn't insert any delay by default, which some apps can't handle.
+# A couple milliseconds can make the difference, too high and it's noticeable.
+key_delay: 3
+
+keyboard_layout:
+  layout: gb

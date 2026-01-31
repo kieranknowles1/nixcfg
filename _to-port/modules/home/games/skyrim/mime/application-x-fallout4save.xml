@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+    <mime-type type="application/x-fallout4save">
+        <comment>Fallout 4 Save File</comment>
+        <glob pattern="*.fos"/>
+        <magic priority="50">
+            <match value="FO4_SAVEGAME" type="string" offset="0"/>
+        </magic>
+    </mime-type>
+</mime-info>

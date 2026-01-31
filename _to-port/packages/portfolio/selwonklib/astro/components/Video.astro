@@ -1,0 +1,33 @@
+---
+interface Props {
+  /**
+   * Video URL to display
+   * @example /dQw4w9WgXcQ.webm
+   */
+  url: string
+
+  /**
+   * Height of the video player. Width is calculated based on @see aspectRatio
+   * @default 315
+   */
+  height?: number
+
+  /**
+  * Aspect ratio of the video player.
+  * @default 16/9
+  */
+  aspectRatio?: number
+}
+const {
+  url,
+  height = 315,
+  aspectRatio = 16 / 9
+} = Astro.props
+
+---
+<video
+  controls
+  class="video" width={Math.round(height * aspectRatio)} height={height}
+>
+  <source src={url} />
+</video>

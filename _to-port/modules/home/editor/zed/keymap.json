@@ -1,0 +1,23 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // From VSCode
+      "ctrl-r": "projects::OpenRecent"
+    }
+  },
+  {
+    "context": "Editor && mode == full && edit_prediction",
+    "bindings": {
+      // Use VSCode's binding to accept one word of the completion
+      "ctrl-right": "editor::AcceptPartialEditPrediction"
+    }
+  }
+]

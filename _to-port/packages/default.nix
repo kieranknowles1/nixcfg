@@ -1,0 +1,41 @@
+{
+  self,
+  inputs,
+  lib,
+  ...
+}: {
+  perSystem = {
+    system,
+    pkgs,
+    ...
+  }: let
+    callPackage = lib.customisation.callPackageWith (pkgs
+      // inputs
+      // self.builders.${system});
+  in {
+    packages = {
+      activate-mutable = callPackage ./activate-mutable {};
+      all-configurations = callPackage ./all-configurations.nix {};
+      combine-blueprints = callPackage ./combine-blueprints {};
+      command-palette = callPackage ./command-palette {};
+      checkleak = callPackage ./checkleak {};
+      export-blueprints = callPackage ./export-blueprints {};
+      export-notes = callPackage ./export-notes {};
+      extract = callPackage ./extract {};
+      foodle = callPackage ./foodle/default.nix {};
+      keyboardvis = callPackage ./keyboardvis {};
+      nix-utils = callPackage ./nix-utils {};
+      openmw-luadata = callPackage ./openmw-luadata {};
+      portfolio = callPackage ./portfolio {};
+      rebuild = callPackage ./rebuild {};
+      resaver = callPackage ./resaver {};
+      scandoc = callPackage ./scandoc {};
+      set-led-state = callPackage ./set-led-state {};
+      skyrim-utils = callPackage ./skyrim-utils {};
+      spriggit = callPackage ./spriggit.nix {};
+      swhkd = callPackage ./swhkd.nix {};
+      todos = callPackage ./todos {};
+      tlro = callPackage ./tlro {};
+    };
+  };
+}
