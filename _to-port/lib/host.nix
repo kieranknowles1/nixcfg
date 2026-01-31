@@ -27,9 +27,6 @@
 
       # Include the host's configuration and all modules
       modules = [
-        # We need to import flake inputs here, otherwise we'll get infinite recursion
-        # Don't even try debugging, the Nix module system is dark magic
-        self.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         inputs.nix-index-database.nixosModules.nix-index
         inputs.sops-nix.nixosModules.sops
@@ -39,6 +36,9 @@
         inputs.nix-minecraft.nixosModules.minecraft-servers
         inputs.copyparty.nixosModules.default
         rootConfig
-      ];
+        # We need to import flake inputs here, otherwise we'll get infinite recursion
+        # Don't even try debugging, the Nix module system is dark magic
+        # self.nixosModules.default
+      ] ++ (builtins.attrValues self.nixosModules);
     };
 }

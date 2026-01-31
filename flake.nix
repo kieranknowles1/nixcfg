@@ -179,7 +179,8 @@
 
       imports = [
         # TODO: Port to dendritic
-        # (inputs.import-tree ./modules)
+        (inputs.import-tree ./modules)
+        inputs.home-manager.flakeModules.default
         ./_to-port/assets.nix
         ./_to-port/builders
         ./_to-port/checks

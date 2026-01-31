@@ -74,7 +74,7 @@
 
   config.custom.docs-generate.build = let
     cfg = config.custom.docs-generate;
-    static = ../../docs;
+    static = ../../../docs;
 
     index = let
       value = name: cfg.file.${name};

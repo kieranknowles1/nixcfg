@@ -97,10 +97,11 @@
     cfg = config.custom.users;
 
     mkHome = name: user: {
-      imports = [
-        self.homeManagerModules.default
-        user.home
-      ];
+      imports =
+        [
+          user.home
+        ]
+        ++ (builtins.attrValues self.homeModules);
 
       # Give home-manager some basic info about the user
       home.username = name;
@@ -137,7 +138,7 @@
 
       sharedModules = [
         inputs.sops-nix.homeManagerModules.sops
-        self.homeManagerModules.default
+        self.homeModules.default
         cfg.sharedConfig
       ];
 

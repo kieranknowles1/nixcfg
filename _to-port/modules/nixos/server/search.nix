@@ -63,7 +63,7 @@
         }
         {
           name = "Home Manager Modules";
-          modules = builtins.attrValues self.homeManagerModules;
+          modules = builtins.attrValues self.homeModules;
           urlPrefix = ghUrl;
         }
         # TODO: Need separate "home" and "nixos" scopes.
