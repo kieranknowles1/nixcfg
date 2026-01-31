@@ -5,7 +5,7 @@
   ...
 }: {
   options.custom.server.immich = let
-    inherit (lib) mkOption mkEnableOption mkPackageOption types;
+    inherit (lib) mkOption mkEnableOption types;
   in {
     enable = mkEnableOption "Immich";
 
@@ -19,8 +19,6 @@
       type = types.path;
       description = "Path to the Immich data directory";
     };
-
-    package = mkPackageOption pkgs "immich" {};
   };
 
   config = let
