@@ -159,16 +159,7 @@
           cfgc.users;
 
         volumes = let
-          mkVolume = flags: path: defaultPerms: {
-            inherit path flags;
-            access = {
-              # Give all users all permissions, including admin access
-              # TODO: Configure this per-user
-              ${defaultPerms} = "@acct";
-            };
-          };
-
-          mkImmichVolume = let
+          immichFlags = let
             jq = lib.getExe pkgs.jq;
             exiftool = lib.getExe pkgs.exiftool;
             formatFlags = builtins.concatStringsSep "," (map (ext: "e${ext}") cfgc.photos.extensions);
@@ -176,32 +167,58 @@
             extractScript = pkgs.writeShellScript "extract-metadata" ''
               ${exiftool} -json ${builtins.concatStringsSep " " (map (f: "-${f}") cfgc.photos.metaFields)} "$1" | ${jq} '.[0]'
             '';
-          in
-            mkVolume {
-              # Immich needs write access to create sidecar metadata files. It
-              # does not and cannot write images owned by copyparty.
-              chmod_d = "770"; # RWX-RWX
-              # Copyparty needs write access to delete partial uploads. Users
-              # cannot delete as they lack the "d" permission.
-              chmod_f = "640"; # RW-R
-              gid = config.custom.gids.immich-copyparty;
+          in {
+            # Immich needs write access to create sidecar metadata files. It
+            # does not and cannot write images owned by copyparty.
+            chmod_d = "770"; # RWX-RWX
+            # Copyparty needs write access to delete partial uploads. Users
+            # cannot delete as they lack the "d" permission.
+            chmod_f = "640"; # RW-R
+            gid = config.custom.gids.immich-copyparty;
 
-              # Extract EXIF metadata from images
-              mte = metaFlags;
-              # Documentation on this is terrible, but I've been able to reverse engineer it.
-              # `mtp` takes the form `tags,comma,separated=options,comma,separated,command`
-              # `command` should output a JSON object with a key for each `tag` on stdout
-              # Options prefixed with `e` filter operations by file extension, case insensitive
-              # All tags must be enabled using the `mte` flag
-              # Adding a script is not retroactive to existing uploads
-              mtp = "${metaFlags}=${formatFlags},${extractScript}";
-            };
+            # Extract EXIF metadata from images
+            mte = metaFlags;
+            # Documentation on this is terrible, but I've been able to reverse engineer it.
+            # `mtp` takes the form `tags,comma,separated=options,comma,separated,command`
+            # `command` should output a JSON object with a key for each `tag` on stdout
+            # Options prefixed with `e` filter operations by file extension, case insensitive
+            # All tags must be enabled using the `mte` flag
+            # Adding a script is not retroactive to existing uploads
+            mtp = "${metaFlags}=${formatFlags},${extractScript}";
+          };
+
+          # TODO: Be more granular with who can access what
+          ALL_USERS = "@acct";
+          permissions = {
+            # All permissions, including admin
+            ALL = "A";
+            READ = "r";
+            # Upload files, but not modify or delete
+            WRITE = "w";
+          };
         in {
-          # All permissions
-          "/" = mkVolume {} cfgc.dataDir "A";
-          # Read, write, but not modify or delete
-          "/oldies" = mkImmichVolume "${cfg.data.baseDirectory}/immich-oldies" "rw";
-          "/camera" = mkImmichVolume "${cfg.data.baseDirectory}/immich-camera" "rw";
+          # Default volume, allow logged in users to read/write anything
+          # and have admin access
+          "/" = {
+            path = cfgc.dataDir;
+            access.${permissions.ALL} = ALL_USERS;
+          };
+
+          # Immich archives, these are upload-only stores for Immich to pull from
+          # Old videos archived from VHS
+          "/oldies" = {
+            path = "${cfg.data.baseDirectory}/immich-oldies";
+            access.${permissions.READ} = ALL_USERS;
+            access.${permissions.WRITE} = ALL_USERS;
+            flags = immichFlags;
+          };
+          # DSLR photos
+          "/camera" = {
+            path = "${cfg.data.baseDirectory}/immich-camera";
+            access.${permissions.READ} = ALL_USERS;
+            access.${permissions.WRITE} = ALL_USERS;
+            flags = immichFlags;
+          };
         };
       };
 
