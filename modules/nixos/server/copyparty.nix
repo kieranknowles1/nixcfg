@@ -189,6 +189,7 @@
 
           # TODO: Be more granular with who can access what
           LOGGED_IN = "@acct";
+          UNAUTHENTICATED = "*";
           permissions = {
             # All permissions, including admin
             ALL = "rwmda.";
@@ -202,6 +203,14 @@
           "/" = {
             path = cfgc.dataDir;
             access.${permissions.ALL} = LOGGED_IN;
+          };
+
+          # Publicly accessible files, allowing anyone to read without
+          # authentication
+          "/public" = {
+            path = "${cfgc.dataDir}/public";
+            access.${permissions.ALL} = LOGGED_IN;
+            access.${permissions.READ} = UNAUTHENTICATED;
           };
 
           # Immich archives, these are upload-only stores for Immich to pull from
