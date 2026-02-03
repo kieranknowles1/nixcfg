@@ -188,10 +188,10 @@
           };
 
           # TODO: Be more granular with who can access what
-          ALL_USERS = "@acct";
+          LOGGED_IN = "@acct";
           permissions = {
             # All permissions, including admin
-            ALL = "A";
+            ALL = "rwmda.";
             READ = "r";
             # Upload files, but not modify or delete
             WRITE = "w";
@@ -201,22 +201,22 @@
           # and have admin access
           "/" = {
             path = cfgc.dataDir;
-            access.${permissions.ALL} = ALL_USERS;
+            access.${permissions.ALL} = LOGGED_IN;
           };
 
           # Immich archives, these are upload-only stores for Immich to pull from
           # Old videos archived from VHS
           "/oldies" = {
             path = "${cfg.data.baseDirectory}/immich-oldies";
-            access.${permissions.READ} = ALL_USERS;
-            access.${permissions.WRITE} = ALL_USERS;
+            access.${permissions.READ} = LOGGED_IN;
+            access.${permissions.WRITE} = LOGGED_IN;
             flags = immichFlags;
           };
           # DSLR photos
           "/camera" = {
             path = "${cfg.data.baseDirectory}/immich-camera";
-            access.${permissions.READ} = ALL_USERS;
-            access.${permissions.WRITE} = ALL_USERS;
+            access.${permissions.READ} = LOGGED_IN;
+            access.${permissions.WRITE} = LOGGED_IN;
             flags = immichFlags;
           };
         };
