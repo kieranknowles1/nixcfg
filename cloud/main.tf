@@ -4,6 +4,11 @@ terraform {
       source = "hashicorp/aws"
       version = "~> 6.0"
     }
+
+    cloudflare = {
+      source = "hashicorp/cloudflare"
+      version = "~> 5.0"
+    }
   }
 }
 
@@ -19,13 +24,19 @@ provider "aws" {
   }
 }
 
-# TODO: Manage DNS DKIM records
-# module "dns" {
-#   source = "./dns"
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}
 
-#   zone_id = "467510a64bd287bfa4a2870853ce70af"
-#   dkim_records = module.mail.dkim_records
-# }
+# TODO: Manage DNS DKIM records
+module "dns" {
+  source = "./dns"
+
+  zone_id = var.cloudflare_zone_id
+  domain = var.domain
+  ipv4 = var.ipv4
+  project = var.project
+}
 
 # TODO: Manage videos used by portfolio (cloudflare R2)
 
