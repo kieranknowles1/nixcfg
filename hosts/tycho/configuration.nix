@@ -74,7 +74,7 @@
 
       authelia = {
         enable = true;
-        smtp.username = "AKIA4HIUFKO4HYENRIPH";
+        smtp.username = "AKIA4HIUFKO4JSR2PCC7";
         smtp.endpoint = "smtp://email-smtp.eu-north-1.amazonaws.com";
       };
 
