@@ -10,6 +10,10 @@ output "dkim_records" {
   value = aws_ses_domain_dkim.ses.dkim_tokens
 }
 
+output "dkim_suffix" {
+  value = "dkim.amazonses.com"
+}
+
 output "smtp_username" {
   value = aws_iam_access_key.ses_auth.id
 }

@@ -28,7 +28,13 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
-# TODO: Manage DNS DKIM records
+module "mail" {
+  source = "./mail"
+
+  domain = var.domain
+  region = var.region
+}
+
 module "dns" {
   source = "./dns"
 
@@ -36,6 +42,8 @@ module "dns" {
   domain = var.domain
   ipv4 = var.ipv4
   project = var.project
+  dkim_records = module.mail.dkim_records
+  dkim_suffix = module.mail.dkim_suffix
 }
 
 # TODO: Manage videos used by portfolio (cloudflare R2)
@@ -45,11 +53,4 @@ module "budget" {
 
   alert_email = var.alert_email
   project = var.project
-}
-
-module "mail" {
-  source = "./mail"
-
-  domain = var.domain
-  region = var.region
 }
