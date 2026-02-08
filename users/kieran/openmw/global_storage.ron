@@ -42,4 +42,9 @@ Table({
             String("min"): Number(0.0),
         }),
     }),
+    String("SettingsOMWCombat"): Table({
+        String("redistributeShieldHitsWhenNotWearingShield"): Boolean(true),
+        String("spawnBloodEffectsOnPlayer"): Boolean(true),
+        String("unarmedCreatureAttacksDamageArmor"): Boolean(true),
+    }),
 })

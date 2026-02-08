@@ -138,7 +138,7 @@
       "language_servers": ["nu"]
     },
     "Python": {
-      "tab_size": 4
+      "tab_size": 2
     },
     // https://zed.dev/docs/languages/rust
     "Rust": {
@@ -168,8 +168,12 @@
         }
       }
     },
-    "pylsp": {
+    "basedpyright": {
       "settings": {
+        "basedpyright.analysis": {
+          // Validate all files
+          "diagnosticMode": "workspace",
+        },
       }
     },
     "yaml-language-server": {

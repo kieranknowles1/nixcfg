@@ -16,6 +16,10 @@
   "extensions.autoUpdate": false,
   "update.mode": "none",
 
+  // Allow introducing new files, executing arbitrary code when opening a file
+  // is a terrible idea, but AI bros do it anyway
+  "security.workspace.trust.untrustedFiles": "open",
+
   // Hide message when opening a new window
   "extensions.ignoreRecommendations": true,
 
@@ -105,5 +109,5 @@
   },
   "[typescriptreact]": {
     "editor.tabSize": 2
-  }
+  },
 }
