@@ -43,7 +43,7 @@
         # If pulling while behind, rebase instead of merging
         pull.rebase = true;
 
-        aliases = {
+        alias = {
           difft = "diff";
           diffp = "diff --no-ext-diff";
         };
@@ -78,7 +78,7 @@
       # Lazygit uses YAML, but Nix doesn't support it.
       # https://github.com/SenchoPens/fromYaml is an option, but I
       # don't want to bring in a dependency for something so small.
-      settings = builtins.fromTOML (builtins.readFile ./lazygit.toml);
+      settings = fromTOML (builtins.readFile ./lazygit.toml);
     };
 
     # Such an essential tool as Git deserves a 2-character command
