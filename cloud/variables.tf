@@ -5,18 +5,18 @@ variable "region" {
 }
 
 variable "cloudflare_api_token" {
-  type = string
+  type        = string
   description = <<EOF
     API token with the following permissions:
     - Zone.DNS Edit
   EOF
-  sensitive = true
+  sensitive   = true
 }
 
 variable "cloudflare_zone_id" {
-  type = string
+  type        = string
   description = "Zone ID of the domain name"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "ipv4" {
@@ -24,12 +24,12 @@ variable "ipv4" {
 }
 
 variable "domain" {
-  type = string
+  type    = string
   default = "selwonk.uk"
 }
 
 variable "project" {
-  type = string
+  type    = string
   default = "selwonk"
 }
 

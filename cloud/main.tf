@@ -1,12 +1,12 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "~> 6.0"
     }
 
     cloudflare = {
-      source = "hashicorp/cloudflare"
+      source  = "hashicorp/cloudflare"
       version = "~> 5.0"
     }
   }
@@ -19,7 +19,7 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = "production"
-      Project = var.project
+      Project     = var.project
     }
   }
 }
@@ -38,12 +38,12 @@ module "mail" {
 module "dns" {
   source = "./dns"
 
-  zone_id = var.cloudflare_zone_id
-  domain = var.domain
-  ipv4 = var.ipv4
-  project = var.project
+  zone_id      = var.cloudflare_zone_id
+  domain       = var.domain
+  ipv4         = var.ipv4
+  project      = var.project
   dkim_records = module.mail.dkim_records
-  dkim_suffix = module.mail.dkim_suffix
+  dkim_suffix  = module.mail.dkim_suffix
 }
 
 # TODO: Manage videos used by portfolio (cloudflare R2)
@@ -52,5 +52,5 @@ module "budget" {
   source = "./budget"
 
   alert_email = var.alert_email
-  project = var.project
+  project     = var.project
 }

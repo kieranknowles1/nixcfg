@@ -9,5 +9,5 @@ output "smtp_endpoint" {
 
 output "smtp_password" {
   sensitive = true
-  value = module.mail.smtp_password
+  value     = module.mail.smtp_password
 }

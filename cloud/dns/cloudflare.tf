@@ -1,5 +1,5 @@
 variable "zone_id" {
-  type = string
+  type      = string
   sensitive = true
 }
 
@@ -26,21 +26,21 @@ variable "dkim_suffix" {
 
 resource "cloudflare_dns_record" "dns" {
   for_each = toset([var.domain, "*"])
-  zone_id = var.zone_id
-  name = each.key
-  content = var.ipv4
-  ttl = 1 # Automatic
-  proxied = true
-  type = "A"
-  comment = "Primary DNS"
+  zone_id  = var.zone_id
+  name     = each.key
+  content  = var.ipv4
+  ttl      = 1 # Automatic
+  proxied  = true
+  type     = "A"
+  comment  = "Primary DNS"
 }
 
 resource "cloudflare_dns_record" "dkim" {
   for_each = toset(var.dkim_records)
-  zone_id = var.zone_id
-  name = "${each.key}._domainkey"
-  content = "${each.key}.${var.dkim_suffix}"
-  ttl = 1 # Automatic
-  type = "CNAME"
-  comment = "AWS DKIM"
+  zone_id  = var.zone_id
+  name     = "${each.key}._domainkey"
+  content  = "${each.key}.${var.dkim_suffix}"
+  ttl      = 1 # Automatic
+  type     = "CNAME"
+  comment  = "AWS DKIM"
 }

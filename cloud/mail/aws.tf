@@ -24,7 +24,7 @@ output "smtp_endpoint" {
 
 output "smtp_password" {
   sensitive = true
-  value = aws_iam_access_key.ses_auth.ses_smtp_password_v4
+  value     = aws_iam_access_key.ses_auth.ses_smtp_password_v4
 }
 
 resource "aws_ses_domain_identity" "ses" {
@@ -45,21 +45,21 @@ resource "aws_iam_user" "ses_auth" {
 
 data "aws_iam_policy_document" "ses_auth" {
   statement {
-    effect = "Allow"
-    actions = ["ses:SendRawEmail"]
+    effect    = "Allow"
+    actions   = ["ses:SendRawEmail"]
     resources = [aws_ses_email_identity.ses_auth.arn]
   }
 }
 
 resource "aws_iam_policy" "ses_auth" {
-  name = "selwonk_auth_send_email"
+  name   = "selwonk_auth_send_email"
   policy = data.aws_iam_policy_document.ses_auth.json
 }
 
 resource "aws_iam_policy_attachment" "ses_auth" {
-  name = "selwonk_auth_send_email_attachment"
+  name       = "selwonk_auth_send_email_attachment"
   policy_arn = aws_iam_policy.ses_auth.arn
-  users = [aws_iam_user.ses_auth.name]
+  users      = [aws_iam_user.ses_auth.name]
 }
 
 resource "aws_iam_access_key" "ses_auth" {
