@@ -6,7 +6,10 @@ variable "region" {
 
 variable "cloudflare_api_token" {
   type = string
-  description = "API token with Zone.DNS Edit permission"
+  description = <<EOF
+    API token with the following permissions:
+    - Zone.DNS Edit
+  EOF
   sensitive = true
 }
 
