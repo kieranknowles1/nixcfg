@@ -41,7 +41,7 @@
       "user-options.md" = {
         description = "Home Manager options";
         source = mkOptionDocs {
-          module = self.homeManagerModules.default;
+          module = self.homeModules.default;
           title = "Home Manager options";
           inherit (cfg) baseUrl;
         };

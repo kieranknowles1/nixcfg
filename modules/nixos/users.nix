@@ -98,7 +98,7 @@
 
     mkHome = name: user: {
       imports = [
-        self.homeManagerModules.default
+        self.homeModules.default
         user.home
       ];
 
@@ -136,8 +136,8 @@
       backupFileExtension = "backup";
 
       sharedModules = [
-        inputs.sops-nix.homeManagerModules.sops
-        self.homeManagerModules.default
+        inputs.sops-nix.homeModules.sops
+        self.homeModules.default
         cfg.sharedConfig
       ];
 

@@ -175,7 +175,9 @@
         };
       };
 
+      # TODO: This should be only import tree with dendretic changes
       imports = [
+        inputs.home-manager.flakeModules.default
         ./assets.nix
         ./builders
         ./checks
