@@ -65,7 +65,7 @@
         source = pkgs.runCommand "flake-tree.svg" {buildInputs = with pkgs; [flake.nix-utils graphviz];} ''
           # Ignore standard inputs to avoid cluttering the graph
           # Chosen mostly arbitrarily
-          flake-tree --dot ${../../flake.lock} nixpkgs systems flake-utils | \
+          flake-tree --dot ${../../../flake.lock} nixpkgs systems flake-utils | \
             ${pkgs.graphviz}/bin/dot -Tsvg -o $out
         '';
       };

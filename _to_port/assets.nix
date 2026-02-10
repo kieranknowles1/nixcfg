@@ -17,7 +17,7 @@
     };
 
   config.flake.assets = let
-    manifest = builtins.fromJSON (builtins.readFile ./asset-manifest.json);
+    manifest = builtins.fromJSON (builtins.readFile ../asset-manifest.json);
     owner = "kieranknowles1";
     repo = "nixcfg-assets";
     url = path: "https://raw.githubusercontent.com/${owner}/${repo}/${manifest.rev}/${path}";
