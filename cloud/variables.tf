@@ -9,6 +9,7 @@ variable "cloudflare_api_token" {
   description = <<EOF
     API token with the following permissions:
     - Zone.DNS Edit
+    - Zone.SSL and Certificates Edit
   EOF
   sensitive   = true
 }

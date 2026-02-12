@@ -11,3 +11,12 @@ output "smtp_password" {
   sensitive = true
   value     = module.mail.smtp_password
 }
+
+output "certificate" {
+  value = module.dns.certificate
+}
+
+output "certificate_private_key" {
+  value     = module.dns.certificate_private_key
+  sensitive = true
+}
