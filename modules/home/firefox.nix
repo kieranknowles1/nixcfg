@@ -75,6 +75,13 @@
             ++ cfg.extraExtensions;
 
           settings = {
+            # I don't consider the added privacy to be worth it this time
+            "browser.urlbar.suggest.searches" = true;
+            "browser.search.suggest.enabled" = true;
+
+            # Restore previous session on start
+            "browser.startup.page" = 3;
+
             # Enable extensions automatically
             "extensions.autoDisableScopes" = 0;
 
