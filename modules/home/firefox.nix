@@ -1,4 +1,4 @@
-# Per-user Firefox settings
+# Per-user LibreWolf settings
 {
   lib,
   config,
@@ -7,7 +7,7 @@
   inputs,
   ...
 }: {
-  options.custom.firefox = let
+  options.custom.librewolf = let
     inherit (lib) mkOption types literalExpression;
   in {
     extraExtensions = mkOption {
@@ -23,10 +23,10 @@
   };
 
   config = let
-    cfg = config.custom.firefox;
+    cfg = config.custom.librewolf;
   in
     lib.mkIf hostConfig.custom.desktop.enable {
-      programs.firefox = {
+      programs.librewolf = {
         enable = true;
         # FIXME: Use en-gb for autocorrect and locale
 
@@ -70,7 +70,6 @@
               indie-wiki-buddy # Redirect *.fandom.com to non-fandom wikis
               sponsorblock # This configuration is sponsored by Raid: Sha... oh no, it's spreading
               # TODO: Auto install https://github.com/laylavish/uBlockOrigin-HUGE-AI-Blocklist
-              ublock-origin # HAVE YOU HEARD OF THIS PRODUCT YOU WANT TO BUY? BUY IT NOW
               youtube-shorts-block # No TikTok in this house
             ]
             ++ cfg.extraExtensions;
@@ -89,7 +88,7 @@
       # Open PDFs in Firefox
       custom.mime.definition = {
         "application/pdf" = {
-          defaultApp = "firefox.desktop";
+          defaultApp = "librewolf.desktop";
         };
       };
     };

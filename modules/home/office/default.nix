@@ -37,7 +37,7 @@
         "Spreadsheet.ods" = ./templates/Spreadsheet.ods;
       };
 
-      custom.firefox.extraExtensions = [
+      custom.librewolf.extraExtensions = [
         inputs.firefox-addons.packages.${pkgs.system}.zotero-connector
       ];
 
