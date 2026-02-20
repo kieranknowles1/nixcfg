@@ -12,7 +12,7 @@
     ./docs.nix
     ./editor
     ./espanso
-    ./firefox.nix
+    ./librewolf.nix
     ./games
     ./git
     ./llm.nix

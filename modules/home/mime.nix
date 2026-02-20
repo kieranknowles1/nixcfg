@@ -24,7 +24,7 @@
           defaultApp = "myapp.desktop";
         };
         "application/pdf" = {
-          defaultApp = "firefox.desktop";
+          defaultApp = "librewolf.desktop";
         };
       };
 
