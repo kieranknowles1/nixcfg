@@ -64,6 +64,7 @@ a:hover {
   border: none;
   display: block;
   margin: 0 auto;
+  max-width: 100%;
 }
 
 article {
@@ -153,6 +154,7 @@ img.icon {
 canvas {
   display: block;
   margin: 0 auto;
+  max-width: 100%;
 }
 
 .flexbox {
@@ -163,4 +165,15 @@ canvas {
 .credly-badge {
   width: 50%;
   height: auto;
+}
+
+@media screen and (orientation: portrait) {
+  .credly-badge {
+    display: flex;
+    width: 100%;
+  }
+
+  .credly-badge img {
+    margin: auto;
+  }
 }
