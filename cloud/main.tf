@@ -48,12 +48,13 @@ module "mail" {
 module "dns" {
   source = "./dns"
 
-  zone_id      = var.cloudflare_zone_id
-  domain       = var.domain
-  ipv4         = var.ipv4
-  project      = var.project
-  dkim_records = module.mail.dkim_records
-  dkim_suffix  = module.mail.dkim_suffix
+  zone_id              = var.cloudflare_zone_id
+  domain               = var.domain
+  ipv4                 = var.ipv4
+  project              = var.project
+  dkim_records         = module.mail.dkim_records
+  dkim_suffix          = module.mail.dkim_suffix
+  unproxied_subdomains = var.unproxied_subdomains
 }
 
 # TODO: Manage videos used by portfolio (cloudflare R2)

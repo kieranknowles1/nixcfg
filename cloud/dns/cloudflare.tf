@@ -11,6 +11,10 @@ variable "domain" {
   type = string
 }
 
+variable "unproxied_subdomains" {
+  type = list(string)
+}
+
 # TODO: Support IPv6
 variable "ipv4" {
   type = string
@@ -42,6 +46,17 @@ resource "cloudflare_dns_record" "dns" {
   proxied  = true
   type     = "A"
   comment  = "Primary DNS"
+}
+
+resource "cloudflare_dns_record" "dns_noproxy" {
+  for_each = toset(var.unproxied_subdomains)
+  zone_id  = var.zone_id
+  name     = each.key
+  content  = var.ipv4
+  ttl      = 1 # Automatic
+  proxied  = false
+  type     = "A"
+  comment  = "Non-proxied DNS"
 }
 
 resource "cloudflare_dns_record" "dkim" {

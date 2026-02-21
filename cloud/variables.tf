@@ -29,6 +29,12 @@ variable "domain" {
   default = "selwonk.uk"
 }
 
+variable "unproxied_subdomains" {
+  type        = list(string)
+  description = "Subdomains to not proxy through CloudFlare, must match NixOS server module configurations"
+  default     = ["photos"]
+}
+
 variable "project" {
   type    = string
   default = "selwonk"
