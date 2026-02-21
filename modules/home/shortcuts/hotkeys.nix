@@ -137,7 +137,7 @@ in {
 
     # WTF: removeAttrs takes item-action instead of action-item, opposite to standard practice
     # this means we can't use it partially applied
-    removeAction = entry: builtins.removeAttrs entry ["action"];
+    removeAction = entry: removeAttrs entry ["action"];
   in
     lib.mkIf cfg.enable {
       assertions = [

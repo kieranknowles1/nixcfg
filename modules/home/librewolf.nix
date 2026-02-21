@@ -98,5 +98,17 @@
           defaultApp = "librewolf.desktop";
         };
       };
+
+      custom.shortcuts.hotkeys.keys = let
+        pkg = config.programs.librewolf.finalPackage;
+      in
+        lib.singleton {
+          key = "f";
+          alt = true;
+          shift = true;
+          action = lib.getExe pkg;
+          description = "Open LibreWolf";
+          icon = "${pkg}/share/icons/hicolor/128x128/apps/librewolf.png";
+        };
     };
 }
