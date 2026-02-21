@@ -50,6 +50,20 @@ in {
         mkHostOpt types.path "/path/to/socket.sock"
         "Absolute path to socket to proxy connections to.";
 
+      useCloudflareProxy = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = ''
+          Proxy requests through CloudFlare. Preferred as it provides additional
+          security (filter traffic from other countries) and performance
+          (caching of static assets). But limits uploads to 100MB per request
+          as I am on the free tier.
+
+          Make sure to add a non proxied DNS record for the subdomain!
+        '';
+      };
+
       webSockets = mkEnableOption "websockets";
 
       cache.enable = mkEnableOption "add cache headers to this vhost";
@@ -335,7 +349,9 @@ in {
         '';
       };
 
-      forceSSL = ssl; # Enable HTTPS and redirect HTTP to it
+      # TODO: Self-signed certificates for local networks
+      forceSSL = ssl; # Enable HTTPS and redirect HTTP to it, unless it's a local network where we don't generate certificates
+      enableACME = ssl && !subdomain.useCloudflareProxy;
 
       # We're not using ACME as it's incompatible with Cloudflare proxies
       # I'd rather not turn that off to reduce load from scraping, public pages
@@ -416,6 +432,11 @@ in {
             };
           }
         ];
+      };
+
+      security.acme = {
+        acceptTerms = true;
+        email = "contact@${cfg.hostname}";
       };
 
       networking.firewall.allowedTCPPorts = with cfg.ports.tcp; [http https];

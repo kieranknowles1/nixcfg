@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   options.custom.server.immich = let
@@ -34,6 +33,7 @@
         immich.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/immich";
         postgresql.enable = true; # Immich depends on this
         subdomains.${cfgi.subdomain} = {
+          useCloudflareProxy = false; # Immich does not use chunked uploads
           proxyPort = cfg.ports.tcp.immich;
           webSockets = true;
         };
