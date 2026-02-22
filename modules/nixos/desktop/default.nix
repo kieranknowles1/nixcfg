@@ -16,7 +16,7 @@
         "cosmic"
         "gnome"
       ];
-      default = "gnome";
+      default = "cosmic";
     };
   };
 

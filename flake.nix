@@ -42,15 +42,6 @@
       inputs.nur.follows = "";
     };
 
-    # TODO: Use the official Cosmic once https://github.com/NixOS/nixpkgs/pull/330167 is merged
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-
-      inputs.flake-compat.follows = "";
-    };
-
     nixos-raspberrypi = {
       url = "github:nvmd/nixos-raspberrypi";
       inputs.nixpkgs.follows = "nixpkgs";

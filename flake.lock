@@ -259,31 +259,6 @@
         "type": "github"
       }
     },
-    "nixos-cosmic": {
-      "inputs": {
-        "flake-compat": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-stable": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "lastModified": 1751591814,
-        "narHash": "sha256-A4lgvuj4v+Pr8MniXz1FBG0DXOygi8tTECR+j53FMhM=",
-        "owner": "lilyinstarlight",
-        "repo": "nixos-cosmic",
-        "rev": "fef2d0c78c4e4d6c600a88795af193131ff51bdc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lilyinstarlight",
-        "repo": "nixos-cosmic",
-        "type": "github"
-      }
-    },
     "nixos-raspberrypi": {
       "inputs": {
         "argononed": [],
@@ -400,7 +375,6 @@
         "ixx": "ixx",
         "nix-index-database": "nix-index-database",
         "nix-minecraft": "nix-minecraft",
-        "nixos-cosmic": "nixos-cosmic",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixos-raspberrypi-kernellock": "nixos-raspberrypi-kernellock",
         "nixpkgs": "nixpkgs",
@@ -414,27 +388,6 @@
         "systems": "systems",
         "treefmt-nix": "treefmt-nix",
         "vscode-extensions": "vscode-extensions"
-      }
-    },
-    "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "nixos-cosmic",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1751251399,
-        "narHash": "sha256-y+viCuy/eKKpkX1K2gDvXIJI/yzvy6zA3HObapz9XZ0=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "b22d5ee8c60ed1291521f2dde48784edd6bf695b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
       }
     },
     "selwonklib": {
