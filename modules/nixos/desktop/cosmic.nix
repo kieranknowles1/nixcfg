@@ -2,10 +2,8 @@
   config,
   lib,
   ...
-}: let
-  isCosmic = config.custom.desktop.environment == "cosmic";
-in {
-  config = lib.mkIf isCosmic {
+}: {
+  config = lib.mkIf (config.custom.desktop.enable && (config.custom.desktop.environment == "cosmic")) {
     nix.settings = {
       substituters = ["https://cosmic.cachix.org/"];
       trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
