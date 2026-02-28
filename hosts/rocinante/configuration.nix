@@ -32,7 +32,7 @@
 
     desktop = {
       enable = true;
-      environment = "gnome";
+      environment = "cosmic";
     };
 
     hardware = {

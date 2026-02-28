@@ -34,8 +34,6 @@
         inputs.nix-index-database.nixosModules.nix-index
         inputs.sops-nix.nixosModules.sops
         inputs.stylix.nixosModules.stylix
-        # TODO: Remove once Cosmic is merged into Nixpkgs
-        inputs.nixos-cosmic.nixosModules.default
         inputs.nix-minecraft.nixosModules.minecraft-servers
         inputs.copyparty.nixosModules.default
         rootConfig

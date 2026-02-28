@@ -2,10 +2,8 @@
   config,
   lib,
   ...
-}: let
-  isCosmic = config.custom.desktop.environment == "cosmic";
-in {
-  config = lib.mkIf isCosmic {
+}: {
+  config = lib.mkIf (config.custom.desktop.enable && (config.custom.desktop.environment == "cosmic")) {
     nix.settings = {
       substituters = ["https://cosmic.cachix.org/"];
       trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
@@ -24,9 +22,9 @@ in {
 
     # TODO: Before making this the default, would like to make the following changes:
     # [ ] Window view when pressing super, like in GNOME
-    # [x] Manage config with nix
+    # [ ] Manage config with nix
     # [ ] Manage wallpaper with nix
-    # [x] Disable highlight of active window
+    # [ ] Disable highlight of active window
     # [ ] Fix alt-tab with fullscreen (maybe only an issue with xwayland?)
     # [ ] Stylix support to set wallpaper
     # [ ] Keyboard shortcuts (ideally without having to change too much)
