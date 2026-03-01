@@ -10,6 +10,7 @@
     # This isn't quite the bleeding edge, but packages on master are less likely to be cached
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     # FIXME: Paperless isn't building on unstable
+    # TODO: Rename to nixpkgs-locked, check paperless status
     nixpkgs-stable.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
 
     home-manager = {
@@ -102,6 +103,12 @@
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     # /// Applications ///
