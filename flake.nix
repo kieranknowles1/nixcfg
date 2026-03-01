@@ -185,6 +185,7 @@
         # Extend nixpkgs with flake-specific overlays, for this
         # flake and its dependencies
         ./overlays
+        ./topology.nix
         # Format all file types in this flake and others
         ./treefmt.nix
       ];

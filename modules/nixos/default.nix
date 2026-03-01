@@ -22,6 +22,7 @@
     ./ssh
     ./theme.nix
     ./timer.nix
+    ./topology.nix
     ./thunderbird.nix
     ./users.nix
     ./vr.nix

@@ -4,6 +4,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
   imports = [
@@ -33,6 +34,17 @@
     desktop = {
       enable = true;
       environment = "cosmic";
+    };
+
+    topology = {
+      summary = "Fast gaming desktop";
+      interfaces.eth0 = {
+        type = "ethernet";
+        # TODO: Verify setup
+        physicalConnections = lib.singleton {
+          interface = "eth1";
+        };
+      };
     };
 
     hardware = {

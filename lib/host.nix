@@ -36,6 +36,9 @@
         inputs.stylix.nixosModules.stylix
         inputs.nix-minecraft.nixosModules.minecraft-servers
         inputs.copyparty.nixosModules.default
+        # TODO: Topology module. Define a hostname + description for the graph
+        # TODO: Include in docs
+        inputs.nix-topology.nixosModules.default
         rootConfig
       ];
     };
