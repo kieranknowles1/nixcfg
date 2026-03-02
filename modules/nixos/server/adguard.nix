@@ -20,7 +20,13 @@
   in
     lib.mkIf cfga.enable {
       custom.server = {
-        subdomains.${cfga.subdomain}.proxyPort = config.services.adguardhome.port;
+        subdomains.${cfga.subdomain} = {
+          proxyPort = config.services.adguardhome.port;
+          authorization = {
+            policy = "two_factor";
+            subject = ["group:admins"];
+          };
+        };
 
         homepage.services = lib.singleton {
           group = "Infrastructure";
@@ -31,7 +37,7 @@
           widget = {
             type = "adguard";
             config = {
-              url = "http://${cfga.subdomain}.${config.networking.hostName}.local";
+              url = "http://localhost:${toString cfg.ports.tcp.adguard}";
               username = "homepage";
             };
             secrets.password = {
