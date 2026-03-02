@@ -38,7 +38,7 @@
       immich = 2283;
 
       adguard = 3000;
-      actual = 3001;
+      actual = 3001; # Bumped from 3000
 
       postgresql = 5432;
 
