@@ -10,8 +10,9 @@
     # This isn't quite the bleeding edge, but packages on master are less likely to be cached
     # Use a fork as required by nixos-raspberrypi until https://github.com/NixOS/nixpkgs/pull/398456
     # is merged
-    nixpkgs.url = "github:kieranknowles1/nixpkgs?ref=nixpkgs-unstable-readd-option";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     # FIXME: Paperless isn't building on unstable
+    # TODO: Rename this to nixpkgs-locked and check Paperless status
     nixpkgs-stable.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
 
     home-manager = {
