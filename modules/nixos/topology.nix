@@ -43,6 +43,12 @@
           '';
         };
 
+        addresses = mkOption {
+          type = types.listOf types.str;
+          example = lib.literalExpression "[config.custom.networking.fixedIp]";
+          default = [];
+        };
+
         network = mkOption {
           type = types.str;
           default = "home";

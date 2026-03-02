@@ -40,9 +40,8 @@
       summary = "Fast gaming desktop";
       interfaces.eth0 = {
         type = "ethernet";
-        # TODO: Verify setup
         physicalConnections = lib.singleton {
-          interface = "eth1";
+          interface = "eth2";
         };
       };
     };

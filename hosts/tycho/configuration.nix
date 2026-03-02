@@ -43,10 +43,10 @@
       summary = "Raspberry Pi 5";
       interfaces.eth0 = {
         type = "ethernet";
-        # TODO: Verify setup
         physicalConnections = lib.singleton {
           interface = "eth1";
         };
+        addresses = [config.custom.networking.fixedIp];
       };
     };
 
