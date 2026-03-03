@@ -34,15 +34,14 @@
         nodes = let
           inherit (config.lib.topology) mkConnection mkRouter mkInternet;
         in {
-          internet = mkInternet {
-            connections = mkConnection "router" "wan1";
-          };
+          internet = mkInternet {};
 
           router = mkRouter "Router" {
             # TODO: Include cloud?
             # TODO: Clean up server, display nginx as a proxy
-            # TODO: Display static IP if present
             interfaceGroups = [["eth1" "eth2" "eth3" "eth4" "wlan1"] ["wan1"]];
+
+            interfaces.wan1.physicalConnections = [(mkConnection "internet" "*")];
           };
         };
       });
