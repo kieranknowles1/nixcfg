@@ -2,7 +2,7 @@
 name = "command-palette"
 version = "3.0.0"
 edition = "2024"
-license = "MIT"
+license = "AGPL-3.0-only"
 
 [dependencies]
 clap = { version = "4.5.15", features = ["derive"] }

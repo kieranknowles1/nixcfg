@@ -104,5 +104,5 @@ used.
 ## Licensing
 
 This repository and all its contents are available under the
-[MIT License](./license.txt). However, certain packages are under different
+[AGPL-3.0 License](./license.txt). However, certain packages are under different
 licenses. This is documented under in individual `meta` attributes.

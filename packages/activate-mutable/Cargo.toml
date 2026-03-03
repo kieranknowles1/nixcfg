@@ -2,7 +2,7 @@
 name = "activate-mutable"
 version = "3.1.1"
 edition = "2024"
-license = "MIT"
+license = "AGPL-3.0-only"
 
 [dependencies]
 clap = { version = "4.5.20", features = ["derive", "env"] }
