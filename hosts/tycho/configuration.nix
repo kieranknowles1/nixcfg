@@ -6,6 +6,7 @@
   config,
   nixos-raspberrypi,
   nixos-raspberrypi-kernellock,
+  lib,
   ...
 }: {
   imports = with nixos-raspberrypi.nixosModules; [
@@ -31,12 +32,23 @@
     };
 
     repoPath = "/home/kieran/src/nixcfg";
+    docs-generate.baseUrl = "https://github.com/kieranknowles1/nixcfg/blob/master";
+
     hardware = {
       memorySize = 8;
       raspberryPi.enable = true;
     };
 
-    docs-generate.baseUrl = "https://github.com/kieranknowles1/nixcfg/blob/master";
+    topology = {
+      summary = "Raspberry Pi 5";
+      interfaces.eth0 = {
+        type = "ethernet";
+        physicalConnections = lib.singleton {
+          interface = "eth1";
+        };
+        addresses = [config.custom.networking.fixedIp];
+      };
+    };
 
     networking = {
       hostName = "tycho";

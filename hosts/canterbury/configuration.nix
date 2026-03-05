@@ -4,6 +4,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
   imports = [
@@ -32,6 +33,17 @@
     desktop = {
       enable = true;
       environment = "gnome";
+    };
+
+    topology = {
+      summary = "Ageing laptop";
+      interfaces.eth0.type = "ethernet";
+      interfaces.wlan0 = {
+        type = "wifi";
+        physicalConnections = lib.singleton {
+          interface = "wlan1";
+        };
+      };
     };
 
     hardware = {

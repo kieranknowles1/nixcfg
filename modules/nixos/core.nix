@@ -34,12 +34,16 @@
     # Apply any overlays we need
     nixpkgs.overlays =
       [
+        # TODO: Move to home module
         inputs.vscode-extensions.overlays.default
+        # TODO: Move to server module
         inputs.nix-minecraft.overlays.default
+        # TODO: Move to server module
         inputs.copyparty.overlays.default
         self.overlays.default
         self.overlays.overrides
       ]
+      # TODO: Move to hardware module
       ++ lib.optional config.custom.hardware.raspberryPi.enable self.overlays.jemalloc-rpi;
 
     # Bootloader

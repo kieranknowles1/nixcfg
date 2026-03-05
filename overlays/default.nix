@@ -2,7 +2,6 @@
   self,
   inputs,
   config,
-  lib,
   ...
 }: {
   # TODO: Remove this once flake-parts has a proper way of handling overlays
@@ -12,6 +11,7 @@
       overlays = with config.flake.overlays; [
         default
         overrides
+        inputs.nix-topology.overlays.default
       ];
     };
   };

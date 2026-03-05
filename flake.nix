@@ -12,7 +12,7 @@
     # is merged
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     # FIXME: Paperless isn't building on unstable
-    # TODO: Rename this to nixpkgs-locked and check Paperless status
+    # TODO: Rename to nixpkgs-locked, check paperless status
     nixpkgs-stable.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
 
     home-manager = {
@@ -107,6 +107,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
     # /// Applications ///
     copyparty = {
       url = "github:9001/copyparty";
@@ -181,6 +187,7 @@
         # Extend nixpkgs with flake-specific overlays, for this
         # flake and its dependencies
         ./overlays
+        ./topology.nix
         # Format all file types in this flake and others
         ./treefmt.nix
       ];
