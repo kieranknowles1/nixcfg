@@ -136,8 +136,20 @@ def __show_welcome_message [] {
     }
 }
 
-# Show a welcome message unless we're in a sub shell
-if not ($env.__NU_INIT? | default false | into bool) {
+def --env __init [] {
+  # Show a welcome message unless we're in a sub shell
+  # 0: GUI (at least for Cosmic) login or SSH connection
+  # 1: Open shell in GUI
+  # Opening the first shell is defined as either:
+  # $state == 1 in the GUI
+  # $state == 0 over SSH
+  let state = $env.__NU_INIT? | default 0 | into int
+  let ssh = 'SSH_CLIENT' in $env
+
+  if (($state == 0 and $ssh) or ($state == 1 and not $ssh)) {
     __show_welcome_message
-    $env.__NU_INIT = true
+  }
+  $env.__NU_INIT = $state + 1
 }
+
+try { __init }
