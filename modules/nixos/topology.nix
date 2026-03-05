@@ -45,8 +45,11 @@
 
         addresses = mkOption {
           type = types.listOf types.str;
-          example = lib.literalExpression "[config.custom.networking.fixedIp]";
           default = [];
+          example = lib.literalExpression "[config.custom.networking.fixedIp]";
+          description = ''
+            Address this interface is connected to, or empty if not connected.
+          '';
         };
 
         network = mkOption {

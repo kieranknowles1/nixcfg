@@ -1,5 +1,7 @@
 # Repository Documentation
 
+![Home network graph, describing topology and services.](./generated/topology.svg)
+
 ![Inputs of the flake, excluding the standard `nixpkgs` and `systems`.](./generated/flake-tree.svg)
 
 Documentation is split into two parts: static and generated. Use the sidebar to

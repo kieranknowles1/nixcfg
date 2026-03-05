@@ -69,6 +69,13 @@
             ${pkgs.graphviz}/bin/dot -Tsvg -o $out
         '';
       };
+
+      "topology.svg" = {
+        description = "Network topology.";
+        source = pkgs.runCommand "topology.svg" {} ''
+          ln -s ${self.topology.${pkgs.system}.config.output}/main.svg $out
+        '';
+      };
     };
   };
 }
