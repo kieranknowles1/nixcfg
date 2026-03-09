@@ -70,12 +70,13 @@
         '';
       };
 
-      "topology.svg" = {
-        description = "Network topology.";
-        source = pkgs.runCommand "topology.svg" {} ''
-          ln -s ${self.topology.${pkgs.system}.config.output}/main.svg $out
-        '';
-      };
+      # FIXME: Topology is not building on ARM
+      # "topology.svg" = {
+      #   description = "Network topology.";
+      #   source = pkgs.runCommand "topology.svg" {} ''
+      #     ln -s ${self.topology.${pkgs.system}.config.output}/main.svg $out
+      #   '';
+      # };
     };
   };
 }
