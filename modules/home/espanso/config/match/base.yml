@@ -16,4 +16,4 @@ matches:
       - name: today
         type: date
         params:
-          format: "%d\t%m\t%y"
+          format: "%d\t%m\t%Y"
