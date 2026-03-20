@@ -72,9 +72,6 @@
         mediaLocation = cfgi.dataDir;
 
         database.port = cfg.ports.tcp.postgresql;
-        # Disable the obsolete pgvecto.rs extension, which I have migrated
-        # from manually.
-        database.enableVectors = false;
 
         # Hardware machine learning, who knows if it works ¯\_(ツ)_/¯
         accelerationDevices = [ "/dev/dri/renderD128" ];
