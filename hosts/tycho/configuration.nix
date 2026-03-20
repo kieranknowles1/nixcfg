@@ -77,7 +77,8 @@
       adguard.enable = true;
       docs.enable = true;
       forgejo.enable = true;
-      homepage.enable = true;
+      # FIXME: Glances is not building
+      # homepage.enable = true;
       immich.enable = true;
       paperless.enable = true;
       # FIXME: This rebuilds the whole webapp on options change, not just the index
