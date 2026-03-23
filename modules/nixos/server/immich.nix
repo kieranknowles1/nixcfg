@@ -73,8 +73,8 @@
 
         database.port = cfg.ports.tcp.postgresql;
 
-        # Hardware machine learning, who knows if it works ¯\_(ツ)_/¯
-        accelerationDevices = [ "/dev/dri/renderD128" ];
+        # TODO: Hardware transcoding
+        # accelerationDevices = [???];
       };
     };
 }
