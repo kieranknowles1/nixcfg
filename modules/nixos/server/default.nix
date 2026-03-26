@@ -18,7 +18,7 @@ in {
     ./docs.nix
     ./forgejo.nix
     ./homepage
-    ./immich.nix
+    ./immich
     ./minecraft.nix
     ./paperless.nix
     ./ports.nix

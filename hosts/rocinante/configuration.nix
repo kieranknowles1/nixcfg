@@ -55,6 +55,8 @@
       appimage.enable = true;
     };
 
+    server.immich.remote-ml.enable = true;
+
     backup.repositories.documents = {
       password = "backup/password";
       owner = "kieran";

@@ -3,6 +3,10 @@
   lib,
   ...
 }: {
+  imports = [
+    ./remote-ml.nix
+  ];
+
   options.custom.server.immich = let
     inherit (lib) mkOption mkEnableOption types;
   in {
