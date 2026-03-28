@@ -1,4 +1,4 @@
 [submodule "packages/portfolio/selwonklib"]
 	path = packages/portfolio/selwonklib
-	url = kk:selwonklib
+	url = git@github.com:kieranknowles1/selwonklib
 	branch = main
