@@ -78,7 +78,10 @@ function newCellState(alive: boolean, aliveNeighbours: number) {
 function update() {
     forEachCell(pos => {
         const alive = cellAlive(pos)
-        const neighbours = NEIGHBOUR_OFFSETS.map(off => vecAdd(off, pos)).filter(neighbour => cellAlive(neighbour)).length
+        const neighbours = NEIGHBOUR_OFFSETS
+          .map(off => vecAdd(off, pos))
+          .filter(neighbour => cellAlive(neighbour))
+          .length
 
         setCellState(pos, newCellState(alive, neighbours))
     })
@@ -115,7 +118,7 @@ getById<HTMLButtonElement>('gameoflife_reset').addEventListener('click', _ => {
 })
 
 const pauseButton = getById<HTMLButtonElement>('gameoflife_pause')
-pauseButton.addEventListener('click', event => {
+pauseButton.addEventListener('click', _ => {
     active = !active
     pauseButton.textContent = active ? 'Pause' : 'Unpause'
 })
