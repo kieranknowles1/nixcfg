@@ -138,7 +138,7 @@
       - Get quests and mechanics ingame from writing documents.
       - First-pass quality assurance of both my own and other's work.
       - Detecting writing and design shortfalls and proposing solutions.
-      - Development of static analysis tooling based on common errors.
+      - Expand static analysis tooling to detect common errors before they are merged.
       - Assisting other contributors with getting their areas implemented.
       - Performing second pass fixes on problematic quests and mechanics.
     ],
