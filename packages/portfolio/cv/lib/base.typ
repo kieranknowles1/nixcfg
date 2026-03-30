@@ -13,7 +13,7 @@
       email: "kieranknowles11@hotmail.co.uk",
       github: "kieranknowles1",
       linkedin: "kieran-john-knowles",
-      website: ("globe", "https://selwonk.uk", "selwonk.uk"),
+      website: "selwonk.uk",
     )
   }
   socials.insert("address", "Cramlington, UK")
@@ -128,6 +128,21 @@
     #if not anonymous [See portfolio hosted at https://selwonk.uk for technical experience.]
     #par([])
   ]
+
+  #job_entry(
+    date: [2026 -- now],
+    title: [Implementer],
+    job_type: [Game development],
+    employer: [Beyond Skyrim Cyrodiil],
+    [
+      - Get quests and mechanics ingame from writing documents.
+      - First-pass quality assurance of both my own and other's work.
+      - Detecting writing and design shortfalls and proposing solutions.
+      - Development of static analysis tooling based on common errors.
+      - Assisting other contributors with getting their areas implemented.
+      - Performing second pass fixes on problematic quests and mechanics.
+    ],
+  )
 
   #job_entry(
     date: [2022 -- now],

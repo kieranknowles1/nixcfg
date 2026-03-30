@@ -28,6 +28,9 @@
 // - Display full URL for social media links
 // - Use British English for spell checking
 // - Allow bullet points in job entries
+// - Display names of socials fields
+// - Remove special handling for addresses
+// - Remove subtitle
 
 #import "@preview/fontawesome:0.5.0": *
 
@@ -41,71 +44,61 @@
     right,
   )
 }
+
+#let _icon(icon) = [#fa-icon(icon) #sym.space]
+
 #let moderncv-blue = rgb("#3973AF")
 #let light-gray = rgb("#737373")
 
 #let _header(
   title: [],
-  subtitle: [],
   image: none,
   image-frame-stroke: auto,
   colour: moderncv-blue,
-  subtitle-colour: light-gray,
   socials-colour: light-gray,
   emphasise: false,
   socials: (:),
 ) = {
-  let subtitle-emphasis = "normal"
-  if emphasise {
-    subtitle-emphasis = "italic"
-  }
-
   let titleStack = stack(
     dir: ttb,
     spacing: 1em,
     text(size: 30pt, title),
-    text(size: 20pt, subtitle, style: subtitle-emphasis, fill: subtitle-colour),
   )
 
-  let social(icon, link_prefix, username) = [
+  let social(icon, name, link_prefix, username) = [
     #let link_text = if link_prefix.starts-with("https://") {
       link_prefix.replace("https://", "")
     } else { "" }
+    #let contents = text(
+      socials-colour,
+    )[#_icon(icon) #name: #link(link_prefix + username)[#link_text#username]]
+
     #if emphasise [
-      #emph[#text(socials-colour)[#fa-icon(icon) #link(
-          link_prefix + username,
-        )[#link_text#username]]]
+      #emph[#contents]
     ] else [
-      #text(socials-colour)[#fa-icon(icon) #link(
-          link_prefix + username,
-        )[#link_text#username]]
+      #contents
     ]
   ]
 
   let custom-social(icon, dest, body) = [
+    #let contents = text(socials-colour)[#_icon(icon) #link(dest, body)]
     #if emphasise [
-      #emph[#text(socials-colour)[#fa-icon(icon) #link(dest, body)]]
+      #emph[#contents]
     ] else [
-      #text(socials-colour)[#fa-icon(icon) #link(dest, body)]
-    ]
-  ]
-
-  let address-social(icon, body) = [
-    #if emphasise [
-      #emph[#text(socials-colour)[#fa-icon(icon) #body]]
-    ] else [
-      #text(socials-colour)[#fa-icon(icon) #body]
+      #contents
     ]
   ]
 
   let socialsDict = (
-    // key: (faIcon, linkPrefix)
-    phone: ("phone", "tel:"),
-    email: ("envelope", "mailto:"),
-    github: ("github", "https://github.com/"),
-    linkedin: ("linkedin", "https://linkedin.com/in/"),
-    x: ("x-twitter", "https://twitter.com/"),
-    bluesky: ("bluesky", "https://bsky.app/profile/"),
+    // key: (faIcon, name, linkPrefix)
+    phone: ("phone", "Phone", "tel:"),
+    email: ("envelope", "Email", "mailto:"),
+    github: ("github", "GitHub", "https://github.com/"),
+    linkedin: ("linkedin", "LinkedIn", "https://linkedin.com/in/"),
+    x: ("x-twitter", "X", "https://twitter.com/"),
+    bluesky: ("bluesky", "Bluesky", "https://bsky.app/profile/"),
+    website: ("globe", "Portfolio", "https://"),
+    address: ("house", "Address", ""),
   )
 
   let socialsList = ()
@@ -114,15 +107,11 @@
     assert(entry.len() == 2, message: "Invalid social entry length.")
     let (key, value) = entry
     if type(value) == str {
-      if (key == "address") {
-        socialsList.push(address-social("house", value))
-      } else {
-        if key not in socialsDict {
-          panic("Unknown social key: " + key)
-        }
-        let (icon, linkPrefix) = socialsDict.at(key)
-        socialsList.push(social(icon, linkPrefix, value))
+      if key not in socialsDict {
+        panic("Unknown social key: " + key)
       }
+      let (icon, name, linkPrefix) = socialsDict.at(key)
+      socialsList.push(social(icon, name, linkPrefix, value))
     } else if type(value) == array {
       assert(value.len() == 3, message: "Invalid social entry: " + key)
       let (icon, dest, body) = value
@@ -175,23 +164,22 @@
     )
   }
 
-  stack(
-    dir: ltr,
-    titleStack,
-    align(
-      right + top,
-      socialStack,
-    ),
-    imageStack,
-  )
+  [#stack(
+      dir: ltr,
+      titleStack,
+      // align(
+      //   right + top,
+      //   // socialStack,
+      // ),
+      imageStack,
+    )
+    #socialStack]
 }
 
 #let moderner-cv(
   name: [],
-  subtitle: [CV],
   social: (:),
   colour: moderncv-blue,
-  subtitle-colour: light-gray,
   socials-colour: light-gray,
   emphasise-header: false,
   lang: "en",
@@ -242,11 +230,9 @@
 
   #_header(
     title: name,
-    subtitle: subtitle,
     image: image,
     image-frame-stroke: image-frame-stroke,
     colour: colour,
-    subtitle-colour: subtitle-colour,
     socials-colour: socials-colour,
     socials: social,
     emphasise: emphasise-header,
