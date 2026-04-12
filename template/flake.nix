@@ -22,6 +22,7 @@
       inputs.factorio-blueprints.follows = "";
       inputs.firefox-addons.follows = "";
       inputs.flake-utils.follows = "";
+      # FIXME: Use a sub flake in templates, home-manager and nix-topolgy inputs don't like being overridden to null
       inputs.home-manager.follows = "";
       inputs.ixx.follows = "";
       inputs.nix-index-database.follows = "";
