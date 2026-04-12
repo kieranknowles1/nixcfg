@@ -2,12 +2,15 @@
 
 #show: template(
   statement: [
-    I have recently completed full-time education, I am a hard working,
-    trustworthy person. I am also a quick learner and willing to learn new
-    tasks.
+    Friendly and reliable customer service assistant with over four years' experience working in a busy hospital coffee shop. Confident serving customers, handling cash and card payments, and maintaining a clean and welcoming environment. A quick learner with a strong work ethic, available for flexible shifts including weekends.
   ],
   extra_skills: [
-    I can work alone or as part of a team, I am skilled in customer service.
+    - Customer service in fast-paced environments
+    - Cash handling and card payments
+    - Handling customer queries and complaints
+    - Maintaining cleanliness and hygiene standards
+    - Teamwork and communication
+    - Reliable and punctual
   ],
   tech_links: false,
 )

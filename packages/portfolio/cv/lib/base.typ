@@ -129,34 +129,35 @@
     #par([])
   ]
 
-  #job_entry(
-    date: [2026 -- now],
-    title: [Implementer],
-    job_type: [Game development],
-    employer: [Beyond Skyrim Cyrodiil],
-    [
-      - Get quests and mechanics ingame from writing documents.
-      - First-pass quality assurance of both my own and other's work.
-      - Detecting writing and design shortfalls and proposing solutions.
-      - Expand static analysis tooling to detect common errors before they are merged.
-      - Assisting other contributors with getting their areas implemented.
-      - Performing second pass fixes on problematic quests and mechanics.
-    ],
-  )
+  // TODO: Disable for generic variant
+  // #job_entry(
+  //   date: [2026 -- now],
+  //   title: [Implementer],
+  //   job_type: [Game development],
+  //   employer: [Beyond Skyrim Cyrodiil],
+  //   [
+  //     - Get quests and mechanics ingame from writing documents.
+  //     - First-pass quality assurance of both my own and other's work.
+  //     - Detecting writing and design shortfalls and proposing solutions.
+  //     - Expand static analysis tooling to detect common errors before they are merged.
+  //     - Assisting other contributors with getting their areas implemented.
+  //     - Performing second pass fixes on problematic quests and mechanics.
+  //   ],
+  // )
 
   #job_entry(
     date: [2022 -- now],
     title: [Volunteer],
     job_type: [Shop Assistant],
-    employer: [Bright Charity, Northumbria Hospital],
+    employer: [Bright Charity, Northumbria Hospital, Cramlington],
     [
-      - Serving customers
-      - Responding effectively to customer queries
-      - Resolving customer complaints
-      - Accepting cash and card payments
-      - Stocking and restocking
-      - Ensuring cleanliness of the shop
-      - Adhering to relevant health and safety regulations
+      - Served customers efficiently in a busy coffee shop environment
+      - Delivered friendly and professional customer service
+      - Handled cash and card payments accurately
+      - Resolved customer queries and complaints calmly
+      - Maintained high standards of cleanliness and hygiene
+      - Restocked items and ensured displays were presentable
+      - Gained over four years' experience in a fast-paced, customer-facing environment.
     ],
   )
 
@@ -174,31 +175,32 @@
     ],
   )
 
-  #job_entry(
-    date: [as needed],
-    title: [Website Maintainer],
-    job_type: [Local Charity],
-    employer: [Out of Sight Charity],
-    [
-      - Refactor website for better maintainability
-      - Automate repetitive tasks for generating event pages
-      - Correct broken links to point to the correct targets
-      - Update information as requested by charity
-      - Document changes as implemented
-    ],
-  )
+  // TODO: Disable for generic variant
+  // #job_entry(
+  //   date: [as needed],
+  //   title: [Website Maintainer],
+  //   job_type: [Local Charity],
+  //   employer: [Out of Sight Charity],
+  //   [
+  //     - Refactor website for better maintainability
+  //     - Automate repetitive tasks for generating event pages
+  //     - Correct broken links to point to the correct targets
+  //     - Update information as requested by charity
+  //     - Document changes as implemented
+  //   ],
+  // )
 
   = Education
 
   #education_entry(
-    date: [2024 -- 2025],
+    // date: [2024 -- 2025],
     title: "Computer Game Engineering Msc",
     employer: "Newcastle University",
     [Distinction],
   )
 
   #education_entry(
-    date: [2020 -- 2024],
+    // date: [2020 -- 2024],
     title: "Computer Science Bsc",
     employer: "Northumbria University",
     [First-Class Honours],
@@ -243,8 +245,9 @@
   #if not anonymous [
     = Interests
 
-    #cv-line([Gaming], [Enjoy playing single-player and co-op games in a
-      diverse range of genres. On PC and steam deck.])
+    // TODO: Condition for software dev
+    // #cv-line([Gaming], [Enjoy playing single-player and co-op games in a
+    //   diverse range of genres. On PC and steam deck.])
 
     #cv-line([Animals], [Pet cats I enjoy spending time with. I love all
       animals, which led to volunteering at Jesmond Dene.])
@@ -257,6 +260,6 @@
     #cv-line([Walking], [Walk 5 miles several times a week.])
   ]
 
-  = References
-  Available upon request.
+  // = References
+  // Available upon request.
 ]
