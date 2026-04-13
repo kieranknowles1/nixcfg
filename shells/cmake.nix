@@ -1,7 +1,12 @@
+# Generic devshell for cmake based projects
+# Configures the project on entry, the script for which is exposed as the
+# configure package on $PATH and output.
 {
   cmake,
   clang,
   gdb,
+  writeShellScriptBin,
+  lib,
   flake,
   # Bring our own CC, I prefer clang to gcc
   mkShellNoCC,
@@ -21,6 +26,18 @@
   checkleak' = flake.checkleak.override {
     target = name;
   };
+
+  configure = writeShellScriptBin "configure" ''
+    # mkcd into build if not already
+    if [[ "$PWD" != *${buildDir} ]]; then
+      mkdir -p "${buildDir}"
+      cd "${buildDir}"
+    fi
+
+    cmake .. ${opts}
+    code ..
+    cd ..
+  '';
 in
   flake.lib.shell.mkShellEx mkShellNoCC ({
       name = "cmake-${name}";
@@ -31,19 +48,11 @@ in
           clang
           gdb
           checkleak'
+          configure
         ]
         ++ packages;
 
-      shellHook = ''
-        # mkcd into build if not already
-        if [[ "$PWD" != *${buildDir} ]]; then
-          mkdir -p "${buildDir}"
-          cd "${buildDir}"
-        fi
-
-        cmake .. ${opts}
-        code ..
-        cd ..
-      '';
+      shellHook = lib.getExe configure;
+      inherit configure;
     }
     // env)
