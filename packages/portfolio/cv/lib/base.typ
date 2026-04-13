@@ -130,20 +130,22 @@
   ]
 
   // TODO: Disable for generic variant
-  // #job_entry(
-  //   date: [2026 -- now],
-  //   title: [Implementer],
-  //   job_type: [Game development],
-  //   employer: [Beyond Skyrim Cyrodiil],
-  //   [
-  //     - Get quests and mechanics ingame from writing documents.
-  //     - First-pass quality assurance of both my own and other's work.
-  //     - Detecting writing and design shortfalls and proposing solutions.
-  //     - Expand static analysis tooling to detect common errors before they are merged.
-  //     - Assisting other contributors with getting their areas implemented.
-  //     - Performing second pass fixes on problematic quests and mechanics.
-  //   ],
-  // )
+  #if tech_links {
+  job_entry(
+    date: [2026 -- now],
+    title: [Gameplay Programmer],
+    job_type: [Game development],
+    employer: [Beyond Skyrim Cyrodiil],
+    [
+      - Get quests and mechanics ingame from writing documents.
+      - First-pass quality assurance of both my own and other's work.
+      - Detecting writing and design shortfalls and proposing solutions.
+      - Expand static analysis tooling to detect common errors before they are merged and correct false positives in existing checks.
+      - Assisting other contributors with getting their areas implemented.
+      - Performing second pass fixes on problematic quests and mechanics.
+    ],
+  )
+  }
 
   #job_entry(
     date: [2022 -- now],
@@ -175,20 +177,21 @@
     ],
   )
 
-  // TODO: Disable for generic variant
-  // #job_entry(
-  //   date: [as needed],
-  //   title: [Website Maintainer],
-  //   job_type: [Local Charity],
-  //   employer: [Out of Sight Charity],
-  //   [
-  //     - Refactor website for better maintainability
-  //     - Automate repetitive tasks for generating event pages
-  //     - Correct broken links to point to the correct targets
-  //     - Update information as requested by charity
-  //     - Document changes as implemented
-  //   ],
-  // )
+  #if tech_links {
+    job_entry(
+      date: [as needed],
+      title: [Website Maintainer],
+      job_type: [Local Charity],
+      employer: [Out of Sight Charity],
+      [
+        - Refactor website for better maintainability
+        - Automate repetitive tasks for generating event pages
+        - Correct broken links to point to the correct targets
+        - Update information as requested by charity
+        - Document changes as implemented
+      ],
+    )
+  }
 
   = Education
 
@@ -245,10 +248,11 @@
   #if not anonymous [
     = Interests
 
-    // TODO: Condition for software dev
-    // #cv-line([Gaming], [Enjoy playing single-player and co-op games in a
-    //   diverse range of genres. On PC and steam deck.])
-
+    #if tech_links {
+      cv-line([Gaming], [Enjoy playing single-player and co-op games in a
+        diverse range of genres. On PC and steam deck.])
+    }
+    
     #cv-line([Animals], [Pet cats I enjoy spending time with. I love all
       animals, which led to volunteering at Jesmond Dene.])
 
@@ -259,7 +263,4 @@
 
     #cv-line([Walking], [Walk 5 miles several times a week.])
   ]
-
-  // = References
-  // Available upon request.
 ]
