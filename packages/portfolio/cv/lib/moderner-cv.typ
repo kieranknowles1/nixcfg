@@ -33,7 +33,7 @@
 // - Remove subtitle
 // - Replace fontawesome icons with octique
 
-#import "@preview/octique:0.1.0": *
+#import "@preview/octique:0.1.1": *
 
 #let _cv-line(left, right, above: 1pt, below: 0pt, ..args) = {
   set block(below: below, above: above)
@@ -45,8 +45,6 @@
     right,
   )
 }
-
-#let _icon(icon, content) = stack(dir: ltr, octique(icon), sym.space, content)
 
 #let moderncv-blue = rgb("#3973AF")
 #let light-gray = rgb("#737373")
@@ -60,6 +58,13 @@
   emphasise: false,
   socials: (:),
 ) = {
+  let _icon(icon, content) = stack(
+    dir: ltr,
+    octique(color: socials-colour, icon),
+    sym.space,
+    content,
+  )
+  
   let titleStack = stack(
     dir: ttb,
     spacing: 1em,
