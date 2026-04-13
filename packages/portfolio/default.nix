@@ -7,7 +7,6 @@
   importNpmLock,
   symlinkJoin,
   dejavu_fonts,
-  font-awesome,
   typst,
   system,
 }: let
@@ -15,7 +14,6 @@
     name = "fonts";
     paths = [
       dejavu_fonts
-      font-awesome
     ];
   };
 
