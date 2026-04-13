@@ -31,8 +31,9 @@
 // - Display names of socials fields
 // - Remove special handling for addresses
 // - Remove subtitle
+// - Replace fontawesome icons with octique
 
-#import "@preview/fontawesome:0.5.0": *
+#import "@preview/octique:0.1.0": *
 
 #let _cv-line(left, right, above: 1pt, below: 0pt, ..args) = {
   set block(below: below, above: above)
@@ -45,7 +46,7 @@
   )
 }
 
-#let _icon(icon) = [#fa-icon(icon) #sym.space]
+#let _icon(icon, content) = stack(dir: ltr, octique(icon), sym.space, content)
 
 #let moderncv-blue = rgb("#3973AF")
 #let light-gray = rgb("#737373")
@@ -71,17 +72,8 @@
     } else { "" }
     #let contents = text(
       socials-colour,
-    )[#_icon(icon) #name: #link(link_prefix + username)[#link_text#username]]
+    )[#_icon(icon, [#name: #link(link_prefix + username)[#link_text#username]])]
 
-    #if emphasise [
-      #emph[#contents]
-    ] else [
-      #contents
-    ]
-  ]
-
-  let custom-social(icon, dest, body) = [
-    #let contents = text(socials-colour)[#_icon(icon) #link(dest, body)]
     #if emphasise [
       #emph[#contents]
     ] else [
@@ -92,13 +84,14 @@
   let socialsDict = (
     // key: (faIcon, name, linkPrefix)
     phone: ("phone", "Phone", "tel:"),
-    email: ("envelope", "Email", "mailto:"),
-    github: ("github", "GitHub", "https://github.com/"),
-    linkedin: ("linkedin", "LinkedIn", "https://linkedin.com/in/"),
+    email: ("mail", "Email", "mailto:"),
+    github: ("mark-github", "GitHub", "https://github.com/"),
+    // TODO: Better icon
+    linkedin: ("home", "LinkedIn", "https://linkedin.com/in/"),
     x: ("x-twitter", "X", "https://twitter.com/"),
     bluesky: ("bluesky", "Bluesky", "https://bsky.app/profile/"),
     website: ("globe", "Portfolio", "https://"),
-    address: ("house", "Address", ""),
+    address: ("home", "Address", ""),
   )
 
   let socialsList = ()
@@ -112,10 +105,6 @@
       }
       let (icon, name, linkPrefix) = socialsDict.at(key)
       socialsList.push(social(icon, name, linkPrefix, value))
-    } else if type(value) == array {
-      assert(value.len() == 3, message: "Invalid social entry: " + key)
-      let (icon, dest, body) = value
-      socialsList.push(custom-social(icon, dest, body))
     } else {
       panic("Invalid social entry: " + entry)
     }
