@@ -32,6 +32,7 @@
 // - Remove special handling for addresses
 // - Remove subtitle
 // - Replace fontawesome icons with octique
+// - Set document title to name
 
 #import "@preview/octique:0.1.1": *
 
@@ -87,8 +88,8 @@
   ]
 
   let socialsDict = (
-    // key: (faIcon, name, linkPrefix)
-    phone: ("phone", "Phone", "tel:"),
+    // key: (icon, name, linkPrefix)
+    phone: ("device-mobile", "Phone", "tel:"),
     email: ("mail", "Email", "mailto:"),
     github: ("mark-github", "GitHub", "https://github.com/"),
     // TODO: Better icon
@@ -191,6 +192,10 @@
   show-footer: true,
   body,
 ) = [
+  #set document(
+    title: name,
+  )
+  
   #set page(
     paper: paper,
     margin: margin,

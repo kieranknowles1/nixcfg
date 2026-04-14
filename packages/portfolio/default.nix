@@ -20,7 +20,7 @@
   };
 
   typst' = typst.withPackages (ps: [
-    ps.fontawesome_0_5_0
+    ps.octique_0_1_1
   ]);
 
   cv = stdenv.mkDerivation {
