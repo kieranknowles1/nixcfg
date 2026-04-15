@@ -91,13 +91,19 @@
       comment: [Main language throughout masters degree.],
     )
     #cv-language(
+      name: [C\#],
+      level: [Extensive Knowledge],
+      experience: 2,
+      comment: [Practical experience in tooling development. #linebreak()Secondary language for masters degree.],
+    )
+    #cv-language(
       name: [Java],
       level: [Extensive Knowledge],
       experience: 1,
       comment: [Used for coursework at university.],
     )
     #cv-language(
-      name: [TypeScript],
+      name: [TypeScript/JavaScript],
       level: [Extensive Knowledge],
       experience: 1,
       comment: [Language for dissertation.],
@@ -113,6 +119,12 @@
       level: [Extensive Knowledge],
       experience: 2,
       comment: [Used in scripts.],
+    )
+    #cv-language(
+      name: [Git],
+      level: [Expert Knowledge],
+      experience: 5,
+      comment: [Used across all projects to collaborate#linebreak()between team members.],
     )
     #cv-language(
       name: [Linux],
@@ -131,20 +143,20 @@
 
   // TODO: Disable for generic variant
   #if tech_links {
-  job_entry(
-    date: [2026 -- now],
-    title: [Gameplay Programmer],
-    job_type: [Game development],
-    employer: [Beyond Skyrim Cyrodiil],
-    [
-      - Get quests and mechanics ingame from writing documents.
-      - First-pass quality assurance of both my own and other's work.
-      - Detecting writing and design shortfalls and proposing solutions.
-      - Expand static analysis tooling to detect common errors before they are merged and correct false positives in existing checks.
-      - Assisting other contributors with getting their areas implemented.
-      - Performing second pass fixes on problematic quests and mechanics.
-    ],
-  )
+    job_entry(
+      date: [2026 -- now],
+      title: [Gameplay Programmer],
+      job_type: [Game development],
+      employer: [Beyond Skyrim Cyrodiil],
+      [
+        - Get quests and mechanics ingame from writing documents.
+        - First-pass quality assurance of both my own and other's work.
+        - Detecting writing and design shortfalls and proposing solutions.
+        - Expand static analysis tooling to detect common errors before they are merged and correct false positives in existing checks.
+        - Assisting other contributors with getting their areas implemented.
+        - Performing second pass fixes on problematic quests and mechanics.
+      ],
+    )
   }
 
   #job_entry(
