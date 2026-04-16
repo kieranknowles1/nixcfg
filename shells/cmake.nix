@@ -14,6 +14,8 @@
   name ? "unknown",
   # Build directory
   buildDir ? "build",
+  # Additional shell hook, to be run before configure
+  shellHook ? "",
   # Additional libraries and tools to include
   packages ? [],
   # Key-value options to pass to CMake configure
@@ -52,7 +54,10 @@ in
         ]
         ++ packages;
 
-      shellHook = lib.getExe configure;
+      shellHook = ''
+        ${shellHook}
+        ${lib.getExe configure}
+      '';
       inherit configure;
     }
     // env)
