@@ -81,14 +81,14 @@
       # homepage.enable = true;
       immich.enable = true;
       paperless.enable = true;
-      vikunja.enable = true;
       # FIXME: This rebuilds the whole webapp on options change, not just the index
       # which takes over a minute whenever options change
       # search.enable = true;
+      vikunja.enable = true;
 
       authelia = {
         enable = true;
-        smtp.username = "AKIA4HIUFKO4JSR2PCC7";
+        smtp.username = "AKIA4HIUFKO4DDMXSCMM";
         smtp.endpoint = "smtp://email-smtp.eu-north-1.amazonaws.com";
       };
 
