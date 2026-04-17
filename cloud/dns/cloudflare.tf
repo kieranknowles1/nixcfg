@@ -60,13 +60,13 @@ resource "cloudflare_dns_record" "dns_noproxy" {
 }
 
 resource "cloudflare_dns_record" "dkim" {
-  for_each = toset(var.dkim_records)
-  zone_id  = var.zone_id
-  name     = "${each.key}._domainkey"
-  content  = "${each.key}.${var.dkim_suffix}"
-  ttl      = 1 # Automatic
-  type     = "CNAME"
-  comment  = "AWS DKIM"
+  count   = 3
+  zone_id = var.zone_id
+  name    = "${var.dkim_records[count.index]}._domainkey"
+  content = "${var.dkim_records[count.index]}.${var.dkim_suffix}"
+  ttl     = 1 # Automatic
+  type    = "CNAME"
+  comment = "AWS DKIM"
 }
 
 resource "tls_private_key" "private_key" {

@@ -1,4 +1,4 @@
-# TODO: Use these outputs in authelia
+# TODO: Use these outputs in authelia and vikunja
 output "smtp_username" {
   value = module.mail.smtp_username
 }
