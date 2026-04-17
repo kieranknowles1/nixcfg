@@ -15,13 +15,11 @@
         secretHash = mkOption {
           type = types.str;
           description = ''
-            Hash of the client's secret. The associated secret should be stored
-            separately in SOPS and visible to the client only.
-
-            Generate a secret using the following command:
+            Hash of the client's secret. GenerateD using the following command:
             ```sh
-            authelia crypto rand --length 72 --charset rfc3986
+            authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986
             ```
+            Provide the hash digest here and give the client the generated password.
           '';
         };
         redirects = mkOption {
