@@ -26,6 +26,7 @@ in {
     ./search.nix
     ./authelia
     ./trilium.nix
+    ./vikunja.nix
   ];
 
   options.custom.server = let

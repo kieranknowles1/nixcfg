@@ -40,6 +40,7 @@
       adguard = 3000;
       actual = 3001; # Bumped from 3000
       immich-machine-learning = 3003;
+      vikunja = 3456;
 
       postgresql = 5432;
 
