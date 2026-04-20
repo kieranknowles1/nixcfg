@@ -133,16 +133,6 @@ Two panes shown either side-by-side or vertically depending on orientation
   }
 }
 
-/* An indented list of links, each is expected to have an icon */
-ul.links-list li {
-  list-style-type: none;
-  /*
-  Shift left to align with a normal ul's bullets.
-  1em for the bullet, 0.2em for a space after the <img.icon>
-  */
-  margin-left: -1.2em;
-}
-
 img.icon {
   width: 1em;
   height: 1em;
