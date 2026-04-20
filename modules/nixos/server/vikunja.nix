@@ -126,7 +126,6 @@
                 authurl = "https://${cfg.authelia.subdomain}.${cfg.hostname}";
                 clientid = "vikunja";
                 clientsecret.file = config.sops.secrets."vikunja/oidc-secret".path;
-                scope = "human"; # Only allow Human users to connect, forbid service users (if they're added to my setup)
               };
             };
           };
