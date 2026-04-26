@@ -55,6 +55,8 @@
       appimage.enable = true;
     };
 
+    archiveteam.enable = true;
+
     server.immich.remote-ml.enable = true;
 
     backup.repositories.documents = {
