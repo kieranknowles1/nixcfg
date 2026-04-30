@@ -68,8 +68,8 @@ in
 
     patchPhase = ''
       # This is included as a submodule during development, but needs to be linked
-      # as a flake input for Nix to see it
-      ln -s ${self.inputs.selwonklib} selwonklib
+      # as a flake input for Nix to see it. Symlinks confuse Node
+      cp -r ${self.inputs.selwonklib} selwonklib
       ln -s ${assets} assets
     '';
 
