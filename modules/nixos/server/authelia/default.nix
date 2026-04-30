@@ -12,10 +12,15 @@
           type = types.str;
           description = "The client's human-readable name.";
         };
+        authenticationPolicy = mkOption {
+          type = types.enum ["one_factor" "two_factor"];
+          description = "Whether users require one or two factor authentication";
+          default = "two_factor";
+        };
         secretHash = mkOption {
           type = types.str;
           description = ''
-            Hash of the client's secret. GenerateD using the following command:
+            Hash of the client's secret. Generated using the following command:
             ```sh
             authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986
             ```
@@ -223,9 +228,8 @@
             };
           };
 
-          # Access control rules. These DO NOT apply to OpenID Connect services
-          # such as Actualbudget, and are only applied if the endpoint has
-          # authorization enabled
+          # Access control rules for NGINX auth request they are only applied
+          # if the endpoint opts in via its nginx config
           access_control = {
             default_policy = "deny";
             rules = let
@@ -258,7 +262,7 @@
                 client_id = name;
                 client_secret = client.secretHash;
                 redirect_uris = client.redirects;
-                authorization_policy = "default";
+                authorization_policy = name;
 
                 # Remember the user's consent to share data with apps
                 # GDPR isn't really impacted since everything is internal,
@@ -267,17 +271,15 @@
               })
               cfga.oidcClients;
 
-            # Require 2FA by default
-            authorization_policies.default = {
-              default_policy = "deny";
-
-              rules = [
-                {
+            # Configure clients based on their subdomains
+            authorization_policies =
+              lib.mapAttrs (_name: client: {
+                rules = lib.singleton {
                   subject = "group:human";
-                  policy = "two_factor";
-                }
-              ];
-            };
+                  policy = client.authenticationPolicy;
+                };
+              })
+              cfga.oidcClients;
 
             cors = {
               # Only allow origins that are used by a client as a redirect URI

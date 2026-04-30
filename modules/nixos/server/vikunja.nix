@@ -39,6 +39,7 @@
           redirects = [
             "https://${cfgv.subdomain}.${cfg.hostname}/auth/openid/default"
           ];
+          authenticationPolicy = "one_factor";
         };
 
         # TODO: Homepage widget
