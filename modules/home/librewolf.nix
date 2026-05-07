@@ -59,7 +59,8 @@
 
           # To search available extensions, run
           # `nix flake show gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons | grep <search-term>`
-          extensions = with inputs.firefox-addons.packages.${pkgs.system};
+          # TODO: Configure extensions, how do I do that? Is it documented anywhere?
+          extensions.packages = with inputs.firefox-addons.packages.${pkgs.system};
             [
               bitwarden # Password manager. Available everywhere
               # TODO: Manage config for extensions. How do we export?
