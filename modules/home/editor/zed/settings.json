@@ -87,6 +87,11 @@
     }
   },
 
+  // Files belong on the left
+  "project_panel": {
+    "dock": "left"
+  },
+
   // More accessible font size at 1440p
   "ui_font_size": 16,
   "buffer_font_size": 16,
