@@ -38,6 +38,27 @@
     "toml": true
   },
 
+  // ========
+  // -- AI --
+  // ========
+  // It's actually useful, if used as a tool and not a replacement
+  "agent": {
+    "default_model": {
+      "provider": "openrouter",
+      // Tightarse
+      "model": "inclusionai/ring-2.6-1t:free",
+      "enable_thinking": true
+    },
+    "tool_permissions": {
+      // Don't let untrusted code run on your machine you idiot (not me, the kind
+      // of person who runs openclaw)
+      "default": "confirm"
+    },
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+
   // ===========
   // -- Input --
   // ===========
