@@ -56,7 +56,7 @@ impl BuildOpt {
 }
 
 fn datestamp() -> String {
-    chrono::Local::now().format("%d-%m-%y").to_string()
+    chrono::Local::now().format("%Y-%m-%d").to_string()
 }
 
 fn update_changelog_filepath(flake: &Path) -> PathBuf {
