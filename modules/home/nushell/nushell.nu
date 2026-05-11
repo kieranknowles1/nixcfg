@@ -1,7 +1,7 @@
 $env.config.show_banner = false
 
 # Suggest updating Nixpkgs at least this often
-const NIXPKGS_UPDATE_SUGGESION = 2wk
+const NIXPKGS_UPDATE_SUGGESION = 4wk
 
 def __log [color: string, type: string, message: string] {
   print $"(ansi $color)($type)(ansi reset): ($message)"

@@ -39,7 +39,7 @@ It is advised to use `rebuild build` when adding new packages or editing a
 host's `configuration.nix` to track which generation number the changes were
 made in for easier rollbacks.
 
-`rebuild update` should be run at least once every two weeks to keep inputs up
+`rebuild update` should be run at least once every four weeks to keep inputs up
 to date. NuShell will print a reminder if this is overdue. This builds and diffs
 all hosts, not just the currently active one, to give a full picture of what
 deployment will do. After an update, **do not** push changes until after a
