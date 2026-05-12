@@ -11,7 +11,7 @@ def main [
       name: ($split.2 | str replace '.md' '')
       language: ($split.0 | str replace 'pages.' '')
       platform: ($split.1)
-      contents: (open $in)
+      contents: (open --raw $in)
     }
   } | into sqlite $dest --table-name pages
 
