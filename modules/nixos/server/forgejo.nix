@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.custom.server.forgejo = let
@@ -67,6 +68,7 @@
 
       services.forgejo = {
         enable = true;
+        package = pkgs.forgejo;
         stateDir = cfgf.dataDir;
 
         settings = {
