@@ -267,8 +267,8 @@ in {
       # error_page 401 =302 https://auth.example.com/?rd=$target_url;
     '';
 
-    # From nixpkgs nginx
-    # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
+    # From https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/web-servers/nginx/default.nix
+    # Mime types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
     # and Nginx Server Configs - https://github.com/h5bp/server-configs-nginx
     compressMimeTypes = [
       "application/atom+xml"
