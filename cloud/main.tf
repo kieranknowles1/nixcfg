@@ -38,10 +38,14 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
+locals {
+  mail_domain = "notify.${var.domain}"
+}
+
 module "mail" {
   source = "./mail"
 
-  domain = var.domain
+  domain = local.mail_domain
   region = var.region
 }
 
@@ -55,6 +59,7 @@ module "dns" {
   dkim_records         = module.mail.dkim_records
   dkim_suffix          = module.mail.dkim_suffix
   unproxied_subdomains = var.unproxied_subdomains
+  dkim_domain          = local.mail_domain
 }
 
 # TODO: Manage videos used by portfolio (cloudflare R2)

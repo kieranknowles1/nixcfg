@@ -253,7 +253,7 @@
             inherit (cfga.smtp) username;
             password = fileRef config.sops.secrets."authelia/smtp/password".path;
 
-            sender = "Authelia <auth@${cfg.hostname}>";
+            sender = "Authelia <auth@notify.${cfg.hostname}>";
           };
 
           identity_providers.oidc = {

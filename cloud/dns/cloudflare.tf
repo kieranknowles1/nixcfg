@@ -11,6 +11,10 @@ variable "domain" {
   type = string
 }
 
+variable "dkim_domain" {
+  type = string
+}
+
 variable "unproxied_subdomains" {
   type = list(string)
 }
@@ -62,7 +66,7 @@ resource "cloudflare_dns_record" "dns_noproxy" {
 resource "cloudflare_dns_record" "dkim" {
   count   = 3
   zone_id = var.zone_id
-  name    = "${var.dkim_records[count.index]}._domainkey"
+  name    = "${var.dkim_records[count.index]}._domainkey.${var.dkim_domain}"
   content = "${var.dkim_records[count.index]}.${var.dkim_suffix}"
   ttl     = 1 # Automatic
   type    = "CNAME"

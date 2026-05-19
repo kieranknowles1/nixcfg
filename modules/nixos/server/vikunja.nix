@@ -109,7 +109,7 @@
             host = "email-smtp.eu-north-1.amazonaws.com";
             inherit (cfg.authelia.smtp) username;
             password.file = config.sops.secrets."vikunja/smtp-password".path;
-            fromemail = "todos@selwonk.uk";
+            fromemail = "todos@notify.selwonk.uk";
           };
 
           files = {
