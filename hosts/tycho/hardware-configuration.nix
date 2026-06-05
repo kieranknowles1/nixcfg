@@ -10,7 +10,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [];
+  boot.initrd.availableKernelModules = ["usb_storage" "uas"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = [];
   boot.extraModulePackages = [];
@@ -19,14 +19,21 @@
     device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
     fsType = "ext4";
   };
+
   fileSystems."/mnt/extern" = {
     device = "/dev/disk/by-uuid/480fd0ec-5167-4163-a86e-5edf112961c4";
+    fsType = "btrfs";
+  };
+
+  fileSystems."/mnt/ssd" = {
+    device = "/dev/disk/by-uuid/82014c63-e296-499f-9c6d-c283d51cc8be";
     fsType = "btrfs";
   };
 
   fileSystems."/boot/firmware" = {
     device = "/dev/disk/by-uuid/2175-794E";
     fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
   };
 
   swapDevices = [];
