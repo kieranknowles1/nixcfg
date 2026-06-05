@@ -124,6 +124,20 @@
       };
     };
 
+    backup.repositories.server-ssd = {
+      source = "/mnt/ssd/data";
+      password = "backup/ssd-password";
+      destination.local = "/mnt/extern/restic-ssd";
+      destination.remote = "backup/ssd-remote";
+
+      # Creating btrfs snapshots requires root privileges
+      owner = "root";
+      btrfs = {
+        useSnapshots = true;
+        snapshotPath = "/mnt/ssd/backup-snapshot";
+      };
+    };
+
     secrets = {
       ageKeyFile = "/home/kieran/.config/sops/age/keys.txt";
       file = ./secrets.yaml;
