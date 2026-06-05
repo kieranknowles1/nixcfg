@@ -172,6 +172,17 @@ in {
           Services will use subdirectories within this unless configured otherwise.
         '';
       };
+
+      fastDirectory = mkOption {
+        type = types.path;
+        example = "/path/to/server/fast";
+        description = ''
+          Base directory for storing high-performance server data, such as databases.
+          Should be backed up regularly. Ideally backed by a SSD.
+
+          Services will use subdirectories within this unless configured otherwise.
+        '';
+      };
     };
 
     clearCacheKey = mkOption {

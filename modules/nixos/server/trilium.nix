@@ -18,6 +18,7 @@
     dataDir = mkOption {
       type = types.path;
       description = "Path to the Trilium data directory";
+      defaultText = "$${config.custom.server.data.fastDirectory}/trilium";
     };
 
     autoExport = {
@@ -98,7 +99,7 @@
     lib.mkMerge [
       (lib.mkIf cfgt.enable {
         custom.server = {
-          trilium.dataDir = lib.mkDefault "${cfg.data.baseDirectory}/trilium";
+          trilium.dataDir = lib.mkDefault "${cfg.data.fastDirectory}/trilium";
           subdomains.${cfgt.subdomain} = {
             proxyPort = cfg.ports.tcp.trilium;
             webSockets = true;

@@ -60,6 +60,7 @@
       enable = true;
       hostname = "selwonk.uk";
       data.baseDirectory = "/mnt/extern/data";
+      data.fastDirectory = "/mnt/ssd/data";
 
       # Renewal is manual, but I don't really care because certs last 15 years
       # TODO: We should really be automating this and revoke the 15 year one
