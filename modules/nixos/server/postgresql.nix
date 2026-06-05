@@ -11,7 +11,7 @@
 
     dataDir = mkOption {
       type = types.path;
-      defaultText = "$${config.custom.server.data.baseDirectory}/postgresql";
+      defaultText = "$${config.custom.server.data.fastDirectory}/postgresql";
       description = ''
         The directory where PostgreSQL data will be stored.
 
@@ -44,7 +44,7 @@
   in
     lib.mkIf cfgp.enable {
       custom.server.postgresql = {
-        dataDir = "${cfg.data.baseDirectory}/postgresql";
+        dataDir = "${cfg.data.fastDirectory}/postgresql";
         backupDir = "${cfg.data.baseDirectory}/postgresql-backup";
       };
 
