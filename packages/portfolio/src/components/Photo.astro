@@ -28,6 +28,15 @@ const filemeta = meta.filter(
 ).at(0)
 if (filemeta == undefined) throw new Error("Failed to get file metadata")
 
+const {
+  ExposureTime, FocalLength, Aperture
+} = filemeta
+const hasMeta = (ExposureTime && FocalLength && Aperture) != undefined
+
+if (!hasMeta) {
+  console.warn("Image has no metadata", img)
+}
+
 ---
 <article class={`${orientation} photo`}>
   <Picture
@@ -36,9 +45,9 @@ if (filemeta == undefined) throw new Error("Failed to get file metadata")
     width={img.width * rescale}
     height={img.height * rescale}
   />
-  <span class="photometa">
+  { hasMeta && <span class="photometa">
     <Icon name="mdi:timer" title="Exposure Time"/>{filemeta.ExposureTime}s
     <Icon name="mdi:magnify-plus" title="Focal Length"/>{filemeta.FocalLength}
     <Icon name="bx:aperture" title="Aperture"/>{filemeta.Aperture}
-  </span>
+  </span>}
 </article>
