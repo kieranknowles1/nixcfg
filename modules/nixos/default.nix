@@ -6,6 +6,7 @@
 
     ./archiveteam.nix
     ./backup.nix
+    ./cache
     ./compat.nix
     ./core.nix
     ./desktop
