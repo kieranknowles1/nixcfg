@@ -5,7 +5,6 @@
   pkgs,
   config,
   nixos-raspberrypi,
-  nixos-raspberrypi-kernellock,
   lib,
   ...
 }: {
@@ -18,10 +17,6 @@
     # Avoid issues from jemalloc expecting a hardcoded page size
     raspberry-pi-5.page-size-16k
   ];
-
-  boot.kernelPackages =
-    pkgs.lib.mkForce
-    nixos-raspberrypi-kernellock.packages.${pkgs.system}.linuxPackages_rpi5;
 
   boot.loader.raspberry-pi.bootloader = "kernel";
 

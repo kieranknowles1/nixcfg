@@ -6,7 +6,7 @@
   inherit (self.lib.host) mkHost;
   mkDefaultHost = mkHost inputs.nixpkgs.lib.nixosSystem {};
   mkRpiHost = mkHost inputs.nixos-raspberrypi.lib.nixosSystem {
-    inherit (inputs) nixos-raspberrypi nixos-raspberrypi-kernellock;
+    inherit (inputs) nixos-raspberrypi;
   };
 in {
   flake.nixosConfigurations = {
