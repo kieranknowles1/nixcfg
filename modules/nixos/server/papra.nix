@@ -29,6 +29,7 @@
     cfgp = cfg.papra;
 
     url = "https://${cfgp.subdomain}.${cfg.hostname}";
+    authRedirectUrl = "${url}/api/auth/oauth2/callback/authelia";
   in
     lib.mkIf cfgp.enable {
       custom.server = {
@@ -67,6 +68,44 @@
         "${cfgp.dbDir}" = ownership;
       };
 
+      custom.server.authelia.oidcClients.papra = {
+        name = "Papra";
+        secretHash = "$pbkdf2-sha512$310000$w/fuL0YGEC8pmYS4ouYZoA$3/J0AZNwoK6Rz7der6BvT5ffyO0AQx5dbcNqOZFEGoFDRPLN3rKpcBP1xxwClnNRbAy.FFxEEx0qFQDYqoRbtg";
+        redirects = [authRedirectUrl];
+        authenticationPolicy = "two_factor";
+        tokenAuthMethod = "client_secret_post";
+      };
+
+      sops.secrets."papra/oidc-secret" = {};
+      sops.templates."papra.env" = let
+        raw = lib.singleton {
+          providerId = "authelia";
+          providerName = "Authelia";
+          discoveryUrl = "https://${cfg.authelia.subdomain}.${cfg.hostname}/.well-known/openid-configuration";
+          # requireIssuerValidation?: boolean;
+          clientId = "papra";
+          clientSecret = config.sops.placeholder."papra/oidc-secret";
+          scopes = ["openid" "profile" "email"];
+          redirectURI = authRedirectUrl;
+          # redirectURI?: string;
+          # responseType?: string;
+          # prompt?: string;
+          # pkce?: boolean;
+          # accessType?: string;
+          # accessTokenExpiresIn?: number;
+          # getUserInfo?: (tokens: OAuth2Tokens) => Promise<User | null>;
+          type = "oidc";
+        };
+      in {
+        owner = config.services.papra.user;
+        content = ''
+          # The list of custom OAuth providers, as a JSON string, see
+          # https://www.better-auth.com/docs/plugins/generic-oauth#configuration for
+          # more details.
+          AUTH_PROVIDERS_CUSTOMS=${builtins.toJSON raw}
+        '';
+      };
+
       services.papra = {
         enable = true;
 
@@ -89,9 +128,6 @@
           # The port to listen on when using node server.
           PORT = cfg.ports.tcp.papra;
 
-          # The hostname to bind to when using node server.
-          # SERVER_HOSTNAME=0.0.0.0
-
           # The maximum time in milliseconds for a route to complete before timing out.
           # SERVER_API_ROUTES_TIMEOUT_MS=20000
 
@@ -103,13 +139,6 @@
 
           # The URL of the database
           DATABASE_URL = "file:${cfgp.dbDir}/papra.sqlite";
-
-          # The auth token for the database.
-          # DATABASE_AUTH_TOKEN=
-
-          # The retention period in days for deleted documents.
-          # DOCUMENTS_DELETED_DOCUMENTS_RETENTION_DAYS=30
-
           # The languages codes to use for OCR, multiple languages can be specified by
           # separating them with a comma. See
           # https://tesseract-ocr.github.io/tessdoc/Data-Files#data-files-for-version-400-november-29-2016.
@@ -118,10 +147,6 @@
           # Whether to enable content extraction (OCR and text extraction) for uploaded
           # documents.
           # DOCUMENTS_CONTENT_EXTRACTION_ENABLED=true
-
-          # The maximum size in bytes for an uploaded file. Set to 0 to disable the
-          # limit and allow uploading documents of any size.
-          # DOCUMENT_STORAGE_MAX_UPLOAD_SIZE=26214400
 
           # The root directory to store documents in
           DOCUMENT_STORAGE_DRIVER = "filesystem";
@@ -157,18 +182,10 @@
           # AUTH_SECRET=papra-default-auth-secret-change-me
 
           # Whether registration is enabled.
-          # AUTH_IS_REGISTRATION_ENABLED=true
-
-          # Whether password reset is enabled.
-          # AUTH_IS_PASSWORD_RESET_ENABLED=true
+          AUTH_IS_REGISTRATION_ENABLED = false;
 
           # Whether email verification is required.
           # AUTH_IS_EMAIL_VERIFICATION_REQUIRED=false
-
-          # Automatically assign the admin role to the first user who registers. This
-          # is useful for initial setup of self-hosted instances where you need an
-          # admin account to manage the platform.
-          # AUTH_FIRST_USER_AS_ADMIN=true
 
           # The header, or comma separated list of headers, to use to get the real IP
           # address of the user, use for rate limiting. Make sur to use a non-spoofable
@@ -179,36 +196,8 @@
           # set this to "cf-connecting-ip".
           # AUTH_IP_ADDRESS_HEADERS=x-forwarded-for
 
-          # A comma separated list of email domains that are forbidden for registration
-          # (e.g. "foo.com,bar.com"), if set, it will override the default forbidden
-          # domains.
-          # AUTH_FORBIDDEN_EMAIL_DOMAINS=papra.app,papra.email,owlrelay.email,callback.email,clb.email
-
-          # Whether email/password authentication is enabled.
-          # AUTH_PROVIDERS_EMAIL_IS_ENABLED=true
-
-          # Whether Github OAuth is enabled.
-          # AUTH_PROVIDERS_GITHUB_IS_ENABLED=false
-
-          # The client id for Github OAuth.
-          # AUTH_PROVIDERS_GITHUB_CLIENT_ID=set-me
-
-          # The client secret for Github OAuth.
-          # AUTH_PROVIDERS_GITHUB_CLIENT_SECRET=set-me
-
-          # Whether Google OAuth is enabled.
-          # AUTH_PROVIDERS_GOOGLE_IS_ENABLED=false
-
-          # The client id for Google OAuth.
-          # AUTH_PROVIDERS_GOOGLE_CLIENT_ID=set-me
-
-          # The client secret for Google OAuth.
-          # AUTH_PROVIDERS_GOOGLE_CLIENT_SECRET=set-me
-
-          # The list of custom OAuth providers, as a JSON string, see
-          # https://www.better-auth.com/docs/plugins/generic-oauth#configuration for
-          # more details.
-          # AUTH_PROVIDERS_CUSTOMS=
+          # Only allow Authelia logins
+          AUTH_PROVIDERS_EMAIL_IS_ENABLED = false;
 
           # Whether ingestion folders are enabled.
           # INGESTION_FOLDER_IS_ENABLED=false
@@ -358,25 +347,12 @@
           # See https://nodemailer.com/smtp/ for more details.
           # SMTP_JSON_CONFIG=
 
-          # The maximum number of organizations a standard user can have.
-          # MAX_ORGANIZATION_COUNT_PER_USER=10
-
           # The number of days an invitation to an organization will be valid.
           # ORGANIZATION_INVITATION_EXPIRATION_DELAY_DAYS=7
-
-          # The maximum number of invitations a user can send per day.
-          # MAX_USER_ORGANIZATIONS_INVITATIONS_PER_DAY=30
 
           # The number of days before a soft-deleted organization is permanently
           # purged.
           # ORGANIZATIONS_DELETED_PURGE_DAYS_DELAY=30
-
-          # The maximum number of tags an organization can have.
-          # MAX_TAGS_PER_ORGANIZATION=200
-
-          # The maximum number of custom property definitions an organization can have.
-          # MAX_CUSTOM_PROPERTIES_PER_ORGANIZATION=100
-
           # The base URL used to generate share links, if not specified it'll use the
           # application `APP_BASE_URL` and the `CLIENT_BASE_URL` as fallback.
           # DOCUMENT_SHARE_LINKS_BASE_URL=
@@ -407,15 +383,6 @@
           # minutes (m) or hours (h).
           # DOCUMENT_SHARE_LINKS_FILE_ACCESS_RATE_LIMIT=600/1h
 
-          # Whether to enable PostHog.
-          # POSTHOG_ENABLED=false
-
-          # The API key for PostHog.
-          # POSTHOG_API_KEY=set-me
-
-          # The host for PostHog.
-          # POSTHOG_HOST=https://eu.i.posthog.com
-
           # If false, the SSRF protection for webhook URLs will be fully disabled. This
           # is not recommended and should only be used if you understand the risks and
           # consequences of disabling this protection. Preferably, you should use the
@@ -428,13 +395,10 @@
           # will be blocked.
           # WEBHOOK_URL_ALLOWED_HOSTNAMES=
 
-          # The driver to use for the key-value store, value can be one of:
-          # `in-memory`, `libsql`.
-          # KV_STORE_DRIVER=libsql
-
           # Whether the selfhst free plan entitlements is enabled for new claims.
           # SELFHST_ENTITLEMENTS_IS_ENABLED_FOR_NEW_CLAIMS=true
         };
+        environmentFile = config.sops.templates."papra.env".path;
       };
     };
 }

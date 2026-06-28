@@ -27,6 +27,14 @@
             Provide the hash digest here and give the client the generated password.
           '';
         };
+        tokenAuthMethod = mkOption {
+          type = types.enum ["client_secret_basic" "client_secret_post" "client_secret_jwt" "private_key_jwt" "none"];
+          default = "client_secret_basic";
+          description = ''
+            Client authentication method used by the client.
+            See [Authelia docs](https://www.authelia.com/configuration/identity-providers/openid-connect/clients/#token_endpoint_auth_method)
+          '';
+        };
         redirects = mkOption {
           type = types.listOf types.str;
           example = ["https://example.com/oidc/callback"];
@@ -263,11 +271,10 @@
                 client_secret = client.secretHash;
                 redirect_uris = client.redirects;
                 authorization_policy = name;
+                token_endpoint_auth_method = client.tokenAuthMethod;
 
-                # Remember the user's consent to share data with apps
-                # GDPR isn't really impacted since everything is internal,
-                # it's just telling users what the individual app will have access to.
-                pre_configured_consent_duration = "1 week";
+                # This is all self-hosted, so I don't really worry about consent
+                consent_mode = "implicit";
               })
               cfga.oidcClients;
 
