@@ -76,7 +76,7 @@
       # FIXME: Glances is not building
       # homepage.enable = true;
       immich.enable = true;
-      paperless.enable = true;
+      papra.enable = true;
       # FIXME: This rebuilds the whole webapp on options change, not just the index
       # which takes over a minute whenever options change
       # search.enable = true;

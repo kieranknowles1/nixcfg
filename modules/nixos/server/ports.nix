@@ -35,6 +35,8 @@
       http = 80;
       https = 443;
 
+      papra = 1221;
+
       immich = 2283;
 
       adguard = 3000;
