@@ -152,40 +152,15 @@
           DOCUMENT_STORAGE_DRIVER = "filesystem";
           DOCUMENT_STORAGE_FILESYSTEM_ROOT = cfgp.dataDir;
 
-          # Whether to use the legacy storage key definition system, which generates
-          # storage keys in the format: {{organization.id}}/originals/{{document.id}}.
-          # When set to true, no storage key pattern will be used, nor will the
-          # incremental suffix or random suffix fallback mechanisms be enabled, as the
-          # storage key will be generated using the legacy system.
-          # DOCUMENT_STORAGE_USE_LEGACY_STORAGE_KEY_DEFINITION_SYSTEM=true
-
-          # How many incremental suffixes to try when a storage key is already taken
-          # (e.g. file_1.txt, file_2.txt, ...). Set to 0 to skip incremental suffixes
-          # entirely.
-          # DOCUMENT_STORAGE_PATTERN_MAX_INCREMENTAL_SUFFIX_ATTEMPTS=9
-
-          # Whether to enable a fallback mechanism that adds a random alphanumeric
-          # 8-character suffix to the storage key if all incremental suffix attempts
-          # are exhausted.
-          # DOCUMENT_STORAGE_PATTERN_ENABLE_RANDOM_SUFFIX_FALLBACK=true
-
           # The pattern to use for generating storage keys. This can include
           # expressions enclosed in double curly braces (e.g. {{document.name}}) that
           # will be evaluated at runtime.
-          # DOCUMENT_STORAGE_KEY_PATTERN={{organization.id}}/{{document.name}}
-
-          # The document search provider to use, values can be one of: `database-fts5`.
-          # DOCUMENT_SEARCH_DRIVER=database-fts5
+          DOCUMENT_STORAGE_USE_LEGACY_STORAGE_KEY_DEFINITION_SYSTEM = false;
+          DOCUMENT_STORAGE_KEY_PATTERN = "{{organization.id}}/{{document.name}}";
 
           # The secret for the auth, it should be at least 32 characters long, you can
           # generate a secure one using `openssl rand -hex 48`.
           # AUTH_SECRET=papra-default-auth-secret-change-me
-
-          # Whether registration is enabled.
-          AUTH_IS_REGISTRATION_ENABLED = false;
-
-          # Whether email verification is required.
-          # AUTH_IS_EMAIL_VERIFICATION_REQUIRED=false
 
           # The header, or comma separated list of headers, to use to get the real IP
           # address of the user, use for rate limiting. Make sur to use a non-spoofable
@@ -198,6 +173,7 @@
 
           # Only allow Authelia logins
           AUTH_PROVIDERS_EMAIL_IS_ENABLED = false;
+          AUTH_IS_REGISTRATION_ENABLED = false;
 
           # Whether ingestion folders are enabled.
           # INGESTION_FOLDER_IS_ENABLED=false
@@ -245,31 +221,6 @@
           # the [picomatch
           # documentation](https://github.com/micromatch/picomatch/blob/bf6a33bd3db990edfbfd20b3b160eed926cd07dd/README.md#globbing-features).
           # INGESTION_FOLDER_IGNORED_PATTERNS=**/.DS_Store,**/.env,**/desktop.ini,**/Thumbs.db,**/.git/**,**/.idea/**,**/.vscode/**,**/node_modules/**,**/@eaDir/**,**/*@SynoResource,**/*@SynoEAStream
-
-          # The cron schedule for the task to hard delete expired "soft deleted"
-          # documents.
-          # DOCUMENTS_HARD_DELETE_EXPIRED_DOCUMENTS_CRON=0 0 * * *
-
-          # Whether the task to hard delete expired "soft deleted" documents should run
-          # on startup.
-          # DOCUMENTS_HARD_DELETE_EXPIRED_DOCUMENTS_RUN_ON_STARTUP=true
-
-          # The cron schedule for the task to expire invitations.
-          # ORGANIZATIONS_EXPIRE_INVITATIONS_CRON=0 0 * * *
-
-          # Whether the task to expire invitations should run on startup.
-          # ORGANIZATIONS_EXPIRE_INVITATIONS_RUN_ON_STARTUP=true
-
-          # The cron schedule for the task to purge expired soft-deleted organizations.
-          # ORGANIZATIONS_PURGE_EXPIRED_ORGANIZATIONS_CRON=0 1 * * *
-
-          # Whether the task to purge expired soft-deleted organizations should run on
-          # startup.
-          # ORGANIZATIONS_PURGE_EXPIRED_ORGANIZATIONS_RUN_ON_STARTUP=true
-
-          # The cron schedule for the task to purge expired key-value store entries
-          # (only runs when the configured kv-store driver requires it, e.g. libsql).
-          # KV_STORE_PURGE_EXPIRED_ENTRIES_CRON=0 2 * * *
 
           # Whether the task to purge expired key-value store entries should run on
           # startup.
