@@ -53,6 +53,7 @@
         # Research
         zotero
 
+        # TODO: Update scandoc to work with Papra
         (pkgs.flake.scandoc.override {
           paperlessUrl = cfg.paperless.url;
           paperlessTokenFile = config.sops.secrets."paperless/apikey".path;

@@ -20,7 +20,6 @@ in {
     ./homepage
     ./immich
     ./minecraft.nix
-    ./paperless.nix
     ./papra.nix
     ./ports.nix
     ./postgresql.nix
