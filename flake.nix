@@ -3,13 +3,17 @@
 
   # Dependencies for the flake
   # The syntax `inputs.xxx.follows = ""` removes the input from another flake, this is useful
-  # when the input is unused by us to avoid fetching unnecessary data and bloating flake.lock
+  # when the input is unused by us to avoid fetching unnecessary data. (I believe flake inputs
+  # are lazily fetched, but I'd rather be explicit)
   inputs = {
     # /// Core ///
     # This isn't quite the bleeding edge, but packages on master are less likely to be cached
     # Use a fork as required by nixos-raspberrypi until https://github.com/NixOS/nixpkgs/pull/398456
     # is merged
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
+    # FIXME: Paperless isn't building on unstable
+    # TODO: Rename to nixpkgs-locked, check paperless status
+    nixpkgs-stable.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
