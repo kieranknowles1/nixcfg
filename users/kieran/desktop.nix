@@ -73,8 +73,6 @@
         nexusModsKey = "nexusmods/apikey";
       };
 
-      office.paperless.url = "https://${cfgs.paperless.subdomain}.${cfgs.hostname}";
-
       shortcuts = {
         hotkeys.enable = true;
         hotkeys.visualiser.enable = true;
