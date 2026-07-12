@@ -11,9 +11,7 @@
     # Use a fork as required by nixos-raspberrypi until https://github.com/NixOS/nixpkgs/pull/398456
     # is merged
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
-    # FIXME: Paperless isn't building on unstable
-    # TODO: Rename to nixpkgs-locked, check paperless status
-    nixpkgs-stable.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
+    nixpkgs-locked.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
@@ -52,7 +50,7 @@
     };
     nixos-raspberrypi-kernellock = {
       url = "github:nvmd/nixos-raspberrypi?ref=b147cc92fdad17107ce0bf069d13517051781629";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-locked";
       inputs.argononed.follows = "";
       inputs.nixos-images.follows = "";
       inputs.flake-compat.follows = "";

@@ -309,7 +309,7 @@
         "flake-compat": [],
         "nixos-images": [],
         "nixpkgs": [
-          "nixpkgs-stable"
+          "nixpkgs-locked"
         ]
       },
       "locked": {
@@ -343,7 +343,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-stable": {
+    "nixpkgs-locked": {
       "locked": {
         "lastModified": 1763966396,
         "narHash": "sha256-6eeL1YPcY1MV3DDStIDIdy/zZCDKgHdkCmsrLJFiZf0=",
@@ -400,7 +400,7 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixos-raspberrypi-kernellock": "nixos-raspberrypi-kernellock",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-locked": "nixpkgs-locked",
         "nuschtosSearch": "nuschtosSearch",
         "selwonklib": "selwonklib",
         "sops-nix": "sops-nix",
