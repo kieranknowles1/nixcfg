@@ -51,7 +51,7 @@
       inputs.flake-compat.follows = "";
     };
     nixos-raspberrypi-kernellock = {
-      url = "github:nvmd/nixos-raspberrypi?ref=a12cce5710031c44e0e36b581d8e71bc4f157907";
+      url = "github:nvmd/nixos-raspberrypi?ref=b147cc92fdad17107ce0bf069d13517051781629";
       inputs.nixpkgs.follows = "nixpkgs-stable";
       inputs.argononed.follows = "";
       inputs.nixos-images.follows = "";
