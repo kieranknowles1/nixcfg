@@ -11,7 +11,7 @@
     # Use a fork as required by nixos-raspberrypi until https://github.com/NixOS/nixpkgs/pull/398456
     # is merged
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
-    nixpkgs-locked.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
+    nixpkgs-locked.url = "github:NixOS/nixpkgs?ref=e7a3ca8092b61ff85b6a45bf863ea2b2d6a661b3";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=master";
