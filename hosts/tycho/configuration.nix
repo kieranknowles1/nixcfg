@@ -13,8 +13,6 @@
     ./hardware-configuration.nix
     # Base support
     raspberry-pi-5.base
-    # Display support (may be unnecessary since we are a server)
-    raspberry-pi-5.display-vc4
     # Avoid issues from jemalloc expecting a hardcoded page size
     raspberry-pi-5.page-size-16k
   ];
