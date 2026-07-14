@@ -32,24 +32,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
-
-      # Remove some inputs that are not used by this flake
-      inputs.base16-fish.follows = "";
-      inputs.base16-helix.follows = "";
-      inputs.base16-vim.follows = "";
-      inputs.tinted-foot.follows = "";
-      inputs.tinted-kitty.follows = "";
-      inputs.tinted-schemes.follows = "";
-      inputs.tinted-tmux.follows = "";
-      inputs.tinted-zed.follows = "";
-      inputs.nur.follows = "";
-    };
-
     nixos-raspberrypi = {
       url = "github:nvmd/nixos-raspberrypi";
       inputs.nixpkgs.follows = "nixpkgs";

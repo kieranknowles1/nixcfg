@@ -1,8 +1,6 @@
 # Per-user
 {
   lib,
-  config,
-  hostConfig,
   ...
 }: {
   options.custom.theme = {
@@ -13,13 +11,14 @@
   };
 
   config = {
-    stylix = {
-      inherit (hostConfig.custom.desktop) enable;
+    # TODO: Reimplement for cosmic
+    # stylix = {
+    #   inherit (hostConfig.custom.desktop) enable;
 
-      # base16Scheme isn't inherited if a wallpaper is set, so explicitly set it
-      # to avoid one being generated
-      inherit (hostConfig.stylix) base16Scheme;
-      image = config.custom.theme.wallpaper;
-    };
+    #   # base16Scheme isn't inherited if a wallpaper is set, so explicitly set it
+    #   # to avoid one being generated
+    #   inherit (hostConfig.stylix) base16Scheme;
+    #   image = config.custom.theme.wallpaper;
+    # };
   };
 }

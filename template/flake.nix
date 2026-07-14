@@ -32,7 +32,6 @@
       inputs.sops-nix.follows = "";
       inputs.src-openmw.follows = "";
       inputs.src-tldr.follows = "";
-      inputs.stylix.follows = "";
       inputs.vscode-extensions.follows = "";
     };
   };

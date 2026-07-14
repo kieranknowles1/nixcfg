@@ -20,7 +20,6 @@
     ./remotebuild.nix
     ./server
     ./ssh
-    ./theme.nix
     ./timer.nix
     ./topology.nix
     ./thunderbird.nix

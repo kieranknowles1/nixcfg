@@ -33,7 +33,6 @@
         inputs.home-manager.nixosModules.home-manager
         inputs.nix-index-database.nixosModules.nix-index
         inputs.sops-nix.nixosModules.sops
-        inputs.stylix.nixosModules.stylix
         inputs.nix-minecraft.nixosModules.minecraft-servers
         inputs.copyparty.nixosModules.default
         # TODO: Topology module. Define a hostname + description for the graph

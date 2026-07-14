@@ -34,9 +34,6 @@
         message = "Zed requires a desktop environment.";
       };
 
-      # Requires writing zed/settings.json, conflicts with activate-mutable
-      stylix.targets.zed.enable = false;
-
       programs.zed-editor = {
         enable = true;
         # Zed will try to download language servers automatically, but will fail
