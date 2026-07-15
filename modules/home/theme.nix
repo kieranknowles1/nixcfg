@@ -1,8 +1,5 @@
 # Per-user
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   options.custom.theme = {
     wallpaper = lib.mkOption {
       description = "The wallpaper to use. Ideally a PNG image to avoid compression artifacts.";
@@ -12,6 +9,7 @@
 
   config = {
     # TODO: Reimplement for cosmic
+    # TODO: Rever the stylix reversion once it works on latest nixpkgs so we get dark themes and fancy cursors back
     # stylix = {
     #   inherit (hostConfig.custom.desktop) enable;
 
