@@ -14,7 +14,7 @@
     # Base support
     raspberry-pi-5.base
     # Avoid issues from jemalloc expecting a hardcoded page size
-    raspberry-pi-5.page-size-16k
+    # raspberry-pi-5.page-size-16k
   ];
 
   boot.kernelPackages =
