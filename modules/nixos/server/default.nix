@@ -451,7 +451,7 @@ in {
         email = "contact@${cfg.hostname}";
       };
 
-      networking.firewall.allowedTCPPorts = with cfg.ports.tcp; [http https];
+      networking.firewall.allowedTCPPorts = with cfg.ports; [http https];
 
       environment.systemPackages = lib.singleton (pkgs.writeShellScriptBin "clear-cloudflare-cache" ''
         set -euo pipefail

@@ -83,7 +83,7 @@
 
       services.vikunja = {
         enable = true;
-        port = cfg.ports.tcp.vikunja;
+        port = cfg.ports.vikunja;
 
         database = {
           type = "postgres";

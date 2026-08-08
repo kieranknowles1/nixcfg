@@ -49,7 +49,7 @@
       UMask = "0077";
     };
 
-    port = cfg.ports.tcp.immich-machine-learning;
+    port = cfg.ports.immich-machine-learning;
   in
     mkIf cfgm.enable {
       # TODO: Nixpkgs doesn't allow enabling machine-learning separatly,

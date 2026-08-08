@@ -38,7 +38,7 @@
         postgresql.enable = true; # Immich depends on this
         subdomains.${cfgi.subdomain} = {
           useCloudflareProxy = false; # Immich does not use chunked uploads
-          proxyPort = cfg.ports.tcp.immich;
+          proxyPort = cfg.ports.immich;
           webSockets = true;
         };
 
@@ -72,10 +72,10 @@
 
       services.immich = {
         enable = true;
-        port = cfg.ports.tcp.immich;
+        port = cfg.ports.immich;
         mediaLocation = cfgi.dataDir;
 
-        database.port = cfg.ports.tcp.postgresql;
+        database.port = cfg.ports.postgresql;
 
         # TODO: Hardware transcoding
         # accelerationDevices = [???];

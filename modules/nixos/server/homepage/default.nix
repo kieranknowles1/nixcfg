@@ -265,7 +265,7 @@
 
       services.homepage-dashboard = {
         enable = true;
-        listenPort = cfg.ports.tcp.homepage;
+        listenPort = cfg.ports.homepage;
         allowedHosts = builtins.concatStringsSep "," [
           "${cfgh.subdomain}.${cfg.hostname}"
           "${cfgh.subdomain}.${config.networking.hostName}.local"
@@ -290,7 +290,7 @@
         };
 
         widgets = let
-          glancesUrl = "http://localhost:${builtins.toString cfg.ports.tcp.glances}";
+          glancesUrl = "http://localhost:${builtins.toString cfg.ports.glances}";
         in [
           # Top bar. This displays as the following:
           # Desktop - Uptime, search, weather, time

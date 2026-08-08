@@ -101,7 +101,7 @@
         custom.server = {
           trilium.dataDir = lib.mkDefault "${cfg.data.fastDirectory}/trilium";
           subdomains.${cfgt.subdomain} = {
-            proxyPort = cfg.ports.tcp.trilium;
+            proxyPort = cfg.ports.trilium;
             webSockets = true;
           };
 
@@ -138,7 +138,7 @@
 
         services.trilium-server = {
           enable = true;
-          port = cfg.ports.tcp.trilium;
+          port = cfg.ports.trilium;
           inherit (cfgt) dataDir package;
 
           nginx.enable = false; # We handle this ourselves
@@ -167,7 +167,7 @@
 
           custom.timer."export-trilium" = let
             finalExporter = cfge.package.override {
-              apiRoot = "http://localhost:${builtins.toString cfg.ports.tcp.trilium}/etapi";
+              apiRoot = "http://localhost:${builtins.toString cfg.ports.trilium}/etapi";
               apiKeyFile = config.sops.secrets."trilium-export/token".path;
               destinationDir = "${config.users.users.${cfge.systemUser}.home}/export-staging";
             };

@@ -28,7 +28,7 @@
     lib.mkIf cfga.enable {
       custom.server = {
         subdomains.${cfga.subdomain} = {
-          proxyPort = cfg.ports.tcp.actual;
+          proxyPort = cfg.ports.actual;
           webSockets = true;
         };
 
@@ -77,7 +77,7 @@
         settings = rec {
           inherit (cfga) dataDir;
 
-          port = cfg.ports.tcp.actual;
+          port = cfg.ports.actual;
 
           # SQLite Database directory
           serverFiles = "${dataDir}/server-files";

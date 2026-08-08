@@ -36,7 +36,7 @@
         papra.dataDir = "${cfg.data.baseDirectory}/papra";
         papra.dbDir = "${cfg.data.fastDirectory}/papra";
         subdomains.${cfgp.subdomain} = {
-          proxyPort = cfg.ports.tcp.papra;
+          proxyPort = cfg.ports.papra;
         };
 
         postgresql.enable = true;
@@ -126,7 +126,7 @@
           # TRUSTED_APP_SCHEMES=papra://,exp://
 
           # The port to listen on when using node server.
-          PORT = cfg.ports.tcp.papra;
+          PORT = cfg.ports.papra;
 
           # The maximum time in milliseconds for a route to complete before timing out.
           # SERVER_API_ROUTES_TIMEOUT_MS=20000

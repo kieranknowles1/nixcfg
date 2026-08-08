@@ -55,7 +55,7 @@
           widget = {
             type = "minecraft";
             config = {
-              url = "udp://localhost:${builtins.toString cfg.ports.tcp.minecraft}";
+              url = "udp://localhost:${builtins.toString cfg.ports.minecraft}";
               fields = ["players" "status"];
             };
           };
@@ -100,7 +100,7 @@
           package = pkgs.fabricServers.fabric-1_21_8;
 
           serverProperties = {
-            port = cfg.ports.tcp.minecraft;
+            port = cfg.ports.minecraft;
           };
 
           symlinks = let

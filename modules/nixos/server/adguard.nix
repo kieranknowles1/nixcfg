@@ -37,7 +37,7 @@
           widget = {
             type = "adguard";
             config = {
-              url = "http://localhost:${toString cfg.ports.tcp.adguard}";
+              url = "http://localhost:${toString cfg.ports.adguard}";
               username = "homepage";
             };
             secrets.password = {
@@ -50,7 +50,7 @@
 
       services.adguardhome = {
         enable = true;
-        port = cfg.ports.tcp.adguard;
+        port = cfg.ports.adguard;
 
         # If DNS is down, then we need direct access
         openFirewall = true;
@@ -77,7 +77,7 @@
       };
 
       # Most DNS requests go through UDP, but larger ones need TCP
-      networking.firewall.allowedTCPPorts = [cfg.ports.tcp.dns];
-      networking.firewall.allowedUDPPorts = [cfg.ports.udp.dns];
+      networking.firewall.allowedTCPPorts = [cfg.ports.dns];
+      networking.firewall.allowedUDPPorts = [cfg.ports.dns];
     };
 }

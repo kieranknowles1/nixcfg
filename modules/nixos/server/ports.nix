@@ -1,17 +1,11 @@
 {lib, ...}: {
   options.custom = let
     inherit (lib) mkOption types;
-
-    mkPortOption = protocol:
-      mkOption {
-        type = types.attrsOf types.port;
-        description = "${protocol} port allocations.";
-        default = {};
-      };
   in {
-    server.ports = {
-      tcp = mkPortOption "tcp";
-      udp = mkPortOption "udp";
+    server.ports = mkOption {
+      type = types.attrsOf types.port;
+      description = "Port allocations. TCP and UDP";
+      default = {};
     };
 
     gids = mkOption {
@@ -29,7 +23,7 @@
     # Keep these sorted by port number. Include anything that could be allocated
     # on the server. Use a service's default port from nixpkgs if possible,
     # if there's a conflict bump until a free port is found.
-    server.ports.tcp = {
+    server.ports = {
       ssh = 22;
       dns = 53;
       http = 80;
@@ -54,12 +48,6 @@
       paperless = 28981;
 
       glances = 61208;
-    };
-
-    server.ports.udp = {
-      dns = 53;
-
-      minecraft = 25565;
     };
 
     # Keep these sorted by ID number and justify each

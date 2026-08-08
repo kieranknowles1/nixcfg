@@ -22,7 +22,7 @@
       widget = {
         type = "glances";
         config = {
-          url = "http://localhost:${builtins.toString cfg.ports.tcp.glances}";
+          url = "http://localhost:${builtins.toString cfg.ports.glances}";
           version = 4;
           inherit chart metric;
         };
@@ -36,7 +36,7 @@
     lib.mkIf cfgh.enable {
       # No subdomain - this is only used internally by homepage
       # custom.server.subdomains.${cfgg.subdomain} = {
-      #   proxyPort = cfg.ports.tcp.glances;
+      #   proxyPort = cfg.ports.glances;
       # };
 
       custom.server.homepage.services = [
@@ -115,7 +115,7 @@
         disablePlugins = lib.lists.subtractLists usedPlugins allPlugins;
       in {
         enable = true;
-        port = cfg.ports.tcp.glances;
+        port = cfg.ports.glances;
         openFirewall = false;
 
         extraArgs = [
