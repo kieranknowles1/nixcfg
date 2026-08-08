@@ -4,7 +4,6 @@
   imports = [
     ../shared
 
-    ./archiveteam.nix
     ./backup.nix
     ./compat.nix
     ./core.nix
