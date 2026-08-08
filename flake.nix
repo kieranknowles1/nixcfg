@@ -35,7 +35,7 @@
     nixos-raspberrypi = {
       url = "github:nvmd/nixos-raspberrypi";
       # TODO: Use stable everywhere once 26.11 is out
-      inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=549bd84d6279f9852cae6225e372cc67fb91a4c1";
+      inputs.nixpkgs.url = "nixpkgs";
       inputs.argononed.follows = "";
       inputs.nixos-images.follows = "";
       inputs.flake-compat.follows = "";
