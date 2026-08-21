@@ -24,6 +24,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgWyhSODClMBaiNI4EjqTeWUxnBjjKV9zyyVHh8DV1f kieran@canterbury"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpPVX1L4/sGfQv6grn6dgiKQUPJ+/TSL9BL+vXgajlj kieran@tycho"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFUXZ7Ui31mraAmFucCKSOgISaqnbckwwsLg8ZbIaXY kieran@rocinante"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGYWw9gHrqre0Qz/+qMkcUgtL46QFrb/2f4UNI6vDxNH kieran@tachi"
     ];
 
     services.openssh = {
