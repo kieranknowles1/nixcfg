@@ -17,6 +17,7 @@ in {
     ./copyparty.nix
     ./docs.nix
     ./forgejo.nix
+    ./jellyfin.nix
     ./homepage
     ./immich
     ./minecraft.nix

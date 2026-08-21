@@ -40,8 +40,13 @@
 
       postgresql = 5432;
 
+      jellyfin-discovery = 7359; # Hardcoded
+
+      archiveteam = 8001;
       trilium = 8080;
       homepage = 8082;
+      jellyfin-http = 8096;
+      jellyfin-https = 8920;
 
       minecraft = 25565;
 

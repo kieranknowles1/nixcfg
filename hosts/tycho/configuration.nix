@@ -80,6 +80,7 @@
       # homepage.enable = true;
       immich.enable = true;
       papra.enable = true;
+      jellyfin.enable = true;
       # FIXME: This rebuilds the whole webapp on options change, not just the index
       # which takes over a minute whenever options change
       # search.enable = true;
