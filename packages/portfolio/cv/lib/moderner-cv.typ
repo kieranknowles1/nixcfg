@@ -92,8 +92,6 @@
     phone: ("device-mobile", "Phone", "tel:"),
     email: ("mail", "Email", "mailto:"),
     github: ("mark-github", "GitHub", "https://github.com/"),
-    // TODO: Better icon
-    linkedin: ("home", "LinkedIn", "https://linkedin.com/in/"),
     x: ("x-twitter", "X", "https://twitter.com/"),
     bluesky: ("bluesky", "Bluesky", "https://bsky.app/profile/"),
     website: ("globe", "Portfolio", "https://"),

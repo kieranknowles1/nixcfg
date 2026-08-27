@@ -12,7 +12,6 @@
     (
       email: "kieranknowles11@hotmail.co.uk",
       github: "kieranknowles1",
-      linkedin: "kieran-john-knowles",
       website: "selwonk.uk",
     )
   }
