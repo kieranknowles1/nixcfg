@@ -11,11 +11,6 @@
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
 
-    # Remove unneeded packages
-    services.xserver.excludePackages = with pkgs; [
-      xterm
-    ];
-
     services.gnome = {
       gnome-initial-setup.enable = false; # Redundant with NixOS
     };

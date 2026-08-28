@@ -1,14 +1,10 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   config = lib.mkIf (config.custom.desktop.enable && (config.custom.desktop.environment == "cosmic")) {
-    nix.settings = {
-      substituters = ["https://cosmic.cachix.org/"];
-      trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
-    };
-
     services.desktopManager.cosmic = {
       enable = true;
 
@@ -19,6 +15,10 @@
     };
 
     services.displayManager.cosmic-greeter.enable = true;
+
+    environment.cosmic.excludePackages = with pkgs; [
+      cosmic-store # Use Nix to install packages
+    ];
 
     # TODO: Before making this the default, would like to make the following changes:
     # [ ] Window view when pressing super, like in GNOME

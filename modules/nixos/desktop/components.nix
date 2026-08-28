@@ -43,5 +43,10 @@
     };
 
     services.flatpak.enable = true;
+
+    # Remove unneeded packages
+    services.xserver.excludePackages = with pkgs; [
+      xterm
+    ];
   };
 }
