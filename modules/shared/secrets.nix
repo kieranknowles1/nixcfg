@@ -1,5 +1,9 @@
 # Shared config for SOPS between NixOS and home-manager
 # These are just about identical, so we can share the module and avoid duplicate code
+#
+# Basic usage:
+# 1. Set `config.sops.secrets.<name>.key to the path in secrets.yml
+# 2. Use `config.sops.secrets.<name>.path` in an option that accepts a path
 {
   config,
   lib,
