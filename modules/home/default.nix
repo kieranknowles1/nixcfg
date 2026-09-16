@@ -22,8 +22,8 @@
     ./office
     ./shortcuts
     ./telly
+    ./obsidian.nix
     ./theme.nix
     ./timer.nix
-    ./trilium.nix
   ];
 }

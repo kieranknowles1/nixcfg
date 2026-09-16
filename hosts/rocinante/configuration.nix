@@ -17,6 +17,7 @@
       sharedConfig.custom = {
         games.enable = true;
         desktop.modbright.enable = true;
+        obsidian.enable = true;
       };
     };
 

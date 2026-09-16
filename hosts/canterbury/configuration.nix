@@ -16,7 +16,7 @@
       users.kieran = import ../../users/kieran {inherit pkgs config;};
       sharedConfig.custom = {
         office.enable = true;
-        trilium-client.enable = true;
+        obsidian.enable = true;
       };
     };
 
