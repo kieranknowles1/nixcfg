@@ -32,12 +32,11 @@
       message = "VS Code requires a desktop environment.";
     };
 
-    programs.vscode = {
+    # VSCode minus Microsoft
+    programs.vscodium = {
       enable = true;
-      # VSCode minus Microsoft
-      package = pkgs.vscodium;
 
-      extensions = with pkgs.vscode-marketplace; [
+      profiles.default.extensions = with pkgs.vscode-marketplace; [
         # Must-have extensions
         gruntfuggly.todo-tree
         isotechnics.commentlinks
