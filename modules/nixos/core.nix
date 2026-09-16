@@ -49,6 +49,9 @@
     # No wait in grub. Can override one-off by holding shift
     boot.loader.timeout = 0;
 
+    # Allow running dynamically linked executables
+    programs.nix-ld.enable = true;
+
     # Live dangerously
     # boot.kernelPackages = pkgs.linuxPackages_latest;
 
