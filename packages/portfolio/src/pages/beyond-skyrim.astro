@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Project from '../components/Project.astro';
+
+import Fog1 from '../../assets/bsk/fog-1.png'
+import Fog2 from '../../assets/bsk/fog-2.png'
+
+import Dibella1 from '../../assets/bsk/dibella-1.png'
+import Dibella2 from '../../assets/bsk/dibella-2.png'
+
+import Divorce1 from '../../assets/bsk/divorced-1.png'
+import Divorce2 from '../../assets/bsk/divorced-2.png'
+
+---
+<Layout>
+  <main>
+    <h2>Beyond Skyrim: Cyrodiil</h2>
+    <p>
+      My contributions to <a href="https://beyondskyrim.org/project/cyrodiil">Beyond Skyrim Cyrodiil</a>
+      a collaborative project to recreate Cyrodiil in the time and setting of Skyrim, along with writeups
+      from various members of the PR team.
+    </p>
+    <Project
+      id="fog"
+      title="Fog at Varinius"
+      images={[
+        { src: Fog1, alt: "A stone fortification and bridge viewed from outside an heavy fog" },
+        { src: Fog2, alt: "A stone fortification and bridge viewed from within an extreme" },
+      ]}
+    >
+      <p slot="summary">
+        The Varinius Border Passage is one of many well-maintained border gates
+        across the Imperial Province. With it being staffed by the soldiers of the
+        Empire; it protects and ensures the stability of Cyrodiil's border with
+        Valenwood. Lately, however, deep fog has become a persistent problem for
+        the soldiers of the gate, to the point that rumours now circulate an
+        unnatural cause for this disturbance. Furthermore, rumours have circulated
+        that the unknown actors involved may be associated with a local Dominion
+        presence. Whatever the cause, it can only be resolved by exploring and
+        deciding how to finally address the unexpected phenomenon. This
+        miscellaneous quest was implemented by Kieran Knowles and written by Rhea
+        and Linton.
+      </p>
+    </Project>
+    <Project
+      id='dibella'
+      title='A Case of Dibellan Arts'
+      images={[
+        { src: Dibella1, alt: "A man walking into a chapel chamber while talking" },
+        { src: Dibella2, alt: "A man kneeling down to pet a spider while praising it" },
+      ]}
+    >
+      <p slot="summary">
+        The love found across Tamriel has never been in question by the priests
+        of Dibella; though some forms of love can even bring pause to those in
+        Anvil's chapel. Priest Erronius has seemingly become smitten by a spider
+        named Charlotte. What is more is that another Priest of Dibella is
+        trying to invite him over to teach her about Dibella's Lily. How are
+        these two events connected, and why has a Priest of Dibella fallen for a
+        spider? When adventurers reach the Chapel of Dibella in Anvil, they can
+        discover the answers to these questions in the miscellaneous quest
+        "A Case of Dibellan Arts" written by the Anvil team and implemented by
+        Kieran Knowles.
+      </p>
+    </Project>
+    <Project
+      id='divorced'
+      title='Divorced'
+      images={[
+        { src: Divorce1, alt: "A man and a woman sitting on a bench in the evening" },
+        { src: Divorce2, alt: "A man and a woman hugging in a castle hall" },
+      ]}
+    >
+      <p slot="summary">
+        The challenges of divorce can often find themselves turning up even after
+        a couple has parted ways, some believing that second chances are still
+        possible, but others might not see it that way. When adventurers explore
+        Anvil, they can help Darcine Lorierre who is concerned about her
+        ex-husband. He is seeking her out following his time in prison, which
+        explains Darcine's worries. Adventurers can seek to put her mind at ease
+        and resolve the chance of an unwanted reunion through various manners.
+        What will be the final outcome, and will it involve this fated reunion?
+        That is yet to be seen.
+
+        The Divorced quest is one of many miscellaneous quests found in Anvil and
+        was written by Deagler and implemented by Kieran Knowles.
+      </p>
+    </Project>
+   </main>
+</Layout>

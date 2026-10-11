@@ -72,6 +72,11 @@ article {
   border-radius: 4pt;
 }
 
+main img, main picture {
+  width: 100%;
+  height: 100%;
+}
+
 /*
 Two panes shown either side-by-side or vertically depending on orientation
 
@@ -90,46 +95,32 @@ Two panes shown either side-by-side or vertically depending on orientation
 +-----+
 
 */
-.twopane {
-  display: flex;
+.twopane, .threepane {
+  display: grid;
 }
 
 .centre-child {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 @media screen and (orientation: landscape) {
   .twopane {
-    flex-direction: row;
+    grid-template-columns: 1fr 1fr;
   }
-  .twopane > * {
-    width: 50%;
+  .threepane {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .centre-child > * {
+    max-width: 90%;
   }
 }
 
 @media screen and (orientation: portrait) {
-  .twopane {
-    flex-direction: column;
-  }
-}
-
-.threepane {
-  display: flex;
-}
-
-@media screen and (orientation: landscape) {
-  .threepane {
-    flex-direction: row;
-  }
-  .threepane > * {
-    width: calc(100% / 3);
-  }
-}
-
-@media screen and (orientation: portrait) {
-  .threepane {
-    flex-direction: column;
+  .twopane, .threepane {
+    grid-template-columns: 1fr;
   }
 }
 

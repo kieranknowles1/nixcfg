@@ -42,7 +42,7 @@
 
   assets = self.builders.${system}.assetsDir {
     name = "portfolio-assets";
-    filter = lib.hasPrefix "photography";
+    filter = f: (lib.hasPrefix "photography" f) || (lib.hasPrefix "bsk" f);
   };
 in
   stdenv.mkDerivation {

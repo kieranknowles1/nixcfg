@@ -1,12 +1,20 @@
 ---
+import type { ImageMetadata } from 'astro';
 import FancyLink from '../../selwonklib/astro/components/FancyLink.astro';
 import Video from '../../selwonklib/astro/components/Video.astro';
+import { Image } from 'astro:assets';
+
+export interface ImageListing {
+  src: ImageMetadata,
+  alt: string,
+}
 
 interface Props {
   id: string
   videoId?: string
   title: string
-  links: {
+  images?: ImageListing[],
+  links?: {
     itchio?: string
     github?: string
     url?: string
@@ -22,6 +30,7 @@ const {
   id,
   videoId,
   title,
+  images,
   links,
   feedback,
 } = Astro.props
@@ -35,13 +44,17 @@ if (hasFeedback && !Astro.slots.has('feedback')) {
 <article id={id}>
   <h3>{title}</h3>
   {videoId && <Video url={`https://r2.selwonk.uk/${videoId}`} />}
+  {/* TODO: Support image counts other than 2 */}
+  {images && <div class="twopane" >
+    {images.map(i => <Image {...i} />)}
+  </div>}
   <div class={hasFeedback ? "twopane" : "centre-child"}>
     <div>
-      <ul class="links-list">
+      {links && <ul class="links-list">
         {links.github && <FancyLink name="GitHub" icon="cib:github" href={links.github} />}
         {links.itchio && <FancyLink name="Itch.io" icon="cib:itch-io" href={links.itchio} />}
         {links.url && <FancyLink name="Web" icon="mdi:web" href={links.url} />}
-      </ul>
+      </ul>}
       <slot name="summary"/>
       <slot name="bullets"/>
     </div>

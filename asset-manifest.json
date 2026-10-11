@@ -1,6 +1,12 @@
 {
-  "rev": "4153c6208f8b2afc1eb3d828a868f990a5d05f6a",
+  "rev": "4bcb6cf8d689b35d6daf8d8ce34ccd038fce084d",
   "files": {
+    "bsk/dibella-1.png": "4c8b3d286da0a3d9baf903da864d690f7b3b0d03bb074789fe10d2ce924bf952",
+    "bsk/dibella-2.png": "dafeeb3c7dcc43617e34ffd4d6fed055eacbc29349976c2fa711f7af79be2267",
+    "bsk/divorced-1.png": "448801bcc575741c58ea1c4ace1fadb79afb376bc600955364bfb87fd88dba74",
+    "bsk/divorced-2.png": "4bbc7b7f70b5bd42cf062c7659867f8fa4688b5bd07315012da28951c07ae4f8",
+    "bsk/fog-1.png": "2c2b5d673285ee9fdf920e9e4212848c9708d051849c76fc230742f588b74ee1",
+    "bsk/fog-2.png": "c510a62a6c6140438389925a9ccfa26a7a8437c43158680e8285e85c0f38245a",
     "photography/church-vista.jpg": "c90d7d999922452d095a8621e4f26c6847359d284b7b35948cf3efb3bbe509d7",
     "photography/coastal-rainbow.jpg": "b34cad93ff8dd8ea0979f3a5b0fe6e25c477a9e4f742ddd8a3c4ab3766cf497f",
     "photography/friendly-horse.jpg": "b23e239c0a9eba4d37b85c23a7cb4334cb0b75baab15255cbae43c4b4174dba2",
@@ -11,7 +17,7 @@
     "photography/still-splash.jpg": "4a44ddcb6c2c5d601f8bd71b829c801338645e90b60b92569d78d13562e24c10",
     "photography/swan-up-close.jpg": "b4fd4908fe22f43e9fa1c071078ad0da9ca5a9a7a9520aa984e07ff8a0f85664",
     "photography/warm-sisters.jpg": "807ccfcd3ac29b82f56df1e974df7cee28c316cb8b9c23253db305202b4b0a3a",
-    "readme.md": "c97076ad214f705870dfa72f1f79f793e00add3257763c93da9399e6e811224a",
+    "readme.md": "946fdbcbe30f6efaa2edbc1b55273075af9c5ef31451a494ecb42b7f384dae45",
     "wallpapers/wallpaper-1.heic": "5f9e50ef7ab50be5c170754da9270b1239418cfe2d4b3cd87edfa409e7783ed7",
     "wallpapers/wallpaper-2.heic": "4b30228b7bb77c566f2647700da697f04248c53dd73f3844c18bd0fc11b0653d"
   }
