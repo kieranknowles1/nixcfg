@@ -9,14 +9,8 @@
   ...
 }: {
   options.custom = let
-    inherit (lib) mkOption types mkPackageOption;
+    inherit (lib) mkOption types;
   in {
-    fonts = {
-      defaultMono = mkPackageOption pkgs.nerd-fonts "dejavu-sans-mono" {
-        extraDescription = "Default monospace font";
-      };
-    };
-
     extraEnv = mkOption {
       description = ''
         Additional environment variables for shell sessions.
@@ -33,7 +27,6 @@
   };
 
   config = let
-    cfg = config.custom;
     isDesktop = hostConfig.custom.desktop.enable;
   in {
     custom.extraEnv = rec {
@@ -69,7 +62,7 @@
       # Use Starship as the prompt
       starship = {
         enable = true;
-        settings = builtins.fromTOML (builtins.readFile ./starship.toml);
+        settings = fromTOML (builtins.readFile ./starship.toml);
       };
 
       # Smart cd
@@ -87,15 +80,11 @@
       defaultFonts = {
         monospace = lib.singleton (
           # FIXME: New nixpkgs doesn't list the font name in the package name
-          if cfg.fonts.defaultMono == pkgs.nerd-fonts.dejavu-sans-mono
+          if hostConfig.custom.fonts.defaultMono == pkgs.nerd-fonts.dejavu-sans-mono
           then "DejaVuSansMono"
-          else builtins.throw "Unknown default monospace font"
+          else throw "Unknown default monospace font"
         );
       };
     };
-
-    home.packages =
-      lib.optional isDesktop
-      config.custom.fonts.defaultMono;
   };
 }

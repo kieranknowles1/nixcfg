@@ -5,7 +5,26 @@
   config,
   ...
 }: {
+  options.custom = let
+    inherit (lib) mkPackageOption;
+  in {
+    fonts = {
+      default = mkPackageOption pkgs "dejavu_fonts" {
+        extraDescription = "Default variable width font";
+      };
+      defaultMono = mkPackageOption pkgs.nerd-fonts "dejavu-sans-mono" {
+        extraDescription = "Default monospace font";
+      };
+    };
+  };
+
   config = lib.mkIf config.custom.desktop.enable {
+    # TODO: Apply defaults here
+    fonts.packages = [
+      config.custom.fonts.default
+      config.custom.fonts.defaultMono
+    ];
+
     # Nautilus has been acting up lately, plus it struggles with large directories
     # and isn't to my liking. Thunar meets my one requirement: it's fast. Nautilus
     # takes 1sec to open a directory with 150 files, Thunar can do 2000 in 100ms.
