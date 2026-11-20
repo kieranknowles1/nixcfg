@@ -98,7 +98,7 @@
       };
 
       trilium = {
-        enable = true;
+        enable = false;
         autoExport.enable = true;
         autoExport.remote = "ssh://forgejo@localhost/kieran/trilium-export.git";
       };
