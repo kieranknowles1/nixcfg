@@ -72,6 +72,11 @@
               enabled = true;
             }
           ];
+
+          querylog = {
+            interval = "7d";
+          };
+
           schema_version = 31;
         };
       };
